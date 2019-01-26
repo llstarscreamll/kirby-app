@@ -2,7 +2,125 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "agil-work": {
+      "root": "apps/agil-work/",
+      "sourceRoot": "apps/agil-work/src",
+      "projectType": "application",
+      "prefix": "agil-work",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "sass"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/agil-work",
+            "index": "apps/agil-work/src/index.html",
+            "main": "apps/agil-work/src/main.ts",
+            "polyfills": "apps/agil-work/src/polyfills.ts",
+            "tsConfig": "apps/agil-work/tsconfig.app.json",
+            "assets": [
+              "apps/agil-work/src/favicon.ico",
+              "apps/agil-work/src/assets"
+            ],
+            "styles": ["apps/agil-work/src/styles.sass"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/agil-work/src/environments/environment.ts",
+                  "with": "apps/agil-work/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "agil-work:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "agil-work:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "agil-work:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/agil-work/tsconfig.app.json",
+              "apps/agil-work/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/agil-work/jest.config.js",
+            "tsConfig": "apps/agil-work/tsconfig.spec.json",
+            "setupFile": "apps/agil-work/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "agil-work-e2e": {
+      "root": "apps/agil-work-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/agil-work-e2e/cypress.json",
+            "tsConfig": "apps/agil-work-e2e/tsconfig.e2e.json",
+            "devServerTarget": "agil-work:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "agil-work:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/agil-work-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
@@ -18,5 +136,6 @@
     "@nrwl/schematics:library": {
       "style": "sass"
     }
-  }
+  },
+  "defaultProject": "agil-work"
 }
