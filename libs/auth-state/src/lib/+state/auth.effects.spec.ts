@@ -1,0 +1,145 @@
+import { Observable } from 'rxjs';
+import { NxModule } from '@nrwl/nx';
+import { StoreModule } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { DataPersistence } from '@nrwl/nx';
+import { hot, cold } from '@nrwl/nx/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { TestBed } from '@angular/core/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { AuthEffects } from './auth.effects';
+import { AuthService } from '../services/auth.service';
+import { AUTH_TOKENS_MOCK, CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR, USER } from '../utils/mocks';
+import { LoginWithCredentials, LoginSuccess, LoginError, GetAuthUserSuccess, Logout, LogoutSuccess } from './auth.actions';
+import { SharedModule, LocalStorageService } from '@agile-work/shared';
+import { config } from '../config';
+
+describe('AuthEffects', () => {
+  let actions: Observable<any>;
+  let effects: AuthEffects;
+  let authService: AuthService;
+  let localStorageService: LocalStorageService;
+  let router: Router;
+  const authUser = USER;
+  const authTokens = AUTH_TOKENS_MOCK;
+  const credentials = CREDENTIALS;
+  const wrongCredentialsError = INCORRECT_CREDENTIALS_API_ERROR;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SharedModule,
+        NxModule.forRoot(),
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        HttpClientTestingModule,
+      ],
+      providers: [
+        AuthEffects,
+        AuthService,
+        DataPersistence,
+        provideMockActions(() => actions),
+        { provide: 'environment', useValue: { api: 'http://my.api.com/' } },
+        { provide: Router, useValue: { navigate: (url) => true } },
+      ],
+    });
+
+    effects = TestBed.get(AuthEffects);
+    authService = TestBed.get(AuthService);
+    router = TestBed.get(Router);
+    localStorageService = TestBed.get(LocalStorageService);
+
+    spyOn(router, 'navigate').and.returnValue(true);
+    spyOn(localStorageService, 'setItem').and.returnValue(true);
+    spyOn(localStorageService, 'removeItem').and.returnValue(true);
+  });
+
+  describe('loginWithCredentials$', () => {
+
+    it('should return LoginSuccess and navigate if login API responds ok', () => {
+      // api ok response
+      const apiResponse = cold('-r', { r: authTokens });
+      spyOn(authService, 'loginWithCredentials').and.returnValue(apiResponse);
+
+      const action = new LoginWithCredentials(credentials);
+      const completion = new LoginSuccess(authTokens);
+
+      actions = hot('-a', { a: action });
+      const expected = cold('--c', { c: completion });
+
+      expect(effects.loginWithCredentials$).toBeObservable(expected);
+    });
+
+    it('should return LoginError if login API throws error', () => {
+      const apiResponse = cold('-#', {}, wrongCredentialsError);
+      spyOn(authService, 'loginWithCredentials').and.returnValue(apiResponse);
+
+      actions = hot('-a-', { a: new LoginWithCredentials(credentials) });
+      expect(effects.loginWithCredentials$).toBeObservable(
+        hot('--a', { a: new LoginError(wrongCredentialsError) })
+      );
+    });
+
+  });
+
+  describe('loginSuccess$', () => {
+    it('should return GetAuthUserSuccess if get user API responds ok', () => {
+      // user api response ok
+      const apiResponse = cold('-u', { u: authUser });
+      spyOn(authService, 'getAuthUser').and.returnValue(apiResponse);
+
+      const action = new LoginSuccess(authTokens);
+      const completion = new GetAuthUserSuccess(authUser);
+
+      actions = cold('-a', { a: action });
+      const expected = cold('--e', { e: completion });
+
+      expect(effects.loginSuccess$).toBeObservable(expected);
+      expect(router.navigate).toHaveBeenCalledWith(['/welcome']);
+      expect(localStorageService.setItem).toHaveBeenCalledWith(config.key, { tokens: authTokens });
+    });
+  });
+
+  describe('logout$', () => {
+
+    it('should return LogoutSuccess if logout API responds ok', () => {
+      const apiResponse = cold('-a', { a: ['oki!!'] });
+      spyOn(authService, 'logout').and.returnValue(apiResponse);
+
+      const action = new Logout;
+      const completion = new LogoutSuccess;
+
+      actions = cold('-a', { a: action });
+      const expected = cold('-e', { e: completion });
+
+      expect(effects.logout$).toBeObservable(expected);
+    });
+
+    it('should return LogoutSuccess if logout API responds error', () => {
+      const apiResponse = cold('-#', {}, ['error']);
+      spyOn(authService, 'logout').and.returnValue(apiResponse);
+
+      const action = new Logout;
+      const completion = new LogoutSuccess;
+
+      actions = cold('-a', { a: action });
+      const expected = cold('-e', { e: completion });
+
+      expect(effects.logout$).toBeObservable(expected);
+    });
+
+  });
+
+  describe('logoutSuccess$', () => {
+    it('should remove related data from local storage', () => {
+      const action = new LogoutSuccess;
+      actions = cold('-a', { a: action });
+
+      effects.logoutSuccess$.subscribe(() => {
+        expect(localStorageService.removeItem).toHaveBeenCalledWith(config.key)
+      });
+    });
+  });
+});
