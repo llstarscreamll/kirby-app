@@ -1,5 +1,5 @@
 {
-  "npmScope": "agil-work",
+  "npmScope": "agile-work",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -8,11 +8,21 @@
     "nx.json": "*"
   },
   "projects": {
-    "agil-work": {
+    "agile-work": {
       "tags": []
     },
-    "agil-work-e2e": {
+    "agile-work-e2e": {
       "tags": []
+    },
+    "auth-state": {
+      "tags": [
+        "auth"
+      ]
+    },
+    "shared": {
+      "tags": [
+        "shared"
+      ]
     }
   }
 }

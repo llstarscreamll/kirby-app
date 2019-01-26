@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'agil-work-root',
+  selector: 'agile-work-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'agil-work';
+  title = 'agile-work';
 }

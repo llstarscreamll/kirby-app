@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { NxModule } from '@nrwl/nx';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NxModule } from '@nrwl/nx';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,4 +15,4 @@ import { RouterModule } from '@angular/router';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
