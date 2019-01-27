@@ -8,7 +8,6 @@ import { AuthState, AuthPartialState, AUTH_FEATURE_KEY } from './auth.reducer';
 import { AuthService } from '../services/auth.service';
 import { LoginWithCredentials, LoginSuccess, LoginError, AuthActionTypes, GetAuthUserSuccess, Logout, LogoutSuccess } from './auth.actions';
 import { LocalStorageService } from '@agile-work/shared';
-import { config } from '../config';
 
 @Injectable()
 export class AuthEffects {
@@ -29,7 +28,7 @@ export class AuthEffects {
   @Effect()
   public loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
-    tap((action: LoginSuccess) => this.localStorage.setItem(this.config.key, { tokens: action.payload })),
+    tap((action: LoginSuccess) => this.localStorage.setItem(AUTH_FEATURE_KEY, { tokens: action.payload })),
     switchMap((action: LoginSuccess) => this.authService
       .getAuthUser(action.payload)
       .pipe(
@@ -42,7 +41,7 @@ export class AuthEffects {
   public getUserSuccess$ = this.dataPersistence
     .optimisticUpdate(AuthActionTypes.GetAuthUserSuccess, {
       run: (action: GetAuthUserSuccess, state: AuthPartialState) => {
-        return this.localStorage.setItem(this.config.key, { ...state[AUTH_FEATURE_KEY], user: action.payload });
+        return this.localStorage.setItem(AUTH_FEATURE_KEY, { ...state[AUTH_FEATURE_KEY], user: action.payload });
       },
       undoAction: (action: GetAuthUserSuccess, state: AuthPartialState) => {
         return null;
@@ -64,11 +63,9 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   public logoutSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LogoutSuccess),
-    tap(() => this.localStorage.removeItem(this.config.key))
+    tap(() => this.localStorage.removeItem(AUTH_FEATURE_KEY)),
+    tap(() => this.router.navigate(['/']))
   );
-
-
-  private config = config;
 
   public constructor(
     private router: Router,

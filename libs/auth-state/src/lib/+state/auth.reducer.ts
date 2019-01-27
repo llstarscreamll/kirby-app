@@ -12,7 +12,7 @@ import { AuthAction, AuthActionTypes } from './auth.actions';
 export interface Entity {
 };
 
-export const AUTH_FEATURE_KEY = 'auth';
+export const AUTH_FEATURE_KEY = 'AUTH';
 
 export interface AuthState {
   user: any;
