@@ -1,9 +1,17 @@
+import { version } from '../app/version';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  envName: 'dev',
+  test: false,
+  appName: 'App Name',
+  api: 'http://agile-work.test/',
+  i18nPrefix: '',
+  version,
 };
 
 /*

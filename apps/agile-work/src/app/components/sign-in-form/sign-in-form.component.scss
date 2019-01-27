@@ -1,0 +1,11 @@
+input {
+    height: 2rem;
+    font-size: 1rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px rgb(243, 250, 255) inset !important;
+}

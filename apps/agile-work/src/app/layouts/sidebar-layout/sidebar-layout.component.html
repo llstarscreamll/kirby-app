@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- side navigation -->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (authenticated$ | async)">
+    <mat-toolbar>Pascal</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/welcome']">
+        <mat-icon>home</mat-icon> Home
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- main content -->
+  <mat-sidenav-content>
+
+    <!-- top bar -->
+    <mat-toolbar class="main-top-bar">
+
+      <!-- Links if unauthenticated -->
+      <ng-container *ngIf="!(authenticated$ | async)">
+        <a [routerLink]="['/']">Pascal</a>
+        <div class="flex-fill"></div>
+        <a [routerLink]="[ '/login' ]">Entrar</a>
+      </ng-container>
+
+      <!-- Links if authenticated -->
+      <ng-container *ngIf="authenticated$ | async">
+        <!-- sidebar toggle on mobile -->
+        <button *ngIf="isHandset$ | async" (click)="drawer.toggle()" type="button" aria-label="Toggle sidenav"
+                mat-icon-button>
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div class="flex-fill"></div>
+        <button mat-icon-button (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </ng-container>
+    </mat-toolbar>
+
+    <!-- pages -->
+    <div class="container-fluid">
+      <div class="m-4">
+        <ng-content></ng-content>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

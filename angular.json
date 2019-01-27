@@ -10,7 +10,7 @@
       "prefix": "agile-work",
       "schematics": {
         "@nrwl/schematics:component": {
-          "style": "sass"
+          "style": "scss"
         }
       },
       "architect": {
@@ -27,7 +27,8 @@
               "apps/agile-work/src/assets"
             ],
             "styles": [
-              "apps/agile-work/src/styles.sass"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/agile-work/src/styles.scss"
             ],
             "scripts": []
           },
@@ -155,7 +156,7 @@
       },
       "schematics": {
         "@nrwl/schematics:component": {
-          "styleext": "sass"
+          "styleext": "scss"
         }
       }
     },
@@ -188,7 +189,7 @@
       },
       "schematics": {
         "@nrwl/schematics:component": {
-          "styleext": "sass"
+          "styleext": "scss"
         }
       }
     }
@@ -203,10 +204,10 @@
   },
   "schematics": {
     "@nrwl/schematics:application": {
-      "style": "sass"
+      "style": "scss"
     },
     "@nrwl/schematics:library": {
-      "style": "sass"
+      "style": "scss"
     }
   },
   "defaultProject": "agile-work"

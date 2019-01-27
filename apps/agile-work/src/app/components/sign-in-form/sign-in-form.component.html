@@ -1,0 +1,20 @@
+<div *ngIf="errors" class="errors">
+  <div class="error-message">{{ errors.message }}</div>
+  <ul class="errors-list">
+    <li *ngFor="let error of errorsCollection">{{ error }}</li>
+  </ul>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <mat-form-field class="w-100">
+    <input formControlName="email" matInput placeholder="Email" type="email">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input formControlName="password" matInput placeholder="Password" type="password">
+  </mat-form-field>
+
+  <div class="text-center">
+    <button [disabled]="form.invalid || status === 'loggingIn'" mat-raised-button type="submit" color="primary">Entrar</button>
+  </div>
+</form>
