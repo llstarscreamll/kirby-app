@@ -1,11 +1,14 @@
 import { Injectable, Inject } from '@angular/core';
 
-const APP_PREFIX = 'APP-';
+export const APP_PREFIX = 'APP-';
 
 @Injectable()
 export class LocalStorageService {
   constructor() { }
 
+  /**
+   * @todo write tests to this method
+   */
   public static loadInitialState() {
     return Object.keys(localStorage).reduce((state: any, storageKey) => {
       if (storageKey.includes(APP_PREFIX)) {
