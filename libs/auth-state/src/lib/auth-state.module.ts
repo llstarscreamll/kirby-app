@@ -4,7 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 
 import { AuthFacade } from './+state/auth.facade';
-import { SharedModule } from '@agile-work/shared';
+import { SharedModule } from '@llstarscreamll/shared';
 import { AuthEffects } from './+state/auth.effects';
 import { AuthService } from './services/auth.service';
 import { authReducer, initialState, AUTH_FEATURE_KEY } from './+state/auth.reducer';

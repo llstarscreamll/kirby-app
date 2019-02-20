@@ -18,10 +18,10 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@agile-work/auth-state": [
+      "@llstarscreamll/auth-state": [
         "libs/auth-state/src/index.ts"
       ],
-      "@agile-work/shared": [
+      "@llstarscreamll/shared": [
         "libs/shared/src/index.ts"
       ]
     }

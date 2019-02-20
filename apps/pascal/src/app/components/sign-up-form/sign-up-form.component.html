@@ -1,0 +1,23 @@
+<llstarscreamll-api-errors [apiError]="errors"></llstarscreamll-api-errors>
+
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <mat-form-field class="w-100">
+    <input formControlName="name" matInput placeholder="Name" type="text">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input formControlName="email" matInput placeholder="Email" type="email">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input formControlName="password" matInput placeholder="Password" type="password">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input formControlName="password_confirmation" matInput placeholder="Password confirmation" type="password">
+  </mat-form-field>
+
+  <div class="text-center">
+    <button [disabled]="disableButton" mat-raised-button type="submit" color="primary">Entrar</button>
+  </div>
+</form>

@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "llstarscreamll",
+      "pascal",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "llstarscreamll",
+      "pascal",
       "kebab-case"
     ]
   }

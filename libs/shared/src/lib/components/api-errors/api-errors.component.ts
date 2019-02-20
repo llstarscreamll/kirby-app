@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { flatApiErrors } from '../../utils/common-functions';
 
 @Component({
-  selector: 'agile-work-api-errors',
+  selector: 'llstarscreamll-api-errors',
   templateUrl: './api-errors.component.html',
   styleUrls: ['./api-errors.component.scss']
 })

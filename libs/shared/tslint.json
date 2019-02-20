@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "agile-work",
+      "llstarscreamll",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "agile-work",
+      "llstarscreamll",
       "kebab-case"
     ]
   }

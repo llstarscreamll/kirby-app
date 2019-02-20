@@ -12,7 +12,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthEffects } from './auth.effects';
 import { AUTH_FEATURE_KEY } from './auth.reducer';
 import { AuthService } from '../services/auth.service';
-import { SharedModule, LocalStorageService } from '@agile-work/shared';
+import { SharedModule, LocalStorageService } from '@llstarscreamll/shared';
 import { AUTH_TOKENS_MOCK, CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR, USER } from '../utils/mocks';
 import { LoginWithCredentials, LoginSuccess, LoginError, GetAuthUserSuccess, Logout, LogoutSuccess } from './auth.actions';
 

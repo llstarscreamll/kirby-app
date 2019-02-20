@@ -5,7 +5,7 @@ import { Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { AuthService } from '../services/auth.service';
-import { LocalStorageService } from '@agile-work/shared';
+import { LocalStorageService } from '@llstarscreamll/shared';
 import { AuthPartialState, AUTH_FEATURE_KEY } from './auth.reducer';
 import { LoginWithCredentials, LoginSuccess, LoginError, AuthActionTypes, GetAuthUserSuccess, Logout, LogoutSuccess, SignUp, SignUpSuccess, SignUpError } from './auth.actions';
 
