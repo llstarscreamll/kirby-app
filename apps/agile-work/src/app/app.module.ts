@@ -10,28 +10,34 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
+import { SharedModule } from '@agile-work/shared';
 import { AuthStateModule } from '@agile-work/auth-state';
+import { environment } from '../environments/environment';
+import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.component';
-import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { LandingPageComponent } from './containers/landing-page/landing-page.component';
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
+import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
+import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
   { path: 'login', component: SignInPageComponent },
+  { path: 'sign-up', component: SignUpPageComponent },
   { path: 'welcome', component: WelcomePageComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarLayoutComponent,
     SignInFormComponent,
+    SignUpFormComponent,
     SignInPageComponent,
     LandingPageComponent,
     WelcomePageComponent,
+    SignUpPageComponent,
+    SidebarLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,7 @@ export const routes: Route[] = [
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     ReactiveFormsModule,
     CoreModule,
+    SharedModule,
     AuthStateModule,
 
     BrowserAnimationsModule,

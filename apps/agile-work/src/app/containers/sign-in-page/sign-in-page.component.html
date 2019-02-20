@@ -1,11 +1,12 @@
 <div class="text-center my-4">
-  <h1>Iniciar Sesión</h1>
+  <h1>Inicia sesión</h1>
 </div>
 
 <div class="wrapper">
   <mat-card>
     <mat-card-content>
-      <auth-sign-in-form [status]="status$" [errors]="errors$" (submitted)="login($event)"></auth-sign-in-form>
+      <auth-sign-in-form [status]="status$ | async" [errors]="errors$ | async" (submitted)="login($event)">
+      </auth-sign-in-form>
     </mat-card-content>
   </mat-card>
 </div>

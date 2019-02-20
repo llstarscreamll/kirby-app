@@ -1,0 +1,9 @@
+<div *ngIf="apiError" class="alert alert-danger errors-container">
+
+  <h4 class="alert-heading">{{ errorHeader }}</h4>
+
+  <ul>
+    <li *ngFor="let error of errors">{{ error }}</li>
+  </ul>
+
+</div>

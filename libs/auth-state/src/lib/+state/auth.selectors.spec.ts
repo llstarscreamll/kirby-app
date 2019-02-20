@@ -1,19 +1,13 @@
-import { Entity, AuthState } from './auth.reducer';
+import { AuthState, AUTH_FEATURE_KEY } from './auth.reducer';
 import { authQuery } from './auth.selectors';
 import { AUTH_TOKENS_MOCK, USER, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
 
 describe('Auth Selectors', () => {
-  const getAuthId = (it) => it['id'];
-
   let storeState;
 
   beforeEach(() => {
-    const createAuth = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
     storeState = {
-      auth: {
+      [AUTH_FEATURE_KEY]: {
         tokens: AUTH_TOKENS_MOCK,
         user: USER,
         errors: INCORRECT_CREDENTIALS_API_ERROR,
@@ -50,7 +44,7 @@ describe('Auth Selectors', () => {
     });
 
     it('getIsLoggedIn() should return false if there aren\'t access tokens', () => {
-      const result = authQuery.getIsLoggedIn({ ...storeState, ...{ auth: { tokens: null } } });
+      const result = authQuery.getIsLoggedIn({ ...storeState, ...{ [AUTH_FEATURE_KEY]: { tokens: null } } });
 
       expect(result).toBe(false);
     });
@@ -58,7 +52,7 @@ describe('Auth Selectors', () => {
     it('getIsLoggedIn() should return false if auth token is expired', () => {
       const result = authQuery.getIsLoggedIn({
         ...storeState, ...{
-          auth: {
+          [AUTH_FEATURE_KEY]: {
             tokens: AUTH_TOKENS_MOCK,
             tokens_received_at: new Date('2000-01-30 10:00:00')
           }

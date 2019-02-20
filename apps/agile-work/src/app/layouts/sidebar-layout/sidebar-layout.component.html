@@ -1,8 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
 
   <!-- side navigation -->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-               [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (authenticated$ | async)">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async) && (authenticated$ | async)">
     <mat-toolbar>Pascal</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/welcome']">
@@ -21,6 +23,7 @@
       <ng-container *ngIf="!(authenticated$ | async)">
         <a [routerLink]="['/']">Pascal</a>
         <div class="flex-fill"></div>
+        <a [routerLink]="[ '/sign-up' ]">Crear cuenta</a>
         <a [routerLink]="[ '/login' ]">Entrar</a>
       </ng-container>
 

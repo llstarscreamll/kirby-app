@@ -2,19 +2,23 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignInFormComponent } from './sign-in-form.component';
+import { SignUpFormComponent } from './sign-up-form.component';
 import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
 
-describe('SignInFormComponent', () => {
-  let component: SignInFormComponent;
-  let fixture: ComponentFixture<SignInFormComponent>;
+describe('SignUpFormComponent', () => {
+  let component: SignUpFormComponent;
+  let fixture: ComponentFixture<SignUpFormComponent>;
   let html: HTMLDocument;
   let submitBtn: HTMLButtonElement;
+  let nameInput: HTMLInputElement;
   let emailInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
-  const credentials = {
+  let passwordConfirmationInput: HTMLInputElement;
+  const newAccount = {
+    name: 'Tony Stark',
     email: 'tony@stark.com',
     password: 'tony.123',
+    password_confirmation: 'tony.123',
   };
 
   beforeEach(async(() => {
@@ -22,20 +26,22 @@ describe('SignInFormComponent', () => {
       imports: [
         ...TESTING_IMPORTS,
       ],
-      declarations: [SignInFormComponent],
+      declarations: [SignUpFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [...TESTING_PROVIDERS],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SignInFormComponent);
+    fixture = TestBed.createComponent(SignUpFormComponent);
     component = fixture.componentInstance;
 
     html = fixture.nativeElement;
     submitBtn = html.querySelector('form button[type=submit]');
-    emailInput = html.querySelector('form input[type=email]');
-    passwordInput = html.querySelector('form input[type=password]');
+    nameInput = html.querySelector('form input[formControlName="name"]');
+    emailInput = html.querySelector('form input[formControlName="email"]');
+    passwordInput = html.querySelector('form input[formControlName="password"]');
+    passwordConfirmationInput = html.querySelector('form input[formControlName="password_confirmation"]');
 
     fixture.detectChanges();
   });
@@ -44,9 +50,11 @@ describe('SignInFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have email, password and submit btn', () => {
+  it('should have certain form elements', () => {
+    expect(name).toBeTruthy();
     expect(emailInput).toBeTruthy();
     expect(passwordInput).toBeTruthy();
+    expect(passwordConfirmationInput).toBeTruthy();
     expect(submitBtn).toBeTruthy();
   });
 
@@ -59,9 +67,9 @@ describe('SignInFormComponent', () => {
     expect(submitBtn.disabled).toBe(true);
   });
 
-  it('should have submit btn disabled if form status equals to sending', () => {
-    component.status = 'loggingIn';
-    component.form.patchValue(credentials);
+  it('should have submit btn disabled if form status equals to signingIn', () => {
+    component.status = 'signingIn';
+    component.form.patchValue(newAccount);
 
     fixture.detectChanges();
 
@@ -69,7 +77,7 @@ describe('SignInFormComponent', () => {
   });
 
   it('should have submit btn enabled if form is valid', () => {
-    component.form.patchValue(credentials);
+    component.form.patchValue(newAccount);
 
     fixture.detectChanges();
 
@@ -80,13 +88,13 @@ describe('SignInFormComponent', () => {
   it('should emit event when form is submitted', () => {
     spyOn(component.submitted, 'emit').and.callThrough();
 
-    component.form.patchValue(credentials);
+    component.form.patchValue(newAccount);
     fixture.detectChanges();
 
     submitBtn.click();
     fixture.detectChanges();
 
-    expect(component.submitted.emit).toHaveBeenCalledWith(credentials);
+    expect(component.submitted.emit).toHaveBeenCalledWith(newAccount);
   });
 
   it('should use agile-work-api-errors component in template', () => {

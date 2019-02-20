@@ -1,24 +1,12 @@
 import { AuthAction, AuthActionTypes } from './auth.actions';
 
-/**
- * Interface for the 'Auth' data used in
- *  - AuthState, and
- *  - authReducer
- *
- *  Note: replace if already defined in another module
- */
-
-/* tslint:disable:no-empty-interface */
-export interface Entity {
-};
-
 export const AUTH_FEATURE_KEY = 'AUTH';
 
 export interface AuthState {
   user: any;
   tokens: any;
   tokens_received_at: Date | null;
-  status: 'loggingIn' | 'loggedIn' | 'loginFailed' | 'loginError' | 'loggingOut';
+  status: 'loggingIn' | 'loggedIn' | 'loginFailed' | 'loginError' | 'loggingOut' | 'signingIn' | 'signInError';
   errors?: any;
 };
 
@@ -39,7 +27,7 @@ export function authReducer(
 
   switch (action.type) {
     case AuthActionTypes.LoginWithCredentials: {
-      state = { ...state, status: 'loggingIn' };
+      state = { ...state, errors: null, status: 'loggingIn' };
       break;
     }
 
@@ -65,6 +53,21 @@ export function authReducer(
 
     case AuthActionTypes.LogoutSuccess: {
       state = initialState;
+      break;
+    }
+
+    case AuthActionTypes.SignUp: {
+      state = { ...state, errors: null, status: 'signingIn' };
+      break;
+    }
+
+    case AuthActionTypes.SignUpError: {
+      state = { ...state, status: 'signInError', errors: action.payload };
+      break;
+    }
+
+    case AuthActionTypes.CleanErrors: {
+      state = { ...state, status: 'signInError', errors: null };
       break;
     }
   }

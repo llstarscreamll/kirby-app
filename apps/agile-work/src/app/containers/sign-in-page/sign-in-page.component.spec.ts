@@ -1,10 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthFacade } from '../../+state/auth.facade';
+import { AuthFacade } from '@agile-work/auth-state';
 import { SignInPageComponent } from './sign-in-page.component';
-import { LoginWithCredentials } from '../../+state/auth.actions';
-import { StoreFeatureModule, StoreModule } from '@ngrx/store';
+import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 
 describe('SignInPageComponent', () => {
   let component: SignInPageComponent;
@@ -15,13 +14,12 @@ describe('SignInPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({})
+        ...TESTING_IMPORTS,
       ],
       declarations: [SignInPageComponent],
-      providers: [AuthFacade],
+      providers: [...TESTING_PROVIDERS],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SignInPageComponent);
     component = fixture.componentInstance;
@@ -38,6 +36,16 @@ describe('SignInPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have sign in title', () => {
+    const html: HTMLElement = fixture.debugElement.nativeElement;
+
+    expect(html.querySelector('h1').textContent).toContain('Inicia sesión');
+  });
+
+  it('should have sign in component on template', () => {
+    expect(fixture.debugElement.nativeElement.querySelector('auth-sign-in-form')).toBeTruthy();
   });
 
   it('should dispatch login action on onSubmit method', () => {

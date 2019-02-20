@@ -4,7 +4,8 @@ import { Store } from '@ngrx/store';
 
 import { AuthState } from './auth.reducer';
 import { authQuery } from './auth.selectors';
-import { LoginWithCredentials, Logout } from './auth.actions';
+import { LoginWithCredentials, Logout, SignUp, CleanErrors } from './auth.actions';
+import { NewAccount } from '../interfaces/new-account';
 
 @Injectable()
 export class AuthFacade {
@@ -23,5 +24,13 @@ export class AuthFacade {
 
   public logout() {
     this.store.dispatch(new Logout);
+  }
+
+  public signUp(newAccount: NewAccount) {
+    this.store.dispatch(new SignUp(newAccount));
+  }
+
+  public cleanErrors() {
+    this.store.dispatch(new CleanErrors());
   }
 }

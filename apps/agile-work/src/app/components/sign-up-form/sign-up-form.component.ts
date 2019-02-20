@@ -2,13 +2,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 import { ApiError } from '@agile-work/shared';
+import { flatApiErrors } from '@agile-work/shared';
 
 @Component({
-  selector: 'auth-sign-in-form',
-  templateUrl: './sign-in-form.component.html',
-  styleUrls: ['./sign-in-form.component.scss']
+  selector: 'auth-sign-up-form',
+  templateUrl: './sign-up-form.component.html',
+  styleUrls: ['./sign-up-form.component.scss']
 })
-export class SignInFormComponent implements OnInit {
+export class SignUpFormComponent implements OnInit {
 
   @Input()
   public status: string;
@@ -25,8 +26,10 @@ export class SignInFormComponent implements OnInit {
 
   public ngOnInit() {
     this.form = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(150)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(150)]],
+      password_confirmation: ['', [Validators.required]],
     });
   }
 
@@ -35,6 +38,6 @@ export class SignInFormComponent implements OnInit {
   }
 
   public get disableButton(): boolean {
-    return this.form.invalid || this.status === 'loggingIn';
+    return this.form.invalid || this.status === 'signingIn';
   }
 }

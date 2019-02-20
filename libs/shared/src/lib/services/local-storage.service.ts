@@ -13,11 +13,9 @@ export class LocalStorageService {
     return Object.keys(localStorage).reduce((state: any, storageKey) => {
       if (storageKey.includes(APP_PREFIX)) {
         state = state || {};
-        const stateKey = storageKey
-          .replace(APP_PREFIX, '')
-          .toLowerCase()
-          .split('.');
+        const stateKey = storageKey.replace(APP_PREFIX, '').split('.');
         let currentStateRef = state;
+
         stateKey.forEach((key, index) => {
           if (index === stateKey.length - 1) {
             currentStateRef[key] = JSON.parse(localStorage.getItem(storageKey));
@@ -27,6 +25,7 @@ export class LocalStorageService {
           currentStateRef = currentStateRef[key];
         });
       }
+
       return state;
     }, undefined);
   }

@@ -1,10 +1,14 @@
 export interface ApiError {
-  // general message
+  status?: number;
+  statusText?: string;
+  name?: string;
   message: string;
-  // specific error
-  error?: string;
-  // errors collection
-  errors?: {
-    [propName: string]: string[];
-  }
+  ok: boolean;
+  error?: {
+    message: string;
+    error?: string;
+    errors?: {
+      [propName: string]: string[];
+    }
+  };
 };
