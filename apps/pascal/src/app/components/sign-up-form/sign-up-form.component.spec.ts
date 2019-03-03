@@ -97,7 +97,7 @@ describe('SignUpFormComponent', () => {
     expect(component.submitted.emit).toHaveBeenCalledWith(newAccount);
   });
 
-  it('should use pascal-api-errors component in template', () => {
+  it('should use llstarscreamll-api-errors component in template', () => {
     component.errors = {
       message: 'Unprocessable entity',
       ok: false,
@@ -107,7 +107,7 @@ describe('SignUpFormComponent', () => {
     fixture.detectChanges();
 
     const template: HTMLDocument = fixture.nativeElement;
-    const errorsComponent = template.querySelector('pascal-api-errors');
+    const errorsComponent = template.querySelector('llstarscreamll-api-errors');
 
     expect(errorsComponent).toBeTruthy();
   });
