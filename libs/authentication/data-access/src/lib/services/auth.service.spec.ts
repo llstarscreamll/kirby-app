@@ -32,11 +32,11 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should send POST \'/api/login\' with certain headers on loginWithCredentials()', () => {
+  it('should send POST \'/api/v1/auth/login\' with certain headers on loginWithCredentials()', () => {
     authService.loginWithCredentials(credentials)
       .subscribe(data => expect(data).toEqual(authTokens));
 
-    const request = httpController.expectOne(ENV_MOCK.api + 'api/login');
+    const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/login');
     expect(request.request.method).toEqual('POST');
     expect(request.request.headers.get('Accept')).toEqual('application/json');
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
@@ -45,10 +45,10 @@ describe('AuthService', () => {
     request.flush(authTokens);
   });
 
-  it('should send DELETE \'/api/logout\' with certain headers on logout()', () => {
+  it('should send DELETE \'/api/v1/auth/logout\' with certain headers on logout()', () => {
     authService.logout(authTokens).subscribe();
 
-    const request = httpController.expectOne(ENV_MOCK.api + 'api/logout');
+    const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/logout');
     expect(request.request.method).toEqual('DELETE');
     expect(request.request.headers.get('Accept')).toEqual('application/json');
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
@@ -57,10 +57,10 @@ describe('AuthService', () => {
     request.flush(['ok']);
   });
 
-  it('should send GET \'/api/user\' with certain headers on getAuthUser()', () => {
+  it('should send GET \'/api/v1/auth/user\' with certain headers on getAuthUser()', () => {
     authService.getAuthUser(authTokens).subscribe();
 
-    const request = httpController.expectOne(ENV_MOCK.api + 'api/user');
+    const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/user');
     expect(request.request.method).toEqual('GET');
     expect(request.request.headers.get('Accept')).toEqual('application/json');
     expect(request.request.headers.get('Content-type')).toEqual('application/json');

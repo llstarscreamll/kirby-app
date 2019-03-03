@@ -1,19 +1,18 @@
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { NewAccount } from '../interfaces/new-account';
 import { AuthTokens } from '../interfaces/auth-tokens';
 import { BaseAuthService } from '../abstracts/abstract-auth.service';
-import { NewAccount } from '../interfaces/new-account';
-import { tap } from 'rxjs/internal/operators/tap';
 
 @Injectable()
 export class AuthService extends BaseAuthService {
 
-  private signUpEndpoint = this.env.api + 'api/sign-up';
-  private loginEndpoint = this.env.api + 'api/login';
-  private logoutEndpoint = this.env.api + 'api/logout';
-  private authUserEndpoint = this.env.api + 'api/user';
+  private signUpEndpoint = this.env.api + 'api/v1/auth/sign-up';
+  private loginEndpoint = this.env.api + 'api/v1/auth/login';
+  private logoutEndpoint = this.env.api + 'api/v1/auth/logout';
+  private authUserEndpoint = this.env.api + 'api/v1/auth/user';
 
   constructor(
     @Inject('environment')
@@ -21,12 +20,12 @@ export class AuthService extends BaseAuthService {
     private http: HttpClient
   ) { super(); }
 
-  public signUp(newAccount: NewAccount): Observable<AuthTokens | any> {
-    return this.http.post(this.signUpEndpoint, newAccount, { headers: this.defaultHeaders });
+  public signUp(newAccount: NewAccount): Observable<AuthTokens> {
+    return this.http.post<AuthTokens>(this.signUpEndpoint, newAccount, { headers: this.defaultHeaders });
   }
 
-  public loginWithCredentials(credentials): Observable<any> {
-    return this.http.post(this.loginEndpoint, credentials, { headers: this.defaultHeaders });
+  public loginWithCredentials(credentials): Observable<AuthTokens> {
+    return this.http.post<AuthTokens>(this.loginEndpoint, credentials, { headers: this.defaultHeaders });
   }
 
   public logout(authTokens: AuthTokens): Observable<any> {
