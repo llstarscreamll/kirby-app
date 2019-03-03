@@ -14,9 +14,9 @@
     "agile-work-e2e": {
       "tags": []
     },
-    "auth-state": {
+    "authentication-data-access": {
       "tags": [
-        "auth"
+        "authentication"
       ]
     },
     "shared": {

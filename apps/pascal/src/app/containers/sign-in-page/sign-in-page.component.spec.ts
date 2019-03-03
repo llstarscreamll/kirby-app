@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthFacade } from '@llstarscreamll/auth-state';
+import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 import { SignInPageComponent } from './sign-in-page.component';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 

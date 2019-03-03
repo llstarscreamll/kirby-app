@@ -127,9 +127,9 @@
         }
       }
     },
-    "auth-state": {
-      "root": "libs/auth-state",
-      "sourceRoot": "libs/auth-state/src",
+    "authentication-data-access": {
+      "root": "libs/authentication/data-access",
+      "sourceRoot": "libs/authentication/data-access/src",
       "projectType": "library",
       "prefix": "llstarscreamll",
       "architect": {
@@ -137,8 +137,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/auth-state/tsconfig.lib.json",
-              "libs/auth-state/tsconfig.spec.json"
+              "libs/authentication/data-access/tsconfig.lib.json",
+              "libs/authentication/data-access/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -148,9 +148,9 @@
         "test": {
           "builder": "@nrwl/builders:jest",
           "options": {
-            "jestConfig": "libs/auth-state/jest.config.js",
-            "tsConfig": "libs/auth-state/tsconfig.spec.json",
-            "setupFile": "libs/auth-state/src/test-setup.ts"
+            "jestConfig": "libs/authentication/data-access/jest.config.js",
+            "tsConfig": "libs/authentication/data-access/tsconfig.spec.json",
+            "setupFile": "libs/authentication/data-access/src/test-setup.ts"
           }
         }
       },

@@ -11,7 +11,7 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { SharedModule } from '@llstarscreamll/shared';
-import { AuthStateModule } from '@llstarscreamll/auth-state';
+import { AuthStateModule } from '@llstarscreamll/authentication-data-access';
 import { environment } from '../environments/environment';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
