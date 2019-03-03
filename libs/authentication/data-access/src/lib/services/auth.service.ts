@@ -5,6 +5,7 @@ import { Injectable, Inject } from '@angular/core';
 import { NewAccount } from '../interfaces/new-account';
 import { AuthTokens } from '../interfaces/auth-tokens';
 import { BaseAuthService } from '../abstracts/abstract-auth.service';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable()
 export class AuthService extends BaseAuthService {
@@ -33,6 +34,7 @@ export class AuthService extends BaseAuthService {
   }
 
   public getAuthUser(tokens): Observable<any> {
-    return this.http.get(this.authUserEndpoint, { headers: this.authHeaders(tokens) });
+    return this.http.get<any>(this.authUserEndpoint, { headers: this.authHeaders(tokens) })
+      .pipe(map(res => res.data));
   }
 }

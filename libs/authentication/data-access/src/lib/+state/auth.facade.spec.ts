@@ -201,7 +201,7 @@ describe('AuthFacade', () => {
 
           expect(status).toBe('loggedIn', 'after sign up success, status == loggedIn');
           expect(tokens).toBeTruthy();
-          expect(user).toBeTruthy();
+          expect(user).toBe(authUser);
           expect(errors).toBeFalsy();
 
           done();
