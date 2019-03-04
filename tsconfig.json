@@ -21,6 +21,9 @@
       "@llstarscreamll/authentication-data-access": [
         "libs/authentication/data-access/src/index.ts"
       ],
+      "@llstarscreamll/authentication/utils": [
+        "libs/authentication/utils/src/index.ts"
+      ],
       "@llstarscreamll/shared": [
         "libs/shared/src/index.ts"
       ],

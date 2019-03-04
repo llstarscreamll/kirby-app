@@ -22,10 +22,7 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": [
-              "apps/pascal/src/favicon.ico",
-              "apps/pascal/src/assets"
-            ],
+            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/pascal/src/styles.scss"
@@ -83,9 +80,7 @@
               "apps/pascal/tsconfig.app.json",
               "apps/pascal/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -120,9 +115,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -140,9 +133,7 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -173,9 +164,7 @@
               "libs/shared/tsconfig.lib.json",
               "libs/shared/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -206,9 +195,7 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -217,6 +204,36 @@
             "jestConfig": "libs/work-shifts/data-access/jest.config.js",
             "tsConfig": "libs/work-shifts/data-access/tsconfig.spec.json",
             "setupFile": "libs/work-shifts/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "authentication-utils": {
+      "root": "libs/authentication/utils",
+      "sourceRoot": "libs/authentication/utils/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/authentication/utils/tsconfig.lib.json",
+              "libs/authentication/utils/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/authentication/utils/jest.config.js",
+            "tsConfig": "libs/authentication/utils/tsconfig.spec.json"
           }
         }
       },
