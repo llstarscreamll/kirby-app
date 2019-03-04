@@ -3,6 +3,7 @@ import { NewAccount } from '../interfaces/new-account';
 import { AuthTokens } from '../interfaces/auth-tokens';
 
 export enum AuthActionTypes {
+  CheckIfAuthenticated = "[Auth] check if authenticated",
   SignUp = "[Auth] sign up",
   SignUpSuccess = "[Auth] sign up success",
   SignUpError = "[Auth] sign up error",
@@ -17,6 +18,10 @@ export enum AuthActionTypes {
   CleanErrors = "[Auth] clean errors",
 }
 
+export class CheckIfUserIsAuthenticated {
+  public readonly type = AuthActionTypes.CheckIfAuthenticated;
+  public constructor() { }
+}
 export class SignUp {
   public readonly type = AuthActionTypes.SignUp;
   public constructor(public payload: NewAccount) { }
@@ -77,13 +82,12 @@ export class CleanErrors implements Action {
   public constructor() { }
 }
 
-export type AuthAction = SignUp | SignUpSuccess | SignUpError
-  | LoginWithCredentials | LoginSuccess | LoginError
-  | GetAuthUser | GetAuthUserSuccess | GetAuthUserError
-  | Logout | LogoutSuccess | CleanErrors;
+export type AuthAction = CheckIfUserIsAuthenticated | SignUp | SignUpSuccess
+  | SignUpError | LoginWithCredentials | LoginSuccess | LoginError | GetAuthUser
+  | GetAuthUserSuccess | GetAuthUserError | Logout | LogoutSuccess | CleanErrors;
 
 export const fromAuthActions = {
-  SignUp, SignUpSuccess, SignUpError,
+  CheckIfUserIsAuthenticated, SignUp, SignUpSuccess, SignUpError,
   LoginWithCredentials, LoginSuccess, LoginError,
   GetAuthUser, GetAuthUserSuccess, GetAuthUserError,
   Logout, LogoutSuccess, CleanErrors

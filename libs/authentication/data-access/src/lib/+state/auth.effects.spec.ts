@@ -14,10 +14,11 @@ import { AUTH_FEATURE_KEY } from './auth.reducer';
 import { AuthService } from '../services/auth.service';
 import { SharedModule, LocalStorageService } from '@llstarscreamll/shared';
 import { AUTH_TOKENS_MOCK, CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR, USER } from '../utils/mocks';
-import { LoginWithCredentials, LoginSuccess, LoginError, GetAuthUserSuccess, Logout, LogoutSuccess } from './auth.actions';
+import { LoginWithCredentials, LoginSuccess, LoginError, GetAuthUserSuccess, Logout, LogoutSuccess, CheckIfUserIsAuthenticated } from './auth.actions';
+import { map } from 'rxjs/internal/operators/map';
 
 describe('AuthEffects', () => {
-  let actions$: Observable<any>;
+  let expectedAction$: Observable<any>;
   let effects: AuthEffects;
   let authService: AuthService;
   let localStorageService: LocalStorageService;
@@ -40,7 +41,7 @@ describe('AuthEffects', () => {
         AuthEffects,
         AuthService,
         DataPersistence,
-        provideMockActions(() => actions$),
+        provideMockActions(() => expectedAction$),
         { provide: 'environment', useValue: { api: 'http://my.api.com/' } },
         { provide: Router, useValue: { navigate: (url) => true } },
       ],
@@ -66,7 +67,7 @@ describe('AuthEffects', () => {
       const action = new LoginWithCredentials(credentials);
       const completion = new LoginSuccess(authTokens);
 
-      actions$ = hot('-a', { a: action });
+      expectedAction$ = hot('-a', { a: action });
       const expected = cold('--c', { c: completion });
 
       expect(effects.loginWithCredentials$).toBeObservable(expected);
@@ -76,7 +77,7 @@ describe('AuthEffects', () => {
       const apiResponse = cold('-#', {}, wrongCredentialsError);
       spyOn(authService, 'loginWithCredentials').and.returnValue(apiResponse);
 
-      actions$ = hot('-a-', { a: new LoginWithCredentials(credentials) });
+      expectedAction$ = hot('-a-', { a: new LoginWithCredentials(credentials) });
       expect(effects.loginWithCredentials$).toBeObservable(
         hot('--a', { a: new LoginError(wrongCredentialsError) })
       );
@@ -93,7 +94,7 @@ describe('AuthEffects', () => {
       const action = new LoginSuccess(authTokens);
       const completion = new GetAuthUserSuccess(authUser);
 
-      actions$ = cold('-a', { a: action });
+      expectedAction$ = cold('-a', { a: action });
       const expected = cold('--e', { e: completion });
 
       expect(effects.loginSuccess$).toBeObservable(expected);
@@ -111,7 +112,7 @@ describe('AuthEffects', () => {
       const action = new Logout;
       const completion = new LogoutSuccess;
 
-      actions$ = cold('-a', { a: action });
+      expectedAction$ = cold('-a', { a: action });
       const expected = cold('-e', { e: completion });
 
       expect(effects.logout$).toBeObservable(expected);
@@ -124,7 +125,7 @@ describe('AuthEffects', () => {
       const action = new Logout;
       const completion = new LogoutSuccess;
 
-      actions$ = cold('-a', { a: action });
+      expectedAction$ = cold('-a', { a: action });
       const expected = cold('-e', { e: completion });
 
       expect(effects.logout$).toBeObservable(expected);
@@ -135,11 +136,20 @@ describe('AuthEffects', () => {
   describe('logoutSuccess$', () => {
     it('should navigate and remove related data from local storage', () => {
       const action = new LogoutSuccess;
-      actions$ = cold('-a', { a: action });
+      expectedAction$ = cold('-a', { a: action });
 
-      expect(effects.logoutSuccess$).toBeObservable(actions$);
+      expect(effects.logoutSuccess$).toBeObservable(expectedAction$);
       expect(localStorageService.removeItem).toHaveBeenCalledWith(AUTH_FEATURE_KEY);
       expect(router.navigate).toHaveBeenCalledWith(['/']);
+    });
+  });
+
+  describe('init$', () => {
+    it('should dispatch CheckIfUserIsAuthenticated action', () => {
+      const action = new CheckIfUserIsAuthenticated;
+      expectedAction$ = hot('(a|)', { a: action });
+
+      expect(effects.init$).toBeObservable(expectedAction$);
     });
   });
 });

@@ -7,7 +7,10 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from '@llstarscreamll/shared';
 import { AuthPartialState, AUTH_FEATURE_KEY } from './auth.reducer';
-import { LoginWithCredentials, LoginSuccess, LoginError, AuthActionTypes, GetAuthUserSuccess, Logout, LogoutSuccess, SignUp, SignUpSuccess, SignUpError } from './auth.actions';
+import { LoginWithCredentials, LoginSuccess, LoginError, AuthActionTypes, GetAuthUserSuccess, Logout, LogoutSuccess, SignUp, SignUpSuccess, SignUpError, CheckIfUserIsAuthenticated } from './auth.actions';
+import { defer } from 'rxjs/internal/observable/defer';
+import { of } from 'rxjs/internal/observable/of';
+import { from } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
@@ -85,6 +88,23 @@ export class AuthEffects {
     tap(() => this.localStorage.removeItem(AUTH_FEATURE_KEY)),
     tap(() => this.router.navigate(['/']))
   );
+
+  @Effect()
+  public checkIfAuthenticated$ = this.dataPersistence
+    .optimisticUpdate(AuthActionTypes.CheckIfAuthenticated, {
+      run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
+        const tokens = state[AUTH_FEATURE_KEY].tokens;
+        return tokens
+          ? this.authService.getAuthUser(tokens).pipe(map(user => new GetAuthUserSuccess(user)))
+          : null;
+      },
+      undoAction: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
+        return null;
+      }
+    });
+
+  @Effect()
+  init$ = defer(() => from([new CheckIfUserIsAuthenticated()]));
 
   public constructor(
     private router: Router,

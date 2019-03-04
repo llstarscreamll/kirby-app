@@ -6,6 +6,7 @@ import { NewAccount } from '../interfaces/new-account';
 import { AuthTokens } from '../interfaces/auth-tokens';
 import { BaseAuthService } from '../abstracts/abstract-auth.service';
 import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Injectable()
 export class AuthService extends BaseAuthService {
@@ -15,7 +16,7 @@ export class AuthService extends BaseAuthService {
   private logoutEndpoint = this.env.api + 'api/v1/auth/logout';
   private authUserEndpoint = this.env.api + 'api/v1/auth/user';
 
-  constructor(
+  public constructor(
     @Inject('environment')
     private env,
     private http: HttpClient
@@ -33,7 +34,7 @@ export class AuthService extends BaseAuthService {
     return this.http.delete(this.logoutEndpoint, { headers: this.authHeaders(authTokens) });
   }
 
-  public getAuthUser(tokens): Observable<any> {
+  public getAuthUser(tokens: AuthTokens): Observable<any> {
     return this.http.get<any>(this.authUserEndpoint, { headers: this.authHeaders(tokens) })
       .pipe(map(res => res.data));
   }
