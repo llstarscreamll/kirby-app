@@ -1,12 +1,11 @@
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
 import { NewAccount } from '../interfaces/new-account';
 import { AuthTokens } from '../interfaces/auth-tokens';
-import { BaseAuthService } from '../abstracts/abstract-auth.service';
-import { map } from 'rxjs/internal/operators/map';
-import { tap } from 'rxjs/internal/operators/tap';
+import { BaseAuthService } from '@llstarscreamll/authentication/utils';
 
 @Injectable()
 export class AuthService extends BaseAuthService {
