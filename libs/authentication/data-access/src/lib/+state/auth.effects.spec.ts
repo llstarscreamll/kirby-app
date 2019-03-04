@@ -1,4 +1,4 @@
-import { Observable, never, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/nx';
 import { StoreModule } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -15,7 +15,6 @@ import { AuthService } from '../services/auth.service';
 import { SharedModule, LocalStorageService } from '@llstarscreamll/shared';
 import { AUTH_TOKENS_MOCK, CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR, USER } from '../utils/mocks';
 import { LoginWithCredentials, LoginSuccess, LoginError, GetAuthUserSuccess, Logout, LogoutSuccess, CheckIfUserIsAuthenticated } from './auth.actions';
-import { map } from 'rxjs/internal/operators/map';
 
 describe('AuthEffects', () => {
   let expectedAction$: Observable<any>;
