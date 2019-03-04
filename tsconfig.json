@@ -23,6 +23,9 @@
       ],
       "@llstarscreamll/shared": [
         "libs/shared/src/index.ts"
+      ],
+      "@llstarscreamll/work-shifts/data-access": [
+        "libs/work-shifts/data-access/src/index.ts"
       ]
     }
   },

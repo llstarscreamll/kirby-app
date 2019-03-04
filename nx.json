@@ -9,19 +9,30 @@
   },
   "projects": {
     "agile-work": {
-      "tags": []
+      "tags": [
+        "type:app"
+      ]
     },
     "agile-work-e2e": {
       "tags": []
     },
     "authentication-data-access": {
       "tags": [
-        "authentication"
+        "scope:authentication",
+        "type:data-access",
+        "platform:web"
       ]
     },
     "shared": {
       "tags": [
-        "shared"
+        "scope:shared"
+      ]
+    },
+    "work-shifts-data-access": {
+      "tags": [
+        "scope:work-shifts",
+        "type:data-access",
+        "platform:web"
       ]
     }
   }
