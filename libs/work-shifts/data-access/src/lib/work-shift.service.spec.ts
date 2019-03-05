@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { Pagination } from '@llstarscreamll/shared';
@@ -41,7 +41,7 @@ describe('WorkShiftService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should send GET to api/v1/work-shifts/ with certain headers on search()', () => {
+  it('should send GET to api/v1/work-shifts/ with certain headers on search()', fakeAsync(() => {
     const query = {};
 
     service.search(query, authTokens).subscribe(data => expect(data).toEqual(paginatedWorkShifts));
@@ -53,9 +53,9 @@ describe('WorkShiftService', () => {
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
     request.flush(paginatedWorkShifts);
-  });
+  }));
 
-  it('should send POST to api/v1/work-shifts/ with certain headers on create()', () => {
+  it('should send POST to api/v1/work-shifts/ with certain headers on create()', fakeAsync(() => {
     const workShiftData = paginatedWorkShifts.data[0];
     const createdWorkShift = { id: 1, ...workShiftData };
 
@@ -67,10 +67,10 @@ describe('WorkShiftService', () => {
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
-    request.flush(createdWorkShift);
-  });
+    request.flush({ data: createdWorkShift });
+  }));
 
-  it('should send GET to api/v1/work-shifts/1 with certain headers on get()', () => {
+  it('should send GET to api/v1/work-shifts/1 with certain headers on get()', fakeAsync(() => {
     const workShift: WorkShiftInterface = { id: 1, ...paginatedWorkShifts.data[0] };
 
     service.get(workShift.id, authTokens).subscribe(data => expect(data).toEqual(workShift));
@@ -81,10 +81,10 @@ describe('WorkShiftService', () => {
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
-    request.flush(workShift);
-  });
+    request.flush({ data: workShift });
+  }));
 
-  it('should send PUT to api/v1/work-shifts/1 with certain headers on update()', () => {
+  it('should send PUT to api/v1/work-shifts/1 with certain headers on update()', fakeAsync(() => {
     const workShiftData = paginatedWorkShifts.data[0];
     const workShiftId = 1;
 
@@ -96,10 +96,10 @@ describe('WorkShiftService', () => {
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
-    request.flush(workShiftData);
-  });
+    request.flush({ data: workShiftData });
+  }));
 
-  it('should send DELETE to api/v1/work-shifts/1 with certain headers on delete()', () => {
+  it('should send DELETE to api/v1/work-shifts/1 with certain headers on delete()', fakeAsync(() => {
     const response = 'accepted';
     const workShiftId = 1;
 
@@ -112,6 +112,6 @@ describe('WorkShiftService', () => {
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
     request.flush(response);
-  });
+  }));
 
 });

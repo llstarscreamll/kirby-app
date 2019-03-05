@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
-import { Injectable, Inject } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
 
 import { Pagination } from '@llstarscreamll/shared';
 import { WorkShiftInterface } from './work-shift.interface';
@@ -22,15 +23,18 @@ export class WorkShiftService extends BaseAuthService {
   }
 
   public create(workShiftData: any, tokens: any): Observable<WorkShiftInterface> {
-    return this.http.post<WorkShiftInterface>(this.endpoint, workShiftData, { headers: this.authHeaders(tokens) });
+    return this.http.post<{ data: WorkShiftInterface }>(this.endpoint, workShiftData, { headers: this.authHeaders(tokens) })
+      .pipe(map(response => response.data));
   }
 
   public get(workShiftId: number, tokens: any): Observable<WorkShiftInterface> {
-    return this.http.get<WorkShiftInterface>(this.endpoint + workShiftId, { headers: this.authHeaders(tokens) });
+    return this.http.get<{ data: WorkShiftInterface }>(this.endpoint + workShiftId, { headers: this.authHeaders(tokens) })
+      .pipe(map(response => response.data));
   }
 
   public update(workShiftId: number, workShiftData: any, tokens: any): Observable<WorkShiftInterface> {
-    return this.http.put<WorkShiftInterface>(this.endpoint + workShiftId, workShiftData, { headers: this.authHeaders(tokens) });
+    return this.http.put<{ data: WorkShiftInterface }>(this.endpoint + workShiftId, workShiftData, { headers: this.authHeaders(tokens) })
+      .pipe(map(response => response.data));
   }
 
   public delete(workShiftId: number, tokens: any): Observable<any> {

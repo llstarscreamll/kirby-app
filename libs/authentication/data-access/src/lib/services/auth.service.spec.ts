@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async, tick, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { AuthService } from './auth.service';
@@ -33,9 +33,9 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should send POST \'/api/v1/auth/login\' with certain headers on loginWithCredentials()', () => {
+  it('should send POST \'/api/v1/auth/login\' with certain headers on loginWithCredentials()', fakeAsync(() => {
     authService.loginWithCredentials(credentials)
-      .subscribe(data => expect(data).toEqual(authTokens));
+      .subscribe(data => expect(data).toEqual(authTokens), fail);
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/login');
     expect(request.request.method).toEqual('POST');
@@ -44,9 +44,9 @@ describe('AuthService', () => {
     expect(request.request.body).toEqual(credentials);
 
     request.flush(authTokens);
-  });
+  }));
 
-  it('should send DELETE \'/api/v1/auth/logout\' with certain headers on logout()', () => {
+  it('should send DELETE \'/api/v1/auth/logout\' with certain headers on logout()', fakeAsync(() => {
     authService.logout(authTokens).subscribe();
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/logout');
@@ -56,10 +56,10 @@ describe('AuthService', () => {
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
     request.flush(['ok']);
-  });
+  }));
 
-  it('should send GET \'/api/v1/auth/user\' with certain headers on getAuthUser()', () => {
-    authService.getAuthUser(authTokens).subscribe();
+  it('should send GET \'/api/v1/auth/user\' with certain headers on getAuthUser()', fakeAsync(() => {
+    authService.getAuthUser(authTokens).subscribe(data => expect(data).toEqual(authUser));
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/user');
     expect(request.request.method).toEqual('GET');
@@ -67,6 +67,6 @@ describe('AuthService', () => {
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
     expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
-    request.flush(authUser);
-  });
+    request.flush({ data: authUser });
+  }));
 });
