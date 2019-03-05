@@ -78,10 +78,10 @@ describe('WorkShiftService', () => {
     request.flush(createdWorkShift);
   });
 
-  it('should send GET to api/v1/work-shifts/1 with certain headers on getById()', () => {
+  it('should send GET to api/v1/work-shifts/1 with certain headers on get()', () => {
     const workShift: WorkShiftInterface = { id: 1, ...paginatedWorkShifts.data[0] };
 
-    service.getById(workShift.id, authTokens).subscribe(data => expect(data).toEqual(workShift));
+    service.get(workShift.id, authTokens).subscribe(data => expect(data).toEqual(workShift));
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/work-shifts/' + workShift.id);
     expect(request.request.method).toEqual('GET');
@@ -92,11 +92,11 @@ describe('WorkShiftService', () => {
     request.flush(workShift);
   });
 
-  it('should send PUT to api/v1/work-shifts/1 with certain headers on updateById()', () => {
+  it('should send PUT to api/v1/work-shifts/1 with certain headers on update()', () => {
     const workShiftData = paginatedWorkShifts.data[0];
     const workShiftId = 1;
 
-    service.updateById(workShiftId, workShiftData, authTokens).subscribe(data => expect(data).toEqual(workShiftData));
+    service.update(workShiftId, workShiftData, authTokens).subscribe(data => expect(data).toEqual(workShiftData));
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/work-shifts/' + workShiftId);
     expect(request.request.method).toEqual('PUT');
