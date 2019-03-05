@@ -107,4 +107,19 @@ describe('WorkShiftService', () => {
     request.flush(workShiftData);
   });
 
+  it('should send DELETE to api/v1/work-shifts/1 with certain headers on delete()', () => {
+    const response = 'accepted';
+    const workShiftId = 1;
+
+    service.delete(workShiftId, authTokens).subscribe(data => expect(data).toEqual(response));
+
+    const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/work-shifts/' + workShiftId);
+    expect(request.request.method).toEqual('DELETE');
+    expect(request.request.headers.get('Accept')).toEqual('application/json');
+    expect(request.request.headers.get('Content-type')).toEqual('application/json');
+    expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
+
+    request.flush(response);
+  });
+
 });

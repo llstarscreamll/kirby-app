@@ -33,4 +33,8 @@ export class WorkShiftService extends BaseAuthService {
     return this.http.put<WorkShiftInterface>(this.endpoint + workShiftId, workShiftData, { headers: this.authHeaders(tokens) });
   }
 
+  public delete(workShiftId: number, tokens: any): Observable<any> {
+    return this.http.delete(this.endpoint + workShiftId, { headers: this.authHeaders(tokens) });
+  }
+
 }
