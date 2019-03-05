@@ -18,7 +18,7 @@ export class WorkShiftService extends BaseAuthService {
   ) { super(); }
 
   public search(query: any, tokens: any): Observable<Pagination<WorkShiftInterface>> {
-    return this.http.get<PaginatedWorkShiftsInterface>(this.endpoint, { headers: this.authHeaders(tokens) });
+    return this.http.get<Pagination<WorkShiftInterface>>(this.endpoint, { headers: this.authHeaders(tokens) });
   }
 
   public create(workShiftData: any, tokens: any): Observable<WorkShiftInterface> {
