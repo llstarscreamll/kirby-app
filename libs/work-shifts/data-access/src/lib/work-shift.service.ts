@@ -2,9 +2,9 @@ import { Observable } from 'rxjs';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Pagination } from '@llstarscreamll/shared';
 import { WorkShiftInterface } from './work-shift.interface';
 import { BaseAuthService } from '@llstarscreamll/authentication/utils';
-import { WorkShiftPaginationInterface } from './work-shift-pagination.interface';
 
 @Injectable()
 export class WorkShiftService extends BaseAuthService {
@@ -17,8 +17,8 @@ export class WorkShiftService extends BaseAuthService {
     private http: HttpClient
   ) { super(); }
 
-  public search(query: any, tokens: any): Observable<WorkShiftPaginationInterface> {
-    return this.http.get<WorkShiftPaginationInterface>(this.endpoint, { headers: this.authHeaders(tokens) });
+  public search(query: any, tokens: any): Observable<Pagination<WorkShiftInterface>> {
+    return this.http.get<PaginatedWorkShiftsInterface>(this.endpoint, { headers: this.authHeaders(tokens) });
   }
 
   public create(workShiftData: any, tokens: any): Observable<WorkShiftInterface> {
