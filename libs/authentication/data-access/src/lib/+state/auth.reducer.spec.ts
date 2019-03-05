@@ -1,13 +1,14 @@
+import { INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { AuthState, initialState, authReducer } from './auth.reducer';
 import { LoginSuccess, LoginError, LogoutSuccess } from './auth.actions';
-import { AuthState, Entity, initialState, authReducer } from './auth.reducer';
-import { AUTH_TOKENS_MOCK, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
 
 describe('Auth Reducer', () => {
   const getAuthId = (it) => it['id'];
   let createAuth;
 
   beforeEach(() => {
-    createAuth = (id: string, name = ''): Entity => ({
+    createAuth = (id: string, name = '') => ({
       id,
       name: name || `name-${id}`
     });
