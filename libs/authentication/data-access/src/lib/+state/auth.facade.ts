@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
-
 import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
 
 import { AuthState } from './auth.reducer';
 import { authQuery } from './auth.selectors';
-import { LoginWithCredentials, Logout, SignUp, CleanErrors } from './auth.actions';
 import { NewAccount } from '../interfaces/new-account';
+import { LoginWithCredentials, Logout, SignUp, CleanErrors } from './auth.actions';
 
 @Injectable()
 export class AuthFacade {

@@ -1,7 +1,7 @@
 import { authQuery } from './auth.selectors';
 import { AUTH_FEATURE_KEY } from './auth.reducer';
-import { USER, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
 import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
+import { USER, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
 
 describe('Auth Selectors', () => {
   let storeState;
