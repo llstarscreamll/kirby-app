@@ -20,6 +20,7 @@ import { LandingPageComponent } from './containers/landing-page/landing-page.com
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
+import { LlstarscreamllCoreModule } from '@llstarscreamll/web';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
@@ -45,6 +46,7 @@ export const routes: Route[] = [
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     ReactiveFormsModule,
     CoreModule,
+    LlstarscreamllCoreModule,
     SharedModule,
     AuthStateModule,
 

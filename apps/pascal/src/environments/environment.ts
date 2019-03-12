@@ -8,7 +8,7 @@ export const environment = {
   production: false,
   envName: 'dev',
   test: false,
-  appName: 'App Name',
+  appName: 'Pascal',
   api: 'http://agile-work.test/',
   i18nPrefix: '',
   version,

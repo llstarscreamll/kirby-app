@@ -9,22 +9,46 @@
   },
   "projects": {
     "agile-work": {
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "agile-work-e2e": {
       "tags": []
     },
     "authentication-data-access": {
-      "tags": ["scope:authentication", "type:data-access", "platform:web"]
+      "tags": [
+        "scope:authentication",
+        "type:data-access",
+        "platform:web"
+      ]
     },
     "shared": {
-      "tags": ["scope:shared"]
+      "tags": [
+        "scope:shared"
+      ]
     },
     "work-shifts-data-access": {
-      "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
+      "tags": [
+        "scope:work-shifts",
+        "type:data-access",
+        "platform:web"
+      ]
     },
     "authentication-utils": {
-      "tags": ["scope:authentication", "type:util"]
+      "tags": [
+        "scope:authentication",
+        "type:util"
+      ]
+    },
+    "libs": {
+      "tags": []
+    },
+    "xplat": {
+      "tags": []
+    },
+    "electron-pascal-desktop": {
+      "tags": []
     }
   }
 }

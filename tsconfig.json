@@ -29,6 +29,21 @@
       ],
       "@llstarscreamll/work-shifts/data-access": [
         "libs/work-shifts/data-access/src/index.ts"
+      ],
+      "@llstarscreamll/*": [
+        "libs/*"
+      ],
+      "@llstarscreamll/electron": [
+        "xplat/electron/index.ts"
+      ],
+      "@llstarscreamll/electron/*": [
+        "xplat/electron/*"
+      ],
+      "@llstarscreamll/web": [
+        "xplat/web/index.ts"
+      ],
+      "@llstarscreamll/web/*": [
+        "xplat/web/*"
       ]
     }
   },
