@@ -12,7 +12,7 @@ import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 export class SidebarLayoutComponent implements OnInit {
 
   public isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
+    .observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(map(result => result.matches));
 
   public authenticated$: Observable<boolean>;
