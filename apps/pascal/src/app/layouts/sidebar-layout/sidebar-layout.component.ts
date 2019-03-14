@@ -17,6 +17,11 @@ export class SidebarLayoutComponent implements OnInit {
 
   public authenticated$: Observable<boolean>;
 
+  public menuItems = [
+    { icon: 'home', link: ['/welcome'], label: 'Home' },
+    { icon: 'settings', link: ['/weight-prototype'], label: 'Pesaje' },
+  ];
+
   public constructor(
     private breakpointObserver: BreakpointObserver,
     private authFacade: AuthFacade,

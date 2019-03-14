@@ -7,8 +7,8 @@
                [opened]="!(isHandset$ | async) && (authenticated$ | async)">
     <mat-toolbar>Pascal</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['/welcome']">
-        <mat-icon>home</mat-icon> Home
+      <a *ngFor="let menuItem of menuItems" mat-list-item [routerLink]="menuItem.link">
+        <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
       </a>
     </mat-nav-list>
   </mat-sidenav>
