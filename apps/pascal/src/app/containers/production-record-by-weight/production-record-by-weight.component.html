@@ -1,0 +1,62 @@
+<form [formGroup]="form" autocomplete="off">
+
+  <ng-container *ngIf="!isElectron">
+    <mat-form-field class="pr-2 w-50">
+      <input matInput type="number" placeholder="Peso bruto">
+    </mat-form-field>
+
+    <mat-form-field class="pl-2 w-50">
+      <input matInput type="number" placeholder="Peso neto">
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngIf="isElectron">
+    <div class="text-center"><strong>Datos obtenidos de hardware</strong></div>
+
+    <mat-form-field class="pr-2 w-50">
+      <input formControlName="gross_weight" matInput type="number" placeholder="Peso bruto"
+             (focus)="onGrossWeightFocus()">
+    </mat-form-field>
+
+    <mat-form-field class="pl-2 w-50">
+      <input formControlName="net_weight" matInput type="number" placeholder="Peso neto">
+    </mat-form-field>
+
+    <div class="clearfix"></div>
+  </ng-container>
+
+  <mat-form-field class="pr-2 w-50">
+    <input matInput placeholder="Operario" [value]="(authUser$ | async)?.name" disabled>
+  </mat-form-field>
+
+  <mat-form-field class="pl-2 w-50">
+    <input matInput placeholder="Fecha de fabricación" [value]="now | date">
+  </mat-form-field>
+
+  <mat-form-field class="pr-2 w-50">
+    <mat-select placeholder="Producto">
+      <mat-option *ngFor="let product of products" [value]="product.id">
+        {{ product.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="pl-2 w-50">
+    <mat-select placeholder="Cliente">
+      <mat-option *ngFor="let customer of customers" [value]="customer.id">
+        {{ customer.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field class="pr-2 w-50">
+    <input matInput placeholder="Lote">
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <button mat-raised-button color="primary" class="mr-2">Guardar</button>
+  <button mat-raised-button color="primary" class="ml-2">Guardar e Imprimir</button>
+
+</form>

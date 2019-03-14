@@ -19,7 +19,7 @@ export class SidebarLayoutComponent implements OnInit {
 
   public menuItems = [
     { icon: 'home', link: ['/welcome'], label: 'Home' },
-    { icon: 'settings', link: ['/weight-prototype'], label: 'Pesaje' },
+    { icon: 'settings', link: ['/production-record-by-weight'], label: 'Pesaje' },
   ];
 
   public constructor(

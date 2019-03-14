@@ -6,7 +6,7 @@ import { RouterModule, Route } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatListModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatListModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
@@ -21,12 +21,14 @@ import { WelcomePageComponent } from './containers/welcome-page/welcome-page.com
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { LlstarscreamllCoreModule } from '@llstarscreamll/web';
+import { ProductionRecordByWeightComponent } from './containers/production-record-by-weight/production-record-by-weight.component';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
   { path: 'login', component: SignInPageComponent },
   { path: 'sign-up', component: SignUpPageComponent },
   { path: 'welcome', component: WelcomePageComponent },
+  { path: 'production-record-by-weight', component: ProductionRecordByWeightComponent },
 ];
 
 @NgModule({
@@ -39,6 +41,7 @@ export const routes: Route[] = [
     WelcomePageComponent,
     SignUpPageComponent,
     SidebarLayoutComponent,
+    ProductionRecordByWeightComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ export const routes: Route[] = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: 'environment', useValue: environment }
