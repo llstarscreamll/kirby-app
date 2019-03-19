@@ -4,7 +4,7 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
-               [opened]="!(isHandset$ | async) && (authenticated$ | async)">
+               [opened]="!(isHandset$ | async) && (authenticated$ | async)" class="d-print-none">
     <mat-toolbar>Pascal</mat-toolbar>
     <mat-nav-list>
       <a *ngFor="let menuItem of menuItems" mat-list-item [routerLink]="menuItem.link">
@@ -17,7 +17,7 @@
   <mat-sidenav-content>
 
     <!-- top bar -->
-    <mat-toolbar class="main-top-bar">
+    <mat-toolbar class="main-top-bar d-print-none">
 
       <!-- Links if unauthenticated -->
       <ng-container *ngIf="!(authenticated$ | async)">

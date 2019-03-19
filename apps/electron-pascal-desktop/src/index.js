@@ -10,6 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
 var path = __importStar(require("path"));
 var url = __importStar(require("url"));
+var fs = __importStar(require("fs"));
+var os = __importStar(require("os"));
+var homeDir = os.homedir();
 var serve;
 var args = process.argv.slice(1);
 serve = args.some(function (val) { return val === '--serve'; });
@@ -40,8 +43,27 @@ function initMainListener() {
     electron_1.ipcMain.on('ELECTRON_BRIDGE_HOST', function (event, msg) {
         console.log('msg received', msg);
         if (msg === 'ping') {
-            event.sender.send('ELECTRON_BRIDGE_CLIENT', 'pong');
+            event.sender.send('ELECTRON_BRIDGE_CLIENT', 'bar');
         }
+    });
+    electron_1.ipcMain.on('print-ticket', function (event, pdfSettings) {
+        win.webContents.printToPDF(pdfSettings, function (error, data) {
+            if (error) {
+                event.sender.send('error-printing-file', error);
+                return;
+            }
+            var fileDir = homeDir + "/Documents/pascal/";
+            var fileName = "print_" + new Date().getTime() + ".pdf";
+            if (!fs.existsSync(fileDir)) {
+                fs.mkdirSync(fileDir);
+            }
+            fs.writeFile(fileDir + fileName, data, function (error) {
+                if (error) {
+                    event.sender.send('error-printing-file', error);
+                }
+                event.sender.send('success-printing-file', data);
+            });
+        });
     });
 }
 /**

@@ -31,6 +31,7 @@ export class SerialPortService {
 
   public portsList() {
     let portsFound = [];
+
     this.serialPort.list((error, ports) => {
       if (error) {
         console.error(error.message);
@@ -41,7 +42,7 @@ export class SerialPortService {
         console.warn('No ports discovered');
       }
 
-      portsFound = ports.filter(port => port.productId != undefined && port.vendorId != undefined);
+      portsFound = ports;
     });
 
     return portsFound;

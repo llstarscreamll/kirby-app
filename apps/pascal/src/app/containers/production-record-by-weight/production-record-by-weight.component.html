@@ -1,12 +1,51 @@
-<form [formGroup]="form" autocomplete="off">
+<div class="d-print-block">
+  <div class="text-center">
+    <img style="height: 60px; margin-bottom: 10px;" src="https://www.caballo.com.co/img/0133/428.png">
+  </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td colspan="2">Producto: {{ selectedProduct?.name }}</td>
+      </tr>
+      <tr>
+        <td>Calibre (BWG): {{ selectedProduct?.c }}</td>
+        <td>Peso (kg): {{ netWeight }}</td>
+      </tr>
+      <tr>
+        <td>Diámetro: {{ selectedProduct?.d }}</td>
+        <td>Peso bruto (kg): {{ grossWeight }}</td>
+      </tr>
+      <tr>
+        <td>Fecha fab.: {{ manufacturingDate }}</td>
+        <td>Turno: Turno 1</td>
+      </tr>
+      <tr>
+        <td>Lote: {{ batch }}</td>
+        <td>Cliente: {{ selectedCustomer?.name }}</td>
+      </tr>
+      <tr>
+        <td>Cod. operario: {{ (authUser$ | async)?.id }}</td>
+        <td>Cod. máquina: Test machine</td>
+      </tr>
+      <tr>
+        <td colspan="2">Controla calidad: </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center"><svg class="barcode"></svg></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<form [formGroup]="form" autocomplete="off" class="d-print-none">
 
   <ng-container *ngIf="!isElectron">
     <mat-form-field class="pr-2 w-50">
-      <input matInput type="number" placeholder="Peso bruto">
+      <input formControlName="gross_weight" matInput type="number" placeholder="Peso bruto">
     </mat-form-field>
 
     <mat-form-field class="pl-2 w-50">
-      <input matInput type="number" placeholder="Peso neto">
+      <input formControlName="net_weight" matInput type="number" placeholder="Peso neto">
     </mat-form-field>
   </ng-container>
 
@@ -26,24 +65,24 @@
   </ng-container>
 
   <mat-form-field class="pr-2 w-50">
-    <input matInput placeholder="Operario" [value]="(authUser$ | async)?.name" disabled>
+    <input formControlName="operator" matInput placeholder="Operario" [value]="(authUser$ | async)?.name" disabled>
   </mat-form-field>
 
   <mat-form-field class="pl-2 w-50">
-    <input matInput placeholder="Fecha de fabricación" [value]="now | date">
+    <input formControlName="manufacturing_date" matInput placeholder="Fecha de fabricación" [value]="now | date">
   </mat-form-field>
 
   <mat-form-field class="pr-2 w-50">
-    <mat-select placeholder="Producto">
-      <mat-option *ngFor="let product of products" [value]="product.id">
+    <mat-select formControlName="product" placeholder="Producto">
+      <mat-option *ngFor="let product of products" [value]="product">
         {{ product.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="pl-2 w-50">
-    <mat-select placeholder="Cliente">
-      <mat-option *ngFor="let customer of customers" [value]="customer.id">
+    <mat-select formControlName="customer" placeholder="Cliente">
+      <mat-option *ngFor="let customer of customers" [value]="customer">
         {{ customer.name }}
       </mat-option>
     </mat-select>
@@ -51,12 +90,16 @@
 
 
   <mat-form-field class="pr-2 w-50">
-    <input matInput placeholder="Lote">
+    <input formControlName="batch" matInput placeholder="Lote">
   </mat-form-field>
 
-  <div class="clearfix"></div>
+  <div class="text-center">
+    <svg class="barcode"></svg>
 
-  <button mat-raised-button color="primary" class="mr-2">Guardar</button>
-  <button mat-raised-button color="primary" class="ml-2">Guardar e Imprimir</button>
+    <div class="clearfix mt-4"></div>
+
+    <button mat-raised-button color="primary" class="mr-2">Guardar</button>
+    <button mat-raised-button color="primary" class="ml-2" (click)="print()">Guardar e Imprimir</button>
+  </div>
 
 </form>

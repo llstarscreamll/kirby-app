@@ -1,7 +1,10 @@
 import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as fs from 'fs';
+import * as os from 'os';
 
+const homeDir = os.homedir();
 let serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -13,7 +16,7 @@ const isEnvSet = 'ELECTRON_IS_DEV' in process.env;
 const debugMode = isEnvSet
   ? getFromEnv
   : process.defaultApp ||
-    /node_modules[\\/]electron[\\/]/.test(process.execPath);
+  /node_modules[\\/]electron[\\/]/.test(process.execPath);
 
 /**
  * Electron window settings
@@ -36,8 +39,34 @@ function initMainListener() {
   ipcMain.on('ELECTRON_BRIDGE_HOST', (event, msg) => {
     console.log('msg received', msg);
     if (msg === 'ping') {
-      event.sender.send('ELECTRON_BRIDGE_CLIENT', 'pong');
+      event.sender.send('ELECTRON_BRIDGE_CLIENT', 'bar');
     }
+  });
+
+  ipcMain.on('print-ticket', (event, pdfSettings) => {
+
+    win.webContents.printToPDF(pdfSettings, (error, data) => {
+      if (error) {
+        event.sender.send('error-printing-file', error);
+        return;
+      }
+
+      const fileDir = `${homeDir}/Documents/pascal/`;
+      const fileName = `print_${new Date().getTime()}.pdf`;
+
+      if (!fs.existsSync(fileDir)) {
+        fs.mkdirSync(fileDir);
+      }
+
+      fs.writeFile(fileDir + fileName, data, (error) => {
+        if (error) {
+          event.sender.send('error-printing-file', error);
+        }
+
+        event.sender.send('success-printing-file', data);
+      })
+    });
+
   });
 }
 
@@ -111,4 +140,4 @@ try {
       createWindow();
     }
   });
-} catch (err) {}
+} catch (err) { }
