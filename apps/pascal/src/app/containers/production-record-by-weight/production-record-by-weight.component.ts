@@ -3,15 +3,15 @@ import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { isElectron } from '@llstarscreamll/utils';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit, Optional, OnChanges } from '@angular/core';
+import { Component, OnInit, Optional, OnChanges, ViewEncapsulation } from '@angular/core';
 import { SerialPortService, ElectronService } from '@llstarscreamll/electron';
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { EventEmitter } from 'electron';
 
 @Component({
   selector: 'pascal-production-record-by-weight',
   templateUrl: './production-record-by-weight.component.html',
-  styleUrls: ['./production-record-by-weight.component.css']
+  styleUrls: ['./production-record-by-weight.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductionRecordByWeightComponent implements OnInit, OnChanges {
 
@@ -102,7 +102,7 @@ export class ProductionRecordByWeightComponent implements OnInit, OnChanges {
   }
 
   public buildJsBarCode() {
-    JsBarCode(".barcode", this.generateBarCode(), { lineColor: "rgba(0,0,0,0.8)", background: 'transparent', height: 70 });
+    JsBarCode(".barcode", this.generateBarCode(), { lineColor: "rgba(0,0,0,0.8)", background: 'transparent', height: 30 });
   }
 
   public generateBarCode(): string {
@@ -116,7 +116,7 @@ export class ProductionRecordByWeightComponent implements OnInit, OnChanges {
   public print() {
     this.electronService.send('print-ticket', {
       marginsType: 1,
-      pageSize: { height: 6 * 264.58, width: 2 * 264.58 }, // microns
+      pageSize: { height: 100000, width: 100000 }, // microns
       printBackground: false,
       printSelectionOnly: false,
       landscape: false

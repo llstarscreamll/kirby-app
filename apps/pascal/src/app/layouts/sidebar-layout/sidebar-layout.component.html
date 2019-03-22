@@ -3,7 +3,7 @@
   <!-- side navigation -->
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [mode]="(isHandset$ | async) || mediaQueryList.matches ? 'over' : 'side'"
                [opened]="!(isHandset$ | async) && (authenticated$ | async)" class="d-print-none">
     <mat-toolbar>Pascal</mat-toolbar>
     <mat-nav-list>

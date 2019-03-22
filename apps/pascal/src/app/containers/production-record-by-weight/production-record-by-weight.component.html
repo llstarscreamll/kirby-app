@@ -1,40 +1,42 @@
-<div class="d-print-block">
+<div class="d-none d-print-block production-ticket">
   <div class="text-center">
-    <img style="height: 60px; margin-bottom: 10px;" src="https://www.caballo.com.co/img/0133/428.png">
+    <img class="company-logo" src="https://www.caballo.com.co/img/0133/428.png">
   </div>
-  <table class="table">
-    <tbody>
-      <tr>
-        <td colspan="2">Producto: {{ selectedProduct?.name }}</td>
-      </tr>
-      <tr>
-        <td>Calibre (BWG): {{ selectedProduct?.c }}</td>
-        <td>Peso (kg): {{ netWeight }}</td>
-      </tr>
-      <tr>
-        <td>Diámetro: {{ selectedProduct?.d }}</td>
-        <td>Peso bruto (kg): {{ grossWeight }}</td>
-      </tr>
-      <tr>
-        <td>Fecha fab.: {{ manufacturingDate }}</td>
-        <td>Turno: Turno 1</td>
-      </tr>
-      <tr>
-        <td>Lote: {{ batch }}</td>
-        <td>Cliente: {{ selectedCustomer?.name }}</td>
-      </tr>
-      <tr>
-        <td>Cod. operario: {{ (authUser$ | async)?.id }}</td>
-        <td>Cod. máquina: Test machine</td>
-      </tr>
-      <tr>
-        <td colspan="2">Controla calidad: </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="text-center"><svg class="barcode"></svg></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table responsive">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td colspan="2">Producto: {{ selectedProduct?.name }}</td>
+        </tr>
+        <tr>
+          <td>Calibre (BWG): {{ selectedProduct?.c }}</td>
+          <td>Peso (kg): {{ netWeight }}</td>
+        </tr>
+        <tr>
+          <td>Diámetro: {{ selectedProduct?.d }}</td>
+          <td>Peso bruto (kg): {{ grossWeight }}</td>
+        </tr>
+        <tr>
+          <td>Fecha fab.: {{ manufacturingDate }}</td>
+          <td>Turno: Turno 1</td>
+        </tr>
+        <tr>
+          <td>Lote: {{ batch }}</td>
+          <td>Cliente: {{ selectedCustomer?.name }}</td>
+        </tr>
+        <tr>
+          <td>Cod. operario: {{ (authUser$ | async)?.id }}</td>
+          <td>Cod. máquina: Test machine</td>
+        </tr>
+        <tr>
+          <td colspan="2">Controla calidad: </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center"><svg class="barcode"></svg></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <form [formGroup]="form" autocomplete="off" class="d-print-none">

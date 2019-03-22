@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
@@ -22,13 +22,21 @@ export class SidebarLayoutComponent implements OnInit {
     { icon: 'settings', link: ['/production-record-by-weight'], label: 'Pesaje' },
   ];
 
+  public mediaQueryList: MediaQueryList;
+
   public constructor(
-    private breakpointObserver: BreakpointObserver,
     private authFacade: AuthFacade,
+    private mediaMatcher: MediaMatcher,
+    private breakpointObserver: BreakpointObserver,
   ) { }
+
+  public get isPrint(): boolean {
+    return this.mediaQueryList.matches;
+  }
 
   public ngOnInit(): void {
     this.authenticated$ = this.authFacade.isLoggedIn$;
+    this.mediaQueryList = this.mediaMatcher.matchMedia('print');
   }
 
   public logout() {
