@@ -49,6 +49,12 @@
     },
     "electron-pascal-desktop": {
       "tags": []
+    },
+    "work-shifts-util": {
+      "tags": [
+        "scope:shared",
+        "type:util"
+      ]
     }
   }
 }

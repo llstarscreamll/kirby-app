@@ -44,6 +44,9 @@
       ],
       "@llstarscreamll/web/*": [
         "xplat/web/*"
+      ],
+      "@llstarscreamll/work-shifts/util": [
+        "libs/work-shifts/util/src/index.ts"
       ]
     }
   },

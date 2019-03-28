@@ -390,6 +390,38 @@
           }
         }
       }
+    },
+    "work-shifts-util": {
+      "root": "libs/work-shifts/util",
+      "sourceRoot": "libs/work-shifts/util/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/work-shifts/util/tsconfig.lib.json",
+              "libs/work-shifts/util/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/work-shifts/util/jest.config.js",
+            "tsConfig": "libs/work-shifts/util/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
