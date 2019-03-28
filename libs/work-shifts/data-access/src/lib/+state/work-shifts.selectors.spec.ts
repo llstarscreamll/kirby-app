@@ -1,45 +1,52 @@
-import { Entity, WorkShiftsState } from './work-shifts.reducer';
+import { createWorkShifts } from '../mocks';
 import { workShiftsQuery } from './work-shifts.selectors';
+import { WorkShiftsPartialState } from './work-shifts.reducer';
+import { ApiError } from '@llstarscreamll/shared';
 
 describe('WorkShifts Selectors', () => {
-  const ERROR_MSG = 'No Error Available';
+  const ERROR_MSG: ApiError = {
+    ok: false,
+    message: 'Resource not found',
+    error: {
+      message: 'Resource not found',
+      error: 'not_found',
+    }
+  };
   const getWorkShiftsId = it => it['id'];
 
-  let storeState;
+  let storeState: WorkShiftsPartialState;
 
   beforeEach(() => {
-    const createWorkShifts = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
     storeState = {
       workShifts: {
-        list: [
-          createWorkShifts('PRODUCT-AAA'),
-          createWorkShifts('PRODUCT-BBB'),
-          createWorkShifts('PRODUCT-CCC')
-        ],
-        selectedId: 'PRODUCT-BBB',
+        paginatedList: {
+          data: [
+            createWorkShifts('AAA'),
+            createWorkShifts('BBB'),
+            createWorkShifts('CCC')
+          ], meta: {}
+        },
+        selectedId: 'BBB',
         error: ERROR_MSG,
-        loaded: true
+        paginatedListLoaded: true
       }
     };
   });
 
   describe('WorkShifts Selectors', () => {
-    it('getAllWorkShifts() should return the list of WorkShifts', () => {
-      const results = workShiftsQuery.getAllWorkShifts(storeState);
-      const selId = getWorkShiftsId(results[1]);
+    it('getPaginatedWorkShifts() should return the list of WorkShifts', () => {
+      const results = workShiftsQuery.getPaginatedWorkShifts(storeState);
+      const selId = getWorkShiftsId(results.data[1]);
 
-      expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(results.data.length).toBe(3);
+      expect(selId).toBe('BBB');
     });
 
     it('getSelectedWorkShifts() should return the selected Entity', () => {
-      const result = workShiftsQuery.getSelectedWorkShifts(storeState);
+      const result = workShiftsQuery.getSelectedWorkShift(storeState);
       const selId = getWorkShiftsId(result);
 
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(selId).toBe('BBB');
     });
 
     it("getLoaded() should return the current 'loaded' status", () => {

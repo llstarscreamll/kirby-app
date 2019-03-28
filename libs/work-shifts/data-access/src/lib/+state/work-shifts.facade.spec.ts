@@ -1,23 +1,17 @@
-import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { readFirst } from '@nrwl/nx/testing';
-
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
-
 import { NxModule } from '@nrwl/nx';
+import { NgModule } from '@angular/core';
+import { readFirst } from '@nrwl/nx/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { TestBed } from '@angular/core/testing';
+import { StoreModule, Store } from '@ngrx/store';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { WorkShiftsEffects } from './work-shifts.effects';
+import { createWorkShifts } from '../mocks';
 import { WorkShiftsFacade } from './work-shifts.facade';
-
-import { workShiftsQuery } from './work-shifts.selectors';
-import { LoadWorkShifts, WorkShiftsLoaded } from './work-shifts.actions';
-import {
-  WorkShiftsState,
-  Entity,
-  initialState,
-  workShiftsReducer
-} from './work-shifts.reducer';
+import { WorkShiftsLoaded } from './work-shifts.actions';
+import { WorkShiftService } from '../work-shift.service';
+import { WorkShiftsEffects } from './work-shifts.effects';
+import { WorkShiftsState, initialState, workShiftsReducer, WORK_SHIFTS_FEATURE_KEY } from './work-shifts.reducer';
 
 interface TestSchema {
   workShifts: WorkShiftsState;
@@ -25,61 +19,61 @@ interface TestSchema {
 
 describe('WorkShiftsFacade', () => {
   let facade: WorkShiftsFacade;
+  let workShiftService: WorkShiftService;
   let store: Store<TestSchema>;
-  let createWorkShifts;
 
   beforeEach(() => {
-    createWorkShifts = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
+
   });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature('workShifts', workShiftsReducer, {
-            initialState
-          }),
+          StoreModule.forFeature(WORK_SHIFTS_FEATURE_KEY, workShiftsReducer, { initialState }),
           EffectsModule.forFeature([WorkShiftsEffects])
         ],
-        providers: [WorkShiftsFacade]
+        providers: [WorkShiftsFacade, WorkShiftService]
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
           NxModule.forRoot(),
           StoreModule.forRoot({}),
           EffectsModule.forRoot([]),
-          CustomFeatureModule
+          CustomFeatureModule,
+          HttpClientTestingModule,
+        ],
+        providers: [
+          { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
         ]
       })
-      class RootModule {}
+      class RootModule { }
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.get(Store);
       facade = TestBed.get(WorkShiftsFacade);
+      workShiftService = TestBed.get(WorkShiftService);
     });
 
     /**
-     * The initially generated facade::loadAll() returns empty array
+     * The initially generated facade::paginate() returns empty array
      */
-    it('loadAll() should return empty list with loaded == true', async done => {
+    it('paginate() should return empty list with loaded == true', async done => {
       try {
-        let list = await readFirst(facade.allWorkShifts$);
+        let paginatedList = await readFirst(facade.paginatedWorkShifts$);
         let isLoaded = await readFirst(facade.loaded$);
 
-        expect(list.length).toBe(0);
+        expect(paginatedList.data.length).toBe(0);
         expect(isLoaded).toBe(false);
 
-        facade.loadAll();
+        facade.paginate();
 
-        list = await readFirst(facade.allWorkShifts$);
+        paginatedList = await readFirst(facade.paginatedWorkShifts$);
         isLoaded = await readFirst(facade.loaded$);
 
-        expect(list.length).toBe(0);
+        expect(paginatedList.data.length).toBe(0);
         expect(isLoaded).toBe(true);
 
         done();
@@ -91,25 +85,28 @@ describe('WorkShiftsFacade', () => {
     /**
      * Use `WorkShiftsLoaded` to manually submit list for state management
      */
-    it('allWorkShifts$ should return the loaded list; and loaded flag == true', async done => {
+    it('paginatedWorkShifts$ should return the loaded list; and loaded flag == true', async done => {
       try {
-        let list = await readFirst(facade.allWorkShifts$);
+        let list = await readFirst(facade.paginatedWorkShifts$);
         let isLoaded = await readFirst(facade.loaded$);
 
-        expect(list.length).toBe(0);
+        expect(list.data.length).toBe(0);
         expect(isLoaded).toBe(false);
 
         store.dispatch(
-          new WorkShiftsLoaded([
-            createWorkShifts('AAA'),
-            createWorkShifts('BBB')
-          ])
+          new WorkShiftsLoaded({
+            data: [
+              createWorkShifts('1'),
+              createWorkShifts('2')
+            ],
+            meta: {}
+          })
         );
 
-        list = await readFirst(facade.allWorkShifts$);
+        list = await readFirst(facade.paginatedWorkShifts$);
         isLoaded = await readFirst(facade.loaded$);
 
-        expect(list.length).toBe(2);
+        expect(list.data.length).toBe(2);
         expect(isLoaded).toBe(true);
 
         done();

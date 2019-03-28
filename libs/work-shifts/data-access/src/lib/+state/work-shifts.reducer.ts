@@ -1,23 +1,14 @@
+import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
+import { Pagination, emptyPagination, ApiError } from '@llstarscreamll/shared';
 import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
 
-/**
- * Interface for the 'WorkShifts' data used in
- *  - WorkShiftsState, and
- *  - workShiftsReducer
- *
- *  Note: replace if already defined in another module
- */
-
-/* tslint:disable:no-empty-interface */
-export interface Entity { }
-
 export interface WorkShiftsState {
-  list: Entity[]; // list of WorkShifts; analogous to a sql normalized table
-  selectedId?: string | number; // which WorkShifts record has been selected
-  loaded: boolean; // has the WorkShifts list been loaded
-  error?: any; // last none error (if any)
+  paginatedList: Pagination<WorkShiftInterface>; // paginated list of WorkShifts; analogous to a sql normalized table
+  selectedId?: string; // which WorkShift record has been selected
+  paginatedListLoaded: boolean; // has the WorkShifts paginated list been loaded
+  error?: ApiError; // last error (if any)
 }
 
 export interface WorkShiftsPartialState {
@@ -25,20 +16,17 @@ export interface WorkShiftsPartialState {
 }
 
 export const initialState: WorkShiftsState = {
-  list: [],
-  loaded: false
+  paginatedList: emptyPagination(),
+  paginatedListLoaded: false
 };
 
-export function workShiftsReducer(
-  state: WorkShiftsState = initialState,
-  action: WorkShiftsAction
-): WorkShiftsState {
+export function workShiftsReducer(state: WorkShiftsState = initialState, action: WorkShiftsAction): WorkShiftsState {
   switch (action.type) {
     case WorkShiftsActionTypes.WorkShiftsLoaded: {
       state = {
         ...state,
-        list: action.payload,
-        loaded: true
+        paginatedList: action.payload,
+        paginatedListLoaded: true
       };
       break;
     }

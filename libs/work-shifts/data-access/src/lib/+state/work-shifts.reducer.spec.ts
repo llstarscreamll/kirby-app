@@ -1,35 +1,25 @@
+import { createWorkShifts } from '../mocks';
 import { WorkShiftsLoaded } from './work-shifts.actions';
-import {
-  WorkShiftsState,
-  Entity,
-  initialState,
-  workShiftsReducer
-} from './work-shifts.reducer';
+import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
 
 describe('WorkShifts Reducer', () => {
   const getWorkShiftsId = it => it['id'];
-  let createWorkShifts;
 
-  beforeEach(() => {
-    createWorkShifts = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
-  });
+  beforeEach(() => { });
 
   describe('valid WorkShifts actions ', () => {
     it('should return set the list of known WorkShifts', () => {
-      const workShiftss = [
-        createWorkShifts('PRODUCT-AAA'),
-        createWorkShifts('PRODUCT-zzz')
+      const workShifts = [
+        createWorkShifts('1'),
+        createWorkShifts('2')
       ];
-      const action = new WorkShiftsLoaded(workShiftss);
+      const action = new WorkShiftsLoaded({ data: workShifts, meta: {} });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
-      const selId: string = getWorkShiftsId(result.list[1]);
+      const selId: string = getWorkShiftsId(result.paginatedList.data[1]);
 
-      expect(result.loaded).toBe(true);
-      expect(result.list.length).toBe(2);
-      expect(selId).toBe('PRODUCT-zzz');
+      expect(result.paginatedListLoaded).toBe(true);
+      expect(result.paginatedList.data.length).toBe(2);
+      expect(selId).toBe('2');
     });
   });
 

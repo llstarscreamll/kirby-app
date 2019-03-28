@@ -1,26 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
+import { Effect, Actions } from '@ngrx/effects';
 
+import { emptyPagination } from '@llstarscreamll/shared';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import {
-  LoadWorkShifts,
-  WorkShiftsLoaded,
-  WorkShiftsLoadError,
-  WorkShiftsActionTypes
-} from './work-shifts.actions';
+import { PaginateWorkShifts, WorkShiftsLoaded, WorkShiftsLoadError, WorkShiftsActionTypes } from './work-shifts.actions';
 
 @Injectable()
 export class WorkShiftsEffects {
   @Effect() loadWorkShifts$ = this.dataPersistence.fetch(
     WorkShiftsActionTypes.LoadWorkShifts,
     {
-      run: (action: LoadWorkShifts, state: WorkShiftsPartialState) => {
+      run: (action: PaginateWorkShifts, state: WorkShiftsPartialState) => {
         // Your custom REST 'load' logic goes here. For now just return an empty list...
-        return new WorkShiftsLoaded([]);
+        return new WorkShiftsLoaded(emptyPagination());
       },
 
-      onError: (action: LoadWorkShifts, error) => {
+      onError: (action: PaginateWorkShifts, error) => {
         console.error('Error', error);
         return new WorkShiftsLoadError(error);
       }
@@ -30,5 +26,5 @@ export class WorkShiftsEffects {
   constructor(
     private actions$: Actions,
     private dataPersistence: DataPersistence<WorkShiftsPartialState>
-  ) {}
+  ) { }
 }

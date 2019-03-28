@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Entity } from './work-shifts.reducer';
+import { Pagination } from '@llstarscreamll/shared';
+import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
 
 export enum WorkShiftsActionTypes {
   LoadWorkShifts = '[WorkShifts] Load WorkShifts',
@@ -7,27 +8,27 @@ export enum WorkShiftsActionTypes {
   WorkShiftsLoadError = '[WorkShifts] WorkShifts Load Error'
 }
 
-export class LoadWorkShifts implements Action {
+export class PaginateWorkShifts implements Action {
   readonly type = WorkShiftsActionTypes.LoadWorkShifts;
 }
 
 export class WorkShiftsLoadError implements Action {
   readonly type = WorkShiftsActionTypes.WorkShiftsLoadError;
-  constructor(public payload: any) {}
+  constructor(public payload: any) { }
 }
 
 export class WorkShiftsLoaded implements Action {
   readonly type = WorkShiftsActionTypes.WorkShiftsLoaded;
-  constructor(public payload: Entity[]) {}
+  constructor(public payload: Pagination<WorkShiftInterface>) { }
 }
 
 export type WorkShiftsAction =
-  | LoadWorkShifts
+  | PaginateWorkShifts
   | WorkShiftsLoaded
   | WorkShiftsLoadError;
 
 export const fromWorkShiftsActions = {
-  LoadWorkShifts,
+  PaginateWorkShifts,
   WorkShiftsLoaded,
   WorkShiftsLoadError
 };

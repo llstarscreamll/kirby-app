@@ -19,6 +19,7 @@ export class SidebarLayoutComponent implements OnInit {
 
   public menuItems = [
     { icon: 'home', link: ['/welcome'], label: 'Home' },
+    { icon: 'alarm', link: ['/access-control'], label: 'Control de acceso' },
     { icon: 'settings', link: ['/production-record-by-weight'], label: 'Pesaje' },
   ];
 

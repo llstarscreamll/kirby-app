@@ -4,7 +4,11 @@
 }
 
 .sidenav {
-  width: 180px;
+  width: auto;
+
+  mat-icon {
+    margin-right: 7px;
+  }
 }
 
 .sidenav .mat-toolbar {

@@ -1,17 +1,15 @@
-import { TestBed, async } from '@angular/core/testing';
-
 import { Observable } from 'rxjs';
-
-import { EffectsModule } from '@ngrx/effects';
+import { NxModule } from '@nrwl/nx';
+import { hot } from '@nrwl/nx/testing';
 import { StoreModule } from '@ngrx/store';
+import { DataPersistence } from '@nrwl/nx';
+import { EffectsModule } from '@ngrx/effects';
+import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 
-import { NxModule } from '@nrwl/nx';
-import { DataPersistence } from '@nrwl/nx';
-import { hot } from '@nrwl/nx/testing';
-
+import { emptyPagination } from '@llstarscreamll/shared';
 import { WorkShiftsEffects } from './work-shifts.effects';
-import { LoadWorkShifts, WorkShiftsLoaded } from './work-shifts.actions';
+import { PaginateWorkShifts, WorkShiftsLoaded } from './work-shifts.actions';
 
 describe('WorkShiftsEffects', () => {
   let actions: Observable<any>;
@@ -36,9 +34,9 @@ describe('WorkShiftsEffects', () => {
 
   describe('loadWorkShifts$', () => {
     it('should work', () => {
-      actions = hot('-a-|', { a: new LoadWorkShifts() });
+      actions = hot('-a-|', { a: new PaginateWorkShifts() });
       expect(effects.loadWorkShifts$).toBeObservable(
-        hot('-a-|', { a: new WorkShiftsLoaded([]) })
+        hot('-a-|', { a: new WorkShiftsLoaded(emptyPagination()) })
       );
     });
   });
