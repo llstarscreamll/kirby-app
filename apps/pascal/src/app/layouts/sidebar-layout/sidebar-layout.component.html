@@ -1,11 +1,11 @@
 <mat-sidenav-container class="sidenav-container">
 
   <!-- side navigation -->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+  <mat-sidenav #drawer class="d-print-none sidenav" fixedInViewport="true"
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) || mediaQueryList.matches ? 'over' : 'side'"
-               [opened]="!(isHandset$ | async) && (authenticated$ | async)" class="d-print-none">
-    <mat-toolbar>Pascal</mat-toolbar>
+               [opened]="!(isHandset$ | async) && (authenticated$ | async)">
+    <mat-toolbar class="app-name">Pascal</mat-toolbar>
     <mat-nav-list>
       <a *ngFor="let menuItem of menuItems" mat-list-item [routerLink]="menuItem.link">
         <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
