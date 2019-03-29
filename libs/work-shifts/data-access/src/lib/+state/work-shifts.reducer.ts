@@ -22,7 +22,7 @@ export const initialState: WorkShiftsState = {
 
 export function workShiftsReducer(state: WorkShiftsState = initialState, action: WorkShiftsAction): WorkShiftsState {
   switch (action.type) {
-    case WorkShiftsActionTypes.WorkShiftsLoaded: {
+    case WorkShiftsActionTypes.SearchWorkShiftsOk: {
       state = {
         ...state,
         paginatedList: action.payload,

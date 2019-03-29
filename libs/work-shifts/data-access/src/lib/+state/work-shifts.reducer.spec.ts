@@ -1,5 +1,5 @@
 import { createWorkShifts } from '../mocks';
-import { WorkShiftsLoaded } from './work-shifts.actions';
+import { SearchWorkShiftsOk } from './work-shifts.actions';
 import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
 
 describe('WorkShifts Reducer', () => {
@@ -13,7 +13,7 @@ describe('WorkShifts Reducer', () => {
         createWorkShifts('1'),
         createWorkShifts('2')
       ];
-      const action = new WorkShiftsLoaded({ data: workShifts, meta: {} });
+      const action = new SearchWorkShiftsOk({ data: workShifts, meta: {} });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
       const selId: string = getWorkShiftsId(result.paginatedList.data[1]);
 

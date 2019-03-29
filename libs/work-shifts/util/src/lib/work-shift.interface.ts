@@ -12,3 +12,4 @@ export interface WorkShiftInterface {
   updated_at?: string;
   deleted_at?: string;
 }
+
