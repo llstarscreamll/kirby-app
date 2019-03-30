@@ -1,6 +1,6 @@
 import { createWorkShifts } from '../mocks';
 import { workShiftsQuery } from './work-shifts.selectors';
-import { WorkShiftsPartialState } from './work-shifts.reducer';
+import { WorkShiftsPartialState, LoadStatuses } from './work-shifts.reducer';
 import { ApiError } from '@llstarscreamll/shared';
 
 describe('WorkShifts Selectors', () => {
@@ -26,9 +26,9 @@ describe('WorkShifts Selectors', () => {
             createWorkShifts('CCC')
           ], meta: {}
         },
-        selectedId: 'BBB',
+        selected: createWorkShifts('BBB'),
         error: ERROR_MSG,
-        paginatedListLoaded: true
+        paginatingStatus: LoadStatuses.Completed
       }
     };
   });
@@ -50,9 +50,9 @@ describe('WorkShifts Selectors', () => {
     });
 
     it("getLoaded() should return the current 'loaded' status", () => {
-      const result = workShiftsQuery.getLoaded(storeState);
+      const result = workShiftsQuery.paginatingStatus(storeState);
 
-      expect(result).toBe(true);
+      expect(result).toBe(LoadStatuses.Completed);
     });
 
     it("getError() should return the current 'error' storeState", () => {

@@ -1,6 +1,6 @@
 import { createWorkShifts } from '../mocks';
 import { SearchWorkShiftsOk } from './work-shifts.actions';
-import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
+import { WorkShiftsState, initialState, workShiftsReducer, LoadStatuses } from './work-shifts.reducer';
 
 describe('WorkShifts Reducer', () => {
   const getWorkShiftsId = it => it['id'];
@@ -17,7 +17,7 @@ describe('WorkShifts Reducer', () => {
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
       const selId: string = getWorkShiftsId(result.paginatedList.data[1]);
 
-      expect(result.paginatedListLoaded).toBe(true);
+      expect(result.paginatingStatus).toBe(LoadStatuses.Completed);
       expect(result.paginatedList.data.length).toBe(2);
       expect(selId).toBe('2');
     });

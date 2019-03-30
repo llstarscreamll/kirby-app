@@ -5,19 +5,22 @@ import { WORK_SHIFTS_FEATURE_KEY, WorkShiftsState } from './work-shifts.reducer'
 // Lookup the 'WorkShifts' feature state managed by NgRx
 const getWorkShiftsState = createFeatureSelector<WorkShiftsState>(WORK_SHIFTS_FEATURE_KEY);
 
-const getLoaded = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.paginatedListLoaded);
+const getPaginatedWorkShifts = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.paginatedList);
+const getSelectedWorkShift = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.selected);
+const paginatingStatus = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.paginatingStatus);
+const creatingStatus = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.creatingStatus);
+const selectingStatus = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.selectingStatus);
+const updatingStatus = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.updatingStatus);
+const deletingStatus = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.deletingStatus);
 const getError = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.error);
 
-const getPaginatedWorkShifts = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.paginatedList);
-const getSelectedId = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.selectedId);
-const getSelectedWorkShift = createSelector(getPaginatedWorkShifts, getSelectedId, (workShifts, id) => {
-  const result = workShifts.data.find(it => it['id'] === id);
-  return result ? Object.assign({}, result) : undefined;
-});
-
 export const workShiftsQuery = {
-  getLoaded,
-  getError,
   getPaginatedWorkShifts,
+  paginatingStatus,
+  creatingStatus,
+  selectingStatus,
+  updatingStatus,
+  deletingStatus,
   getSelectedWorkShift,
+  getError,
 };
