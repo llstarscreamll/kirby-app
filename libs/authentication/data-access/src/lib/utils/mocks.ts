@@ -25,10 +25,3 @@ export const INCORRECT_CREDENTIALS_API_ERROR = {
   error: 'invalid_credentials',
 };
 
-export const DATA_INVALID_API_ERROR = {
-  message: "The given data was invalid.",
-  errors: {
-    email: ["The email field is required."],
-    password: ["The password field is required."]
-  }
-};
