@@ -47,25 +47,23 @@ describe('AuthService', () => {
   }));
 
   it('should send DELETE \'/api/v1/auth/logout\' with certain headers on logout()', fakeAsync(() => {
-    authService.logout(authTokens).subscribe();
+    authService.logout().subscribe();
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/logout');
     expect(request.request.method).toEqual('DELETE');
     expect(request.request.headers.get('Accept')).toEqual('application/json');
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
-    expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
     request.flush(['ok']);
   }));
 
   it('should send GET \'/api/v1/auth/user\' with certain headers on getAuthUser()', fakeAsync(() => {
-    authService.getAuthUser(authTokens).subscribe(data => expect(data).toEqual(authUser));
+    authService.getAuthUser().subscribe(data => expect(data).toEqual(authUser));
 
     const request = httpController.expectOne(ENV_MOCK.api + 'api/v1/auth/user');
     expect(request.request.method).toEqual('GET');
     expect(request.request.headers.get('Accept')).toEqual('application/json');
     expect(request.request.headers.get('Content-type')).toEqual('application/json');
-    expect(request.request.headers.get('Authorization')).toEqual('Bearer ' + authTokens.access_token);
 
     request.flush({ data: authUser });
   }));

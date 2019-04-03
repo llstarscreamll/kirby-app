@@ -29,12 +29,12 @@ export class AuthService extends BaseAuthService {
     return this.http.post<AuthTokens>(this.loginEndpoint, credentials, { headers: this.defaultHeaders });
   }
 
-  public logout(authTokens: AuthTokens): Observable<any> {
-    return this.http.delete(this.logoutEndpoint, { headers: this.authHeaders(authTokens) });
+  public logout(): Observable<any> {
+    return this.http.delete(this.logoutEndpoint, { headers: this.defaultHeaders });
   }
 
-  public getAuthUser(tokens: AuthTokens): Observable<any> {
-    return this.http.get<any>(this.authUserEndpoint, { headers: this.authHeaders(tokens) })
+  public getAuthUser(): Observable<any> {
+    return this.http.get<any>(this.authUserEndpoint, { headers: this.defaultHeaders })
       .pipe(map(res => res.data));
   }
 }
