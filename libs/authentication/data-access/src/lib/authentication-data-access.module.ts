@@ -3,12 +3,13 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AuthFacade } from './+state/auth.facade';
-import { SharedModule } from '@llstarscreamll/shared';
 import { AuthEffects } from './+state/auth.effects';
+import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './services/auth.service';
+import { SharedModule } from '@llstarscreamll/shared';
 import { authReducer, initialState, AUTH_FEATURE_KEY } from './+state/auth.reducer';
 
 @NgModule({
@@ -20,6 +21,9 @@ import { authReducer, initialState, AUTH_FEATURE_KEY } from './+state/auth.reduc
     StoreModule.forFeature(AUTH_FEATURE_KEY, authReducer, { initialState: initialState }),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: [AuthFacade, AuthService],
+  providers: [
+    AuthFacade, AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
 })
 export class AuthenticationDataAccessModule { }
