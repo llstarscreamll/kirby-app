@@ -11,16 +11,16 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { SharedModule } from '@llstarscreamll/shared';
-import { AuthStateModule } from '@llstarscreamll/authentication-data-access';
 import { environment } from '../environments/environment';
+import { LlstarscreamllCoreModule } from '@llstarscreamll/web';
+import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.component';
 import { LandingPageComponent } from './containers/landing-page/landing-page.component';
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
-import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
-import { LlstarscreamllCoreModule } from '@llstarscreamll/web';
+import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
 import { ProductionRecordByWeightComponent } from './containers/production-record-by-weight/production-record-by-weight.component';
 
 export const routes: Route[] = [
@@ -51,7 +51,7 @@ export const routes: Route[] = [
     CoreModule,
     LlstarscreamllCoreModule,
     SharedModule,
-    AuthStateModule,
+    AuthenticationDataAccessModule,
 
     BrowserAnimationsModule,
     LayoutModule,

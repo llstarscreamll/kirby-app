@@ -22,4 +22,4 @@ import { authReducer, initialState, AUTH_FEATURE_KEY } from './+state/auth.reduc
   ],
   providers: [AuthFacade, AuthService],
 })
-export class AuthStateModule { }
+export class AuthenticationDataAccessModule { }
