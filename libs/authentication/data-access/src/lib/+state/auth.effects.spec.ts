@@ -113,7 +113,7 @@ describe('AuthEffects', () => {
       const completion = new LogoutSuccess;
 
       expectedAction$ = cold('-a', { a: action });
-      const expected = cold('-e', { e: completion });
+      const expected = cold('--e', { e: completion });
 
       expect(effects.logout$).toBeObservable(expected);
     });
@@ -126,7 +126,7 @@ describe('AuthEffects', () => {
       const completion = new LogoutSuccess;
 
       expectedAction$ = cold('-a', { a: action });
-      const expected = cold('-e', { e: completion });
+      const expected = cold('--e', { e: completion });
 
       expect(effects.logout$).toBeObservable(expected);
     });

@@ -52,8 +52,7 @@ export class AuthEffects {
     ofType(AuthActionTypes.LoginSuccess),
     tap((action: LoginSuccess) => this.localStorage.setItem(AUTH_FEATURE_KEY, { tokens: action.payload })),
     switchMap((action: LoginSuccess) => this.authService
-      .getAuthUser(action.payload)
-      .pipe(
+      .getAuthUser().pipe(
         map(user => new GetAuthUserSuccess(user)),
         tap(user => this.router.navigate(['/welcome'])),
       ))
@@ -74,8 +73,7 @@ export class AuthEffects {
   public logout$ = this.dataPersistence
     .optimisticUpdate(AuthActionTypes.Logout, {
       run: (action: Logout, state: AuthPartialState) => {
-        return this.authService.logout(state[AUTH_FEATURE_KEY].tokens)
-          .pipe(map(() => new LogoutSuccess));
+        return this.authService.logout().pipe(map(() => new LogoutSuccess));
       },
       undoAction: (action: Logout, state: AuthPartialState) => {
         return new LogoutSuccess;
@@ -93,10 +91,7 @@ export class AuthEffects {
   public checkIfAuthenticated$ = this.dataPersistence
     .optimisticUpdate(AuthActionTypes.CheckIfAuthenticated, {
       run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
-        const tokens = state[AUTH_FEATURE_KEY].tokens;
-        return tokens
-          ? this.authService.getAuthUser(tokens).pipe(map(user => new GetAuthUserSuccess(user)))
-          : null;
+        return this.authService.getAuthUser().pipe(map(user => new GetAuthUserSuccess(user)));
       },
       undoAction: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
         return null;
