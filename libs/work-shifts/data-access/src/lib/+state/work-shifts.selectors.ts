@@ -2,9 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { WORK_SHIFTS_FEATURE_KEY, WorkShiftsState } from './work-shifts.reducer';
 
-// Lookup the 'WorkShifts' feature state managed by NgRx
 const getWorkShiftsState = createFeatureSelector<WorkShiftsState>(WORK_SHIFTS_FEATURE_KEY);
-
 const getPaginatedWorkShifts = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.paginatedList);
 const getSelectedWorkShift = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.selected);
 const paginatingStatus = createSelector(getWorkShiftsState, (state: WorkShiftsState) => state.paginatingStatus);

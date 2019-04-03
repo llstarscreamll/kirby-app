@@ -1,7 +1,7 @@
 import { createWorkShifts } from '../mocks';
+import { ApiError } from '@llstarscreamll/shared';
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState, LoadStatuses } from './work-shifts.reducer';
-import { ApiError } from '@llstarscreamll/shared';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {
@@ -26,31 +26,56 @@ describe('WorkShifts Selectors', () => {
             createWorkShifts('CCC')
           ], meta: {}
         },
-        selected: createWorkShifts('BBB'),
+        selected: createWorkShifts('DDD'),
+        paginatingStatus: LoadStatuses.Completed,
+        selectingStatus: LoadStatuses.Empty,
+        creatingStatus: LoadStatuses.Loading,
+        updatingStatus: LoadStatuses.Error,
+        deletingStatus: LoadStatuses.Completed,
         error: ERROR_MSG,
-        paginatingStatus: LoadStatuses.Completed
       }
     };
   });
 
   describe('WorkShifts Selectors', () => {
-    it('getPaginatedWorkShifts() should return the list of WorkShifts', () => {
+    it('getPaginatedWorkShifts() should return the paginated list of entities', () => {
       const results = workShiftsQuery.getPaginatedWorkShifts(storeState);
-      const selId = getWorkShiftsId(results.data[1]);
 
       expect(results.data.length).toBe(3);
-      expect(selId).toBe('BBB');
     });
 
-    it('getSelectedWorkShifts() should return the selected Entity', () => {
+    it('getSelectedWorkShift() should return the selected entity', () => {
       const result = workShiftsQuery.getSelectedWorkShift(storeState);
-      const selId = getWorkShiftsId(result);
 
-      expect(selId).toBe('BBB');
+      expect(result.id).toBe('DDD');
     });
 
-    it("getLoaded() should return the current 'loaded' status", () => {
+    it("paginatingStatus() should return the current 'paginating' status", () => {
       const result = workShiftsQuery.paginatingStatus(storeState);
+
+      expect(result).toBe(LoadStatuses.Completed);
+    });
+
+    it("creatingStatus() should return the current 'creating' status", () => {
+      const result = workShiftsQuery.creatingStatus(storeState);
+
+      expect(result).toBe(LoadStatuses.Loading);
+    });
+
+    it("selectingStatus() should return the current 'selecting' status", () => {
+      const result = workShiftsQuery.selectingStatus(storeState);
+
+      expect(result).toBe(LoadStatuses.Empty);
+    });
+
+    it("updatingStatus() should return the current 'updating' status", () => {
+      const result = workShiftsQuery.updatingStatus(storeState);
+
+      expect(result).toBe(LoadStatuses.Error);
+    });
+
+    it("deletingStatus() should return the current 'deleting' status", () => {
+      const result = workShiftsQuery.deletingStatus(storeState);
 
       expect(result).toBe(LoadStatuses.Completed);
     });

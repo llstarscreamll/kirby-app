@@ -27,8 +27,7 @@ export class WorkShiftsEffects {
       onError: (action: SearchWorkShifts, error) => {
         return new SearchWorkShiftsError(error);
       }
-    }
-    );
+    });
 
   @Effect()
   public createWorkShift$ = this.dataPersistence
@@ -44,8 +43,7 @@ export class WorkShiftsEffects {
       onError: (action: CreateWorkShift, error) => {
         return new CreateWorkShiftError(error);
       }
-    }
-    );
+    });
 
   @Effect()
   public getWorkShift$ = this.dataPersistence
@@ -61,8 +59,7 @@ export class WorkShiftsEffects {
       onError: (action: GetWorkShift, error) => {
         return new GetWorkShiftError(error);
       }
-    }
-    );
+    });
 
   @Effect()
   public updateWorkShift$ = this.dataPersistence
@@ -78,8 +75,7 @@ export class WorkShiftsEffects {
       onError: (action: UpdateWorkShift, error) => {
         return new UpdateWorkShiftError(error);
       }
-    }
-    );
+    });
 
   @Effect()
   public deleteWorkShift$ = this.dataPersistence
@@ -89,14 +85,13 @@ export class WorkShiftsEffects {
           take(1),
           switchMap(tokens => this.workShiftService
             .delete(action.payload, tokens)
-            .pipe(map(response => new DeleteWorkShiftOk(response))))
+            .pipe(map(response => new DeleteWorkShiftOk(action.payload))))
         );
       },
       onError: (action: DeleteWorkShift, error) => {
         return new DeleteWorkShiftError(error);
       }
-    }
-    );
+    });
 
   public constructor(
     private authFacade: AuthFacade,

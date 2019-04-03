@@ -91,7 +91,7 @@ export class DeleteWorkShift implements Action {
 
 export class DeleteWorkShiftOk implements Action {
   public readonly type = WorkShiftsActionTypes.DeleteWorkShiftOk;
-  public constructor(public payload: any) { }
+  public constructor(public payload: string) { }
 }
 
 export class DeleteWorkShiftError implements Action {

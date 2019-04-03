@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import { workShiftsQuery } from './work-shifts.selectors';
-import { SearchWorkShifts, CreateWorkShift, UpdateWorkShift, DeleteWorkShift, GetWorkShift } from './work-shifts.actions';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
 import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
+import { SearchWorkShifts, CreateWorkShift, UpdateWorkShift, DeleteWorkShift, GetWorkShift } from './work-shifts.actions';
 
 @Injectable()
 export class WorkShiftsFacade {
