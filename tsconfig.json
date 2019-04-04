@@ -27,9 +27,6 @@
       "@llstarscreamll/shared": [
         "libs/shared/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/data-access": [
-        "libs/work-shifts/data-access/src/index.ts"
-      ],
       "@llstarscreamll/*": [
         "libs/*"
       ],
@@ -44,6 +41,9 @@
       ],
       "@llstarscreamll/web/*": [
         "xplat/web/*"
+      ],
+      "@llstarscreamll/work-shifts/data-access": [
+        "libs/work-shifts/data-access/src/index.ts"
       ],
       "@llstarscreamll/work-shifts/util": [
         "libs/work-shifts/util/src/index.ts"
