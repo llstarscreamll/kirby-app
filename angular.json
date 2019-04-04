@@ -22,10 +22,7 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": [
-              "apps/pascal/src/favicon.ico",
-              "apps/pascal/src/assets"
-            ],
+            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/pascal/src/styles.scss"
@@ -83,9 +80,7 @@
               "apps/pascal/tsconfig.app.json",
               "apps/pascal/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -120,9 +115,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -140,9 +133,7 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -173,9 +164,7 @@
               "libs/shared/tsconfig.lib.json",
               "libs/shared/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -206,9 +195,7 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -239,9 +226,7 @@
               "libs/authentication/utils/tsconfig.lib.json",
               "libs/authentication/utils/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -279,9 +264,7 @@
               "testing/tsconfig.libs.json",
               "testing/tsconfig.libs.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -307,9 +290,7 @@
               "testing/tsconfig.xplat.json",
               "testing/tsconfig.xplat.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -339,9 +320,7 @@
               {
                 "glob": "**/*",
                 "input": "apps/electron-pascal-desktop/src/",
-                "ignore": [
-                  "**/*.ts"
-                ],
+                "ignore": ["**/*.ts"],
                 "output": ""
               }
             ],
@@ -404,9 +383,7 @@
               "libs/work-shifts/util/tsconfig.lib.json",
               "libs/work-shifts/util/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -414,6 +391,37 @@
           "options": {
             "jestConfig": "libs/work-shifts/util/jest.config.js",
             "tsConfig": "libs/work-shifts/util/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "work-shifts-feature": {
+      "root": "libs/work-shifts/feature",
+      "sourceRoot": "libs/work-shifts/feature/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/work-shifts/feature/tsconfig.lib.json",
+              "libs/work-shifts/feature/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/work-shifts/feature/jest.config.js",
+            "tsConfig": "libs/work-shifts/feature/tsconfig.spec.json",
+            "setupFile": "libs/work-shifts/feature/src/test-setup.ts"
           }
         }
       },

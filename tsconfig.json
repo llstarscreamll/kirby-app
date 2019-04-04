@@ -9,13 +9,8 @@
     "importHelpers": true,
     "target": "es5",
     "module": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
       "@llstarscreamll/authentication-data-access": [
@@ -24,34 +19,22 @@
       "@llstarscreamll/authentication/utils": [
         "libs/authentication/utils/src/index.ts"
       ],
-      "@llstarscreamll/shared": [
-        "libs/shared/src/index.ts"
-      ],
-      "@llstarscreamll/*": [
-        "libs/*"
-      ],
-      "@llstarscreamll/electron": [
-        "xplat/electron/index.ts"
-      ],
-      "@llstarscreamll/electron/*": [
-        "xplat/electron/*"
-      ],
-      "@llstarscreamll/web": [
-        "xplat/web/index.ts"
-      ],
-      "@llstarscreamll/web/*": [
-        "xplat/web/*"
-      ],
+      "@llstarscreamll/shared": ["libs/shared/src/index.ts"],
+      "@llstarscreamll/*": ["libs/*"],
+      "@llstarscreamll/electron": ["xplat/electron/index.ts"],
+      "@llstarscreamll/electron/*": ["xplat/electron/*"],
+      "@llstarscreamll/web": ["xplat/web/index.ts"],
+      "@llstarscreamll/web/*": ["xplat/web/*"],
       "@llstarscreamll/work-shifts/data-access": [
         "libs/work-shifts/data-access/src/index.ts"
       ],
       "@llstarscreamll/work-shifts/util": [
         "libs/work-shifts/util/src/index.ts"
+      ],
+      "@llstarscreamll/work-shifts/feature": [
+        "libs/work-shifts/feature/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

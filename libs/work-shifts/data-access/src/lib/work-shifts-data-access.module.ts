@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+import { WorkShiftService } from './work-shift.service';
 import { WorkShiftsEffects } from './+state/work-shifts.effects';
 import { WorkShiftsFacade } from './+state/work-shifts.facade';
 import { WORK_SHIFTS_FEATURE_KEY, initialState as workShiftsInitialState, workShiftsReducer } from './+state/work-shifts.reducer';
@@ -17,6 +18,6 @@ import { WORK_SHIFTS_FEATURE_KEY, initialState as workShiftsInitialState, workSh
     }),
     EffectsModule.forFeature([WorkShiftsEffects])
   ],
-  providers: [WorkShiftsFacade]
+  providers: [WorkShiftsFacade, WorkShiftService]
 })
 export class WorkShiftsDataAccessModule { }

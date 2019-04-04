@@ -6,7 +6,18 @@ import { RouterModule, Route } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatListModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import {
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
 
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
@@ -29,6 +40,7 @@ export const routes: Route[] = [
   { path: 'sign-up', component: SignUpPageComponent },
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'production-record-by-weight', component: ProductionRecordByWeightComponent },
+  { path: 'work-shifts', loadChildren: '@llstarscreamll/work-shifts/feature#WorkShiftsFeatureModule' },
 ];
 
 @NgModule({
@@ -41,7 +53,7 @@ export const routes: Route[] = [
     WelcomePageComponent,
     SignUpPageComponent,
     SidebarLayoutComponent,
-    ProductionRecordByWeightComponent,
+    ProductionRecordByWeightComponent
   ],
   imports: [
     BrowserModule,
@@ -66,11 +78,9 @@ export const routes: Route[] = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,
+    MatSelectModule
   ],
-  providers: [
-    { provide: 'environment', useValue: environment }
-  ],
+  providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
