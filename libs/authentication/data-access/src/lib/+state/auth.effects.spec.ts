@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/nx';
-import { StoreModule } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 import { DataPersistence } from '@nrwl/nx';
 import { hot, cold } from '@nrwl/nx/testing';
 import { EffectsModule } from '@ngrx/effects';
