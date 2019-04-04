@@ -38,7 +38,6 @@ describe('WorkShiftsEffects', () => {
         WorkShiftService,
         provideMockActions(() => actions$),
         { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
-        { provide: AuthFacade, useValue: { authTokens$: cold('a', { a: AUTH_TOKENS_MOCK }) } }
       ]
     });
 
@@ -57,7 +56,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new SearchWorkShifts(query) });
 
       expect(effects.searchWorkShifts$).toBeObservable(hot('--a', { a: new SearchWorkShiftsOk(data) }));
-      expect(workShiftService.search).toHaveBeenCalledWith(query, authTokens);
+      expect(workShiftService.search).toHaveBeenCalledWith(query);
     });
 
     it('error api response should return SearchWorkShiftsError action', () => {
@@ -68,7 +67,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new SearchWorkShifts({ search: 'foo' }) });
 
       expect(effects.searchWorkShifts$).toBeObservable(hot('--a', { a: new SearchWorkShiftsError(apiError) }));
-      expect(workShiftService.search).toHaveBeenCalledWith(query, authTokens);
+      expect(workShiftService.search).toHaveBeenCalledWith(query);
     });
 
   });
@@ -82,7 +81,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new CreateWorkShift(entity) });
 
       expect(effects.createWorkShift$).toBeObservable(hot('--a', { a: new CreateWorkShiftOk(entity) }));
-      expect(workShiftService.create).toHaveBeenCalledWith(entity, authTokens);
+      expect(workShiftService.create).toHaveBeenCalledWith(entity);
     });
 
     it('error api response should return CreateWorkShiftError action', () => {
@@ -92,7 +91,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new CreateWorkShift(entity) });
 
       expect(effects.createWorkShift$).toBeObservable(hot('--a', { a: new CreateWorkShiftError(apiError) }));
-      expect(workShiftService.create).toHaveBeenCalledWith(entity, authTokens);
+      expect(workShiftService.create).toHaveBeenCalledWith(entity);
     });
 
   });
@@ -106,7 +105,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new GetWorkShift(entity.id) });
 
       expect(effects.getWorkShift$).toBeObservable(hot('--a', { a: new GetWorkShiftOk(entity) }));
-      expect(workShiftService.get).toHaveBeenCalledWith(entity.id, authTokens);
+      expect(workShiftService.get).toHaveBeenCalledWith(entity.id);
     });
 
     it('error api response should return CreateWorkShiftError action', () => {
@@ -116,7 +115,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new GetWorkShift(entity.id) });
 
       expect(effects.getWorkShift$).toBeObservable(hot('--a', { a: new GetWorkShiftError(apiError) }));
-      expect(workShiftService.get).toHaveBeenCalledWith(entity.id, authTokens);
+      expect(workShiftService.get).toHaveBeenCalledWith(entity.id);
     });
 
   });
@@ -130,7 +129,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new UpdateWorkShift({ id: entity.id, data: entity }) });
 
       expect(effects.updateWorkShift$).toBeObservable(hot('--a', { a: new UpdateWorkShiftOk(entity) }));
-      expect(workShiftService.update).toHaveBeenCalledWith(entity.id, entity, authTokens);
+      expect(workShiftService.update).toHaveBeenCalledWith(entity.id, entity);
     });
 
     it('error api response should return UpdateWorkShiftError action', () => {
@@ -140,7 +139,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new UpdateWorkShift({ id: entity.id, data: entity }) });
 
       expect(effects.updateWorkShift$).toBeObservable(hot('--a', { a: new UpdateWorkShiftError(apiError) }));
-      expect(workShiftService.update).toHaveBeenCalledWith(entity.id, entity, authTokens);
+      expect(workShiftService.update).toHaveBeenCalledWith(entity.id, entity);
     });
 
   });
@@ -154,7 +153,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new DeleteWorkShift(entity.id) });
 
       expect(effects.deleteWorkShift$).toBeObservable(hot('--a', { a: new DeleteWorkShiftOk(entity.id) }));
-      expect(workShiftService.delete).toHaveBeenCalledWith(entity.id, authTokens);
+      expect(workShiftService.delete).toHaveBeenCalledWith(entity.id);
     });
 
     it('error api response should return DeleteWorkShiftError action', () => {
@@ -164,7 +163,7 @@ describe('WorkShiftsEffects', () => {
       actions$ = hot('-a', { a: new DeleteWorkShift(entity.id) });
 
       expect(effects.deleteWorkShift$).toBeObservable(hot('--a', { a: new DeleteWorkShiftError(apiError) }));
-      expect(workShiftService.delete).toHaveBeenCalledWith(entity.id, authTokens);
+      expect(workShiftService.delete).toHaveBeenCalledWith(entity.id);
     });
 
   });

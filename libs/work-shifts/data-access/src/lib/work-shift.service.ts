@@ -18,27 +18,27 @@ export class WorkShiftService extends BaseAuthService {
     private http: HttpClient
   ) { super(); }
 
-  public search(query: any = {}, tokens: any): Observable<Pagination<WorkShiftInterface>> {
-    return this.http.get<Pagination<WorkShiftInterface>>(this.endpoint, { headers: this.authHeaders(tokens) });
+  public search(query: any = {}): Observable<Pagination<WorkShiftInterface>> {
+    return this.http.get<Pagination<WorkShiftInterface>>(this.endpoint, { headers: this.defaultHeaders });
   }
 
-  public create(workShiftData: any, tokens: any): Observable<WorkShiftInterface> {
-    return this.http.post<ApiResponse<WorkShiftInterface>>(this.endpoint, workShiftData, { headers: this.authHeaders(tokens) })
+  public create(workShiftData: any): Observable<WorkShiftInterface> {
+    return this.http.post<ApiResponse<WorkShiftInterface>>(this.endpoint, workShiftData, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
 
-  public get(workShiftId: string, tokens: any): Observable<WorkShiftInterface> {
-    return this.http.get<ApiResponse<WorkShiftInterface>>(this.endpoint + workShiftId, { headers: this.authHeaders(tokens) })
+  public get(workShiftId: string): Observable<WorkShiftInterface> {
+    return this.http.get<ApiResponse<WorkShiftInterface>>(this.endpoint + workShiftId, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
 
-  public update(workShiftId: string, workShiftData: any, tokens: any): Observable<WorkShiftInterface> {
-    return this.http.put<ApiResponse<WorkShiftInterface>>(this.endpoint + workShiftId, workShiftData, { headers: this.authHeaders(tokens) })
+  public update(workShiftId: string, workShiftData: any): Observable<WorkShiftInterface> {
+    return this.http.put<ApiResponse<WorkShiftInterface>>(this.endpoint + workShiftId, workShiftData, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
 
-  public delete(workShiftId: string, tokens: any): Observable<any> {
-    return this.http.delete(this.endpoint + workShiftId, { headers: this.authHeaders(tokens) });
+  public delete(workShiftId: string): Observable<any> {
+    return this.http.delete(this.endpoint + workShiftId, { headers: this.defaultHeaders });
   }
 
 }
