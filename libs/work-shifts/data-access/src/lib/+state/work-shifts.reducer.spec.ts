@@ -1,11 +1,11 @@
-import { createWorkShifts } from '../mocks';
 import { INVALID_DATA_API_ERROR } from '@llstarscreamll/shared';
+import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftsState, initialState, workShiftsReducer, LoadStatuses } from './work-shifts.reducer';
 import { SearchWorkShiftsOk, SearchWorkShiftsError, CreateWorkShift, CreateWorkShiftOk, CreateWorkShiftError, GetWorkShift, GetWorkShiftOk, GetWorkShiftError, SearchWorkShifts, UpdateWorkShift, UpdateWorkShiftOk, UpdateWorkShiftError, DeleteWorkShift, DeleteWorkShiftOk, DeleteWorkShiftError } from './work-shifts.actions';
 
 describe('WorkShifts Reducer', () => {
   const apiError = INVALID_DATA_API_ERROR;
-  const newEntity = createWorkShifts('1');
+  const newEntity = createWorkShift('1');
 
   beforeEach(() => { });
 
@@ -18,7 +18,7 @@ describe('WorkShifts Reducer', () => {
     });
 
     it('SearchWorkShiftsOk should return paginated list of items and status == completed', () => {
-      const workShifts = [createWorkShifts('1'), createWorkShifts('2')];
+      const workShifts = [createWorkShift('1'), createWorkShift('2')];
 
       const action = new SearchWorkShiftsOk({ data: workShifts, meta: {} });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);

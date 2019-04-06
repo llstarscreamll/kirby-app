@@ -1,6 +1,6 @@
-import { createWorkShifts } from '../mocks';
 import { ApiError } from '@llstarscreamll/shared';
 import { workShiftsQuery } from './work-shifts.selectors';
+import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftsPartialState, LoadStatuses } from './work-shifts.reducer';
 
 describe('WorkShifts Selectors', () => {
@@ -21,12 +21,12 @@ describe('WorkShifts Selectors', () => {
       workShifts: {
         paginatedList: {
           data: [
-            createWorkShifts('AAA'),
-            createWorkShifts('BBB'),
-            createWorkShifts('CCC')
+            createWorkShift('AAA'),
+            createWorkShift('BBB'),
+            createWorkShift('CCC')
           ], meta: {}
         },
-        selected: createWorkShifts('DDD'),
+        selected: createWorkShift('DDD'),
         paginatingStatus: LoadStatuses.Completed,
         selectingStatus: LoadStatuses.Empty,
         creatingStatus: LoadStatuses.Loading,

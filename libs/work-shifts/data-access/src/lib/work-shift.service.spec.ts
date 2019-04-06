@@ -1,9 +1,9 @@
 import { TestBed, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { WORK_SHIFT_MOCK } from './mocks';
 import { Pagination } from '@llstarscreamll/shared';
 import { WorkShiftService } from './work-shift.service';
+import { WORK_SHIFT_MOCK } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
 
 describe('WorkShiftService', () => {

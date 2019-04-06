@@ -8,10 +8,9 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { createWorkShifts } from '../mocks';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
 import { INVALID_DATA_API_ERROR } from '@llstarscreamll/shared';
 import { SearchWorkShifts, SearchWorkShiftsOk, SearchWorkShiftsError, CreateWorkShift, CreateWorkShiftOk, CreateWorkShiftError, GetWorkShiftOk, GetWorkShift, GetWorkShiftError, UpdateWorkShiftOk, UpdateWorkShift, UpdateWorkShiftError, DeleteWorkShift, DeleteWorkShiftOk, DeleteWorkShiftError } from './work-shifts.actions';
@@ -22,7 +21,7 @@ describe('WorkShiftsEffects', () => {
   let workShiftService: WorkShiftService;
   let apiError = INVALID_DATA_API_ERROR;
   let authTokens = AUTH_TOKENS_MOCK;
-  const entity = createWorkShifts('1');
+  const entity = createWorkShift('1');
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -49,7 +48,7 @@ describe('WorkShiftsEffects', () => {
 
     it('ok api response should return SearchWorkShiftsOk action', () => {
       const query = { search: 'foo' };
-      const data = { data: [createWorkShifts('1'), createWorkShifts('2')], meta: {} };
+      const data = { data: [createWorkShift('1'), createWorkShift('2')], meta: {} };
       const apiResponse = cold('-a', { a: data });
       spyOn(workShiftService, 'search').and.returnValue(apiResponse);
 

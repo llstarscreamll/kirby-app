@@ -6,7 +6,7 @@ import { cold, getTestScheduler } from '@nrwl/nx/testing';
 import { StoreModule, Store, select } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { createWorkShifts } from '../mocks';
+import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftsFacade } from './work-shifts.facade';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
@@ -26,7 +26,7 @@ describe('WorkShiftsFacade', () => {
   let facade: WorkShiftsFacade;
   let store: Store<TestSchema>;
   let authTokens = AUTH_TOKENS_MOCK;
-  const entity = createWorkShifts('1');
+  const entity = createWorkShift('1');
 
   beforeEach(() => {
 
