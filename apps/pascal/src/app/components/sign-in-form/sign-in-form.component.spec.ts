@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignInFormComponent } from './sign-in-form.component';
 import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SignInFormComponent', () => {
   let component: SignInFormComponent;
@@ -20,7 +21,8 @@ describe('SignInFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ...TESTING_IMPORTS,
+        ReactiveFormsModule,
+        NoopAnimationsModule,
       ],
       declarations: [SignInFormComponent],
       schemas: [NO_ERRORS_SCHEMA],

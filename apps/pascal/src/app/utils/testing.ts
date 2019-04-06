@@ -1,13 +1,15 @@
 import { NxModule } from '@nrwl/nx';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
 
 export const TESTING_ENVIRONMENT = {
-  api: 'http://my.api',
+  api: 'http://my-api.com/',
 };
 
 export const TESTING_PROVIDERS = [
@@ -22,4 +24,5 @@ export const TESTING_IMPORTS = [
   ReactiveFormsModule,
   RouterTestingModule,
   NoopAnimationsModule,
+  HttpClientTestingModule,
 ];

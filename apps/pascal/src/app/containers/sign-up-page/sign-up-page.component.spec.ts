@@ -1,10 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 import { SignUpPageComponent } from './sign-up-page.component';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
-import { NewAccount } from 'libs/auth-state/src/lib/interfaces/new-account';
+import { AuthFacade, NewAccount } from '@llstarscreamll/authentication-data-access';
 
 describe('SignUpPageComponent', () => {
   let component: SignUpPageComponent;
