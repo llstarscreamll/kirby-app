@@ -11,8 +11,8 @@ import { AuthFacade } from './auth.facade';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import { SharedModule, ApiError } from '@llstarscreamll/shared';
-import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
-import { CREDENTIALS, USER, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { AUTH_TOKENS_MOCK, USER } from '@llstarscreamll/authentication/utils';
+import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
 import { AuthState, initialState, authReducer, AUTH_FEATURE_KEY } from './auth.reducer';
 import { LoginWithCredentials, Logout, LoginSuccess, GetAuthUserSuccess, SignUp } from './auth.actions';
 

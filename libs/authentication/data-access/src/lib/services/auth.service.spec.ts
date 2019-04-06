@@ -2,8 +2,8 @@ import { TestBed, inject, async, tick, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { AuthService } from './auth.service';
-import { ENV_MOCK, CREDENTIALS, USER } from '../utils/mocks';
-import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
+import { ENV_MOCK, CREDENTIALS } from '../utils/mocks';
+import { AUTH_TOKENS_MOCK, USER } from '@llstarscreamll/authentication/utils';
 
 describe('AuthService', () => {
   let authService: AuthService;
