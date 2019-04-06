@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { WorkShiftsUiModule } from '@llstarscreamll/work-shifts/ui';
 import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page/list-work-shifts-page.component';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-work-shift-page.component';
@@ -15,6 +16,7 @@ import { UpdateWorkShiftPageComponent } from './update-work-shift-page/update-wo
       { path: 'create', pathMatch: 'full', component: CreateWorkShiftPageComponent },
       { path: ':id/update', pathMatch: 'full', component: UpdateWorkShiftPageComponent },
     ]),
+    WorkShiftsUiModule,
     WorkShiftsDataAccessModule,
   ],
   declarations: [
