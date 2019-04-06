@@ -8,23 +8,42 @@
     "nx.json": "*"
   },
   "projects": {
-    "agile-work": {
-      "tags": ["type:app"]
+    "pascal": {
+      "tags": [
+        "scope:pascal",
+        "type:app",
+        "platform:web"
+      ]
     },
-    "agile-work-e2e": {
-      "tags": []
+    "pascal-e2e": {
+      "tags": [
+        "scope:pascal",
+        "type:e2e",
+        "platform:web"
+      ]
     },
     "authentication-data-access": {
-      "tags": ["scope:authentication", "type:data-access", "platform:web"]
+      "tags": [
+        "scope:authentication",
+        "type:data-access",
+        "platform:web",
+        "platform:desktop"
+      ]
     },
     "shared": {
-      "tags": ["scope:shared"]
-    },
-    "work-shifts-data-access": {
-      "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
+      "tags": [
+        "scope:shared",
+        "platform:web",
+        "platform:desktop"
+      ]
     },
     "authentication-utils": {
-      "tags": ["scope:authentication", "type:util"]
+      "tags": [
+        "scope:authentication",
+        "type:util",
+        "platform:web",
+        "platform:desktop"
+      ]
     },
     "libs": {
       "tags": []
@@ -33,13 +52,39 @@
       "tags": []
     },
     "electron-pascal-desktop": {
-      "tags": []
+      "tags": [
+        "scope:work-shifts",
+        "type:app",
+        "platform:desktop"
+      ]
+    },
+    "work-shifts-data-access": {
+      "tags": [
+        "scope:work-shifts",
+        "type:data-access",
+        "platform:web"
+      ]
     },
     "work-shifts-util": {
-      "tags": ["scope:shared", "type:util"]
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:web"
+      ]
     },
     "work-shifts-feature": {
-      "tags": []
+      "tags": [
+        "scope:work-shifts",
+        "type:feature",
+        "platform:web"
+      ]
+    },
+    "work-shifts-ui": {
+      "tags": [
+        "scope:work-shifts",
+        "type:ui",
+        "platform:web"
+      ]
     }
   }
 }

@@ -33,7 +33,8 @@
       ],
       "@llstarscreamll/work-shifts/feature": [
         "libs/work-shifts/feature/src/index.ts"
-      ]
+      ],
+      "@llstarscreamll/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
