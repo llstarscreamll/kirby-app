@@ -1,0 +1,30 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Hora de entrada</th>
+      <th>Hora de salida</th>
+      <th>Tiempo de gracia de entrada</th>
+      <th>Tiempo de gracia de salida</th>
+      <th>Hora de inicio de almuerzo</th>
+      <th>Tiempo de almuerzo (min)</th>
+      <th>Tiempo mínimo para descontar almuerzo (min)</th>
+      <th>Creado en</th>
+      <th>Actualizado en</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{ item.name }}</td>
+      <td>{{ item.start_time }}</td>
+      <td>{{ item.end_time }}</td>
+      <td>{{ item.grace_minutes_for_start_time }}</td>
+      <td>{{ item.grace_minutes_for_end_time }}</td>
+      <td>{{ item.meal_start_time }}</td>
+      <td>{{ item.meal_time_in_minutes }}</td>
+      <td>{{ item.min_minutes_required_to_discount_meal_time }}</td>
+      <td>{{ item.created_at }}</td>
+      <td>{{ item.updated_at }}</td>
+    </tr>
+  </tbody>
+</table>
