@@ -33,6 +33,7 @@ import { WelcomePageComponent } from './containers/welcome-page/welcome-page.com
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
 import { ProductionRecordByWeightComponent } from './containers/production-record-by-weight/production-record-by-weight.component';
+import { HttpClientModule } from '@angular/common/http';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
@@ -44,17 +45,6 @@ export const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignInFormComponent,
-    SignUpFormComponent,
-    SignInPageComponent,
-    LandingPageComponent,
-    WelcomePageComponent,
-    SignUpPageComponent,
-    SidebarLayoutComponent,
-    ProductionRecordByWeightComponent
-  ],
   imports: [
     BrowserModule,
     NxModule.forRoot(),
@@ -64,6 +54,7 @@ export const routes: Route[] = [
     LlstarscreamllCoreModule,
     SharedModule,
     AuthenticationDataAccessModule,
+    HttpClientModule,
 
     BrowserAnimationsModule,
     LayoutModule,
@@ -80,7 +71,20 @@ export const routes: Route[] = [
     MatButtonModule,
     MatSelectModule
   ],
-  providers: [{ provide: 'environment', useValue: environment }],
+  declarations: [
+    AppComponent,
+    SignInFormComponent,
+    SignUpFormComponent,
+    SignInPageComponent,
+    LandingPageComponent,
+    WelcomePageComponent,
+    SignUpPageComponent,
+    SidebarLayoutComponent,
+    ProductionRecordByWeightComponent
+  ],
+  providers: [
+    { provide: 'environment', useValue: environment },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
