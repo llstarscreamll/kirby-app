@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AuthState } from './auth.reducer';
 import { authQuery } from './auth.selectors';
-import { NewAccount } from '../interfaces/new-account';
+import { NewAccount } from '@llstarscreamll/authentication/utils';
 import { LoginWithCredentials, Logout, SignUp, CleanErrors } from './auth.actions';
 
 @Injectable()

@@ -1,16 +1,15 @@
+import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/nx';
 import { Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { defer } from 'rxjs/internal/observable/defer';
 
 import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from '@llstarscreamll/shared';
 import { AuthPartialState, AUTH_FEATURE_KEY } from './auth.reducer';
 import { LoginWithCredentials, LoginSuccess, LoginError, AuthActionTypes, GetAuthUserSuccess, Logout, LogoutSuccess, SignUp, SignUpSuccess, SignUpError, CheckIfUserIsAuthenticated } from './auth.actions';
-import { defer } from 'rxjs/internal/observable/defer';
-import { of } from 'rxjs/internal/observable/of';
-import { from } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
@@ -91,10 +90,13 @@ export class AuthEffects {
   public checkIfAuthenticated$ = this.dataPersistence
     .optimisticUpdate(AuthActionTypes.CheckIfAuthenticated, {
       run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
-        return this.authService.getAuthUser().pipe(map(user => new GetAuthUserSuccess(user)));
+        // check user is authentication on server only if auth tokens exists
+        return state[AUTH_FEATURE_KEY].tokens
+          ? this.authService.getAuthUser().pipe(map(user => new GetAuthUserSuccess(user)))
+          : null;
       },
       undoAction: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
-        return null;
+        return new LogoutSuccess;
       }
     });
 

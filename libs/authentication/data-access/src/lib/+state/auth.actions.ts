@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { NewAccount } from '../interfaces/new-account';
-import { AuthTokens } from '../interfaces/auth-tokens';
+import { NewAccount, AuthTokens } from '@llstarscreamll/authentication/utils';
 
 export enum AuthActionTypes {
   CheckIfAuthenticated = "[Auth] check if authenticated",
