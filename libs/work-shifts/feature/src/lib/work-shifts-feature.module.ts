@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 import { WorkShiftsUiModule } from '@llstarscreamll/work-shifts/ui';
 import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
@@ -11,6 +13,8 @@ import { UpdateWorkShiftPageComponent } from './update-work-shift-page/update-wo
 @NgModule({
   imports: [
     CommonModule,
+    MatIconModule,
+    MatButtonModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: ListWorkShiftsPageComponent },
       { path: 'create', pathMatch: 'full', component: CreateWorkShiftPageComponent },
