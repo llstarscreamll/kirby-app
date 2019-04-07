@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="col-xs-12 col-sm-10 col-md-10 col-lg-9">
+
+  <mat-form-field class="w-100">
+    <input matInput formControlName="name" placeholder="Nombre">
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <mat-form-field class="w-50 pr-2">
+    <input matInput formControlName="start_time" placeholder="Hora de entrada">
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pl-2">
+    <input matInput formControlName="grace_minutes_for_start_time" placeholder="Minutos de gracia para entrada"
+           type="number">
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <mat-form-field class="w-50 pr-2">
+    <input matInput formControlName="end_time" placeholder="Hora de salida">
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pl-2">
+    <input matInput formControlName="grace_minutes_for_end_time" placeholder="Minutos de gracia para salida"
+           type="number">
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <mat-form-field class="w-50 pr-2">
+    <input matInput formControlName="meal_start_time" placeholder="Hora de almuerzo">
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pl-2">
+    <input matInput formControlName="meal_time_in_minutes" placeholder="Tiempo de almuerzo (min)" type="number">
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <mat-form-field class="w-100">
+    <input matInput formControlName="min_minutes_required_to_discount_meal_time"
+           placeholder="Tiempo mínimo transcurrido para descontar almuerzo (min)" type="number">
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <button [disabled]="form.invalid" type="submit" mat-raised-button>Guardar</button>
+
+</form>
