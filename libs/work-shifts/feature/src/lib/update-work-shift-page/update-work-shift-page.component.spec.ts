@@ -5,6 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpdateWorkShiftPageComponent } from './update-work-shift-page.component';
 import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UpdateWorkShiftPageComponent', () => {
   let component: UpdateWorkShiftPageComponent;
@@ -17,6 +18,7 @@ describe('UpdateWorkShiftPageComponent', () => {
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
         WorkShiftsDataAccessModule,
+        HttpClientTestingModule,
       ],
       declarations: [UpdateWorkShiftPageComponent],
       providers: [
