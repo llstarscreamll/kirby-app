@@ -1,3 +1,10 @@
-<p>
-  list-work-shifts-page works!
-</p>
+<h1>Turnos de trabajo</h1>
+
+<div class="my-2 text-right">
+    <a routerLink="create" mat-stroked-button color="primary">Nuevo</a>
+</div>
+
+<div class="table-responsive">
+    <llstarscreamll-work-shifts-table-list [items]="(paginatedWorkShifts$ | async)?.data">
+    </llstarscreamll-work-shifts-table-list>
+</div>
