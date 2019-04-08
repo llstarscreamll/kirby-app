@@ -1,8 +1,7 @@
-import { ApiError } from '@llstarscreamll/shared';
 import { workShiftsQuery } from './work-shifts.selectors';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { LoadStatuses } from "../../../../../shared/src/lib/enums/load-statuses.enum";
+import { ApiError, LoadStatuses } from '@llstarscreamll/shared';
+import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {

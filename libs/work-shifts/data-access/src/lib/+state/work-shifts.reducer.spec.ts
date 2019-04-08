@@ -1,7 +1,6 @@
-import { INVALID_DATA_API_ERROR } from '@llstarscreamll/shared';
+import { INVALID_DATA_API_ERROR, LoadStatuses } from '@llstarscreamll/shared';
 import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
-import { LoadStatuses } from "../../../../../shared/src/lib/enums/load-statuses.enum";
 import { SearchWorkShiftsOk, SearchWorkShiftsError, CreateWorkShift, CreateWorkShiftOk, CreateWorkShiftError, GetWorkShift, GetWorkShiftOk, GetWorkShiftError, SearchWorkShifts, UpdateWorkShift, UpdateWorkShiftOk, UpdateWorkShiftError, DeleteWorkShift, DeleteWorkShiftOk, DeleteWorkShiftError } from './work-shifts.actions';
 
 describe('WorkShifts Reducer', () => {
