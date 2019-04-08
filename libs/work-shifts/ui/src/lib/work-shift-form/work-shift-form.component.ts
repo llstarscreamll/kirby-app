@@ -1,6 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
+import { LoadStatuses } from '@llstarscreamll/shared';
 import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
 
 @Component({
@@ -14,6 +15,9 @@ export class WorkShiftFormComponent implements OnInit {
   public defaults: WorkShiftInterface;
 
   @Input()
+  public status: LoadStatuses;
+
+  @Input()
   public disable: boolean;
 
   @Output()
@@ -22,6 +26,10 @@ export class WorkShiftFormComponent implements OnInit {
   public form: FormGroup;
 
   public constructor(private formBuilder: FormBuilder) { }
+
+  public get shouldDisableBtn(): boolean {
+    return this.form.invalid || this.status === LoadStatuses.Loading;
+  }
 
   public ngOnInit() {
     this.form = this.formBuilder.group({

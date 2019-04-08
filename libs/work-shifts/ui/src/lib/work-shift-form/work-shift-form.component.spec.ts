@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { WorkShiftFormComponent } from './work-shift-form.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { LoadStatuses } from "@llstarscreamll/shared";
 
 describe('WorkShiftFormComponent', () => {
   let component: WorkShiftFormComponent;
@@ -93,7 +94,7 @@ describe('WorkShiftFormComponent', () => {
     expect(component.form.value).toEqual(validWorkShift);
   });
 
-  it('should disable form when @Input default == true', () => {
+  it('should disable form when @Input disable == true', () => {
     component.defaults = validWorkShift;
     component.disable = true;
 
@@ -101,5 +102,15 @@ describe('WorkShiftFormComponent', () => {
     fixture.detectChanges();
 
     expect(component.form.disabled).toBe(true);
+  });
+
+  it('should disable submit button when @Input status == loading', () => {
+    component.defaults = validWorkShift;
+    component.status = LoadStatuses.Loading;
+
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(template.querySelector('form button[type="submit"]:disabled')).toBeTruthy();
   });
 });
