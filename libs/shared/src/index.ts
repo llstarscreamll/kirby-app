@@ -6,3 +6,4 @@ export * from './lib/services/local-storage.service';
 export * from './lib/utils/common-functions';
 export * from './lib/abstracts/base.service';
 export * from './lib/utils/mocks';
+export * from './lib/enums/load-statuses.enum';

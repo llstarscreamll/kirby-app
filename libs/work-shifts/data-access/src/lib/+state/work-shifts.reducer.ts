@@ -1,15 +1,8 @@
 import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
-import { Pagination, emptyPagination, ApiError } from '@llstarscreamll/shared';
 import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
+import { Pagination, emptyPagination, ApiError, LoadStatuses } from '@llstarscreamll/shared';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
-
-export enum LoadStatuses {
-  Empty,
-  Loading,
-  Completed,
-  Error,
-}
 
 export interface WorkShiftsState {
   paginatedList: Pagination<WorkShiftInterface>;
