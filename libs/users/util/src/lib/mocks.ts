@@ -16,7 +16,7 @@ export function createUser(id?: string, name: string = null): UserInterface {
   return {
     id: id || faker.random.uuid(),
     name: name || faker.random.word(),
-    email: faker.email(),
+    email: faker.email,
     email_verified_at: date,
     created_at: date,
     updated_at: date,
