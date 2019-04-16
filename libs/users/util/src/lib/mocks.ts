@@ -1,7 +1,7 @@
 import * as faker from "faker";
 import { UserInterface } from './user.interface';
 
-export const WORK_SHIFT_MOCK: UserInterface = {
+export const USER_MOCK: UserInterface = {
   id: '1',
   name: 'Tony Stark',
   email: 'tony@stark.com',
@@ -11,10 +11,10 @@ export const WORK_SHIFT_MOCK: UserInterface = {
   deleted_at: null
 };
 
-export function createUser(id: string, name: string = null): UserInterface {
+export function createUser(id?: string, name: string = null): UserInterface {
   const date = faker.date.past();
   return {
-    id,
+    id: id || faker.random.uuid(),
     name: name || faker.random.word(),
     email: faker.email(),
     email_verified_at: date,
