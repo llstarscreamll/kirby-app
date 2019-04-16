@@ -16,12 +16,12 @@ export const WORK_SHIFT_MOCK: WorkShiftInterface = {
   deleted_at: null
 };
 
-export function createWorkShift(id: string, name: string = null): WorkShiftInterface {
+export function createWorkShift(id?: string, name: string = null): WorkShiftInterface {
   let start;
   let end;
 
   return {
-    id,
+    id: id || faker.random.uuid(),
     name: name || faker.random.word(),
     start_time: (start = faker.random.number(24)) + ':' + faker.random.number(60),
     end_time: (end = faker.random.number({ min: start, max: 24 })) + ':' + faker.random.number(60),
