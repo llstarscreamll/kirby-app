@@ -552,6 +552,68 @@
           "styleext": "scss"
         }
       }
+    },
+    "time-clock-logs-feature": {
+      "root": "libs/time-clock-logs/feature",
+      "sourceRoot": "libs/time-clock-logs/feature/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/time-clock-logs/feature/tsconfig.lib.json",
+              "libs/time-clock-logs/feature/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/time-clock-logs/feature/jest.config.js",
+            "tsConfig": "libs/time-clock-logs/feature/tsconfig.spec.json",
+            "setupFile": "libs/time-clock-logs/feature/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "time-clock-logs-ui": {
+      "root": "libs/time-clock-logs/ui",
+      "sourceRoot": "libs/time-clock-logs/ui/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/time-clock-logs/ui/tsconfig.lib.json",
+              "libs/time-clock-logs/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/time-clock-logs/ui/jest.config.js",
+            "tsConfig": "libs/time-clock-logs/ui/tsconfig.spec.json",
+            "setupFile": "libs/time-clock-logs/ui/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

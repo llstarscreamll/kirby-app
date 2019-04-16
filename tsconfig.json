@@ -41,7 +41,13 @@
       "@llstarscreamll/time-clock-logs/util": [
         "libs/time-clock-logs/util/src/index.ts"
       ],
-      "@llstarscreamll/users/util": ["libs/users/util/src/index.ts"]
+      "@llstarscreamll/users/util": ["libs/users/util/src/index.ts"],
+      "@llstarscreamll/time-clock-logs/feature": [
+        "libs/time-clock-logs/feature/src/index.ts"
+      ],
+      "@llstarscreamll/time-clock-logs/ui": [
+        "libs/time-clock-logs/ui/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

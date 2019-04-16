@@ -62,6 +62,12 @@
     },
     "users-util": {
       "tags": []
+    },
+    "time-clock-logs-feature": {
+      "tags": []
+    },
+    "time-clock-logs-ui": {
+      "tags": []
     }
   }
 }
