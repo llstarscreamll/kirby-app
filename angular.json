@@ -461,6 +461,97 @@
           "styleext": "scss"
         }
       }
+    },
+    "time-clock-logs-data-access": {
+      "root": "libs/time-clock-logs/data-access",
+      "sourceRoot": "libs/time-clock-logs/data-access/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/time-clock-logs/data-access/tsconfig.lib.json",
+              "libs/time-clock-logs/data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/time-clock-logs/data-access/jest.config.js",
+            "tsConfig": "libs/time-clock-logs/data-access/tsconfig.spec.json",
+            "setupFile": "libs/time-clock-logs/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "time-clock-logs-util": {
+      "root": "libs/time-clock-logs/util",
+      "sourceRoot": "libs/time-clock-logs/util/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/time-clock-logs/util/tsconfig.lib.json",
+              "libs/time-clock-logs/util/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/time-clock-logs/util/jest.config.js",
+            "tsConfig": "libs/time-clock-logs/util/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "users-util": {
+      "root": "libs/users/util",
+      "sourceRoot": "libs/users/util/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/users/util/tsconfig.lib.json",
+              "libs/users/util/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/users/util/jest.config.js",
+            "tsConfig": "libs/users/util/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

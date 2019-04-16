@@ -34,7 +34,14 @@
       "@llstarscreamll/work-shifts/feature": [
         "libs/work-shifts/feature/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"]
+      "@llstarscreamll/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
+      "@llstarscreamll/time-clock-logs/data-access": [
+        "libs/time-clock-logs/data-access/src/index.ts"
+      ],
+      "@llstarscreamll/time-clock-logs/util": [
+        "libs/time-clock-logs/util/src/index.ts"
+      ],
+      "@llstarscreamll/users/util": ["libs/users/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
