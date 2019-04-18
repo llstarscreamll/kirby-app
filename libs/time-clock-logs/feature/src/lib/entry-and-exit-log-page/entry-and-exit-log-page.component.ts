@@ -9,7 +9,6 @@ export class EntryAndExitLogPageComponent implements OnInit {
 
   public constructor() { }
 
-  public ngOnInit() {
-  }
+  public ngOnInit() { }
 
 }

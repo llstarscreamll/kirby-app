@@ -7,7 +7,7 @@ import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-an
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: '', pathMatch: 'full', component: EntryAndExitLogPageComponent }
+      { path: 'entry-and-exit-log', component: EntryAndExitLogPageComponent }
     ])
   ],
   declarations: [EntryAndExitLogPageComponent]
