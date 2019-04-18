@@ -42,7 +42,6 @@ Thumbs.db
 hooks
 
 # libs
-libs/**/*.js
 libs/**/*.map
 libs/**/*.d.ts
 libs/**/*.metadata.json
