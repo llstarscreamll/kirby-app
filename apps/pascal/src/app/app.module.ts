@@ -42,6 +42,7 @@ export const routes: Route[] = [
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'production-record-by-weight', component: ProductionRecordByWeightComponent },
   { path: 'work-shifts', loadChildren: '@llstarscreamll/work-shifts/feature#WorkShiftsFeatureModule' },
+  { path: 'time-clock-logs', loadChildren: '@llstarscreamll/time-clock-logs/feature#TimeClockLogsFeatureModule' },
 ];
 
 @NgModule({

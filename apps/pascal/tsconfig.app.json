@@ -4,6 +4,13 @@
     "outDir": "../../dist/out-tsc/apps/pascal",
     "types": []
   },
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts"],
-  "include": ["**/*.ts", "../../libs/work-shifts/feature/src/index.ts"]
+  "exclude": [
+    "src/test-setup.ts",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "**/*.ts",
+    "../../libs/work-shifts/feature/src/index.ts",
+    "../../libs/time-clock-logs/feature/src/index.ts"
+  ]
 }
