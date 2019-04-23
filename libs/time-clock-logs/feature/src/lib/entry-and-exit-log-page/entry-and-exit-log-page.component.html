@@ -3,7 +3,8 @@
 <div class="row my-4">
   <div class="col-md-2"></div>
   <div class="col-md-8">
-    <llstarscreamll-entry-and-exit-log-form>
+    <llstarscreamll-entry-and-exit-log-form [status]="creatingStatus$ | async"
+                                            (submitted)="onCreateLogFormSubmitted($event)">
     </llstarscreamll-entry-and-exit-log-form>
   </div>
 </div>

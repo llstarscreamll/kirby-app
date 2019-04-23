@@ -9,20 +9,24 @@ export enum TimeClockLogsActionTypes {
   SearchTimeClockLogsError = '[TimeClockLogs] search error',
 
   CreateTimeClockLog = '[TimeClockLogs] create',
-  CreateTimeClockLogOk = '[TimeClockLogs] create ok',
-  CreateTimeClockLogError = '[TimeClockLogs] create error',
+  CreateTimeClockLogOk = '[TimeClockLog] create ok',
+  CreateTimeClockLogError = '[TimeClockLog] create error',
 
-  GetTimeClockLog = '[TimeClockLogs] get',
-  GetTimeClockLogOk = '[TimeClockLogs] get ok',
-  GetTimeClockLogError = '[TimeClockLogs] get error',
+  CreateEntryAndExitLog = '[EntryAndExitLog] create entry and exit',
+  CreateEntryAndExitLogOk = '[EntryAndExitLog] create entry and exit ok',
+  CreateEntryAndExitLogError = '[EntryAndExitLog] create entry and exit error',
 
-  UpdateTimeClockLog = '[TimeClockLogs] update',
-  UpdateTimeClockLogOk = '[TimeClockLogs] update ok',
-  UpdateTimeClockLogError = '[TimeClockLogs] update error',
+  GetTimeClockLog = '[TimeClockLog] get',
+  GetTimeClockLogOk = '[TimeClockLog] get ok',
+  GetTimeClockLogError = '[TimeClockLog] get error',
 
-  DeleteTimeClockLog = '[TimeClockLogs] delete',
-  DeleteTimeClockLogOk = '[TimeClockLogs] delete ok',
-  DeleteTimeClockLogError = '[TimeClockLogs] delete error',
+  UpdateTimeClockLog = '[TimeClockLog] update',
+  UpdateTimeClockLogOk = '[TimeClockLog] update ok',
+  UpdateTimeClockLogError = '[TimeClockLog] update error',
+
+  DeleteTimeClockLog = '[TimeClockLog] delete',
+  DeleteTimeClockLogOk = '[TimeClockLog] delete ok',
+  DeleteTimeClockLogError = '[TimeClockLog] delete error',
 }
 
 export class SearchTimeClockLogs implements Action {
@@ -52,6 +56,21 @@ export class CreateTimeClockLogOk implements Action {
 
 export class CreateTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLogError;
+  constructor(public payload: ApiError) { }
+}
+
+export class CreateEntryAndExitLog implements Action {
+  readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLog;
+  public constructor(public payload: { identification_code: string, action: string }) { }
+}
+
+export class CreateEntryAndExitLogOk implements Action {
+  readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLogOk;
+  constructor(public payload: any) { }
+}
+
+export class CreateEntryAndExitLogError implements Action {
+  readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLogError;
   constructor(public payload: ApiError) { }
 }
 
@@ -107,6 +126,9 @@ export type TimeClockLogsAction =
   | CreateTimeClockLog
   | CreateTimeClockLogOk
   | CreateTimeClockLogError
+  | CreateEntryAndExitLog
+  | CreateEntryAndExitLogOk
+  | CreateEntryAndExitLogError
   | GetTimeClockLog
   | GetTimeClockLogOk
   | GetTimeClockLogError
@@ -124,6 +146,9 @@ export const fromTimeClockLogsActions = {
   CreateTimeClockLog,
   CreateTimeClockLogOk,
   CreateTimeClockLogError,
+  CreateEntryAndExitLog,
+  CreateEntryAndExitLogOk,
+  CreateEntryAndExitLogError,
   GetTimeClockLog,
   GetTimeClockLogOk,
   GetTimeClockLogError,

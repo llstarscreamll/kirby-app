@@ -57,6 +57,21 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
       break;
     }
 
+    case TimeClockLogsActionTypes.CreateEntryAndExitLog: {
+      state = { ...state, creatingStatus: LoadStatuses.Loading };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.CreateEntryAndExitLogOk: {
+      state = { ...state, creatingStatus: LoadStatuses.Completed };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.CreateEntryAndExitLogError: {
+      state = { ...state, error: action.payload, creatingStatus: LoadStatuses.Error };
+      break;
+    }
+
     case TimeClockLogsActionTypes.GetTimeClockLog: {
       state = { ...state, selectingStatus: LoadStatuses.Loading };
       break;

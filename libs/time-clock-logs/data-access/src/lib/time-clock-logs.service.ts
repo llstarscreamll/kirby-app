@@ -27,6 +27,11 @@ export class TimeClockLogsService extends BaseAuthService {
       .pipe(map(response => response.data));
   }
 
+  public createExitAndEntryLog(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
+    return this.http.post<ApiResponse<any>>(this.endpoint, entryAndExitLog, { headers: this.defaultHeaders })
+      .pipe(map(response => response.data));
+  }
+
   public get(workShiftId: string): Observable<TimeClockLogInterface> {
     return this.http.get<ApiResponse<TimeClockLogInterface>>(this.endpoint + workShiftId, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));

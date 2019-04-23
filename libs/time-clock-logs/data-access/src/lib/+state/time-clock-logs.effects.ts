@@ -20,7 +20,10 @@ import {
   UpdateTimeClockLogError,
   DeleteTimeClockLog,
   DeleteTimeClockLogOk,
-  DeleteTimeClockLogError
+  DeleteTimeClockLogError,
+  CreateEntryAndExitLog,
+  CreateEntryAndExitLogOk,
+  CreateEntryAndExitLogError
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 
@@ -47,6 +50,18 @@ export class TimeClockLogsEffects {
       },
       onError: (action: CreateTimeClockLog, error) => {
         return new CreateTimeClockLogError(error);
+      }
+    });
+
+  @Effect()
+  public createEntryAndExitLog$ = this.dataPersistence
+    .fetch(TimeClockLogsActionTypes.CreateEntryAndExitLog, {
+      run: (action: CreateEntryAndExitLog, state: TimeClockLogsPartialState) => {
+        return this.timeClockLogsService.createExitAndEntryLog(action.payload)
+          .pipe(map(response => new CreateEntryAndExitLogOk(response)));
+      },
+      onError: (action: CreateEntryAndExitLog, error) => {
+        return new CreateEntryAndExitLogError(error);
       }
     });
 

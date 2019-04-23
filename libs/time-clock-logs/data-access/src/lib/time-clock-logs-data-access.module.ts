@@ -9,6 +9,7 @@ import {
 } from './+state/time-clock-logs.reducer';
 import { TimeClockLogsEffects } from './+state/time-clock-logs.effects';
 import { TimeClockLogsFacade } from './+state/time-clock-logs.facade';
+import { TimeClockLogsService } from './time-clock-logs.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { TimeClockLogsFacade } from './+state/time-clock-logs.facade';
     }),
     EffectsModule.forFeature([TimeClockLogsEffects])
   ],
-  providers: [TimeClockLogsFacade]
+  providers: [TimeClockLogsFacade, TimeClockLogsService]
 })
 export class TimeClockLogsDataAccessModule { }
