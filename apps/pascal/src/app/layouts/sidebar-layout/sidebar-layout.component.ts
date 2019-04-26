@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
+
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 
 @Component({
@@ -19,8 +20,7 @@ export class SidebarLayoutComponent implements OnInit {
 
   public menuItems = [
     { icon: 'home', link: ['/welcome'], label: 'Home' },
-    { icon: 'alarm', link: ['/access-control'], label: 'Control de acceso' },
-    { icon: 'settings', link: ['/production-record-by-weight'], label: 'Pesaje' },
+    { icon: 'alarm', link: ['/time-clock-logs/entry-and-exit-log'], label: 'Portería' },
   ];
 
   public mediaQueryList: MediaQueryList;

@@ -30,8 +30,7 @@
       <!-- Links if authenticated -->
       <ng-container *ngIf="authenticated$ | async">
         <!-- sidebar toggle on mobile -->
-        <button *ngIf="isHandset$ | async" (click)="drawer.toggle()" type="button" aria-label="Toggle sidenav"
-                mat-icon-button>
+        <button (click)="drawer.toggle()" type="button" aria-label="Toggle sidenav" mat-icon-button>
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <div class="flex-fill"></div>
