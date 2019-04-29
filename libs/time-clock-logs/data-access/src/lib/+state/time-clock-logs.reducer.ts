@@ -43,12 +43,12 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
     }
 
     case TimeClockLogsActionTypes.CreateTimeClockLog: {
-      state = { ...state, creatingStatus: LoadStatuses.Loading };
+      state = { ...state, creatingStatus: LoadStatuses.Loading, error: null };
       break;
     }
 
     case TimeClockLogsActionTypes.CreateTimeClockLogOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed };
+      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null };
       break;
     }
 
@@ -58,12 +58,12 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
     }
 
     case TimeClockLogsActionTypes.CreateEntryAndExitLog: {
-      state = { ...state, creatingStatus: LoadStatuses.Loading };
+      state = { ...state, creatingStatus: LoadStatuses.Loading, error: null };
       break;
     }
 
     case TimeClockLogsActionTypes.CreateEntryAndExitLogOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed };
+      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null };
       break;
     }
 
@@ -114,6 +114,11 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
 
     case TimeClockLogsActionTypes.DeleteTimeClockLogError: {
       state = { ...state, error: action.payload, deletingStatus: LoadStatuses.Error };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.CleanError: {
+      state = { ...state, error: null };
       break;
     }
 

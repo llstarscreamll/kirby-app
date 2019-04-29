@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
-import { SearchTimeClockLogs, CreateEntryAndExitLog } from './time-clock-logs.actions';
+import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError } from './time-clock-logs.actions';
 
 @Injectable()
 export class TimeClockLogsFacade {
@@ -14,6 +14,7 @@ export class TimeClockLogsFacade {
   public selectingStatus$ = this.store.pipe(select(timeClockLogsQuery.getSelectingStatus));
   public updatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getUpdatingStatus));
   public deletingStatus$ = this.store.pipe(select(timeClockLogsQuery.getDeletingStatus));
+  public apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
 
   public constructor(private store: Store<TimeClockLogsPartialState>) { }
 
@@ -23,5 +24,9 @@ export class TimeClockLogsFacade {
 
   public createEntryAndExitLog(log: { identification_code: string, action: string }) {
     this.store.dispatch(new CreateEntryAndExitLog(log));
+  }
+
+  public cleanError() {
+    this.store.dispatch(new CleanError());
   }
 }

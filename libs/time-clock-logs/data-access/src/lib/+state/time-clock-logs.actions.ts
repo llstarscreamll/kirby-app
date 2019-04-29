@@ -27,6 +27,8 @@ export enum TimeClockLogsActionTypes {
   DeleteTimeClockLog = '[TimeClockLog] delete',
   DeleteTimeClockLogOk = '[TimeClockLog] delete ok',
   DeleteTimeClockLogError = '[TimeClockLog] delete error',
+
+  CleanError = '[TimeClockLog] clean error',
 }
 
 export class SearchTimeClockLogs implements Action {
@@ -119,6 +121,10 @@ export class DeleteTimeClockLogError implements Action {
   constructor(public payload: ApiError) { }
 }
 
+export class CleanError implements Action {
+  readonly type = TimeClockLogsActionTypes.CleanError;
+}
+
 export type TimeClockLogsAction =
   | SearchTimeClockLogs
   | SearchTimeClockLogsOk
@@ -137,7 +143,8 @@ export type TimeClockLogsAction =
   | UpdateTimeClockLogError
   | DeleteTimeClockLog
   | DeleteTimeClockLogOk
-  | DeleteTimeClockLogError;
+  | DeleteTimeClockLogError
+  | CleanError;
 
 export const fromTimeClockLogsActions = {
   SearchTimeClockLogs,
@@ -158,4 +165,5 @@ export const fromTimeClockLogsActions = {
   DeleteTimeClockLog,
   DeleteTimeClockLogOk,
   DeleteTimeClockLogError,
+  CleanError
 };

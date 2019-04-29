@@ -1,11 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
 
     <button (click)="toggleAction()" mat-stroked-button [ngClass]="actionClass" class="action w-100"
-        type="button">{{ readableActionName }}</button>
+            type="button">{{ readableActionName }}</button>
 
     <mat-form-field class="w-100">
         <input #codeInput formControlName="identification_code" matInput type="password"
-            placeholder="Código de identificación" required>
+               placeholder="Código de identificación" required>
     </mat-form-field>
 
     <button mat-raised-button [disabled]="disableSubmitBtn" type="submit">Registrar</button>

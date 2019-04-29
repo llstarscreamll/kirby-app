@@ -26,6 +26,7 @@ import {
   CreateEntryAndExitLogError
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class TimeClockLogsEffects {
@@ -58,10 +59,20 @@ export class TimeClockLogsEffects {
     .fetch(TimeClockLogsActionTypes.CreateEntryAndExitLog, {
       run: (action: CreateEntryAndExitLog, state: TimeClockLogsPartialState) => {
         return this.timeClockLogsService.createExitAndEntryLog(action.payload)
-          .pipe(map(response => new CreateEntryAndExitLogOk(response)));
+          .pipe(map(response => new CreateEntryAndExitLogOk({ response, action: action.payload.action })));
       },
       onError: (action: CreateEntryAndExitLog, error) => {
         return new CreateEntryAndExitLogError(error);
+      }
+    });
+
+  @Effect({ dispatch: false })
+  public createEntryAndExitLogOk$ = this.dataPersistence
+    .fetch(TimeClockLogsActionTypes.CreateEntryAndExitLogOk, {
+      run: (action: CreateEntryAndExitLog, state: TimeClockLogsPartialState) => {
+        const msg = action.payload.action == 'check_in'
+          ? 'Bienvenido' : 'Que tenga buen descanso';
+        this.snackBar.open(msg, 'Ok', { duration: 2 * 1000 });
       }
     });
 
@@ -102,6 +113,7 @@ export class TimeClockLogsEffects {
     });
 
   constructor(
+    private snackBar: MatSnackBar,
     private timeClockLogsService: TimeClockLogsService,
     private dataPersistence: DataPersistence<TimeClockLogsPartialState>
   ) { }

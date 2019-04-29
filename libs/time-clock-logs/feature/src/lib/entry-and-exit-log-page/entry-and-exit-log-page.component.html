@@ -1,8 +1,11 @@
-<h1>Registro entrada y salida</h1>
+<h1 class="text-center">Registro entrada y salida</h1>
 
 <div class="row my-4">
   <div class="col-md-2"></div>
   <div class="col-md-8">
+    <llstarscreamll-api-errors [apiError]="apiError$ | async"></llstarscreamll-api-errors>
+
+    <div class="clearfix"></div>
     <llstarscreamll-entry-and-exit-log-form [status]="creatingStatus$ | async"
                                             (submitted)="onCreateLogFormSubmitted($event)">
     </llstarscreamll-entry-and-exit-log-form>

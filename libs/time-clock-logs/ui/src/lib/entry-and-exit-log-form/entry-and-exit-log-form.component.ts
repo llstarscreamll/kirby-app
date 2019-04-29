@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoadStatuses } from "@llstarscreamll/shared";
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChildren, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChildren, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'llstarscreamll-entry-and-exit-log-form',
@@ -9,7 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
   styleUrls: ['./entry-and-exit-log-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntryAndExitLogFormComponent implements OnInit {
+export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit {
 
   @ViewChild('codeInput')
   public codeInput: ElementRef;
@@ -26,11 +26,17 @@ export class EntryAndExitLogFormComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.form = this.formBuilder.group({
       action: ['check_in', [Validators.required]],
       identification_code: ['', [Validators.required]]
     });
+  }
+
+  public ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.codeInput.nativeElement.focus();
+    }, 500);
   }
 
   public get currentAction(): string {
@@ -60,7 +66,11 @@ export class EntryAndExitLogFormComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.submitted.emit(this.form.value);
+    const log = this.form.value;
+    this.submitted.emit(log);
+    this.form.patchValue({ identification_code: '' });
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
   }
 
 }
