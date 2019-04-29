@@ -4,6 +4,16 @@
     padding: 15px;
 }
 
+.action.check_in {
+    border-color: green;
+    color: green;
+}
+
+.action.check_out {
+    border-color: red;
+    color: red;
+}
+
 input[type="password"] {
     font-size: 1.5em;
 }
