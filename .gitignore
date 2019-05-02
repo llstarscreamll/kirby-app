@@ -56,3 +56,5 @@ xplat/**/*.metadata.json
 xplat/**/*.ngfactory.ts
 xplat/**/*.ngsummary.json
       
+/vendor/
+.env
