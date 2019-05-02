@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ApiError } from '../../interfaces/api-error';
 import { get } from 'lodash';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { ApiError } from '../../interfaces/api-error';
 import { flatApiErrors } from '../../utils/common-functions';
 
 @Component({
