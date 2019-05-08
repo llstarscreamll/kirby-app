@@ -651,6 +651,104 @@
           "styleext": "scss"
         }
       }
+    },
+    "employees-data-access": {
+      "root": "libs/employees/data-access",
+      "sourceRoot": "libs/employees/data-access/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/employees/data-access/tsconfig.lib.json",
+              "libs/employees/data-access/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/employees/data-access/jest.config.js",
+            "tsConfig": "libs/employees/data-access/tsconfig.spec.json",
+            "setupFile": "libs/employees/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "employees-feature": {
+      "root": "libs/employees/feature",
+      "sourceRoot": "libs/employees/feature/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/employees/feature/tsconfig.lib.json",
+              "libs/employees/feature/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/employees/feature/jest.config.js",
+            "tsConfig": "libs/employees/feature/tsconfig.spec.json",
+            "setupFile": "libs/employees/feature/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "employees-util": {
+      "root": "libs/employees/util",
+      "sourceRoot": "libs/employees/util/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/employees/util/tsconfig.lib.json",
+              "libs/employees/util/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/employees/util/jest.config.js",
+            "tsConfig": "libs/employees/util/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

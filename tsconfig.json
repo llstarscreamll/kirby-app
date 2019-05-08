@@ -9,8 +9,13 @@
     "importHelpers": true,
     "target": "es5",
     "module": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "baseUrl": ".",
     "paths": {
       "@llstarscreamll/authentication-data-access": [
@@ -19,12 +24,24 @@
       "@llstarscreamll/authentication/utils": [
         "libs/authentication/utils/src/index.ts"
       ],
-      "@llstarscreamll/shared": ["libs/shared/src/index.ts"],
-      "@llstarscreamll/*": ["libs/*"],
-      "@llstarscreamll/electron": ["xplat/electron/index.ts"],
-      "@llstarscreamll/electron/*": ["xplat/electron/*"],
-      "@llstarscreamll/web": ["xplat/web/index.ts"],
-      "@llstarscreamll/web/*": ["xplat/web/*"],
+      "@llstarscreamll/shared": [
+        "libs/shared/src/index.ts"
+      ],
+      "@llstarscreamll/*": [
+        "libs/*"
+      ],
+      "@llstarscreamll/electron": [
+        "xplat/electron/index.ts"
+      ],
+      "@llstarscreamll/electron/*": [
+        "xplat/electron/*"
+      ],
+      "@llstarscreamll/web": [
+        "xplat/web/index.ts"
+      ],
+      "@llstarscreamll/web/*": [
+        "xplat/web/*"
+      ],
       "@llstarscreamll/work-shifts/data-access": [
         "libs/work-shifts/data-access/src/index.ts"
       ],
@@ -34,21 +51,37 @@
       "@llstarscreamll/work-shifts/feature": [
         "libs/work-shifts/feature/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
+      "@llstarscreamll/work-shifts/ui": [
+        "libs/work-shifts/ui/src/index.ts"
+      ],
       "@llstarscreamll/time-clock-logs/data-access": [
         "libs/time-clock-logs/data-access/src/index.ts"
       ],
       "@llstarscreamll/time-clock-logs/util": [
         "libs/time-clock-logs/util/src/index.ts"
       ],
-      "@llstarscreamll/users/util": ["libs/users/util/src/index.ts"],
+      "@llstarscreamll/users/util": [
+        "libs/users/util/src/index.ts"
+      ],
       "@llstarscreamll/time-clock-logs/feature": [
         "libs/time-clock-logs/feature/src/index.ts"
       ],
       "@llstarscreamll/time-clock-logs/ui": [
         "libs/time-clock-logs/ui/src/index.ts"
+      ],
+      "@llstarscreamll/employees/data-access": [
+        "libs/employees/data-access/src/index.ts"
+      ],
+      "@llstarscreamll/employees/feature": [
+        "libs/employees/feature/src/index.ts"
+      ],
+      "@llstarscreamll/employees/util": [
+        "libs/employees/util/src/index.ts"
       ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

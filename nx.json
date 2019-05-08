@@ -9,10 +9,18 @@
   },
   "projects": {
     "pascal": {
-      "tags": ["scope:pascal", "type:app", "platform:web"]
+      "tags": [
+        "scope:pascal",
+        "type:app",
+        "platform:web"
+      ]
     },
     "pascal-e2e": {
-      "tags": ["scope:pascal", "type:e2e", "platform:web"]
+      "tags": [
+        "scope:pascal",
+        "type:e2e",
+        "platform:web"
+      ]
     },
     "authentication-data-access": {
       "tags": [
@@ -23,7 +31,11 @@
       ]
     },
     "shared": {
-      "tags": ["scope:shared", "platform:web", "platform:desktop"]
+      "tags": [
+        "scope:shared",
+        "platform:web",
+        "platform:desktop"
+      ]
     },
     "authentication-utils": {
       "tags": [
@@ -40,19 +52,39 @@
       "tags": []
     },
     "electron-pascal-desktop": {
-      "tags": ["scope:work-shifts", "type:app", "platform:desktop"]
+      "tags": [
+        "scope:work-shifts",
+        "type:app",
+        "platform:desktop"
+      ]
     },
     "work-shifts-data-access": {
-      "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
+      "tags": [
+        "scope:work-shifts",
+        "type:data-access",
+        "platform:web"
+      ]
     },
     "work-shifts-util": {
-      "tags": ["scope:shared", "type:util", "platform:web"]
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:web"
+      ]
     },
     "work-shifts-feature": {
-      "tags": ["scope:work-shifts", "type:feature", "platform:web"]
+      "tags": [
+        "scope:work-shifts",
+        "type:feature",
+        "platform:web"
+      ]
     },
     "work-shifts-ui": {
-      "tags": ["scope:work-shifts", "type:ui", "platform:web"]
+      "tags": [
+        "scope:work-shifts",
+        "type:ui",
+        "platform:web"
+      ]
     },
     "time-clock-logs-data-access": {
       "tags": []
@@ -68,6 +100,27 @@
     },
     "time-clock-logs-ui": {
       "tags": []
+    },
+    "employees-data-access": {
+      "tags": [
+        "scope:employees",
+        "type:data-access",
+        "platform:web"
+      ]
+    },
+    "employees-feature": {
+      "tags": [
+        "scope:employees",
+        "type:feature",
+        "platform:web"
+      ]
+    },
+    "employees-util": {
+      "tags": [
+        "scope:employees",
+        "type:util",
+        "platform:web"
+      ]
     }
   }
 }
