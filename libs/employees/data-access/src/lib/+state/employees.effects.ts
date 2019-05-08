@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
+import { Effect, Actions } from '@ngrx/effects';
+import { map } from "rxjs/internal/operators/map";
+import { tap } from "rxjs/internal/operators/tap";
 
 import { EmployeesPartialState } from './employees.reducer';
 import {
   LoadEmployees,
   EmployeesLoaded,
   EmployeesLoadError,
-  EmployeesActionTypes
+  EmployeesActionTypes,
+  SyncEmployeesByCsvFile,
+  SyncEmployeesByCsvFileOk,
+  SyncEmployeesByCsvFileError
 } from './employees.actions';
+import { EmployeeService } from '../employee.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class EmployeesEffects {
-  @Effect() loadEmployees$ = this.dataPersistence.fetch(
+  @Effect()
+  public loadEmployees$ = this.dataPersistence.fetch(
     EmployeesActionTypes.LoadEmployees,
     {
       run: (action: LoadEmployees, state: EmployeesPartialState) => {
-        // Your custom REST 'load' logic goes here. For now just return an empty list...
         return new EmployeesLoaded([]);
       },
 
@@ -27,8 +34,27 @@ export class EmployeesEffects {
     }
   );
 
+  @Effect()
+  public syncEmployeesByCsvFile$ = this.dataPersistence.fetch(
+    EmployeesActionTypes.SyncEmployeesByCsvFile,
+    {
+      run: (action: SyncEmployeesByCsvFile, state: EmployeesPartialState) => {
+        return this.employeeService.syncEmployeesByCsvFile(action.payload)
+          .pipe(
+            map(response => new SyncEmployeesByCsvFileOk),
+            tap(() => this.snackBar.open('Sincronización programada correctamente', "Ok", { duration: 2000, }))
+          );
+      },
+      onError: (action: SyncEmployeesByCsvFile, error) => {
+        this.snackBar.open('Error programando sincronización', "Ok", { duration: 2000, })
+        return new SyncEmployeesByCsvFileError(error.message || 'Error desconocido');
+      }
+    }
+  );
+
   constructor(
-    private actions$: Actions,
+    private snackBar: MatSnackBar,
+    private employeeService: EmployeeService,
     private dataPersistence: DataPersistence<EmployeesPartialState>
-  ) {}
+  ) { }
 }

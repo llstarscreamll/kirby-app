@@ -1,0 +1,15 @@
+<h1>Sincronizar empleados</h1>
+
+<p>La sincronización de empleados se realiza mediante un fichero .csv que debes cargar en este formulario.</p>
+
+<form [formGroup]="syncEmployeesForm" (ngSubmit)="onSubmit()">
+
+  <input type="file" (change)="fileAdded($event)" />
+
+  <div class="clearfix"></div>
+
+  <button [disabled]="syncEmployeesForm.invalid" mat-raised-button type="submit" class="my-3">
+    Sincronizar
+  </button>
+
+</form>
