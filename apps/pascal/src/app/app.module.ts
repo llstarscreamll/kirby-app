@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +34,6 @@ import { WelcomePageComponent } from './containers/welcome-page/welcome-page.com
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
 import { ProductionRecordByWeightComponent } from './containers/production-record-by-weight/production-record-by-weight.component';
-import { HttpClientModule } from '@angular/common/http';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
@@ -43,6 +43,7 @@ export const routes: Route[] = [
   { path: 'production-record-by-weight', component: ProductionRecordByWeightComponent },
   { path: 'work-shifts', loadChildren: '@llstarscreamll/work-shifts/feature#WorkShiftsFeatureModule' },
   { path: 'time-clock-logs', loadChildren: '@llstarscreamll/time-clock-logs/feature#TimeClockLogsFeatureModule' },
+  { path: 'employees', loadChildren: '@llstarscreamll/employees/feature#EmployeesFeatureModule' },
 ];
 
 @NgModule({

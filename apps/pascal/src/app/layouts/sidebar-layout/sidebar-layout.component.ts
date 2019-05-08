@@ -20,6 +20,7 @@ export class SidebarLayoutComponent implements OnInit {
 
   public menuItems = [
     { icon: 'home', link: ['/welcome'], label: 'Home' },
+    { icon: 'supervised_user_circle', link: ['/employees/sync-by-csv-file'], label: 'Empleados' },
     { icon: 'alarm', link: ['/time-clock-logs/entry-and-exit-log'], label: 'Portería' },
   ];
 
