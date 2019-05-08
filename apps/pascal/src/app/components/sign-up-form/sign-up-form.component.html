@@ -2,7 +2,11 @@
 
 <form [formGroup]="form" (ngSubmit)="submitForm()">
   <mat-form-field class="w-100">
-    <input formControlName="name" matInput placeholder="Name" type="text">
+    <input formControlName="first_name" matInput placeholder="First name" type="text">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input formControlName="last_name" matInput placeholder="Last name" type="text">
   </mat-form-field>
 
   <mat-form-field class="w-100">
