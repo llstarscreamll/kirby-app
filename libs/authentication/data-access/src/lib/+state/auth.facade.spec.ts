@@ -183,7 +183,8 @@ describe('AuthFacade', () => {
           expect(errors).toBeFalsy();
 
           let newAccount = {
-            name: 'John Doe',
+            first_name: 'John',
+            last_name: 'Doe',
             email: 'john@doe.com',
             password: 'john.123456',
             password_confirmation: 'john.123456',
@@ -229,7 +230,8 @@ describe('AuthFacade', () => {
           expect(errors).toBeFalsy();
 
           let newAccount = {
-            name: 'John Doe',
+            first_name: 'John',
+            last_name: 'Doe',
             email: 'john@doe.com',
             password: 'john.123456',
             password_confirmation: 'john.123456',

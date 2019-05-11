@@ -5,6 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpFormComponent } from './sign-up-form.component';
 import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NewAccount } from '@llstarscreamll/authentication/utils';
 
 describe('SignUpFormComponent', () => {
   let component: SignUpFormComponent;
@@ -15,8 +16,9 @@ describe('SignUpFormComponent', () => {
   let emailInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
   let passwordConfirmationInput: HTMLInputElement;
-  const newAccount = {
-    name: 'Tony Stark',
+  const newAccount: NewAccount = {
+    first_name: 'Tony',
+    last_name: 'Stark',
     email: 'tony@stark.com',
     password: 'tony.123',
     password_confirmation: 'tony.123',

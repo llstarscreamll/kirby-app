@@ -8,7 +8,8 @@ export const AUTH_TOKENS_MOCK = {
 export const USER = {
   object: 'User',
   id: 'A1',
-  name: 'Tony Stark',
+  first_name: 'Tony',
+  last_name: 'Stark',
   email: 'tony@stark.com',
   confirmed: true,
   nickname: 'Tony',
