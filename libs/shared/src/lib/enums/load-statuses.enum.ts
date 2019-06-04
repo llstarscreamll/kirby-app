@@ -1,6 +1,6 @@
 export enum LoadStatuses {
-  Empty,
-  Loading,
-  Completed,
-  Error,
+  Empty = 'empty',
+  Loading = 'loading',
+  Completed = 'completed',
+  Error = 'error',
 }

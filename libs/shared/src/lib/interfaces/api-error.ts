@@ -4,11 +4,18 @@ export interface ApiError {
   name?: string;
   message: string;
   ok: boolean;
-  error?: {
-    message: string;
-    error?: string;
-    errors?: {
-      [propName: string]: string[];
-    }
-  };
+  error?: ErrorResponse;
 };
+
+interface ErrorResponse {
+  message: string;
+  error?: string;
+  errors?: { [propName: string]: string[]; } | JsonApiError[]
+}
+
+interface JsonApiError {
+  code: number;
+  title: string;
+  detail: string;
+  meta: any;
+}
