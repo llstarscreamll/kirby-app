@@ -9,6 +9,22 @@
     color: green;
 }
 
+#novelty-type-radio-group, #work-shift-radio-group {
+    margin-top: 20px;
+}
+
+mat-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+mat-radio-button {
+    margin: 5px;
+}
+
 .action.check_out {
     border-color: red;
     color: red;

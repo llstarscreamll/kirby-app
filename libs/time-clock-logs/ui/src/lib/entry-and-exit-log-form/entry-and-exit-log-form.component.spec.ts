@@ -1,6 +1,7 @@
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatRadioModule } from '@angular/material/radio';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
+import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy, SimpleChange } from '@angular/core';
 
 import { LoadStatuses } from '@llstarscreamll/shared';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
@@ -11,11 +12,22 @@ describe('EntryAndExitLogFormComponent', () => {
   let template: HTMLDivElement;
   let actionBtnSelector = 'form .action[type=button]';
   let codeInputSelector = 'form [formControlName="identification_code"]';
+  let noveltyTypeInputSelector = 'form [formControlName="novelty_type"]';
+  let workShiftInputSelector = 'form [formControlName="work_shift_id"]';
   let submitBtnSelector = 'form button[type="submit"]';
+  const noveltyTypes = [
+    { id: 1, name: 'Novelty 1' },
+    { id: 2, name: 'Novelty 2' },
+  ];
+  const workShifts = [
+    { id: 1, name: 'Work shift 1' },
+    { id: 2, name: 'Work shift 2' },
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        MatRadioModule,
         ReactiveFormsModule
       ],
       declarations: [EntryAndExitLogFormComponent],
@@ -98,7 +110,12 @@ describe('EntryAndExitLogFormComponent', () => {
     submitBtn.click();
     fixture.detectChanges();
 
-    expect(component.submitted.emit).toHaveBeenCalledWith(component.form.value);
+    expect(component.submitted.emit).toHaveBeenCalledWith({
+      action: 'check_in',
+      identification_code: 'fake-code',
+      work_shift_id: null,
+      novelty_type: null,
+    });
   });
 
   it('should set check_in/check_out on form control value and code input focus when action button clicked', () => {
@@ -111,6 +128,111 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(component.form.get('action').value).toBe('check_out');
     expect(actionBtn.textContent).toContain('Salida');
     expect(template.querySelector(`${codeInputSelector}:focus`)).toBeTruthy();
+  });
+
+  it('should make required and show `novelty_type` form control when apiError has code == 1055', () => {
+    expect(component.hasError1055).toBe(false);
+    // novelty_type control is not required by default
+    expect(component.form.get('novelty_type').valid).toBe(true);
+    expect(component.form.get('novelty_type').validator).toBe(null);
+    expect(template.querySelector(noveltyTypeInputSelector)).toBeFalsy();
+
+    component.apiError = {
+      message: 'Unprocessable entity',
+      ok: false,
+      error: {
+        message: 'crap',
+        errors: [
+          {
+            code: 1055,
+            title: 'novelty error',
+            detail: 'error detail',
+            meta: { novelty_types: noveltyTypes }
+          }
+        ]
+      }
+    };
+
+    component.ngOnChanges({ apiError: new SimpleChange(null, component.apiError, true) });
+    fixture.detectChanges();
+
+    expect(component.hasError1055).toBe(true);
+    expect(component.noveltyTypes.length).toBe(2);
+    // novelty_type should be now required
+    expect(component.form.get('novelty_type').validator('')).toEqual({ required: true });
+    expect(template.querySelector(noveltyTypeInputSelector)).toBeTruthy();
+    expect(template.querySelector(noveltyTypeInputSelector).textContent).toContain(noveltyTypes[0].name);
+    expect(template.querySelector(noveltyTypeInputSelector).textContent).toContain(noveltyTypes[1].name);
+  });
+
+  it('should make required and show `novelty_type` form control when apiError has code == 1053', () => {
+    expect(component.hasError1053).toBe(false);
+    // novelty_type control is not required by default
+    expect(component.form.get('novelty_type').valid).toBe(true);
+    expect(component.form.get('novelty_type').validator).toBe(null);
+    expect(template.querySelector(noveltyTypeInputSelector)).toBeFalsy();
+
+    component.apiError = {
+      message: 'Unprocessable entity',
+      ok: false,
+      error: {
+        message: 'crap!!',
+        errors: [
+          {
+            code: 1053,
+            title: 'another novelty error',
+            detail: 'error detail',
+            meta: { novelty_types: noveltyTypes }
+          }
+        ]
+      }
+    };
+
+    component.ngOnChanges({ apiError: new SimpleChange(null, component.apiError, true) });
+    fixture.detectChanges();
+
+    expect(component.hasError1053).toBe(true);
+    expect(component.noveltyTypes.length).toBe(2);
+    // novelty_type should be now required
+    expect(component.form.get('novelty_type').validator('')).toEqual({ required: true });
+    expect(template.querySelector(noveltyTypeInputSelector)).toBeTruthy();
+    expect(template.querySelector(noveltyTypeInputSelector).textContent).toContain(noveltyTypes[0].name);
+    expect(template.querySelector(noveltyTypeInputSelector).textContent).toContain(noveltyTypes[1].name);
+  });
+
+  it('should make required and show `work_shift_id` form control when apiError has code == 1051', () => {
+    expect(component.hasError1051).toBe(false);
+    // work_shift_id control is not required by default
+    expect(component.form.get('work_shift_id').valid).toBe(true);
+    expect(component.form.get('work_shift_id').validator).toBe(null);
+    expect(template.querySelector(workShiftInputSelector)).toBeFalsy();
+
+    component.apiError = {
+      message: 'Unprocessable entity',
+      ok: false,
+      error: {
+        message: 'crap!!',
+        errors: [
+          {
+            code: 1051,
+            title: 'work shift error',
+            detail: 'error detail',
+            meta: { work_shifts: workShifts }
+          }
+        ]
+      }
+    };
+
+    component.ngOnChanges({ apiError: new SimpleChange(null, component.apiError, true) });
+    fixture.detectChanges();
+
+    expect(component.hasError1051).toBe(true);
+    expect(component.workShifts.length).toBe(2);
+    // work_shift_id should be now required
+    expect(component.form.get('work_shift_id').validator('')).toEqual({ required: true });
+    expect(template.querySelector(workShiftInputSelector)).toBeTruthy();
+    expect(template.querySelector(workShiftInputSelector).textContent).toContain(workShifts[0].name);
+    expect(template.querySelector(workShiftInputSelector).textContent).toContain(workShifts[1].name);
   });
 
 });

@@ -1,7 +1,8 @@
+import { get, isArray } from 'lodash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
 
-import { LoadStatuses } from "@llstarscreamll/shared";
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChildren, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { LoadStatuses, ApiError } from "@llstarscreamll/shared";
 
 @Component({
   selector: 'llstarscreamll-entry-and-exit-log-form',
@@ -9,13 +10,16 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
   styleUrls: ['./entry-and-exit-log-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit {
+export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('codeInput')
   public codeInput: ElementRef;
 
   @Input()
   public status: LoadStatuses;
+
+  @Input()
+  public apiError: ApiError;
 
   @Output()
   public submitted = new EventEmitter();
@@ -27,10 +31,17 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit {
   ) { }
 
   public ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      action: ['check_in', [Validators.required]],
-      identification_code: ['', [Validators.required]]
-    });
+    this.buildForm();
+  }
+
+  public ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    if (changes['apiError'] && this.hasError1051) {
+      this.changeFormFieldToRequired('work_shift_id');
+    }
+
+    if (changes['apiError'] && (this.hasError1053 || this.hasError1055)) {
+      this.changeFormFieldToRequired('novelty_type');
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -59,6 +70,77 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
 
+  private get responseErrors() {
+    return get(this.apiError, 'error.errors', []);
+  }
+
+  public get error1051(): any {
+    let errorAttr = this.responseErrors;
+    const error1055 = errorAttr.filter(error => error.code == 1051).shift();
+
+    return error1055;
+  }
+
+  public get error1053(): any {
+    let errorAttr = this.responseErrors;
+    const error1055 = errorAttr.filter(error => error.code == 1053).shift();
+
+    return error1055;
+  }
+
+  public get error1055(): any {
+    let errorAttr = this.responseErrors;
+    const error1055 = errorAttr.filter(error => error.code == 1055).shift();
+
+    return error1055;
+  }
+
+  public get hasError1051(): boolean {
+    return !!this.error1051;
+  }
+
+  public get hasError1053(): boolean {
+    return !!this.error1053;
+  }
+
+  public get hasError1055(): boolean {
+    return !!this.error1055;
+  }
+
+  public get noveltyTypes(): any[] {
+    let noveltyTypes = [];
+
+    if (this.hasError1053) {
+      noveltyTypes = get(this.error1053, 'meta.novelty_types', [])
+    }
+
+    if (this.hasError1055) {
+      noveltyTypes = get(this.error1055, 'meta.novelty_types', [])
+    }
+
+    return noveltyTypes;
+  }
+
+  public get workShifts(): any[] {
+    return get(this.error1051, 'meta.work_shifts', []);
+  }
+
+  public buildForm() {
+    this.form = this.formBuilder.group({
+      action: ['check_in', [Validators.required]],
+      identification_code: ['', [Validators.required]],
+      work_shift_id: [],
+      novelty_type: [],
+    });
+  }
+
+  private changeFormFieldToRequired(fieldName: string) {
+    if (!this.form) { return; }
+
+    this.form.get(fieldName).setValidators([Validators.required]);
+    this.form.updateValueAndValidity();
+  }
+
   public toggleAction(): void {
     const action = this.currentAction === 'check_in' ? 'check_out' : 'check_in';
     this.form.patchValue({ action });
@@ -66,11 +148,9 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit {
   }
 
   public onSubmit() {
-    const log = this.form.value;
-    this.submitted.emit(log);
-    this.form.patchValue({ identification_code: '' });
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
+    this.submitted.emit(this.form.value);
+    this.form.reset();
+    this.buildForm();
   }
 
 }

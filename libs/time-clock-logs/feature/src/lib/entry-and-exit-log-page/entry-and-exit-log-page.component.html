@@ -6,7 +6,7 @@
     <llstarscreamll-api-errors [apiError]="apiError$ | async"></llstarscreamll-api-errors>
 
     <div class="clearfix"></div>
-    <llstarscreamll-entry-and-exit-log-form [status]="creatingStatus$ | async"
+    <llstarscreamll-entry-and-exit-log-form [status]="creatingStatus$ | async" [apiError]="apiError$ | async"
                                             (submitted)="onCreateLogFormSubmitted($event)">
     </llstarscreamll-entry-and-exit-log-form>
   </div>

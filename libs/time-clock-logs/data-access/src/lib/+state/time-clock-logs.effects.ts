@@ -58,8 +58,13 @@ export class TimeClockLogsEffects {
   public createEntryAndExitLog$ = this.dataPersistence
     .fetch(TimeClockLogsActionTypes.CreateEntryAndExitLog, {
       run: (action: CreateEntryAndExitLog, state: TimeClockLogsPartialState) => {
-        return this.timeClockLogsService.createExitAndEntryLog(action.payload)
-          .pipe(map(response => new CreateEntryAndExitLogOk({ response, action: action.payload.action })));
+        const serviceCall = action.payload.action === 'check_in'
+          ? this.timeClockLogsService.checkIn(action.payload)
+          : this.timeClockLogsService.checkOut(action.payload);
+
+        return serviceCall.pipe(
+          map(response => new CreateEntryAndExitLogOk({ response, action: action.payload.action }))
+        );
       },
       onError: (action: CreateEntryAndExitLog, error) => {
         return new CreateEntryAndExitLogError(error);
