@@ -23,7 +23,7 @@ return "echo '\033[32m" .$message. "\033[0m';\n";
 {{-- startDeployment --}}
 setupReleaseDir
 compile
-updateCompiledFiles
+uploadCompiledFiles
 setPermissions
 blessNewRelease
 cleanOldReleases
@@ -55,7 +55,7 @@ echo $PWD
 ng build --prod --project={{ $project }};
 @endtask
 
-@task('updateCompiledFiles', ['on' => 'local'])
+@task('uploadCompiledFiles', ['on' => 'local'])
 {{ logMessage("🔗  Upload compiled files...") }}
 @foreach ($userAndServers as $server)
     scp -r dist/apps/{{ $project }}/* {{ $server }}:{{ $newReleaseDir }}
