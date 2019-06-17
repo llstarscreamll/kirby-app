@@ -39,7 +39,7 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnCh
       this.changeFormFieldToRequired('work_shift_id');
     }
 
-    if (changes['apiError'] && (this.hasError1053 || this.hasError1055)) {
+    if (changes['apiError'] && (this.hasError1053 || this.hasError1054 || this.hasError1055)) {
       this.changeFormFieldToRequired('novelty_type');
     }
   }
@@ -88,6 +88,13 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnCh
     return error1055;
   }
 
+  public get error1054(): any {
+    let errorAttr = this.responseErrors;
+    const error1055 = errorAttr.filter(error => error.code == 1054).shift();
+
+    return error1055;
+  }
+
   public get error1055(): any {
     let errorAttr = this.responseErrors;
     const error1055 = errorAttr.filter(error => error.code == 1055).shift();
@@ -101,6 +108,10 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnCh
 
   public get hasError1053(): boolean {
     return !!this.error1053;
+  }
+
+  public get hasError1054(): boolean {
+    return !!this.error1054;
   }
 
   public get hasError1055(): boolean {
