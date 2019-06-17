@@ -125,6 +125,10 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnCh
       noveltyTypes = get(this.error1053, 'meta.novelty_types', [])
     }
 
+    if (this.hasError1054) {
+      noveltyTypes = get(this.error1054, 'meta.novelty_types', [])
+    }
+
     if (this.hasError1055) {
       noveltyTypes = get(this.error1055, 'meta.novelty_types', [])
     }

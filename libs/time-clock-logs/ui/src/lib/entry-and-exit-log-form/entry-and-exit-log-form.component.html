@@ -11,7 +11,7 @@
         </mat-radio-group>
     </ng-container>
 
-    <ng-container *ngIf="hasError1055 || hasError1053">
+    <ng-container *ngIf="hasError1053 || hasError1054 || hasError1055">
         <label id="novelty-type-radio-group">Elige el tipo de novedad:</label>
         <mat-radio-group formControlName="novelty_type" aria-labelledBy="novelty-type-radio-group">
             <mat-radio-button *ngFor="let novelty of noveltyTypes" [value]="novelty">{{ novelty.name }}
