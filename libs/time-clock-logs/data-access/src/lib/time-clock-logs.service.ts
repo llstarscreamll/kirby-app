@@ -19,7 +19,10 @@ export class TimeClockLogsService extends BaseAuthService {
   ) { super(); }
 
   public search(query: any = {}): Observable<Pagination<TimeClockLogInterface>> {
-    return this.http.get<Pagination<TimeClockLogInterface>>(this.endpoint, { headers: this.defaultHeaders });
+    return this.http.get<Pagination<TimeClockLogInterface>>(
+      this.endpoint,
+      { headers: this.defaultHeaders, params: query }
+    );
   }
 
   public create(workShiftData: any): Observable<TimeClockLogInterface> {

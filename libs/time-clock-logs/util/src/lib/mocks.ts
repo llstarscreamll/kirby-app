@@ -1,8 +1,9 @@
 import * as faker from "faker";
 
 import { createUser } from "@llstarscreamll/users/util";
-import { WORK_SHIFT_MOCK, createWorkShift } from "@llstarscreamll/work-shifts/util";
+import { createEmployee } from "@llstarscreamll/employees/util";
 import { TimeClockLogInterface } from './time-clock-log.interface';
+import { WORK_SHIFT_MOCK, createWorkShift } from "@llstarscreamll/work-shifts/util";
 
 const employee = createUser('E-1');
 const registrarIn = createUser('R-1');
@@ -26,7 +27,7 @@ export const TIME_CLOCK_LOG_MOCK: TimeClockLogInterface = {
 };
 
 export function createTimeClockLog(id?: string, name: string = null): TimeClockLogInterface {
-  let employee = createUser();
+  let employee = createEmployee();
   const registrarIn = createUser();
   const registrarOut = createUser();
   const workShift = createWorkShift();

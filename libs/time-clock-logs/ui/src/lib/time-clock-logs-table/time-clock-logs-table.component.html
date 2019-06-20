@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th width="10">#</th>
+      <th>Empleado</th>
+      <th>Turno</th>
+      <th>H. entrada</th>
+      <th>H. salida</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of timeClockLogs?.data">
+      <td>{{ row.id }}</td>
+      <td>{{ row.employee.user.first_name }}</td>
+      <td>{{ row.work_shift?.name || '---' }}</td>
+      <td>{{ row.checked_in_at | date:'yy-MM-dd HH:mm' }}</td>
+      <td>{{ row.checked_out_at | date:'yy-MM-dd HH:mm' }}</td>
+    </tr>
+  </tbody>
+</table>

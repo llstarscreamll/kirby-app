@@ -1,0 +1,22 @@
+<h1 (click)="searchTimeClockLogs()">Registros de entradas/salidas</h1>
+
+<div class="row my-4">
+  <div class="col">
+    <a routerLink="entry-and-exit-log" mat-stroked-button color="primary">
+      Registrar entrada/salida
+    </a>
+  </div>
+  <div class="col text-right">
+    <llstarscreamll-pagination [pagination]="(timeClockLogs$ | async)?.meta" (paginate)="searchTimeClockLogs($event)">
+    </llstarscreamll-pagination>
+  </div>
+</div>
+
+
+<llstarscreamll-time-clock-logs-table [timeClockLogs]="timeClockLogs$ | async">
+</llstarscreamll-time-clock-logs-table>
+
+<div class="text-right">
+  <llstarscreamll-pagination [pagination]="(timeClockLogs$ | async)?.meta" (paginate)="searchTimeClockLogs($event)">
+  </llstarscreamll-pagination>
+</div>

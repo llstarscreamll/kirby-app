@@ -6,6 +6,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
+import { TimeClockLogsTableComponent } from './time-clock-logs-table/time-clock-logs-table.component';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form/entry-and-exit-log-form.component';
 
 @NgModule({
@@ -17,7 +18,7 @@ import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form/entry-an
     MatFormFieldModule,
     ReactiveFormsModule,
   ],
-  declarations: [EntryAndExitLogFormComponent],
-  exports: [EntryAndExitLogFormComponent]
+  declarations: [EntryAndExitLogFormComponent, TimeClockLogsTableComponent],
+  exports: [EntryAndExitLogFormComponent, TimeClockLogsTableComponent]
 })
 export class TimeClockLogsUiModule { }
