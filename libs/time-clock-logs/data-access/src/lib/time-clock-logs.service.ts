@@ -27,21 +27,6 @@ export class TimeClockLogsService extends BaseAuthService {
       .pipe(map(response => response.data));
   }
 
-  public createExitAndEntryLog(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
-    return this.http.post<ApiResponse<any>>(this.endpoint, entryAndExitLog, { headers: this.defaultHeaders })
-      .pipe(map(response => response.data));
-  }
-
-  public checkIn(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
-    return this.http.post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-in`, entryAndExitLog, { headers: this.defaultHeaders })
-      .pipe(map(response => response.data));
-  }
-
-  public checkOut(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
-    return this.http.post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-out`, entryAndExitLog, { headers: this.defaultHeaders })
-      .pipe(map(response => response.data));
-  }
-
   public get(workShiftId: string): Observable<TimeClockLogInterface> {
     return this.http.get<ApiResponse<TimeClockLogInterface>>(this.endpoint + workShiftId, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
@@ -54,6 +39,16 @@ export class TimeClockLogsService extends BaseAuthService {
 
   public delete(workShiftId: string): Observable<any> {
     return this.http.delete(this.endpoint + workShiftId, { headers: this.defaultHeaders });
+  }
+
+  public checkIn(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
+    return this.http.post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-in`, entryAndExitLog, { headers: this.defaultHeaders })
+      .pipe(map(response => response.data));
+  }
+
+  public checkOut(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
+    return this.http.post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-out`, entryAndExitLog, { headers: this.defaultHeaders })
+      .pipe(map(response => response.data));
   }
 
 }
