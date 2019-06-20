@@ -5,7 +5,7 @@ import { createEmployee } from "@llstarscreamll/employees/util";
 import { TimeClockLogInterface } from './time-clock-log.interface';
 import { WORK_SHIFT_MOCK, createWorkShift } from "@llstarscreamll/work-shifts/util";
 
-const employee = createUser('E-1');
+const employee = createEmployee('E-1');
 const registrarIn = createUser('R-1');
 const registrarOut = createUser('R-2');
 
