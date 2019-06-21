@@ -11,9 +11,10 @@ export interface TimeClockLogInterface {
   checked_in_at: string;
   checked_out_at?: string;
   checked_in_by_id: string;
-  checkedInBy: UserInterface;
+  checked_in_by: UserInterface;
   checked_out_by_id?: string;
-  checkedOutBy?: UserInterface;
+  checked_out_by?: UserInterface;
+  novelties_count?: number;
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;

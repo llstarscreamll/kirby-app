@@ -18,9 +18,9 @@ export const TIME_CLOCK_LOG_MOCK: TimeClockLogInterface = {
   checked_in_at: '1999-01-01 01:00:00',
   checked_out_at: '1999-01-01 02:00:00',
   checked_in_by_id: registrarIn.id,
-  checkedInBy: registrarIn,
+  checked_in_by: registrarIn,
   checked_out_by_id: registrarOut.id,
-  checkedOutBy: registrarOut,
+  checked_out_by: registrarOut,
   created_at: '1999-01-01 01:00:00',
   updated_at: '1999-01-01 01:00:00',
   deleted_at: null
@@ -41,9 +41,9 @@ export function createTimeClockLog(id?: string, name: string = null): TimeClockL
     checked_in_at: faker.date.past(),
     checked_out_at: faker.date.past(),
     checked_in_by_id: registrarIn.id,
-    checkedInBy: registrarIn,
+    checked_in_by: registrarIn,
     checked_out_by_id: registrarOut.id,
-    checkedOutBy: registrarOut,
+    checked_out_by: registrarOut,
     created_at: faker.date.past(),
     updated_at: faker.date.past(),
   };
