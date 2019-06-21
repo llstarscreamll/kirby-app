@@ -77,6 +77,18 @@
       ],
       "@llstarscreamll/employees/util": [
         "libs/employees/util/src/index.ts"
+      ],
+      "@llstarscreamll/novelties/data": [
+        "libs/novelties/data/src/index.ts"
+      ],
+      "@llstarscreamll/novelties/utils": [
+        "libs/novelties/utils/src/index.ts"
+      ],
+      "@llstarscreamll/novelty-types/utils": [
+        "libs/novelty-types/utils/src/index.ts"
+      ],
+      "@llstarscreamll/novelty-types/data": [
+        "libs/novelty-types/data/src/index.ts"
       ]
     }
   },

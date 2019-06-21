@@ -121,6 +121,18 @@
         "type:util",
         "platform:web"
       ]
+    },
+    "novelties-data": {
+      "tags": []
+    },
+    "novelties-utils": {
+      "tags": []
+    },
+    "novelty-types-utils": {
+      "tags": []
+    },
+    "novelty-types-data": {
+      "tags": []
     }
   }
 }

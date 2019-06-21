@@ -749,6 +749,134 @@
           "styleext": "scss"
         }
       }
+    },
+    "novelties-data": {
+      "root": "libs/novelties/data",
+      "sourceRoot": "libs/novelties/data/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelties/data/tsconfig.lib.json",
+              "libs/novelties/data/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/novelties/data/jest.config.js",
+            "tsConfig": "libs/novelties/data/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "novelties-utils": {
+      "root": "libs/novelties/utils",
+      "sourceRoot": "libs/novelties/utils/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelties/utils/tsconfig.lib.json",
+              "libs/novelties/utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/novelties/utils/jest.config.js",
+            "tsConfig": "libs/novelties/utils/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "novelty-types-utils": {
+      "root": "libs/novelty-types/utils",
+      "sourceRoot": "libs/novelty-types/utils/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelty-types/utils/tsconfig.lib.json",
+              "libs/novelty-types/utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/novelty-types/utils/jest.config.js",
+            "tsConfig": "libs/novelty-types/utils/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "novelty-types-data": {
+      "root": "libs/novelty-types/data",
+      "sourceRoot": "libs/novelty-types/data/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelty-types/data/tsconfig.lib.json",
+              "libs/novelty-types/data/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/novelty-types/data/jest.config.js",
+            "tsConfig": "libs/novelty-types/data/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
