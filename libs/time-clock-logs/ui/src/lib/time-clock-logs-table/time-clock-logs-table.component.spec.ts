@@ -45,7 +45,7 @@ describe('TimeClockLogsTableComponent', () => {
 
     firstRowMap = {
       1: timeClockLog.id,
-      2: timeClockLog.employee.user.first_name,
+      2: timeClockLog.employee.user.first_name + ' ' + timeClockLog.employee.user.last_name,
       3: timeClockLog.work_shift.name,
       4: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
       5: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
