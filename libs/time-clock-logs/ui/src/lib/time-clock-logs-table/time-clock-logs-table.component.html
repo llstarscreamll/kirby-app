@@ -6,6 +6,7 @@
       <th>Turno</th>
       <th>H. entrada</th>
       <th>H. salida</th>
+      <th>Novedades</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
       <td>{{ row.work_shift?.name || '---' }}</td>
       <td>{{ row.checked_in_at | date:'yy-MM-dd HH:mm' }}</td>
       <td>{{ row.checked_out_at | date:'yy-MM-dd HH:mm' }}</td>
+      <td>{{ row.novelties_count }}</td>
     </tr>
   </tbody>
 </table>

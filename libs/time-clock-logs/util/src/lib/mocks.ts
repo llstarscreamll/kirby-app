@@ -2,6 +2,7 @@ import * as faker from "faker";
 
 import { createUser } from "@llstarscreamll/users/util";
 import { createEmployee } from "@llstarscreamll/employees/util";
+import { createNovelty } from "@llstarscreamll/novelties/utils";
 import { TimeClockLogInterface } from './time-clock-log.interface';
 import { WORK_SHIFT_MOCK, createWorkShift } from "@llstarscreamll/work-shifts/util";
 
@@ -27,13 +28,18 @@ export const TIME_CLOCK_LOG_MOCK: TimeClockLogInterface = {
 };
 
 export function createTimeClockLog(id?: string, name: string = null): TimeClockLogInterface {
+  id = id || faker.random.uuid();
   let employee = createEmployee();
   const registrarIn = createUser();
   const registrarOut = createUser();
   const workShift = createWorkShift();
+  const novelties = [
+    createNovelty(null, { time_clock_log_id: id }),
+    createNovelty(null, { time_clock_log_id: id }),
+  ];
 
   return {
-    id: id || faker.random.uuid(),
+    id: id,
     employee_id: employee.id,
     employee: employee,
     work_shift_id: workShift.id,
@@ -44,6 +50,8 @@ export function createTimeClockLog(id?: string, name: string = null): TimeClockL
     checked_in_by: registrarIn,
     checked_out_by_id: registrarOut.id,
     checked_out_by: registrarOut,
+    novelties: novelties,
+    novelties_count: novelties.length,
     created_at: faker.date.past(),
     updated_at: faker.date.past(),
   };

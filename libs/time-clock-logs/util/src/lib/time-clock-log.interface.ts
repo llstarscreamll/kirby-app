@@ -1,6 +1,7 @@
 import { WorkShiftInterface } from "@llstarscreamll/work-shifts/util";
 import { UserInterface } from "@llstarscreamll/users/util";
 import { EmployeeInterface } from '@llstarscreamll/employees/util';
+import { NoveltyInterface } from '@llstarscreamll/novelties/data';
 
 export interface TimeClockLogInterface {
   id?: string;
@@ -15,6 +16,7 @@ export interface TimeClockLogInterface {
   checked_out_by_id?: string;
   checked_out_by?: UserInterface;
   novelties_count?: number;
+  novelties?: NoveltyInterface[];
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
