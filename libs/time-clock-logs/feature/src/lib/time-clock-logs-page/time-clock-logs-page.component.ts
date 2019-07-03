@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access/src';
 import { Observable } from 'rxjs';
 import { Pagination } from '@llstarscreamll/shared';
-import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util/src';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
 
 @Component({
   selector: 'llstarscreamll-time-clock-logs-page',
@@ -11,7 +11,7 @@ import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util/src'
 })
 export class TimeClockLogsPageComponent implements OnInit {
 
-  public timeClockLogs$: Observable<Pagination<TimeClockLogInterface>>
+  public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>
 
   public constructor(private timeClockFacade: TimeClockLogsFacade) { }
 

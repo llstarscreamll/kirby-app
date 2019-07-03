@@ -1,6 +1,6 @@
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
 import { INVALID_DATA_API_ERROR, LoadStatuses } from '@llstarscreamll/shared';
-import { TimeClockLogInterface, createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
+import { TimeClockLogModel, createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
 import { TimeClockLogsPartialState, TIME_CLOCK_LOGS_FEATURE_KEY } from "./time-clock-logs.reducer";
 
 describe('TimeClockLogs Selectors', () => {

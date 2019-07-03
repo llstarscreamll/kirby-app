@@ -9,7 +9,7 @@ export const environment = {
   envName: 'dev',
   test: false,
   appName: 'Pascal',
-  api: 'http://pascal.test/',
+  api: 'http://localhost:8000/',
   i18nPrefix: '',
   version,
 };

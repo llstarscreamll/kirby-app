@@ -67,7 +67,7 @@ describe('TimeClockLogsTableComponent', () => {
       3: timeClockLog.work_shift.name,
       4: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
       5: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
-      6: timeClockLog.novelties.length
+      6: timeClockLog.concatenatedNoveltiesCount
     };
 
     fixture.detectChanges();

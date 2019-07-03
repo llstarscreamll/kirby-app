@@ -2,8 +2,9 @@ import { WorkShiftInterface } from "@llstarscreamll/work-shifts/util";
 import { UserInterface } from "@llstarscreamll/users/util";
 import { EmployeeInterface } from '@llstarscreamll/employees/util';
 import { NoveltyInterface } from '@llstarscreamll/novelties/data';
+import { round } from 'lodash';
 
-export interface TimeClockLogInterface {
+export class TimeClockLogModel {
   id?: string;
   employee_id: string;
   employee: EmployeeInterface;
@@ -20,4 +21,16 @@ export interface TimeClockLogInterface {
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
+
+  public static fromJson(data: any): TimeClockLogModel {
+    return Object.assign(new TimeClockLogModel(), data);
+  }
+
+  public static fromJsonList(arr: any[]): TimeClockLogModel[] {
+    return arr.map(data => TimeClockLogModel.fromJson(data));
+  }
+
+  public get concatenatedNoveltiesCount(): string {
+    return (this.novelties || []).map(novelty => novelty.novelty_type.code + ' ' + round(novelty.total_time_in_minutes / 60, 2)).join(', ');
+  }
 }

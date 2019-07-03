@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Pagination, ApiError } from '@llstarscreamll/shared';
-import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
 
 export enum TimeClockLogsActionTypes {
   SearchTimeClockLogs = '[TimeClockLogs] search',
@@ -38,7 +38,7 @@ export class SearchTimeClockLogs implements Action {
 
 export class SearchTimeClockLogsOk implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogsOk;
-  constructor(public payload: Pagination<TimeClockLogInterface>) { }
+  constructor(public payload: Pagination<TimeClockLogModel>) { }
 }
 
 export class SearchTimeClockLogsError implements Action {
@@ -48,12 +48,12 @@ export class SearchTimeClockLogsError implements Action {
 
 export class CreateTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLog;
-  public constructor(public payload: TimeClockLogInterface) { }
+  public constructor(public payload: TimeClockLogModel) { }
 }
 
 export class CreateTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLogOk;
-  constructor(public payload: TimeClockLogInterface) { }
+  constructor(public payload: TimeClockLogModel) { }
 }
 
 export class CreateTimeClockLogError implements Action {
@@ -83,7 +83,7 @@ export class GetTimeClockLog implements Action {
 
 export class GetTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.GetTimeClockLogOk;
-  constructor(public payload: TimeClockLogInterface) { }
+  constructor(public payload: TimeClockLogModel) { }
 }
 
 export class GetTimeClockLogError implements Action {
@@ -93,12 +93,12 @@ export class GetTimeClockLogError implements Action {
 
 export class UpdateTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.UpdateTimeClockLog;
-  public constructor(public payload: { id: string, data: TimeClockLogInterface }) { }
+  public constructor(public payload: { id: string, data: TimeClockLogModel }) { }
 }
 
 export class UpdateTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.UpdateTimeClockLogOk;
-  constructor(public payload: TimeClockLogInterface) { }
+  constructor(public payload: TimeClockLogModel) { }
 }
 
 export class UpdateTimeClockLogError implements Action {

@@ -14,6 +14,7 @@ export function createNovelty(id?: string, data: any = null): NoveltyInterface {
     time_clock_log_id: data.time_clock_log_id || createTimeClockLog().id,
     employee_id: employee.id,
     novelty_type_id: noveltyType.id,
+    novelty_type: noveltyType,
     total_time_in_minutes: faker.random.number,
     created_at: faker.date.past(),
     updated_at: faker.date.past(),

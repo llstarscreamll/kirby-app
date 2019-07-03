@@ -3,14 +3,14 @@ import * as faker from "faker";
 import { createUser } from "@llstarscreamll/users/util";
 import { createEmployee } from "@llstarscreamll/employees/util";
 import { createNovelty } from "@llstarscreamll/novelties/utils";
-import { TimeClockLogInterface } from './time-clock-log.interface';
+import { TimeClockLogModel } from './time-clock-log.model';
 import { WORK_SHIFT_MOCK, createWorkShift } from "@llstarscreamll/work-shifts/util";
 
 const employee = createEmployee('E-1');
 const registrarIn = createUser('R-1');
 const registrarOut = createUser('R-2');
 
-export const TIME_CLOCK_LOG_MOCK: TimeClockLogInterface = {
+export const TIME_CLOCK_LOG_MOCK: TimeClockLogModel = TimeClockLogModel.fromJson({
   id: '1',
   employee_id: employee.id,
   employee: employee,
@@ -25,9 +25,9 @@ export const TIME_CLOCK_LOG_MOCK: TimeClockLogInterface = {
   created_at: '1999-01-01 01:00:00',
   updated_at: '1999-01-01 01:00:00',
   deleted_at: null
-};
+});
 
-export function createTimeClockLog(id?: string, name: string = null): TimeClockLogInterface {
+export function createTimeClockLog(id?: string, name: string = null): TimeClockLogModel {
   id = id || faker.random.uuid();
   let employee = createEmployee();
   const registrarIn = createUser();
@@ -38,7 +38,7 @@ export function createTimeClockLog(id?: string, name: string = null): TimeClockL
     createNovelty(null, { time_clock_log_id: id }),
   ];
 
-  return {
+  return TimeClockLogModel.fromJson({
     id: id,
     employee_id: employee.id,
     employee: employee,
@@ -54,5 +54,5 @@ export function createTimeClockLog(id?: string, name: string = null): TimeClockL
     novelties_count: novelties.length,
     created_at: faker.date.past(),
     updated_at: faker.date.past(),
-  };
+  });
 }

@@ -5,7 +5,7 @@ import { Injectable, Inject } from '@angular/core';
 
 import { Pagination, ApiResponse } from '@llstarscreamll/shared';
 import { BaseAuthService } from '@llstarscreamll/authentication/utils';
-import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
 
 @Injectable()
 export class TimeClockLogsService extends BaseAuthService {
@@ -18,25 +18,25 @@ export class TimeClockLogsService extends BaseAuthService {
     private http: HttpClient
   ) { super(); }
 
-  public search(query: any = {}): Observable<Pagination<TimeClockLogInterface>> {
-    return this.http.get<Pagination<TimeClockLogInterface>>(
+  public search(query: any = {}): Observable<Pagination<TimeClockLogModel>> {
+    return this.http.get<Pagination<TimeClockLogModel>>(
       this.endpoint,
       { headers: this.defaultHeaders, params: query }
-    );
+    ).pipe(map(resp => ({ ...resp, data: TimeClockLogModel.fromJsonList(resp.data) })));
   }
 
-  public create(workShiftData: any): Observable<TimeClockLogInterface> {
-    return this.http.post<ApiResponse<TimeClockLogInterface>>(this.endpoint, workShiftData, { headers: this.defaultHeaders })
+  public create(workShiftData: any): Observable<TimeClockLogModel> {
+    return this.http.post<ApiResponse<TimeClockLogModel>>(this.endpoint, workShiftData, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
 
-  public get(workShiftId: string): Observable<TimeClockLogInterface> {
-    return this.http.get<ApiResponse<TimeClockLogInterface>>(this.endpoint + workShiftId, { headers: this.defaultHeaders })
+  public get(workShiftId: string): Observable<TimeClockLogModel> {
+    return this.http.get<ApiResponse<TimeClockLogModel>>(this.endpoint + workShiftId, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
 
-  public update(workShiftId: string, workShiftData: any): Observable<TimeClockLogInterface> {
-    return this.http.put<ApiResponse<TimeClockLogInterface>>(this.endpoint + workShiftId, workShiftData, { headers: this.defaultHeaders })
+  public update(workShiftId: string, workShiftData: any): Observable<TimeClockLogModel> {
+    return this.http.put<ApiResponse<TimeClockLogModel>>(this.endpoint + workShiftId, workShiftData, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
 

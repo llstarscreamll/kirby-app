@@ -1,17 +1,17 @@
-import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
 import { TimeClockLogsAction, TimeClockLogsActionTypes } from './time-clock-logs.actions';
 import { ApiError, Pagination, LoadStatuses, emptyPagination } from '@llstarscreamll/shared';
 
 export const TIME_CLOCK_LOGS_FEATURE_KEY = 'timeClockLogs';
 
 export interface TimeClockLogsState {
-  paginatedList: Pagination<TimeClockLogInterface>;
+  paginatedList: Pagination<TimeClockLogModel>;
   paginatingStatus: LoadStatuses;
   selectingStatus?: LoadStatuses;
   creatingStatus?: LoadStatuses;
   updatingStatus?: LoadStatuses;
   deletingStatus?: LoadStatuses;
-  selected?: TimeClockLogInterface;
+  selected?: TimeClockLogModel;
   error?: ApiError;
 }
 

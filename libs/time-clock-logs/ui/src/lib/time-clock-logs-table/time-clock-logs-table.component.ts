@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 import { Pagination } from '@llstarscreamll/shared';
-import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util/src';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
 
 @Component({
   selector: 'llstarscreamll-time-clock-logs-table',
@@ -12,7 +12,7 @@ import { TimeClockLogInterface } from '@llstarscreamll/time-clock-logs/util/src'
 export class TimeClockLogsTableComponent implements OnInit {
 
   @Input()
-  public timeClockLogs: Pagination<TimeClockLogInterface>;
+  public timeClockLogs: Pagination<TimeClockLogModel>;
 
   public constructor() { }
 
