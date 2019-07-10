@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
 
     <button (click)="toggleAction()" mat-stroked-button [ngClass]="actionClass" class="action w-100"
-            type="button">{{ readableActionName }}</button>
+            type="button">Registrar {{ readableActionName }}</button>
 
     <ng-container *ngIf="hasError1051">
         <label id="work-shift-radio-group">Elige el turno de trabajo:</label>
