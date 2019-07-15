@@ -25,6 +25,20 @@ export class TimeClockLogsService extends BaseAuthService {
     ).pipe(map(resp => ({ ...resp, data: TimeClockLogModel.fromJsonList(resp.data) })));
   }
 
+  public getEmployeeTimeClockData(query: any = {}): Observable<any> {
+    return this.http.get(
+      this.env.api + 'api/v1/time-clock/employee-access-data',
+      { headers: this.defaultHeaders, params: query }
+    );
+  }
+
+  public searchSubCostCenters(query: any = {}): Observable<any> {
+    return this.http.get<Pagination<any>>(
+      this.env.api + 'api/v1/sub-cost-centers',
+      { headers: this.defaultHeaders, params: query }
+    );
+  }
+
   public create(workShiftData: any): Observable<TimeClockLogModel> {
     return this.http.post<ApiResponse<TimeClockLogModel>>(this.endpoint, workShiftData, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));

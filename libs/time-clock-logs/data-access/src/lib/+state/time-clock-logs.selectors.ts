@@ -11,6 +11,8 @@ const getCreatingStatus = createSelector(getTimeClockLogsState, (state: TimeCloc
 const getUpdatingStatus = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.updatingStatus);
 const getDeletingStatus = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.deletingStatus);
 const getError = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.error);
+const getSubCostCenters = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.subCostCenters);
+const getEmployeeTimeClockData = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.employeeTimeClockData);
 
 export const timeClockLogsQuery = {
   getPaginatedTimeClockLogs,
@@ -21,4 +23,6 @@ export const timeClockLogsQuery = {
   getUpdatingStatus,
   getDeletingStatus,
   getError,
+  getSubCostCenters,
+  getEmployeeTimeClockData,
 };

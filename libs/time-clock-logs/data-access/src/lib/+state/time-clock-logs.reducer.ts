@@ -12,6 +12,11 @@ export interface TimeClockLogsState {
   updatingStatus?: LoadStatuses;
   deletingStatus?: LoadStatuses;
   selected?: TimeClockLogModel;
+  employeeTimeClockData?: any;
+  /**
+   * @todo move this property and al related stuff to a proper lib/entity/reducer/effect/service
+   */
+  subCostCenters?: any[];
   error?: ApiError;
 }
 
@@ -39,6 +44,26 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
 
     case TimeClockLogsActionTypes.SearchTimeClockLogsError: {
       state = { ...state, error: action.payload, paginatingStatus: LoadStatuses.Error };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.GetEmployeeTimeClockDataOk: {
+      state = { ...state, employeeTimeClockData: action.payload };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.GetEmployeeTimeClockDataError: {
+      state = { ...state, error: action.payload };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.SearchSubCostCentersOk: {
+      state = { ...state, subCostCenters: action.payload };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.SearchSubCostCentersError: {
+      state = { ...state, error: action.payload };
       break;
     }
 

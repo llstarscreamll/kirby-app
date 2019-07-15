@@ -1,6 +1,9 @@
-import { get, isArray } from 'lodash';
+import { Subject } from 'rxjs';
+import { get, sortBy } from 'lodash';
+import { timer } from 'rxjs/internal/observable/timer';
+import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, OnChanges, OnDestroy } from '@angular/core';
 
 import { LoadStatuses, ApiError } from "@llstarscreamll/shared";
 
@@ -10,7 +13,7 @@ import { LoadStatuses, ApiError } from "@llstarscreamll/shared";
   styleUrls: ['./entry-and-exit-log-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnChanges {
+export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
   @ViewChild('codeInput')
   public codeInput: ElementRef;
@@ -19,39 +22,68 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnCh
   public status: LoadStatuses;
 
   @Input()
+  public timeClockData: {
+    action: string,
+    employee: { id: string, name: string },
+    punctuality: -1 | 0 | 1,
+    work_shifts: any[],
+    novelty_types: any[],
+    sub_cost_centers: any[],
+  };
+
+  @Input()
+  public subCostCenters: any[];
+
+  @Input()
   public apiError: ApiError;
+
+  @Output()
+  public codeObtained = new EventEmitter<{ action: string, identification_code: string }>();
+
+  @Output()
+  public searchSubCostCenters = new EventEmitter<{ search: string }>();
 
   @Output()
   public submitted = new EventEmitter();
 
-  public form: FormGroup;
+  private destroy$ = new Subject();
+
+  public codeForm: FormGroup;
+  public checkForm: FormGroup;
 
   public constructor(
     private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
-    this.buildForm();
+    this.buildForms();
+    this.setDefaultWorkShiftIfNeeded();
+    this.listenCheckFormChanges();
   }
 
   public ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    if (changes['apiError'] && this.hasError1051) {
-      this.changeFormFieldToRequired('work_shift_id');
-    }
-
-    if (changes['apiError'] && (this.hasError1053 || this.hasError1054 || this.hasError1055)) {
-      this.changeFormFieldToRequired('novelty_type');
+    if (changes['timeClockData'] && this.checkForm) {
+      this.setDefaultWorkShiftIfNeeded();
+      this.patchCheckFormIfNeeded();
+      this.updateCheckFormValidationRules();
     }
   }
 
   public ngAfterViewInit(): void {
     setTimeout(() => {
-      this.codeInput.nativeElement.focus();
+      if (this.codeInput) {
+        this.codeInput.nativeElement.focus();
+      }
     }, 500);
   }
 
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   public get currentAction(): string {
-    return this.form && this.form.get('action').value === 'check_in' ? 'check_in' : 'check_out';
+    return this.codeForm && this.codeForm.get('action').value;
   }
 
   public get readableActionName(): string {
@@ -66,106 +98,120 @@ export class EntryAndExitLogFormComponent implements OnInit, AfterViewInit, OnCh
     };
   }
 
-  public get disableSubmitBtn(): boolean {
-    return this.status === LoadStatuses.Loading || this.form.invalid;
+  public get disableCodeFormSubmitBtn(): boolean {
+    return this.status === LoadStatuses.Loading || this.codeForm.invalid;
   }
 
-  private get responseErrors() {
-    return get(this.apiError, 'error.errors', []);
-  }
-
-  public get error1051(): any {
-    let errorAttr = this.responseErrors;
-    const error1055 = errorAttr.filter(error => error.code == 1051).shift();
-
-    return error1055;
-  }
-
-  public get error1053(): any {
-    let errorAttr = this.responseErrors;
-    const error1055 = errorAttr.filter(error => error.code == 1053).shift();
-
-    return error1055;
-  }
-
-  public get error1054(): any {
-    let errorAttr = this.responseErrors;
-    const error1055 = errorAttr.filter(error => error.code == 1054).shift();
-
-    return error1055;
-  }
-
-  public get error1055(): any {
-    let errorAttr = this.responseErrors;
-    const error1055 = errorAttr.filter(error => error.code == 1055).shift();
-
-    return error1055;
-  }
-
-  public get hasError1051(): boolean {
-    return !!this.error1051;
-  }
-
-  public get hasError1053(): boolean {
-    return !!this.error1053;
-  }
-
-  public get hasError1054(): boolean {
-    return !!this.error1054;
-  }
-
-  public get hasError1055(): boolean {
-    return !!this.error1055;
+  public get disableCheckFormSubmitBtn(): boolean {
+    return this.status === LoadStatuses.Loading || this.checkForm.invalid;
   }
 
   public get noveltyTypes(): any[] {
-    let noveltyTypes = [];
+    return get(this.timeClockData, 'novelty_types', []);
+  }
 
-    if (this.hasError1053) {
-      noveltyTypes = get(this.error1053, 'meta.novelty_types', [])
-    }
-
-    if (this.hasError1054) {
-      noveltyTypes = get(this.error1054, 'meta.novelty_types', [])
-    }
-
-    if (this.hasError1055) {
-      noveltyTypes = get(this.error1055, 'meta.novelty_types', [])
-    }
-
-    return noveltyTypes;
+  public get hasNoveltyTypes(): boolean {
+    return this.noveltyTypes.length > 0;
   }
 
   public get workShifts(): any[] {
-    return get(this.error1051, 'meta.work_shifts', []);
+    return get(this.timeClockData, 'work_shifts', []);
   }
 
-  public buildForm() {
-    this.form = this.formBuilder.group({
+  public get hasWorkShifts(): boolean {
+    return this.workShifts.length > 0;
+  }
+
+  public get displayWorkShiftField(): boolean {
+    return this.timeClockData.action === 'check_in';
+  }
+
+  public get displaySubCostCenterField(): boolean {
+    return this.timeClockData.action === 'check_out';
+  }
+
+  public get suggestedSubCostCenters(): any[] {
+    return get(this.timeClockData, 'sub_cost_centers', []);
+  }
+
+  public get displayNoveltySubCostCenterField(): boolean {
+    return this.noveltyTypes.filter(novelty => novelty.operator === 'addition').length > 0;
+  }
+
+  public buildForms() {
+    this.codeForm = this.formBuilder.group({
       action: ['check_in', [Validators.required]],
-      identification_code: ['', [Validators.required]],
+      identification_code: ['', [Validators.required]]
+    });
+
+    this.checkForm = this.formBuilder.group({
+      novelty_type_id: [],
       work_shift_id: [],
-      novelty_type: [],
+      sub_cost_center_id: [],
+      novelty_sub_cost_center_id: [],
     });
   }
 
-  private changeFormFieldToRequired(fieldName: string) {
-    if (!this.form) { return; }
+  public setDefaultWorkShiftIfNeeded() {
+    if (this.workShifts.length === 1) {
+      this.checkForm.patchValue({ work_shift_id: this.workShifts[0].id });
+    }
+  }
 
-    this.form.get(fieldName).setValidators([Validators.required]);
-    this.form.updateValueAndValidity();
+  public listenCheckFormChanges() {
+    this.checkForm.get('sub_cost_center_id').valueChanges.pipe(
+      debounce(() => timer(400)),
+      filter(value => typeof value === 'string'),
+      tap(value => this.searchSubCostCenters.emit({ search: value })),
+      takeUntil(this.destroy$),
+    ).subscribe();
+
+    this.checkForm.get('novelty_sub_cost_center_id').valueChanges.pipe(
+      debounce(() => timer(400)),
+      filter(value => typeof value === 'string'),
+      tap(value => this.searchSubCostCenters.emit({ search: value })),
+      takeUntil(this.destroy$),
+    ).subscribe();
+  }
+
+  public patchCheckFormIfNeeded() {
+    const mostRecentSubCostCenter = sortBy(this.suggestedSubCostCenters, 'selected_at').pop();
+
+    // patch novelty_sub_cost_center_id if needed
+    if (mostRecentSubCostCenter && this.displayNoveltySubCostCenterField) {
+      this.checkForm.patchValue({ novelty_sub_cost_center_id: mostRecentSubCostCenter.id });
+    }
+
+    // patch sub_cost_center_id if needed
+    if (mostRecentSubCostCenter && this.displaySubCostCenterField) {
+      this.checkForm.patchValue({ sub_cost_center_id: mostRecentSubCostCenter.id });
+    }
+  }
+
+  public updateCheckFormValidationRules() {
+    if (this.currentAction === 'check_out') {
+      this.checkForm.get('sub_cost_center_id').setValidators([Validators.required]);
+    } else {
+      this.checkForm.get('sub_cost_center_id').setValidators([]);
+    }
   }
 
   public toggleAction(): void {
     const action = this.currentAction === 'check_in' ? 'check_out' : 'check_in';
-    this.form.patchValue({ action });
+    this.codeForm.patchValue({ action });
     this.codeInput.nativeElement.focus();
   }
 
-  public onSubmit() {
-    this.submitted.emit(this.form.value);
-    this.form.reset();
-    this.buildForm();
+  public onCodeFormSubmit() {
+    this.codeObtained.emit(this.codeForm.value);
+    this.codeForm.reset();
+  }
+
+  public onCheckFormSubmit() {
+    this.submitted.emit(this.checkForm.value);
+    this.checkForm.reset();
+    this.codeForm.reset();
+    this.buildForms();
   }
 
 }

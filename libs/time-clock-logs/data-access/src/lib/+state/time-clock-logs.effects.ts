@@ -23,13 +23,20 @@ import {
   DeleteTimeClockLogError,
   CreateEntryAndExitLog,
   CreateEntryAndExitLogOk,
-  CreateEntryAndExitLogError
+  CreateEntryAndExitLogError,
+  GetEmployeeTimeClockData,
+  GetEmployeeTimeClockDataOk,
+  GetEmployeeTimeClockDataError,
+  SearchSubCostCenters,
+  SearchSubCostCentersOk,
+  SearchSubCostCentersError
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class TimeClockLogsEffects {
+
   @Effect()
   public searchTimeClockLogs$ = this.dataPersistence
     .fetch(TimeClockLogsActionTypes.SearchTimeClockLogs, {
@@ -39,6 +46,30 @@ export class TimeClockLogsEffects {
       },
       onError: (action: SearchTimeClockLogs, error) => {
         return new SearchTimeClockLogsError(error);
+      }
+    });
+
+  @Effect()
+  public getEmployeeTimeClockData$ = this.dataPersistence
+    .fetch(TimeClockLogsActionTypes.GetEmployeeTimeClockData, {
+      run: (action: GetEmployeeTimeClockData) => {
+        return this.timeClockLogsService.getEmployeeTimeClockData(action.payload)
+          .pipe(map(response => new GetEmployeeTimeClockDataOk(response)));
+      },
+      onError: (action: GetEmployeeTimeClockData, error) => {
+        return new GetEmployeeTimeClockDataError(error);
+      }
+    });
+
+  @Effect()
+  public searchSubCostCenters$ = this.dataPersistence
+    .fetch(TimeClockLogsActionTypes.SearchSubCostCenters, {
+      run: (action: SearchSubCostCenters) => {
+        return this.timeClockLogsService.searchSubCostCenters(action.payload)
+          .pipe(map(response => new SearchSubCostCentersOk(response)));
+      },
+      onError: (action: SearchSubCostCenters, error) => {
+        return new SearchSubCostCentersError(error);
       }
     });
 

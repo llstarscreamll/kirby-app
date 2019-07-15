@@ -12,12 +12,16 @@ export class EntryAndExitLogPageComponent implements OnInit, OnDestroy {
 
   public apiError$: Observable<any>;
   public creatingStatus$: Observable<any>;
+  public subCostCenters$: Observable<any>;
+  public employeeTimeClockData$: Observable<any>;
 
   public constructor(private timeClockLogsFacade: TimeClockLogsFacade) { }
 
   public ngOnInit(): void {
     this.apiError$ = this.timeClockLogsFacade.apiError$;
     this.creatingStatus$ = this.timeClockLogsFacade.creatingStatus$;
+    this.subCostCenters$ = this.timeClockLogsFacade.subCostCenters$;
+    this.employeeTimeClockData$ = this.timeClockLogsFacade.employeeTimeClockData$;
   }
 
   public ngOnDestroy(): void {
@@ -26,6 +30,14 @@ export class EntryAndExitLogPageComponent implements OnInit, OnDestroy {
 
   public onCreateLogFormSubmitted(data: any) {
     this.timeClockLogsFacade.createEntryAndExitLog(data);
+  }
+
+  public onCodeObtained(code: any) {
+    this.timeClockLogsFacade.getTimeClockData(code);
+  }
+
+  public onSearchSubCostCenters(code: any) {
+    this.timeClockLogsFacade.searchSubCostCenters(code);
   }
 
 }

@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
-import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError } from './time-clock-logs.actions';
+import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError, GetEmployeeTimeClockData, SearchSubCostCenters } from './time-clock-logs.actions';
 
 @Injectable()
 export class TimeClockLogsFacade {
@@ -15,11 +15,21 @@ export class TimeClockLogsFacade {
   public updatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getUpdatingStatus));
   public deletingStatus$ = this.store.pipe(select(timeClockLogsQuery.getDeletingStatus));
   public apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
+  public subCostCenters$ = this.store.pipe(select(timeClockLogsQuery.getSubCostCenters));
+  public employeeTimeClockData$ = this.store.pipe(select(timeClockLogsQuery.getEmployeeTimeClockData));
 
   public constructor(private store: Store<TimeClockLogsPartialState>) { }
 
   public search(query: any = {}) {
     this.store.dispatch(new SearchTimeClockLogs(query));
+  }
+
+  public getTimeClockData(log: { identification_code: string, action: string }) {
+    this.store.dispatch(new GetEmployeeTimeClockData(log));
+  }
+
+  public searchSubCostCenters(query: any) {
+    this.store.dispatch(new SearchSubCostCenters(query));
   }
 
   public createEntryAndExitLog(log: { identification_code: string, action: string }) {

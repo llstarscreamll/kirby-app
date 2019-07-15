@@ -1,29 +1,59 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+<form *ngIf="!timeClockData" [formGroup]="codeForm" (ngSubmit)="onCodeFormSubmit()" id="code-form" autocomplete="off">
 
     <button (click)="toggleAction()" mat-stroked-button [ngClass]="actionClass" class="action w-100"
             type="button">Registrar {{ readableActionName }}</button>
-
-    <ng-container *ngIf="hasError1051">
-        <label id="work-shift-radio-group">Elige el turno de trabajo:</label>
-        <mat-radio-group formControlName="work_shift_id" aria-labelledBy="work-shift-radio-group">
-            <mat-radio-button *ngFor="let workShift of workShifts" [value]="workShift.id">{{ workShift.name }}
-            </mat-radio-button>
-        </mat-radio-group>
-    </ng-container>
-
-    <ng-container *ngIf="hasError1053 || hasError1054 || hasError1055">
-        <label id="novelty-type-radio-group">Elige el tipo de novedad:</label>
-        <mat-radio-group formControlName="novelty_type" aria-labelledBy="novelty-type-radio-group">
-            <mat-radio-button *ngFor="let novelty of noveltyTypes" [value]="novelty">{{ novelty.name }}
-            </mat-radio-button>
-        </mat-radio-group>
-    </ng-container>
 
     <mat-form-field class="w-100">
         <input #codeInput formControlName="identification_code" matInput type="password"
                placeholder="Código de identificación" required>
     </mat-form-field>
 
-    <button mat-raised-button [disabled]="disableSubmitBtn" type="submit">Registrar</button>
+    <button mat-raised-button [disabled]="disableCodeFormSubmitBtn" type="submit">Siguiente</button>
+
+</form>
+
+<form *ngIf="timeClockData" [formGroup]="checkForm" (ngSubmit)="onCheckFormSubmit()" id="check-form" autocomplete="off">
+
+    <h1 class="text-center">Registrar {{ readableActionName }}</h1>
+
+    <ng-container *ngIf="displayWorkShiftField && hasWorkShifts">
+        <label id="work-shift-radio-group">Turno:</label>
+        <mat-radio-group formControlName="work_shift_id" aria-labelledBy="work-shift-radio-group">
+            <mat-radio-button *ngFor="let workShift of workShifts" [value]="workShift.id">{{ workShift.name }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </ng-container>
+
+    <ng-container *ngIf="hasNoveltyTypes">
+        <label id="novelty-type-radio-group">Tipo de novedad:</label>
+        <mat-radio-group formControlName="novelty_type_id" aria-labelledBy="novelty-type-radio-group">
+            <mat-radio-button *ngFor="let novelty of noveltyTypes" [value]="novelty.id">{{ novelty.name }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </ng-container>
+
+    <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-100">
+        <input matInput placeholder="Centro de costo de novedad" aria-label="State"
+               [matAutocomplete]="noveltySubCostCenter" formControlName="novelty_sub_cost_center_id">
+        <mat-autocomplete #noveltySubCostCenter="matAutocomplete">
+            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter.id">
+                <span>{{ subCostCenter.name }}</span>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="displaySubCostCenterField" class="w-100">
+        <input matInput placeholder="Centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
+               formControlName="sub_cost_center_id">
+        <mat-autocomplete #subCostCenter="matAutocomplete">
+            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter.id">
+                <span>{{ subCostCenter.name }}</span>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="clearfix"></div>
+
+    <button mat-raised-button [disabled]="disableCheckFormSubmitBtn" type="submit">Enviar</button>
 
 </form>

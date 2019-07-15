@@ -8,6 +8,14 @@ export enum TimeClockLogsActionTypes {
   SearchTimeClockLogsOk = '[TimeClockLogs] search ok',
   SearchTimeClockLogsError = '[TimeClockLogs] search error',
 
+  GetEmployeeTimeClockData = '[TimeClockLogs] get employee time clock data',
+  GetEmployeeTimeClockDataOk = '[TimeClockLogs] get employee time clock data ok',
+  GetEmployeeTimeClockDataError = '[TimeClockLogs] get employee time clock data error',
+
+  SearchSubCostCenters = '[TimeClockLogs] search sub cost centers',
+  SearchSubCostCentersOk = '[TimeClockLogs] search sub cost centers ok',
+  SearchSubCostCentersError = '[TimeClockLogs] search sub cost centers error',
+
   CreateTimeClockLog = '[TimeClockLogs] create',
   CreateTimeClockLogOk = '[TimeClockLog] create ok',
   CreateTimeClockLogError = '[TimeClockLog] create error',
@@ -43,6 +51,36 @@ export class SearchTimeClockLogsOk implements Action {
 
 export class SearchTimeClockLogsError implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogsError;
+  constructor(public payload: ApiError) { }
+}
+
+export class GetEmployeeTimeClockData implements Action {
+  readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockData;
+  public constructor(public payload: any) { }
+}
+
+export class GetEmployeeTimeClockDataOk implements Action {
+  readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockDataOk;
+  constructor(public payload: any) { }
+}
+
+export class GetEmployeeTimeClockDataError implements Action {
+  readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockDataError;
+  constructor(public payload: ApiError) { }
+}
+
+export class SearchSubCostCenters implements Action {
+  readonly type = TimeClockLogsActionTypes.SearchSubCostCenters;
+  public constructor(public payload: any) { }
+}
+
+export class SearchSubCostCentersOk implements Action {
+  readonly type = TimeClockLogsActionTypes.SearchSubCostCentersOk;
+  constructor(public payload: any[]) { }
+}
+
+export class SearchSubCostCentersError implements Action {
+  readonly type = TimeClockLogsActionTypes.SearchSubCostCentersError;
   constructor(public payload: ApiError) { }
 }
 
@@ -129,6 +167,12 @@ export type TimeClockLogsAction =
   | SearchTimeClockLogs
   | SearchTimeClockLogsOk
   | SearchTimeClockLogsError
+  | GetEmployeeTimeClockData
+  | GetEmployeeTimeClockDataOk
+  | GetEmployeeTimeClockDataError
+  | SearchSubCostCenters
+  | SearchSubCostCentersOk
+  | SearchSubCostCentersError
   | CreateTimeClockLog
   | CreateTimeClockLogOk
   | CreateTimeClockLogError
@@ -150,6 +194,12 @@ export const fromTimeClockLogsActions = {
   SearchTimeClockLogs,
   SearchTimeClockLogsOk,
   SearchTimeClockLogsError,
+  GetEmployeeTimeClockData,
+  GetEmployeeTimeClockDataOk,
+  GetEmployeeTimeClockDataError,
+  SearchSubCostCenters,
+  SearchSubCostCentersOk,
+  SearchSubCostCentersError,
   CreateTimeClockLog,
   CreateTimeClockLogOk,
   CreateTimeClockLogError,
