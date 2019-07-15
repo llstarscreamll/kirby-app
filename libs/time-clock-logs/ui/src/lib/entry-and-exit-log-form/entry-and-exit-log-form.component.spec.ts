@@ -7,6 +7,7 @@ import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy, SimpleChange } from '@angula
 import { LoadStatuses } from '@llstarscreamll/shared';
 import { createWorkShift } from '@llstarscreamll/work-shifts/util/src';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
+import { unset } from 'lodash';
 
 describe('EntryAndExitLogFormComponent', () => {
   let component: EntryAndExitLogFormComponent;
@@ -20,8 +21,8 @@ describe('EntryAndExitLogFormComponent', () => {
   let workShiftFieldSelector = 'form#check-form [formControlName="work_shift_id"]';
   let workShiftOptionSelector = workShiftFieldSelector + ' mat-radio-button';
   let noveltyTypeFieldSelector = 'form#check-form [formControlName="novelty_type_id"]';
-  let noveltySubCostCenterInputSelector = 'form#check-form [formControlName="novelty_sub_cost_center_id"]';
-  let subCostCenterInputSelector = 'form#check-form [formControlName="sub_cost_center_id"]';
+  let noveltySubCostCenterInputSelector = 'form#check-form [formControlName="novelty_sub_cost_center"]';
+  let subCostCenterInputSelector = 'form#check-form [formControlName="sub_cost_center"]';
   let submitCheckFormBtnSelector = 'form#check-form button[type="submit"]';
 
   let earlyTimeClockData;
@@ -143,7 +144,7 @@ describe('EntryAndExitLogFormComponent', () => {
   });
 
   it('should emit form values when code form is submitted', () => {
-    spyOn(component.codeObtained, 'emit');
+    spyOn(component.submitted, 'emit');
     component.codeForm.patchValue({ identification_code: 'fake-code' });
 
     fixture.detectChanges();
@@ -152,7 +153,7 @@ describe('EntryAndExitLogFormComponent', () => {
     submitBtn.click();
     fixture.detectChanges();
 
-    expect(component.codeObtained.emit).toHaveBeenCalledWith({
+    expect(component.submitted.emit).toHaveBeenCalledWith({
       action: 'check_in',
       identification_code: 'fake-code',
     });
@@ -171,11 +172,11 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(template.querySelector('form#code-form')).toBeFalsy();
   });
 
-  it('should set sub_cost_center_id validation rules when action == check_out', () => {
-    // when action is check in sub_cost_center_id is not required
+  it('should set sub_cost_center validation rules when action == check_out', () => {
+    // when action is check in sub_cost_center is not required
     component.codeForm.patchValue({ action: 'check_in' });
-    expect(component.checkForm.get('sub_cost_center_id').valid).toBe(true);
-    expect(component.checkForm.get('sub_cost_center_id').validator).toBe(null);
+    expect(component.checkForm.get('sub_cost_center').valid).toBe(true);
+    expect(component.checkForm.get('sub_cost_center').validator).toBe(null);
 
     component.codeForm.patchValue({ action: 'check_out' });
     component.timeClockData = earlyTimeClockData;
@@ -183,10 +184,10 @@ describe('EntryAndExitLogFormComponent', () => {
     component.ngOnChanges({ timeClockData: new SimpleChange(null, component.timeClockData, true) });
     fixture.detectChanges();
 
-    // remove sub_cost_center_id field suggested value
-    component.checkForm.get('sub_cost_center_id').setValue(null);
-    expect(component.checkForm.get('sub_cost_center_id').valid).toBe(false);
-    expect(component.checkForm.get('sub_cost_center_id').validator).not.toBe(null);
+    // remove sub_cost_center field suggested value
+    component.checkForm.get('sub_cost_center').setValue(null);
+    expect(component.checkForm.get('sub_cost_center').valid).toBe(false);
+    expect(component.checkForm.get('sub_cost_center').validator).not.toBe(null);
   });
 
   it('should set work shift as selected if there is only one option on check form', () => {
@@ -231,7 +232,7 @@ describe('EntryAndExitLogFormComponent', () => {
     // novelty sub cost center field must be present because novelty type operator is addition
     expect(template.querySelector(noveltySubCostCenterInputSelector)).toBeTruthy();
     // novelty sub cost center field must have selected the latest sub cost center given on timeClockData
-    expect(component.checkForm.get('novelty_sub_cost_center_id').value).toBe('1');
+    expect(component.checkForm.get('novelty_sub_cost_center').value).toBe(earlyTimeClockData.sub_cost_centers[0]);
   });
 
   it('should have certain form fields when timeClockData is too EARLY for check out on check form', () => {
@@ -258,7 +259,7 @@ describe('EntryAndExitLogFormComponent', () => {
     // sub cost center field must be present because action is check out
     expect(template.querySelector(subCostCenterInputSelector)).toBeTruthy();
     // sub cost center field must have selected the latest sub cost center given on timeClockData
-    expect(component.checkForm.get('sub_cost_center_id').value).toBe('1');
+    expect(component.checkForm.get('sub_cost_center').value).toBe(earlyTimeClockData.sub_cost_centers[0]);
   });
 
   it('should have certain form fields when timeClockData is too LATE for check in on check form', () => {
@@ -307,14 +308,14 @@ describe('EntryAndExitLogFormComponent', () => {
     // novelty sub cost center field must be present because novelty type operator is addition
     expect(template.querySelector(noveltySubCostCenterInputSelector)).toBeTruthy();
     // novelty sub cost center field must have selected the most recent sub cost center given on timeClockData
-    expect(component.checkForm.get('novelty_sub_cost_center_id').value).toBe('1');
+    expect(component.checkForm.get('novelty_sub_cost_center').value).toBe(earlyTimeClockData.sub_cost_centers[0]);
     // sub cost center field must be present because action is check out
     expect(template.querySelector(subCostCenterInputSelector)).toBeTruthy();
     // sub cost center field must have selected the latest sub cost center given on timeClockData
-    expect(component.checkForm.get('sub_cost_center_id').value).toBe('1');
+    expect(component.checkForm.get('sub_cost_center').value).toBe(earlyTimeClockData.sub_cost_centers[0]);
   });
 
-  it('should emit searchSubCostCenters when novelty_sub_cost_center_id form field changes', fakeAsync(() => {
+  it('should emit searchSubCostCenters when novelty_sub_cost_center form field changes', fakeAsync(() => {
     spyOn(component.searchSubCostCenters, 'emit');
 
     const search = 'some search text';
@@ -339,7 +340,7 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(component.searchSubCostCenters.emit).toHaveBeenCalledWith({ search });
   }));
 
-  it('should emit searchSubCostCenters when sub_cost_center_id form field changes', fakeAsync(() => {
+  it('should emit searchSubCostCenters when sub_cost_center form field changes', fakeAsync(() => {
     spyOn(component.searchSubCostCenters, 'emit');
 
     const search = 'some search text';
@@ -364,7 +365,7 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(component.searchSubCostCenters.emit).toHaveBeenCalledWith({ search });
   }));
 
-  it('should display sub cost center list on novelty_sub_cost_center_id input focus', () => {
+  it('should display sub cost center list on novelty_sub_cost_center input focus', () => {
     component.timeClockData = earlyTimeClockData;
     component.timeClockData.action = 'check_out';
     component.subCostCenters = [
@@ -388,7 +389,7 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(options.length).toBe(2);
   });
 
-  it('should display sub cost center list on sub_cost_center_id input focus', () => {
+  it('should display sub cost center list on sub_cost_center input focus', () => {
     component.timeClockData = earlyTimeClockData;
     component.timeClockData.action = 'check_out';
     component.subCostCenters = [
@@ -415,12 +416,17 @@ describe('EntryAndExitLogFormComponent', () => {
   it('should emit data on check form submitted', () => {
     spyOn(component.submitted, 'emit');
     component.timeClockData = earlyTimeClockData;
-    const checkFormData = {
+    let checkFormData = {
+      action: 'check_out',
+      identification_code: 'some-code-123',
       novelty_type_id: earlyTimeClockData.novelty_types.shift().id,
       work_shift_id: earlyTimeClockData.work_shifts.shift().id,
-      sub_cost_center_id: '1',
-      novelty_sub_cost_center_id: '1',
+      sub_cost_center: earlyTimeClockData.sub_cost_centers[0],
+      novelty_sub_cost_center: earlyTimeClockData.sub_cost_centers[0],
+      sub_cost_center_id: earlyTimeClockData.sub_cost_centers[0].id,
+      novelty_sub_cost_center_id: earlyTimeClockData.sub_cost_centers[0].id,
     };
+    component.codeForm.patchValue(checkFormData);
     component.checkForm.patchValue(checkFormData);
 
     component.ngOnChanges({ timeClockData: new SimpleChange(null, component.timeClockData, true) });
@@ -430,6 +436,41 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(component.checkForm.valid).toBe(true);
     expect(submitBtn).toBeTruthy();
     submitBtn.click();
+
     expect(component.submitted.emit).toHaveBeenCalledWith(checkFormData);
+  });
+
+  it('should clean forms when status == Completed', () => {
+    component.timeClockData = earlyTimeClockData;
+    let checkFormData = {
+      action: 'check_out',
+      identification_code: 'some-code-123',
+      novelty_type_id: earlyTimeClockData.novelty_types.shift().id,
+      work_shift_id: earlyTimeClockData.work_shifts.shift().id,
+      sub_cost_center: earlyTimeClockData.sub_cost_centers[0],
+      novelty_sub_cost_center: earlyTimeClockData.sub_cost_centers[0],
+      sub_cost_center_id: earlyTimeClockData.sub_cost_centers[0].id,
+      novelty_sub_cost_center_id: earlyTimeClockData.sub_cost_centers[0].id,
+    };
+    component.codeForm.patchValue(checkFormData);
+    component.checkForm.patchValue(checkFormData);
+
+    expect(component.codeForm.valid).toBe(true);
+    expect(component.checkForm.valid).toBe(true);
+
+    component.status = LoadStatuses.Completed;
+    component.ngOnChanges({ status: new SimpleChange(LoadStatuses.Empty, LoadStatuses.Completed, false) });
+    fixture.detectChanges();
+
+    expect(component.codeForm.value).toEqual({
+      action: 'check_in',
+      identification_code: null,
+    });
+    expect(component.checkForm.value).toEqual({
+      novelty_type_id: null,
+      work_shift_id: null,
+      sub_cost_center: null,
+      novelty_sub_cost_center: null,
+    });
   });
 });

@@ -1,6 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { TIME_CLOCK_LOGS_FEATURE_KEY, TimeClockLogsState } from './time-clock-logs.reducer';
+import { ApiError } from '@llstarscreamll/shared';
+import { get, isArray } from 'lodash';
 
 const getTimeClockLogsState = createFeatureSelector<TimeClockLogsState>(TIME_CLOCK_LOGS_FEATURE_KEY);
 const getPaginatedTimeClockLogs = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.paginatedList);
@@ -12,7 +14,7 @@ const getUpdatingStatus = createSelector(getTimeClockLogsState, (state: TimeCloc
 const getDeletingStatus = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.deletingStatus);
 const getError = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.error);
 const getSubCostCenters = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.subCostCenters);
-const getEmployeeTimeClockData = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => state.employeeTimeClockData);
+const getEmployeeTimeClockData = createSelector(getTimeClockLogsState, (state: TimeClockLogsState) => getEmployeeTimeClockDataFromApiError(state.error));
 
 export const timeClockLogsQuery = {
   getPaginatedTimeClockLogs,
@@ -26,3 +28,13 @@ export const timeClockLogsQuery = {
   getSubCostCenters,
   getEmployeeTimeClockData,
 };
+
+function getEmployeeTimeClockDataFromApiError(apiError: ApiError) {
+  const knownErrorCodes = [1051, 1053, 1054, 1055, 1056];
+  let errors: any[] = get(apiError, 'error.errors', []);
+  errors = isArray(errors) ? errors : [];
+  const firstErrorOccurrence = errors.filter(error => knownErrorCodes.includes(error.code)).shift();
+
+
+  return get(firstErrorOccurrence, 'meta');
+}

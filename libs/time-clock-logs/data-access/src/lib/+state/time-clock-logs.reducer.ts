@@ -68,7 +68,7 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
     }
 
     case TimeClockLogsActionTypes.CreateTimeClockLog: {
-      state = { ...state, creatingStatus: LoadStatuses.Loading, error: null };
+      state = { ...state, creatingStatus: LoadStatuses.Loading };
       break;
     }
 

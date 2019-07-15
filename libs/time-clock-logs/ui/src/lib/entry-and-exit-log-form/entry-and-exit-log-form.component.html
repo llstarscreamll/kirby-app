@@ -4,8 +4,9 @@
             type="button">Registrar {{ readableActionName }}</button>
 
     <mat-form-field class="w-100">
-        <input #codeInput formControlName="identification_code" matInput type="password"
-               placeholder="Código de identificación" required>
+        <input #codeInput formControlName="identification_code" matInput type="password" autocomplete="off"
+               autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Código de identificación"
+               required>
     </mat-form-field>
 
     <button mat-raised-button [disabled]="disableCodeFormSubmitBtn" type="submit">Siguiente</button>
@@ -33,20 +34,20 @@
     </ng-container>
 
     <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-100">
-        <input matInput placeholder="Centro de costo de novedad" aria-label="State"
-               [matAutocomplete]="noveltySubCostCenter" formControlName="novelty_sub_cost_center_id">
-        <mat-autocomplete #noveltySubCostCenter="matAutocomplete">
-            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter.id">
+        <input matInput placeholder="Sub Centro de costo de novedad" aria-label="State"
+               [matAutocomplete]="noveltySubCostCenter" formControlName="novelty_sub_cost_center">
+        <mat-autocomplete #noveltySubCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
+            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
                 <span>{{ subCostCenter.name }}</span>
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field *ngIf="displaySubCostCenterField" class="w-100">
-        <input matInput placeholder="Centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
-               formControlName="sub_cost_center_id">
-        <mat-autocomplete #subCostCenter="matAutocomplete">
-            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter.id">
+        <input matInput placeholder="Sub Centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
+               formControlName="sub_cost_center">
+        <mat-autocomplete #subCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
+            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
                 <span>{{ subCostCenter.name }}</span>
             </mat-option>
         </mat-autocomplete>

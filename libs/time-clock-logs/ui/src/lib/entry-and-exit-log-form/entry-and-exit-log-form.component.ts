@@ -67,6 +67,10 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
       this.patchCheckFormIfNeeded();
       this.updateCheckFormValidationRules();
     }
+
+    if (changes['status'] && this.status === LoadStatuses.Completed && this.codeForm && this.checkForm) {
+      this.resetForms();
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -141,14 +145,14 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   public buildForms() {
     this.codeForm = this.formBuilder.group({
       action: ['check_in', [Validators.required]],
-      identification_code: ['', [Validators.required]]
+      identification_code: [, [Validators.required]]
     });
 
     this.checkForm = this.formBuilder.group({
       novelty_type_id: [],
       work_shift_id: [],
-      sub_cost_center_id: [],
-      novelty_sub_cost_center_id: [],
+      sub_cost_center: [],
+      novelty_sub_cost_center: [],
     });
   }
 
@@ -159,14 +163,14 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   }
 
   public listenCheckFormChanges() {
-    this.checkForm.get('sub_cost_center_id').valueChanges.pipe(
+    this.checkForm.get('sub_cost_center').valueChanges.pipe(
       debounce(() => timer(400)),
       filter(value => typeof value === 'string'),
       tap(value => this.searchSubCostCenters.emit({ search: value })),
       takeUntil(this.destroy$),
     ).subscribe();
 
-    this.checkForm.get('novelty_sub_cost_center_id').valueChanges.pipe(
+    this.checkForm.get('novelty_sub_cost_center').valueChanges.pipe(
       debounce(() => timer(400)),
       filter(value => typeof value === 'string'),
       tap(value => this.searchSubCostCenters.emit({ search: value })),
@@ -177,22 +181,22 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   public patchCheckFormIfNeeded() {
     const mostRecentSubCostCenter = sortBy(this.suggestedSubCostCenters, 'selected_at').pop();
 
-    // patch novelty_sub_cost_center_id if needed
+    // patch novelty_sub_cost_center if needed
     if (mostRecentSubCostCenter && this.displayNoveltySubCostCenterField) {
-      this.checkForm.patchValue({ novelty_sub_cost_center_id: mostRecentSubCostCenter.id });
+      this.checkForm.patchValue({ novelty_sub_cost_center: mostRecentSubCostCenter });
     }
 
-    // patch sub_cost_center_id if needed
+    // patch sub_cost_center if needed
     if (mostRecentSubCostCenter && this.displaySubCostCenterField) {
-      this.checkForm.patchValue({ sub_cost_center_id: mostRecentSubCostCenter.id });
+      this.checkForm.patchValue({ sub_cost_center: mostRecentSubCostCenter });
     }
   }
 
   public updateCheckFormValidationRules() {
     if (this.currentAction === 'check_out') {
-      this.checkForm.get('sub_cost_center_id').setValidators([Validators.required]);
+      this.checkForm.get('sub_cost_center').setValidators([Validators.required]);
     } else {
-      this.checkForm.get('sub_cost_center_id').setValidators([]);
+      this.checkForm.get('sub_cost_center').setValidators([]);
     }
   }
 
@@ -202,16 +206,34 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
     this.codeInput.nativeElement.focus();
   }
 
+  public displaySubCostCenterFieldValue(subCostCenter) {
+    return subCostCenter ? subCostCenter.name : null;
+  }
+
   public onCodeFormSubmit() {
-    this.codeObtained.emit(this.codeForm.value);
-    this.codeForm.reset();
+    this.submitted.emit(this.codeForm.value);
   }
 
   public onCheckFormSubmit() {
-    this.submitted.emit(this.checkForm.value);
+    this.submitted.emit({ ...this.codeForm.value, ...this.mappedCheckFormData() });
+  }
+
+  private resetForms() {
     this.checkForm.reset();
     this.codeForm.reset();
     this.buildForms();
+  }
+
+  private mappedCheckFormData() {
+    const formValue = this.checkForm.value;
+    const subCostCenter = formValue.sub_cost_center;
+    const noveltySubCostCenter = formValue.novelty_sub_cost_center;
+
+    return {
+      ...formValue,
+      sub_cost_center_id: subCostCenter ? subCostCenter.id : null,
+      novelty_sub_cost_center_id: noveltySubCostCenter ? noveltySubCostCenter.id : null,
+    };
   }
 
 }
