@@ -51,6 +51,10 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   public codeForm: FormGroup;
   public checkForm: FormGroup;
 
+  private fallbackWorkShift = [
+    { id: '-1', name: 'Sin registro de turno' }
+  ];
+
   public constructor(
     private formBuilder: FormBuilder
   ) { }
@@ -119,7 +123,8 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   }
 
   public get workShifts(): any[] {
-    return get(this.timeClockData, 'work_shifts', []);
+    const workShifts = get(this.timeClockData, 'work_shifts', [])
+    return workShifts.length > 0 ? workShifts : this.fallbackWorkShift;
   }
 
   public get hasWorkShifts(): boolean {

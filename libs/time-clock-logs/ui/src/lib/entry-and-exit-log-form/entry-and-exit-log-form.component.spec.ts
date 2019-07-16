@@ -7,7 +7,6 @@ import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy, SimpleChange } from '@angula
 import { LoadStatuses } from '@llstarscreamll/shared';
 import { createWorkShift } from '@llstarscreamll/work-shifts/util/src';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
-import { unset } from 'lodash';
 
 describe('EntryAndExitLogFormComponent', () => {
   let component: EntryAndExitLogFormComponent;
@@ -416,16 +415,18 @@ describe('EntryAndExitLogFormComponent', () => {
   it('should emit data on check form submitted', () => {
     spyOn(component.submitted, 'emit');
     component.timeClockData = earlyTimeClockData;
+
     let checkFormData = {
       action: 'check_out',
       identification_code: 'some-code-123',
-      novelty_type_id: earlyTimeClockData.novelty_types.shift().id,
-      work_shift_id: earlyTimeClockData.work_shifts.shift().id,
+      novelty_type_id: earlyTimeClockData.novelty_types[0].id,
+      work_shift_id: earlyTimeClockData.work_shifts[0].id,
       sub_cost_center: earlyTimeClockData.sub_cost_centers[0],
       novelty_sub_cost_center: earlyTimeClockData.sub_cost_centers[0],
       sub_cost_center_id: earlyTimeClockData.sub_cost_centers[0].id,
       novelty_sub_cost_center_id: earlyTimeClockData.sub_cost_centers[0].id,
     };
+
     component.codeForm.patchValue(checkFormData);
     component.checkForm.patchValue(checkFormData);
 

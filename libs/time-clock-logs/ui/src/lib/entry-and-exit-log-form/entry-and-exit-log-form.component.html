@@ -17,7 +17,7 @@
 
     <h1 class="text-center">Registrar {{ readableActionName }}</h1>
 
-    <ng-container *ngIf="displayWorkShiftField && hasWorkShifts">
+    <ng-container *ngIf="displayWorkShiftField">
         <label id="work-shift-radio-group">Turno:</label>
         <mat-radio-group formControlName="work_shift_id" aria-labelledBy="work-shift-radio-group">
             <mat-radio-button *ngFor="let workShift of workShifts" [value]="workShift.id">{{ workShift.name }}
@@ -34,7 +34,7 @@
     </ng-container>
 
     <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-100">
-        <input matInput placeholder="Sub Centro de costo de novedad" aria-label="State"
+        <input matInput placeholder="Sub centro de costo de novedad" aria-label="State"
                [matAutocomplete]="noveltySubCostCenter" formControlName="novelty_sub_cost_center">
         <mat-autocomplete #noveltySubCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
             <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
@@ -44,7 +44,7 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="displaySubCostCenterField" class="w-100">
-        <input matInput placeholder="Sub Centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
+        <input matInput placeholder="Sub centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
                formControlName="sub_cost_center">
         <mat-autocomplete #subCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
             <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
