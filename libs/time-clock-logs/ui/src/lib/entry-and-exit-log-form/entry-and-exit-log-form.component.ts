@@ -61,8 +61,8 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
 
   public ngOnInit(): void {
     this.buildForms();
-    this.setDefaultWorkShiftIfNeeded();
     this.listenCheckFormChanges();
+    this.setDefaultWorkShiftIfNeeded();
   }
 
   public ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
@@ -136,7 +136,7 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   }
 
   public get displaySubCostCenterField(): boolean {
-    return this.timeClockData.action === 'check_out';
+    return this.timeClockData.action === 'check_out' || this.fallbackWorkShiftIsSelected;
   }
 
   public get suggestedSubCostCenters(): any[] {
@@ -144,7 +144,15 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   }
 
   public get displayNoveltySubCostCenterField(): boolean {
-    return this.noveltyTypes.filter(novelty => novelty.operator === 'addition').length > 0;
+    return this.noveltyTypes.filter(novelty => novelty.operator === 'addition').length > 0 && !this.fallbackWorkShiftIsSelected;
+  }
+
+  public get selectedWorkShift(): string {
+    return this.checkForm ? this.checkForm.get('work_shift_id').value : null;
+  }
+
+  public get fallbackWorkShiftIsSelected(): boolean {
+    return this.selectedWorkShift === this.fallbackWorkShift[0].id;
   }
 
   public buildForms() {
@@ -163,7 +171,7 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
 
   public setDefaultWorkShiftIfNeeded() {
     if (this.workShifts.length === 1) {
-      this.checkForm.patchValue({ work_shift_id: this.workShifts[0].id });
+      this.checkForm.patchValue({ work_shift_id: this.workShifts[0].id }, { emitEvent: true });
     }
   }
 
@@ -181,6 +189,16 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
       tap(value => this.searchSubCostCenters.emit({ search: value })),
       takeUntil(this.destroy$),
     ).subscribe();
+
+    this.checkForm.get('work_shift_id').valueChanges.pipe(
+      debounce(() => timer(300)),
+      tap(value => value == this.fallbackWorkShift[0].id ? this.makeCheckFormFieldRequired(['novelty_type_id', 'sub_cost_center']) : null),
+      takeUntil(this.destroy$),
+    ).subscribe();
+  }
+
+  private makeCheckFormFieldRequired(fields: string[]) {
+    fields.forEach(field => this.checkForm.get(field).setValidators([Validators.required]));
   }
 
   public patchCheckFormIfNeeded() {

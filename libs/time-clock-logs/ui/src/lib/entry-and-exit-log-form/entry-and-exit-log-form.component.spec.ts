@@ -8,6 +8,11 @@ import { LoadStatuses } from '@llstarscreamll/shared';
 import { createWorkShift } from '@llstarscreamll/work-shifts/util/src';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
 
+/**
+ * @todo test fallback work shift selection
+ * @todo test sub cost center field displaying when fallback work shift is selected
+ * @todo test that sub_cost_center and novelty_type_id are required when work_shift_id == -1
+ */
 describe('EntryAndExitLogFormComponent', () => {
   let component: EntryAndExitLogFormComponent;
   let fixture: ComponentFixture<EntryAndExitLogFormComponent>;
