@@ -114,6 +114,10 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
     return this.status === LoadStatuses.Loading || this.checkForm.invalid;
   }
 
+  public get allSubCostCenters(): any[] {
+    return (this.subCostCenters || []).concat(this.suggestedSubCostCenters);
+  }
+
   public get noveltyTypes(): any[] {
     return get(this.timeClockData, 'novelty_types', []);
   }
@@ -123,7 +127,7 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   }
 
   public get workShifts(): any[] {
-    const workShifts = get(this.timeClockData, 'work_shifts', [])
+    const workShifts = get(this.timeClockData, 'work_shifts', []);
     return workShifts.length > 0 ? workShifts : this.fallbackWorkShift;
   }
 
@@ -192,12 +196,12 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
 
     this.checkForm.get('work_shift_id').valueChanges.pipe(
       debounce(() => timer(300)),
-      tap(value => value == this.fallbackWorkShift[0].id ? this.makeCheckFormFieldRequired(['novelty_type_id', 'sub_cost_center']) : null),
+      tap(value => value == this.fallbackWorkShift[0].id ? this.makeCheckFormFieldsRequired(['novelty_type_id', 'sub_cost_center']) : null),
       takeUntil(this.destroy$),
     ).subscribe();
   }
 
-  private makeCheckFormFieldRequired(fields: string[]) {
+  private makeCheckFormFieldsRequired(fields: string[]) {
     fields.forEach(field => this.checkForm.get(field).setValidators([Validators.required]));
   }
 
@@ -205,13 +209,9 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
     const mostRecentSubCostCenter = sortBy(this.suggestedSubCostCenters, 'selected_at').pop();
 
     // patch novelty_sub_cost_center if needed
-    if (mostRecentSubCostCenter && this.displayNoveltySubCostCenterField) {
-      this.checkForm.patchValue({ novelty_sub_cost_center: mostRecentSubCostCenter });
-    }
-
-    // patch sub_cost_center if needed
-    if (mostRecentSubCostCenter && this.displaySubCostCenterField) {
-      this.checkForm.patchValue({ sub_cost_center: mostRecentSubCostCenter });
+    if (mostRecentSubCostCenter) {
+      this.checkForm.patchValue({ novelty_sub_cost_center: mostRecentSubCostCenter }, { emitEvent: true });
+      this.checkForm.patchValue({ sub_cost_center: mostRecentSubCostCenter }, { emitEvent: true });
     }
   }
 

@@ -37,7 +37,7 @@
         <input matInput placeholder="Sub centro de costo de novedad" aria-label="State"
                [matAutocomplete]="noveltySubCostCenter" formControlName="novelty_sub_cost_center">
         <mat-autocomplete #noveltySubCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
-            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
+            <mat-option *ngFor="let subCostCenter of allSubCostCenters" [value]="subCostCenter">
                 <span>{{ subCostCenter.name }}</span>
             </mat-option>
         </mat-autocomplete>
@@ -47,7 +47,7 @@
         <input matInput placeholder="Sub centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
                formControlName="sub_cost_center">
         <mat-autocomplete #subCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
-            <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
+            <mat-option *ngFor="let subCostCenter of allSubCostCenters" [value]="subCostCenter">
                 <span>{{ subCostCenter.name }}</span>
             </mat-option>
         </mat-autocomplete>
