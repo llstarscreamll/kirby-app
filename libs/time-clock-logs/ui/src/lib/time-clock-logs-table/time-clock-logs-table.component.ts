@@ -18,4 +18,11 @@ export class TimeClockLogsTableComponent implements OnInit {
 
   public ngOnInit() { }
 
+  public shortName(approver: { first_name: string, last_name: string }) {
+    return [
+      approver.first_name.trim().split(' ').shift(),
+      approver.last_name.trim().split(' ').shift()
+    ].join(' ');
+  }
+
 }

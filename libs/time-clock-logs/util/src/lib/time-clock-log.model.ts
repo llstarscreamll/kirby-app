@@ -18,7 +18,7 @@ export class TimeClockLogModel {
   checked_out_by?: UserInterface;
   novelties_count?: number;
   novelties?: NoveltyInterface[];
-  approvals?: { id: string, first_name: string, last_name: string }[];
+  approvals?: UserInterface[];
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;

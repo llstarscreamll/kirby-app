@@ -7,6 +7,7 @@
       <th>H. entrada</th>
       <th>H. salida</th>
       <th>Novedades</th>
+      <th>Aprobaciones</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,9 @@
       <td>{{ row.checked_in_at | date:'yy-MM-dd HH:mm' }}</td>
       <td>{{ row.checked_out_at | date:'yy-MM-dd HH:mm' }}</td>
       <td>{{ row.concatenatedNoveltiesCount }}</td>
+      <td>
+        <div *ngFor="let approver of row.approvals">{{ shortName(approver) }}</div>
+      </td>
     </tr>
   </tbody>
 </table>
