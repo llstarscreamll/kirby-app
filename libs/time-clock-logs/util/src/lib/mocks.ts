@@ -33,10 +33,6 @@ export function createTimeClockLog(id?: string, name: string = null): TimeClockL
   const registrarIn = createUser();
   const registrarOut = createUser();
   const workShift = createWorkShift();
-  const novelties = [
-    createNovelty(null, { time_clock_log_id: id }),
-    createNovelty(null, { time_clock_log_id: id }),
-  ];
 
   return TimeClockLogModel.fromJson({
     id: id,
@@ -50,8 +46,6 @@ export function createTimeClockLog(id?: string, name: string = null): TimeClockL
     checked_in_by: registrarIn,
     checked_out_by_id: registrarOut.id,
     checked_out_by: registrarOut,
-    novelties: novelties,
-    novelties_count: novelties.length,
     created_at: faker.date.past(),
     updated_at: faker.date.past(),
   });

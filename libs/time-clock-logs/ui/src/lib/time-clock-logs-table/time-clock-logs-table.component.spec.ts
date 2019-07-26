@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
 import { TimeClockLogsTableComponent } from './time-clock-logs-table.component';
+import { createNovelty } from '@llstarscreamll/novelties/utils/src';
 
 describe('TimeClockLogsTableComponent', () => {
   let template: HTMLDivElement;
@@ -51,6 +52,11 @@ describe('TimeClockLogsTableComponent', () => {
 
   it('should display paginated items on table whe data available', () => {
     let timeClockLog = createTimeClockLog();
+    timeClockLog.novelties = [
+      createNovelty(null, { time_clock_log_id: timeClockLog.id }),
+      createNovelty(null, { time_clock_log_id: timeClockLog.id }),
+    ];
+    timeClockLog.novelties_count = timeClockLog.novelties.length;
     let firstTbodyRowMap;
 
     component.timeClockLogs = {
