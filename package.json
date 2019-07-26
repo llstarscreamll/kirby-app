@@ -62,7 +62,7 @@
     "@ngx-translate/core": "~11.0.0",
     "@ngx-translate/http-loader": "~4.0.0",
     "@nrwl/nx": "7.6.2",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.*",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "jsbarcode": "^3.11.0",
