@@ -12,12 +12,12 @@ export const USER_MOCK: UserInterface = {
   deleted_at: null
 };
 
-export function createUser(id?: string, name: string = null): UserInterface {
+export function createUser(id?: string, firstName: string = null, lastName: string = null): UserInterface {
   const date = faker.date.past();
   return {
     id: id || faker.random.uuid(),
-    first_name: name || faker.random.word(),
-    last_name: name || faker.random.word(),
+    first_name: firstName || faker.random.word(),
+    last_name: lastName || faker.random.word(),
     email: faker.email,
     email_verified_at: date,
     created_at: date,
