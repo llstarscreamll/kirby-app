@@ -1,8 +1,8 @@
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy, SimpleChange } from '@angular/core';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { LoadStatuses } from '@llstarscreamll/shared';
 import { createWorkShift } from '@llstarscreamll/work-shifts/util/src';
@@ -390,7 +390,7 @@ describe('EntryAndExitLogFormComponent', () => {
     const options = document.querySelectorAll('.mat-autocomplete-panel mat-option');
 
     expect(noveltySubCostCenterInput).toBeTruthy();
-    expect(options.length).toBe(2);
+    expect(options.length).toBe(4); // 2 suggested + 2 found
   });
 
   it('should display sub cost center list on sub_cost_center input focus', () => {
@@ -414,7 +414,7 @@ describe('EntryAndExitLogFormComponent', () => {
     const options = document.querySelectorAll('.mat-autocomplete-panel mat-option');
 
     expect(subCostCenterInput).toBeTruthy();
-    expect(options.length).toBe(2);
+    expect(options.length).toBe(4); // 2 suggested + 2 found
   });
 
   it('should emit data on check form submitted', () => {
