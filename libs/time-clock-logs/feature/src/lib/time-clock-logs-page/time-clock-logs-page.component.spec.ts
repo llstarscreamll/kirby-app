@@ -8,12 +8,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
 import { TimeClockLogsDataAccessModule, TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access/src';
+import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { of } from 'rxjs';
+import { createUser } from '@llstarscreamll/users/util/src';
 
 describe('TimeClockLogsPageComponent', () => {
   let template: HTMLDivElement;
   let component: TimeClockLogsPageComponent;
   let fixture: ComponentFixture<TimeClockLogsPageComponent>;
   let timeClockFacade: TimeClockLogsFacade;
+  let user = createUser();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,6 +32,7 @@ describe('TimeClockLogsPageComponent', () => {
       declarations: [TimeClockLogsPageComponent],
       providers: [
         { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
+        { provide: AuthFacade, useValue: { authUser$: of(user) } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

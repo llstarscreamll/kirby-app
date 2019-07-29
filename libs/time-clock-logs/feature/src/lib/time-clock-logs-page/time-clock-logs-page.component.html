@@ -13,7 +13,8 @@
 </div>
 
 <div class="table-responsive">
-  <llstarscreamll-time-clock-logs-table [timeClockLogs]="timeClockLogs$ | async">
+  <llstarscreamll-time-clock-logs-table [userId]="(user$ | async)?.id" [timeClockLogs]="timeClockLogs$ | async"
+                                        [actionButtons]="['approve', 'delete-approval']">
   </llstarscreamll-time-clock-logs-table>
 </div>
 

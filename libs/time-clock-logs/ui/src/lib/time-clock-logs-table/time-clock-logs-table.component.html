@@ -8,6 +8,7 @@
       <th>H. salida</th>
       <th>Novedades</th>
       <th>Aprobaciones</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,15 @@
       <td>{{ row.concatenatedNoveltiesCount }}</td>
       <td>
         <div *ngFor="let approver of row.approvals">{{ shortName(approver) }}</div>
+      </td>
+      <td>
+        <button *ngIf="showApproveButton(row)" (click)="approve.emit(row.id)" mat-icon-button class="approve">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+        <button *ngIf="showDeleteApprovalButton(row)" (click)="deleteApproval.emit(row.id)" mat-icon-button
+                class="delete-approval">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>

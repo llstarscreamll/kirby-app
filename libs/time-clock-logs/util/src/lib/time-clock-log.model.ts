@@ -34,4 +34,9 @@ export class TimeClockLogModel {
   public get concatenatedNoveltiesCount(): string {
     return (this.novelties || []).map(novelty => novelty.novelty_type.code + ' ' + round(novelty.total_time_in_minutes / 60, 2)).join(', ');
   }
+
+  public isApprovedByUserId(userId: string): boolean {
+    return this.approvals && this.approvals.map(approver => approver.id).includes(userId);
+  }
+
 }

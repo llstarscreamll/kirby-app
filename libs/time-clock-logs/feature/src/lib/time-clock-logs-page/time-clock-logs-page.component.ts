@@ -3,6 +3,8 @@ import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access
 import { Observable } from 'rxjs';
 import { Pagination } from '@llstarscreamll/shared';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
+import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { UserInterface } from '@llstarscreamll/users/util/src';
 
 @Component({
   selector: 'llstarscreamll-time-clock-logs-page',
@@ -11,11 +13,16 @@ import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
 })
 export class TimeClockLogsPageComponent implements OnInit {
 
-  public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>
+  public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>;
+  public user$: Observable<UserInterface>;
 
-  public constructor(private timeClockFacade: TimeClockLogsFacade) { }
+  public constructor(
+    private authFacade: AuthFacade,
+    private timeClockFacade: TimeClockLogsFacade
+  ) { }
 
   public ngOnInit() {
+    this.user$ = this.authFacade.authUser$;
     this.timeClockLogs$ = this.timeClockFacade.paginatedTimeClockLogs$;
 
     this.searchTimeClockLogs();

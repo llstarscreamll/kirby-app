@@ -1,5 +1,5 @@
 import * as moment from "moment";
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
@@ -12,14 +12,16 @@ describe('TimeClockLogsTableComponent', () => {
   let template: HTMLDivElement;
   let component: TimeClockLogsTableComponent;
   let fixture: ComponentFixture<TimeClockLogsTableComponent>;
+  const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
+  const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TimeClockLogsTableComponent]
+      declarations: [TimeClockLogsTableComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(TimeClockLogsTableComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -43,6 +45,7 @@ describe('TimeClockLogsTableComponent', () => {
       5: 'H. salida',
       6: 'Novedades',
       7: 'Aprobaciones',
+      8: '',
     };
 
     fixture.detectChanges();
@@ -64,8 +67,6 @@ describe('TimeClockLogsTableComponent', () => {
     ];
     timeClockLog.novelties_count = timeClockLog.novelties.length;
 
-    let firstTbodyRowMap;
-
     component.timeClockLogs = {
       data: [
         timeClockLog,
@@ -74,7 +75,7 @@ describe('TimeClockLogsTableComponent', () => {
       meta: {}
     };
 
-    firstTbodyRowMap = {
+    const firstTbodyRowMap = {
       1: timeClockLog.id,
       2: timeClockLog.employee.user.first_name + ' ' + timeClockLog.employee.user.last_name,
       3: timeClockLog.work_shift.name,
@@ -98,6 +99,129 @@ describe('TimeClockLogsTableComponent', () => {
         ? expectedValue.forEach(value => expect(result).toContain(value))
         : expect(result).toContain(expectedValue);
     });
+  });
+
+  it('should display/hide action buttons when actionButtons has certain values', () => {
+    const approver = createUser('a1');
+    const firstTimeClockLog = createTimeClockLog();
+    firstTimeClockLog.approvals = [approver];
+    component.userId = approver.id;
+    component.timeClockLogs = {
+      data: [firstTimeClockLog, createTimeClockLog(),],
+      meta: {}
+    };
+
+    const approveButtonSelector = 'table tbody tr:last-child td:last-child .approve';
+    const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
+
+    // show buttons
+    component.actionButtons = ['approve', 'delete-approval'];
+
+    fixture.detectChanges();
+
+    expect(template.querySelector(approveButtonSelector)).toBeTruthy();
+    expect(template.querySelector(deleteApprovalButtonSelector)).toBeTruthy();
+
+    // hide buttons
+    component.actionButtons = [];
+
+    fixture.detectChanges();
+
+    expect(template.querySelector(approveButtonSelector)).toBeFalsy();
+    expect(template.querySelector(deleteApprovalButtonSelector)).toBeFalsy();
+
+    // hide buttons
+    component.actionButtons = null;
+
+    fixture.detectChanges();
+
+    expect(template.querySelector(approveButtonSelector)).toBeFalsy();
+    expect(template.querySelector(deleteApprovalButtonSelector)).toBeFalsy();
+  });
+
+  it('should emit values when approve action button is clicked', () => {
+    const firstTimeClockLog = createTimeClockLog();
+    component.timeClockLogs = {
+      data: [firstTimeClockLog, createTimeClockLog(),],
+      meta: {}
+    };
+
+    spyOn(component.approve, 'emit');
+    component.actionButtons = ['approve'];
+
+    fixture.detectChanges();
+
+    const approveButton: HTMLButtonElement = template.querySelector(approveButtonSelector);
+    approveButton.click();
+
+    expect(component.approve.emit).toHaveBeenCalledWith(firstTimeClockLog.id);
+  });
+
+  it('should emit values when delete-approval action button is clicked', () => {
+    const approver = createUser('a1');
+    const firstTimeClockLog = createTimeClockLog();
+    firstTimeClockLog.approvals = [approver];
+    component.userId = approver.id;
+    component.timeClockLogs = {
+      data: [firstTimeClockLog, createTimeClockLog(),],
+      meta: {}
+    };
+
+    spyOn(component.deleteApproval, 'emit');
+    component.actionButtons = ['delete-approval'];
+
+    fixture.detectChanges();
+
+    const deleteApprovalButton: HTMLButtonElement = template.querySelector(deleteApprovalButtonSelector);
+    deleteApprovalButton.click();
+
+    expect(component.deleteApproval.emit).toHaveBeenCalledWith(firstTimeClockLog.id);
+  });
+
+  it('should hide approve and show delete-approval button when row is approved by user', () => {
+    const approver = createUser('a1');
+    const firstTimeClockLog = createTimeClockLog();
+
+    firstTimeClockLog.approvals = [approver];
+    component.userId = approver.id;
+    component.timeClockLogs = {
+      data: [firstTimeClockLog, createTimeClockLog()],
+      meta: {}
+    };
+
+    const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
+    const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
+
+    // show buttons
+    component.actionButtons = ['approve', 'delete-approval'];
+
+    fixture.detectChanges();
+
+    expect(template.querySelector(approveButtonSelector)).toBeFalsy(); // user has already approved first row data
+    expect(template.querySelector(deleteApprovalButtonSelector)).toBeTruthy(); // user can delete his approval
+  });
+
+  it('should show approve and hide delete-approval button when row is not approved by user', () => {
+    const approver = createUser('a1');
+    const firstTimeClockLog = createTimeClockLog();
+
+    // firstTimeClockLog.approvals = [approver];
+    component.userId = approver.id;
+    component.timeClockLogs = {
+      data: [firstTimeClockLog, createTimeClockLog()],
+      meta: {}
+    };
+
+    const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
+    const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
+
+    // show buttons
+    component.actionButtons = ['approve', 'delete-approval'];
+
+    fixture.detectChanges();
+
+    expect(template.querySelector(approveButtonSelector)).toBeTruthy(); // user has not approved first row data
+    expect(template.querySelector(deleteApprovalButtonSelector)).toBeFalsy(); // user can't delete approval
   });
 
 });

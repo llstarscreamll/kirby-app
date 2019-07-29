@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { Pagination } from '@llstarscreamll/shared';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
@@ -14,6 +14,18 @@ export class TimeClockLogsTableComponent implements OnInit {
   @Input()
   public timeClockLogs: Pagination<TimeClockLogModel>;
 
+  @Input()
+  public userId: string;
+
+  @Input()
+  public actionButtons = [];
+
+  @Output()
+  public approve = new EventEmitter();
+
+  @Output()
+  public deleteApproval = new EventEmitter();
+
   public constructor() { }
 
   public ngOnInit() { }
@@ -23,6 +35,14 @@ export class TimeClockLogsTableComponent implements OnInit {
       approver.first_name.trim().split(' ').shift(),
       approver.last_name.trim().split(' ').shift()
     ].join(' ');
+  }
+
+  public showApproveButton(row: TimeClockLogModel): boolean {
+    return this.actionButtons && this.actionButtons.includes('approve') && !row.isApprovedByUserId(this.userId);
+  }
+
+  public showDeleteApprovalButton(row: TimeClockLogModel): boolean {
+    return this.actionButtons && this.actionButtons.includes('delete-approval') && row.isApprovedByUserId(this.userId);
   }
 
 }
