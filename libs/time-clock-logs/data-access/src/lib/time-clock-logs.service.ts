@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
@@ -66,6 +66,18 @@ export class TimeClockLogsService extends BaseAuthService {
   public checkOut(entryAndExitLog: { identification_code: string, action: string }): Observable<any> {
     return this.http.post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-out`, entryAndExitLog, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
+  }
+
+  public approve(timeClockLogId: string): Observable<any> {
+    const endpoint = `${this.env.api}api/v1/time-clock-logs/${timeClockLogId}/approvals`;
+    return this.http.post<any>(endpoint, {}, { headers: this.defaultHeaders });
+  }
+
+  public deleteApproval(timeClockLogId: string): Observable<any> {
+    // always send 1, approval id doesn't matters, since the authenticated user
+    // approval to said timeClockLogId will be deleted
+    const endpoint = `${this.env.api}api/v1/time-clock-logs/${timeClockLogId}/approvals/1`;
+    return this.http.delete<any>(endpoint, { headers: this.defaultHeaders });
   }
 
 }

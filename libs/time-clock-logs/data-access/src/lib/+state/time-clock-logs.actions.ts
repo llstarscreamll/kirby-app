@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Pagination, ApiError } from '@llstarscreamll/shared';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
+import { UserInterface } from '@llstarscreamll/users/util/src';
 
 export enum TimeClockLogsActionTypes {
   SearchTimeClockLogs = '[TimeClockLogs] search',
@@ -35,6 +36,14 @@ export enum TimeClockLogsActionTypes {
   DeleteTimeClockLog = '[TimeClockLog] delete',
   DeleteTimeClockLogOk = '[TimeClockLog] delete ok',
   DeleteTimeClockLogError = '[TimeClockLog] delete error',
+
+  ApproveTimeClockLog = '[TimeClockLogs] approve',
+  ApproveTimeClockLogOk = '[TimeClockLog] approve ok',
+  ApproveTimeClockLogError = '[TimeClockLog] approve error',
+
+  DeleteTimeClockLogApproval = '[TimeClockLogs] delete approval',
+  DeleteTimeClockLogApprovalOk = '[TimeClockLog] delete approval ok',
+  DeleteTimeClockLogApprovalError = '[TimeClockLog] delete approval error',
 
   CleanError = '[TimeClockLog] clean error',
 }
@@ -159,6 +168,36 @@ export class DeleteTimeClockLogError implements Action {
   constructor(public payload: ApiError) { }
 }
 
+export class ApproveTimeClockLog implements Action {
+  readonly type = TimeClockLogsActionTypes.ApproveTimeClockLog;
+  public constructor(public timeClockLogId: string, public user: UserInterface) { }
+}
+
+export class ApproveTimeClockLogOk implements Action {
+  readonly type = TimeClockLogsActionTypes.ApproveTimeClockLogOk;
+  constructor(public timeClockLogId: string, public user: UserInterface) { }
+}
+
+export class ApproveTimeClockLogError implements Action {
+  readonly type = TimeClockLogsActionTypes.ApproveTimeClockLogError;
+  constructor(public payload: ApiError, public timeClockLogId: string, public user: UserInterface) { }
+}
+
+export class DeleteTimeClockLogApproval implements Action {
+  readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApproval;
+  public constructor(public timeClockLogId: string, public user: UserInterface) { }
+}
+
+export class DeleteTimeClockLogApprovalOk implements Action {
+  readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApprovalOk;
+  constructor(public timeClockLogId: string, public user: UserInterface) { }
+}
+
+export class DeleteTimeClockLogApprovalError implements Action {
+  readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApprovalError;
+  constructor(public payload: ApiError, public timeClockLogId: string, public user: UserInterface) { }
+}
+
 export class CleanError implements Action {
   readonly type = TimeClockLogsActionTypes.CleanError;
 }
@@ -188,6 +227,12 @@ export type TimeClockLogsAction =
   | DeleteTimeClockLog
   | DeleteTimeClockLogOk
   | DeleteTimeClockLogError
+  | ApproveTimeClockLog
+  | ApproveTimeClockLogOk
+  | ApproveTimeClockLogError
+  | DeleteTimeClockLogApproval
+  | DeleteTimeClockLogApprovalOk
+  | DeleteTimeClockLogApprovalError
   | CleanError;
 
 export const fromTimeClockLogsActions = {
@@ -215,5 +260,11 @@ export const fromTimeClockLogsActions = {
   DeleteTimeClockLog,
   DeleteTimeClockLogOk,
   DeleteTimeClockLogError,
+  ApproveTimeClockLog,
+  ApproveTimeClockLogOk,
+  ApproveTimeClockLogError,
+  DeleteTimeClockLogApproval,
+  DeleteTimeClockLogApprovalOk,
+  DeleteTimeClockLogApprovalError,
   CleanError
 };

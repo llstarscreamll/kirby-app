@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+import { UserInterface } from '@llstarscreamll/users/util/src';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
 import { TimeClockLogsAction, TimeClockLogsActionTypes } from './time-clock-logs.actions';
 import { ApiError, Pagination, LoadStatuses, emptyPagination } from '@llstarscreamll/shared';
@@ -142,6 +144,38 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
       break;
     }
 
+    case TimeClockLogsActionTypes.ApproveTimeClockLog: {
+      state = {
+        ...state,
+        paginatedList: appendApproverToTimeClockLog(state.paginatedList, action.timeClockLogId, action.user)
+      };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.ApproveTimeClockLogError: {
+      state = {
+        ...state,
+        paginatedList: removeApproverToTimeClockLog(state.paginatedList, action.timeClockLogId, action.user)
+      };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.DeleteTimeClockLogApproval: {
+      state = {
+        ...state,
+        paginatedList: removeApproverToTimeClockLog(state.paginatedList, action.timeClockLogId, action.user)
+      };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.DeleteTimeClockLogApprovalError: {
+      state = {
+        ...state,
+        paginatedList: appendApproverToTimeClockLog(state.paginatedList, action.timeClockLogId, action.user)
+      };
+      break;
+    }
+
     case TimeClockLogsActionTypes.CleanError: {
       state = { ...state, error: null };
       break;
@@ -150,4 +184,28 @@ export function timeClockLogsReducer(state: TimeClockLogsState = initialState, a
   }
 
   return state;
+}
+
+function appendApproverToTimeClockLog(paginatedTimeClockLogs: Pagination<TimeClockLogModel>, timeClockLogId: string, approver: UserInterface) {
+  let timeClockLogs: TimeClockLogModel[] = get(paginatedTimeClockLogs, 'data', []);
+
+  timeClockLogs = TimeClockLogModel.fromJsonList(timeClockLogs.map(item => {
+    const approvals = item.id == timeClockLogId ? [...item.approvals, approver] : item.approvals;
+
+    return { ...item, approvals };
+  }));
+
+  return { ...paginatedTimeClockLogs, data: timeClockLogs };
+}
+
+function removeApproverToTimeClockLog(paginatedTimeClockLogs: Pagination<TimeClockLogModel>, timeClockLogId: string, approver: UserInterface) {
+  let timeClockLogs: TimeClockLogModel[] = get(paginatedTimeClockLogs, 'data', []);
+
+  timeClockLogs = TimeClockLogModel.fromJsonList(timeClockLogs.map(item => {
+    const approvals = item.id == timeClockLogId ? item.approvals.filter(a => a.id != approver.id) : item.approvals;
+
+    return { ...item, approvals };
+  }));
+
+  return { ...paginatedTimeClockLogs, data: timeClockLogs };
 }

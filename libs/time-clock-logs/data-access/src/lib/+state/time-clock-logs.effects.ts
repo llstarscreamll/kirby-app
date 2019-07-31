@@ -29,7 +29,13 @@ import {
   GetEmployeeTimeClockDataError,
   SearchSubCostCenters,
   SearchSubCostCentersOk,
-  SearchSubCostCentersError
+  SearchSubCostCentersError,
+  ApproveTimeClockLog,
+  ApproveTimeClockLogOk,
+  ApproveTimeClockLogError,
+  DeleteTimeClockLogApproval,
+  DeleteTimeClockLogApprovalOk,
+  DeleteTimeClockLogApprovalError
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -145,6 +151,30 @@ export class TimeClockLogsEffects {
       },
       onError: (action: DeleteTimeClockLog, error) => {
         return new DeleteTimeClockLogError(error);
+      }
+    });
+
+  @Effect()
+  public approveTimeClockLog$ = this.dataPersistence
+    .fetch(TimeClockLogsActionTypes.ApproveTimeClockLog, {
+      run: (action: ApproveTimeClockLog, state: TimeClockLogsPartialState) => {
+        return this.timeClockLogsService.approve(action.timeClockLogId)
+          .pipe(map(response => new ApproveTimeClockLogOk(action.timeClockLogId, action.user)));
+      },
+      onError: (action: ApproveTimeClockLog, error) => {
+        return new ApproveTimeClockLogError(error, action.timeClockLogId, action.user);
+      }
+    });
+
+  @Effect()
+  public deleteTimeClockLogApproval$ = this.dataPersistence
+    .fetch(TimeClockLogsActionTypes.DeleteTimeClockLogApproval, {
+      run: (action: DeleteTimeClockLogApproval, state: TimeClockLogsPartialState) => {
+        return this.timeClockLogsService.deleteApproval(action.timeClockLogId)
+          .pipe(map(response => new DeleteTimeClockLogApprovalOk(action.timeClockLogId, action.user)));
+      },
+      onError: (action: DeleteTimeClockLogApproval, error) => {
+        return new DeleteTimeClockLogApprovalError(error, action.timeClockLogId, action.user);
       }
     });
 

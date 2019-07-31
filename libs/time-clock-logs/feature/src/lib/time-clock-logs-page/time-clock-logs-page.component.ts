@@ -5,6 +5,7 @@ import { Pagination } from '@llstarscreamll/shared';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 import { UserInterface } from '@llstarscreamll/users/util/src';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'llstarscreamll-time-clock-logs-page',
@@ -14,6 +15,7 @@ import { UserInterface } from '@llstarscreamll/users/util/src';
 export class TimeClockLogsPageComponent implements OnInit {
 
   public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>;
+  public user: UserInterface;
   public user$: Observable<UserInterface>;
 
   public constructor(
@@ -22,7 +24,7 @@ export class TimeClockLogsPageComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.user$ = this.authFacade.authUser$;
+    this.user$ = this.authFacade.authUser$.pipe(tap(user => this.user = user));
     this.timeClockLogs$ = this.timeClockFacade.paginatedTimeClockLogs$;
 
     this.searchTimeClockLogs();
@@ -30,6 +32,14 @@ export class TimeClockLogsPageComponent implements OnInit {
 
   public searchTimeClockLogs(query = {}) {
     this.timeClockFacade.search(query);
+  }
+
+  public onApprove(timeClockLogId: string) {
+    this.timeClockFacade.approve(timeClockLogId, this.user);
+  }
+
+  public onDeleteApproval(timeClockLogId: string) {
+    this.timeClockFacade.deleteApproval(timeClockLogId, this.user);
   }
 
 }

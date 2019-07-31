@@ -3,7 +3,8 @@ import { select, Store } from '@ngrx/store';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
-import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError, GetEmployeeTimeClockData, SearchSubCostCenters } from './time-clock-logs.actions';
+import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError, GetEmployeeTimeClockData, SearchSubCostCenters, ApproveTimeClockLog, DeleteTimeClockLog, DeleteTimeClockLogApproval } from './time-clock-logs.actions';
+import { UserInterface } from '@llstarscreamll/users/util/src';
 
 @Injectable()
 export class TimeClockLogsFacade {
@@ -34,6 +35,14 @@ export class TimeClockLogsFacade {
 
   public createEntryAndExitLog(log: { identification_code: string, action: string }) {
     this.store.dispatch(new CreateEntryAndExitLog(log));
+  }
+
+  public approve(timeClockLogId: string, user: UserInterface) {
+    this.store.dispatch(new ApproveTimeClockLog(timeClockLogId, user));
+  }
+
+  public deleteApproval(timeClockLogId: string, user: UserInterface) {
+    this.store.dispatch(new DeleteTimeClockLogApproval(timeClockLogId, user));
   }
 
   public cleanError() {

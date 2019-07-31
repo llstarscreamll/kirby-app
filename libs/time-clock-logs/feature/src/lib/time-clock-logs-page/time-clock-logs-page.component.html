@@ -14,7 +14,8 @@
 
 <div class="table-responsive">
   <llstarscreamll-time-clock-logs-table [userId]="(user$ | async)?.id" [timeClockLogs]="timeClockLogs$ | async"
-                                        [actionButtons]="['approve', 'delete-approval']">
+                                        [actionButtons]="['approve', 'delete-approval']" (approve)="onApprove($event)"
+                                        (deleteApproval)="onDeleteApproval($event)">
   </llstarscreamll-time-clock-logs-table>
 </div>
 
