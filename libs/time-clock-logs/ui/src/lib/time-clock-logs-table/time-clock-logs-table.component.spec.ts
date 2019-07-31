@@ -40,12 +40,13 @@ describe('TimeClockLogsTableComponent', () => {
     const theadRowMap = {
       1: '#',
       2: 'Empleado',
-      3: 'Turno',
-      4: 'H. entrada',
-      5: 'H. salida',
-      6: 'Novedades',
-      7: 'Aprobaciones',
-      8: '',
+      3: 'Scc',
+      4: 'Turno',
+      5: 'H. entrada',
+      6: 'H. salida',
+      7: 'Novedades',
+      8: 'Aprobaciones',
+      9: '',
     };
 
     fixture.detectChanges();
@@ -60,6 +61,7 @@ describe('TimeClockLogsTableComponent', () => {
     let tony = createUser(null, 'Tony Iron', 'Stark');
     let steve = createUser(null, 'Steve Captain', 'Rogers');
     let timeClockLog = createTimeClockLog();
+    timeClockLog.sub_cost_center = { id: 'scc-1', name: 'SCC One' };
     timeClockLog.approvals = [tony, steve];
     timeClockLog.novelties = [
       createNovelty(null, { time_clock_log_id: timeClockLog.id }),
@@ -78,11 +80,12 @@ describe('TimeClockLogsTableComponent', () => {
     const firstTbodyRowMap = {
       1: timeClockLog.id,
       2: timeClockLog.employee.user.first_name + ' ' + timeClockLog.employee.user.last_name,
-      3: timeClockLog.work_shift.name,
-      4: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
-      5: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
-      6: timeClockLog.concatenatedNoveltiesCount,
-      7: ['Tony Stark', 'Steve Rogers']
+      3: timeClockLog.sub_cost_center.name,
+      4: timeClockLog.work_shift.name,
+      5: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
+      6: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
+      7: timeClockLog.concatenatedNoveltiesCount,
+      8: ['Tony Stark', 'Steve Rogers']
     };
 
     fixture.detectChanges();
