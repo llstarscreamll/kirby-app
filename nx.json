@@ -92,6 +92,9 @@
     },
     "novelties-feature": {
       "tags": ["scope:novelties", "type:feature", "platform:web"]
+    },
+    "novelties-ui": {
+      "tags": ["scope:novelties", "type:ui", "platform:web"]
     }
   }
 }

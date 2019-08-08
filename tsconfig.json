@@ -65,7 +65,8 @@
       ],
       "@llstarscreamll/novelties/feature": [
         "libs/novelties/feature/src/index.ts"
-      ]
+      ],
+      "@llstarscreamll/novelties/ui": ["libs/novelties/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
