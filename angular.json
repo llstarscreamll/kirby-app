@@ -888,6 +888,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "novelties-data-access": {
+      "root": "libs/novelties/data-access",
+      "sourceRoot": "libs/novelties/data-access/src",
+      "projectType": "library",
+      "prefix": "llstarscreamll",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelties/data-access/tsconfig.lib.json",
+              "libs/novelties/data-access/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/novelties/data-access/jest.config.js",
+            "tsConfig": "libs/novelties/data-access/tsconfig.spec.json",
+            "setupFile": "libs/novelties/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
