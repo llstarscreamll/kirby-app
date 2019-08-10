@@ -1,0 +1,7 @@
+<h1 class="mb-4">Editar novedad</h1>
+
+<llstarscreamll-novelty-form *ngIf="novelty$ | async" [defaults]="novelty$ | async"
+    [employeesFound]="(employees$ | async)?.data" [noveltyTypesFound]="(noveltyTypes$ | async)?.data"
+    (searchEmployees)="onSearchEmployees($event)" (searchNoveltyTypes)="onSearchNovelties($event)"
+    (submitted)="onNoveltyUpdated($event)">
+</llstarscreamll-novelty-form>

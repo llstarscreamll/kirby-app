@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
@@ -14,6 +15,7 @@ import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form/entry-an
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule.forChild([]),
     MatRadioModule,
     MatInputModule,
     MatIconModule,

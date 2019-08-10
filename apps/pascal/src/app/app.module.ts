@@ -44,6 +44,7 @@ export const routes: Route[] = [
   { path: 'work-shifts', loadChildren: '@llstarscreamll/work-shifts/feature#WorkShiftsFeatureModule' },
   { path: 'time-clock-logs', loadChildren: '@llstarscreamll/time-clock-logs/feature#TimeClockLogsFeatureModule' },
   { path: 'employees', loadChildren: '@llstarscreamll/employees/feature#EmployeesFeatureModule' },
+  { path: 'novelties', loadChildren: '@llstarscreamll/novelties/feature#NoveltiesFeatureModule' },
 ];
 
 @NgModule({

@@ -4,6 +4,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { storeFreeze } from 'ngrx-store-freeze';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+
 
 import { debug } from './meta-reducers/debug.reducer';
 import { AnimationsService } from './animations/animations.service';
@@ -28,6 +30,7 @@ if (!environment.production) {
     // ngrx
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(),
   ],
   declarations: [],
   providers: [

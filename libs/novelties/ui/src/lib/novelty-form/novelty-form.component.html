@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <mat-form-field class="w-100">
+    <input matInput placeholder="Empleado" [matAutocomplete]="employeeAutocomplete" formControlName="employee">
+    <mat-autocomplete #employeeAutocomplete="matAutocomplete" [displayWith]="displayEmployeeFieldValue">
+      <mat-option *ngFor="let employee of allEmployees" [value]="employee">
+        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input matInput placeholder="Tipo de novedad" [matAutocomplete]="noveltyTypeAutocomplete"
+      formControlName="novelty_type">
+    <mat-autocomplete #noveltyTypeAutocomplete="matAutocomplete" [displayWith]="displayNoveltyTypeFieldValue">
+      <mat-option *ngFor="let noveltyType of allNoveltyTypes" [value]="noveltyType">
+        <span>{{ noveltyType.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <input formControlName="total_time_in_minutes" matInput type="number" placeholder="Tiempo en minutos">
+  </mat-form-field>
+  <div class="clearfix"></div>
+
+  <button mat-raised-button [disabled]="disableFormSubmitBtn" type="submit">Guardar</button>
+
+</form>

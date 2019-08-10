@@ -12,6 +12,7 @@
     "**/*.ts",
     "../../libs/work-shifts/feature/src/index.ts",
     "../../libs/time-clock-logs/feature/src/index.ts",
-    "../../libs/employees/feature/src/index.ts"
+    "../../libs/employees/feature/src/index.ts",
+    "../../libs/novelties/feature/src/index.ts"
   ]
 }

@@ -7,6 +7,7 @@ import { TimeClockLogsTableComponent } from './time-clock-logs-table.component';
 import { createNovelty } from '@llstarscreamll/novelties/utils/src';
 import { createUser } from '@llstarscreamll/users/util/src';
 import { isArray } from 'lodash';
+import { RouterModule } from '@angular/router';
 
 describe('TimeClockLogsTableComponent', () => {
   let template: HTMLDivElement;
@@ -17,6 +18,7 @@ describe('TimeClockLogsTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterModule.forChild([])],
       declarations: [TimeClockLogsTableComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(TimeClockLogsTableComponent, {

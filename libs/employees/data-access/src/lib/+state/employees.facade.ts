@@ -4,21 +4,25 @@ import { select, Store } from '@ngrx/store';
 
 import { EmployeesPartialState } from './employees.reducer';
 import { employeesQuery } from './employees.selectors';
-import { LoadEmployees, SyncEmployeesByCsvFile } from './employees.actions';
+import { SearchEmployees, SyncEmployeesByCsv } from './employees.actions';
 
 @Injectable()
 export class EmployeesFacade {
+  public paginatedEmployees$ = this.store.pipe(select(employeesQuery.getPaginated));
+  public selectedEmployees$ = this.store.pipe(select(employeesQuery.getSelectedEmployee));
   public loaded$ = this.store.pipe(select(employeesQuery.getLoaded));
-  public allEmployees$ = this.store.pipe(select(employeesQuery.getAllEmployees));
-  public selectedEmployees$ = this.store.pipe(select(employeesQuery.getSelectedEmployees));
 
   public constructor(private store: Store<EmployeesPartialState>) { }
 
-  public loadAll() {
-    this.store.dispatch(new LoadEmployees());
+  /**
+   * @todo type the query argument
+   * @param query
+   */
+  public search(query: any) {
+    this.store.dispatch(new SearchEmployees(query));
   }
 
   public syncEmployeesByCsvFile(data: any) {
-    this.store.dispatch(new SyncEmployeesByCsvFile(data));
+    this.store.dispatch(new SyncEmployeesByCsv(data));
   }
 }

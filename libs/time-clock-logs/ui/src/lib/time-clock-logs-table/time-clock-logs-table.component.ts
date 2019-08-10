@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 
 import { Pagination } from '@llstarscreamll/shared';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
+import { NoveltyInterface } from '@llstarscreamll/novelties/data/src';
+import { round } from 'lodash';
 
 @Component({
   selector: 'llstarscreamll-time-clock-logs-table',
@@ -35,6 +37,10 @@ export class TimeClockLogsTableComponent implements OnInit {
       approver.first_name.trim().split(' ').shift(),
       approver.last_name.trim().split(' ').shift()
     ].join(' ');
+  }
+
+  public readableNovelty(novelty: NoveltyInterface) {
+    return novelty.novelty_type.code + ' ' + round(novelty.total_time_in_minutes / 60, 2);
   }
 
   public showApproveButton(row: TimeClockLogModel): boolean {
