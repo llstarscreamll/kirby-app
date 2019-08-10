@@ -12,6 +12,8 @@ import { hot } from '@nrwl/nx/testing';
 
 import { EmployeesEffects } from './employees.effects';
 import { LoadEmployees, EmployeesLoaded } from './employees.actions';
+import { EmployeeService } from '../employee.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('EmployeesEffects', () => {
   let actions: Observable<any>;
@@ -25,9 +27,11 @@ describe('EmployeesEffects', () => {
         EffectsModule.forRoot([])
       ],
       providers: [
-        EmployeesEffects,
         DataPersistence,
-        provideMockActions(() => actions)
+        EmployeesEffects,
+        provideMockActions(() => actions),
+        { provide: MatSnackBar, useValue: { open: () => true } },
+        { provide: EmployeeService, useValue: { syncEmployeesByCsvFile: () => true } },
       ]
     });
 

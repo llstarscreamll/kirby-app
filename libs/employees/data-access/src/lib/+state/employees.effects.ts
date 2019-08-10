@@ -34,6 +34,9 @@ export class EmployeesEffects {
     }
   );
 
+  /**
+   * @todo move the snack bar stuff to the feature lib
+   */
   @Effect()
   public syncEmployeesByCsvFile$ = this.dataPersistence.fetch(
     EmployeesActionTypes.SyncEmployeesByCsvFile,

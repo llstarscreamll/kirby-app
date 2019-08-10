@@ -18,6 +18,8 @@ import {
   initialState,
   employeesReducer
 } from './employees.reducer';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { EmployeeService } from '../employee.service';
 
 interface TestSchema {
   employees: EmployeesState;
@@ -29,10 +31,7 @@ describe('EmployeesFacade', () => {
   let createEmployees;
 
   beforeEach(() => {
-    createEmployees = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
+    createEmployees = (id: string, name = ''): Entity => ({ id, name: name || `name-${id}` });
   });
 
   describe('used in NgModule', () => {
@@ -44,9 +43,13 @@ describe('EmployeesFacade', () => {
           }),
           EffectsModule.forFeature([EmployeesEffects])
         ],
-        providers: [EmployeesFacade]
+        providers: [
+          EmployeesFacade,
+          { provide: EmployeeService, useValue: { syncEmployeesByCsvFile: () => true } },
+          { provide: MatSnackBar, useValue: { open: () => true } }
+        ]
       })
-      class CustomFeatureModule {}
+      class CustomFeatureModule { }
 
       @NgModule({
         imports: [
@@ -56,7 +59,8 @@ describe('EmployeesFacade', () => {
           CustomFeatureModule
         ]
       })
-      class RootModule {}
+      class RootModule { }
+
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.get(Store);
