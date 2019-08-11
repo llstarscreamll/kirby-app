@@ -13,6 +13,8 @@ export enum NoveltiesActionTypes {
   GetNoveltyOk = '[Novelties] get ok',
   GetNoveltyError = '[Novelties] get error',
 
+  CleanSelectedNovelty = '[Novelties] clean selected',
+
   UpdateNovelty = '[Novelties] update',
   UpdateNoveltyOk = '[Novelties] update ok',
   UpdateNoveltyError = '[Novelties] update error',
@@ -52,6 +54,10 @@ export class GetNoveltyError implements Action {
   constructor(public payload: any) { }
 }
 
+export class CleanSelectedNovelty implements Action {
+  readonly type = NoveltiesActionTypes.CleanSelectedNovelty;
+}
+
 export class UpdateNovelty implements Action {
   readonly type = NoveltiesActionTypes.UpdateNovelty;
   constructor(public payload: { id: string, noveltyData: any }) { }
@@ -89,6 +95,7 @@ export type NoveltiesAction =
   | GetNovelty
   | GetNoveltyOk
   | GetNoveltyError
+  | CleanSelectedNovelty
   | UpdateNovelty
   | UpdateNoveltyOk
   | UpdateNoveltyError
@@ -103,6 +110,7 @@ export const fromNoveltiesActions = {
   GetNovelty,
   GetNoveltyOk,
   GetNoveltyError,
+  CleanSelectedNovelty,
   UpdateNovelty,
   UpdateNoveltyOk,
   UpdateNoveltyError,

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access/src';
 
 import { Pagination } from '@llstarscreamll/shared';
@@ -15,7 +15,7 @@ import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
   llstarscreamll-novelty-form { display: block; }
   `]
 })
-export class EditNoveltyPageComponent implements OnInit {
+export class EditNoveltyPageComponent implements OnInit, OnDestroy {
 
   public novelty$: Observable<NoveltyInterface>
   public employees$: Observable<Pagination<EmployeeInterface>>
@@ -30,6 +30,10 @@ export class EditNoveltyPageComponent implements OnInit {
     this.novelty$ = this.noveltiesFacade.selectedNovelty$;
     this.employees$ = this.employeesFacade.paginatedEmployees$;
     this.noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
+  }
+
+  public ngOnDestroy(): void {
+    this.noveltiesFacade.cleanSelected();
   }
 
   public onSearchEmployees(query) {

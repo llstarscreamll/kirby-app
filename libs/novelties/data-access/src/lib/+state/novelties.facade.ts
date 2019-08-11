@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 
 import { noveltiesQuery } from './novelties.selectors';
 import { NoveltiesPartialState } from './novelties.reducer';
-import { SearchNovelties, GetNovelty, SearchNoveltyTypes, UpdateNovelty } from './novelties.actions';
+import { SearchNovelties, GetNovelty, SearchNoveltyTypes, UpdateNovelty, GetNoveltyOk, CleanSelectedNovelty } from './novelties.actions';
 
 @Injectable()
 export class NoveltiesFacade {
@@ -20,6 +20,10 @@ export class NoveltiesFacade {
 
   public get(noveltyId: string) {
     this.store.dispatch(new GetNovelty(noveltyId));
+  }
+
+  public cleanSelected() {
+    this.store.dispatch(new CleanSelectedNovelty());
   }
 
   public update(noveltyId: string, noveltyData) {

@@ -47,6 +47,11 @@ export function noveltiesReducer(state: NoveltiesState = initialState, action: N
       break;
     }
 
+    case NoveltiesActionTypes.CleanSelectedNovelty: {
+      state = { ...state, selected: null };
+      break;
+    }
+
     case NoveltiesActionTypes.SearchNoveltyTypesOk: {
       state = { ...state, paginatedNoveltyTypesList: action.payload };
       break;
