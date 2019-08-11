@@ -21,8 +21,10 @@
 
   <mat-form-field class="w-100">
     <input formControlName="total_time_in_minutes" matInput type="number" placeholder="Tiempo en minutos">
+    <mat-hint align="end">{{ timeHint }}</mat-hint>
   </mat-form-field>
-  <div class="clearfix"></div>
+
+  <div class="clearfix mb-4"></div>
 
   <button mat-raised-button [disabled]="disableFormSubmitBtn" type="submit">Guardar</button>
 

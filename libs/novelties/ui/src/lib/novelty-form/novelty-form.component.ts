@@ -99,6 +99,12 @@ export class NoveltyFormComponent implements OnInit {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
 
+  public get timeHint(): string {
+    const timeInMinutes = this.form.get('total_time_in_minutes').value;
+    const timeInHours = (parseInt(timeInMinutes || '0', 10) / 60).toFixed(2);
+    return `${timeInHours} horas`;
+  }
+
   public displayEmployeeFieldValue(employee) {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
