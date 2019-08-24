@@ -1,5 +1,5 @@
 @setup
-require '/home/johan/.config/composer/vendor/autoload.php';
+require '/Users/johan_alvarez/.composer/vendor/autoload.php';
 \Dotenv\Dotenv::create(__DIR__, '.env')->load();
 
 $site = env('SITE');
