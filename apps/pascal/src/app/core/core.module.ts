@@ -3,7 +3,7 @@ import { CommonModule, Location, PlatformLocation } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { storeFreeze } from 'ngrx-store-freeze';
+
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 
@@ -28,7 +28,7 @@ if (!environment.production) {
     HttpClientModule,
 
     // ngrx
-    StoreModule.forRoot({}, { metaReducers }),
+    StoreModule.forRoot({}, { metaReducers, runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true } }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
   ],

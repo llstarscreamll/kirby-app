@@ -18,7 +18,7 @@ export const TESTING_PROVIDERS = [
 
 export const TESTING_IMPORTS = [
   NxModule.forRoot(),
-  StoreModule.forRoot({}),
+  StoreModule.forRoot({}, { runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }}),
   EffectsModule.forRoot([]),
   AuthenticationDataAccessModule,
   ReactiveFormsModule,
