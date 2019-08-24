@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -7,7 +7,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
-import { TimeClockLogsDataAccessModule, TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access/src';
+import {
+  TimeClockLogsDataAccessModule,
+  TimeClockLogsFacade
+} from '@llstarscreamll/time-clock-logs/data-access/src';
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 import { of } from 'rxjs';
 import { createUser } from '@llstarscreamll/users/util/src';
@@ -27,7 +30,7 @@ describe('TimeClockLogsPageComponent', () => {
         EffectsModule.forRoot([]),
         TimeClockLogsDataAccessModule,
         HttpClientTestingModule,
-        RouterTestingModule,
+        RouterTestingModule
       ],
       declarations: [TimeClockLogsPageComponent],
       providers: [
@@ -35,8 +38,7 @@ describe('TimeClockLogsPageComponent', () => {
         { provide: AuthFacade, useValue: { authUser$: of(user) } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -57,8 +59,14 @@ describe('TimeClockLogsPageComponent', () => {
 
   it('should have certain elements', () => {
     expect(template.querySelector('h1')).toBeTruthy();
-    expect(template.querySelector('a[routerLink="entry-and-exit-log"]')).toBeTruthy();
-    expect(template.querySelector('llstarscreamll-time-clock-logs-table')).toBeTruthy();
-    expect(template.querySelectorAll('llstarscreamll-pagination').length).toBe(2);
+    expect(
+      template.querySelector('a[routerLink="entry-and-exit-log"]')
+    ).toBeTruthy();
+    expect(
+      template.querySelector('llstarscreamll-time-clock-logs-table')
+    ).toBeTruthy();
+    expect(template.querySelectorAll('llstarscreamll-pagination').length).toBe(
+      2
+    );
   });
 });

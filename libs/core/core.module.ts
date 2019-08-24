@@ -8,7 +8,7 @@ import {
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 // libs
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { TranslateService, TranslateLoader } from '@ngx-translate/core';
 import { throwIfAlreadyLoaded } from '@llstarscreamll/utils';
 

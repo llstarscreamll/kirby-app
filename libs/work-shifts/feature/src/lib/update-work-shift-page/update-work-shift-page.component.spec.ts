@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -18,11 +18,11 @@ describe('UpdateWorkShiftPageComponent', () => {
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
         WorkShiftsDataAccessModule,
-        HttpClientTestingModule,
+        HttpClientTestingModule
       ],
       declarations: [UpdateWorkShiftPageComponent],
       providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
+        { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
       ]
     }).compileComponents();
   }));

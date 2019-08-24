@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -25,13 +25,13 @@ describe('ListWorkShiftsPageComponent', () => {
         EffectsModule.forRoot([]),
         WorkShiftsDataAccessModule,
         HttpClientTestingModule,
-        RouterTestingModule,
+        RouterTestingModule
       ],
       declarations: [ListWorkShiftsPageComponent],
       providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
+        { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -49,6 +49,8 @@ describe('ListWorkShiftsPageComponent', () => {
   it('should contain certain elements and components', () => {
     expect(template.querySelector('h1')).toBeTruthy();
     expect(template.querySelector('a').getAttribute('href')).toBe('/create');
-    expect(template.querySelector('llstarscreamll-work-shifts-table-list')).toBeTruthy();
+    expect(
+      template.querySelector('llstarscreamll-work-shifts-table-list')
+    ).toBeTruthy();
   });
 });

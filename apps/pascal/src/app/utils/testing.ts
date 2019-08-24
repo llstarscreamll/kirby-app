@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
 
 export const TESTING_ENVIRONMENT = {
-  api: 'http://my-api.com/',
+  api: 'http://my-api.com/'
 };
 
 export const TESTING_PROVIDERS = [
@@ -24,5 +24,5 @@ export const TESTING_IMPORTS = [
   ReactiveFormsModule,
   RouterTestingModule,
   NoopAnimationsModule,
-  HttpClientTestingModule,
+  HttpClientTestingModule
 ];
