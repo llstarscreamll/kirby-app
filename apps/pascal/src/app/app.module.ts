@@ -24,7 +24,6 @@ import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { SharedModule } from '@llstarscreamll/shared';
 import { environment } from '../environments/environment';
-import { LlstarscreamllCoreModule } from '@llstarscreamll/web';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -76,7 +75,6 @@ export const routes: Route[] = [
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     ReactiveFormsModule,
     CoreModule,
-    LlstarscreamllCoreModule,
     SharedModule,
     AuthenticationDataAccessModule,
     HttpClientModule,
