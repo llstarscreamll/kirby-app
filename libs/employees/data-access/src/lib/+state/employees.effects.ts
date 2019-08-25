@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DataPersistence } from '@nrwl/nx';
+import { DataPersistence } from '@nrwl/angular';
 import { Effect, Actions } from '@ngrx/effects';
-import { map } from "rxjs/internal/operators/map";
-import { tap } from "rxjs/internal/operators/tap";
-import { Pagination, emptyPagination } from "@llstarscreamll/shared";
+import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/internal/operators/tap';
+import { Pagination, emptyPagination } from '@llstarscreamll/shared';
 
 import { EmployeesPartialState } from './employees.reducer';
 import {
@@ -24,9 +24,10 @@ export class EmployeesEffects {
   public loadEmployees$ = this.dataPersistence.fetch(
     EmployeesActionTypes.SearchEmployees,
     {
-      run: (action: SearchEmployees, state: EmployeesPartialState) => this.employeeService
-        .search(action.payload)
-        .pipe(map(apiResponse => new SearchEmployeesOk(apiResponse))),
+      run: (action: SearchEmployees, state: EmployeesPartialState) =>
+        this.employeeService
+          .search(action.payload)
+          .pipe(map(apiResponse => new SearchEmployeesOk(apiResponse))),
 
       onError: (action: SearchEmployees, error) => {
         console.error('Error', error);
@@ -43,15 +44,24 @@ export class EmployeesEffects {
     EmployeesActionTypes.SyncEmployeesByCsv,
     {
       run: (action: SyncEmployeesByCsv, state: EmployeesPartialState) => {
-        return this.employeeService.syncEmployeesByCsvFile(action.payload)
-          .pipe(
-            map(response => new SyncEmployeesByCsvOk),
-            tap(() => this.snackBar.open('Sincronización programada correctamente', "Ok", { duration: 2000, }))
-          );
+        return this.employeeService.syncEmployeesByCsvFile(action.payload).pipe(
+          map(response => new SyncEmployeesByCsvOk()),
+          tap(() =>
+            this.snackBar.open(
+              'Sincronización programada correctamente',
+              'Ok',
+              { duration: 2000 }
+            )
+          )
+        );
       },
       onError: (action: SyncEmployeesByCsv, error) => {
-        this.snackBar.open('Error programando sincronización', "Ok", { duration: 2000, })
-        return new SyncEmployeesByCsvError(error.message || 'Error desconocido');
+        this.snackBar.open('Error programando sincronización', 'Ok', {
+          duration: 2000
+        });
+        return new SyncEmployeesByCsvError(
+          error.message || 'Error desconocido'
+        );
       }
     }
   );
@@ -60,5 +70,5 @@ export class EmployeesEffects {
     private snackBar: MatSnackBar,
     private employeeService: EmployeeService,
     private dataPersistence: DataPersistence<EmployeesPartialState>
-  ) { }
+  ) {}
 }

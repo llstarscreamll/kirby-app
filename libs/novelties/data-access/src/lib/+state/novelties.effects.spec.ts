@@ -6,9 +6,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { provideMockActions } from '@ngrx/effects/testing';
 
-import { NxModule } from '@nrwl/nx';
-import { DataPersistence } from '@nrwl/nx';
-import { hot } from '@nrwl/nx/testing';
+import { NxModule } from '@nrwl/angular';
+import { DataPersistence } from '@nrwl/angular';
+import { hot } from '@nrwl/angular/testing';
 
 import { NoveltiesEffects } from './novelties.effects';
 import { SearchNovelties, SearchNoveltiesOk } from './novelties.actions';
@@ -29,7 +29,7 @@ describe('NoveltiesEffects', () => {
         NoveltiesEffects,
         DataPersistence,
         provideMockActions(() => actions),
-        { provide: NoveltyService, useValue: { get: () => true } },
+        { provide: NoveltyService, useValue: { get: () => true } }
       ]
     });
 

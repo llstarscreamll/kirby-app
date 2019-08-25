@@ -15,7 +15,7 @@ import { LoadStatuses, ApiError } from "@llstarscreamll/shared";
 })
 export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
-  @ViewChild('codeInput')
+  @ViewChild('codeInput', { static: false })
   public codeInput: ElementRef;
 
   @Input()

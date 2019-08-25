@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { NxModule } from '@nrwl/nx';
-import { hot } from '@nrwl/nx/testing';
-import { DataPersistence } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
+import { hot } from '@nrwl/angular/testing';
+import { DataPersistence } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed, async } from '@angular/core/testing';
@@ -28,7 +28,10 @@ describe('EmployeesEffects', () => {
         EmployeesEffects,
         provideMockActions(() => actions),
         { provide: MatSnackBar, useValue: { open: () => true } },
-        { provide: EmployeeService, useValue: { syncEmployeesByCsvFile: () => true } },
+        {
+          provide: EmployeeService,
+          useValue: { syncEmployeesByCsvFile: () => true }
+        }
       ]
     });
 

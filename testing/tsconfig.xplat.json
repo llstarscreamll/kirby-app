@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.libs.json",
   "compilerOptions": {
-    "outDir": "../dist/out-tsc/xplat"
+    "outDir": "../dist/out-tsc"
   },
   "exclude": ["test.xplat.ts", "**/*.spec.ts"]
 }

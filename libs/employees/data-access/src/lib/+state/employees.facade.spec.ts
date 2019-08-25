@@ -1,6 +1,6 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
-import { readFirst } from '@nrwl/nx/testing';
+import { readFirst } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
@@ -27,7 +27,10 @@ describe('EmployeesFacade', () => {
   let createEmployees;
 
   beforeEach(() => {
-    createEmployees = (id: string, name = ''): Entity => ({ id, name: name || `name-${id}` });
+    createEmployees = (id: string, name = ''): Entity => ({
+      id,
+      name: name || `name-${id}`
+    });
   });
 
   describe('used in NgModule', () => {
@@ -41,11 +44,14 @@ describe('EmployeesFacade', () => {
         ],
         providers: [
           EmployeesFacade,
-          { provide: EmployeeService, useValue: { syncEmployeesByCsvFile: () => true } },
+          {
+            provide: EmployeeService,
+            useValue: { syncEmployeesByCsvFile: () => true }
+          },
           { provide: MatSnackBar, useValue: { open: () => true } }
         ]
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -55,7 +61,7 @@ describe('EmployeesFacade', () => {
           CustomFeatureModule
         ]
       })
-      class RootModule { }
+      class RootModule {}
 
       TestBed.configureTestingModule({ imports: [RootModule] });
 
@@ -100,7 +106,10 @@ describe('EmployeesFacade', () => {
         expect(isLoaded).toBe(false);
 
         store.dispatch(
-          new SearchEmployeesOk([createEmployees('AAA'), createEmployees('BBB')])
+          new SearchEmployeesOk([
+            createEmployees('AAA'),
+            createEmployees('BBB')
+          ])
         );
 
         list = await readFirst(facade.paginatedEmployees$);

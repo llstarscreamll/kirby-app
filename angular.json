@@ -22,7 +22,10 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
+            "assets": [
+              "apps/pascal/src/favicon.ico",
+              "apps/pascal/src/assets"
+            ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/pascal/src/styles.scss"
@@ -80,11 +83,13 @@
               "apps/pascal/tsconfig.app.json",
               "apps/pascal/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/pascal/jest.config.js",
             "tsConfig": "apps/pascal/tsconfig.spec.json",
@@ -99,7 +104,7 @@
       "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@nrwl/builders:cypress",
+          "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/pascal-e2e/cypress.json",
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
@@ -115,7 +120,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -133,11 +140,13 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authentication/data-access/jest.config.js",
             "tsConfig": "libs/authentication/data-access/tsconfig.spec.json",
@@ -164,11 +173,13 @@
               "libs/shared/tsconfig.lib.json",
               "libs/shared/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/jest.config.js",
             "tsConfig": "libs/shared/tsconfig.spec.json",
@@ -195,11 +206,13 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/data-access/jest.config.js",
             "tsConfig": "libs/work-shifts/data-access/tsconfig.spec.json",
@@ -226,11 +239,13 @@
               "libs/authentication/utils/tsconfig.lib.json",
               "libs/authentication/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authentication/utils/jest.config.js",
             "tsConfig": "libs/authentication/utils/tsconfig.spec.json"
@@ -264,7 +279,9 @@
               "testing/tsconfig.libs.json",
               "testing/tsconfig.libs.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -290,7 +307,9 @@
               "testing/tsconfig.xplat.json",
               "testing/tsconfig.xplat.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -320,7 +339,9 @@
               {
                 "glob": "**/*",
                 "input": "apps/electron-pascal-desktop/src/",
-                "ignore": ["**/*.ts"],
+                "ignore": [
+                  "**/*.ts"
+                ],
                 "output": ""
               }
             ],
@@ -383,11 +404,13 @@
               "libs/work-shifts/util/tsconfig.lib.json",
               "libs/work-shifts/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/util/jest.config.js",
             "tsConfig": "libs/work-shifts/util/tsconfig.spec.json"
@@ -413,11 +436,13 @@
               "libs/work-shifts/feature/tsconfig.lib.json",
               "libs/work-shifts/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/feature/jest.config.js",
             "tsConfig": "libs/work-shifts/feature/tsconfig.spec.json",
@@ -444,11 +469,13 @@
               "libs/work-shifts/ui/tsconfig.lib.json",
               "libs/work-shifts/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/ui/jest.config.js",
             "tsConfig": "libs/work-shifts/ui/tsconfig.spec.json",
@@ -475,11 +502,13 @@
               "libs/time-clock-logs/data-access/tsconfig.lib.json",
               "libs/time-clock-logs/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/data-access/jest.config.js",
             "tsConfig": "libs/time-clock-logs/data-access/tsconfig.spec.json",
@@ -506,11 +535,13 @@
               "libs/time-clock-logs/util/tsconfig.lib.json",
               "libs/time-clock-logs/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/util/jest.config.js",
             "tsConfig": "libs/time-clock-logs/util/tsconfig.spec.json"
@@ -536,11 +567,13 @@
               "libs/users/util/tsconfig.lib.json",
               "libs/users/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/users/util/jest.config.js",
             "tsConfig": "libs/users/util/tsconfig.spec.json"
@@ -566,11 +599,13 @@
               "libs/time-clock-logs/feature/tsconfig.lib.json",
               "libs/time-clock-logs/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/feature/jest.config.js",
             "tsConfig": "libs/time-clock-logs/feature/tsconfig.spec.json",
@@ -597,11 +632,13 @@
               "libs/time-clock-logs/ui/tsconfig.lib.json",
               "libs/time-clock-logs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/ui/jest.config.js",
             "tsConfig": "libs/time-clock-logs/ui/tsconfig.spec.json",
@@ -628,11 +665,13 @@
               "libs/employees/data-access/tsconfig.lib.json",
               "libs/employees/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/data-access/jest.config.js",
             "tsConfig": "libs/employees/data-access/tsconfig.spec.json",
@@ -659,11 +698,13 @@
               "libs/employees/feature/tsconfig.lib.json",
               "libs/employees/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/feature/jest.config.js",
             "tsConfig": "libs/employees/feature/tsconfig.spec.json",
@@ -690,11 +731,13 @@
               "libs/employees/util/tsconfig.lib.json",
               "libs/employees/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/util/jest.config.js",
             "tsConfig": "libs/employees/util/tsconfig.spec.json"
@@ -720,11 +763,13 @@
               "libs/novelties/data/tsconfig.lib.json",
               "libs/novelties/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/data/jest.config.js",
             "tsConfig": "libs/novelties/data/tsconfig.spec.json"
@@ -750,11 +795,13 @@
               "libs/novelties/utils/tsconfig.lib.json",
               "libs/novelties/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/utils/jest.config.js",
             "tsConfig": "libs/novelties/utils/tsconfig.spec.json"
@@ -780,11 +827,13 @@
               "libs/novelty-types/utils/tsconfig.lib.json",
               "libs/novelty-types/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/utils/jest.config.js",
             "tsConfig": "libs/novelty-types/utils/tsconfig.spec.json"
@@ -810,11 +859,13 @@
               "libs/novelty-types/data/tsconfig.lib.json",
               "libs/novelty-types/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/data/jest.config.js",
             "tsConfig": "libs/novelty-types/data/tsconfig.spec.json"
@@ -840,11 +891,13 @@
               "libs/novelties/feature/tsconfig.lib.json",
               "libs/novelties/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/feature/jest.config.js",
             "tsConfig": "libs/novelties/feature/tsconfig.spec.json",
@@ -871,11 +924,13 @@
               "libs/novelties/ui/tsconfig.lib.json",
               "libs/novelties/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/ui/jest.config.js",
             "tsConfig": "libs/novelties/ui/tsconfig.spec.json",
@@ -902,11 +957,13 @@
               "libs/novelties/data-access/tsconfig.lib.json",
               "libs/novelties/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/data-access/jest.config.js",
             "tsConfig": "libs/novelties/data-access/tsconfig.spec.json",
@@ -931,10 +988,17 @@
   },
   "schematics": {
     "@nrwl/schematics:application": {
-      "style": "scss"
+      "style": "scss",
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
     },
     "@nrwl/schematics:library": {
-      "style": "scss"
+      "style": "scss",
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
     }
   },
   "defaultProject": "pascal"

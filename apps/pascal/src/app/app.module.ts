@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,11 +40,27 @@ export const routes: Route[] = [
   { path: 'login', component: SignInPageComponent },
   { path: 'sign-up', component: SignUpPageComponent },
   { path: 'welcome', component: WelcomePageComponent },
-  { path: 'production-record-by-weight', component: ProductionRecordByWeightComponent },
-  { path: 'work-shifts', loadChildren: '@llstarscreamll/work-shifts/feature#WorkShiftsFeatureModule' },
-  { path: 'time-clock-logs', loadChildren: '@llstarscreamll/time-clock-logs/feature#TimeClockLogsFeatureModule' },
-  { path: 'employees', loadChildren: '@llstarscreamll/employees/feature#EmployeesFeatureModule' },
-  { path: 'novelties', loadChildren: '@llstarscreamll/novelties/feature#NoveltiesFeatureModule' },
+  {
+    path: 'production-record-by-weight',
+    component: ProductionRecordByWeightComponent
+  },
+  {
+    path: 'work-shifts',
+    loadChildren: () => import('@llstarscreamll/work-shifts/feature').then(m => m.WorkShiftsFeatureModule)
+  },
+  {
+    path: 'time-clock-logs',
+    loadChildren:
+      () => import('@llstarscreamll/time-clock-logs/feature').then(m => m.TimeClockLogsFeatureModule)
+  },
+  {
+    path: 'employees',
+    loadChildren: () => import('@llstarscreamll/employees/feature').then(m => m.EmployeesFeatureModule)
+  },
+  {
+    path: 'novelties',
+    loadChildren: () => import('@llstarscreamll/novelties/feature').then(m => m.NoveltiesFeatureModule)
+  }
 ];
 
 @NgModule({
@@ -85,9 +101,7 @@ export const routes: Route[] = [
     SidebarLayoutComponent,
     ProductionRecordByWeightComponent
   ],
-  providers: [
-    { provide: 'environment', useValue: environment },
-  ],
+  providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

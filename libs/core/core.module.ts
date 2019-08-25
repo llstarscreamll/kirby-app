@@ -8,8 +8,7 @@ import {
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 // libs
-import { NxModule } from '@nrwl/nx';
-import { TranslateService, TranslateLoader } from '@ngx-translate/core';
+import { NxModule } from '@nrwl/angular';
 import { throwIfAlreadyLoaded } from '@llstarscreamll/utils';
 
 // app
@@ -45,13 +44,8 @@ export class CoreModule {
   constructor(
     @Optional()
     @SkipSelf()
-    parentModule: CoreModule,
-    @Inject(PlatformLanguageToken) lang: string,
-    translate: TranslateService
+    parentModule: CoreModule
   ) {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
-
-    // ensure default platform language is set
-    translate.use(lang);
   }
 }

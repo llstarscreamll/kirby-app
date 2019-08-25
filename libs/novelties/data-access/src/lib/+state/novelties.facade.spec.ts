@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { readFirst } from '@nrwl/nx/testing';
+import { readFirst } from '@nrwl/angular/testing';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, Store } from '@ngrx/store';
 
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 
 import { NoveltiesEffects } from './novelties.effects';
 import { NoveltiesFacade } from './novelties.facade';
@@ -50,7 +50,7 @@ describe('NoveltiesFacade', () => {
           { provide: NoveltyService, useValue: { get: () => true } }
         ]
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
@@ -60,7 +60,7 @@ describe('NoveltiesFacade', () => {
           CustomFeatureModule
         ]
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.get(Store);
@@ -104,7 +104,10 @@ describe('NoveltiesFacade', () => {
         expect(isLoaded).toBe(false);
 
         store.dispatch(
-          new SearchNoveltiesOk([createNovelties('AAA'), createNovelties('BBB')])
+          new SearchNoveltiesOk([
+            createNovelties('AAA'),
+            createNovelties('BBB')
+          ])
         );
 
         list = await readFirst(facade.paginatedNovelties$);

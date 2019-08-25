@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
-import { DataPersistence } from '@nrwl/nx';
+import { DataPersistence } from '@nrwl/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed, async } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -24,7 +24,7 @@ describe('NoveltiesEffects', () => {
         NoveltiesFeatureEffects,
         DataPersistence,
         provideMockActions(() => actions),
-        { provide: NoveltiesFacade, useValue: { get: (params) => true } }
+        { provide: NoveltiesFacade, useValue: { get: params => true } }
       ]
     });
 
