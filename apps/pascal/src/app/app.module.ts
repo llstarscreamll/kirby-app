@@ -33,7 +33,6 @@ import { LandingPageComponent } from './containers/landing-page/landing-page.com
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
-import { ProductionRecordByWeightComponent } from './containers/production-record-by-weight/production-record-by-weight.component';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
@@ -41,25 +40,32 @@ export const routes: Route[] = [
   { path: 'sign-up', component: SignUpPageComponent },
   { path: 'welcome', component: WelcomePageComponent },
   {
-    path: 'production-record-by-weight',
-    component: ProductionRecordByWeightComponent
-  },
-  {
     path: 'work-shifts',
-    loadChildren: () => import('@llstarscreamll/work-shifts/feature').then(m => m.WorkShiftsFeatureModule)
+    loadChildren: () =>
+      import('@llstarscreamll/work-shifts/feature').then(
+        m => m.WorkShiftsFeatureModule
+      )
   },
   {
     path: 'time-clock-logs',
-    loadChildren:
-      () => import('@llstarscreamll/time-clock-logs/feature').then(m => m.TimeClockLogsFeatureModule)
+    loadChildren: () =>
+      import('@llstarscreamll/time-clock-logs/feature').then(
+        m => m.TimeClockLogsFeatureModule
+      )
   },
   {
     path: 'employees',
-    loadChildren: () => import('@llstarscreamll/employees/feature').then(m => m.EmployeesFeatureModule)
+    loadChildren: () =>
+      import('@llstarscreamll/employees/feature').then(
+        m => m.EmployeesFeatureModule
+      )
   },
   {
     path: 'novelties',
-    loadChildren: () => import('@llstarscreamll/novelties/feature').then(m => m.NoveltiesFeatureModule)
+    loadChildren: () =>
+      import('@llstarscreamll/novelties/feature').then(
+        m => m.NoveltiesFeatureModule
+      )
   }
 ];
 
@@ -98,8 +104,7 @@ export const routes: Route[] = [
     LandingPageComponent,
     WelcomePageComponent,
     SignUpPageComponent,
-    SidebarLayoutComponent,
-    ProductionRecordByWeightComponent
+    SidebarLayoutComponent
   ],
   providers: [{ provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

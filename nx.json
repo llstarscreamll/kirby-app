@@ -33,15 +33,6 @@
         "platform:desktop"
       ]
     },
-    "libs": {
-      "tags": []
-    },
-    "xplat": {
-      "tags": []
-    },
-    "electron-pascal-desktop": {
-      "tags": ["scope:work-shifts", "type:app", "platform:desktop"]
-    },
     "work-shifts-data-access": {
       "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
     },
