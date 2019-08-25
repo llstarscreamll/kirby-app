@@ -4,7 +4,7 @@ import { createUser } from "@llstarscreamll/users/util";
 import { EmployeeInterface } from './employee.interface';
 
 export function createEmployee(id?: string, name: string = null): EmployeeInterface {
-  let user = createUser(id);
+  const user = createUser(id);
 
   return {
     id: user.id,

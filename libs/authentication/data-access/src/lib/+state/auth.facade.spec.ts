@@ -207,7 +207,7 @@ describe('AuthFacade', () => {
           expect(status).toBe(null, 'initial status is null');
           expect(errors).toBeFalsy();
 
-          let newAccount = {
+          const newAccount = {
             first_name: 'John',
             last_name: 'Doe',
             email: 'john@doe.com',
@@ -242,7 +242,7 @@ describe('AuthFacade', () => {
 
       it('should set errors in state when sign up API responds error', async done => {
         // api sign up response ok
-        let apiError: ApiError = {
+        const apiError: ApiError = {
           message: 'Unprocessable entity',
           ok: false,
           error: {
@@ -263,7 +263,7 @@ describe('AuthFacade', () => {
           expect(status).toBe(null, 'initial status is null');
           expect(errors).toBeFalsy();
 
-          let newAccount = {
+          const newAccount = {
             first_name: 'John',
             last_name: 'Doe',
             email: 'john@doe.com',

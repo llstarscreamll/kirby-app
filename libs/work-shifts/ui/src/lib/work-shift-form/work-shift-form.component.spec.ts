@@ -77,7 +77,7 @@ describe('WorkShiftFormComponent', () => {
 
     fixture.detectChanges();
 
-    let submitBtn: HTMLButtonElement = template.querySelector('form button[type="submit"]');
+    const submitBtn: HTMLButtonElement = template.querySelector('form button[type="submit"]');
     submitBtn.click();
 
     fixture.detectChanges();

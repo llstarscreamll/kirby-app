@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data/src';
+import { NoveltyInterface } from '@llstarscreamll/novelties/data';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
 
 export enum NoveltiesActionTypes {

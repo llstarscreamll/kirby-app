@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 import { LoadStatuses } from '@llstarscreamll/shared';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
+import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
 
 @Component({
   selector: 'llstarscreamll-work-shift-form',

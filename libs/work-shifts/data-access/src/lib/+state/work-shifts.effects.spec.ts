@@ -35,8 +35,8 @@ describe('WorkShiftsEffects', () => {
   let actions$: Observable<any>;
   let effects: WorkShiftsEffects;
   let workShiftService: WorkShiftService;
-  let apiError = INVALID_DATA_API_ERROR;
-  let authTokens = AUTH_TOKENS_MOCK;
+  const apiError = INVALID_DATA_API_ERROR;
+  const authTokens = AUTH_TOKENS_MOCK;
   const entity = createWorkShift('1');
 
   beforeEach(() => {

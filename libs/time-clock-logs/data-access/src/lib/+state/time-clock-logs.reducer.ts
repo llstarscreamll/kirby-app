@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import { UserInterface } from '@llstarscreamll/users/util';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
 import { TimeClockLogsAction, TimeClockLogsActionTypes } from './time-clock-logs.actions';
 import { ApiError, Pagination, LoadStatuses, emptyPagination } from '@llstarscreamll/shared';

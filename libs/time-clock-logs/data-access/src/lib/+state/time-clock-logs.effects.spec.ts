@@ -15,7 +15,7 @@ import {
   SearchTimeClockLogsOk
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
-import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util/src';
+import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
 
 describe('TimeClockLogsEffects', () => {
   let actions$: Observable<any>;

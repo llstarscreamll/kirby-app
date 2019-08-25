@@ -1,4 +1,4 @@
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
+import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
 import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
 import { Pagination, emptyPagination, ApiError, LoadStatuses } from '@llstarscreamll/shared';
 

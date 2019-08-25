@@ -23,7 +23,7 @@ class FakeService {
 describe('AuthInterceptor', () => {
   let fakeService: FakeService;
   let httpController: HttpTestingController;
-  let authTokens = AUTH_TOKENS_MOCK;
+  const authTokens = AUTH_TOKENS_MOCK;
   let facade: AuthFacade;
 
   beforeEach(() => {

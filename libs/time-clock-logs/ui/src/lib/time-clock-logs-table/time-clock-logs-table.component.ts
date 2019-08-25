@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { Pagination } from '@llstarscreamll/shared';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data/src';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
+import { NoveltyInterface } from '@llstarscreamll/novelties/data';
 import { round } from 'lodash';
 
 @Component({

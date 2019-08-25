@@ -66,7 +66,7 @@ describe('TimeClockLogsFacade', () => {
 
     it('search() should call SearchTimeClockLogs action', async done => {
       try {
-        let query = {};
+        const query = {};
         await facade.search(query);
         getTestScheduler().flush();
 

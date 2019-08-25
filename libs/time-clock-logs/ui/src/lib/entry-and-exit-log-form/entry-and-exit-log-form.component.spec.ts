@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy, SimpleChange } from '@angula
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { LoadStatuses } from '@llstarscreamll/shared';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util/src';
+import { createWorkShift } from '@llstarscreamll/work-shifts/util';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
 
 /**
@@ -18,16 +18,16 @@ describe('EntryAndExitLogFormComponent', () => {
   let fixture: ComponentFixture<EntryAndExitLogFormComponent>;
   let template: HTMLDivElement;
   // code form fields selectors
-  let actionBtnSelector = 'form#code-form .action[type=button]';
-  let codeInputSelector = 'form#code-form [formControlName="identification_code"]';
-  let submitCodeFormBtnSelector = 'form#code-form button[type="submit"]';
+  const actionBtnSelector = 'form#code-form .action[type=button]';
+  const codeInputSelector = 'form#code-form [formControlName="identification_code"]';
+  const submitCodeFormBtnSelector = 'form#code-form button[type="submit"]';
   // check in/out form fields selectors
-  let workShiftFieldSelector = 'form#check-form [formControlName="work_shift_id"]';
-  let workShiftOptionSelector = workShiftFieldSelector + ' mat-radio-button';
-  let noveltyTypeFieldSelector = 'form#check-form [formControlName="novelty_type_id"]';
-  let noveltySubCostCenterInputSelector = 'form#check-form [formControlName="novelty_sub_cost_center"]';
-  let subCostCenterInputSelector = 'form#check-form [formControlName="sub_cost_center"]';
-  let submitCheckFormBtnSelector = 'form#check-form button[type="submit"]';
+  const workShiftFieldSelector = 'form#check-form [formControlName="work_shift_id"]';
+  const workShiftOptionSelector = workShiftFieldSelector + ' mat-radio-button';
+  const noveltyTypeFieldSelector = 'form#check-form [formControlName="novelty_type_id"]';
+  const noveltySubCostCenterInputSelector = 'form#check-form [formControlName="novelty_sub_cost_center"]';
+  const subCostCenterInputSelector = 'form#check-form [formControlName="sub_cost_center"]';
+  const submitCheckFormBtnSelector = 'form#check-form button[type="submit"]';
 
   let earlyTimeClockData;
 
@@ -421,7 +421,7 @@ describe('EntryAndExitLogFormComponent', () => {
     spyOn(component.submitted, 'emit');
     component.timeClockData = earlyTimeClockData;
 
-    let checkFormData = {
+    const checkFormData = {
       action: 'check_out',
       identification_code: 'some-code-123',
       novelty_type_id: earlyTimeClockData.novelty_types[0].id,
@@ -448,7 +448,7 @@ describe('EntryAndExitLogFormComponent', () => {
 
   it('should clean forms when status == Completed', () => {
     component.timeClockData = earlyTimeClockData;
-    let checkFormData = {
+    const checkFormData = {
       action: 'check_out',
       identification_code: 'some-code-123',
       novelty_type_id: earlyTimeClockData.novelty_types.shift().id,

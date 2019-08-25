@@ -4,8 +4,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
 import { TimeClockLogsTableComponent } from './time-clock-logs-table.component';
-import { createNovelty } from '@llstarscreamll/novelties/utils/src';
-import { createUser } from '@llstarscreamll/users/util/src';
+import { createNovelty } from '@llstarscreamll/novelties/utils';
+import { createUser } from '@llstarscreamll/users/util';
 import { isArray } from 'lodash';
 import { RouterModule } from '@angular/router';
 
@@ -60,9 +60,9 @@ describe('TimeClockLogsTableComponent', () => {
   });
 
   it('should display paginated items on table whe data available', () => {
-    let tony = createUser(null, 'Tony Iron', 'Stark');
-    let steve = createUser(null, 'Steve Captain', 'Rogers');
-    let timeClockLog = createTimeClockLog();
+    const tony = createUser(null, 'Tony Iron', 'Stark');
+    const steve = createUser(null, 'Steve Captain', 'Rogers');
+    const timeClockLog = createTimeClockLog();
     timeClockLog.sub_cost_center = { id: 'scc-1', name: 'SCC One' };
     timeClockLog.approvals = [tony, steve];
     timeClockLog.novelties = [

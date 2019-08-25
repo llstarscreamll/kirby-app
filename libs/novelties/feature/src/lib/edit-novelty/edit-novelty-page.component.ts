@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access/src';
+import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
 
 import { Pagination } from '@llstarscreamll/shared';
 import { NoveltyInterface } from '@llstarscreamll/novelties/data';
@@ -11,20 +11,23 @@ import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
 @Component({
   selector: 'llstarscreamll-edit-novelty-page',
   templateUrl: './edit-novelty-page.component.html',
-  styles: [`
-  llstarscreamll-novelty-form { display: block; }
-  `]
+  styles: [
+    `
+      llstarscreamll-novelty-form {
+        display: block;
+      }
+    `
+  ]
 })
 export class EditNoveltyPageComponent implements OnInit, OnDestroy {
-
-  public novelty$: Observable<NoveltyInterface>
-  public employees$: Observable<Pagination<EmployeeInterface>>
-  public noveltyTypes$: Observable<Pagination<NoveltyTypeInterface>>
+  public novelty$: Observable<NoveltyInterface>;
+  public employees$: Observable<Pagination<EmployeeInterface>>;
+  public noveltyTypes$: Observable<Pagination<NoveltyTypeInterface>>;
 
   public constructor(
     private noveltiesFacade: NoveltiesFacade,
-    private employeesFacade: EmployeesFacade,
-  ) { }
+    private employeesFacade: EmployeesFacade
+  ) {}
 
   public ngOnInit() {
     this.novelty$ = this.noveltiesFacade.selectedNovelty$;
@@ -47,5 +50,4 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
   public onNoveltyUpdated(novelty) {
     this.noveltiesFacade.update(novelty.id, novelty);
   }
-
 }

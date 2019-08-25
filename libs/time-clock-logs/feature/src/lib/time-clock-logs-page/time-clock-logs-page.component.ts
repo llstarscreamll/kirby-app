@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access/src';
+import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access';
 import { Observable } from 'rxjs';
 import { Pagination } from '@llstarscreamll/shared';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util/src';
+import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import { UserInterface } from '@llstarscreamll/users/util';
 import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({

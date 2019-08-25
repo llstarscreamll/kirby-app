@@ -4,7 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateWorkShiftPageComponent } from './create-work-shift-page.component';
-import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access/src';
+import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatIconModule } from '@angular/material/icon';

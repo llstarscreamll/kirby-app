@@ -7,7 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page.component';
-import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access/src';
+import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 

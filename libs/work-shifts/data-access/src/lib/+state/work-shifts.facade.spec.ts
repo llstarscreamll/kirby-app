@@ -36,7 +36,7 @@ interface TestSchema {
 describe('WorkShiftsFacade', () => {
   let facade: WorkShiftsFacade;
   let store: Store<TestSchema>;
-  let authTokens = AUTH_TOKENS_MOCK;
+  const authTokens = AUTH_TOKENS_MOCK;
   const entity = createWorkShift('1');
 
   beforeEach(() => {});
@@ -81,7 +81,7 @@ describe('WorkShiftsFacade', () => {
 
     it('search() should call SearchWorkShifts action', async done => {
       try {
-        let query = {};
+        const query = {};
         await facade.search(query);
         getTestScheduler().flush();
 
@@ -145,7 +145,7 @@ describe('WorkShiftsFacade', () => {
 
     it('delete() should call DeleteWorkShift action', async done => {
       try {
-        let id = 'AAA';
+        const id = 'AAA';
         await facade.delete(id);
         getTestScheduler().flush();
 

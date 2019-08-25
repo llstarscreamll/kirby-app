@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Pagination, ApiError } from '@llstarscreamll/shared';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import { UserInterface } from '@llstarscreamll/users/util';
 
 export enum TimeClockLogsActionTypes {
   SearchTimeClockLogs = '[TimeClockLogs] search',

@@ -29,7 +29,7 @@ export const TIME_CLOCK_LOG_MOCK: TimeClockLogModel = TimeClockLogModel.fromJson
 
 export function createTimeClockLog(id?: string, name: string = null): TimeClockLogModel {
   id = id || faker.random.uuid();
-  let employee = createEmployee();
+  const employee = createEmployee();
   const registrarIn = createUser();
   const registrarOut = createUser();
   const workShift = createWorkShift();

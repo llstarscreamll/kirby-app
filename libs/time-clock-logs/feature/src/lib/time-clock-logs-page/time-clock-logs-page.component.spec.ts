@@ -10,17 +10,17 @@ import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
 import {
   TimeClockLogsDataAccessModule,
   TimeClockLogsFacade
-} from '@llstarscreamll/time-clock-logs/data-access/src';
+} from '@llstarscreamll/time-clock-logs/data-access';
 import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 import { of } from 'rxjs';
-import { createUser } from '@llstarscreamll/users/util/src';
+import { createUser } from '@llstarscreamll/users/util';
 
 describe('TimeClockLogsPageComponent', () => {
   let template: HTMLDivElement;
   let component: TimeClockLogsPageComponent;
   let fixture: ComponentFixture<TimeClockLogsPageComponent>;
   let timeClockFacade: TimeClockLogsFacade;
-  let user = createUser();
+  const user = createUser();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

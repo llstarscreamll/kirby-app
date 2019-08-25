@@ -7,7 +7,7 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import {
   NoveltiesFacade,
   NoveltiesPartialState
-} from '@llstarscreamll/novelties/data-access/src';
+} from '@llstarscreamll/novelties/data-access';
 import { EditNoveltyPageComponent } from '../edit-novelty/edit-novelty-page.component';
 import { NoveltiesActionTypes } from '@llstarscreamll/novelties/data-access/src/lib/+state/novelties.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';

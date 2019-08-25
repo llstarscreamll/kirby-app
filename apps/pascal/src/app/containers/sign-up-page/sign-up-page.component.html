@@ -1,12 +1,14 @@
-<div class="text-center my-4">
-  <h1>Crea una cuenta</h1>
-</div>
+<div class="text-center my-4"><h1>Crea una cuenta</h1></div>
 
 <div class="wrapper">
   <mat-card>
     <mat-card-content>
-      <auth-sign-up-form [status]="status$ | async" [errors]="errors$ | async" (submitted)="signUp($event)">
-      </auth-sign-up-form>
+      <pascal-auth-sign-up-form
+        [status]="status$ | async"
+        [errors]="errors$ | async"
+        (submitted)="signUp($event)"
+      >
+      </pascal-auth-sign-up-form>
     </mat-card-content>
   </mat-card>
 </div>
