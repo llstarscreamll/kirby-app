@@ -1,7 +1,5 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "",
   "projects": {
     "pascal": {
       "root": "apps/pascal/",
@@ -22,10 +20,7 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": [
-              "apps/pascal/src/favicon.ico",
-              "apps/pascal/src/assets"
-            ],
+            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/pascal/src/styles.scss"
@@ -83,9 +78,7 @@
               "apps/pascal/tsconfig.app.json",
               "apps/pascal/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -120,9 +113,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -140,9 +131,7 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -173,9 +162,7 @@
               "libs/shared/tsconfig.lib.json",
               "libs/shared/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -206,9 +193,7 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -239,9 +224,7 @@
               "libs/authentication/utils/tsconfig.lib.json",
               "libs/authentication/utils/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -258,139 +241,6 @@
         }
       }
     },
-    "libs": {
-      "root": "libs",
-      "sourceRoot": "libs",
-      "projectType": "library",
-      "prefix": "llstarscreamll",
-      "architect": {
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "testing/test.libs.ts",
-            "tsConfig": "testing/tsconfig.libs.spec.json",
-            "karmaConfig": "testing/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "testing/tsconfig.libs.json",
-              "testing/tsconfig.libs.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "xplat": {
-      "root": "xplat",
-      "sourceRoot": "xplat",
-      "projectType": "library",
-      "prefix": "llstarscreamll",
-      "architect": {
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "testing/test.xplat.ts",
-            "tsConfig": "testing/tsconfig.xplat.spec.json",
-            "karmaConfig": "testing/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "testing/tsconfig.xplat.json",
-              "testing/tsconfig.xplat.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "electron-pascal-desktop": {
-      "root": "apps/pascal/",
-      "sourceRoot": "apps/pascal/src",
-      "projectType": "application",
-      "prefix": "pascal",
-      "schematics": {
-        "@nrwl/schematics:component": {
-          "style": "scss"
-        }
-      },
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/electron-pascal-desktop",
-            "index": "apps/pascal/src/index.html",
-            "main": "apps/pascal/src/main.electron.ts",
-            "polyfills": "apps/pascal/src/polyfills.ts",
-            "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": [
-              "apps/pascal/src/favicon.ico",
-              "apps/pascal/src/assets",
-              {
-                "glob": "**/*",
-                "input": "apps/electron-pascal-desktop/src/",
-                "ignore": [
-                  "**/*.ts"
-                ],
-                "output": ""
-              }
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/pascal/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/pascal/src/environments/environment.ts",
-                  "with": "apps/pascal/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "electron-pascal-desktop:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "electron-pascal-desktop:build:production"
-            }
-          }
-        }
-      }
-    },
     "work-shifts-util": {
       "root": "libs/work-shifts/util",
       "sourceRoot": "libs/work-shifts/util/src",
@@ -404,9 +254,7 @@
               "libs/work-shifts/util/tsconfig.lib.json",
               "libs/work-shifts/util/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -436,9 +284,7 @@
               "libs/work-shifts/feature/tsconfig.lib.json",
               "libs/work-shifts/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -469,9 +315,7 @@
               "libs/work-shifts/ui/tsconfig.lib.json",
               "libs/work-shifts/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -502,9 +346,7 @@
               "libs/time-clock-logs/data-access/tsconfig.lib.json",
               "libs/time-clock-logs/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -535,9 +377,7 @@
               "libs/time-clock-logs/util/tsconfig.lib.json",
               "libs/time-clock-logs/util/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -567,9 +407,7 @@
               "libs/users/util/tsconfig.lib.json",
               "libs/users/util/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -599,9 +437,7 @@
               "libs/time-clock-logs/feature/tsconfig.lib.json",
               "libs/time-clock-logs/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -632,9 +468,7 @@
               "libs/time-clock-logs/ui/tsconfig.lib.json",
               "libs/time-clock-logs/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -665,9 +499,7 @@
               "libs/employees/data-access/tsconfig.lib.json",
               "libs/employees/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -698,9 +530,7 @@
               "libs/employees/feature/tsconfig.lib.json",
               "libs/employees/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -731,9 +561,7 @@
               "libs/employees/util/tsconfig.lib.json",
               "libs/employees/util/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -763,9 +591,7 @@
               "libs/novelties/data/tsconfig.lib.json",
               "libs/novelties/data/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -795,9 +621,7 @@
               "libs/novelties/utils/tsconfig.lib.json",
               "libs/novelties/utils/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -827,9 +651,7 @@
               "libs/novelty-types/utils/tsconfig.lib.json",
               "libs/novelty-types/utils/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -859,9 +681,7 @@
               "libs/novelty-types/data/tsconfig.lib.json",
               "libs/novelty-types/data/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -891,9 +711,7 @@
               "libs/novelties/feature/tsconfig.lib.json",
               "libs/novelties/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -924,9 +742,7 @@
               "libs/novelties/ui/tsconfig.lib.json",
               "libs/novelties/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -957,9 +773,7 @@
               "libs/novelties/data-access/tsconfig.lib.json",
               "libs/novelties/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -979,26 +793,18 @@
     }
   },
   "cli": {
-    "warnings": {
-      "typescriptMismatch": false,
-      "versionMismatch": false
-    },
-    "defaultCollection": "@nstudio/schematics",
-    "packageManager": "npm"
+    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
     "@nrwl/schematics:application": {
       "style": "scss",
-      "unitTestRunner": "karma",
-      "e2eTestRunner": "protractor"
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
     "@nrwl/schematics:library": {
       "style": "scss",
-      "unitTestRunner": "karma",
+      "unitTestRunner": "jest",
       "framework": "angular"
-    },
-    "@nrwl/schematics:node-application": {
-      "framework": "express"
     }
   },
   "defaultProject": "pascal"
