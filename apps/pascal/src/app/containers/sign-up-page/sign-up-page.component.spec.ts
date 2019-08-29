@@ -2,20 +2,25 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpPageComponent } from './sign-up-page.component';
+import { NewAccount } from '@llstarscreamll/authentication/utils';
+import { AuthFacade } from '@llstarscreamll/authentication-data-access';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
-import { AuthFacade, NewAccount } from '@llstarscreamll/authentication-data-access';
 
 describe('SignUpPageComponent', () => {
   let component: SignUpPageComponent;
   let fixture: ComponentFixture<SignUpPageComponent>;
   let authFacade: AuthFacade;
-  const newAccount: NewAccount = { name: 'Tony Stark', email: 'tony@stark.com', password: 'tony.123', password_confirmation: 'tony.123' };
+  const newAccount: NewAccount = {
+    first_name: 'Tony',
+    last_name: 'Stark',
+    email: 'tony@stark.com',
+    password: 'tony.123',
+    password_confirmation: 'tony.123'
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ...TESTING_IMPORTS,
-      ],
+      imports: [...TESTING_IMPORTS],
       declarations: [SignUpPageComponent],
       providers: [...TESTING_PROVIDERS],
       schemas: [NO_ERRORS_SCHEMA]
@@ -45,7 +50,11 @@ describe('SignUpPageComponent', () => {
   });
 
   it('should have sign-up-component on template', () => {
-    expect(fixture.debugElement.nativeElement.querySelector('auth-sign-up-form')).toBeTruthy();
+    expect(
+      fixture.debugElement.nativeElement.querySelector(
+        'pascal-auth-sign-up-form'
+      )
+    ).toBeTruthy();
   });
 
   it('should dispatch sign up action on signUp method', () => {

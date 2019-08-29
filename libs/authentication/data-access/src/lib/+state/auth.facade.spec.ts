@@ -99,9 +99,9 @@ describe('AuthFacade', () => {
         let user = await readFirst(facade.authUser$);
         let status = await readFirst(facade.status$);
 
-        expect(user).toBe(null, 'initial auth user is null');
-        expect(tokens).toBe(null, 'initial tokens are null');
-        expect(status).toBe(null, 'initial status is null');
+        expect(user).toBe(null);
+        expect(tokens).toBe(null);
+        expect(status).toBe(null);
 
         await facade.loginWithCredentials(credentials);
 
@@ -115,10 +115,7 @@ describe('AuthFacade', () => {
         tokens = await readFirst(facade.authTokens$);
         user = await readFirst(facade.authUser$);
 
-        expect(status).toBe(
-          'loggedIn',
-          'after login success, status == loggedIn'
-        );
+        expect(status).toBe('loggedIn');
         expect(tokens).toBeTruthy();
         expect(user).toBeTruthy();
 
@@ -202,9 +199,9 @@ describe('AuthFacade', () => {
           let status = await readFirst(facade.status$);
           let errors = await readFirst(facade.errors$);
 
-          expect(user).toBe(null, 'initial auth user is null');
-          expect(tokens).toBe(null, 'initial tokens are null');
-          expect(status).toBe(null, 'initial status is null');
+          expect(user).toBe(null);
+          expect(tokens).toBe(null);
+          expect(status).toBe(null);
           expect(errors).toBeFalsy();
 
           const newAccount = {
@@ -226,10 +223,7 @@ describe('AuthFacade', () => {
           user = await readFirst(facade.authUser$);
           errors = await readFirst(facade.errors$);
 
-          expect(status).toBe(
-            'loggedIn',
-            'after sign up success, status == loggedIn'
-          );
+          expect(status).toBe('loggedIn');
           expect(tokens).toBeTruthy();
           expect(user).toBe(authUser);
           expect(errors).toBeFalsy();
@@ -258,9 +252,9 @@ describe('AuthFacade', () => {
           let status = await readFirst(facade.status$);
           let errors = await readFirst(facade.errors$);
 
-          expect(user).toBe(null, 'initial auth user is null');
-          expect(tokens).toBe(null, 'initial tokens are null');
-          expect(status).toBe(null, 'initial status is null');
+          expect(user).toBe(null);
+          expect(tokens).toBe(null);
+          expect(status).toBe(null);
           expect(errors).toBeFalsy();
 
           const newAccount = {
@@ -282,10 +276,7 @@ describe('AuthFacade', () => {
           user = await readFirst(facade.authUser$);
           errors = await readFirst(facade.errors$);
 
-          expect(status).toBe(
-            'signInError',
-            'after sign up error, status == signInError'
-          );
+          expect(status).toBe('signInError');
           expect(tokens).toBeFalsy();
           expect(user).toBeFalsy();
           expect(errors).toBeTruthy();
