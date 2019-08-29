@@ -5,21 +5,38 @@
     <a routerLink="entry-and-exit-log" mat-stroked-button color="primary">
       Registrar entrada/salida
     </a>
+    <a
+      routerLink="/novelties/create-novelties-to-employees"
+      mat-stroked-button
+      class="ml-2"
+    >
+      Registrar novedades a empleados
+    </a>
   </div>
   <div class="col-12 text-right">
-    <llstarscreamll-pagination [pagination]="(timeClockLogs$ | async)?.meta" (paginate)="searchTimeClockLogs($event)">
+    <llstarscreamll-pagination
+      [pagination]="(timeClockLogs$ | async)?.meta"
+      (paginate)="searchTimeClockLogs($event)"
+    >
     </llstarscreamll-pagination>
   </div>
 </div>
 
 <div class="table-responsive">
-  <llstarscreamll-time-clock-logs-table [userId]="(user$ | async)?.id" [timeClockLogs]="timeClockLogs$ | async"
-                                        [actionButtons]="['approve', 'delete-approval']" (approve)="onApprove($event)"
-                                        (deleteApproval)="onDeleteApproval($event)">
+  <llstarscreamll-time-clock-logs-table
+    [userId]="(user$ | async)?.id"
+    [timeClockLogs]="timeClockLogs$ | async"
+    [actionButtons]="['approve', 'delete-approval']"
+    (approve)="onApprove($event)"
+    (deleteApproval)="onDeleteApproval($event)"
+  >
   </llstarscreamll-time-clock-logs-table>
 </div>
 
 <div class="text-right">
-  <llstarscreamll-pagination [pagination]="(timeClockLogs$ | async)?.meta" (paginate)="searchTimeClockLogs($event)">
+  <llstarscreamll-pagination
+    [pagination]="(timeClockLogs$ | async)?.meta"
+    (paginate)="searchTimeClockLogs($event)"
+  >
   </llstarscreamll-pagination>
 </div>

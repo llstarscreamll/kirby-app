@@ -98,7 +98,7 @@ describe('NoveltyFormComponent', () => {
     expect(component.searchEmployees.emit).toHaveBeenCalledWith({ search });
   }));
 
-  it('should emit searchNoveltyTypes when employee_id form field changes', fakeAsync(() => {
+  it('should emit searchNoveltyTypes when novelty_type form field changes', fakeAsync(() => {
     spyOn(component.searchNoveltyTypes, 'emit');
 
     const search = 'example';

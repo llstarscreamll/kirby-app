@@ -8,6 +8,7 @@ import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
 import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
 import { NoveltiesDataAccessModule } from '@llstarscreamll/novelties/data-access';
 import { EmployeesDataAccessModule } from '@llstarscreamll/employees/data-access';
+import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
 
 @NgModule({
   imports: [
@@ -20,10 +21,18 @@ import { EmployeesDataAccessModule } from '@llstarscreamll/employees/data-access
         path: ':id/edit',
         pathMatch: 'full',
         component: EditNoveltyPageComponent
+      },
+      {
+        path: 'create-novelties-to-employees',
+        pathMatch: 'full',
+        component: CreateNoveltiesToEmployeesPageComponent
       }
     ]),
     EffectsModule.forFeature([NoveltiesFeatureEffects])
   ],
-  declarations: [EditNoveltyPageComponent]
+  declarations: [
+    EditNoveltyPageComponent,
+    CreateNoveltiesToEmployeesPageComponent
+  ]
 })
 export class NoveltiesFeatureModule {}

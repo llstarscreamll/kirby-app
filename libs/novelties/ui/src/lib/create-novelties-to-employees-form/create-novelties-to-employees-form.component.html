@@ -1,0 +1,114 @@
+<form [formGroup]="form">
+  <mat-form-field class="w-100">
+    <input
+      matInput
+      placeholder="Buscar empleado"
+      [matAutocomplete]="employeeAutocomplete"
+      formControlName="employee"
+    />
+    <mat-autocomplete
+      #employeeAutocomplete="matAutocomplete"
+      [displayWith]="displayEmployeeFieldValue"
+    >
+      <mat-option
+        *ngFor="let employee of displayableEmployees"
+        [value]="employee"
+      >
+        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <div
+    *ngIf="selectedEmployees.length === 0"
+    class="no-employees-selected badge badge-danger"
+  >
+    No has seleccionado empleados *
+  </div>
+
+  <mat-chip-list class="mb-4">
+    <mat-chip *ngFor="let employee of selectedEmployees">
+      {{ employee.first_name + ' ' + employee.last_name }}
+      <mat-icon matChipRemove (click)="removeEmployee(employee)"
+        >cancel</mat-icon
+      >
+    </mat-chip>
+  </mat-chip-list>
+
+  <div formArrayName="novelty_types" class="novelty-type-options">
+    <div
+      *ngFor="
+        let noveltyTypeOptionGroup of noveltyTypesArrayControl.controls;
+        let i = index
+      "
+      [formGroup]="noveltyTypeOptionGroup"
+      class="option"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Tipo de novedad"
+          [matAutocomplete]="noveltyTypeAutocomplete"
+          formControlName="novelty_type"
+        />
+        <mat-autocomplete
+          #noveltyTypeAutocomplete="matAutocomplete"
+          [displayWith]="displayNoveltyTypeFieldValue"
+        >
+          <mat-option
+            *ngFor="let noveltyType of noveltyTypes"
+            [value]="noveltyType"
+          >
+            <span>{{ noveltyType.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="start_at"
+          matInput
+          type="text"
+          placeholder="Fecha de inicio"
+        />
+        <mat-hint>Y-m-d H:i:s</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          formControlName="end_at"
+          matInput
+          type="text"
+          placeholder="Fecha de fin"
+        />
+        <mat-hint>Y-m-d H:i:s</mat-hint>
+      </mat-form-field>
+
+      <button (click)="removeNoveltyOption(i)" mat-icon-button color="warn">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <button
+    (click)="addNoveltyOption()"
+    mat-raised-button
+    class="add-novelty-option"
+  >
+    Añadir tipo de novedad
+  </button>
+
+  <div class="clearfix"></div>
+
+  <button
+    [disabled]="disableFormSubmitBtn"
+    mat-raised-button
+    type="submit"
+    class="mt-4"
+    color="primary"
+  >
+    Guardar
+  </button>
+</form>

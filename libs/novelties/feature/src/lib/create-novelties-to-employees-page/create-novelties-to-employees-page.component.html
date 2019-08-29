@@ -1,0 +1,9 @@
+<h1>Crear novedades a empleados</h1>
+
+<llstarscreamll-create-novelties-to-employees-form
+  [employees]="(employees$ | async)?.data"
+  [noveltyTypes]="(noveltyTypes$ | async)?.data"
+  (searchEmployees)="onSearchEmployees($event)"
+  (searchNoveltyTypes)="onSearchNovelties($event)"
+>
+</llstarscreamll-create-novelties-to-employees-form>
