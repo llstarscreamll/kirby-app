@@ -5,7 +5,8 @@ import {
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
@@ -20,7 +21,8 @@ import { LoadStatuses } from '@llstarscreamll/shared';
   styleUrls: ['./create-novelties-to-employees-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateNoveltiesToEmployeesFormComponent implements OnInit {
+export class CreateNoveltiesToEmployeesFormComponent
+  implements OnInit, OnDestroy {
   @Input()
   public employees: EmployeeInterface[] = [];
 
@@ -36,6 +38,9 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit {
   @Output()
   public searchNoveltyTypes = new EventEmitter();
 
+  @Output()
+  public submitted = new EventEmitter();
+
   private destroy$ = new Subject();
 
   public form: FormGroup;
@@ -45,6 +50,11 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit {
   public ngOnInit() {
     this.buildForm();
     this.listenFormChanges();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public get selectedEmployees(): any[] {
@@ -154,5 +164,22 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit {
 
   public displayNoveltyTypeFieldValue(noveltyType) {
     return noveltyType ? noveltyType.name : null;
+  }
+
+  public submit() {
+    this.submitted.emit(this.parseFormData());
+  }
+
+  private parseFormData() {
+    const formData = this.form.value;
+
+    return {
+      employee_ids: formData.selected_employees.map(employee => employee.id),
+      novelties: formData.novelty_types.map(novelty => ({
+        novelty_type_id: novelty.novelty_type ? novelty.novelty_type.id : null,
+        start_at: novelty.start_at,
+        end_at: novelty.end_at
+      }))
+    };
   }
 }

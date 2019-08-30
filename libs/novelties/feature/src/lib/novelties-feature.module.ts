@@ -9,10 +9,12 @@ import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.compo
 import { NoveltiesDataAccessModule } from '@llstarscreamll/novelties/data-access';
 import { EmployeesDataAccessModule } from '@llstarscreamll/employees/data-access';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
+import { SharedModule } from '@llstarscreamll/shared';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     NoveltiesUiModule,
     NoveltiesDataAccessModule,
     EmployeesDataAccessModule,

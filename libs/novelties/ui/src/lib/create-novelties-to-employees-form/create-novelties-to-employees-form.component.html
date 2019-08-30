@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <mat-form-field class="w-100">
     <input
       matInput
@@ -95,6 +95,7 @@
   <button
     (click)="addNoveltyOption()"
     mat-raised-button
+    type="button"
     class="add-novelty-option"
   >
     Añadir tipo de novedad

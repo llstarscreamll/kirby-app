@@ -16,7 +16,10 @@ import {
   SearchNoveltyTypesError,
   UpdateNovelty,
   UpdateNoveltyOk,
-  UpdateNoveltyError
+  UpdateNoveltyError,
+  CreateNoveltiesToEmployees,
+  CreateNoveltiesToEmployeesOk,
+  CreateNoveltiesToEmployeesError
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 
@@ -43,6 +46,21 @@ export class NoveltiesEffects {
           .pipe(map(apiResponse => new SearchNoveltyTypesOk(apiResponse))),
       onError: (action: SearchNovelties, error) =>
         new SearchNoveltyTypesError(error)
+    }
+  );
+
+  @Effect()
+  createNoveltiesToEmployees$ = this.dataPersistence.pessimisticUpdate(
+    NoveltiesActionTypes.CreateNoveltiesToEmployees,
+    {
+      run: (action: CreateNoveltiesToEmployees) =>
+        this.noveltyService
+          .createNoveltiesToEmployees(action.payload)
+          .pipe(
+            map(apiResponse => new CreateNoveltiesToEmployeesOk(apiResponse))
+          ),
+      onError: (action: CreateNoveltiesToEmployees, error) =>
+        new CreateNoveltiesToEmployeesError(error)
     }
   );
 

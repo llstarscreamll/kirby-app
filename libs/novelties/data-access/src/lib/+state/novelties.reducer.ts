@@ -1,6 +1,10 @@
 import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
 import { NoveltyInterface } from '@llstarscreamll/novelties/data';
-import { Pagination, emptyPagination } from '@llstarscreamll/shared';
+import {
+  Pagination,
+  emptyPagination,
+  LoadStatuses
+} from '@llstarscreamll/shared';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
@@ -14,13 +18,14 @@ export const NOVELTIES_FEATURE_KEY = 'novelties';
  */
 
 /* tslint:disable:no-empty-interface */
-export interface Entity { }
+export interface Entity {}
 
 export interface NoveltiesState {
   paginatedList: Pagination<NoveltyInterface>;
   paginatedNoveltyTypesList: Pagination<NoveltyTypeInterface>;
   selected?: NoveltyInterface;
   loaded: boolean;
+  createNoveltiesToEmployeesStatus: LoadStatuses;
   error?: any;
 }
 
@@ -31,14 +36,42 @@ export interface NoveltiesPartialState {
 export const initialState: NoveltiesState = {
   paginatedList: emptyPagination(),
   paginatedNoveltyTypesList: emptyPagination(),
-  loaded: false
+  loaded: false,
+  createNoveltiesToEmployeesStatus: null
 };
 
-export function noveltiesReducer(state: NoveltiesState = initialState, action: NoveltiesAction): NoveltiesState {
+export function noveltiesReducer(
+  state: NoveltiesState = initialState,
+  action: NoveltiesAction
+): NoveltiesState {
   switch (action.type) {
-
     case NoveltiesActionTypes.SearchNoveltiesOk: {
       state = { ...state, paginatedList: action.payload, loaded: true };
+      break;
+    }
+
+    case NoveltiesActionTypes.CreateNoveltiesToEmployees: {
+      state = {
+        ...state,
+        createNoveltiesToEmployeesStatus: LoadStatuses.Loading
+      };
+      break;
+    }
+
+    case NoveltiesActionTypes.CreateNoveltiesToEmployeesOk: {
+      state = {
+        ...state,
+        createNoveltiesToEmployeesStatus: LoadStatuses.Completed
+      };
+      break;
+    }
+
+    case NoveltiesActionTypes.CreateNoveltiesToEmployeesError: {
+      state = {
+        ...state,
+        error: action.payload,
+        createNoveltiesToEmployeesStatus: LoadStatuses.Error
+      };
       break;
     }
 
@@ -47,16 +80,25 @@ export function noveltiesReducer(state: NoveltiesState = initialState, action: N
       break;
     }
 
-    case NoveltiesActionTypes.CleanSelectedNovelty: {
-      state = { ...state, selected: null };
-      break;
-    }
-
     case NoveltiesActionTypes.SearchNoveltyTypesOk: {
       state = { ...state, paginatedNoveltyTypesList: action.payload };
       break;
     }
 
+    case NoveltiesActionTypes.CleanSelectedNovelty: {
+      state = { ...state, selected: null };
+      break;
+    }
+
+    case NoveltiesActionTypes.CleanApiErrors: {
+      state = { ...state, error: null };
+      break;
+    }
+
+    case NoveltiesActionTypes.ResetCreateNoveltiesToEmployees: {
+      state = { ...state, error: null, createNoveltiesToEmployeesStatus: null };
+      break;
+    }
   }
   return state;
 }

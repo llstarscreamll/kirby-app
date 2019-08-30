@@ -15,7 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { createEmployee } from '@llstarscreamll/employees/util/src';
+import { createEmployee } from '@llstarscreamll/employees/util';
+import { createNoveltyType } from '@llstarscreamll/novelty-types/utils';
 
 describe('CreateNoveltiesToEmployeesFormComponent', () => {
   let component: CreateNoveltiesToEmployeesFormComponent;
@@ -229,5 +230,44 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
     fixture.detectChanges();
 
     expect(component.form.get('novelty_types').value.length).toBe(1 + 1); // one from default + one added;
+  });
+
+  it('should emit submitted form values', () => {
+    spyOn(component.submitted, 'emit');
+
+    component.form.patchValue(
+      {
+        selected_employees: [createEmployee('e1'), createEmployee('e2')],
+        employee: null,
+        novelty_types: [
+          {
+            novelty_type: createNoveltyType('n1'),
+            start_at: '2019-01-01 10:00:00',
+            end_at: '2019-01-01 12:00:00'
+          }
+        ]
+      },
+      { emitEvent: false }
+    );
+
+    fixture.detectChanges();
+
+    expect(component.form.valid).toBe(true);
+
+    const submitBtn: HTMLButtonElement = template.querySelector(
+      'form button[type="submit"]'
+    );
+    submitBtn.click();
+
+    expect(component.submitted.emit).toHaveBeenCalledWith({
+      employee_ids: ['e1', 'e2'],
+      novelties: [
+        {
+          novelty_type_id: 'n1',
+          start_at: '2019-01-01 10:00:00',
+          end_at: '2019-01-01 12:00:00'
+        }
+      ]
+    });
   });
 });

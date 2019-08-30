@@ -1,9 +1,17 @@
 <h1>Crear novedades a empleados</h1>
 
+<div class="col-md-10">
+  <llstarscreamll-api-errors
+    [apiError]="apiError$ | async"
+  ></llstarscreamll-api-errors>
+</div>
+
 <llstarscreamll-create-novelties-to-employees-form
   [employees]="(employees$ | async)?.data"
   [noveltyTypes]="(noveltyTypes$ | async)?.data"
+  [status]="createNoveltiesToEmployeesStatus$ | async"
   (searchEmployees)="onSearchEmployees($event)"
   (searchNoveltyTypes)="onSearchNovelties($event)"
+  (submitted)="onSubmit($event)"
 >
 </llstarscreamll-create-novelties-to-employees-form>

@@ -1,26 +1,29 @@
 import { Entity, NoveltiesState } from './novelties.reducer';
 import { noveltiesQuery } from './novelties.selectors';
+import { createNovelty } from '@llstarscreamll/novelties/utils';
+import { emptyPagination } from '@llstarscreamll/shared';
 
 describe('Novelties Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const createNovelties = (id: string, name = ''): Entity => ({ id, name: name || `name-${id}` });
   const getNoveltiesId = it => it['id'];
-  const novelty = createNovelties('PRODUCT-AAA');
+  const novelty = createNovelty('PRODUCT-AAA');
 
-  let storeState;
+  let storeState: NoveltiesState;
 
   beforeEach(() => {
     storeState = {
-      novelties: {
-        list: [
+      paginatedList: {
+        data: [
           novelty,
-          createNovelties('PRODUCT-BBB'),
-          createNovelties('PRODUCT-CCC')
+          createNovelty('PRODUCT-BBB'),
+          createNovelty('PRODUCT-CCC')
         ],
-        selected: novelty,
-        error: ERROR_MSG,
-        loaded: true
-      }
+        meta: {}
+      },
+      paginatedNoveltyTypesList: emptyPagination(),
+      selected: novelty,
+      error: ERROR_MSG,
+      loaded: true
     };
   });
 
@@ -29,7 +32,7 @@ describe('Novelties Selectors', () => {
       const results = noveltiesQuery.getPaginatedList(storeState);
       const selId = getNoveltiesId(results[1]);
 
-      expect(results.length).toBe(3);
+      expect(results.data.length).toBe(3);
       expect(selId).toBe('PRODUCT-BBB');
     });
 

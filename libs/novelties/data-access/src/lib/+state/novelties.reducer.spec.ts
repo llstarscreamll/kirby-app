@@ -19,16 +19,16 @@ describe('Novelties Reducer', () => {
 
   describe('valid Novelties actions ', () => {
     it('should return set the list of known Novelties', () => {
-      const noveltiess = [
-        createNovelties('PRODUCT-AAA'),
-        createNovelties('PRODUCT-zzz')
-      ];
-      const action = new SearchNoveltiesOk(noveltiess);
+      const novelties = {
+        data: [createNovelties('PRODUCT-AAA'), createNovelties('PRODUCT-zzz')],
+        meta: {}
+      };
+      const action = new SearchNoveltiesOk(novelties);
       const result: NoveltiesState = noveltiesReducer(initialState, action);
-      const selId: string = getNoveltiesId(result.paginatedList[1]);
+      const selId: string = getNoveltiesId(result.paginatedList.data[1]);
 
       expect(result.loaded).toBe(true);
-      expect(result.paginatedList.length).toBe(2);
+      expect(result.paginatedList.data.length).toBe(2);
       expect(selId).toBe('PRODUCT-zzz');
     });
   });

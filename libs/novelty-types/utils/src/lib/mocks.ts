@@ -1,12 +1,21 @@
-import * as faker from "faker";
-import { NoveltyTypeInterface, DayType } from "@llstarscreamll/novelty-types/data";
+import * as faker from 'faker';
+import {
+  NoveltyTypeInterface,
+  DayType
+} from '@llstarscreamll/novelty-types/data';
 
 export function createNoveltyType(id?: string): NoveltyTypeInterface {
-  const name = faker.random.word;
+  const name = faker.random.word();
   let start = faker.random.number(12);
   let end = faker.random.number({ min: start, max: 23 });
-  start = start.toString().padStart(2, '0').padEnd(5, ':00');
-  end = end.toString().padStart(2, '0').padEnd(5, ':00');
+  start = start
+    .toString()
+    .padStart(2, '0')
+    .padEnd(5, ':00');
+  end = end
+    .toString()
+    .padStart(2, '0')
+    .padEnd(5, ':00');
 
   return {
     id: id || faker.random.uuid(),
@@ -17,6 +26,6 @@ export function createNoveltyType(id?: string): NoveltyTypeInterface {
     apply_on_time_slots: [{ start, end }],
     operator: null,
     created_at: faker.date.past(),
-    updated_at: faker.date.past(),
+    updated_at: faker.date.past()
   };
 }
