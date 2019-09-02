@@ -9,6 +9,8 @@ import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-d
 import { TimeClockLogsDataAccessModule } from '@llstarscreamll/time-clock-logs/data-access';
 import { TimeClockLogsPageComponent } from './time-clock-logs-page/time-clock-logs-page.component';
 import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-and-exit-log-page.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-an
     SharedModule,
     MatIconModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
     TimeClockLogsUiModule,
     TimeClockLogsDataAccessModule,
     AuthenticationDataAccessModule,

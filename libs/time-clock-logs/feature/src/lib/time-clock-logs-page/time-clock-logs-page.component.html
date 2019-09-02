@@ -13,6 +13,19 @@
       Registrar novedades a empleados
     </a>
   </div>
+
+  <div class="col-12 mt-2">
+    <mat-form-field class="w-100">
+      <input
+        (change)="searchTimeClockLogs({ search: $event.srcElement.value })"
+        matInput
+        placeholder="Buscar por nombre, apellido, email, código o identificación"
+        type="search"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
   <div class="col-12 text-right">
     <llstarscreamll-pagination
       [pagination]="(timeClockLogs$ | async)?.meta"
