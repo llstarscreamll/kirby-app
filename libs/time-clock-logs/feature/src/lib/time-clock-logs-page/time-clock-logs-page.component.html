@@ -26,14 +26,6 @@
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
-
-  <div class="col-12 text-right">
-    <llstarscreamll-pagination
-      [pagination]="(timeClockLogs$ | async)?.meta"
-      (paginate)="searchTimeClockLogs($event)"
-    >
-    </llstarscreamll-pagination>
-  </div>
 </div>
 
 <div class="table-responsive">
