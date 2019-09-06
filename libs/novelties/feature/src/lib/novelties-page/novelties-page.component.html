@@ -1,0 +1,44 @@
+<h1 class="my-4">Novedades</h1>
+
+<div class="mt-2">
+  <mat-form-field class="w-100">
+    <input
+      (change)="searchNovelties({ search: $event.srcElement.value })"
+      matInput
+      placeholder="Buscar por nombre, apellido, email, código, identificación o novedad"
+      type="search"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>Empleado</td>
+      <td>Novedad</td>
+      <td>Inicio</td>
+      <td>Fin</td>
+      <td>Creada en</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let novelty of (novelties$ | async)?.data">
+      <td>
+        {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
+      </td>
+      <td>{{ novelty.novelty_type.code }}</td>
+      <td>{{ novelty.start_at }}</td>
+      <td>{{ novelty.end_at }}</td>
+      <td>{{ novelty.created_at }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-right">
+  <llstarscreamll-pagination
+    [pagination]="(novelties$ | async)?.meta"
+    (paginate)="searchNovelties($event)"
+  >
+  </llstarscreamll-pagination>
+</div>

@@ -10,15 +10,29 @@ import { NoveltiesDataAccessModule } from '@llstarscreamll/novelties/data-access
 import { EmployeesDataAccessModule } from '@llstarscreamll/employees/data-access';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
 import { SharedModule } from '@llstarscreamll/shared';
+import { NoveltiesPageComponent } from './novelties-page/novelties-page.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
     NoveltiesUiModule,
+    MatFormFieldModule,
     NoveltiesDataAccessModule,
     EmployeesDataAccessModule,
     RouterModule.forChild([
+      {
+        path: '',
+        pathMatch: 'full',
+        component: NoveltiesPageComponent
+      },
       {
         path: ':id/edit',
         pathMatch: 'full',
@@ -34,7 +48,8 @@ import { SharedModule } from '@llstarscreamll/shared';
   ],
   declarations: [
     EditNoveltyPageComponent,
-    CreateNoveltiesToEmployeesPageComponent
+    CreateNoveltiesToEmployeesPageComponent,
+    NoveltiesPageComponent
   ]
 })
 export class NoveltiesFeatureModule {}
