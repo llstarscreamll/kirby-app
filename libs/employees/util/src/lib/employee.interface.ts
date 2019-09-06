@@ -3,6 +3,8 @@ import { UserInterface } from '@llstarscreamll/users/util';
 export interface EmployeeInterface {
   id?: string;
   cost_center_id?: string;
+  first_name: string;
+  last_name: string;
   code: string;
   identification_number: string;
   position: string;

@@ -1,13 +1,18 @@
-import * as faker from "faker";
+import * as faker from 'faker';
 
-import { createUser } from "@llstarscreamll/users/util";
+import { createUser } from '@llstarscreamll/users/util';
 import { EmployeeInterface } from './employee.interface';
 
-export function createEmployee(id?: string, name: string = null): EmployeeInterface {
+export function createEmployee(
+  id?: string,
+  name: string = null
+): EmployeeInterface {
   const user = createUser(id);
 
   return {
     id: user.id,
+    first_name: faker.name.firstName(),
+    last_name: faker.name.lastName(),
     cost_center_id: faker.random.uuid(),
     code: 'E-' + user.id,
     identification_number: faker.random.number,
@@ -18,6 +23,6 @@ export function createEmployee(id?: string, name: string = null): EmployeeInterf
     salary: faker.random.number,
     user: user,
     created_at: faker.date.past(),
-    updated_at: faker.date.past(),
+    updated_at: faker.date.past()
   };
 }
