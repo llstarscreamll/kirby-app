@@ -1,60 +1,128 @@
-<form *ngIf="!timeClockData" [formGroup]="codeForm" (ngSubmit)="onCodeFormSubmit()" id="code-form" autocomplete="off">
+<form
+  *ngIf="!timeClockData"
+  [formGroup]="codeForm"
+  (ngSubmit)="onCodeFormSubmit()"
+  id="code-form"
+  autocomplete="off"
+>
+  <button
+    (click)="toggleAction()"
+    mat-stroked-button
+    [ngClass]="actionClass"
+    class="action w-100"
+    type="button"
+  >
+    Registrar {{ readableActionName }}
+  </button>
 
-    <button (click)="toggleAction()" mat-stroked-button [ngClass]="actionClass" class="action w-100"
-            type="button">Registrar {{ readableActionName }}</button>
+  <mat-form-field class="w-100">
+    <input
+      #codeInput
+      formControlName="identification_code"
+      matInput
+      type="password"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="none"
+      spellcheck="false"
+      placeholder="Código de identificación"
+      required
+    />
+  </mat-form-field>
 
-    <mat-form-field class="w-100">
-        <input #codeInput formControlName="identification_code" matInput type="password" autocomplete="off"
-               autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Código de identificación"
-               required>
-    </mat-form-field>
-
-    <button mat-raised-button [disabled]="disableCodeFormSubmitBtn" type="submit">Siguiente</button>
-
+  <button mat-raised-button [disabled]="disableCodeFormSubmitBtn" type="submit">
+    Siguiente
+  </button>
 </form>
 
-<form *ngIf="timeClockData" [formGroup]="checkForm" (ngSubmit)="onCheckFormSubmit()" id="check-form" autocomplete="off">
+<form
+  *ngIf="timeClockData"
+  [formGroup]="checkForm"
+  (ngSubmit)="onCheckFormSubmit()"
+  id="check-form"
+  autocomplete="off"
+>
+  <h1 class="text-center">Registrar {{ readableActionName }}</h1>
 
-    <h1 class="text-center">Registrar {{ readableActionName }}</h1>
+  <h4 class="text-center">{{ employee.name }}</h4>
 
-    <ng-container *ngIf="displayWorkShiftField">
-        <label id="work-shift-radio-group">Turno:</label>
-        <mat-radio-group formControlName="work_shift_id" aria-labelledBy="work-shift-radio-group">
-            <mat-radio-button *ngFor="let workShift of workShifts" [value]="workShift.id">{{ workShift.name }}
-            </mat-radio-button>
-        </mat-radio-group>
-    </ng-container>
+  <ng-container *ngIf="displayWorkShiftField">
+    <label id="work-shift-radio-group">Turno:</label>
+    <mat-radio-group
+      formControlName="work_shift_id"
+      aria-labelledBy="work-shift-radio-group"
+    >
+      <mat-radio-button
+        *ngFor="let workShift of workShifts"
+        [value]="workShift.id"
+        >{{ workShift.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </ng-container>
 
-    <ng-container *ngIf="hasNoveltyTypes">
-        <label id="novelty-type-radio-group">Tipo de novedad:</label>
-        <mat-radio-group formControlName="novelty_type_id" aria-labelledBy="novelty-type-radio-group">
-            <mat-radio-button *ngFor="let novelty of noveltyTypes" [value]="novelty.id">{{ novelty.name }}
-            </mat-radio-button>
-        </mat-radio-group>
-    </ng-container>
+  <ng-container *ngIf="hasNoveltyTypes">
+    <label id="novelty-type-radio-group">Tipo de novedad:</label>
+    <mat-radio-group
+      formControlName="novelty_type_id"
+      aria-labelledBy="novelty-type-radio-group"
+    >
+      <mat-radio-button
+        *ngFor="let novelty of noveltyTypes"
+        [value]="novelty.id"
+        >{{ novelty.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </ng-container>
 
-    <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-100">
-        <input matInput placeholder="Sub centro de costo de novedad" aria-label="State"
-               [matAutocomplete]="noveltySubCostCenter" formControlName="novelty_sub_cost_center">
-        <mat-autocomplete #noveltySubCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
-            <mat-option *ngFor="let subCostCenter of allSubCostCenters" [value]="subCostCenter">
-                <span>{{ subCostCenter.name }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+  <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-100">
+    <input
+      matInput
+      placeholder="Sub centro de costo de novedad"
+      aria-label="State"
+      [matAutocomplete]="noveltySubCostCenter"
+      formControlName="novelty_sub_cost_center"
+    />
+    <mat-autocomplete
+      #noveltySubCostCenter="matAutocomplete"
+      [displayWith]="displaySubCostCenterFieldValue"
+    >
+      <mat-option
+        *ngFor="let subCostCenter of allSubCostCenters"
+        [value]="subCostCenter"
+      >
+        <span>{{ subCostCenter.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-    <mat-form-field *ngIf="displaySubCostCenterField" class="w-100">
-        <input matInput placeholder="Sub centro de costo del turno" aria-label="State" [matAutocomplete]="subCostCenter"
-               formControlName="sub_cost_center">
-        <mat-autocomplete #subCostCenter="matAutocomplete" [displayWith]="displaySubCostCenterFieldValue">
-            <mat-option *ngFor="let subCostCenter of allSubCostCenters" [value]="subCostCenter">
-                <span>{{ subCostCenter.name }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+  <mat-form-field *ngIf="displaySubCostCenterField" class="w-100">
+    <input
+      matInput
+      placeholder="Sub centro de costo del turno"
+      aria-label="State"
+      [matAutocomplete]="subCostCenter"
+      formControlName="sub_cost_center"
+    />
+    <mat-autocomplete
+      #subCostCenter="matAutocomplete"
+      [displayWith]="displaySubCostCenterFieldValue"
+    >
+      <mat-option
+        *ngFor="let subCostCenter of allSubCostCenters"
+        [value]="subCostCenter"
+      >
+        <span>{{ subCostCenter.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-    <div class="clearfix"></div>
+  <div class="clearfix"></div>
 
-    <button mat-raised-button [disabled]="disableCheckFormSubmitBtn" type="submit">Enviar</button>
-
+  <button
+    mat-raised-button
+    [disabled]="disableCheckFormSubmitBtn"
+    type="submit"
+  >
+    Enviar
+  </button>
 </form>
