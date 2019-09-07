@@ -94,7 +94,7 @@ describe('TimeClockLogsTableComponent', () => {
       4: timeClockLog.work_shift.name,
       5: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
       6: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
-      7: timeClockLog.novelties.map(n => n.novelty_type.code),
+      7: timeClockLog.novelties.map(novelty => novelty.novelty_type.code),
       8: ['Tony Stark', 'Steve Rogers']
     };
 
