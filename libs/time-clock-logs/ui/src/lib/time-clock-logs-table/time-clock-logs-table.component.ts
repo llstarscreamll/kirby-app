@@ -1,9 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { round } from 'lodash';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 import { Pagination } from '@llstarscreamll/shared';
+import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data';
-import { round } from 'lodash';
 
 @Component({
   selector: 'llstarscreamll-time-clock-logs-table',
@@ -12,7 +19,6 @@ import { round } from 'lodash';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeClockLogsTableComponent implements OnInit {
-
   @Input()
   public timeClockLogs: Pagination<TimeClockLogModel>;
 
@@ -28,27 +34,44 @@ export class TimeClockLogsTableComponent implements OnInit {
   @Output()
   public deleteApproval = new EventEmitter();
 
-  public constructor() { }
+  public constructor() {}
 
-  public ngOnInit() { }
+  public ngOnInit() {}
 
-  public shortName(approver: { first_name: string, last_name: string }) {
+  public shortName(approver: { first_name: string; last_name: string }) {
     return [
-      approver.first_name.trim().split(' ').shift(),
-      approver.last_name.trim().split(' ').shift()
+      approver.first_name
+        .trim()
+        .split(' ')
+        .shift(),
+      approver.last_name
+        .trim()
+        .split(' ')
+        .shift()
     ].join(' ');
   }
 
-  public readableNovelty(novelty: NoveltyInterface) {
-    return novelty.novelty_type.code + ' ' + round(novelty.total_time_in_minutes / 60, 2);
+  public readableNovelty(novelty: NoveltyModel) {
+    return (
+      novelty.novelty_type.code +
+      ' ' +
+      round(novelty.total_time_in_minutes / 60, 2)
+    );
   }
 
   public showApproveButton(row: TimeClockLogModel): boolean {
-    return this.actionButtons && this.actionButtons.includes('approve') && !row.isApprovedByUserId(this.userId);
+    return (
+      this.actionButtons &&
+      this.actionButtons.includes('approve') &&
+      !row.isApprovedByUserId(this.userId)
+    );
   }
 
   public showDeleteApprovalButton(row: TimeClockLogModel): boolean {
-    return this.actionButtons && this.actionButtons.includes('delete-approval') && row.isApprovedByUserId(this.userId);
+    return (
+      this.actionButtons &&
+      this.actionButtons.includes('delete-approval') &&
+      row.isApprovedByUserId(this.userId)
+    );
   }
-
 }

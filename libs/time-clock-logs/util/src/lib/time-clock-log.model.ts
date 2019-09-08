@@ -1,7 +1,7 @@
-import { WorkShiftInterface } from "@llstarscreamll/work-shifts/util";
-import { UserInterface } from "@llstarscreamll/users/util";
+import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
+import { UserInterface } from '@llstarscreamll/users/util';
 import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data';
+import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import { round } from 'lodash';
 
 export class TimeClockLogModel {
@@ -18,7 +18,7 @@ export class TimeClockLogModel {
   checked_out_by_id?: string;
   checked_out_by?: UserInterface;
   novelties_count?: number;
-  novelties?: NoveltyInterface[];
+  novelties?: NoveltyModel[];
   approvals?: UserInterface[];
   created_at?: string;
   updated_at?: string;
@@ -34,12 +34,19 @@ export class TimeClockLogModel {
 
   public get concatenatedNoveltiesCount(): string {
     return (this.novelties || [])
-      .map(novelty => novelty.novelty_type.code + ' ' + round(novelty.total_time_in_minutes / 60, 2))
+      .map(
+        novelty =>
+          novelty.novelty_type.code +
+          ' ' +
+          round(novelty.total_time_in_minutes / 60, 2)
+      )
       .join(', ');
   }
 
   public isApprovedByUserId(userId: string): boolean {
-    return this.approvals && this.approvals.map(approver => approver.id).includes(userId);
+    return (
+      this.approvals &&
+      this.approvals.map(approver => approver.id).includes(userId)
+    );
   }
-
 }

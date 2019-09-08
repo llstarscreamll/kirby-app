@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
 
 import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data';
+import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import { EmployeeInterface } from '@llstarscreamll/employees/util';
 import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
@@ -20,7 +20,7 @@ import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
   ]
 })
 export class EditNoveltyPageComponent implements OnInit, OnDestroy {
-  public novelty$: Observable<NoveltyInterface>;
+  public novelty$: Observable<NoveltyModel>;
   public employees$: Observable<Pagination<EmployeeInterface>>;
   public noveltyTypes$: Observable<Pagination<NoveltyTypeInterface>>;
 

@@ -1,4 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
+import { Pagination } from '@llstarscreamll/shared';
+import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import { NOVELTIES_FEATURE_KEY, NoveltiesState } from './novelties.reducer';
 
 // Lookup the 'Novelties' feature state managed by NgRx
@@ -19,7 +22,7 @@ const getError = createSelector(
 );
 const getPaginatedList = createSelector(
   getNoveltiesState,
-  (state: NoveltiesState) => state.paginatedList
+  (state: NoveltiesState) => mapPaginatedDataToModel(state.paginatedList)
 );
 const getPaginatedNoveltyTypesList = createSelector(
   getNoveltiesState,
@@ -29,6 +32,15 @@ const getSelectedNovelty = createSelector(
   getNoveltiesState,
   (state: NoveltiesState) => state.selected
 );
+
+function mapPaginatedDataToModel(
+  paginatedData: Pagination<any>
+): Pagination<NoveltyModel> {
+  return {
+    ...paginatedData,
+    data: NoveltyModel.fromJsonList(paginatedData.data)
+  };
+}
 
 export const noveltiesQuery = {
   getPaginatedList,

@@ -1,1 +1,1 @@
-export * from './lib/novelty.interface';
+export * from './lib/novelty.model';

@@ -1,5 +1,5 @@
 import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data';
+import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import {
   Pagination,
   emptyPagination,
@@ -21,9 +21,9 @@ export const NOVELTIES_FEATURE_KEY = 'novelties';
 export interface Entity {}
 
 export interface NoveltiesState {
-  paginatedList: Pagination<NoveltyInterface>;
+  paginatedList: Pagination<NoveltyModel>;
   paginatedNoveltyTypesList: Pagination<NoveltyTypeInterface>;
-  selected?: NoveltyInterface;
+  selected?: NoveltyModel;
   loaded: boolean;
   createNoveltiesToEmployeesStatus: LoadStatuses;
   error?: any;

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data';
+import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
 
 export enum NoveltiesActionTypes {
@@ -37,7 +37,7 @@ export class SearchNovelties implements Action {
 
 export class SearchNoveltiesOk implements Action {
   readonly type = NoveltiesActionTypes.SearchNoveltiesOk;
-  constructor(public payload: Pagination<NoveltyInterface>) {}
+  constructor(public payload: Pagination<NoveltyModel>) {}
 }
 
 export class SearchNoveltiesError implements Action {
@@ -71,7 +71,7 @@ export class GetNovelty implements Action {
 
 export class GetNoveltyOk implements Action {
   readonly type = NoveltiesActionTypes.GetNoveltyOk;
-  constructor(public payload: NoveltyInterface) {}
+  constructor(public payload: NoveltyModel) {}
 }
 
 export class GetNoveltyError implements Action {
