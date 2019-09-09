@@ -38,7 +38,9 @@
         <button
           *ngIf="showApproveButton(row)"
           (click)="approve.emit(row.id)"
+          matTooltip="Aprobar"
           mat-icon-button
+          color="primary"
           class="approve"
         >
           <mat-icon>check_circle</mat-icon>
@@ -46,7 +48,9 @@
         <button
           *ngIf="showDeleteApprovalButton(row)"
           (click)="deleteApproval.emit(row.id)"
+          matTooltip="Borrar aprobación"
           mat-icon-button
+          color="warn"
           class="delete-approval"
         >
           <mat-icon>remove_circle</mat-icon>
