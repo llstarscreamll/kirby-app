@@ -1,5 +1,9 @@
 <h1 class="my-4">Novedades</h1>
 
+<a routerLink="/novelties/create-novelties-to-employees" mat-stroked-button>
+  Registrar novedades a empleados
+</a>
+
 <div class="mt-2">
   <mat-form-field class="w-100">
     <input
@@ -15,11 +19,13 @@
 <table class="table">
   <thead>
     <tr>
-      <td>Empleado</td>
-      <td>Novedad</td>
-      <td>Inicio</td>
-      <td>Fin</td>
-      <td>Creada en</td>
+      <th>Empleado</th>
+      <th>Novedad</th>
+      <th>Inicio</th>
+      <th>Fin</th>
+      <th>Aprobaciones</th>
+      <th>Creada en</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -28,9 +34,36 @@
         {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
       </td>
       <td>{{ novelty.novelty_type.code }}</td>
-      <td>{{ novelty.start_at }}</td>
-      <td>{{ novelty.end_at }}</td>
-      <td>{{ novelty.created_at }}</td>
+      <td>{{ novelty.start_at | date: 'yy-MM-dd HH:mm' }}</td>
+      <td>{{ novelty.end_at | date: 'yy-MM-dd HH:mm' }}</td>
+      <td>
+        <div *ngFor="let approver of novelty.approvals">
+          {{ shortName(approver) }}
+        </div>
+      </td>
+      <td>{{ novelty.created_at | date: 'yy-MM-dd HH:mm' }}</td>
+      <td>
+        <button
+          *ngIf="showApproveButton(novelty)"
+          (click)="approveNovelty(novelty)"
+          matTooltip="Aprobar"
+          mat-icon-button
+          color="primary"
+          class="approve"
+        >
+          <mat-icon>check_circle</mat-icon>
+        </button>
+        <button
+          *ngIf="showDeleteApprovalButton(novelty)"
+          (click)="deleteNoveltyApproval(novelty)"
+          matTooltip="Borrar aprobación"
+          mat-icon-button
+          color="warn"
+          class="delete-approval"
+        >
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

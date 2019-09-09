@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { Pagination } from '@llstarscreamll/shared';
 import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
+import { UserInterface } from '@llstarscreamll/users/util/src';
 
 export enum NoveltiesActionTypes {
   SearchNovelties = '[Novelties] search',
@@ -13,6 +14,14 @@ export enum NoveltiesActionTypes {
   CreateNoveltiesToEmployeesOk = '[Novelties] create novelties to employees ok',
   CreateNoveltiesToEmployeesError = '[Novelties] create novelties to employees error',
   ResetCreateNoveltiesToEmployees = '[Novelties] clean create novelties to employees',
+
+  ApproveNovelty = '[Novelties] approve',
+  ApproveNoveltyOk = '[Novelties] approve ok',
+  ApproveNoveltyError = '[Novelties] approve error',
+
+  DeleteNoveltyApproval = '[Novelties] delete approval',
+  DeleteNoveltyApprovalOk = '[Novelties] delete approval ok',
+  DeleteNoveltyApprovalError = '[Novelties] delete approval error',
 
   GetNovelty = '[Novelties] get',
   GetNoveltyOk = '[Novelties] get ok',
@@ -62,6 +71,40 @@ export class CreateNoveltiesToEmployeesError implements Action {
 
 export class ResetCreateNoveltiesToEmployees implements Action {
   readonly type = NoveltiesActionTypes.ResetCreateNoveltiesToEmployees;
+}
+
+export class ApproveNovelty implements Action {
+  readonly type = NoveltiesActionTypes.ApproveNovelty;
+  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+}
+
+export class ApproveNoveltyOk implements Action {
+  readonly type = NoveltiesActionTypes.ApproveNoveltyOk;
+  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+}
+
+export class ApproveNoveltyError implements Action {
+  readonly type = NoveltiesActionTypes.ApproveNoveltyError;
+  constructor(
+    public payload: { noveltyId: string; user: UserInterface; error: any }
+  ) {}
+}
+
+export class DeleteNoveltyApproval implements Action {
+  readonly type = NoveltiesActionTypes.DeleteNoveltyApproval;
+  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+}
+
+export class DeleteNoveltyApprovalOk implements Action {
+  readonly type = NoveltiesActionTypes.DeleteNoveltyApprovalOk;
+  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+}
+
+export class DeleteNoveltyApprovalError implements Action {
+  readonly type = NoveltiesActionTypes.DeleteNoveltyApprovalError;
+  constructor(
+    public payload: { noveltyId: string; user: UserInterface; error: any }
+  ) {}
 }
 
 export class GetNovelty implements Action {
@@ -124,6 +167,12 @@ export type NoveltiesAction =
   | CreateNoveltiesToEmployees
   | CreateNoveltiesToEmployeesOk
   | CreateNoveltiesToEmployeesError
+  | ApproveNovelty
+  | ApproveNoveltyOk
+  | ApproveNoveltyError
+  | DeleteNoveltyApproval
+  | DeleteNoveltyApprovalOk
+  | DeleteNoveltyApprovalError
   | GetNovelty
   | GetNoveltyOk
   | GetNoveltyError
@@ -144,6 +193,12 @@ export const fromNoveltiesActions = {
   CreateNoveltiesToEmployees,
   CreateNoveltiesToEmployeesOk,
   CreateNoveltiesToEmployeesError,
+  ApproveNovelty,
+  ApproveNoveltyOk,
+  ApproveNoveltyError,
+  DeleteNoveltyApproval,
+  DeleteNoveltyApprovalOk,
+  DeleteNoveltyApprovalError,
   GetNovelty,
   GetNoveltyOk,
   GetNoveltyError,

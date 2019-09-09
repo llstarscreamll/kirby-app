@@ -19,7 +19,12 @@ import {
   UpdateNoveltyError,
   CreateNoveltiesToEmployees,
   CreateNoveltiesToEmployeesOk,
-  CreateNoveltiesToEmployeesError
+  CreateNoveltiesToEmployeesError,
+  ApproveNovelty,
+  ApproveNoveltyOk,
+  ApproveNoveltyError,
+  DeleteNoveltyApprovalOk,
+  DeleteNoveltyApprovalError
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 
@@ -92,6 +97,42 @@ export class NoveltiesEffects {
           ),
       undoAction: (action: UpdateNovelty, error: any) =>
         new UpdateNoveltyError({ ...action.payload, error })
+    }
+  );
+
+  @Effect()
+  public approveNovelty$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.ApproveNovelty,
+    {
+      run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
+        return this.noveltyService
+          .approve(action.payload.noveltyId)
+          .pipe(map(response => new ApproveNoveltyOk(action.payload)));
+      },
+      onError: (action: ApproveNovelty, error) => {
+        return new ApproveNoveltyError({
+          ...action.payload,
+          error: error
+        });
+      }
+    }
+  );
+
+  @Effect()
+  public deleteNoveltyApproval$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.DeleteNoveltyApproval,
+    {
+      run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
+        return this.noveltyService
+          .deleteApproval(action.payload.noveltyId)
+          .pipe(map(response => new DeleteNoveltyApprovalOk(action.payload)));
+      },
+      onError: (action: ApproveNovelty, error) => {
+        return new DeleteNoveltyApprovalError({
+          ...action.payload,
+          error: error
+        });
+      }
     }
   );
 

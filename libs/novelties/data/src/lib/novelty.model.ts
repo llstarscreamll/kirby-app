@@ -2,7 +2,7 @@ import { EmployeeInterface } from '@llstarscreamll/employees/util';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
 
 export class NoveltyModel {
-  id: number;
+  id: string;
   time_clock_log_id: string;
   employee_id: string;
   employee?: EmployeeInterface;

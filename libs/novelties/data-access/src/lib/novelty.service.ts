@@ -52,4 +52,16 @@ export class NoveltyService extends BaseService {
       .put<any>(endpoint, noveltyData, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
+
+  public approve(noveltyId: string): Observable<any> {
+    const endpoint = `${this.endpoint}${noveltyId}/approvals`;
+    return this.http.post<any>(endpoint, {}, { headers: this.defaultHeaders });
+  }
+
+  public deleteApproval(noveltyId: string): Observable<any> {
+    // always send 1, approval id doesn't matters, since the authenticated user
+    // approval to said noveltyId will be deleted
+    const endpoint = `${this.endpoint}${noveltyId}/approvals/1`;
+    return this.http.delete<any>(endpoint, { headers: this.defaultHeaders });
+  }
 }

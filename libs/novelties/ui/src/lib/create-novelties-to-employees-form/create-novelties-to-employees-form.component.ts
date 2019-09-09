@@ -8,12 +8,12 @@ import {
   EventEmitter,
   OnDestroy
 } from '@angular/core';
+import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
+import { LoadStatuses } from '@llstarscreamll/shared';
 import { EmployeeInterface } from '@llstarscreamll/employees/util';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
-import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
-import { LoadStatuses } from '@llstarscreamll/shared';
 
 @Component({
   selector: 'llstarscreamll-create-novelties-to-employees-form',
@@ -92,7 +92,7 @@ export class CreateNoveltiesToEmployeesFormComponent
       .get('novelty_type')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string'),
+        filter(value => typeof value === 'string' && value !== ''),
         tap(value => this.searchNoveltyTypes.emit({ search: value })),
         takeUntil(this.destroy$)
       )
@@ -106,7 +106,7 @@ export class CreateNoveltiesToEmployeesFormComponent
       .get('employee')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string'),
+        filter(value => typeof value === 'string' && value !== ''),
         tap(value => this.searchEmployees.emit({ search: value })),
         takeUntil(this.destroy$)
       )

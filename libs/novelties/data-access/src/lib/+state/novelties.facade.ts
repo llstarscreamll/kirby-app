@@ -12,8 +12,11 @@ import {
   CleanSelectedNovelty,
   CreateNoveltiesToEmployees,
   CleanApiErrors,
-  ResetCreateNoveltiesToEmployees
+  ResetCreateNoveltiesToEmployees,
+  ApproveNovelty,
+  DeleteNoveltyApproval
 } from './novelties.actions';
+import { UserInterface } from '@llstarscreamll/users/util/src';
 
 @Injectable()
 export class NoveltiesFacade {
@@ -68,5 +71,13 @@ export class NoveltiesFacade {
 
   public cleanApiErrors() {
     this.store.dispatch(new CleanApiErrors());
+  }
+
+  public approve(noveltyId: string, user: UserInterface) {
+    this.store.dispatch(new ApproveNovelty({ noveltyId, user }));
+  }
+
+  public deleteNoveltyApproval(noveltyId: string, user: UserInterface) {
+    this.store.dispatch(new DeleteNoveltyApproval({ noveltyId, user }));
   }
 }

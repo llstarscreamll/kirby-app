@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-import { NoveltiesUiModule } from '@llstarscreamll/novelties/ui';
-import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
-import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
-import { NoveltiesDataAccessModule } from '@llstarscreamll/novelties/data-access';
-import { EmployeesDataAccessModule } from '@llstarscreamll/employees/data-access';
-import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
-import { SharedModule } from '@llstarscreamll/shared';
-import { NoveltiesPageComponent } from './novelties-page/novelties-page.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { SharedModule } from '@llstarscreamll/shared';
+import { NoveltiesUiModule } from '@llstarscreamll/novelties/ui';
+import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
+import { NoveltiesDataAccessModule } from '@llstarscreamll/novelties/data-access';
+import { EmployeesDataAccessModule } from '@llstarscreamll/employees/data-access';
+import { NoveltiesPageComponent } from './novelties-page/novelties-page.component';
+import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
+import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
     NoveltiesUiModule,
+    MatTooltipModule,
     MatFormFieldModule,
     NoveltiesDataAccessModule,
     EmployeesDataAccessModule,
