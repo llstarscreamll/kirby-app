@@ -41,7 +41,15 @@ describe('AuthEffects', () => {
       imports: [
         SharedModule,
         NxModule.forRoot(),
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(
+          {},
+          {
+            runtimeChecks: {
+              strictStateImmutability: true,
+              strictActionImmutability: true
+            }
+          }
+        ),
         EffectsModule.forRoot([]),
         HttpClientTestingModule
       ],

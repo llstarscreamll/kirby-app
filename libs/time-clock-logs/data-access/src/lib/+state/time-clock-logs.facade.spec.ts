@@ -24,35 +24,25 @@ interface TestSchema {
 describe('TimeClockLogsFacade', () => {
   let facade: TimeClockLogsFacade;
   let store: Store<TestSchema>;
-  let createTimeClockLogs;
 
   beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
-        imports: [
-          StoreModule.forFeature(
-            TIME_CLOCK_LOGS_FEATURE_KEY,
-            timeClockLogsReducer,
-            { initialState }
-          ),
-          EffectsModule.forFeature([TimeClockLogsEffects])
-        ],
-        providers: [TimeClockLogsFacade, TimeClockLogsService]
+        imports: [],
+        providers: [TimeClockLogsFacade]
       })
       class CustomFeatureModule {}
 
       @NgModule({
-        imports: [
-          NxModule.forRoot(),
-          StoreModule.forRoot({}),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule,
-          HttpClientTestingModule
-        ],
+        imports: [CustomFeatureModule, HttpClientTestingModule],
         providers: [
-          { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
+          { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
+          {
+            provide: Store,
+            useValue: { dispatch: () => true, pipe: () => true }
+          }
         ]
       })
       class RootModule {}
@@ -64,20 +54,14 @@ describe('TimeClockLogsFacade', () => {
       spyOn(store, 'dispatch');
     });
 
-    it('search() should call SearchTimeClockLogs action', async done => {
-      try {
-        const query = {};
-        await facade.search(query);
-        getTestScheduler().flush();
+    it('search() should call SearchTimeClockLogs action', () => {
+      const query = {};
+      facade.search(query);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new SearchTimeClockLogs(query)
-        );
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new SearchTimeClockLogs(query)
+      );
     });
   });
 });

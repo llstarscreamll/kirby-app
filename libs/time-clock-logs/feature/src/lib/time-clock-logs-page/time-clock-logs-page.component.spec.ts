@@ -1,41 +1,37 @@
-import { NxModule } from '@nrwl/angular';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
-import {
-  TimeClockLogsDataAccessModule,
-  TimeClockLogsFacade
-} from '@llstarscreamll/time-clock-logs/data-access';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { of } from 'rxjs';
 import { createUser } from '@llstarscreamll/users/util';
+import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
+import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access';
 
 describe('TimeClockLogsPageComponent', () => {
+  const user = createUser();
   let template: HTMLDivElement;
+  let timeClockFacade: TimeClockLogsFacade;
   let component: TimeClockLogsPageComponent;
   let fixture: ComponentFixture<TimeClockLogsPageComponent>;
-  let timeClockFacade: TimeClockLogsFacade;
-  const user = createUser();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NxModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        TimeClockLogsDataAccessModule,
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [TimeClockLogsPageComponent],
       providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
-        { provide: AuthFacade, useValue: { authUser$: of(user) } }
+        { provide: AuthFacade, useValue: { authUser$: of(user) } },
+        {
+          provide: TimeClockLogsFacade,
+          useValue: {
+            cleanError: () => true,
+            createEntryAndExitLog: data => true,
+            getTimeClockData: code => true,
+            searchSubCostCenters: code => true,
+            search: query => true
+          }
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -66,7 +62,7 @@ describe('TimeClockLogsPageComponent', () => {
       template.querySelector('llstarscreamll-time-clock-logs-table')
     ).toBeTruthy();
     expect(template.querySelectorAll('llstarscreamll-pagination').length).toBe(
-      2
+      1
     );
   });
 });

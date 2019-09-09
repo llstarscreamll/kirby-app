@@ -8,13 +8,12 @@ import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
   styleUrls: ['./sync-employees-by-csv-file-page.component.scss']
 })
 export class SyncEmployeesByCsvFilePageComponent implements OnInit {
-
   public syncEmployeesForm: FormGroup;
 
   public constructor(
     private formBuilder: FormBuilder,
-    private employeesFacade: EmployeesFacade,
-  ) { }
+    private employeesFacade: EmployeesFacade
+  ) {}
 
   public ngOnInit() {
     this.syncEmployeesForm = this.formBuilder.group({
@@ -29,5 +28,4 @@ export class SyncEmployeesByCsvFilePageComponent implements OnInit {
   public onSubmit() {
     this.employeesFacade.syncEmployeesByCsvFile(this.syncEmployeesForm.value);
   }
-
 }

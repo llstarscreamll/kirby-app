@@ -1,11 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page.component';
 import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
 import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
+import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page.component';
+import { from } from 'rxjs/internal/observable/from';
+import { Router } from '@angular/router';
 
-class NoveltiesFacadeMock {}
+class NoveltiesFacadeMock {
+  createNoveltiesToEmployeesStatus$ = from([]);
+}
 class EmployeesFacadeMock {}
 
 describe('CreateNoveltiesToEmployeesPageComponent', () => {
@@ -14,10 +20,13 @@ describe('CreateNoveltiesToEmployeesPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [CreateNoveltiesToEmployeesPageComponent],
       providers: [
         { provide: NoveltiesFacade, useClass: NoveltiesFacadeMock },
-        { provide: EmployeesFacade, useClass: EmployeesFacadeMock }
+        { provide: EmployeesFacade, useClass: EmployeesFacadeMock },
+        { provide: MatSnackBar, useValue: {} },
+        { provide: Router, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

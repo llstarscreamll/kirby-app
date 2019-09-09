@@ -1,15 +1,10 @@
-import { NxModule } from '@nrwl/angular';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page.component';
-import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 
 describe('ListWorkShiftsPageComponent', () => {
   let component: ListWorkShiftsPageComponent;
@@ -18,18 +13,10 @@ describe('ListWorkShiftsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatButtonModule,
-        NxModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        WorkShiftsDataAccessModule,
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
+      imports: [MatButtonModule, RouterTestingModule],
       declarations: [ListWorkShiftsPageComponent],
       providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
+        { provide: WorkShiftsFacade, useValue: { search: query => true } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

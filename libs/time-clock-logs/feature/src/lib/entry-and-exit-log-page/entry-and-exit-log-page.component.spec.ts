@@ -1,17 +1,11 @@
-import { NO_ERRORS_SCHEMA, Output, EventEmitter, Input } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Output, EventEmitter, Input } from '@angular/core';
 
 import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page.component';
-import {
-  TimeClockLogsFacade,
-  TimeClockLogsDataAccessModule
-} from '@llstarscreamll/time-clock-logs/data-access';
-import { StoreRootModule, StoreModule } from '@ngrx/store';
-import { NxModule } from '@nrwl/angular';
-import { EffectsModule } from '@ngrx/effects';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { By } from '@angular/platform-browser';
+import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access';
 
 @Component({
   selector: 'llstarscreamll-entry-and-exit-log-form',
@@ -48,29 +42,30 @@ export class FakeErrorsComponent {
 }
 
 describe('EntryAndExitLogPageComponent', () => {
-  let component: EntryAndExitLogPageComponent;
-  let fakeFormComponent: FakeFormComponent;
-  let fixture: ComponentFixture<EntryAndExitLogPageComponent>;
   let template: HTMLDivElement;
+  let fakeFormComponent: FakeFormComponent;
+  let component: EntryAndExitLogPageComponent;
   let timeClockLogFacade: TimeClockLogsFacade;
+  let fixture: ComponentFixture<EntryAndExitLogPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NxModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        HttpClientTestingModule,
-        TimeClockLogsDataAccessModule
-      ],
+      imports: [HttpClientTestingModule],
       declarations: [
         EntryAndExitLogPageComponent,
         FakeErrorsComponent,
         FakeFormComponent
       ],
-      //schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
+        {
+          provide: TimeClockLogsFacade,
+          useValue: {
+            cleanError: () => true,
+            createEntryAndExitLog: data => true,
+            getTimeClockData: code => true,
+            searchSubCostCenters: code => true
+          }
+        }
       ]
     }).compileComponents();
   }));

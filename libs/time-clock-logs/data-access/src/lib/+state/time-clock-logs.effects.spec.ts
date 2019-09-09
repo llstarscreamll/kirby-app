@@ -16,6 +16,7 @@ import {
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TimeClockLogsEffects', () => {
   let actions$: Observable<any>;
@@ -26,7 +27,15 @@ describe('TimeClockLogsEffects', () => {
     TestBed.configureTestingModule({
       imports: [
         NxModule.forRoot(),
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(
+          {},
+          {
+            runtimeChecks: {
+              strictStateImmutability: true,
+              strictActionImmutability: true
+            }
+          }
+        ),
         EffectsModule.forRoot([]),
         HttpClientTestingModule
       ],
@@ -35,7 +44,8 @@ describe('TimeClockLogsEffects', () => {
         TimeClockLogsService,
         DataPersistence,
         provideMockActions(() => actions$),
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
+        { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
+        { provide: MatSnackBar, useValue: { open: () => true } }
       ]
     });
 

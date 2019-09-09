@@ -1,5 +1,6 @@
-import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
 import { get } from 'lodash';
+
+import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
 import { NoveltyModel } from '@llstarscreamll/novelties/data';
 import {
   Pagination,
@@ -7,7 +8,7 @@ import {
   LoadStatuses
 } from '@llstarscreamll/shared';
 import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import { UserInterface } from '@llstarscreamll/users/util';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
 

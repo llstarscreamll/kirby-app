@@ -1,27 +1,21 @@
 import { SearchEmployeesOk } from './employees.actions';
 import {
   EmployeesState,
-  Entity,
   initialState,
   employeesReducer
 } from './employees.reducer';
+import { createEmployee } from '@llstarscreamll/employees/util';
 
 describe('Employees Reducer', () => {
   const getEmployeesId = it => it['id'];
-  let createEmployees;
 
-  beforeEach(() => {
-    createEmployees = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
-  });
+  beforeEach(() => {});
 
   describe('valid Employees actions ', () => {
     it('should return set the list of known Employees', () => {
       const employees = [
-        createEmployees('PRODUCT-AAA'),
-        createEmployees('PRODUCT-zzz')
+        createEmployee('PRODUCT-AAA'),
+        createEmployee('PRODUCT-zzz')
       ];
       const action = new SearchEmployeesOk(employees);
       const result: EmployeesState = employeesReducer(initialState, action);

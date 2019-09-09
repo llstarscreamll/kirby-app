@@ -1,11 +1,7 @@
-import { NxModule } from '@nrwl/angular';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
 import { UpdateWorkShiftPageComponent } from './update-work-shift-page.component';
-import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UpdateWorkShiftPageComponent', () => {
   let component: UpdateWorkShiftPageComponent;
@@ -13,17 +9,9 @@ describe('UpdateWorkShiftPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NxModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        WorkShiftsDataAccessModule,
-        HttpClientTestingModule
-      ],
+      imports: [],
       declarations: [UpdateWorkShiftPageComponent],
-      providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } }
-      ]
+      providers: [{ provide: WorkShiftsFacade, useValue: {} }]
     }).compileComponents();
   }));
 

@@ -1,5 +1,7 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
 import { SyncEmployeesByCsvFilePageComponent } from './sync-employees-by-csv-file-page.component';
 
 describe('SyncEmployeesByCsvFilePageComponent', () => {
@@ -8,9 +10,10 @@ describe('SyncEmployeesByCsvFilePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SyncEmployeesByCsvFilePageComponent ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule],
+      declarations: [SyncEmployeesByCsvFilePageComponent],
+      providers: [{ provide: EmployeesFacade, useValue: {} }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

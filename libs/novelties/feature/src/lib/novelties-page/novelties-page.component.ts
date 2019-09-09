@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Pagination } from '@llstarscreamll/shared';
 import { UserInterface } from '@llstarscreamll/users/util';
@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './novelties-page.component.html',
   styleUrls: ['./novelties-page.component.scss']
 })
-export class NoveltiesPageComponent implements OnInit {
+export class NoveltiesPageComponent implements OnInit, OnDestroy {
   public novelties$: Observable<Pagination<NoveltyModel>>;
   public user$: Observable<UserInterface>;
   private user: UserInterface;
@@ -36,6 +36,11 @@ export class NoveltiesPageComponent implements OnInit {
       )
       .subscribe();
     this.searchNovelties();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public searchNovelties(query: any = {}) {

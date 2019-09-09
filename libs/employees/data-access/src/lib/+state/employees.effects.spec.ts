@@ -1,26 +1,33 @@
 import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/angular';
-import { hot } from '@nrwl/angular/testing';
-import { DataPersistence } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { TestBed, async } from '@angular/core/testing';
+import { DataPersistence } from '@nrwl/angular';
+import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideMockActions } from '@ngrx/effects/testing';
 
 import { EmployeesEffects } from './employees.effects';
 import { EmployeeService } from '../employee.service';
-import { SearchEmployees, SearchEmployeesOk } from './employees.actions';
 
 describe('EmployeesEffects', () => {
   let actions: Observable<any>;
   let effects: EmployeesEffects;
+  let service: EmployeeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         NxModule.forRoot(),
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(
+          {},
+          {
+            runtimeChecks: {
+              strictStateImmutability: true,
+              strictActionImmutability: true
+            }
+          }
+        ),
         EffectsModule.forRoot([])
       ],
       providers: [
@@ -30,20 +37,19 @@ describe('EmployeesEffects', () => {
         { provide: MatSnackBar, useValue: { open: () => true } },
         {
           provide: EmployeeService,
-          useValue: { syncEmployeesByCsvFile: () => true }
+          useValue: {
+            syncEmployeesByCsvFile: () => true,
+            search: query => true
+          }
         }
       ]
     });
 
     effects = TestBed.get(EmployeesEffects);
+    service = TestBed.get(EmployeeService);
   });
 
-  describe('loadEmployees$', () => {
-    it('should work', () => {
-      actions = hot('-a-|', { a: new SearchEmployees() });
-      expect(effects.loadEmployees$).toBeObservable(
-        hot('-a-|', { a: new SearchEmployeesOk([]) })
-      );
-    });
+  it('should be defined', () => {
+    expect(effects).toBeTruthy();
   });
 });

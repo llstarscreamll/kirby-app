@@ -1,39 +1,43 @@
-import { Entity, NoveltiesState } from './novelties.reducer';
+import {
+  NoveltiesState,
+  NoveltiesPartialState,
+  NOVELTIES_FEATURE_KEY
+} from './novelties.reducer';
 import { noveltiesQuery } from './novelties.selectors';
 import { createNovelty } from '@llstarscreamll/novelties/utils';
 import { emptyPagination } from '@llstarscreamll/shared';
 
 describe('Novelties Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getNoveltiesId = it => it['id'];
   const novelty = createNovelty('PRODUCT-AAA');
 
-  let storeState: NoveltiesState;
+  let storeState: NoveltiesPartialState;
 
   beforeEach(() => {
     storeState = {
-      paginatedList: {
-        data: [
-          novelty,
-          createNovelty('PRODUCT-BBB'),
-          createNovelty('PRODUCT-CCC')
-        ],
-        meta: {}
-      },
-      paginatedNoveltyTypesList: emptyPagination(),
-      selected: novelty,
-      error: ERROR_MSG,
-      loaded: true
+      [NOVELTIES_FEATURE_KEY]: {
+        paginatedList: {
+          data: [
+            novelty,
+            createNovelty('PRODUCT-BBB'),
+            createNovelty('PRODUCT-CCC')
+          ],
+          meta: {}
+        },
+        paginatedNoveltyTypesList: emptyPagination(),
+        createNoveltiesToEmployeesStatus: null,
+        selected: novelty,
+        error: ERROR_MSG,
+        loaded: true
+      }
     };
   });
 
   describe('Novelties Selectors', () => {
     it('getAllNovelties() should return the list of Novelties', () => {
       const results = noveltiesQuery.getPaginatedList(storeState);
-      const selId = getNoveltiesId(results[1]);
 
       expect(results.data.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
     });
 
     it('getSelectedNovelty() should return the selected Entity', () => {

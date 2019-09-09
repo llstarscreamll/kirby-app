@@ -12,7 +12,7 @@ export interface EmployeeInterface {
   address: string;
   phone: string;
   salary: string;
-  user: UserInterface;
+  user?: UserInterface;
   created_at: string;
   updated_at: string;
 }
