@@ -1,21 +1,29 @@
-import { Entity, EmployeesState, EMPLOYEES_FEATURE_KEY, EmployeesPartialState } from './employees.reducer';
+import {
+  Entity,
+  EmployeesState,
+  EMPLOYEES_FEATURE_KEY,
+  EmployeesPartialState
+} from './employees.reducer';
 import { employeesQuery } from './employees.selectors';
+import { createEmployee } from '@llstarscreamll/employees/util';
 
 describe('Employees Selectors', () => {
   const ERROR_MSG = 'No Error Available';
   const getEmployeesId = it => it['id'];
-  const createEmployees = (id: string, name = ''): Entity => ({ id, name: name || `name-${id}` });
-  const employee = createEmployees('EMPLOYEE-AAA');
+  const employee = createEmployee('EMPLOYEE-AAA');
   let storeState: EmployeesPartialState;
 
   beforeEach(() => {
     storeState = {
       [EMPLOYEES_FEATURE_KEY]: {
-        paginatedList: [
-          employee,
-          createEmployees('EMPLOYEE-BBB'),
-          createEmployees('EMPLOYEE-CCC')
-        ],
+        paginatedList: {
+          data: [
+            employee,
+            createEmployee('EMPLOYEE-BBB'),
+            createEmployee('EMPLOYEE-CCC')
+          ],
+          meta: {}
+        },
         selected: employee,
         error: ERROR_MSG,
         loaded: true

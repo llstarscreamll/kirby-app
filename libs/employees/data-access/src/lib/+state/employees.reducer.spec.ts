@@ -17,12 +17,12 @@ describe('Employees Reducer', () => {
         createEmployee('PRODUCT-AAA'),
         createEmployee('PRODUCT-zzz')
       ];
-      const action = new SearchEmployeesOk(employees);
+      const action = new SearchEmployeesOk({ data: employees, meta: {} });
       const result: EmployeesState = employeesReducer(initialState, action);
-      const selId: string = getEmployeesId(result.paginatedList[1]);
+      const selId: string = getEmployeesId(result.paginatedList.data[1]);
 
       expect(result.loaded).toBe(true);
-      expect(result.paginatedList.length).toBe(2);
+      expect(result.paginatedList.data.length).toBe(2);
       expect(selId).toBe('PRODUCT-zzz');
     });
   });
