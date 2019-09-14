@@ -216,7 +216,7 @@ export class EntryAndExitLogFormComponent
     this.checkForm
       .get('sub_cost_center')
       .valueChanges.pipe(
-        debounce(() => timer(400)),
+        debounce(() => timer(200)),
         filter(value => typeof value === 'string'),
         tap(value => this.searchSubCostCenters.emit({ search: value })),
         takeUntil(this.destroy$)
@@ -226,7 +226,7 @@ export class EntryAndExitLogFormComponent
     this.checkForm
       .get('novelty_sub_cost_center')
       .valueChanges.pipe(
-        debounce(() => timer(400)),
+        debounce(() => timer(200)),
         filter(value => typeof value === 'string'),
         tap(value => this.searchSubCostCenters.emit({ search: value })),
         takeUntil(this.destroy$)
