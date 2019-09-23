@@ -1,5 +1,7 @@
 # llstarscreamll NGX
 
+[![Build Status](https://travis-ci.com/llstarscreamll/ngx.svg?branch=develop)](https://travis-ci.com/llstarscreamll/ngx)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) using [Nrwl Nx](https://nrwl.io/nx).
 
 ## Nrwl Extensions for Angular (Nx)
