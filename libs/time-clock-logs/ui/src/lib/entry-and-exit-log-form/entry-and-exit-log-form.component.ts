@@ -17,10 +17,10 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { LoadStatuses, ApiError } from '@llstarscreamll/shared';
+import { LoadStatuses, ApiError } from '@kirby/shared';
 
 @Component({
-  selector: 'llstarscreamll-entry-and-exit-log-form',
+  selector: 'kirby-entry-and-exit-log-form',
   templateUrl: './entry-and-exit-log-form.component.html',
   styleUrls: ['./entry-and-exit-log-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

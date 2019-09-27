@@ -1,7 +1,7 @@
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { ApiError, LoadStatuses } from '@llstarscreamll/shared';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { ApiError, LoadStatuses } from '@kirby/shared';
+import { createWorkShift } from '@kirby/work-shifts/util';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {

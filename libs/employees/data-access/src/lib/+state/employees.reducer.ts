@@ -1,5 +1,5 @@
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { Pagination, emptyPagination } from '@llstarscreamll/shared';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { Pagination, emptyPagination } from '@kirby/shared';
 import { EmployeesAction, EmployeesActionTypes } from './employees.actions';
 
 export const EMPLOYEES_FEATURE_KEY = 'employees';

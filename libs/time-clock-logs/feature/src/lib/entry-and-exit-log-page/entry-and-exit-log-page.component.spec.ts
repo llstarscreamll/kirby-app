@@ -5,10 +5,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Output, EventEmitter, Input } from '@angular/core';
 
 import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page.component';
-import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access';
+import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 
 @Component({
-  selector: 'llstarscreamll-entry-and-exit-log-form',
+  selector: 'kirby-entry-and-exit-log-form',
   template: ``
 })
 export class FakeFormComponent {
@@ -31,7 +31,7 @@ export class FakeFormComponent {
   constructor() {}
 }
 @Component({
-  selector: 'llstarscreamll-api-errors',
+  selector: 'kirby-api-errors',
   template: ``
 })
 export class FakeErrorsComponent {
@@ -85,16 +85,16 @@ describe('EntryAndExitLogPageComponent', () => {
 
   it('should have certain elements', () => {
     expect(
-      template.querySelector('llstarscreamll-entry-and-exit-log-form')
+      template.querySelector('kirby-entry-and-exit-log-form')
     ).toBeTruthy();
   });
 
-  it('should listen `submitted` event from form llstarscreamll-entry-and-exit-log-form component', () => {
+  it('should listen `submitted` event from form kirby-entry-and-exit-log-form component', () => {
     spyOn(timeClockLogFacade, 'createEntryAndExitLog');
 
     const eventData = { some: 'data' };
     fakeFormComponent = fixture.debugElement.query(
-      By.css('llstarscreamll-entry-and-exit-log-form')
+      By.css('kirby-entry-and-exit-log-form')
     ).componentInstance;
     fakeFormComponent.submitted.emit(eventData);
 
@@ -105,12 +105,12 @@ describe('EntryAndExitLogPageComponent', () => {
     );
   });
 
-  it('should listen `codeObtained` event from form llstarscreamll-entry-and-exit-log-form component', () => {
+  it('should listen `codeObtained` event from form kirby-entry-and-exit-log-form component', () => {
     spyOn(timeClockLogFacade, 'getTimeClockData');
 
     const eventData = { action: 'check_in', code: 'some-code-here' };
     fakeFormComponent = fixture.debugElement.query(
-      By.css('llstarscreamll-entry-and-exit-log-form')
+      By.css('kirby-entry-and-exit-log-form')
     ).componentInstance;
     fakeFormComponent.codeObtained.emit(eventData);
 
@@ -119,12 +119,12 @@ describe('EntryAndExitLogPageComponent', () => {
     expect(timeClockLogFacade.getTimeClockData).toHaveBeenCalledWith(eventData);
   });
 
-  it('should listen `searchSubCostCenters` event from form llstarscreamll-entry-and-exit-log-form component', () => {
+  it('should listen `searchSubCostCenters` event from form kirby-entry-and-exit-log-form component', () => {
     spyOn(timeClockLogFacade, 'searchSubCostCenters');
 
     const eventData = { action: 'check_in', code: 'some-code-here' };
     fakeFormComponent = fixture.debugElement.query(
-      By.css('llstarscreamll-entry-and-exit-log-form')
+      By.css('kirby-entry-and-exit-log-form')
     ).componentInstance;
     fakeFormComponent.searchSubCostCenters.emit(eventData);
 

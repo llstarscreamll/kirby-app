@@ -1,6 +1,6 @@
 import { HttpHeaders } from "@angular/common/http";
 
-import { BaseService } from "@llstarscreamll/shared";
+import { BaseService } from "@kirby/shared";
 
 export abstract class BaseAuthService extends BaseService {
 

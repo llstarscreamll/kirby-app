@@ -1,5 +1,5 @@
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 
 export class NoveltyModel {
   id: string;

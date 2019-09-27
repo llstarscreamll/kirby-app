@@ -1,9 +1,9 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
+import { EmployeesFacade } from '@kirby/employees/data-access';
 
 @Component({
-  selector: 'llstarscreamll-sync-employees-by-csv-file-page',
+  selector: 'kirby-sync-employees-by-csv-file-page',
   templateUrl: './sync-employees-by-csv-file-page.component.html',
   styleUrls: ['./sync-employees-by-csv-file-page.component.scss']
 })

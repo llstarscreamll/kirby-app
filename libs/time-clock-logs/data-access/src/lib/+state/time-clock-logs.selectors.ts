@@ -1,8 +1,8 @@
 import { get, isArray } from 'lodash';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { ApiError } from '@llstarscreamll/shared';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
+import { ApiError } from '@kirby/shared';
+import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import {
   TIME_CLOCK_LOGS_FEATURE_KEY,
   TimeClockLogsState

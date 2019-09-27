@@ -14,8 +14,8 @@ import {
   tick
 } from '@angular/core/testing';
 
-import { LoadStatuses } from '@llstarscreamll/shared';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { LoadStatuses } from '@kirby/shared';
+import { createWorkShift } from '@kirby/work-shifts/util';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
 
 /**

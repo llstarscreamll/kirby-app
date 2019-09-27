@@ -16,7 +16,7 @@ import {
   ApproveNovelty,
   DeleteNoveltyApproval
 } from './novelties.actions';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import { UserInterface } from '@kirby/users/util/src';
 
 @Injectable()
 export class NoveltiesFacade {

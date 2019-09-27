@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
 import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError, GetEmployeeTimeClockData, SearchSubCostCenters, ApproveTimeClockLog, DeleteTimeClockLog, DeleteTimeClockLogApproval } from './time-clock-logs.actions';
-import { UserInterface } from '@llstarscreamll/users/util';
+import { UserInterface } from '@kirby/users/util';
 
 @Injectable()
 export class TimeClockLogsFacade {

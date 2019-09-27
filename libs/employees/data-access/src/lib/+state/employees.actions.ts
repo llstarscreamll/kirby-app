@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Entity } from './employees.reducer';
-import { Pagination } from "@llstarscreamll/shared";
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
+import { Pagination } from "@kirby/shared";
+import { EmployeeInterface } from '@kirby/employees/util';
 
 export enum EmployeesActionTypes {
   SearchEmployees = '[Employees] search',

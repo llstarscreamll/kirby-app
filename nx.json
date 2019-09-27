@@ -1,5 +1,5 @@
 {
-  "npmScope": "llstarscreamll",
+  "npmScope": "kirby",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -89,6 +89,9 @@
     },
     "novelties-data-access": {
       "tags": ["scope:novelties", "type:data-access", "platform:web"]
+    },
+    "authorization-ui": {
+      "tags": []
     }
   }
 }

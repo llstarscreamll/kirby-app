@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { TimeClockLogsFacade } from "@llstarscreamll/time-clock-logs/data-access";
+import { TimeClockLogsFacade } from "@kirby/time-clock-logs/data-access";
 
 @Component({
-  selector: 'llstarscreamll-entry-and-exit-log-page',
+  selector: 'kirby-entry-and-exit-log-page',
   templateUrl: './entry-and-exit-log-page.component.html',
   styleUrls: ['./entry-and-exit-log-page.component.scss']
 })

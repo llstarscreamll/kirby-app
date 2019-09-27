@@ -15,59 +15,60 @@
     "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@llstarscreamll/authentication-data-access": [
+      "@kirby/authentication-data-access": [
         "libs/authentication/data-access/src/index.ts"
       ],
-      "@llstarscreamll/authentication/utils": [
+      "@kirby/authentication/utils": [
         "libs/authentication/utils/src/index.ts"
       ],
-      "@llstarscreamll/shared": ["libs/shared/src/index.ts"],
-      "@llstarscreamll/*": ["libs/*"],
-      "@llstarscreamll/work-shifts/data-access": [
+      "@kirby/shared": ["libs/shared/src/index.ts"],
+      "@kirby/*": ["libs/*"],
+      "@kirby/work-shifts/data-access": [
         "libs/work-shifts/data-access/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/util": [
+      "@kirby/work-shifts/util": [
         "libs/work-shifts/util/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/feature": [
+      "@kirby/work-shifts/feature": [
         "libs/work-shifts/feature/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
-      "@llstarscreamll/time-clock-logs/data-access": [
+      "@kirby/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
+      "@kirby/time-clock-logs/data-access": [
         "libs/time-clock-logs/data-access/src/index.ts"
       ],
-      "@llstarscreamll/time-clock-logs/util": [
+      "@kirby/time-clock-logs/util": [
         "libs/time-clock-logs/util/src/index.ts"
       ],
-      "@llstarscreamll/users/util": ["libs/users/util/src/index.ts"],
-      "@llstarscreamll/time-clock-logs/feature": [
+      "@kirby/users/util": ["libs/users/util/src/index.ts"],
+      "@kirby/time-clock-logs/feature": [
         "libs/time-clock-logs/feature/src/index.ts"
       ],
-      "@llstarscreamll/time-clock-logs/ui": [
+      "@kirby/time-clock-logs/ui": [
         "libs/time-clock-logs/ui/src/index.ts"
       ],
-      "@llstarscreamll/employees/data-access": [
+      "@kirby/employees/data-access": [
         "libs/employees/data-access/src/index.ts"
       ],
-      "@llstarscreamll/employees/feature": [
+      "@kirby/employees/feature": [
         "libs/employees/feature/src/index.ts"
       ],
-      "@llstarscreamll/employees/util": ["libs/employees/util/src/index.ts"],
-      "@llstarscreamll/novelties/data": ["libs/novelties/data/src/index.ts"],
-      "@llstarscreamll/novelties/utils": ["libs/novelties/utils/src/index.ts"],
-      "@llstarscreamll/novelty-types/utils": [
+      "@kirby/employees/util": ["libs/employees/util/src/index.ts"],
+      "@kirby/novelties/data": ["libs/novelties/data/src/index.ts"],
+      "@kirby/novelties/utils": ["libs/novelties/utils/src/index.ts"],
+      "@kirby/novelty-types/utils": [
         "libs/novelty-types/utils/src/index.ts"
       ],
-      "@llstarscreamll/novelty-types/data": [
+      "@kirby/novelty-types/data": [
         "libs/novelty-types/data/src/index.ts"
       ],
-      "@llstarscreamll/novelties/feature": [
+      "@kirby/novelties/feature": [
         "libs/novelties/feature/src/index.ts"
       ],
-      "@llstarscreamll/novelties/ui": ["libs/novelties/ui/src/index.ts"],
-      "@llstarscreamll/novelties/data-access": [
+      "@kirby/novelties/ui": ["libs/novelties/ui/src/index.ts"],
+      "@kirby/novelties/data-access": [
         "libs/novelties/data-access/src/index.ts"
-      ]
+      ],
+      "@kirby/authorization/ui": ["libs/authorization/ui/src/index.ts"]
     },
     "rootDir": "."
   },

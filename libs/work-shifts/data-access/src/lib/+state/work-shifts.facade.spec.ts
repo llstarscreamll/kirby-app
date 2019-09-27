@@ -6,12 +6,12 @@ import { cold, getTestScheduler } from '@nrwl/angular/testing';
 import { StoreModule, Store, select } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { createWorkShift } from '@kirby/work-shifts/util';
 import { WorkShiftsFacade } from './work-shifts.facade';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
+import { AuthFacade } from '@kirby/authentication-data-access';
+import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 import {
   WorkShiftsState,
   initialState,

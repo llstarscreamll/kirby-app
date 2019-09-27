@@ -1,11 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
-import { LoadStatuses } from '@llstarscreamll/shared';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
+import { LoadStatuses } from '@kirby/shared';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 @Component({
-  selector: 'llstarscreamll-work-shift-form',
+  selector: 'kirby-work-shift-form',
   templateUrl: './work-shift-form.component.html',
   styleUrls: ['./work-shift-form.component.scss']
 })

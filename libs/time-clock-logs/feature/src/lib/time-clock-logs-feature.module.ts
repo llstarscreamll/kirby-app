@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@llstarscreamll/shared';
+import { SharedModule } from '@kirby/shared';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { TimeClockLogsUiModule } from '@llstarscreamll/time-clock-logs/ui';
-import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
-import { TimeClockLogsDataAccessModule } from '@llstarscreamll/time-clock-logs/data-access';
+import { TimeClockLogsUiModule } from '@kirby/time-clock-logs/ui';
+import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
+import { TimeClockLogsDataAccessModule } from '@kirby/time-clock-logs/data-access';
 import { TimeClockLogsPageComponent } from './time-clock-logs-page/time-clock-logs-page.component';
 import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-and-exit-log-page.component';
 import { MatInputModule } from '@angular/material/input';

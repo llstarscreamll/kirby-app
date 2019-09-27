@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { BaseService } from '@llstarscreamll/shared';
+import { BaseService } from '@kirby/shared';
 
 @Injectable()
 export class EmployeeService extends BaseService {

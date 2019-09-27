@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page.component';
 
 describe('CreateWorkShiftPageComponent', () => {
@@ -35,7 +35,7 @@ describe('CreateWorkShiftPageComponent', () => {
     expect(template.querySelector('h1')).toBeTruthy();
     expect(template.querySelector('a').getAttribute('href')).toBe('/');
     expect(
-      template.querySelector('llstarscreamll-work-shift-form')
+      template.querySelector('kirby-work-shift-form')
     ).toBeTruthy();
   });
 });

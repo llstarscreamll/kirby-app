@@ -4,8 +4,8 @@ import {
   NOVELTIES_FEATURE_KEY
 } from './novelties.reducer';
 import { noveltiesQuery } from './novelties.selectors';
-import { createNovelty } from '@llstarscreamll/novelties/utils';
-import { emptyPagination } from '@llstarscreamll/shared';
+import { createNovelty } from '@kirby/novelties/utils';
+import { emptyPagination } from '@kirby/shared';
 
 describe('Novelties Selectors', () => {
   const ERROR_MSG = 'No Error Available';

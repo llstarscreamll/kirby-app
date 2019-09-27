@@ -4,7 +4,7 @@ import {
   initialState,
   employeesReducer
 } from './employees.reducer';
-import { createEmployee } from '@llstarscreamll/employees/util';
+import { createEmployee } from '@kirby/employees/util';
 
 describe('Employees Reducer', () => {
   const getEmployeesId = it => it['id'];

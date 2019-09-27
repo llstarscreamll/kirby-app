@@ -4,14 +4,14 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
-import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
-import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
-import { Pagination, LoadStatuses, ApiError } from '@llstarscreamll/shared';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
+import { EmployeesFacade } from '@kirby/employees/data-access';
+import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { Pagination, LoadStatuses, ApiError } from '@kirby/shared';
 
 @Component({
-  selector: 'llstarscreamll-create-novelties-to-employees-page',
+  selector: 'kirby-create-novelties-to-employees-page',
   templateUrl: './create-novelties-to-employees-page.component.html',
   styleUrls: ['./create-novelties-to-employees-page.component.scss']
 })

@@ -1,6 +1,6 @@
 import { get } from 'lodash';
-import { UserInterface } from '@llstarscreamll/users/util';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
+import { UserInterface } from '@kirby/users/util';
+import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import {
   TimeClockLogsAction,
   TimeClockLogsActionTypes
@@ -10,7 +10,7 @@ import {
   Pagination,
   LoadStatuses,
   emptyPagination
-} from '@llstarscreamll/shared';
+} from '@kirby/shared';
 
 export const TIME_CLOCK_LOGS_FEATURE_KEY = 'timeClockLogs';
 

@@ -3,7 +3,7 @@ import { DataPersistence } from '@nrwl/angular';
 import { Effect, Actions } from '@ngrx/effects';
 import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
-import { Pagination, emptyPagination } from '@llstarscreamll/shared';
+import { Pagination, emptyPagination } from '@kirby/shared';
 
 import { EmployeesPartialState } from './employees.reducer';
 import {

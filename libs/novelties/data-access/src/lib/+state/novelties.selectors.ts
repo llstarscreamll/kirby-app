@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
+import { Pagination } from '@kirby/shared';
+import { NoveltyModel } from '@kirby/novelties/data';
 import { NOVELTIES_FEATURE_KEY, NoveltiesState } from './novelties.reducer';
 
 // Lookup the 'Novelties' feature state managed by NgRx

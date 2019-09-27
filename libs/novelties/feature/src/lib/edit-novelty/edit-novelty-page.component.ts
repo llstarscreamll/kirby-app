@@ -1,19 +1,19 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
 
-import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
-import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
+import { Pagination } from '@kirby/shared';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { EmployeesFacade } from '@kirby/employees/data-access';
+import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 
 @Component({
-  selector: 'llstarscreamll-edit-novelty-page',
+  selector: 'kirby-edit-novelty-page',
   templateUrl: './edit-novelty-page.component.html',
   styles: [
     `
-      llstarscreamll-novelty-form {
+      kirby-novelty-form {
         display: block;
       }
     `

@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
+import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
 
 export const TESTING_ENVIRONMENT = {
   api: 'http://my-api.com/'

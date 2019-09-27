@@ -3,8 +3,8 @@ import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { BaseAuthService } from '@llstarscreamll/authentication/utils';
-import { NewAccount, AuthTokens } from '@llstarscreamll/authentication/utils';
+import { BaseAuthService } from '@kirby/authentication/utils';
+import { NewAccount, AuthTokens } from '@kirby/authentication/utils';
 
 @Injectable()
 export class AuthService extends BaseAuthService {

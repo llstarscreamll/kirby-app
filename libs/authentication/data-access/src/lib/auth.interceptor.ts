@@ -3,7 +3,7 @@ import { take, flatMap } from 'rxjs/operators';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 import { AuthFacade } from './+state/auth.facade';
-import { AuthTokens } from '@llstarscreamll/authentication/utils';
+import { AuthTokens } from '@kirby/authentication/utils';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

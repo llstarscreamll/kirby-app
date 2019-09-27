@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
-import { ApiError } from '@llstarscreamll/shared';
+import { ApiError } from '@kirby/shared';
 
 @Component({
   selector: 'pascal-auth-sign-in-form',

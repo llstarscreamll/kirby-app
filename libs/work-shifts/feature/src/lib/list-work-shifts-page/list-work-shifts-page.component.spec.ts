@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page.component';
 
 describe('ListWorkShiftsPageComponent', () => {
@@ -37,7 +37,7 @@ describe('ListWorkShiftsPageComponent', () => {
     expect(template.querySelector('h1')).toBeTruthy();
     expect(template.querySelector('a').getAttribute('href')).toBe('/create');
     expect(
-      template.querySelector('llstarscreamll-work-shifts-table-list')
+      template.querySelector('kirby-work-shifts-table-list')
     ).toBeTruthy();
   });
 });

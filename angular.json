@@ -122,7 +122,7 @@
       "root": "libs/authentication/data-access",
       "sourceRoot": "libs/authentication/data-access/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -153,7 +153,7 @@
       "root": "libs/shared",
       "sourceRoot": "libs/shared/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -184,7 +184,7 @@
       "root": "libs/work-shifts/data-access",
       "sourceRoot": "libs/work-shifts/data-access/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -215,7 +215,7 @@
       "root": "libs/authentication/utils",
       "sourceRoot": "libs/authentication/utils/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -245,7 +245,7 @@
       "root": "libs/work-shifts/util",
       "sourceRoot": "libs/work-shifts/util/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -275,7 +275,7 @@
       "root": "libs/work-shifts/feature",
       "sourceRoot": "libs/work-shifts/feature/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -306,7 +306,7 @@
       "root": "libs/work-shifts/ui",
       "sourceRoot": "libs/work-shifts/ui/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -337,7 +337,7 @@
       "root": "libs/time-clock-logs/data-access",
       "sourceRoot": "libs/time-clock-logs/data-access/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -368,7 +368,7 @@
       "root": "libs/time-clock-logs/util",
       "sourceRoot": "libs/time-clock-logs/util/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -398,7 +398,7 @@
       "root": "libs/users/util",
       "sourceRoot": "libs/users/util/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -428,7 +428,7 @@
       "root": "libs/time-clock-logs/feature",
       "sourceRoot": "libs/time-clock-logs/feature/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -459,7 +459,7 @@
       "root": "libs/time-clock-logs/ui",
       "sourceRoot": "libs/time-clock-logs/ui/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -490,7 +490,7 @@
       "root": "libs/employees/data-access",
       "sourceRoot": "libs/employees/data-access/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -521,7 +521,7 @@
       "root": "libs/employees/feature",
       "sourceRoot": "libs/employees/feature/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -552,7 +552,7 @@
       "root": "libs/employees/util",
       "sourceRoot": "libs/employees/util/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -582,7 +582,7 @@
       "root": "libs/novelties/data",
       "sourceRoot": "libs/novelties/data/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -612,7 +612,7 @@
       "root": "libs/novelties/utils",
       "sourceRoot": "libs/novelties/utils/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -642,7 +642,7 @@
       "root": "libs/novelty-types/utils",
       "sourceRoot": "libs/novelty-types/utils/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -672,7 +672,7 @@
       "root": "libs/novelty-types/data",
       "sourceRoot": "libs/novelty-types/data/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -702,7 +702,7 @@
       "root": "libs/novelties/feature",
       "sourceRoot": "libs/novelties/feature/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -733,7 +733,7 @@
       "root": "libs/novelties/ui",
       "sourceRoot": "libs/novelties/ui/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -764,7 +764,7 @@
       "root": "libs/novelties/data-access",
       "sourceRoot": "libs/novelties/data-access/src",
       "projectType": "library",
-      "prefix": "llstarscreamll",
+      "prefix": "kirby",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -787,6 +787,37 @@
       },
       "schematics": {
         "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "authorization-ui": {
+      "projectType": "library",
+      "root": "libs/authorization/ui",
+      "sourceRoot": "libs/authorization/ui/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/authorization/ui/tsconfig.lib.json",
+              "libs/authorization/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/authorization/ui/jest.config.js",
+            "tsConfig": "libs/authorization/ui/tsconfig.spec.json",
+            "setupFile": "libs/authorization/ui/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
           "styleext": "scss"
         }
       }

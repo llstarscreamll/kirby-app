@@ -2,8 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpPageComponent } from './sign-up-page.component';
-import { NewAccount } from '@llstarscreamll/authentication/utils';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { NewAccount } from '@kirby/authentication/utils';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 
 describe('SignUpPageComponent', () => {

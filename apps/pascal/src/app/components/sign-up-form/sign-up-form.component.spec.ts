@@ -5,7 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpFormComponent } from './sign-up-form.component';
 import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NewAccount } from '@llstarscreamll/authentication/utils';
+import { NewAccount } from '@kirby/authentication/utils';
 
 describe('SignUpFormComponent', () => {
   let component: SignUpFormComponent;
@@ -101,7 +101,7 @@ describe('SignUpFormComponent', () => {
     expect(component.submitted.emit).toHaveBeenCalledWith(newAccount);
   });
 
-  it('should use llstarscreamll-api-errors component in template', () => {
+  it('should use kirby-api-errors component in template', () => {
     component.errors = {
       message: 'Unprocessable entity',
       ok: false,
@@ -111,7 +111,7 @@ describe('SignUpFormComponent', () => {
     fixture.detectChanges();
 
     const template: HTMLDocument = fixture.nativeElement;
-    const errorsComponent = template.querySelector('llstarscreamll-api-errors');
+    const errorsComponent = template.querySelector('kirby-api-errors');
 
     expect(errorsComponent).toBeTruthy();
   });

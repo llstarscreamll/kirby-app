@@ -3,8 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
-import { EmployeesFacade } from '@llstarscreamll/employees/data-access';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
+import { EmployeesFacade } from '@kirby/employees/data-access';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page.component';
 import { from } from 'rxjs/internal/observable/from';
 import { Router } from '@angular/router';

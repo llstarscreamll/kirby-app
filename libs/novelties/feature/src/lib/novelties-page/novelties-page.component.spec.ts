@@ -3,8 +3,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NoveltiesPageComponent } from './novelties-page.component';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
+import { AuthFacade } from '@kirby/authentication-data-access';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
 
 class AuthFacadeMock {
   public authUser$ = from([]);

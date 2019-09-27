@@ -11,7 +11,7 @@ import {
 import { ENV_MOCK } from './utils/mocks';
 import { AuthFacade } from './+state/auth.facade';
 import { AuthInterceptor } from './auth.interceptor';
-import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
+import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 import {
   AUTH_FEATURE_KEY,
   authReducer,

@@ -1,6 +1,6 @@
-# llstarscreamll NGX
+# Angular Kirby
 
-[![Build Status](https://travis-ci.com/llstarscreamll/ngx.svg?branch=develop)](https://travis-ci.com/llstarscreamll/ngx)
+[![Build Status](https://travis-ci.com/llstarscreamll/angular-kirby.svg?branch=develop)](https://travis-ci.com/llstarscreamll/angular-kirby)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) using [Nrwl Nx](https://nrwl.io/nx).
 

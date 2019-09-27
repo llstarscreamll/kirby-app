@@ -3,9 +3,9 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { Pagination, ApiResponse } from '@llstarscreamll/shared';
-import { BaseAuthService } from '@llstarscreamll/authentication/utils';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
+import { Pagination, ApiResponse } from '@kirby/shared';
+import { BaseAuthService } from '@kirby/authentication/utils';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 @Injectable()
 export class WorkShiftService extends BaseAuthService {

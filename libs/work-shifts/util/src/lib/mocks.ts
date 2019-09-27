@@ -1,5 +1,5 @@
 import * as faker from "faker";
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 export const WORK_SHIFT_MOCK: WorkShiftInterface = {
   id: '1',

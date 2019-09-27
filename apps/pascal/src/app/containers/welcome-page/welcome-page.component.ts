@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { Observable } from 'rxjs';
 
 @Component({

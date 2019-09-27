@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { AuthService } from './auth.service';
 import { ENV_MOCK, CREDENTIALS } from '../utils/mocks';
-import { AUTH_TOKENS_MOCK, USER } from '@llstarscreamll/authentication/utils';
+import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
 
 describe('AuthService', () => {
   let authService: AuthService;

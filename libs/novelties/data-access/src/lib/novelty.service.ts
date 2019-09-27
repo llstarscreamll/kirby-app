@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { BaseService } from '@llstarscreamll/shared';
+import { BaseService } from '@kirby/shared';
 import { map } from 'rxjs/internal/operators/map';
 
 @Injectable()

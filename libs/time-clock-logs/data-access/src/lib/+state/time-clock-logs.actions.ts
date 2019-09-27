@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
-import { Pagination, ApiError } from '@llstarscreamll/shared';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
-import { UserInterface } from '@llstarscreamll/users/util';
+import { Pagination, ApiError } from '@kirby/shared';
+import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
+import { UserInterface } from '@kirby/users/util';
 
 export enum TimeClockLogsActionTypes {
   SearchTimeClockLogs = '[TimeClockLogs] search',

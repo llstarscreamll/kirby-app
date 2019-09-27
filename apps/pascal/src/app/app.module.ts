@@ -22,7 +22,7 @@ import {
 
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
-import { SharedModule } from '@llstarscreamll/shared';
+import { SharedModule } from '@kirby/shared';
 import { environment } from '../environments/environment';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
@@ -31,7 +31,7 @@ import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.comp
 import { LandingPageComponent } from './containers/landing-page/landing-page.component';
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
-import { AuthenticationDataAccessModule } from '@llstarscreamll/authentication-data-access';
+import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
@@ -41,28 +41,28 @@ export const routes: Route[] = [
   {
     path: 'work-shifts',
     loadChildren: () =>
-      import('@llstarscreamll/work-shifts/feature').then(
+      import('@kirby/work-shifts/feature').then(
         m => m.WorkShiftsFeatureModule
       )
   },
   {
     path: 'time-clock-logs',
     loadChildren: () =>
-      import('@llstarscreamll/time-clock-logs/feature').then(
+      import('@kirby/time-clock-logs/feature').then(
         m => m.TimeClockLogsFeatureModule
       )
   },
   {
     path: 'employees',
     loadChildren: () =>
-      import('@llstarscreamll/employees/feature').then(
+      import('@kirby/employees/feature').then(
         m => m.EmployeesFeatureModule
       )
   },
   {
     path: 'novelties',
     loadChildren: () =>
-      import('@llstarscreamll/novelties/feature').then(
+      import('@kirby/novelties/feature').then(
         m => m.NoveltiesFeatureModule
       )
   }

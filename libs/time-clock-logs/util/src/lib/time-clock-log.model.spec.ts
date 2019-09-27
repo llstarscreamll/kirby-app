@@ -1,5 +1,5 @@
 import { createTimeClockLog } from './mocks';
-import { createNovelty } from '@llstarscreamll/novelties/utils';
+import { createNovelty } from '@kirby/novelties/utils';
 
 describe('TimeClockLogModel', () => {
   it('should display related novelties as concatenated string', () => {

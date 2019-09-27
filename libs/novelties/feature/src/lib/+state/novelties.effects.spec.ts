@@ -7,7 +7,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 
 import { NoveltiesFeatureEffects } from './novelties-feature.effects';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('NoveltiesEffects', () => {

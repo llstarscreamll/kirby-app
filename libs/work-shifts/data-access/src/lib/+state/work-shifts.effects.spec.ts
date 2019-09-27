@@ -10,9 +10,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
-import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
-import { INVALID_DATA_API_ERROR } from '@llstarscreamll/shared';
+import { createWorkShift } from '@kirby/work-shifts/util';
+import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
+import { INVALID_DATA_API_ERROR } from '@kirby/shared';
 import {
   SearchWorkShifts,
   SearchWorkShiftsOk,

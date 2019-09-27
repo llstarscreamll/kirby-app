@@ -8,14 +8,14 @@ import { TestBed, async } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { emptyPagination } from '@llstarscreamll/shared';
+import { emptyPagination } from '@kirby/shared';
 import { TimeClockLogsEffects } from './time-clock-logs.effects';
 import {
   SearchTimeClockLogs,
   SearchTimeClockLogsOk
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
-import { createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
+import { createTimeClockLog } from '@kirby/time-clock-logs/util';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TimeClockLogsEffects', () => {

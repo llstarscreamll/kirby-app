@@ -1,10 +1,10 @@
 import * as faker from "faker";
 
-import { createUser } from "@llstarscreamll/users/util";
-import { createEmployee } from "@llstarscreamll/employees/util";
-import { createNovelty } from "@llstarscreamll/novelties/utils";
+import { createUser } from "@kirby/users/util";
+import { createEmployee } from "@kirby/employees/util";
+import { createNovelty } from "@kirby/novelties/utils";
 import { TimeClockLogModel } from './time-clock-log.model';
-import { WORK_SHIFT_MOCK, createWorkShift } from "@llstarscreamll/work-shifts/util";
+import { WORK_SHIFT_MOCK, createWorkShift } from "@kirby/work-shifts/util";
 
 const employee = createEmployee('E-1');
 const registrarIn = createUser('R-1');

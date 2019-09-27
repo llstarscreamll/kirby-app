@@ -10,8 +10,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthFacade } from './auth.facade';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { SharedModule, ApiError } from '@llstarscreamll/shared';
-import { AUTH_TOKENS_MOCK, USER } from '@llstarscreamll/authentication/utils';
+import { SharedModule, ApiError } from '@kirby/shared';
+import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
 import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
 import {
   AuthState,

@@ -1,5 +1,5 @@
-import { INVALID_DATA_API_ERROR, LoadStatuses } from '@llstarscreamll/shared';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { INVALID_DATA_API_ERROR, LoadStatuses } from '@kirby/shared';
+import { createWorkShift } from '@kirby/work-shifts/util';
 import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
 import { SearchWorkShiftsOk, SearchWorkShiftsError, CreateWorkShift, CreateWorkShiftOk, CreateWorkShiftError, GetWorkShift, GetWorkShiftOk, GetWorkShiftError, SearchWorkShifts, UpdateWorkShift, UpdateWorkShiftOk, UpdateWorkShiftError, DeleteWorkShift, DeleteWorkShiftOk, DeleteWorkShiftError } from './work-shifts.actions';
 

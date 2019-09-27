@@ -11,12 +11,12 @@ import {
 import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
-import { LoadStatuses } from '@llstarscreamll/shared';
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
+import { LoadStatuses } from '@kirby/shared';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 
 @Component({
-  selector: 'llstarscreamll-create-novelties-to-employees-form',
+  selector: 'kirby-create-novelties-to-employees-form',
   templateUrl: './create-novelties-to-employees-form.component.html',
   styleUrls: ['./create-novelties-to-employees-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

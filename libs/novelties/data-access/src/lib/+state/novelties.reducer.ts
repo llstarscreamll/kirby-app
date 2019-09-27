@@ -1,14 +1,14 @@
 import { get } from 'lodash';
 
 import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
+import { NoveltyModel } from '@kirby/novelties/data';
 import {
   Pagination,
   emptyPagination,
   LoadStatuses
-} from '@llstarscreamll/shared';
-import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
-import { UserInterface } from '@llstarscreamll/users/util';
+} from '@kirby/shared';
+import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { UserInterface } from '@kirby/users/util';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
 

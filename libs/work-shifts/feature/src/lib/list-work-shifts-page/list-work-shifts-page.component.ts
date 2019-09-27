@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import {
   createWorkShift,
   WorkShiftInterface
-} from '@llstarscreamll/work-shifts/util';
+} from '@kirby/work-shifts/util';
 import { Observable } from 'rxjs';
-import { Pagination } from '@llstarscreamll/shared';
+import { Pagination } from '@kirby/shared';
 
 @Component({
-  selector: 'llstarscreamll-list-work-shifts-page',
+  selector: 'kirby-list-work-shifts-page',
   templateUrl: './list-work-shifts-page.component.html',
   styleUrls: ['./list-work-shifts-page.component.scss']
 })

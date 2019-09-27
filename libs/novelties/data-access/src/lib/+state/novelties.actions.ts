@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 
-import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
-import { NoveltyTypeInterface } from '@llstarscreamll/novelty-types/data';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import { Pagination } from '@kirby/shared';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { UserInterface } from '@kirby/users/util/src';
 
 export enum NoveltiesActionTypes {
   SearchNovelties = '[Novelties] search',

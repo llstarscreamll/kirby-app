@@ -7,7 +7,7 @@ import {
   MediaMatcher
 } from '@angular/cdk/layout';
 
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication-data-access';
 
 @Component({
   selector: 'pascal-sidebar-layout',

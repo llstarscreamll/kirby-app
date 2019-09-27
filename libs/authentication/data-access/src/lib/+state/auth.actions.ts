@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { NewAccount, AuthTokens } from '@llstarscreamll/authentication/utils';
+import { NewAccount, AuthTokens } from '@kirby/authentication/utils';
 
 export enum AuthActionTypes {
   CheckIfAuthenticated = "[Auth] check if authenticated",

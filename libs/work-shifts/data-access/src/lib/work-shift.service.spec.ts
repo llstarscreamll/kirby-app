@@ -1,10 +1,10 @@
 import { TestBed, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Pagination } from '@llstarscreamll/shared';
+import { Pagination } from '@kirby/shared';
 import { WorkShiftService } from './work-shift.service';
-import { WORK_SHIFT_MOCK } from '@llstarscreamll/work-shifts/util';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
+import { WORK_SHIFT_MOCK } from '@kirby/work-shifts/util';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 describe('WorkShiftService', () => {
   let service: WorkShiftService;

@@ -1,7 +1,7 @@
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
-import { UserInterface } from '@llstarscreamll/users/util';
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
+import { UserInterface } from '@kirby/users/util';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { NoveltyModel } from '@kirby/novelties/data';
 import { round } from 'lodash';
 
 export class TimeClockLogModel {

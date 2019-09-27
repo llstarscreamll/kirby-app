@@ -8,12 +8,12 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import { Pagination } from '@llstarscreamll/shared';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
+import { Pagination } from '@kirby/shared';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 
 @Component({
-  selector: 'llstarscreamll-time-clock-logs-table',
+  selector: 'kirby-time-clock-logs-table',
   templateUrl: './time-clock-logs-table.component.html',
   styleUrls: ['./time-clock-logs-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

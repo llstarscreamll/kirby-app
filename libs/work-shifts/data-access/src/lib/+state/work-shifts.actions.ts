@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Pagination, ApiError } from '@llstarscreamll/shared';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
+import { Pagination, ApiError } from '@kirby/shared';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 export enum WorkShiftsActionTypes {
   SearchWorkShifts = '[WorkShifts] search',

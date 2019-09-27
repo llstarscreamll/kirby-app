@@ -2,13 +2,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
-import { LoadStatuses, ApiError } from "@llstarscreamll/shared";
+import { LoadStatuses, ApiError } from "@kirby/shared";
 import { Subject } from 'rxjs/internal/Subject';
 import { timer } from 'rxjs/internal/observable/timer';
 import { get } from 'lodash';
 
 @Component({
-  selector: 'llstarscreamll-novelty-form',
+  selector: 'kirby-novelty-form',
   templateUrl: './novelty-form.component.html',
   styleUrls: ['./novelty-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

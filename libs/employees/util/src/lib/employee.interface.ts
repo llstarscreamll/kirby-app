@@ -1,4 +1,4 @@
-import { UserInterface } from '@llstarscreamll/users/util';
+import { UserInterface } from '@kirby/users/util';
 
 export interface EmployeeInterface {
   id?: string;

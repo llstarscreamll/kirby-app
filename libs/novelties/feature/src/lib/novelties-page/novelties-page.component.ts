@@ -2,15 +2,15 @@ import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Pagination } from '@llstarscreamll/shared';
-import { UserInterface } from '@llstarscreamll/users/util';
-import { NoveltyModel } from '@llstarscreamll/novelties/data';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
+import { Pagination } from '@kirby/shared';
+import { UserInterface } from '@kirby/users/util';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { AuthFacade } from '@kirby/authentication-data-access';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'llstarscreamll-novelties-page',
+  selector: 'kirby-novelties-page',
   templateUrl: './novelties-page.component.html',
   styleUrls: ['./novelties-page.component.scss']
 })

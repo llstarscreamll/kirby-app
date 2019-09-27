@@ -4,10 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { createUser } from '@llstarscreamll/users/util';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { createUser } from '@kirby/users/util';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
-import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access';
+import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 
 describe('TimeClockLogsPageComponent', () => {
   const user = createUser();
@@ -59,9 +59,9 @@ describe('TimeClockLogsPageComponent', () => {
       template.querySelector('a[routerLink="entry-and-exit-log"]')
     ).toBeTruthy();
     expect(
-      template.querySelector('llstarscreamll-time-clock-logs-table')
+      template.querySelector('kirby-time-clock-logs-table')
     ).toBeTruthy();
-    expect(template.querySelectorAll('llstarscreamll-pagination').length).toBe(
+    expect(template.querySelectorAll('kirby-pagination').length).toBe(
       1
     );
   });

@@ -5,7 +5,7 @@ import { ApiError } from '../../interfaces/api-error';
 import { flatApiErrors } from '../../utils/common-functions';
 
 @Component({
-  selector: 'llstarscreamll-api-errors',
+  selector: 'kirby-api-errors',
   templateUrl: './api-errors.component.html',
   styleUrls: ['./api-errors.component.scss']
 })

@@ -1,12 +1,12 @@
 <h1>Crear novedades a empleados</h1>
 
 <div class="col-md-10">
-  <llstarscreamll-api-errors
+  <kirby-api-errors
     [apiError]="apiError$ | async"
-  ></llstarscreamll-api-errors>
+  ></kirby-api-errors>
 </div>
 
-<llstarscreamll-create-novelties-to-employees-form
+<kirby-create-novelties-to-employees-form
   [employees]="(employees$ | async)?.data"
   [noveltyTypes]="(noveltyTypes$ | async)?.data"
   [status]="createNoveltiesToEmployeesStatus$ | async"
@@ -14,4 +14,4 @@
   (searchNoveltyTypes)="onSearchNovelties($event)"
   (submitted)="onSubmit($event)"
 >
-</llstarscreamll-create-novelties-to-employees-form>
+</kirby-create-novelties-to-employees-form>

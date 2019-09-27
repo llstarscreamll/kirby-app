@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { UpdateWorkShiftPageComponent } from './update-work-shift-page.component';
 
 describe('UpdateWorkShiftPageComponent', () => {

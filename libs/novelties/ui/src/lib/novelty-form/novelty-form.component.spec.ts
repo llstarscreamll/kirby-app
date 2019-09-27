@@ -13,7 +13,7 @@ import {
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { LoadStatuses } from '@llstarscreamll/shared';
+import { LoadStatuses } from '@kirby/shared';
 import { NoveltyFormComponent } from './novelty-form.component';
 
 describe('NoveltyFormComponent', () => {

@@ -2,17 +2,17 @@
 
   <div class="col-md-1"></div>
   <div class="col-md-10">
-    <llstarscreamll-api-errors [apiError]="apiError$ | async"></llstarscreamll-api-errors>
+    <kirby-api-errors [apiError]="apiError$ | async"></kirby-api-errors>
   </div>
 
   <div class="col-md-2 col-lg-3"></div>
   <div class="col-md-8 col-lg-6">
-    <llstarscreamll-entry-and-exit-log-form [status]="creatingStatus$ | async" [apiError]="apiError$ | async"
+    <kirby-entry-and-exit-log-form [status]="creatingStatus$ | async" [apiError]="apiError$ | async"
                                             [subCostCenters]="(subCostCenters$ | async)?.data"
                                             [timeClockData]="employeeTimeClockData$ | async"
                                             (codeObtained)="onCodeObtained($event)"
                                             (searchSubCostCenters)="onSearchSubCostCenters($event)"
                                             (submitted)="onCreateLogFormSubmitted($event)">
-    </llstarscreamll-entry-and-exit-log-form>
+    </kirby-entry-and-exit-log-form>
   </div>
 </div>

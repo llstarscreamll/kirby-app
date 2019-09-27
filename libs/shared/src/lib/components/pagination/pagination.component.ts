@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 import { get } from 'lodash';
 
 @Component({
-  selector: 'llstarscreamll-pagination',
+  selector: 'kirby-pagination',
   template: `
     <button [disabled]="!pagination || currentPage === 1" mat-icon-button (click)="clickPrev()" class="prev">
       <mat-icon>navigate_before</mat-icon>

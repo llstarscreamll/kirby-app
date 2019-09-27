@@ -7,7 +7,7 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { defer } from 'rxjs/internal/observable/defer';
 
 import { AuthService } from '../services/auth.service';
-import { LocalStorageService } from '@llstarscreamll/shared';
+import { LocalStorageService } from '@kirby/shared';
 import { AuthPartialState, AUTH_FEATURE_KEY } from './auth.reducer';
 import {
   LoginWithCredentials,

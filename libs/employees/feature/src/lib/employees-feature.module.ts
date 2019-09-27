@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 
-import { EmployeesDataAccessModule } from "@llstarscreamll/employees/data-access";
+import { EmployeesDataAccessModule } from "@kirby/employees/data-access";
 import { SyncEmployeesByCsvFilePageComponent } from './sync-employees-by-csv-file-page/sync-employees-by-csv-file-page.component';
 
 export const employeesFeatureRoutes: Route[] = [

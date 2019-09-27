@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeClockLogsFacade } from '@llstarscreamll/time-clock-logs/data-access';
+import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 import { Observable } from 'rxjs';
-import { Pagination } from '@llstarscreamll/shared';
-import { TimeClockLogModel } from '@llstarscreamll/time-clock-logs/util';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { UserInterface } from '@llstarscreamll/users/util';
+import { Pagination } from '@kirby/shared';
+import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
+import { AuthFacade } from '@kirby/authentication-data-access';
+import { UserInterface } from '@kirby/users/util';
 import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
-  selector: 'llstarscreamll-time-clock-logs-page',
+  selector: 'kirby-time-clock-logs-page',
   templateUrl: './time-clock-logs-page.component.html',
   styleUrls: ['./time-clock-logs-page.component.scss']
 })

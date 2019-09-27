@@ -1,7 +1,7 @@
 import { SearchTimeClockLogsOk } from './time-clock-logs.actions';
-import { TimeClockLogModel, createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
+import { TimeClockLogModel, createTimeClockLog } from '@kirby/time-clock-logs/util';
 import { TimeClockLogsState, initialState, timeClockLogsReducer } from './time-clock-logs.reducer';
-import { LoadStatuses } from '@llstarscreamll/shared';
+import { LoadStatuses } from '@kirby/shared';
 
 describe('TimeClockLogs Reducer', () => {
   beforeEach(() => { });

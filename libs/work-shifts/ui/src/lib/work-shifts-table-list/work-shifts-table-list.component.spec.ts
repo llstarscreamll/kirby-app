@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChangeDetectionStrategy } from '@angular/core';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { createWorkShift } from '@kirby/work-shifts/util';
 import { WorkShiftsTableListComponent } from './work-shifts-table-list.component';
 
 describe('WorkShiftsTableListComponent', () => {
