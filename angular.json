@@ -821,6 +821,31 @@
           "styleext": "scss"
         }
       }
+    },
+    "authorization-data": {
+      "root": "libs/authorization/data",
+      "sourceRoot": "libs/authorization/data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/authorization/data/tsconfig.lib.json",
+              "libs/authorization/data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/authorization/data/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/authorization/data/jest.config.js",
+            "tsConfig": "libs/authorization/data/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -92,6 +92,9 @@
     },
     "authorization-ui": {
       "tags": []
+    },
+    "authorization-data": {
+      "tags": []
     }
   }
 }
