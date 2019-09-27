@@ -1,7 +1,7 @@
-import * as faker from "faker";
-import { UserInterface } from './user.interface';
+import * as faker from 'faker';
+import { User } from './user';
 
-export const USER_MOCK: UserInterface = {
+export const USER_MOCK = {
   id: '1',
   first_name: 'Tony',
   last_name: 'Stark',
@@ -12,7 +12,11 @@ export const USER_MOCK: UserInterface = {
   deleted_at: null
 };
 
-export function createUser(id?: string, firstName: string = null, lastName: string = null): UserInterface {
+export function createUser(
+  id?: string,
+  firstName: string = null,
+  lastName: string = null
+) {
   const date = faker.date.past();
   return {
     id: id || faker.random.uuid(),
@@ -21,6 +25,6 @@ export function createUser(id?: string, firstName: string = null, lastName: stri
     email: faker.email,
     email_verified_at: date,
     created_at: date,
-    updated_at: date,
+    updated_at: date
   };
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Pagination } from '@kirby/shared';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import { AuthFacade } from '@kirby/authentication-data-access';
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
@@ -14,8 +14,8 @@ import { tap } from 'rxjs/internal/operators/tap';
 })
 export class TimeClockLogsPageComponent implements OnInit {
   public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>;
-  public user: UserInterface;
-  public user$: Observable<UserInterface>;
+  public user: User;
+  public user$: Observable<User>;
   public searchQuery = {};
 
   public constructor(

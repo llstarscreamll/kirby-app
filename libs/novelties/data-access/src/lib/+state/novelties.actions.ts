@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
-import { UserInterface } from '@kirby/users/util/src';
+import { User } from '@kirby/users/util/src';
 
 export enum NoveltiesActionTypes {
   SearchNovelties = '[Novelties] search',
@@ -75,35 +75,35 @@ export class ResetCreateNoveltiesToEmployees implements Action {
 
 export class ApproveNovelty implements Action {
   readonly type = NoveltiesActionTypes.ApproveNovelty;
-  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+  constructor(public payload: { noveltyId: string; user: User }) {}
 }
 
 export class ApproveNoveltyOk implements Action {
   readonly type = NoveltiesActionTypes.ApproveNoveltyOk;
-  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+  constructor(public payload: { noveltyId: string; user: User }) {}
 }
 
 export class ApproveNoveltyError implements Action {
   readonly type = NoveltiesActionTypes.ApproveNoveltyError;
   constructor(
-    public payload: { noveltyId: string; user: UserInterface; error: any }
+    public payload: { noveltyId: string; user: User; error: any }
   ) {}
 }
 
 export class DeleteNoveltyApproval implements Action {
   readonly type = NoveltiesActionTypes.DeleteNoveltyApproval;
-  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+  constructor(public payload: { noveltyId: string; user: User }) {}
 }
 
 export class DeleteNoveltyApprovalOk implements Action {
   readonly type = NoveltiesActionTypes.DeleteNoveltyApprovalOk;
-  constructor(public payload: { noveltyId: string; user: UserInterface }) {}
+  constructor(public payload: { noveltyId: string; user: User }) {}
 }
 
 export class DeleteNoveltyApprovalError implements Action {
   readonly type = NoveltiesActionTypes.DeleteNoveltyApprovalError;
   constructor(
-    public payload: { noveltyId: string; user: UserInterface; error: any }
+    public payload: { noveltyId: string; user: User; error: any }
   ) {}
 }
 

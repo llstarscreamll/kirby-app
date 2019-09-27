@@ -1,12 +1,8 @@
 import * as faker from 'faker';
 
 import { createUser } from '@kirby/users/util';
-import { EmployeeInterface } from './employee.interface';
 
-export function createEmployee(
-  id?: string,
-  name: string = null
-): EmployeeInterface {
+export function createEmployee(id?: string, name: string = null) {
   const user = createUser(id);
 
   return {

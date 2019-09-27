@@ -16,7 +16,7 @@ import {
   ApproveNovelty,
   DeleteNoveltyApproval
 } from './novelties.actions';
-import { UserInterface } from '@kirby/users/util/src';
+import { User } from '@kirby/users/util/src';
 
 @Injectable()
 export class NoveltiesFacade {
@@ -73,11 +73,11 @@ export class NoveltiesFacade {
     this.store.dispatch(new CleanApiErrors());
   }
 
-  public approve(noveltyId: string, user: UserInterface) {
+  public approve(noveltyId: string, user: User) {
     this.store.dispatch(new ApproveNovelty({ noveltyId, user }));
   }
 
-  public deleteNoveltyApproval(noveltyId: string, user: UserInterface) {
+  public deleteNoveltyApproval(noveltyId: string, user: User) {
     this.store.dispatch(new DeleteNoveltyApproval({ noveltyId, user }));
   }
 }

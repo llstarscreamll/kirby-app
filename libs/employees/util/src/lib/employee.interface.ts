@@ -1,4 +1,4 @@
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 
 export interface EmployeeInterface {
   id?: string;
@@ -12,7 +12,7 @@ export interface EmployeeInterface {
   address: string;
   phone: string;
   salary: string;
-  user?: UserInterface;
+  user?: User;
   created_at: string;
   updated_at: string;
 }

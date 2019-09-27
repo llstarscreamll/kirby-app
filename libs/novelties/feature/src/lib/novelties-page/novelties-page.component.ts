@@ -3,7 +3,7 @@ import { tap } from 'rxjs/internal/operators/tap';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Pagination } from '@kirby/shared';
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
@@ -16,8 +16,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class NoveltiesPageComponent implements OnInit, OnDestroy {
   public novelties$: Observable<Pagination<NoveltyModel>>;
-  public user$: Observable<UserInterface>;
-  private user: UserInterface;
+  public user$: Observable<User>;
+  private user: User;
   private destroy$ = new Subject();
   public searchQuery = {};
 

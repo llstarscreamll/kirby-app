@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Pagination, ApiError } from '@kirby/shared';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 
 export enum TimeClockLogsActionTypes {
   SearchTimeClockLogs = '[TimeClockLogs] search',
@@ -45,157 +45,167 @@ export enum TimeClockLogsActionTypes {
   DeleteTimeClockLogApprovalOk = '[TimeClockLog] delete approval ok',
   DeleteTimeClockLogApprovalError = '[TimeClockLog] delete approval error',
 
-  CleanError = '[TimeClockLog] clean error',
+  CleanError = '[TimeClockLog] clean error'
 }
 
 export class SearchTimeClockLogs implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogs;
-  public constructor(public payload: any) { }
+  public constructor(public payload: any) {}
 }
 
 export class SearchTimeClockLogsOk implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogsOk;
-  constructor(public payload: Pagination<TimeClockLogModel>) { }
+  constructor(public payload: Pagination<TimeClockLogModel>) {}
 }
 
 export class SearchTimeClockLogsError implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogsError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class GetEmployeeTimeClockData implements Action {
   readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockData;
-  public constructor(public payload: any) { }
+  public constructor(public payload: any) {}
 }
 
 export class GetEmployeeTimeClockDataOk implements Action {
   readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockDataOk;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class GetEmployeeTimeClockDataError implements Action {
   readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockDataError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class SearchSubCostCenters implements Action {
   readonly type = TimeClockLogsActionTypes.SearchSubCostCenters;
-  public constructor(public payload: any) { }
+  public constructor(public payload: any) {}
 }
 
 export class SearchSubCostCentersOk implements Action {
   readonly type = TimeClockLogsActionTypes.SearchSubCostCentersOk;
-  constructor(public payload: any[]) { }
+  constructor(public payload: any[]) {}
 }
 
 export class SearchSubCostCentersError implements Action {
   readonly type = TimeClockLogsActionTypes.SearchSubCostCentersError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class CreateTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLog;
-  public constructor(public payload: TimeClockLogModel) { }
+  public constructor(public payload: TimeClockLogModel) {}
 }
 
 export class CreateTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLogOk;
-  constructor(public payload: TimeClockLogModel) { }
+  constructor(public payload: TimeClockLogModel) {}
 }
 
 export class CreateTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLogError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class CreateEntryAndExitLog implements Action {
   readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLog;
-  public constructor(public payload: { identification_code: string, action: string }) { }
+  public constructor(
+    public payload: { identification_code: string; action: string }
+  ) {}
 }
 
 export class CreateEntryAndExitLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLogOk;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class CreateEntryAndExitLogError implements Action {
   readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLogError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class GetTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.GetTimeClockLog;
-  public constructor(public payload: string) { }
+  public constructor(public payload: string) {}
 }
 
 export class GetTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.GetTimeClockLogOk;
-  constructor(public payload: TimeClockLogModel) { }
+  constructor(public payload: TimeClockLogModel) {}
 }
 
 export class GetTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.GetTimeClockLogError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class UpdateTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.UpdateTimeClockLog;
-  public constructor(public payload: { id: string, data: TimeClockLogModel }) { }
+  public constructor(public payload: { id: string; data: TimeClockLogModel }) {}
 }
 
 export class UpdateTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.UpdateTimeClockLogOk;
-  constructor(public payload: TimeClockLogModel) { }
+  constructor(public payload: TimeClockLogModel) {}
 }
 
 export class UpdateTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.UpdateTimeClockLogError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class DeleteTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLog;
-  public constructor(public payload: string) { }
+  public constructor(public payload: string) {}
 }
 
 export class DeleteTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogOk;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class DeleteTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogError;
-  constructor(public payload: ApiError) { }
+  constructor(public payload: ApiError) {}
 }
 
 export class ApproveTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.ApproveTimeClockLog;
-  public constructor(public timeClockLogId: string, public user: UserInterface) { }
+  public constructor(public timeClockLogId: string, public user: User) {}
 }
 
 export class ApproveTimeClockLogOk implements Action {
   readonly type = TimeClockLogsActionTypes.ApproveTimeClockLogOk;
-  constructor(public timeClockLogId: string, public user: UserInterface) { }
+  constructor(public timeClockLogId: string, public user: User) {}
 }
 
 export class ApproveTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.ApproveTimeClockLogError;
-  constructor(public payload: ApiError, public timeClockLogId: string, public user: UserInterface) { }
+  constructor(
+    public payload: ApiError,
+    public timeClockLogId: string,
+    public user: User
+  ) {}
 }
 
 export class DeleteTimeClockLogApproval implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApproval;
-  public constructor(public timeClockLogId: string, public user: UserInterface) { }
+  public constructor(public timeClockLogId: string, public user: User) {}
 }
 
 export class DeleteTimeClockLogApprovalOk implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApprovalOk;
-  constructor(public timeClockLogId: string, public user: UserInterface) { }
+  constructor(public timeClockLogId: string, public user: User) {}
 }
 
 export class DeleteTimeClockLogApprovalError implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApprovalError;
-  constructor(public payload: ApiError, public timeClockLogId: string, public user: UserInterface) { }
+  constructor(
+    public payload: ApiError,
+    public timeClockLogId: string,
+    public user: User
+  ) {}
 }
 
 export class CleanError implements Action {

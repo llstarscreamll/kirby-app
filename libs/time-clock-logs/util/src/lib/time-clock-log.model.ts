@@ -1,5 +1,5 @@
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { round } from 'lodash';
@@ -13,13 +13,13 @@ export class TimeClockLogModel {
   checked_in_at: string;
   checked_out_at?: string;
   checked_in_by_id: string;
-  checked_in_by: UserInterface;
+  checked_in_by: User;
   sub_cost_center?: any;
   checked_out_by_id?: string;
-  checked_out_by?: UserInterface;
+  checked_out_by?: User;
   novelties_count?: number;
   novelties?: NoveltyModel[];
-  approvals?: UserInterface[];
+  approvals?: User[];
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;

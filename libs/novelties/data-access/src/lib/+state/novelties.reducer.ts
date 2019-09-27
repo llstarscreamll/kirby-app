@@ -8,7 +8,7 @@ import {
   LoadStatuses
 } from '@kirby/shared';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
 
@@ -157,7 +157,7 @@ export function noveltiesReducer(
 function appendApproverToEntity(
   paginatedTimeClockLogs: Pagination<any>,
   entityId: string,
-  approver: UserInterface
+  approver: User
 ) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 
@@ -174,7 +174,7 @@ function appendApproverToEntity(
 function removeApproverToEntity(
   paginatedEntities: Pagination<any>,
   entityId: string,
-  approver: UserInterface
+  approver: User
 ) {
   let entities: any[] = get(paginatedEntities, 'data', []);
 

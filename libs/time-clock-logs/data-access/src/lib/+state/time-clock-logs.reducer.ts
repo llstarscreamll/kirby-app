@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { UserInterface } from '@kirby/users/util';
+import { User } from '@kirby/users/util';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import {
   TimeClockLogsAction,
@@ -251,7 +251,7 @@ export function timeClockLogsReducer(
 function appendApproverToEntity(
   paginatedTimeClockLogs: Pagination<any>,
   entityId: string,
-  approver: UserInterface
+  approver: User
 ) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 
@@ -268,7 +268,7 @@ function appendApproverToEntity(
 function removeApproverToEntity(
   paginatedTimeClockLogs: Pagination<any>,
   entityId: string,
-  approver: UserInterface
+  approver: User
 ) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 

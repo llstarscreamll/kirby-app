@@ -26,6 +26,7 @@ import {
   GetAuthUserSuccess,
   SignUp
 } from './auth.actions';
+import { User } from '@kirby/users/util';
 
 interface TestSchema {
   [AUTH_FEATURE_KEY]: AuthState;
@@ -233,7 +234,9 @@ describe('AuthFacade', () => {
 
           expect(status).toBe('loggedIn');
           expect(tokens).toBeTruthy();
-          expect(user).toBe(authUser);
+          expect(user).toBeInstanceOf(User);
+          expect(user.id).toBe(authUser.id);
+          expect(user.first_name).toBe(authUser.first_name);
           expect(errors).toBeFalsy();
 
           done();
