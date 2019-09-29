@@ -16,9 +16,9 @@ export function createUser(
   id?: string,
   firstName: string = null,
   lastName: string = null
-) {
+): User {
   const date = faker.date.past();
-  return {
+  return User.fromJson({
     id: id || faker.random.uuid(),
     first_name: firstName || faker.random.word(),
     last_name: lastName || faker.random.word(),
@@ -26,5 +26,5 @@ export function createUser(
     email_verified_at: date,
     created_at: date,
     updated_at: date
-  };
+  });
 }
