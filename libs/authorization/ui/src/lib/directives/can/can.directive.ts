@@ -1,33 +1,30 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { tap } from 'rxjs/internal/operators/tap';
+import { filter } from 'rxjs/internal/operators/filter';
 import {
   Directive,
   Input,
   OnDestroy,
-  OnInit,
   TemplateRef,
   ViewContainerRef
 } from '@angular/core';
+
 import { AuthFacade } from '@kirby/authentication-data-access';
-import { Subject } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
-import { filter } from 'rxjs/internal/operators/filter';
-import { takeUntil } from 'rxjs/operators';
 
 @Directive({ selector: '[kirbyCan]' })
 export class CanDirective implements OnDestroy {
-  hasView = false;
-
-  @Input() set kirbyCan(permissionName: string) {
+  @Input()
+  set kirbyCan(permissionName: string) {
     this.authFacade.authUser$
       .pipe(
-        tap(user => this.viewContainer.clear()),
+        tap(user => this.remove()),
         filter(user => !!user),
         tap(user => (user.can(permissionName) ? this.show() : this.remove())),
         takeUntil(this.destroy$)
       )
       .subscribe();
   }
-
-  private _permissionName = '';
 
   private destroy$ = new Subject();
 
