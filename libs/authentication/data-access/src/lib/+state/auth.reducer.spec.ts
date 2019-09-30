@@ -1,10 +1,10 @@
-import { INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { INCORRECT_CREDENTIALS_API_ERROR } from '../testing';
 import { AuthState, initialState, authReducer } from './auth.reducer';
 import { LoginSuccess, LoginError, LogoutSuccess } from './auth.actions';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 
 describe('Auth Reducer', () => {
-  const getAuthId = (it) => it['id'];
+  const getAuthId = it => it['id'];
   let createAuth;
 
   beforeEach(() => {

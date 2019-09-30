@@ -1,4 +1,4 @@
-import { createTimeClockLog } from './mocks';
+import { createTimeClockLog } from './testing';
 import { createNovelty } from '@kirby/novelties/utils';
 
 describe('TimeClockLogModel', () => {

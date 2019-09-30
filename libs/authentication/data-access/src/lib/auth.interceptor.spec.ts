@@ -8,7 +8,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { ENV_MOCK } from './utils/mocks';
+import { ENV_MOCK } from './testing';
 import { AuthFacade } from './+state/auth.facade';
 import { AuthInterceptor } from './auth.interceptor';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';

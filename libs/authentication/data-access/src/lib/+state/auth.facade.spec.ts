@@ -12,7 +12,7 @@ import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
 import { SharedModule, ApiError } from '@kirby/shared';
 import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
-import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../testing';
 import {
   AuthState,
   initialState,

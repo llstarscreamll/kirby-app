@@ -2,7 +2,7 @@ import { NgModule, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Directive, Input } from '@angular/core';
 
 @Directive({ selector: '[kirbyCan]' })
-class CanDirective {
+export class CanDirective {
   @Input()
   set kirbyCan(permissionName: string) {
     this.viewContainer.createEmbeddedView(this.templateRef);

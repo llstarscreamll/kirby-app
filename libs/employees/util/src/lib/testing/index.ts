@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 
 import { createUser } from '@kirby/users/util';
-import { EmployeeInterface } from './employee.interface';
+import { EmployeeInterface } from '../employee.interface';
 
 export function createEmployee(
   id?: string,

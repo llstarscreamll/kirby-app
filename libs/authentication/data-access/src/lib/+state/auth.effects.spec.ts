@@ -14,7 +14,7 @@ import { AUTH_FEATURE_KEY } from './auth.reducer';
 import { AuthService } from '../services/auth.service';
 import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
 import { SharedModule, LocalStorageService } from '@kirby/shared';
-import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../testing';
 import {
   LoginWithCredentials,
   LoginSuccess,

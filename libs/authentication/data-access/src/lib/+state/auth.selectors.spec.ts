@@ -1,6 +1,6 @@
 import { authQuery } from './auth.selectors';
 import { AUTH_FEATURE_KEY } from './auth.reducer';
-import { INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
+import { INCORRECT_CREDENTIALS_API_ERROR } from '../testing';
 import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
 import { User } from '@kirby/users/util';
 

@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { AuthService } from './auth.service';
-import { ENV_MOCK, CREDENTIALS } from '../utils/mocks';
+import { ENV_MOCK, CREDENTIALS } from '../testing';
 import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
 
 describe('AuthService', () => {
