@@ -26,17 +26,20 @@ export class SidebarLayoutComponent implements OnInit {
     {
       icon: 'supervised_user_circle',
       link: ['/employees/sync-by-csv-file'],
-      label: 'Empleados'
+      label: 'Empleados',
+      can: 'employees.sync-by-csv-file'
     },
     {
       icon: 'compare_arrows',
       link: ['/time-clock-logs'],
-      label: 'Entradas/salidas'
+      label: 'Entradas/salidas',
+      can: 'time-clock-logs.search'
     },
     {
       icon: 'feedback',
       link: ['/novelties'],
-      label: 'Novedades'
+      label: 'Novedades',
+      can: 'novelties.search'
     }
   ];
 

@@ -14,8 +14,9 @@ import { tap } from 'rxjs/internal/operators/tap';
 })
 export class TimeClockLogsPageComponent implements OnInit {
   public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>;
-  public user: User;
   public user$: Observable<User>;
+
+  public user: User;
   public searchQuery = {};
 
   public constructor(
@@ -30,6 +31,20 @@ export class TimeClockLogsPageComponent implements OnInit {
     this.timeClockLogs$ = this.timeClockFacade.paginatedTimeClockLogs$;
 
     this.searchTimeClockLogs();
+  }
+
+  public get timeClockLogsTableButtons() {
+    const buttons = [];
+
+    if (this.user && this.user.can('time-clock-logs.approvals.create')) {
+      buttons.push('approve');
+    }
+
+    if (this.user && this.user.can('time-clock-logs.approvals.delete')) {
+      buttons.push('delete-approval');
+    }
+
+    return buttons;
   }
 
   public searchTimeClockLogs(query = {}) {

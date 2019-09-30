@@ -24,6 +24,7 @@ import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { SharedModule } from '@kirby/shared';
 import { environment } from '../environments/environment';
+import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -41,9 +42,7 @@ export const routes: Route[] = [
   {
     path: 'work-shifts',
     loadChildren: () =>
-      import('@kirby/work-shifts/feature').then(
-        m => m.WorkShiftsFeatureModule
-      )
+      import('@kirby/work-shifts/feature').then(m => m.WorkShiftsFeatureModule)
   },
   {
     path: 'time-clock-logs',
@@ -55,29 +54,26 @@ export const routes: Route[] = [
   {
     path: 'employees',
     loadChildren: () =>
-      import('@kirby/employees/feature').then(
-        m => m.EmployeesFeatureModule
-      )
+      import('@kirby/employees/feature').then(m => m.EmployeesFeatureModule)
   },
   {
     path: 'novelties',
     loadChildren: () =>
-      import('@kirby/novelties/feature').then(
-        m => m.NoveltiesFeatureModule
-      )
+      import('@kirby/novelties/feature').then(m => m.NoveltiesFeatureModule)
   }
 ];
 
 @NgModule({
   imports: [
     BrowserModule,
+    HttpClientModule,
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     ReactiveFormsModule,
     CoreModule,
     SharedModule,
+    AuthorizationUiModule,
     AuthenticationDataAccessModule,
-    HttpClientModule,
 
     BrowserAnimationsModule,
     LayoutModule,

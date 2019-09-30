@@ -10,9 +10,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { SharedModule } from '@kirby/shared';
 import { NoveltiesUiModule } from '@kirby/novelties/ui';
-import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
+import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { NoveltiesDataAccessModule } from '@kirby/novelties/data-access';
 import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
+import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
 import { NoveltiesPageComponent } from './novelties-page/novelties-page.component';
 import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
@@ -27,6 +28,7 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
     NoveltiesUiModule,
     MatTooltipModule,
     MatFormFieldModule,
+    AuthorizationUiModule,
     NoveltiesDataAccessModule,
     EmployeesDataAccessModule,
     RouterModule.forChild([

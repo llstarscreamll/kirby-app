@@ -6,8 +6,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { createUser } from '@kirby/users/util';
 import { AuthFacade } from '@kirby/authentication-data-access';
-import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
+import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
+import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
 
 describe('TimeClockLogsPageComponent', () => {
   const user = createUser();
@@ -18,7 +19,11 @@ describe('TimeClockLogsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        AuthorizationUiTestModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       declarations: [TimeClockLogsPageComponent],
       providers: [
         { provide: AuthFacade, useValue: { authUser$: of(user) } },
@@ -58,11 +63,7 @@ describe('TimeClockLogsPageComponent', () => {
     expect(
       template.querySelector('a[routerLink="entry-and-exit-log"]')
     ).toBeTruthy();
-    expect(
-      template.querySelector('kirby-time-clock-logs-table')
-    ).toBeTruthy();
-    expect(template.querySelectorAll('kirby-pagination').length).toBe(
-      1
-    );
+    expect(template.querySelector('kirby-time-clock-logs-table')).toBeTruthy();
+    expect(template.querySelectorAll('kirby-pagination').length).toBe(1);
   });
 });

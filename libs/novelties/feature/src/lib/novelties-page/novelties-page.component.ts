@@ -62,11 +62,19 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
   }
 
   public showApproveButton(novelty: NoveltyModel): boolean {
-    return !novelty.isApprovedByUserId(this.user ? this.user.id : null);
+    return (
+      this.user &&
+      this.user.can('novelties.approvals.create') &&
+      !novelty.isApprovedByUserId(this.user.id)
+    );
   }
 
   public showDeleteApprovalButton(novelty: NoveltyModel): boolean {
-    return novelty.isApprovedByUserId(this.user ? this.user.id : null);
+    return (
+      this.user &&
+      this.user.can('novelties.approvals.delete') &&
+      novelty.isApprovedByUserId(this.user.id)
+    );
   }
 
   public approveNovelty(novelty: NoveltyModel) {

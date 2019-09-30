@@ -1,12 +1,13 @@
 import moment from 'moment';
 import { isArray } from 'lodash';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { createUser } from '@kirby/users/util';
 import { createNovelty } from '@kirby/novelties/utils';
 import { createTimeClockLog } from '@kirby/time-clock-logs/util';
+import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { TimeClockLogsTableComponent } from './time-clock-logs-table.component';
 
 describe('TimeClockLogsTableComponent', () => {
@@ -20,7 +21,7 @@ describe('TimeClockLogsTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [AuthorizationUiTestModule, RouterTestingModule],
       declarations: [TimeClockLogsTableComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -46,7 +47,7 @@ describe('TimeClockLogsTableComponent', () => {
     const theadRowMap = {
       1: '#',
       2: 'Empleado',
-      3: 'Scc',
+      3: 'SCC',
       4: 'Turno',
       5: 'H. entrada',
       6: 'H. salida',

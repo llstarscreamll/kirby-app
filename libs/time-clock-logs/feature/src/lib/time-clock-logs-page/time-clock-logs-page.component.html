@@ -3,6 +3,7 @@
 <div class="row mt-4">
   <div class="col-12">
     <a
+      *kirbyCan="'time-clock-logs.check-in'"
       routerLink="entry-and-exit-log"
       mat-stroked-button
       color="primary"
@@ -13,9 +14,11 @@
   </div>
 
   <div class="col-12 mt-2">
-    <mat-form-field class="w-100">
+    <mat-form-field *kirbyCan="'time-clock-logs.search'" class="w-100">
       <input
-        (change)="searchTimeClockLogs({ search: $event.srcElement.value })"
+        (change)="
+          searchTimeClockLogs({ search: $event.srcElement.value, page: 1 })
+        "
         matInput
         placeholder="Buscar por nombre, apellido, email, código o identificación"
         type="search"
@@ -29,7 +32,7 @@
   <kirby-time-clock-logs-table
     [userId]="(user$ | async)?.id"
     [timeClockLogs]="timeClockLogs$ | async"
-    [actionButtons]="['approve', 'delete-approval']"
+    [actionButtons]="timeClockLogsTableButtons"
     (approve)="onApprove($event)"
     (deleteApproval)="onDeleteApproval($event)"
   >

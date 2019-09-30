@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import { Role, Permission } from '@kirby/authorization/data';
 
 export class User {
@@ -23,13 +24,15 @@ export class User {
 
   public can(permissionName: string): boolean {
     return (
-      !!this.roles &&
-      !!this.roles.find(
-        role =>
-          !!role.permissions.find(
-            rolePermission => rolePermission.name === permissionName
-          )
-      )
+      isEmpty(permissionName) ||
+      (permissionName &&
+        (!!this.roles &&
+          !!this.roles.find(
+            role =>
+              !!role.permissions.find(
+                rolePermission => rolePermission.name === permissionName
+              )
+          )))
     );
   }
 }

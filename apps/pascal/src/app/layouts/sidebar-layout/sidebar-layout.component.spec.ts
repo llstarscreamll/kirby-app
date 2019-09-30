@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {
@@ -5,10 +6,11 @@ import {
   MatIconModule,
   MatListModule,
   MatSidenavModule,
-  MatToolbarModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { SidebarLayoutComponent } from './sidebar-layout.component';
+import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 
 describe('SidebarLayoutComponent', () => {
@@ -20,14 +22,16 @@ describe('SidebarLayoutComponent', () => {
       declarations: [SidebarLayoutComponent],
       imports: [
         ...TESTING_IMPORTS,
+        AuthorizationUiTestModule,
         LayoutModule,
         MatButtonModule,
         MatIconModule,
         MatListModule,
         MatSidenavModule,
-        MatToolbarModule,
+        MatToolbarModule
       ],
-      providers: [...TESTING_PROVIDERS]
+      providers: [...TESTING_PROVIDERS],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
