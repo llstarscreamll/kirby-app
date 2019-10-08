@@ -24,7 +24,7 @@ export interface TimeClockLogsState {
   selected?: TimeClockLogModel;
   employeeTimeClockData?: any;
   /**
-   * @todo move this property and al related stuff to a proper lib/entity/reducer/effect/service
+   * @todo move this property and all related stuff to a proper lib/entity/reducer/effect/service
    */
   subCostCenters?: any[];
   error?: ApiError;
@@ -112,7 +112,7 @@ export function timeClockLogsReducer(
     }
 
     case TimeClockLogsActionTypes.CreateEntryAndExitLogOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null };
+      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null, subCostCenters: null };
       break;
     }
 
