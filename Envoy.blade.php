@@ -1,5 +1,5 @@
 @setup
-require '/Users/johan_alvarez/.composer/vendor/autoload.php';
+require '/home/johan/.config/composer/vendor/autoload.php';
 \Dotenv\Dotenv::create(__DIR__, '.env')->load();
 
 $site = env('SITE');
@@ -38,7 +38,7 @@ git pull origin {{ $branch }}
 
 @task('setupReleaseDir', ['on' => 'remote'])
 {{ logMessage("🌀  Setup release dir...") }}
-[ -d {{ $releasesDir }} ] || mkdir {{ $releasesDir }};
+[ -d {{ $releasesDir }} ] || mkdir -p {{ $releasesDir }};
 cd {{ $releasesDir }};
 
 # Create the release dir
