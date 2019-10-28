@@ -2,7 +2,7 @@
 require '/home/johan/.config/composer/vendor/autoload.php';
 \Dotenv\Dotenv::create(__DIR__, '.env')->load();
 
-$site = env('SITE');
+$site = env(strtoupper($target ?? 'lab').'_SITE');
 $userAndServers = explode(';', env(strtoupper($target ?? 'lab').'_SERVERS'));
 $baseDir = "~/{$site}";
 $releasesDir = "{$baseDir}/releases";
@@ -11,6 +11,8 @@ $newReleaseName = date('Y_m_d-H_i_s');
 $newReleaseDir = "{$releasesDir}/{$newReleaseName}";
 $branch = $branch ?? env('DEFAULT_BRANCH', 'develop');
 $user = get_current_user();
+
+$configuration = isset($target) && $target == 'prod' ? 'production' : 'staging';
 
 function logMessage($message) {
 return "echo '\033[32m" .$message. "\033[0m';\n";
@@ -52,7 +54,7 @@ echo "{{ $newReleaseName }}" > release-name.txt
 @task('compile', ['on' => 'local'])
 {{ logMessage("🚚  Compile project...") }}
 echo $PWD
-ng build --prod --project={{ $project }}
+ng build --prod --project={{ $project }} --configuration={{ $configuration }}
 @endtask
 
 @task('uploadCompiledFiles', ['on' => 'local'])
