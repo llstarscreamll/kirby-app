@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { createUser } from '@kirby/users/util';
-import { createNovelty } from '@kirby/novelties/utils';
-import { createTimeClockLog } from '@kirby/time-clock-logs/util';
+import { createUser } from '@kirby/users/testing';
+import { createNovelty } from '@kirby/novelties/testing';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { TimeClockLogsTableComponent } from './time-clock-logs-table.component';
 

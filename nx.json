@@ -95,6 +95,24 @@
     },
     "authorization-data": {
       "tags": []
+    },
+    "employees-testing": {
+      "tags": []
+    },
+    "novelties-testing": {
+      "tags": []
+    },
+    "novelty-types-testing": {
+      "tags": []
+    },
+    "time-clock-logs-testing": {
+      "tags": []
+    },
+    "users-testing": {
+      "tags": []
+    },
+    "work-shifts-testing": {
+      "tags": []
     }
   }
 }

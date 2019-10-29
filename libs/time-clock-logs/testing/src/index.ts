@@ -1,9 +1,9 @@
 import * as faker from 'faker';
 
-import { createUser } from '@kirby/users/util';
-import { createEmployee } from '@kirby/employees/util';
-import { TimeClockLogModel } from '../time-clock-log.model';
-import { WORK_SHIFT_MOCK, createWorkShift } from '@kirby/work-shifts/util';
+import { createUser } from '@kirby/users/testing';
+import { createEmployee } from '@kirby/employees/testing';
+import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
+import { WORK_SHIFT_MOCK, createWorkShift } from '@kirby/work-shifts/testing';
 
 const employee = createEmployee('E-1');
 const registrarIn = createUser('R-1');

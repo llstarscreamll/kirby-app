@@ -4,7 +4,7 @@ import {
   initialState,
   employeesReducer
 } from './employees.reducer';
-import { createEmployee } from '@kirby/employees/util';
+import { createEmployee } from '@kirby/employees/testing';
 
 describe('Employees Reducer', () => {
   const getEmployeesId = it => it['id'];

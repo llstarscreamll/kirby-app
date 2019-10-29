@@ -1,13 +1,33 @@
 import { INVALID_DATA_API_ERROR, LoadStatuses } from '@kirby/shared';
-import { createWorkShift } from '@kirby/work-shifts/util';
-import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
-import { SearchWorkShiftsOk, SearchWorkShiftsError, CreateWorkShift, CreateWorkShiftOk, CreateWorkShiftError, GetWorkShift, GetWorkShiftOk, GetWorkShiftError, SearchWorkShifts, UpdateWorkShift, UpdateWorkShiftOk, UpdateWorkShiftError, DeleteWorkShift, DeleteWorkShiftOk, DeleteWorkShiftError } from './work-shifts.actions';
+import { createWorkShift } from '@kirby/work-shifts/testing';
+import {
+  WorkShiftsState,
+  initialState,
+  workShiftsReducer
+} from './work-shifts.reducer';
+import {
+  SearchWorkShiftsOk,
+  SearchWorkShiftsError,
+  CreateWorkShift,
+  CreateWorkShiftOk,
+  CreateWorkShiftError,
+  GetWorkShift,
+  GetWorkShiftOk,
+  GetWorkShiftError,
+  SearchWorkShifts,
+  UpdateWorkShift,
+  UpdateWorkShiftOk,
+  UpdateWorkShiftError,
+  DeleteWorkShift,
+  DeleteWorkShiftOk,
+  DeleteWorkShiftError
+} from './work-shifts.actions';
 
 describe('WorkShifts Reducer', () => {
   const apiError = INVALID_DATA_API_ERROR;
   const newEntity = createWorkShift('1');
 
-  beforeEach(() => { });
+  beforeEach(() => {});
 
   describe('valid WorkShifts actions ', () => {
     it('SearchWorkShifts should return status == loading', () => {

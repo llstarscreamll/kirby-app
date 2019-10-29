@@ -1,5 +1,5 @@
 import * as faker from 'faker';
-import { User } from '../user';
+import { User } from '@kirby/users/util';
 
 export const USER_MOCK = {
   id: '1',

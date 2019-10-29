@@ -5,7 +5,7 @@ import {
   EmployeesPartialState
 } from './employees.reducer';
 import { employeesQuery } from './employees.selectors';
-import { createEmployee } from '@kirby/employees/util';
+import { createEmployee } from '@kirby/employees/testing';
 
 describe('Employees Selectors', () => {
   const ERROR_MSG = 'No Error Available';

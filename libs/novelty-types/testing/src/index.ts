@@ -1,8 +1,5 @@
 import * as faker from 'faker';
-import {
-  NoveltyTypeInterface,
-  DayType
-} from '@kirby/novelty-types/data';
+import { NoveltyTypeInterface, DayType } from '@kirby/novelty-types/data';
 
 export function createNoveltyType(id?: string): NoveltyTypeInterface {
   const name = faker.random.word();

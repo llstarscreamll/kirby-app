@@ -15,7 +15,7 @@ import {
 } from '@angular/core/testing';
 
 import { LoadStatuses } from '@kirby/shared';
-import { createWorkShift } from '@kirby/work-shifts/util';
+import { createWorkShift } from '@kirby/work-shifts/testing';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
 
 /**

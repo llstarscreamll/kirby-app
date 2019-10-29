@@ -51,7 +51,17 @@
         "libs/novelties/data-access/src/index.ts"
       ],
       "@kirby/authorization/ui": ["libs/authorization/ui/src/index.ts"],
-      "@kirby/authorization/data": ["libs/authorization/data/src/index.ts"]
+      "@kirby/authorization/data": ["libs/authorization/data/src/index.ts"],
+      "@kirby/employees/testing": ["libs/employees/testing/src/index.ts"],
+      "@kirby/novelties/testing": ["libs/novelties/testing/src/index.ts"],
+      "@kirby/novelty-types/testing": [
+        "libs/novelty-types/testing/src/index.ts"
+      ],
+      "@kirby/time-clock-logs/testing": [
+        "libs/time-clock-logs/testing/src/index.ts"
+      ],
+      "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
+      "@kirby/work-shifts/testing": ["libs/work-shifts/testing/src/index.ts"]
     },
     "rootDir": "."
   },

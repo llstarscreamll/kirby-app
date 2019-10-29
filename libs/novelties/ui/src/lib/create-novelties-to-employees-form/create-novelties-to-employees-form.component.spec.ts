@@ -15,8 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { createEmployee } from '@kirby/employees/util';
-import { createNoveltyType } from '@kirby/novelty-types/utils';
+import { createEmployee } from '@kirby/employees/testing';
+import { createNoveltyType } from '@kirby/novelty-types/testing';
 
 describe('CreateNoveltiesToEmployeesFormComponent', () => {
   let component: CreateNoveltiesToEmployeesFormComponent;

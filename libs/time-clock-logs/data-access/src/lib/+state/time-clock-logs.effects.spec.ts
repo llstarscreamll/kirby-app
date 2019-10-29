@@ -15,7 +15,7 @@ import {
   SearchTimeClockLogsOk
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
-import { createTimeClockLog } from '@kirby/time-clock-logs/util';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TimeClockLogsEffects', () => {

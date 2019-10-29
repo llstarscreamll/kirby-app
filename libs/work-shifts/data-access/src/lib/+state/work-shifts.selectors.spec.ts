@@ -1,7 +1,7 @@
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
 import { ApiError, LoadStatuses } from '@kirby/shared';
-import { createWorkShift } from '@kirby/work-shifts/util';
+import { createWorkShift } from '@kirby/work-shifts/testing';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {
@@ -9,7 +9,7 @@ describe('WorkShifts Selectors', () => {
     message: 'Resource not found',
     error: {
       message: 'Resource not found',
-      error: 'not_found',
+      error: 'not_found'
     }
   };
   const getWorkShiftsId = it => it['id'];
@@ -24,7 +24,8 @@ describe('WorkShifts Selectors', () => {
             createWorkShift('AAA'),
             createWorkShift('BBB'),
             createWorkShift('CCC')
-          ], meta: {}
+          ],
+          meta: {}
         },
         selected: createWorkShift('DDD'),
         paginatingStatus: LoadStatuses.Completed,
@@ -32,7 +33,7 @@ describe('WorkShifts Selectors', () => {
         creatingStatus: LoadStatuses.Loading,
         updatingStatus: LoadStatuses.Error,
         deletingStatus: LoadStatuses.Completed,
-        error: ERROR_MSG,
+        error: ERROR_MSG
       }
     };
   });

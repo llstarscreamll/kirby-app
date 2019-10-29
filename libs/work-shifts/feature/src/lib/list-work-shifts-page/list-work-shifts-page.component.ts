@@ -1,12 +1,9 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
-import {
-  createWorkShift,
-  WorkShiftInterface
-} from '@kirby/work-shifts/util';
-import { Observable } from 'rxjs';
 import { Pagination } from '@kirby/shared';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 @Component({
   selector: 'kirby-list-work-shifts-page',

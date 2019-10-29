@@ -1,9 +1,9 @@
 import * as faker from 'faker';
 import { NoveltyModel } from '@kirby/novelties/data';
 
-import { createEmployee } from '@kirby/employees/util';
-import { createNoveltyType } from '@kirby/novelty-types/utils';
-import { createTimeClockLog } from '@kirby/time-clock-logs/util';
+import { createEmployee } from '@kirby/employees/testing';
+import { createNoveltyType } from '@kirby/novelty-types/testing';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 export function createNovelty(id?: string, data: any = null): NoveltyModel {
   const employee = createEmployee();

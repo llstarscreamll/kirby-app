@@ -1,5 +1,5 @@
-import { createTimeClockLog } from './testing';
-import { createNovelty } from '@kirby/novelties/utils';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
+import { createNovelty } from '@kirby/novelties/testing';
 
 describe('TimeClockLogModel', () => {
   it('should display related novelties as concatenated string', () => {
