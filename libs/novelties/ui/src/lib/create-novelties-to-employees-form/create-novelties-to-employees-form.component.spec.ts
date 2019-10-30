@@ -202,10 +202,10 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
       firstOption.querySelector('[formControlName="novelty_type"]')
     ).toBeTruthy();
     expect(
-      firstOption.querySelector('[formControlName="start_at"]')
+      firstOption.querySelector('[formControlName="scheduled_start_at"]')
     ).toBeTruthy();
     expect(
-      firstOption.querySelector('[formControlName="end_at"]')
+      firstOption.querySelector('[formControlName="scheduled_end_at"]')
     ).toBeTruthy();
     expect(firstOption.querySelector('button mat-icon')).toBeTruthy();
   });
@@ -242,8 +242,8 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
         novelty_types: [
           {
             novelty_type: createNoveltyType('n1'),
-            start_at: '2019-01-01 10:00:00',
-            end_at: '2019-01-01 12:00:00'
+            scheduled_start_at: '2019-01-01 10:00:00',
+            scheduled_end_at: '2019-01-01 12:00:00'
           }
         ]
       },
@@ -264,8 +264,8 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
       novelties: [
         {
           novelty_type_id: 'n1',
-          start_at: '2019-01-01 10:00:00',
-          end_at: '2019-01-01 12:00:00'
+          scheduled_start_at: '2019-01-01 10:00:00',
+          scheduled_end_at: '2019-01-01 12:00:00'
         }
       ]
     });

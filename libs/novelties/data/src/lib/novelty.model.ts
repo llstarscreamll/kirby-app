@@ -8,8 +8,8 @@ export class NoveltyModel {
   employee?: EmployeeInterface;
   novelty_type_id: string;
   novelty_type?: NoveltyTypeInterface;
-  start_at?: string;
-  end_at?: string;
+  scheduled_start_at?: string;
+  scheduled_end_at?: string;
   total_time_in_minutes: number;
   approvals: any[];
   created_at?: string;

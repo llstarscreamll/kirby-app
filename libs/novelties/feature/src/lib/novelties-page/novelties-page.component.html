@@ -39,8 +39,8 @@
         {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
       </td>
       <td>{{ novelty.novelty_type.code }}</td>
-      <td>{{ novelty.start_at | date: 'yy-MM-dd HH:mm' }}</td>
-      <td>{{ novelty.end_at | date: 'yy-MM-dd HH:mm' }}</td>
+      <td>{{ novelty.scheduled_start_at | date: 'yy-MM-dd HH:mm' }}</td>
+      <td>{{ novelty.scheduled_end_at | date: 'yy-MM-dd HH:mm' }}</td>
       <td>
         <div *ngFor="let approver of novelty.approvals">
           {{ shortName(approver) }}

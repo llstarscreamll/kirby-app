@@ -84,8 +84,8 @@ export class CreateNoveltiesToEmployeesFormComponent
   private setUpNoveltyOptionFormGroup(): FormGroup {
     const formGroup = this.formBuilder.group({
       novelty_type: [null, Validators.required],
-      start_at: [null, Validators.required],
-      end_at: [null, Validators.required]
+      scheduled_start_at: [null, Validators.required],
+      scheduled_end_at: [null, Validators.required]
     });
 
     formGroup
@@ -177,8 +177,8 @@ export class CreateNoveltiesToEmployeesFormComponent
       employee_ids: formData.selected_employees.map(employee => employee.id),
       novelties: formData.novelty_types.map(novelty => ({
         novelty_type_id: novelty.novelty_type ? novelty.novelty_type.id : null,
-        start_at: novelty.start_at,
-        end_at: novelty.end_at
+        scheduled_start_at: novelty.scheduled_start_at,
+        scheduled_end_at: novelty.scheduled_end_at
       }))
     };
   }
