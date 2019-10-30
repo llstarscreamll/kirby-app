@@ -1,15 +1,158 @@
-<h1>Sincronizar empleados</h1>
+<h1>Sincronización de empleados</h1>
 
-<p>La sincronización de empleados se realiza mediante un fichero .csv que debes cargar en este formulario.</p>
+<h4>
+  Importa la información relacionada de empelados mediante un archivo CSV
+</h4>
+
+<p>
+  La sincronización de los datos se realiza mediante un fichero .csv que debes
+  cargar en este formulario. Puedes sincronizar empleados, crear centros de
+  costo, cargos, crear y asociar códigos de acceso y turnos a los empelados. Ten
+  en cuanta lo siguiente:
+</p>
+
+<ul>
+  <li>
+    Para empleados:
+    <ul>
+      <li>
+        Los empleados que estén presentes en el fichero y no estén en el sistema
+        serán creados, los que existan serán actualizados, tomando como "llave
+        de identificación" el número de documento de identidad
+      </li>
+      <li>
+        Los empelados que no estén en el fichero serán movidos a la papelera (si
+        es que existen) al igual que sus cuentas de usuario, incluso el del
+        usuario actual, si es que tiene perfil de empleado en el sistema
+      </li>
+      <li>El correo electrónico debe ser único para cada empleado</li>
+      <li>
+        A los empleados se les creará una cuenta de usuario en el sistema con la
+        cual podrán acceder mediante el correo electrónico proveído y una
+        contraseña fijada con los datos del código del empleado, el número de
+        identidad y el correo, concatenado con el caracter <i>"@"</i>, ejemplo:
+        <i>"código-1@1057123456@john@doe.com"</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Centros de costo:
+    <ul>
+      <li>
+        Los centros de costo presentes en el fichero que no existan en el
+        sistema serán creados, los que existan serán actualizados, tomando como
+        "llave de identificación" el código del centro de costo
+      </li>
+      <li>
+        Los centros de costo no presentes en el fichero serán movidos a la
+        papelera (si es que existen)
+      </li>
+      <li>
+        La creación de los centros de costo sigue la convención
+        <i>"cc1:centro de costos uno"</i>, donde:
+        <ul>
+          <li>el caracter dos puntos <i>":"</i> separa el código del nombre</li>
+          <li>
+            lo que está antes del caracter dos puntos <i>":"</i> es el código
+            (cc1)
+          </li>
+          <li>
+            lo que está después del caracter dos puntos <i>":"</i> es el nombre
+            (centro de costos uno)
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Códigos de identificación:
+    <ul>
+      <li>
+        Si el empleado existe en el sistema, cualquier código anteriormente
+        asociado será eliminado completamente
+      </li>
+      <li>
+        La creación de los códigos de identificación sigue la convención
+        <i>"PIN:123456"</i>, donde:
+        <ul>
+          <li>el caracter dos puntos <i>":"</i> separa el nombre del código</li>
+          <li>
+            lo que está antes del caracter dos puntos <i>":"</i> es el nombre
+            (PIN)
+          </li>
+          <li>
+            lo que está después del caracter dos puntos <i>":"</i> es el código
+            (123456)
+          </li>
+        </ul>
+      </li>
+      <li>
+        Se puede asociar varios código de identificación a un empleado
+        separándoles por coma <i>","</i>. Ejemplo:
+        <i>"E-card:Code-1,PIN:2369"</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Turnos laborales:
+    <ul>
+      <li>
+        Los turnos laborales presentes en el fichero que no existan en el
+        sistema serán creados, los que existan serán actualizados, tomando como
+        "llave de identificación" el nombre del turno laboral
+      </li>
+      <li>
+        La creación de turnos sigue la siguiente convención
+        <i>"7-12:30|13:30-18,6-14,14-22"</i>, donde:
+        <ul>
+          <li>
+            se indica que el empleado tendrá tres turnos, pues están separados
+            por coma <i>","</i>
+          </li>
+          <li>
+            si el turno <i>"7-12:30|13:30-18"</i> no existe, el sistema lo
+            creará con las franjas horarias especificadas que son separadas por
+            el caracter pipe <i>"|"</i>, de modo que el turno tendrá dos
+            franjas, una de <i>"7:00 a 12:30"</i> y otra de
+            <i>"13:30 a 18:00"</i> y se fijará como nombre del turno
+            <i>"7-18"</i> que son la hora mínima inicial y la hora máxima final
+            de las franjas separadas por un guión <i>"-"</i>. Se debe tener muy
+            en cuenta estas convenciones de creación del turno para evitar
+            colisiones con turnos ya existentes
+          </li>
+          <li>
+            el sistema intentará encontrar turnos de trabajos con los nombres
+            <i>"7-18"</i>, <i>"6-14"</i>, <i>"14-22"</i>
+          </li>
+          <li>
+            ¿por qué se busca por <i>"7-18"</i>? por la forma en que es
+            construido el nombre del turno en su creación
+          </li>
+        </ul>
+      </li>
+      <li>
+        Otros turnos del empleado que no estén especificados en el fichero serán
+        eliminados (si es que existen)
+      </li>
+      <li>
+        Los turnos laborales no presentes en el fichero serán movidos a la
+        papelera (si es que existen)
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <form [formGroup]="syncEmployeesForm" (ngSubmit)="onSubmit()">
-
   <input type="file" (change)="fileAdded($event)" />
 
   <div class="clearfix"></div>
 
-  <button [disabled]="syncEmployeesForm.invalid" mat-raised-button type="submit" class="my-3">
+  <button
+    [disabled]="syncEmployeesForm.invalid"
+    mat-raised-button
+    type="submit"
+    class="my-3"
+  >
     Sincronizar
   </button>
-
 </form>
