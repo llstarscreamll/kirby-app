@@ -85,7 +85,8 @@ export class CreateNoveltiesToEmployeesFormComponent
     const formGroup = this.formBuilder.group({
       novelty_type: [null, Validators.required],
       scheduled_start_at: [null, Validators.required],
-      scheduled_end_at: [null, Validators.required]
+      scheduled_end_at: [null, Validators.required],
+      comment: [null, [Validators.maxLength(255)]]
     });
 
     formGroup
@@ -94,6 +95,21 @@ export class CreateNoveltiesToEmployeesFormComponent
         debounce(() => timer(400)),
         filter(value => typeof value === 'string' && value !== ''),
         tap(value => this.searchNoveltyTypes.emit({ search: value })),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
+    formGroup
+      .get('novelty_type')
+      .valueChanges.pipe(
+        filter(value => typeof value === 'object'),
+        tap(selectedNoveltyType => {
+          if (selectedNoveltyType.requires_comment) {
+            formGroup
+              .get('comment')
+              .setValidators([Validators.required, Validators.maxLength(255)]);
+          }
+        }),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -166,6 +182,14 @@ export class CreateNoveltiesToEmployeesFormComponent
     return noveltyType ? noveltyType.name : null;
   }
 
+  public selectedNoveltyTypeRequiresComment(selectedNoveltyType) {
+    return (
+      !!selectedNoveltyType &&
+      typeof selectedNoveltyType === 'object' &&
+      selectedNoveltyType.requires_comment === true
+    );
+  }
+
   public submit() {
     this.submitted.emit(this.parseFormData());
   }
@@ -178,7 +202,8 @@ export class CreateNoveltiesToEmployeesFormComponent
       novelties: formData.novelty_types.map(novelty => ({
         novelty_type_id: novelty.novelty_type ? novelty.novelty_type.id : null,
         scheduled_start_at: novelty.scheduled_start_at,
-        scheduled_end_at: novelty.scheduled_end_at
+        scheduled_end_at: novelty.scheduled_end_at,
+        comment: novelty.comment
       }))
     };
   }

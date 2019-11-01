@@ -5,18 +5,22 @@ import {
   fakeAsync,
   tick
 } from '@angular/core/testing';
-
-import { CreateNoveltiesToEmployeesFormComponent } from './create-novelties-to-employees-form.component';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
+import {
+  ReactiveFormsModule,
+  FormArray,
+  AbstractControl
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { createEmployee } from '@kirby/employees/testing';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
+import { CreateNoveltiesToEmployeesFormComponent } from './create-novelties-to-employees-form.component';
 
 describe('CreateNoveltiesToEmployeesFormComponent', () => {
   let component: CreateNoveltiesToEmployeesFormComponent;
@@ -208,6 +212,9 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
       firstOption.querySelector('[formControlName="scheduled_end_at"]')
     ).toBeTruthy();
     expect(firstOption.querySelector('button mat-icon')).toBeTruthy();
+    expect(
+      firstOption.querySelector('[formControlName="comment"]')
+    ).toBeTruthy();
   });
 
   it('should remove item from novelty type form controls array group on cancel button click', () => {
@@ -232,6 +239,35 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
     expect(component.form.get('novelty_types').value.length).toBe(1 + 1); // one from default + one added;
   });
 
+  it('should set comment field required if novelty type requires a comment', () => {
+    let formData = {
+      novelty_types: [
+        {
+          novelty_type: {
+            ...createNoveltyType('n1'),
+            requires_comment: true // this novelty type requires comment
+          },
+          scheduled_start_at: '2019-01-01 10:00:00',
+          scheduled_end_at: '2019-01-01 12:00:00',
+          comment: '' // empty comment
+        }
+      ]
+    };
+
+    component.form.patchValue(formData);
+
+    fixture.detectChanges();
+
+    let formArray: FormArray = component.form.get('novelty_types') as FormArray;
+    let commentFormControl: AbstractControl = formArray.at(0).get('comment');
+
+    expect(commentFormControl.valid).toBe(false); // the field should not be invalid because now is required and is empty
+
+    commentFormControl.setValue('test comment');
+
+    expect(commentFormControl.valid).toBe(true);
+  });
+
   it('should emit submitted form values', () => {
     spyOn(component.submitted, 'emit');
 
@@ -243,7 +279,8 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
           {
             novelty_type: createNoveltyType('n1'),
             scheduled_start_at: '2019-01-01 10:00:00',
-            scheduled_end_at: '2019-01-01 12:00:00'
+            scheduled_end_at: '2019-01-01 12:00:00',
+            comment: 'test comment'
           }
         ]
       },
@@ -265,7 +302,8 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
         {
           novelty_type_id: 'n1',
           scheduled_start_at: '2019-01-01 10:00:00',
-          scheduled_end_at: '2019-01-01 12:00:00'
+          scheduled_end_at: '2019-01-01 12:00:00',
+          comment: 'test comment'
         }
       ]
     });

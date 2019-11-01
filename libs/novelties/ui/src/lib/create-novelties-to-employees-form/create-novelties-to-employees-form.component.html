@@ -46,9 +46,11 @@
       [formGroup]="noveltyTypeOptionGroup"
       class="option"
     >
-      <mat-form-field>
+      <hr />
+      <mat-form-field class="w-100">
         <input
           matInput
+          required="true"
           placeholder="Tipo de novedad"
           [matAutocomplete]="noveltyTypeAutocomplete"
           formControlName="novelty_type"
@@ -66,31 +68,57 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field>
-        <input
-          formControlName="scheduled_start_at"
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <mat-form-field class="col-md-6">
+          <input
+            formControlName="scheduled_start_at"
+            matInput
+            type="text"
+            required="true"
+            placeholder="Fecha de inicio"
+          />
+          <mat-hint>Y-m-d H:i:s</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input
+            formControlName="scheduled_end_at"
+            matInput
+            type="text"
+            required="true"
+            placeholder="Fecha de fin"
+          />
+          <mat-hint>Y-m-d H:i:s</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="w-100 mt-2">
+        <textarea
+          formControlName="comment"
           matInput
-          type="text"
-          placeholder="Fecha de inicio"
-        />
-        <mat-hint>Y-m-d H:i:s</mat-hint>
+          rows="5"
+          [required]="
+            selectedNoveltyTypeRequiresComment(
+              noveltyTypeOptionGroup.get('novelty_type').value
+            )
+          "
+          placeholder="Comentario"
+        ></textarea>
+        <mat-hint>Máximo 255 caracteres</mat-hint>
       </mat-form-field>
 
-      <mat-form-field>
-        <input
-          formControlName="scheduled_end_at"
-          matInput
-          type="text"
-          placeholder="Fecha de fin"
-        />
-        <mat-hint>Y-m-d H:i:s</mat-hint>
-      </mat-form-field>
-
-      <button (click)="removeNoveltyOption(i)" mat-icon-button color="warn">
-        <mat-icon>cancel</mat-icon>
-      </button>
+      <div class="text-right">
+        <button (click)="removeNoveltyOption(i)" mat-button color="warn">
+          <mat-icon>cancel</mat-icon>
+          Remover
+        </button>
+      </div>
     </div>
   </div>
+
+  <hr />
 
   <button
     (click)="addNoveltyOption()"
@@ -112,4 +140,6 @@
   >
     Guardar
   </button>
+  <div class="clearfix"></div>
+  <span class="text-muted">Los campos marcados con * son obligatorios</span>
 </form>
