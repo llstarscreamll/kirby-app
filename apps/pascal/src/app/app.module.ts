@@ -6,6 +6,7 @@ import { RouterModule, Route } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatGridListModule,
@@ -76,6 +77,7 @@ export const routes: Route[] = [
     AuthenticationDataAccessModule,
 
     BrowserAnimationsModule,
+    MatMomentDateModule,
     LayoutModule,
     MatSidenavModule,
     MatGridListModule,

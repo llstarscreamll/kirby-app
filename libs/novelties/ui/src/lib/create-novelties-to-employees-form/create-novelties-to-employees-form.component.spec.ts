@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   async,
   ComponentFixture,
@@ -198,23 +199,33 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
   });
 
   it('should have certain elements in novelty type form controls array group', () => {
-    const firstOption = template.querySelector(
+    const option = template.querySelector(
       '.novelty-type-options .option:first-child'
     );
 
     expect(
-      firstOption.querySelector('[formControlName="novelty_type"]')
+      option.querySelector('[formControlName="novelty_type"]')
     ).toBeTruthy();
     expect(
-      firstOption.querySelector('[formControlName="scheduled_start_at"]')
+      option.querySelector('[formControlName="scheduled_start_date"]')
     ).toBeTruthy();
     expect(
-      firstOption.querySelector('[formControlName="scheduled_end_at"]')
+      option.querySelector('[formControlName="scheduled_start_hour"]')
     ).toBeTruthy();
-    expect(firstOption.querySelector('button mat-icon')).toBeTruthy();
     expect(
-      firstOption.querySelector('[formControlName="comment"]')
+      option.querySelector('[formControlName="scheduled_start_minute"]')
     ).toBeTruthy();
+    expect(
+      option.querySelector('[formControlName="scheduled_end_date"]')
+    ).toBeTruthy();
+    expect(
+      option.querySelector('[formControlName="scheduled_end_hour"]')
+    ).toBeTruthy();
+    expect(
+      option.querySelector('[formControlName="scheduled_end_minute"]')
+    ).toBeTruthy();
+    expect(option.querySelector('[formControlName="comment"]')).toBeTruthy();
+    expect(option.querySelector('button mat-icon')).toBeTruthy();
   });
 
   it('should remove item from novelty type form controls array group on cancel button click', () => {
@@ -247,8 +258,12 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
             ...createNoveltyType('n1'),
             requires_comment: true // this novelty type requires comment
           },
-          scheduled_start_at: '2019-01-01 10:00:00',
-          scheduled_end_at: '2019-01-01 12:00:00',
+          scheduled_start_date: moment('2019-01-01 00:00:00'),
+          scheduled_start_hour: '10',
+          scheduled_start_minute: '00',
+          scheduled_end_date: moment('2019-01-01 00:00:00'),
+          scheduled_end_hour: '12',
+          scheduled_end_minute: '00',
           comment: '' // empty comment
         }
       ]
@@ -278,8 +293,12 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
         novelty_types: [
           {
             novelty_type: createNoveltyType('n1'),
-            scheduled_start_at: '2019-01-01 10:00:00',
-            scheduled_end_at: '2019-01-01 12:00:00',
+            scheduled_start_date: moment('2019-01-01 00:00:00'),
+            scheduled_start_hour: '10',
+            scheduled_start_minute: '00',
+            scheduled_end_date: moment('2019-01-01 00:00:00'),
+            scheduled_end_hour: '12',
+            scheduled_end_minute: '00',
             comment: 'test comment'
           }
         ]
@@ -301,8 +320,8 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
       novelties: [
         {
           novelty_type_id: 'n1',
-          scheduled_start_at: '2019-01-01 10:00:00',
-          scheduled_end_at: '2019-01-01 12:00:00',
+          scheduled_start_at: moment('2019-01-01 10:00:00').toISOString(),
+          scheduled_end_at: moment('2019-01-01 12:00:00').toISOString(),
           comment: 'test comment'
         }
       ]

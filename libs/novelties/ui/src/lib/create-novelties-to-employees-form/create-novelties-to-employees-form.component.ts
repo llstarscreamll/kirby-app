@@ -1,3 +1,4 @@
+import moment, { Moment } from 'moment';
 import { timer, Subject } from 'rxjs';
 import {
   Component,
@@ -45,6 +46,16 @@ export class CreateNoveltiesToEmployeesFormComponent
 
   public form: FormGroup;
 
+  public hours = new Array(24)
+    .join()
+    .split(',')
+    .map((_, i: number) => i.toString().padStart(2, '0'));
+
+  public minutes = new Array(60)
+    .join()
+    .split(',')
+    .map((_, i: number) => i.toString().padStart(2, '0'));
+
   public constructor(private formBuilder: FormBuilder) {}
 
   public ngOnInit() {
@@ -84,8 +95,12 @@ export class CreateNoveltiesToEmployeesFormComponent
   private setUpNoveltyOptionFormGroup(): FormGroup {
     const formGroup = this.formBuilder.group({
       novelty_type: [null, Validators.required],
-      scheduled_start_at: [null, Validators.required],
-      scheduled_end_at: [null, Validators.required],
+      scheduled_start_date: [null, Validators.required],
+      scheduled_start_hour: [null, Validators.required],
+      scheduled_start_minute: [null, Validators.required],
+      scheduled_end_date: [null, Validators.required],
+      scheduled_end_hour: [null, Validators.required],
+      scheduled_end_minute: [null, Validators.required],
       comment: [null, [Validators.maxLength(255)]]
     });
 
@@ -194,17 +209,29 @@ export class CreateNoveltiesToEmployeesFormComponent
     this.submitted.emit(this.parseFormData());
   }
 
-  private parseFormData() {
+  public parseFormData() {
     const formData = this.form.value;
 
     return {
       employee_ids: formData.selected_employees.map(employee => employee.id),
-      novelties: formData.novelty_types.map(novelty => ({
-        novelty_type_id: novelty.novelty_type ? novelty.novelty_type.id : null,
-        scheduled_start_at: novelty.scheduled_start_at,
-        scheduled_end_at: novelty.scheduled_end_at,
-        comment: novelty.comment
-      }))
+      novelties: formData.novelty_types.map(novelty => {
+        const startDate: Moment = novelty.scheduled_start_date || moment();
+        startDate.hour(novelty.scheduled_start_hour);
+        startDate.minutes(novelty.scheduled_start_minute);
+
+        const endDate: Moment = novelty.scheduled_end_date || moment();
+        endDate.hour(novelty.scheduled_end_hour);
+        endDate.minutes(novelty.scheduled_end_minute);
+
+        return {
+          novelty_type_id: novelty.novelty_type
+            ? novelty.novelty_type.id
+            : null,
+          scheduled_start_at: startDate.toISOString(),
+          scheduled_end_at: endDate.toISOString(),
+          comment: novelty.comment
+        };
+      })
     };
   }
 }

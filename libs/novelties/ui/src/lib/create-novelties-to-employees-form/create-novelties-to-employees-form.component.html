@@ -73,24 +73,70 @@
       <div class="row">
         <mat-form-field class="col-md-6">
           <input
-            formControlName="scheduled_start_at"
+            formControlName="scheduled_start_date"
             matInput
-            type="text"
-            required="true"
+            [matDatepicker]="scheduledStartDatePicker"
             placeholder="Fecha de inicio"
+            required="true"
           />
-          <mat-hint>Y-m-d H:i:s</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="scheduledStartDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #scheduledStartDatePicker></mat-datepicker>
         </mat-form-field>
 
+        <mat-form-field class="col-md-3">
+          <mat-label>Hora</mat-label>
+          <mat-select formControlName="scheduled_start_hour" required>
+            <mat-option *ngFor="let hour of hours" [value]="hour">
+              {{ hour }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-3">
+          <mat-label>Minutos</mat-label>
+          <mat-select formControlName="scheduled_start_minute" required>
+            <mat-option *ngFor="let minute of minutes" [value]="minute">
+              {{ minute }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
         <mat-form-field class="col-md-6">
           <input
-            formControlName="scheduled_end_at"
+            formControlName="scheduled_end_date"
             matInput
-            type="text"
-            required="true"
+            [matDatepicker]="scheduledEndDatePicker"
             placeholder="Fecha de fin"
+            required="true"
           />
-          <mat-hint>Y-m-d H:i:s</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="scheduledEndDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #scheduledEndDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-3">
+          <mat-label>Hora</mat-label>
+          <mat-select formControlName="scheduled_end_hour" required>
+            <mat-option *ngFor="let hour of hours" [value]="hour">
+              {{ hour }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-3">
+          <mat-label>Minutos</mat-label>
+          <mat-select formControlName="scheduled_end_minute" required>
+            <mat-option *ngFor="let minute of minutes" [value]="minute">
+              {{ minute }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
