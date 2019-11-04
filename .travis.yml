@@ -1,14 +1,27 @@
 language: node_js
+
 node_js: 12
+
 dist: trusty
+
 sudo: required
+
 cache:
   npm: false
+  directories:
+    - node_modules
+
 install:
   - yarn install --network-timeout 1000000
+
 notifications:
   email: true
+
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
-script: ng test -i --ci --bail=1 --pass-with-no-tests
+
+script: ng test -i --ci --bail=1 --pass-with-no-tests --coverage
+
+after_success:
+  - npm run codecov
