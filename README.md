@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/llstarscreamll/angular-kirby.svg?branch=develop)](https://travis-ci.com/llstarscreamll/angular-kirby)
 
+[![codecov](https://codecov.io/gh/llstarscreamll/angular-kirby/branch/develop/graph/badge.svg)](https://codecov.io/gh/llstarscreamll/angular-kirby)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) using [Nrwl Nx](https://nrwl.io/nx).
 
 ## Nrwl Extensions for Angular (Nx)
