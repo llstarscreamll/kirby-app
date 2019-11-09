@@ -1,15 +1,13 @@
 import {
-  Entity,
-  EmployeesState,
   EMPLOYEES_FEATURE_KEY,
   EmployeesPartialState
 } from './employees.reducer';
+import { emptyPagination } from '@kirby/shared';
 import { employeesQuery } from './employees.selectors';
 import { createEmployee } from '@kirby/employees/testing';
 
 describe('Employees Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getEmployeesId = it => it['id'];
   const employee = createEmployee('EMPLOYEE-AAA');
   let storeState: EmployeesPartialState;
 
@@ -17,12 +15,12 @@ describe('Employees Selectors', () => {
     storeState = {
       [EMPLOYEES_FEATURE_KEY]: {
         paginatedList: {
+          ...emptyPagination(),
           data: [
             employee,
             createEmployee('EMPLOYEE-BBB'),
             createEmployee('EMPLOYEE-CCC')
-          ],
-          meta: {}
+          ]
         },
         selected: employee,
         error: ERROR_MSG,

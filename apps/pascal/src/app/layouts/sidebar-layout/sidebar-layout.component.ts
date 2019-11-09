@@ -25,9 +25,9 @@ export class SidebarLayoutComponent implements OnInit {
     { icon: 'home', link: ['/welcome'], label: 'Home' },
     {
       icon: 'supervised_user_circle',
-      link: ['/employees/sync-by-csv-file'],
+      link: ['/employees/'],
       label: 'Empleados',
-      can: 'employees.sync-by-csv-file'
+      can: 'employees.search'
     },
     {
       icon: 'compare_arrows',

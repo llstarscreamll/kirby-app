@@ -1,9 +1,10 @@
-import { SearchEmployeesOk } from './employees.actions';
 import {
   EmployeesState,
   initialState,
   employeesReducer
 } from './employees.reducer';
+import { emptyPagination } from '@kirby/shared';
+import { SearchEmployeesOk } from './employees.actions';
 import { createEmployee } from '@kirby/employees/testing';
 
 describe('Employees Reducer', () => {
@@ -17,7 +18,10 @@ describe('Employees Reducer', () => {
         createEmployee('PRODUCT-AAA'),
         createEmployee('PRODUCT-zzz')
       ];
-      const action = new SearchEmployeesOk({ data: employees, meta: {} });
+      const action = new SearchEmployeesOk({
+        ...emptyPagination(),
+        data: employees
+      });
       const result: EmployeesState = employeesReducer(initialState, action);
       const selId: string = getEmployeesId(result.paginatedList.data[1]);
 

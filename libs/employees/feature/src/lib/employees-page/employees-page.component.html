@@ -1,0 +1,31 @@
+<h1>Empleados</h1>
+
+<div class="table-responsive mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Código</th>
+        <th>Cargo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of (employees$ | async)?.data">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.first_name }}</td>
+        <td>{{ employee.last_name }}</td>
+        <td>{{ employee.code }}</td>
+        <td>{{ employee.position }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="text-right">
+  <kirby-pagination
+    [pagination]="(employees$ | async)?.meta"
+    (paginate)="searchEmployees($event)"
+  >
+  </kirby-pagination>
+</div>
