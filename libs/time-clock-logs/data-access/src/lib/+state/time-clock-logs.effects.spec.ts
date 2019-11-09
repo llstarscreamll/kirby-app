@@ -1,22 +1,22 @@
 import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/angular';
-import { hot, cold } from '@nrwl/angular/testing';
 import { StoreModule } from '@ngrx/store';
-import { DataPersistence } from '@nrwl/angular';
 import { EffectsModule } from '@ngrx/effects';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { DataPersistence } from '@nrwl/angular';
+import { hot, cold } from '@nrwl/angular/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { emptyPagination } from '@kirby/shared';
-import { TimeClockLogsEffects } from './time-clock-logs.effects';
 import {
   SearchTimeClockLogs,
   SearchTimeClockLogsOk
 } from './time-clock-logs.actions';
+import { emptyPagination } from '@kirby/shared';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TimeClockLogsEffects } from './time-clock-logs.effects';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('TimeClockLogsEffects', () => {
   let actions$: Observable<any>;
@@ -57,8 +57,8 @@ describe('TimeClockLogsEffects', () => {
     it('ok api response should return SearchTimeClockLogsOk action', () => {
       const query = { search: 'foo' };
       const data = {
-        data: [createTimeClockLog('1'), createTimeClockLog('2')],
-        meta: {}
+        ...emptyPagination(),
+        data: [createTimeClockLog('1'), createTimeClockLog('2')]
       };
       const apiResponse = cold('-a', { a: data });
       spyOn(timeClockLogsService, 'search').and.returnValue(apiResponse);

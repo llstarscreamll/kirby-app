@@ -1,10 +1,14 @@
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
-import { INVALID_DATA_API_ERROR, LoadStatuses } from '@kirby/shared';
-import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
+import {
+  INVALID_DATA_API_ERROR,
+  LoadStatuses,
+  emptyPagination
+} from '@kirby/shared';
 import {
   TimeClockLogsPartialState,
   TIME_CLOCK_LOGS_FEATURE_KEY
 } from './time-clock-logs.reducer';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 describe('TimeClockLogs Selectors', () => {
   let storeState: TimeClockLogsPartialState;
@@ -13,12 +17,12 @@ describe('TimeClockLogs Selectors', () => {
     storeState = {
       [TIME_CLOCK_LOGS_FEATURE_KEY]: {
         paginatedList: {
+          ...emptyPagination(),
           data: [
             createTimeClockLog('PRODUCT-AAA'),
             createTimeClockLog('PRODUCT-BBB'),
             createTimeClockLog('PRODUCT-CCC')
-          ],
-          meta: {}
+          ]
         },
         paginatingStatus: LoadStatuses.Empty,
         selected: createTimeClockLog('PRODUCT-AAA'),

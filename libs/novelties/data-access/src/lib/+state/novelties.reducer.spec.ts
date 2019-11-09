@@ -1,10 +1,11 @@
-import { SearchNoveltiesOk } from './novelties.actions';
 import {
   NoveltiesState,
   Entity,
   initialState,
   noveltiesReducer
 } from './novelties.reducer';
+import { emptyPagination } from '@kirby/shared';
+import { SearchNoveltiesOk } from './novelties.actions';
 
 describe('Novelties Reducer', () => {
   const getNoveltiesId = it => it['id'];
@@ -20,8 +21,8 @@ describe('Novelties Reducer', () => {
   describe('valid Novelties actions ', () => {
     it('should return set the list of known Novelties', () => {
       const novelties = {
-        data: [createNovelties('PRODUCT-AAA'), createNovelties('PRODUCT-zzz')],
-        meta: {}
+        ...emptyPagination(),
+        data: [createNovelties('PRODUCT-AAA'), createNovelties('PRODUCT-zzz')]
       };
       const action = new SearchNoveltiesOk(novelties);
       const result: NoveltiesState = noveltiesReducer(initialState, action);

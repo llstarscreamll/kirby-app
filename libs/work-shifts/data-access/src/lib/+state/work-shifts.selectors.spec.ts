@@ -1,6 +1,6 @@
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { ApiError, LoadStatuses } from '@kirby/shared';
+import { ApiError, LoadStatuses, emptyPagination } from '@kirby/shared';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 
 describe('WorkShifts Selectors', () => {
@@ -20,12 +20,12 @@ describe('WorkShifts Selectors', () => {
     storeState = {
       workShifts: {
         paginatedList: {
+          ...emptyPagination(),
           data: [
             createWorkShift('AAA'),
             createWorkShift('BBB'),
             createWorkShift('CCC')
-          ],
-          meta: {}
+          ]
         },
         selected: createWorkShift('DDD'),
         paginatingStatus: LoadStatuses.Completed,

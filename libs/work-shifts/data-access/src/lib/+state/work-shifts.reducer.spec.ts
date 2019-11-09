@@ -1,10 +1,14 @@
-import { INVALID_DATA_API_ERROR, LoadStatuses } from '@kirby/shared';
-import { createWorkShift } from '@kirby/work-shifts/testing';
+import {
+  INVALID_DATA_API_ERROR,
+  LoadStatuses,
+  emptyPagination
+} from '@kirby/shared';
 import {
   WorkShiftsState,
   initialState,
   workShiftsReducer
 } from './work-shifts.reducer';
+import { createWorkShift } from '@kirby/work-shifts/testing';
 import {
   SearchWorkShiftsOk,
   SearchWorkShiftsError,
@@ -40,7 +44,10 @@ describe('WorkShifts Reducer', () => {
     it('SearchWorkShiftsOk should return paginated list of items and status == completed', () => {
       const workShifts = [createWorkShift('1'), createWorkShift('2')];
 
-      const action = new SearchWorkShiftsOk({ data: workShifts, meta: {} });
+      const action = new SearchWorkShiftsOk({
+        ...emptyPagination(),
+        data: workShifts
+      });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
       expect(result.paginatingStatus).toBe(LoadStatuses.Completed);

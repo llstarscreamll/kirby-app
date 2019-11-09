@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
+import { emptyPagination } from '@kirby/shared';
 import { createUser } from '@kirby/users/testing';
 import { createNovelty } from '@kirby/novelties/testing';
 import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
@@ -81,8 +82,8 @@ describe('TimeClockLogsTableComponent', () => {
     timeClockLog.novelties_count = timeClockLog.novelties.length;
 
     component.timeClockLogs = {
-      data: [timeClockLog, createTimeClockLog()],
-      meta: {}
+      ...emptyPagination(),
+      data: [timeClockLog, createTimeClockLog()]
     };
 
     const firstTbodyRowMap = {
@@ -121,8 +122,8 @@ describe('TimeClockLogsTableComponent', () => {
     firstTimeClockLog.approvals = [approver];
     component.userId = approver.id;
     component.timeClockLogs = {
-      data: [firstTimeClockLog, createTimeClockLog()],
-      meta: {}
+      ...emptyPagination(),
+      data: [firstTimeClockLog, createTimeClockLog()]
     };
 
     const approveButtonSelector =
@@ -158,8 +159,8 @@ describe('TimeClockLogsTableComponent', () => {
   it('should emit values when approve action button is clicked', () => {
     const firstTimeClockLog = createTimeClockLog();
     component.timeClockLogs = {
-      data: [firstTimeClockLog, createTimeClockLog()],
-      meta: {}
+      ...emptyPagination(),
+      data: [firstTimeClockLog, createTimeClockLog()]
     };
 
     spyOn(component.approve, 'emit');
@@ -181,8 +182,8 @@ describe('TimeClockLogsTableComponent', () => {
     firstTimeClockLog.approvals = [approver];
     component.userId = approver.id;
     component.timeClockLogs = {
-      data: [firstTimeClockLog, createTimeClockLog()],
-      meta: {}
+      ...emptyPagination(),
+      data: [firstTimeClockLog, createTimeClockLog()]
     };
 
     spyOn(component.deleteApproval, 'emit');
@@ -207,8 +208,8 @@ describe('TimeClockLogsTableComponent', () => {
     firstTimeClockLog.approvals = [approver];
     component.userId = approver.id;
     component.timeClockLogs = {
-      data: [firstTimeClockLog, createTimeClockLog()],
-      meta: {}
+      ...emptyPagination(),
+      data: [firstTimeClockLog, createTimeClockLog()]
     };
 
     const approveButtonSelector =
@@ -232,8 +233,8 @@ describe('TimeClockLogsTableComponent', () => {
     // firstTimeClockLog.approvals = [approver];
     component.userId = approver.id;
     component.timeClockLogs = {
-      data: [firstTimeClockLog, createTimeClockLog()],
-      meta: {}
+      ...emptyPagination(),
+      data: [firstTimeClockLog, createTimeClockLog()]
     };
 
     const approveButtonSelector =

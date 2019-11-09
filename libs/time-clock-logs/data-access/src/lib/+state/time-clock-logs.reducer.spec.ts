@@ -1,11 +1,11 @@
-import { SearchTimeClockLogsOk } from './time-clock-logs.actions';
-import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 import {
   TimeClockLogsState,
   initialState,
   timeClockLogsReducer
 } from './time-clock-logs.reducer';
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatuses, emptyPagination } from '@kirby/shared';
+import { SearchTimeClockLogsOk } from './time-clock-logs.actions';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 describe('TimeClockLogs Reducer', () => {
   beforeEach(() => {});
@@ -13,8 +13,8 @@ describe('TimeClockLogs Reducer', () => {
   describe('valid TimeClockLogs actions ', () => {
     it('should return set the list of known TimeClockLogs', () => {
       const timeClockLogs = {
-        data: [createTimeClockLog('AAA'), createTimeClockLog('zzz')],
-        meta: {}
+        ...emptyPagination(),
+        data: [createTimeClockLog('AAA'), createTimeClockLog('zzz')]
       };
       const action = new SearchTimeClockLogsOk(timeClockLogs);
       const result: TimeClockLogsState = timeClockLogsReducer(

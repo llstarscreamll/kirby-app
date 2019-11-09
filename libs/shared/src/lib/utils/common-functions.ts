@@ -1,5 +1,5 @@
-import { get, toArray, isObject } from "lodash";
-import { ApiError } from "../interfaces/api-error";
+import { get, toArray, isObject } from 'lodash';
+import { ApiError } from '../interfaces/api-error';
 import { Pagination } from '../interfaces/pagination';
 
 /**
@@ -8,12 +8,22 @@ import { Pagination } from '../interfaces/pagination';
 export function flatApiErrors(apiErrors: ApiError): string[] {
   const errors = [].concat(...toArray(get(apiErrors, 'error.errors')));
 
-  return errors.map(error => isObject(error) ? error.detail : error);
+  return errors.map(error => (isObject(error) ? error.detail : error));
 }
 
 /**
  * Create empty pagination object.
  */
 export function emptyPagination(): Pagination<any> {
-  return { data: [], meta: {} };
+  return {
+    data: [],
+    links: { first: null, last: null, prev: null, next: null },
+    meta: {
+      current_page: null,
+      from: null,
+      path: null,
+      per_page: null,
+      to: null
+    }
+  };
 }

@@ -12,7 +12,7 @@ import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
-import { INVALID_DATA_API_ERROR } from '@kirby/shared';
+import { INVALID_DATA_API_ERROR, emptyPagination } from '@kirby/shared';
 import {
   SearchWorkShifts,
   SearchWorkShiftsOk,
@@ -72,8 +72,8 @@ describe('WorkShiftsEffects', () => {
     it('ok api response should return SearchWorkShiftsOk action', () => {
       const query = { search: 'foo' };
       const data = {
-        data: [createWorkShift('1'), createWorkShift('2')],
-        meta: {}
+        ...emptyPagination(),
+        data: [createWorkShift('1'), createWorkShift('2')]
       };
       const apiResponse = cold('-a', { a: data });
       spyOn(workShiftService, 'search').and.returnValue(apiResponse);

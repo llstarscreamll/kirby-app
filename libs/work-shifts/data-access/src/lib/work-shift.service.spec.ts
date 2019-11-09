@@ -4,7 +4,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { Pagination } from '@kirby/shared';
+import { Pagination, emptyPagination } from '@kirby/shared';
 import { WorkShiftService } from './work-shift.service';
 import { WORK_SHIFT_MOCK } from '@kirby/work-shifts/testing';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
@@ -13,8 +13,8 @@ describe('WorkShiftService', () => {
   let service: WorkShiftService;
   let httpController: HttpTestingController;
   const paginatedWorkShifts: Pagination<WorkShiftInterface> = {
-    data: [{ ...WORK_SHIFT_MOCK }],
-    meta: {}
+    ...emptyPagination(),
+    data: [{ ...WORK_SHIFT_MOCK }]
   };
 
   const ENV_MOCK = { api: 'https://my.api.com/' };

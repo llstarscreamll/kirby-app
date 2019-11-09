@@ -16,12 +16,12 @@ describe('Novelties Selectors', () => {
     storeState = {
       [NOVELTIES_FEATURE_KEY]: {
         paginatedList: {
+          ...emptyPagination(),
           data: [
             novelty,
             createNovelty('PRODUCT-BBB'),
             createNovelty('PRODUCT-CCC')
-          ],
-          meta: {}
+          ]
         },
         paginatedNoveltyTypesList: emptyPagination(),
         createNoveltiesToEmployeesStatus: null,
