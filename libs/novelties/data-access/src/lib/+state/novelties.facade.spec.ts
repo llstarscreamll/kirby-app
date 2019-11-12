@@ -12,6 +12,7 @@ import {
   noveltiesReducer
 } from './novelties.reducer';
 import { NoveltyService } from '../novelty.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface TestSchema {
   novelties: NoveltiesState;
@@ -34,6 +35,7 @@ describe('NoveltiesFacade', () => {
         ],
         providers: [
           NoveltiesFacade,
+          { provide: MatSnackBar, useValue: {} },
           { provide: NoveltyService, useValue: { get: () => true } }
         ]
       })

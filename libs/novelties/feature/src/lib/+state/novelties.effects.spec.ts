@@ -1,14 +1,14 @@
 import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
-import { DataPersistence } from '@nrwl/angular';
 import { EffectsModule } from '@ngrx/effects';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { DataPersistence } from '@nrwl/angular';
 import { provideMockActions } from '@ngrx/effects/testing';
 
-import { NoveltiesFeatureEffects } from './novelties-feature.effects';
-import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
+import { NoveltiesFeatureEffects } from './novelties-feature.effects';
 
 describe('NoveltiesEffects', () => {
   let actions: Observable<any>;
@@ -33,8 +33,7 @@ describe('NoveltiesEffects', () => {
         NoveltiesFeatureEffects,
         DataPersistence,
         provideMockActions(() => actions),
-        { provide: NoveltiesFacade, useValue: { get: params => true } },
-        { provide: MatSnackBar, useValue: {} }
+        { provide: NoveltiesFacade, useValue: { get: params => true } }
       ]
     });
 

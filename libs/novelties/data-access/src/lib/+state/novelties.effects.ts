@@ -1,5 +1,5 @@
-import { map } from 'rxjs/operators';
-import { Effect } from '@ngrx/effects';
+import { map, tap } from 'rxjs/operators';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
 
@@ -27,6 +27,7 @@ import {
   DeleteNoveltyApprovalError
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class NoveltiesEffects {
@@ -136,7 +137,19 @@ export class NoveltiesEffects {
     }
   );
 
+  @Effect({ dispatch: false }) updateNoveltyOk$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.UpdateNoveltyOk),
+    tap(action => this.snackBar.open('Novedad actualizada correctamente', 'Ok'))
+  );
+
+  @Effect({ dispatch: false }) updateNoveltyError$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.UpdateNoveltyError),
+    tap(action => this.snackBar.open('Error actualizando la novedad', 'Ok'))
+  );
+
   public constructor(
+    private actions$: Actions,
+    private snackBar: MatSnackBar,
     private noveltyService: NoveltyService,
     private dataPersistence: DataPersistence<NoveltiesPartialState>
   ) {}

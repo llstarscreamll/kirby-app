@@ -10,6 +10,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { NoveltyService } from '../novelty.service';
 import { NoveltiesEffects } from './novelties.effects';
 import { SearchNovelties, SearchNoveltiesOk } from './novelties.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('NoveltiesEffects', () => {
   let actions: Observable<any>;
@@ -34,6 +35,7 @@ describe('NoveltiesEffects', () => {
         NoveltiesEffects,
         DataPersistence,
         provideMockActions(() => actions),
+        { provide: MatSnackBar, useValue: {} },
         { provide: NoveltyService, useValue: { get: () => true } }
       ]
     });
