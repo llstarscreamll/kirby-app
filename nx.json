@@ -113,6 +113,12 @@
     },
     "work-shifts-testing": {
       "tags": []
+    },
+    "employees-ui": {
+      "tags": []
+    },
+    "cost-centers-data": {
+      "tags": []
     }
   }
 }

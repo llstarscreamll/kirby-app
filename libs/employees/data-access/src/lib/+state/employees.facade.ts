@@ -1,18 +1,38 @@
 import { Injectable } from '@angular/core';
-
 import { select, Store } from '@ngrx/store';
 
-import { EmployeesPartialState } from './employees.reducer';
+import {
+  SearchEmployees,
+  SyncEmployeesByCsv,
+  GetEmployee,
+  GetEmployeeOk,
+  UpdateEmployee
+} from './employees.actions';
 import { employeesQuery } from './employees.selectors';
-import { SearchEmployees, SyncEmployeesByCsv } from './employees.actions';
+import { EmployeesPartialState } from './employees.reducer';
 
 @Injectable()
 export class EmployeesFacade {
-  public paginatedEmployees$ = this.store.pipe(select(employeesQuery.getPaginated));
-  public selectedEmployees$ = this.store.pipe(select(employeesQuery.getSelectedEmployee));
-  public loaded$ = this.store.pipe(select(employeesQuery.getLoaded));
+  public paginatedEmployees$ = this.store.pipe(
+    select(employeesQuery.getPaginated)
+  );
 
-  public constructor(private store: Store<EmployeesPartialState>) { }
+  public paginatingStatus$ = this.store.pipe(
+    select(employeesQuery.getPaginatingStatus)
+  );
+
+  public selectedEmployee$ = this.store.pipe(
+    select(employeesQuery.getSelectedEmployee)
+  );
+
+  public selectingStatus$ = this.store.pipe(
+    select(employeesQuery.getSelectingStatus)
+  );
+  public updatingStatus$ = this.store.pipe(
+    select(employeesQuery.getUpdatingStatus)
+  );
+
+  public constructor(private store: Store<EmployeesPartialState>) {}
 
   /**
    * @todo type the query argument
@@ -24,5 +44,17 @@ export class EmployeesFacade {
 
   public syncEmployeesByCsvFile(data: any) {
     this.store.dispatch(new SyncEmployeesByCsv(data));
+  }
+
+  public get(employeeId: string) {
+    this.store.dispatch(new GetEmployee(employeeId));
+  }
+
+  public update(employeeId: string, data: any) {
+    this.store.dispatch(new UpdateEmployee({ employeeId, data }));
+  }
+
+  public cleanSelected() {
+    this.store.dispatch(new GetEmployeeOk(null));
   }
 }

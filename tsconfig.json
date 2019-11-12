@@ -41,6 +41,7 @@
       ],
       "@kirby/employees/feature": ["libs/employees/feature/src/index.ts"],
       "@kirby/employees/util": ["libs/employees/util/src/index.ts"],
+      "@kirby/employees/ui": ["libs/employees/ui/src/index.ts"],
       "@kirby/novelties/data": ["libs/novelties/data/src/index.ts"],
       "@kirby/novelties/utils": ["libs/novelties/utils/src/index.ts"],
       "@kirby/novelty-types/utils": ["libs/novelty-types/utils/src/index.ts"],
@@ -61,7 +62,8 @@
         "libs/time-clock-logs/testing/src/index.ts"
       ],
       "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
-      "@kirby/work-shifts/testing": ["libs/work-shifts/testing/src/index.ts"]
+      "@kirby/work-shifts/testing": ["libs/work-shifts/testing/src/index.ts"],
+      "@kirby/cost-centers/data": ["libs/cost-centers/data/src/index.ts"]
     },
     "rootDir": "."
   },

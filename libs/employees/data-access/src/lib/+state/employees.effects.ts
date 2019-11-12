@@ -13,7 +13,13 @@ import {
   EmployeesActionTypes,
   SyncEmployeesByCsv,
   SyncEmployeesByCsvOk,
-  SyncEmployeesByCsvError
+  SyncEmployeesByCsvError,
+  GetEmployee,
+  GetEmployeeOk,
+  GetEmployeeError,
+  UpdateEmployee,
+  UpdateEmployeeOk,
+  UpdateEmployeeError
 } from './employees.actions';
 import { EmployeeService } from '../employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,7 +27,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable()
 export class EmployeesEffects {
   @Effect()
-  public loadEmployees$ = this.dataPersistence.fetch(
+  public searchEmployees$ = this.dataPersistence.fetch(
     EmployeesActionTypes.SearchEmployees,
     {
       run: (action: SearchEmployees, state: EmployeesPartialState) =>
@@ -30,8 +36,37 @@ export class EmployeesEffects {
           .pipe(map(apiResponse => new SearchEmployeesOk(apiResponse))),
 
       onError: (action: SearchEmployees, error) => {
-        console.error('Error', error);
         return new SearchEmployeesError(error);
+      }
+    }
+  );
+
+  @Effect()
+  public getEmployee$ = this.dataPersistence.fetch(
+    EmployeesActionTypes.GetEmployee,
+    {
+      run: (action: GetEmployee, state: EmployeesPartialState) =>
+        this.employeeService
+          .get(action.payload)
+          .pipe(map(apiResponse => new GetEmployeeOk(apiResponse))),
+
+      onError: (action: GetEmployee, error) => {
+        return new GetEmployeeError(error);
+      }
+    }
+  );
+
+  @Effect()
+  public updateEmployee$ = this.dataPersistence.fetch(
+    EmployeesActionTypes.UpdateEmployee,
+    {
+      run: (action: UpdateEmployee, state: EmployeesPartialState) =>
+        this.employeeService
+          .update(action.payload.employeeId, action.payload.data)
+          .pipe(map(apiResponse => new UpdateEmployeeOk(apiResponse))),
+
+      onError: (action: UpdateEmployee, error) => {
+        return new UpdateEmployeeError(error);
       }
     }
   );

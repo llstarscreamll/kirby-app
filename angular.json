@@ -1035,6 +1035,62 @@
         }
       },
       "schematics": {}
+    },
+    "employees-ui": {
+      "projectType": "library",
+      "root": "libs/employees/ui",
+      "sourceRoot": "libs/employees/ui/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/employees/ui/tsconfig.lib.json",
+              "libs/employees/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/employees/ui/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/employees/ui/jest.config.js",
+            "tsConfig": "libs/employees/ui/tsconfig.spec.json",
+            "setupFile": "libs/employees/ui/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "cost-centers-data": {
+      "root": "libs/cost-centers/data",
+      "sourceRoot": "libs/cost-centers/data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/cost-centers/data/tsconfig.lib.json",
+              "libs/cost-centers/data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/cost-centers/data/jest.config.js",
+            "tsConfig": "libs/cost-centers/data/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -13,7 +13,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let employee of (employees$ | async)?.data">
-        <td>{{ employee.id }}</td>
+        <td>
+          <a [routerLink]="[employee.id]">{{ employee.id }}</a>
+        </td>
         <td>{{ employee.first_name }}</td>
         <td>{{ employee.last_name }}</td>
         <td>{{ employee.code }}</td>
