@@ -164,10 +164,7 @@ export class EntryAndExitLogFormComponent
   }
 
   public get displaySubCostCenterField(): boolean {
-    return (
-      this.timeClockData.action === 'check_out' ||
-      this.fallbackWorkShiftIsSelected
-    );
+    return this.timeClockData.action === 'check_out';
   }
 
   public get suggestedSubCostCenters(): any[] {
