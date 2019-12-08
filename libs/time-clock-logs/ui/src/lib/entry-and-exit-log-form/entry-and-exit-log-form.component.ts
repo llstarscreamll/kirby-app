@@ -73,7 +73,6 @@ export class EntryAndExitLogFormComponent
   public ngOnInit(): void {
     this.buildForms();
     this.listenCheckFormChanges();
-    // this.setDefaultWorkShiftIfNeeded();
   }
 
   public ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
@@ -148,6 +147,12 @@ export class EntryAndExitLogFormComponent
 
   public get hasNoveltyTypes(): boolean {
     return this.noveltyTypes.length > 0;
+  }
+
+  public get deductedWorkShift() {
+    const workShifts = get(this.timeClockData, 'work_shifts', []);
+
+    return workShifts.length === 1 ? workShifts[0] : null;
   }
 
   public get workShifts(): any[] {

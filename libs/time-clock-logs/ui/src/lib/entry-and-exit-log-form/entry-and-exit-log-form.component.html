@@ -44,7 +44,12 @@
 >
   <h1 class="text-center">Registrar {{ readableActionName }}</h1>
 
-  <h4 class="text-center">{{ employee.name }}</h4>
+  <h4 class="text-center">
+    {{ employee.name }}
+    <small *ngIf="deductedWorkShift">
+      en turno de {{ deductedWorkShift.name }}
+    </small>
+  </h4>
 
   <ng-container *ngIf="displayWorkShiftField">
     <label id="work-shift-radio-group">Turno:</label>
