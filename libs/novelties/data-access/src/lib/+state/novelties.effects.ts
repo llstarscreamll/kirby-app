@@ -24,10 +24,14 @@ import {
   ApproveNoveltyOk,
   ApproveNoveltyError,
   DeleteNoveltyApprovalOk,
-  DeleteNoveltyApprovalError
+  DeleteNoveltyApprovalError,
+  TrashNovelty,
+  TrashNoveltyOk,
+  TrashNoveltyError
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class NoveltiesEffects {
@@ -120,6 +124,25 @@ export class NoveltiesEffects {
   );
 
   @Effect()
+  public trashNovelty$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.TrashNovelty,
+    {
+      run: (action: TrashNovelty, state: NoveltiesPartialState) => {
+        return this.noveltyService.trash(action.payload).pipe(
+          map(_ => new TrashNoveltyOk(action.payload)),
+          tap(_ => this.router.navigate(['novelties']))
+        );
+      },
+      onError: (action: TrashNovelty, error) => {
+        return new TrashNoveltyError({
+          id: action.payload,
+          error: error
+        });
+      }
+    }
+  );
+
+  @Effect()
   public deleteNoveltyApproval$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.DeleteNoveltyApproval,
     {
@@ -148,6 +171,7 @@ export class NoveltiesEffects {
   );
 
   public constructor(
+    private router: Router,
     private actions$: Actions,
     private snackBar: MatSnackBar,
     private noveltyService: NoveltyService,

@@ -14,7 +14,8 @@ import {
   CleanApiErrors,
   ResetCreateNoveltiesToEmployees,
   ApproveNovelty,
-  DeleteNoveltyApproval
+  DeleteNoveltyApproval,
+  TrashNovelty
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -47,6 +48,10 @@ export class NoveltiesFacade {
 
   public update(noveltyId: string, noveltyData) {
     this.store.dispatch(new UpdateNovelty({ id: noveltyId, noveltyData }));
+  }
+
+  public trash(noveltyId: string) {
+    this.store.dispatch(new TrashNovelty(noveltyId));
   }
 
   public createNoveltiesToEmployees(data) {

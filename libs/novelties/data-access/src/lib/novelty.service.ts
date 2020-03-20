@@ -53,6 +53,11 @@ export class NoveltyService extends BaseService {
       .pipe(map(response => response.data));
   }
 
+  public trash(id: string): Observable<any> {
+    const endpoint = this.endpoint + id;
+    return this.http.delete<any>(endpoint, { headers: this.defaultHeaders });
+  }
+
   public approve(noveltyId: string): Observable<any> {
     const endpoint = `${this.endpoint}${noveltyId}/approvals`;
     return this.http.post<any>(endpoint, {}, { headers: this.defaultHeaders });

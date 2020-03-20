@@ -1,3 +1,4 @@
+import { round } from "lodash";
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 
@@ -29,5 +30,9 @@ export class NoveltyModel {
       this.approvals &&
       this.approvals.map(approver => approver.id).includes(userId)
     );
+  }
+
+  public get total_time_in_hours() {
+    return round(this.total_time_in_minutes / 60, 2);
   }
 }

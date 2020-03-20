@@ -50,4 +50,12 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
   public onNoveltyUpdated(novelty) {
     this.noveltiesFacade.update(novelty.id, novelty);
   }
+
+  /**
+   * @todo add tests to this trash functionality
+   * @param novelty 
+   */
+  public onNoveltyTrashed(novelty) {
+    this.noveltiesFacade.trash(novelty.id);
+  }
 }

@@ -25,6 +25,7 @@ describe('NoveltyFormComponent', () => {
   const noveltyTypeFieldSelector = 'form [formControlName="novelty_type"]';
   const timeFieldSelector = 'form [formControlName="total_time_in_minutes"]';
   const formButtonSelector = 'form button';
+  const trashButtonSelector = 'form button.trash';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -169,4 +170,45 @@ describe('NoveltyFormComponent', () => {
       total_time_in_minutes: 500
     });
   });
+
+  /**
+   * ***************************************************************************
+   * Trash actions
+   * ***************************************************************************
+   */
+  it('should not show trash button when there are not defaults', () => {
+    component.defaults = null;
+    fixture.detectChanges();
+
+    const trashBtn: HTMLButtonElement = template.querySelector(trashButtonSelector);
+
+    expect(trashBtn).toBeFalsy();
+  });
+
+  it('should emit trashed event when trash button is clicked', () => {
+    spyOn(component.trashed, 'emit');
+
+    // @todo duplicated code here
+    const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };
+    const noveltyType = { id: 2, name: 'Foo' };
+    const novelty = {
+      id: 10,
+      employee_id: employee.id,
+      novelty_type_id: noveltyType.id,
+      total_time_in_minutes: 500,
+      employee: employee,
+      novelty_type: noveltyType
+    };
+    component.defaults = novelty;
+    component.form.patchValue(novelty);
+
+    fixture.detectChanges();
+
+    const trashBtn: HTMLButtonElement = template.querySelector(trashButtonSelector);
+    trashBtn.click();
+
+    expect(component.trashed.emit).toHaveBeenCalledWith(novelty);
+  });
+
+  
 });

@@ -27,5 +27,6 @@
   <div class="clearfix mb-4"></div>
 
   <button mat-raised-button [disabled]="disableFormSubmitBtn" type="submit">Guardar</button>
+  <button *ngIf="displayTrashButton" (click)="trash()" [disabled]="disableTrashSubmitBtn" mat-raised-button type="button" class="trash ml-2 float-right">Mover a papelera</button>
 
 </form>

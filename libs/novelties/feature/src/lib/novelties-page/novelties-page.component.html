@@ -21,57 +21,63 @@
   </mat-form-field>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Empleado</th>
-      <th>Novedad</th>
-      <th>Inicio</th>
-      <th>Fin</th>
-      <th>Aprobaciones</th>
-      <th>Creada en</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let novelty of (novelties$ | async)?.data">
-      <td>
-        {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
-      </td>
-      <td>{{ novelty.novelty_type.code }}</td>
-      <td>{{ novelty.scheduled_start_at | date: 'yy-MM-dd HH:mm' }}</td>
-      <td>{{ novelty.scheduled_end_at | date: 'yy-MM-dd HH:mm' }}</td>
-      <td>
-        <div *ngFor="let approver of novelty.approvals">
-          {{ shortName(approver) }}
-        </div>
-      </td>
-      <td>{{ novelty.created_at | date: 'yy-MM-dd HH:mm' }}</td>
-      <td>
-        <button
-          *ngIf="showApproveButton(novelty)"
-          (click)="approveNovelty(novelty)"
-          matTooltip="Aprobar"
-          mat-icon-button
-          color="primary"
-          class="approve"
-        >
-          <mat-icon>check_circle</mat-icon>
-        </button>
-        <button
-          *ngIf="showDeleteApprovalButton(novelty)"
-          (click)="deleteNoveltyApproval(novelty)"
-          matTooltip="Borrar aprobación"
-          mat-icon-button
-          color="warn"
-          class="delete-approval"
-        >
-          <mat-icon>remove_circle</mat-icon>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Empleado</th>
+        <th>Novedad</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Horas</th>
+        <th>Aprobaciones</th>
+        <th>Creada en</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let novelty of (novelties$ | async)?.data">
+        <td><a [routerLink]="['/novelties', novelty.id, 'edit']">{{ novelty.id }}</a></td>
+        <td>
+          {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
+        </td>
+        <td>{{ novelty.novelty_type.code }}</td>
+        <td>{{ novelty.scheduled_start_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>{{ novelty.scheduled_end_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>{{ novelty.total_time_in_hours }}</td>
+        <td>
+          <div *ngFor="let approver of novelty.approvals">
+            {{ shortName(approver) }}
+          </div>
+        </td>
+        <td>{{ novelty.created_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>
+          <button
+            *ngIf="showApproveButton(novelty)"
+            (click)="approveNovelty(novelty)"
+            matTooltip="Aprobar"
+            mat-icon-button
+            color="primary"
+            class="approve"
+          >
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button
+            *ngIf="showDeleteApprovalButton(novelty)"
+            (click)="deleteNoveltyApproval(novelty)"
+            matTooltip="Borrar aprobación"
+            mat-icon-button
+            color="warn"
+            class="delete-approval"
+          >
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <div class="text-right">
   <kirby-pagination

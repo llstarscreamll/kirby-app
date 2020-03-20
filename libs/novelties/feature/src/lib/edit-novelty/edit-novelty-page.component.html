@@ -3,5 +3,6 @@
 <kirby-novelty-form *ngIf="novelty$ | async" [defaults]="novelty$ | async"
     [employeesFound]="(employees$ | async)?.data" [noveltyTypesFound]="(noveltyTypes$ | async)?.data"
     (searchEmployees)="onSearchEmployees($event)" (searchNoveltyTypes)="onSearchNovelties($event)"
-    (submitted)="onNoveltyUpdated($event)">
+    (submitted)="onNoveltyUpdated($event)"
+    (trashed)="onNoveltyTrashed($event)">
 </kirby-novelty-form>

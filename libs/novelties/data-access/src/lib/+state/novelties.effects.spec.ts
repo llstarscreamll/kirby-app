@@ -11,6 +11,7 @@ import { NoveltyService } from '../novelty.service';
 import { NoveltiesEffects } from './novelties.effects';
 import { SearchNovelties, SearchNoveltiesOk } from './novelties.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 describe('NoveltiesEffects', () => {
   let actions: Observable<any>;
@@ -36,7 +37,8 @@ describe('NoveltiesEffects', () => {
         DataPersistence,
         provideMockActions(() => actions),
         { provide: MatSnackBar, useValue: {} },
-        { provide: NoveltyService, useValue: { get: () => true } }
+        { provide: NoveltyService, useValue: { get: () => true } },
+        { provide: Router, useValue: { navigate: () => true } }
       ]
     });
 

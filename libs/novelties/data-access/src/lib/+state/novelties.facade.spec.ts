@@ -13,6 +13,7 @@ import {
 } from './novelties.reducer';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 interface TestSchema {
   novelties: NoveltiesState;
@@ -36,7 +37,8 @@ describe('NoveltiesFacade', () => {
         providers: [
           NoveltiesFacade,
           { provide: MatSnackBar, useValue: {} },
-          { provide: NoveltyService, useValue: { get: () => true } }
+          { provide: NoveltyService, useValue: { get: () => true } },
+          { provide: Router, useValue: { navigate: () => true } }
         ]
       })
       class CustomFeatureModule {}

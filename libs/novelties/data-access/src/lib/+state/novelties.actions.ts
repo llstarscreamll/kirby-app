@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 
+import { User } from '@kirby/users/util';
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
-import { User } from '@kirby/users/util/src';
 
 export enum NoveltiesActionTypes {
   SearchNovelties = '[Novelties] search',
@@ -30,6 +30,10 @@ export enum NoveltiesActionTypes {
   UpdateNovelty = '[Novelties] update',
   UpdateNoveltyOk = '[Novelties] update ok',
   UpdateNoveltyError = '[Novelties] update error',
+
+  TrashNovelty = '[Novelties] trash',
+  TrashNoveltyOk = '[Novelties] trash ok',
+  TrashNoveltyError = '[Novelties] trash error',
 
   SearchNoveltyTypes = '[NoveltyTypes] search',
   SearchNoveltyTypesOk = '[NoveltyTypes] search ok',
@@ -85,9 +89,7 @@ export class ApproveNoveltyOk implements Action {
 
 export class ApproveNoveltyError implements Action {
   readonly type = NoveltiesActionTypes.ApproveNoveltyError;
-  constructor(
-    public payload: { noveltyId: string; user: User; error: any }
-  ) {}
+  constructor(public payload: { noveltyId: string; user: User; error: any }) {}
 }
 
 export class DeleteNoveltyApproval implements Action {
@@ -102,9 +104,7 @@ export class DeleteNoveltyApprovalOk implements Action {
 
 export class DeleteNoveltyApprovalError implements Action {
   readonly type = NoveltiesActionTypes.DeleteNoveltyApprovalError;
-  constructor(
-    public payload: { noveltyId: string; user: User; error: any }
-  ) {}
+  constructor(public payload: { noveltyId: string; user: User; error: any }) {}
 }
 
 export class GetNovelty implements Action {
@@ -135,6 +135,21 @@ export class UpdateNoveltyOk implements Action {
 export class UpdateNoveltyError implements Action {
   readonly type = NoveltiesActionTypes.UpdateNoveltyError;
   constructor(public payload: { id: string; noveltyData: any; error: any }) {}
+}
+
+export class TrashNovelty implements Action {
+  readonly type = NoveltiesActionTypes.TrashNovelty;
+  constructor(public payload: string) {}
+}
+
+export class TrashNoveltyOk implements Action {
+  readonly type = NoveltiesActionTypes.TrashNoveltyOk;
+  constructor(public payload: string) {}
+}
+
+export class TrashNoveltyError implements Action {
+  readonly type = NoveltiesActionTypes.TrashNoveltyError;
+  constructor(public payload: { id: string; error: any }) {}
 }
 
 export class SearchNoveltyTypes implements Action {
@@ -179,6 +194,9 @@ export type NoveltiesAction =
   | UpdateNovelty
   | UpdateNoveltyOk
   | UpdateNoveltyError
+  | TrashNovelty
+  | TrashNoveltyOk
+  | TrashNoveltyError
   | SearchNoveltyTypes
   | SearchNoveltyTypesOk
   | SearchNoveltyTypesError
@@ -205,6 +223,9 @@ export const fromNoveltiesActions = {
   UpdateNovelty,
   UpdateNoveltyOk,
   UpdateNoveltyError,
+  TrashNovelty,
+  TrashNoveltyOk,
+  TrashNoveltyError,
   SearchNoveltyTypes,
   SearchNoveltyTypesOk,
   SearchNoveltyTypesError,

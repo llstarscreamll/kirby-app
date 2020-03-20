@@ -2,11 +2,7 @@ import { get } from 'lodash';
 
 import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
 import { NoveltyModel } from '@kirby/novelties/data';
-import {
-  Pagination,
-  emptyPagination,
-  LoadStatuses
-} from '@kirby/shared';
+import { Pagination, emptyPagination, LoadStatuses } from '@kirby/shared';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 import { User } from '@kirby/users/util';
 
@@ -18,6 +14,7 @@ export const NOVELTIES_FEATURE_KEY = 'novelties';
  *  - noveltiesReducer
  *
  *  Note: replace if already defined in another module
+ * @todo: delete this empty interface
  */
 
 /* tslint:disable:no-empty-interface */
@@ -98,6 +95,30 @@ export function noveltiesReducer(
           action.payload.noveltyId,
           action.payload.user
         )
+      };
+      break;
+    }
+
+    case NoveltiesActionTypes.TrashNovelty: {
+      state = {
+        ...state,
+        createNoveltiesToEmployeesStatus: LoadStatuses.Loading
+      };
+      break;
+    }
+
+    case NoveltiesActionTypes.TrashNoveltyOk: {
+      state = {
+        ...state,
+        selected: null
+      };
+      break;
+    }
+
+    case NoveltiesActionTypes.TrashNoveltyError: {
+      state = {
+        ...state,
+        error: action.payload.error
       };
       break;
     }

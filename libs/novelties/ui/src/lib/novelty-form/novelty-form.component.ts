@@ -36,6 +36,9 @@ export class NoveltyFormComponent implements OnInit {
   @Output()
   public submitted = new EventEmitter();
 
+  @Output()
+  public trashed = new EventEmitter();
+
   private destroy$ = new Subject();
 
   public form: FormGroup;
@@ -99,6 +102,14 @@ export class NoveltyFormComponent implements OnInit {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
 
+  public get disableTrashSubmitBtn(): boolean {
+    return this.defaults && !!this.defaults.deleted_at;
+  }
+
+  public get displayTrashButton(): boolean {
+    return !!this.defaults;
+  }
+
   public get timeHint(): string {
     const timeInMinutes = this.form.get('total_time_in_minutes').value;
     const timeInHours = (parseInt(timeInMinutes || '0', 10) / 60).toFixed(2);
@@ -121,6 +132,10 @@ export class NoveltyFormComponent implements OnInit {
       novelty_type_id: formValue.novelty_type.id,
       total_time_in_minutes: formValue.total_time_in_minutes,
     });
+  }
+
+  public trash() {
+    this.trashed.emit(this.defaults);
   }
 
 }
