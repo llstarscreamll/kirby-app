@@ -65,7 +65,7 @@ export class NoveltiesEffects {
     {
       run: (action: CreateNoveltiesToEmployees) =>
         this.noveltyService
-          .createNoveltiesToEmployees(action.payload)
+          .createMany(action.payload)
           .pipe(
             map(apiResponse => new CreateNoveltiesToEmployeesOk(apiResponse))
           ),

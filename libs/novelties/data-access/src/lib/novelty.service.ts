@@ -32,8 +32,8 @@ export class NoveltyService extends BaseService {
     });
   }
 
-  public createNoveltiesToEmployees(data: any): Observable<any> {
-    const endpoint = this.endpoint + 'create-novelties-to-users';
+  public createMany(data: any): Observable<any> {
+    const endpoint = this.endpoint + 'create-many';
     return this.http
       .post<any>(endpoint, data, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
