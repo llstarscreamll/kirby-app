@@ -40,8 +40,8 @@ export class CreateNoveltiesToEmployeesPageComponent
       .pipe(
         tap(status => {
           if (status === LoadStatuses.Completed) {
-            this.snackBar.open('Novedades creadas correctamente', 'Ok');
-            this.router.navigate(['/time-clock-logs']);
+            this.snackBar.open('Novedades creadas correctamente', 'Ok', { duration: 5 * 1000 });
+            this.router.navigate(['/novelties']);
           }
         }),
         takeUntil(this.destroy$)
