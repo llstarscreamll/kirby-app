@@ -27,7 +27,8 @@
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "deploy-pascal-lab": "envoy run deploy --project=pascal --target=lab"
   },
   "dependencies": {
     "@angular/animations": "^8.0.0",
@@ -62,8 +63,8 @@
     "@nrwl/workspace": "8.5.1",
     "@types/jest": "24.0.9",
     "@types/node": "~8.9.4",
-    "codelyzer": "~5.0.1",
     "codecov": "^3.6.1",
+    "codelyzer": "~5.0.1",
     "cypress": "3.4.1",
     "dotenv": "6.2.0",
     "eslint": "6.1.0",

@@ -1,5 +1,5 @@
 @setup
-require '/home/johan/.config/composer/vendor/autoload.php';
+require '/Users/johan_alvarez/.composer/vendor/autoload.php';
 \Dotenv\Dotenv::create(__DIR__, '.env')->load();
 
 $site = env(strtoupper($target ?? 'lab').'_SITE');
@@ -22,7 +22,7 @@ return "echo '\033[32m" .$message. "\033[0m';\n";
 @servers(['local' => '127.0.0.1', 'remote' => $userAndServers])
 
 @story('deploy')
-{{-- startDeployment --}}
+startDeployment
 setupReleaseDir
 compile
 uploadCompiledFiles
@@ -66,7 +66,7 @@ ng build --prod --project={{ $project }} --configuration={{ $configuration }}
 
 @task('setPermissions', ['on' => 'remote'])
 {{ logMessage("🔐  Set folders permissions...") }}
-cd {{ $newReleaseDir }};
+cd {{ $baseDir }};
 sudo chgrp -R www-data .
 sudo chmod -R ug+rwx .
 @endtask
