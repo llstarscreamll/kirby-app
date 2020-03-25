@@ -162,12 +162,13 @@ export class NoveltiesEffects {
 
   @Effect({ dispatch: false }) updateNoveltyOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.UpdateNoveltyOk),
-    tap(action => this.snackBar.open('Novedad actualizada correctamente', 'Ok'))
+    tap(action => this.snackBar.open('Novedad actualizada correctamente', 'Ok', { duration: 5 * 1000 })),
+    tap(action => this.router.navigate(['/novelties']))
   );
 
   @Effect({ dispatch: false }) updateNoveltyError$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.UpdateNoveltyError),
-    tap(action => this.snackBar.open('Error actualizando la novedad', 'Ok'))
+    tap(action => this.snackBar.open('Error actualizando la novedad', 'Ok', { duration: 5 * 1000 }))
   );
 
   public constructor(

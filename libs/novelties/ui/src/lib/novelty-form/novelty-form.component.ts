@@ -1,11 +1,20 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-
-import { LoadStatuses, ApiError } from "@kirby/shared";
+import { get } from 'lodash';
 import { Subject } from 'rxjs/internal/Subject';
 import { timer } from 'rxjs/internal/observable/timer';
-import { get } from 'lodash';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy
+} from '@angular/core';
+
+import { LoadStatuses } from '@kirby/shared';
+import moment from 'moment';
 
 @Component({
   selector: 'kirby-novelty-form',
@@ -13,8 +22,7 @@ import { get } from 'lodash';
   styleUrls: ['./novelty-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NoveltyFormComponent implements OnInit {
-
+export class NoveltyFormComponent implements OnInit, OnDestroy {
   @Input()
   public defaults: any;
 
@@ -43,7 +51,7 @@ export class NoveltyFormComponent implements OnInit {
 
   public form: FormGroup;
 
-  public constructor(private formBuilder: FormBuilder) { }
+  public constructor(private formBuilder: FormBuilder) {}
 
   public ngOnInit() {
     this.buildForm();
@@ -60,30 +68,55 @@ export class NoveltyFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       employee: [, [Validators.required]],
       novelty_type: [, [Validators.required]],
-      total_time_in_minutes: [, [Validators.required]],
+      scheduled_end_at: [, [Validators.required]],
+      scheduled_start_at: [, [Validators.required]],
+      total_time_in_minutes: [],
+      comment: []
     });
   }
 
   private patchForm() {
-    if (this.defaults) {
-      this.form.patchValue(this.defaults);
+    if (!this.defaults) {
+      return;
     }
+
+    if (! this.hasScheduledTimes && this.defaults.total_time_in_minutes) {
+      this.form.get('scheduled_start_at').setValidators([]);
+      this.form.get('scheduled_end_at').setValidators([]);
+      this.form.get('total_time_in_minutes').setValidators([Validators.required]);
+    }
+
+    this.form.patchValue({
+      ...this.defaults,
+      scheduled_start_at: this.formatDate(this.defaults.scheduled_start_at),
+      scheduled_end_at: this.formatDate(this.defaults.scheduled_end_at)
+    });
+  }
+
+  private formatDate(date) {
+    return date ? moment(date).format('YYYY-MM-DDTHH:mm') : null;
   }
 
   private listenFormChanges() {
-    this.form.get('employee').valueChanges.pipe(
-      debounce(() => timer(400)),
-      filter(value => typeof value === 'string'),
-      tap(value => this.searchEmployees.emit({ search: value })),
-      takeUntil(this.destroy$),
-    ).subscribe();
+    this.form
+      .get('employee')
+      .valueChanges.pipe(
+        debounce(() => timer(400)),
+        filter(value => typeof value === 'string'),
+        tap(value => this.searchEmployees.emit({ search: value })),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
 
-    this.form.get('novelty_type').valueChanges.pipe(
-      debounce(() => timer(400)),
-      filter(value => typeof value === 'string'),
-      tap(value => this.searchNoveltyTypes.emit({ search: value })),
-      takeUntil(this.destroy$),
-    ).subscribe();
+    this.form
+      .get('novelty_type')
+      .valueChanges.pipe(
+        debounce(() => timer(400)),
+        filter(value => typeof value === 'string'),
+        tap(value => this.searchNoveltyTypes.emit({ search: value })),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   public get allEmployees(): any[] {
@@ -96,6 +129,18 @@ export class NoveltyFormComponent implements OnInit {
     return (this.noveltyTypesFound || [])
       .concat(get(this.defaults, 'novelty_type'))
       .filter(nt => !!nt);
+  }
+
+  public get hasScheduledTimes(): boolean {
+    return (
+      this.defaults &&
+      this.defaults.scheduled_start_at &&
+      this.defaults.scheduled_end_at
+    );
+  }
+
+  public get displayScheduledTimesFields(): boolean {
+    return (this.hasScheduledTimes || !this.defaults);
   }
 
   public get disableFormSubmitBtn(): boolean {
@@ -126,16 +171,29 @@ export class NoveltyFormComponent implements OnInit {
 
   public submit() {
     const formValue = this.form.value;
+    let scheduledTimes = {
+      scheduled_start_at: null,
+      scheduled_end_at: null,
+    };
+
+    if (this.displayScheduledTimesFields) {
+      scheduledTimes = {
+        scheduled_start_at: moment(formValue.scheduled_start_at).toISOString(),
+        scheduled_end_at: moment(formValue.scheduled_end_at).toISOString(),
+      };
+    }
+
     this.submitted.emit({
       id: this.defaults ? this.defaults.id : null,
       employee_id: formValue.employee.id,
       novelty_type_id: formValue.novelty_type.id,
       total_time_in_minutes: formValue.total_time_in_minutes,
+      comment: formValue.comment,
+      ...scheduledTimes
     });
   }
 
   public trash() {
     this.trashed.emit(this.defaults);
   }
-
 }
