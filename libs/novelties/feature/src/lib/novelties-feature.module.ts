@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { SharedModule } from '@kirby/shared';
 import { NoveltiesUiModule } from '@kirby/novelties/ui';
@@ -16,6 +18,7 @@ import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
 import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
 import { NoveltiesPageComponent } from './novelties-page/novelties-page.component';
 import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
+import { ReportByEmployeePageComponent } from './report-by-employee-page/report-by-employee-page.component';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
 
 @NgModule({
@@ -25,10 +28,12 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    NoveltiesUiModule,
     MatTooltipModule,
+    NoveltiesUiModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
     AuthorizationUiModule,
+    MatAutocompleteModule,
     NoveltiesDataAccessModule,
     EmployeesDataAccessModule,
     RouterModule.forChild([
@@ -39,21 +44,24 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
       },
       {
         path: ':id/edit',
-        pathMatch: 'full',
         component: EditNoveltyPageComponent
       },
       {
+        path: 'report-by-employee',
+        component: ReportByEmployeePageComponent
+      },
+      {
         path: 'create-novelties-to-employees',
-        pathMatch: 'full',
         component: CreateNoveltiesToEmployeesPageComponent
       }
     ]),
     EffectsModule.forFeature([NoveltiesFeatureEffects])
   ],
   declarations: [
+    NoveltiesPageComponent,
     EditNoveltyPageComponent,
-    CreateNoveltiesToEmployeesPageComponent,
-    NoveltiesPageComponent
+    ReportByEmployeePageComponent,
+    CreateNoveltiesToEmployeesPageComponent
   ]
 })
 export class NoveltiesFeatureModule {}

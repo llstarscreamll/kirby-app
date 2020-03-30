@@ -8,14 +8,16 @@ import {
   GetNovelty,
   SearchNoveltyTypes,
   UpdateNovelty,
-  GetNoveltyOk,
   CleanSelectedNovelty,
   CreateNoveltiesToEmployees,
   CleanApiErrors,
   ResetCreateNoveltiesToEmployees,
   ApproveNovelty,
   DeleteNoveltyApproval,
-  TrashNovelty
+  TrashNovelty,
+  GetReportByEmployee,
+  GetReportByEmployeeOk,
+  UpdateReportByEmployeeQuery
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -35,6 +37,9 @@ export class NoveltiesFacade {
   public selectedNovelty$ = this.store.pipe(
     select(noveltiesQuery.getSelectedNovelty)
   );
+  public reportByEmployee$ = this.store.pipe(
+    select(noveltiesQuery.getReportByEmployee)
+  )
 
   public constructor(private store: Store<NoveltiesPartialState>) {}
 
@@ -44,6 +49,19 @@ export class NoveltiesFacade {
 
   public get(noveltyId: string) {
     this.store.dispatch(new GetNovelty(noveltyId));
+  }
+
+  public getReportByEmployee(employeeId: string, startDate: string, endDate:string) {
+    this.store.dispatch(new GetReportByEmployee({employee_id: employeeId, start_date: startDate, end_date: endDate}));
+  }
+
+  public updateReportByEmployeeQuery(query: any) {
+    this.store.dispatch(new UpdateReportByEmployeeQuery(query));
+  }
+
+  cleanReportByEmployee() {
+    this.store.dispatch(new CleanApiErrors());
+    this.store.dispatch(new GetReportByEmployeeOk(null));
   }
 
   public update(noveltyId: string, noveltyData) {

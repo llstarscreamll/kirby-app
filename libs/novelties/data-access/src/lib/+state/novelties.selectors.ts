@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { Pagination } from '@kirby/shared';
-import { NoveltyModel } from '@kirby/novelties/data';
+import { NoveltyModel, NoveltyReport } from '@kirby/novelties/data';
 import { NOVELTIES_FEATURE_KEY, NoveltiesState } from './novelties.reducer';
 
 // Lookup the 'Novelties' feature state managed by NgRx
@@ -32,6 +32,10 @@ const getSelectedNovelty = createSelector(
   getNoveltiesState,
   (state: NoveltiesState) => state.selected
 );
+const getReportByEmployee = createSelector(
+  getNoveltiesState,
+  (state: NoveltiesState) => state.reportByEmployee ? new NoveltyReport(state.reportByEmployee) : null
+);
 
 function mapPaginatedDataToModel(
   paginatedData: Pagination<any>
@@ -43,10 +47,11 @@ function mapPaginatedDataToModel(
 }
 
 export const noveltiesQuery = {
+  getLoaded,
+  getError,
   getPaginatedList,
   getSelectedNovelty,
+  getReportByEmployee,
   getPaginatedNoveltyTypesList,
-  getLoaded,
   getCreateNoveltiesToEmployeesStatus,
-  getError
 };

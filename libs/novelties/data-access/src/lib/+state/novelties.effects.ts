@@ -27,7 +27,11 @@ import {
   DeleteNoveltyApprovalError,
   TrashNovelty,
   TrashNoveltyOk,
-  TrashNoveltyError
+  TrashNoveltyError,
+  GetReportByEmployee,
+  GetReportByEmployeeOk,
+  GetReportByEmployeeError,
+  UpdateReportByEmployeeQuery
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -83,6 +87,31 @@ export class NoveltiesEffects {
           .pipe(map(apiResponse => new GetNoveltyOk(apiResponse))),
       onError: (action: GetNovelty, error) => new GetNoveltyError(error)
     }
+  );
+
+  @Effect() getReportByEmployee$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.GetReportByEmployee,
+    {
+      run: ({
+        payload: { employee_id, start_date, end_date }
+      }: GetReportByEmployee) =>
+        this.noveltyService
+          .getReportByEmployee(employee_id, start_date, end_date)
+          .pipe(map(apiResponse => new GetReportByEmployeeOk(apiResponse))),
+      onError: (_: GetReportByEmployee, error) =>
+        new GetReportByEmployeeError(error)
+    }
+  );
+
+  @Effect() updateReportByEmployeeQuery$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.UpdateReportByEmployeeQuery),
+    tap(({ payload }: UpdateReportByEmployeeQuery) =>
+      this.router.navigate([], { queryParams: payload })
+    ),
+    map(
+      ({ payload }: UpdateReportByEmployeeQuery) =>
+        new GetReportByEmployee(payload)
+    )
   );
 
   @Effect() updateNovelty$ = this.dataPersistence.optimisticUpdate(
@@ -162,13 +191,21 @@ export class NoveltiesEffects {
 
   @Effect({ dispatch: false }) updateNoveltyOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.UpdateNoveltyOk),
-    tap(action => this.snackBar.open('Novedad actualizada correctamente', 'Ok', { duration: 5 * 1000 })),
+    tap(action =>
+      this.snackBar.open('Novedad actualizada correctamente', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
     tap(action => this.router.navigate(['/novelties']))
   );
 
   @Effect({ dispatch: false }) updateNoveltyError$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.UpdateNoveltyError),
-    tap(action => this.snackBar.open('Error actualizando la novedad', 'Ok', { duration: 5 * 1000 }))
+    tap(action =>
+      this.snackBar.open('Error actualizando la novedad', 'Ok', {
+        duration: 5 * 1000
+      })
+    )
   );
 
   public constructor(

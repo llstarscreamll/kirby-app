@@ -1,11 +1,19 @@
 <h1 class="my-4">Novedades</h1>
 
 <a
-  *kirbyCan="'novelties.create-novelties-to-users'"
+  *kirbyCan="'novelties.create-many'"
   routerLink="/novelties/create-novelties-to-employees"
   mat-stroked-button
 >
-  Registrar novedades a empleados
+  Registrar novedades
+</a>
+<a
+  *kirbyCan="'novelties.report-by-employee'"
+  routerLink="/novelties/report-by-employee"
+  mat-stroked-button
+  class="ml-2"
+>
+  Reporte por empleado
 </a>
 
 <div class="mt-2">
