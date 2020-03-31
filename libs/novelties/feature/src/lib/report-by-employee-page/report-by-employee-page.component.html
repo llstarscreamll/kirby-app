@@ -58,7 +58,6 @@
     <thead>
       <tr>
         <th>Fecha</th>
-        <th>Documento</th>
         <th>SCC</th>
         <th>Total Hrs.</th>
         <th>Novedades</th>
@@ -70,7 +69,6 @@
     <tbody>
       <tr *ngFor="let row of (noveltiesReport$ | async)?.data">
         <td>{{ row.date | date }}</td>
-        <td>{{ row.employee.identification_number }}</td>
         <td>
           <div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div>
         </td>
