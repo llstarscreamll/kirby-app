@@ -1,6 +1,6 @@
 @setup
-require '/Users/johan_alvarez/.composer/vendor/autoload.php';
-\Dotenv\Dotenv::create(__DIR__, '.env')->load();
+require '/Users/johan/.composer/vendor/autoload.php';
+\Dotenv\Dotenv::createImmutable(__DIR__, '.env')->load();
 
 $site = env(strtoupper($target ?? 'lab').'_SITE');
 $userAndServers = explode(';', env(strtoupper($target ?? 'lab').'_SERVERS'));
