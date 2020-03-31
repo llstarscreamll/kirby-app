@@ -46,12 +46,12 @@ class ReportRow {
     );
   }
 
-  userHasNotApprovals(user: User): boolean {
-    return (
-      user &&
+  userHasAnyToApprove(userId: string): boolean {
+    return this.approvals.length == 0 || (
+      userId &&
       this.approvals
         .map(approval => approval.id)
-        .filter(approvalId => approvalId !== user.id).length > 0
+        .filter(approvalId => approvalId !== userId).length > 0
     );
   }
 }
