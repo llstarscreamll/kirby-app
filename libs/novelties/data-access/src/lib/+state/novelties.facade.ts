@@ -17,7 +17,8 @@ import {
   TrashNovelty,
   GetReportByEmployee,
   GetReportByEmployeeOk,
-  UpdateReportByEmployeeQuery
+  UpdateReportByEmployeeQuery,
+  SetApprovalsByEmployeeAndDateRange
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -98,6 +99,10 @@ export class NoveltiesFacade {
 
   public approve(noveltyId: string, user: User) {
     this.store.dispatch(new ApproveNovelty({ noveltyId, user }));
+  }
+
+  public setApprovalsByEmployeeAndDateRange(employeeId: string, startDate: string, endDate: string) {
+    this.store.dispatch(new SetApprovalsByEmployeeAndDateRange({ employeeId, startDate, endDate }));
   }
 
   public deleteNoveltyApproval(noveltyId: string, user: User) {

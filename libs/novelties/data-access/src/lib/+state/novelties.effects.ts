@@ -31,7 +31,10 @@ import {
   GetReportByEmployee,
   GetReportByEmployeeOk,
   GetReportByEmployeeError,
-  UpdateReportByEmployeeQuery
+  UpdateReportByEmployeeQuery,
+  SetApprovalsByEmployeeAndDateRange,
+  SetApprovalsByEmployeeAndDateRangeError,
+  SetApprovalsByEmployeeAndDateRangeOk
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -150,6 +153,46 @@ export class NoveltiesEffects {
         });
       }
     }
+  );
+
+  @Effect()
+  public setApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange,
+    {
+      run: ({
+        payload: { employeeId, startDate, endDate }
+      }: SetApprovalsByEmployeeAndDateRange) => {
+        return this.noveltyService
+          .setApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
+          .pipe(
+            map(response => new SetApprovalsByEmployeeAndDateRangeOk(response))
+          );
+      },
+      onError: (action: SetApprovalsByEmployeeAndDateRange, error) => {
+        return new SetApprovalsByEmployeeAndDateRangeError({
+          ...action.payload,
+          error: error
+        });
+      }
+    }
+  );
+
+  @Effect({ dispatch: false }) setApprovalsByEmployeeAndDateRangeOk$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeOk),
+    tap(action =>
+      this.snackBar.open('Actualiza el reporte para ver los cambios', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
+  );
+
+  @Effect({ dispatch: false }) setApprovalsByEmployeeAndDateRangeError$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeError),
+    tap(action =>
+      this.snackBar.open('Ocurrió un error realizando la operación.', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
   );
 
   @Effect()

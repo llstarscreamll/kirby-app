@@ -45,11 +45,18 @@ export class NoveltyService extends BaseService {
       .get<any>(endpoint, { headers: this.defaultHeaders })
       .pipe(map(response => response.data));
   }
-  
-  public getReportByEmployee(employeeId: string, startDate:string, endDate:string): Observable<any> {
+
+  public getReportByEmployee(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ): Observable<any> {
     const endpoint = `${this.endpoint}report-by-employee/${employeeId}`;
     return this.http
-      .get<any>(endpoint, { headers: this.defaultHeaders, params: { start_date: startDate, end_date: endDate } })
+      .get<any>(endpoint, {
+        headers: this.defaultHeaders,
+        params: { start_date: startDate, end_date: endDate }
+      })
       .pipe(map(response => response.data));
   }
 
@@ -68,6 +75,23 @@ export class NoveltyService extends BaseService {
   public approve(noveltyId: string): Observable<any> {
     const endpoint = `${this.endpoint}${noveltyId}/approvals`;
     return this.http.post<any>(endpoint, {}, { headers: this.defaultHeaders });
+  }
+
+  public setApprovalsByEmployeeAndDateRange(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ): Observable<any> {
+    const endpoint = `${this.endpoint}approvals-by-employee-and-date-range`;
+    return this.http.post<any>(
+      endpoint,
+      {
+        employee_id: employeeId,
+        start_date: startDate,
+        end_date: endDate
+      },
+      { headers: this.defaultHeaders }
+    );
   }
 
   public deleteApproval(noveltyId: string): Observable<any> {

@@ -92,7 +92,7 @@
         <td>
           <button
             *ngIf="row.userHasAnyToApprove(user.id)"
-            (click)="setApproval(row.employee.id, row.date)"
+            (click)="setApprovals(row.employee.id, row.date)"
             matTooltip="Aprobar todo en este día"
             mat-icon-button
             color="primary"

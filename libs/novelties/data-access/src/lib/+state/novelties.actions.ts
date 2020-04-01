@@ -19,6 +19,10 @@ export enum NoveltiesActionTypes {
   ApproveNoveltyOk = '[Novelties] approve ok',
   ApproveNoveltyError = '[Novelties] approve error',
 
+  SetApprovalsByEmployeeAndDateRange = '[Novelties] set approvals by employee and date range',
+  SetApprovalsByEmployeeAndDateRangeOk = '[Novelties] set approvals by employee and date range ok',
+  SetApprovalsByEmployeeAndDateRangeError = '[Novelties] set approvals by employee and date range error',
+
   DeleteNoveltyApproval = '[Novelties] delete approval',
   DeleteNoveltyApprovalOk = '[Novelties] delete approval ok',
   DeleteNoveltyApprovalError = '[Novelties] delete approval error',
@@ -97,6 +101,23 @@ export class ApproveNoveltyError implements Action {
   constructor(public payload: { noveltyId: string; user: User; error: any }) {}
 }
 
+export class SetApprovalsByEmployeeAndDateRange implements Action {
+  readonly type = NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange;
+  constructor(
+    public payload: { employeeId: string, startDate: string, endDate: string }
+  ) {}
+}
+
+export class SetApprovalsByEmployeeAndDateRangeOk implements Action {
+  readonly type = NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeOk;
+  constructor(public payload: any) {}
+}
+
+export class SetApprovalsByEmployeeAndDateRangeError implements Action {
+  readonly type = NoveltiesActionTypes.ApproveNoveltyError;
+  constructor(public payload: { employeeId: string, startDate: string, endDate: string, error: any }) {}
+}
+
 export class DeleteNoveltyApproval implements Action {
   readonly type = NoveltiesActionTypes.DeleteNoveltyApproval;
   constructor(public payload: { noveltyId: string; user: User }) {}
@@ -130,7 +151,11 @@ export class GetNoveltyError implements Action {
 export class GetReportByEmployee implements Action {
   readonly type = NoveltiesActionTypes.GetReportByEmployee;
   constructor(
-    public payload: { employee_id: string; start_date: string; end_date: string }
+    public payload: {
+      employee_id: string;
+      start_date: string;
+      end_date: string;
+    }
   ) {}
 }
 
@@ -218,6 +243,9 @@ export type NoveltiesAction =
   | ApproveNovelty
   | ApproveNoveltyOk
   | ApproveNoveltyError
+  | SetApprovalsByEmployeeAndDateRange
+  | SetApprovalsByEmployeeAndDateRangeOk
+  | SetApprovalsByEmployeeAndDateRangeError
   | DeleteNoveltyApproval
   | DeleteNoveltyApprovalOk
   | DeleteNoveltyApprovalError
@@ -251,6 +279,9 @@ export const fromNoveltiesActions = {
   ApproveNovelty,
   ApproveNoveltyOk,
   ApproveNoveltyError,
+  SetApprovalsByEmployeeAndDateRange,
+  SetApprovalsByEmployeeAndDateRangeOk,
+  SetApprovalsByEmployeeAndDateRangeError,
   DeleteNoveltyApproval,
   DeleteNoveltyApprovalOk,
   DeleteNoveltyApprovalError,

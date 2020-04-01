@@ -24,14 +24,18 @@ function objectIsSelected(control) {
   styleUrls: ['./report-by-employee-page.component.scss']
 })
 export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
-
   destroy$ = new Subject();
   noveltiesReport$: Observable<NoveltyReport>;
 
   errors$ = this.noveltyFacade.error$;
   foundEmployees$ = this.employeesFacade.paginatedEmployees$;
-  user$ = this.authFacade.authUser$.pipe(tap(user => this.user = user), takeUntil(this.destroy$)).subscribe();
-  
+  user$ = this.authFacade.authUser$
+    .pipe(
+      tap(user => (this.user = user)),
+      takeUntil(this.destroy$)
+    )
+    .subscribe();
+
   user: User;
   searchForm: FormGroup;
 
@@ -142,13 +146,17 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  setApproval(employeeId: string, date: string) {
+  setApprovals(employeeId: string, day: string) {
+    const date = moment(day);
 
+    this.noveltyFacade.setApprovalsByEmployeeAndDateRange(
+      employeeId,
+      date.startOf('day').toISOString(),
+      date.endOf('day').toISOString()
+    );
   }
 
-  deleteApprovals(row) {
-
-  }
+  deleteApprovals(row) {}
 
   searchSubmitted() {
     const formValue = this.searchForm.value;
