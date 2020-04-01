@@ -102,7 +102,7 @@
           </button>
           <button
             *ngIf="row.userHasApprovals(user)"
-            (click)="deleteApprovals(row)"
+            (click)="deleteApprovals(row.employee.id, row.date)"
             matTooltip="Borrar aprobaciones de este día"
             mat-icon-button
             color="warn"

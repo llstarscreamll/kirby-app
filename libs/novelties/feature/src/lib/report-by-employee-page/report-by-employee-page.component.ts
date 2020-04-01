@@ -156,7 +156,15 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteApprovals(row) {}
+  deleteApprovals(employeeId: string, day: string) {
+    const date = moment(day);
+
+    this.noveltyFacade.deleteApprovalsByEmployeeAndDateRange(
+      employeeId,
+      date.startOf('day').toISOString(),
+      date.endOf('day').toISOString()
+    );
+  }
 
   searchSubmitted() {
     const formValue = this.searchForm.value;

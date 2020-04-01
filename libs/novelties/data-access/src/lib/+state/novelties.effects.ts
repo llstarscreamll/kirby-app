@@ -34,7 +34,10 @@ import {
   UpdateReportByEmployeeQuery,
   SetApprovalsByEmployeeAndDateRange,
   SetApprovalsByEmployeeAndDateRangeError,
-  SetApprovalsByEmployeeAndDateRangeOk
+  SetApprovalsByEmployeeAndDateRangeOk,
+  DeleteApprovalsByEmployeeAndDateRange,
+  DeleteApprovalsByEmployeeAndDateRangeOk,
+  DeleteApprovalsByEmployeeAndDateRangeError
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -230,6 +233,46 @@ export class NoveltiesEffects {
         });
       }
     }
+  );
+
+  @Effect()
+  public deleteApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRange,
+    {
+      run: ({
+        payload: { employeeId, startDate, endDate }
+      }: DeleteApprovalsByEmployeeAndDateRange) => {
+        return this.noveltyService
+          .deleteApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
+          .pipe(
+            map(response => new DeleteApprovalsByEmployeeAndDateRangeOk(response))
+          );
+      },
+      onError: (action: DeleteApprovalsByEmployeeAndDateRange, error) => {
+        return new DeleteApprovalsByEmployeeAndDateRangeError({
+          ...action.payload,
+          error: error
+        });
+      }
+    }
+  );
+
+  @Effect({ dispatch: false }) deleteApprovalsByEmployeeAndDateRangeOk$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeOk),
+    tap(action =>
+      this.snackBar.open('Actualiza el reporte para ver los cambios', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
+  );
+
+  @Effect({ dispatch: false }) deleteApprovalsByEmployeeAndDateRangeError$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError),
+    tap(action =>
+      this.snackBar.open('Ocurrió un error realizando la operación.', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
   );
 
   @Effect({ dispatch: false }) updateNoveltyOk$ = this.actions$.pipe(

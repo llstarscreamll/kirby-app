@@ -94,6 +94,22 @@ export class NoveltyService extends BaseService {
     );
   }
 
+  public deleteApprovalsByEmployeeAndDateRange(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ): Observable<any> {
+    const endpoint = `${this.endpoint}approvals-by-employee-and-date-range`;
+    return this.http.delete<any>(endpoint, {
+      headers: this.defaultHeaders,
+      params: {
+        employee_id: employeeId,
+        start_date: startDate,
+        end_date: endDate
+      }
+    });
+  }
+
   public deleteApproval(noveltyId: string): Observable<any> {
     // always send 1, approval id doesn't matters, since the authenticated user
     // approval to said noveltyId will be deleted

@@ -18,7 +18,8 @@ import {
   GetReportByEmployee,
   GetReportByEmployeeOk,
   UpdateReportByEmployeeQuery,
-  SetApprovalsByEmployeeAndDateRange
+  SetApprovalsByEmployeeAndDateRange,
+  DeleteApprovalsByEmployeeAndDateRange
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -40,7 +41,7 @@ export class NoveltiesFacade {
   );
   public reportByEmployee$ = this.store.pipe(
     select(noveltiesQuery.getReportByEmployee)
-  )
+  );
 
   public constructor(private store: Store<NoveltiesPartialState>) {}
 
@@ -52,8 +53,18 @@ export class NoveltiesFacade {
     this.store.dispatch(new GetNovelty(noveltyId));
   }
 
-  public getReportByEmployee(employeeId: string, startDate: string, endDate:string) {
-    this.store.dispatch(new GetReportByEmployee({employee_id: employeeId, start_date: startDate, end_date: endDate}));
+  public getReportByEmployee(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ) {
+    this.store.dispatch(
+      new GetReportByEmployee({
+        employee_id: employeeId,
+        start_date: startDate,
+        end_date: endDate
+      })
+    );
   }
 
   public updateReportByEmployeeQuery(query: any) {
@@ -101,11 +112,31 @@ export class NoveltiesFacade {
     this.store.dispatch(new ApproveNovelty({ noveltyId, user }));
   }
 
-  public setApprovalsByEmployeeAndDateRange(employeeId: string, startDate: string, endDate: string) {
-    this.store.dispatch(new SetApprovalsByEmployeeAndDateRange({ employeeId, startDate, endDate }));
+  public setApprovalsByEmployeeAndDateRange(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ) {
+    this.store.dispatch(
+      new SetApprovalsByEmployeeAndDateRange({ employeeId, startDate, endDate })
+    );
   }
 
   public deleteNoveltyApproval(noveltyId: string, user: User) {
     this.store.dispatch(new DeleteNoveltyApproval({ noveltyId, user }));
+  }
+
+  public deleteApprovalsByEmployeeAndDateRange(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ) {
+    this.store.dispatch(
+      new DeleteApprovalsByEmployeeAndDateRange({
+        employeeId,
+        startDate,
+        endDate
+      })
+    );
   }
 }

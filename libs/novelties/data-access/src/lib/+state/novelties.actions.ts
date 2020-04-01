@@ -27,6 +27,10 @@ export enum NoveltiesActionTypes {
   DeleteNoveltyApprovalOk = '[Novelties] delete approval ok',
   DeleteNoveltyApprovalError = '[Novelties] delete approval error',
 
+  DeleteApprovalsByEmployeeAndDateRange = '[Novelties] delete approvals by employee and date range',
+  DeleteApprovalsByEmployeeAndDateRangeOk = '[Novelties] delete approvals by employee and date range ok',
+  DeleteApprovalsByEmployeeAndDateRangeError = '[Novelties] delete approvals by employee and date range error',
+
   GetNovelty = '[Novelties] get',
   GetNoveltyOk = '[Novelties] get ok',
   GetNoveltyError = '[Novelties] get error',
@@ -104,7 +108,7 @@ export class ApproveNoveltyError implements Action {
 export class SetApprovalsByEmployeeAndDateRange implements Action {
   readonly type = NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange;
   constructor(
-    public payload: { employeeId: string, startDate: string, endDate: string }
+    public payload: { employeeId: string; startDate: string; endDate: string }
   ) {}
 }
 
@@ -114,8 +118,15 @@ export class SetApprovalsByEmployeeAndDateRangeOk implements Action {
 }
 
 export class SetApprovalsByEmployeeAndDateRangeError implements Action {
-  readonly type = NoveltiesActionTypes.ApproveNoveltyError;
-  constructor(public payload: { employeeId: string, startDate: string, endDate: string, error: any }) {}
+  readonly type = NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeError;
+  constructor(
+    public payload: {
+      employeeId: string;
+      startDate: string;
+      endDate: string;
+      error: any;
+    }
+  ) {}
 }
 
 export class DeleteNoveltyApproval implements Action {
@@ -132,6 +143,31 @@ export class DeleteNoveltyApprovalError implements Action {
   readonly type = NoveltiesActionTypes.DeleteNoveltyApprovalError;
   constructor(public payload: { noveltyId: string; user: User; error: any }) {}
 }
+
+export class DeleteApprovalsByEmployeeAndDateRange implements Action {
+  readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRange;
+  constructor(
+    public payload: { employeeId: string; startDate: string; endDate: string }
+  ) {}
+}
+
+export class DeleteApprovalsByEmployeeAndDateRangeOk implements Action {
+  readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeOk;
+  constructor(public payload: any) {}
+}
+
+export class DeleteApprovalsByEmployeeAndDateRangeError implements Action {
+  readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
+  constructor(
+    public payload: {
+      employeeId: string;
+      startDate: string;
+      endDate: string;
+      error: any;
+    }
+  ) {}
+}
+
 
 export class GetNovelty implements Action {
   readonly type = NoveltiesActionTypes.GetNovelty;
@@ -249,6 +285,9 @@ export type NoveltiesAction =
   | DeleteNoveltyApproval
   | DeleteNoveltyApprovalOk
   | DeleteNoveltyApprovalError
+  | DeleteApprovalsByEmployeeAndDateRange
+  | DeleteApprovalsByEmployeeAndDateRangeOk
+  | DeleteApprovalsByEmployeeAndDateRangeError
   | GetNovelty
   | GetNoveltyOk
   | GetNoveltyError
@@ -285,6 +324,9 @@ export const fromNoveltiesActions = {
   DeleteNoveltyApproval,
   DeleteNoveltyApprovalOk,
   DeleteNoveltyApprovalError,
+  DeleteApprovalsByEmployeeAndDateRange,
+  DeleteApprovalsByEmployeeAndDateRangeOk,
+  DeleteApprovalsByEmployeeAndDateRangeError,
   GetNovelty,
   GetNoveltyOk,
   GetNoveltyError,
