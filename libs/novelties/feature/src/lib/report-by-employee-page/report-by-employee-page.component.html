@@ -58,6 +58,7 @@
     <thead>
       <tr>
         <th>Fecha</th>
+        <th>CC</th>
         <th>SCC</th>
         <th>Total Hrs.</th>
         <th>Novedades</th>
@@ -69,9 +70,8 @@
     <tbody>
       <tr *ngFor="let row of (noveltiesReport$ | async)?.data">
         <td>{{ row.date | date }}</td>
-        <td>
-          <div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div>
-        </td>
+        <td><div *ngFor="let cc of row.costCenters">{{ cc.code }}</div></td>
+        <td><div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div></td>
         <td>{{ row.totalHours }}</td>
         <td>
           <a

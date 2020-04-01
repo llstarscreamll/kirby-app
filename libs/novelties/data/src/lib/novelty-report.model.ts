@@ -16,6 +16,17 @@ class ReportRow {
     );
   }
 
+  get costCenters(): any[] {
+    return uniqBy(
+      this.novelties
+        .map(n => n.sub_cost_center)
+        .filter(s => !!s)
+        .map(scc => scc.cost_center)
+        .filter(cc => !!cc),
+      'id'
+    );
+  }
+
   get approvals(): any[] {
     return uniqBy(
       [].concat.apply([], this.novelties.map(n => n.approvals)),
@@ -47,11 +58,12 @@ class ReportRow {
   }
 
   userHasAnyToApprove(userId: string): boolean {
-    return this.approvals.length == 0 || (
-      userId &&
-      this.approvals
-        .map(approval => approval.id)
-        .filter(approvalId => approvalId !== userId).length > 0
+    return (
+      this.approvals.length == 0 ||
+      (userId &&
+        this.approvals
+          .map(approval => approval.id)
+          .filter(approvalId => approvalId !== userId).length > 0)
     );
   }
 }
