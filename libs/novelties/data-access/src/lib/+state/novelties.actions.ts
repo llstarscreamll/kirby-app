@@ -40,6 +40,10 @@ export enum NoveltiesActionTypes {
   GetReportByEmployeeError = '[Novelties] get report by employee error',
   UpdateReportByEmployeeQuery = '[Novelties] update report by employee query',
 
+  DownLoadNoveltiesReport = '[Novelties] download report',
+  DownLoadNoveltiesReportOk = '[Novelties] download report ok',
+  DownLoadNoveltiesReportError = '[Novelties] download report error',
+
   UpdateNovelty = '[Novelties] update',
   UpdateNoveltyOk = '[Novelties] update ok',
   UpdateNoveltyError = '[Novelties] update error',
@@ -205,6 +209,27 @@ export class GetReportByEmployeeError implements Action {
   constructor(public payload: any) {}
 }
 
+export class DownLoadNoveltiesReport implements Action {
+  readonly type = NoveltiesActionTypes.DownLoadNoveltiesReport;
+  constructor(
+    public payload: {
+      employee_id?: string;
+      start_date: string;
+      end_date: string;
+    }
+  ) {}
+}
+
+export class DownLoadNoveltiesReportOk implements Action {
+  readonly type = NoveltiesActionTypes.DownLoadNoveltiesReportOk;
+  constructor(public payload: any[]) {}
+}
+
+export class DownLoadNoveltiesReportError implements Action {
+  readonly type = NoveltiesActionTypes.DownLoadNoveltiesReportError;
+  constructor(public payload: any) {}
+}
+
 export class UpdateReportByEmployeeQuery implements Action {
   readonly type = NoveltiesActionTypes.UpdateReportByEmployeeQuery;
   constructor(
@@ -295,6 +320,9 @@ export type NoveltiesAction =
   | GetReportByEmployeeOk
   | GetReportByEmployeeError
   | UpdateReportByEmployeeQuery
+  | DownLoadNoveltiesReport
+  | DownLoadNoveltiesReportOk
+  | DownLoadNoveltiesReportError
   | UpdateNovelty
   | UpdateNoveltyOk
   | UpdateNoveltyError
@@ -334,6 +362,9 @@ export const fromNoveltiesActions = {
   GetReportByEmployeeOk,
   GetReportByEmployeeError,
   UpdateReportByEmployeeQuery,
+  DownLoadNoveltiesReport,
+  DownLoadNoveltiesReportOk,
+  DownLoadNoveltiesReportError,
   UpdateNovelty,
   UpdateNoveltyOk,
   UpdateNoveltyError,

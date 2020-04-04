@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {MatMenuModule} from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -25,8 +26,9 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
   imports: [
     CommonModule,
     SharedModule,
-    MatInputModule,
     MatIconModule,
+    MatMenuModule,
+    MatInputModule,
     MatButtonModule,
     MatTooltipModule,
     NoveltiesUiModule,

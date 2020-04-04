@@ -2,6 +2,25 @@
 
 <kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
 
+<div class="text-right my-3">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="downloadMenu"
+    color="primary"
+    aria-label="Descargar reporte"
+  >
+    <mat-icon>cloud_download</mat-icon>
+  </button>
+  <mat-menu #downloadMenu="matMenu">
+    <button (click)="downloadSelectedFilter()" [disabled]="searchForm.invalid" mat-menu-item>
+      <span>Filtro seleccionado</span>
+    </button>
+    <button (click)="downloadAllOnDateRange()" [disabled]="!searchHasValidDates" mat-menu-item>
+      <span>Todo en el rango de fecha</span>
+    </button>
+  </mat-menu>
+</div>
+
 <form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5">
   <mat-form-field class="w-100">
     <input
@@ -44,7 +63,7 @@
   <div class="text-center">
     <button
       [disabled]="searchForm.invalid"
-      mat-raised-button
+      mat-stroked-button
       color="primary"
       type="submit"
     >
@@ -70,8 +89,12 @@
     <tbody>
       <tr *ngFor="let row of (noveltiesReport$ | async)?.data">
         <td>{{ row.date | date }}</td>
-        <td><div *ngFor="let cc of row.costCenters">{{ cc.code }}</div></td>
-        <td><div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div></td>
+        <td>
+          <div *ngFor="let cc of row.costCenters">{{ cc.code }}</div>
+        </td>
+        <td>
+          <div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div>
+        </td>
         <td>{{ row.totalHours }}</td>
         <td>
           <a

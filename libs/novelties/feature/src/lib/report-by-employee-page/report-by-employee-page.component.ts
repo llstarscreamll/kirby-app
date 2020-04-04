@@ -146,6 +146,10 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  get searchHasValidDates(): boolean {
+    return this.searchForm.get('start_date').valid && this.searchForm.get('end_date').valid;
+  }
+
   setApprovals(employeeId: string, day: string) {
     const date = moment(day);
 
@@ -173,6 +177,20 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
       employee_id: formValue.employee.id,
       start_date: formValue.start_date,
       end_date: formValue.end_date
+    });
+  }
+
+  downloadSelectedFilter() {
+    this.noveltyFacade.downloadReport({
+      ...this.searchForm.value,
+      employee_id: this.searchForm.value.employee.id
+    });
+  }
+
+  downloadAllOnDateRange() {
+    this.noveltyFacade.downloadReport({
+      ...this.searchForm.value,
+      employee_id: null
     });
   }
 }

@@ -60,6 +60,19 @@ export class NoveltyService extends BaseService {
       .pipe(map(response => response.data));
   }
 
+  public downloadReport(query: {
+    employee_id?: string;
+    start_date: string;
+    end_date: string;
+  }): Observable<any> {
+    const endpoint = `${this.endpoint}export`;
+    return this.http
+      .post<any>(endpoint, query, {
+        headers: this.defaultHeaders
+      })
+      .pipe(map(response => response.data));
+  }
+
   public update(id: string, noveltyData: any): Observable<any> {
     const endpoint = this.endpoint + id;
     return this.http

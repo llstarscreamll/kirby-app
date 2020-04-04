@@ -19,7 +19,8 @@ import {
   GetReportByEmployeeOk,
   UpdateReportByEmployeeQuery,
   SetApprovalsByEmployeeAndDateRange,
-  DeleteApprovalsByEmployeeAndDateRange
+  DeleteApprovalsByEmployeeAndDateRange,
+  DownLoadNoveltiesReport
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -138,5 +139,13 @@ export class NoveltiesFacade {
         endDate
       })
     );
+  }
+
+  downloadReport(query: {
+    employee_id?: string;
+    start_date: string;
+    end_date: string;
+  }) {
+    this.store.dispatch(new DownLoadNoveltiesReport(query));
   }
 }

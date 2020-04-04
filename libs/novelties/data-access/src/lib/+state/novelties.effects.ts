@@ -37,7 +37,10 @@ import {
   SetApprovalsByEmployeeAndDateRangeOk,
   DeleteApprovalsByEmployeeAndDateRange,
   DeleteApprovalsByEmployeeAndDateRangeOk,
-  DeleteApprovalsByEmployeeAndDateRangeError
+  DeleteApprovalsByEmployeeAndDateRangeError,
+  DownLoadNoveltiesReport,
+  DownLoadNoveltiesReportError,
+  DownLoadNoveltiesReportOk
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -270,6 +273,44 @@ export class NoveltiesEffects {
     ofType(NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError),
     tap(action =>
       this.snackBar.open('Ocurrió un error realizando la operación.', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
+  );
+  
+  @Effect()
+  public downloadNoveltiesReport$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.DownLoadNoveltiesReport,
+    {
+      run: ({payload}: DownLoadNoveltiesReport) => {
+        return this.noveltyService
+          .downloadReport(payload)
+          .pipe(
+            map(response => new DownLoadNoveltiesReportOk(response))
+          );
+      },
+      onError: (action: DownLoadNoveltiesReport, error) => {
+        return new DownLoadNoveltiesReportError({
+          ...action.payload,
+          error: error
+        });
+      }
+    }
+  );
+
+  @Effect({ dispatch: false }) downloadNoveltiesReportOk$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.DownLoadNoveltiesReportOk),
+    tap(action =>
+      this.snackBar.open('El reporte será enviado a tu correo electrónico', 'Ok', {
+        duration: 5 * 1000
+      })
+    ),
+  );
+
+  @Effect({ dispatch: false }) downloadNoveltiesReportError$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.DownLoadNoveltiesReportError),
+    tap(action =>
+      this.snackBar.open('Ocurrió un error solicitando el reporte.', 'Ok', {
         duration: 5 * 1000
       })
     ),
