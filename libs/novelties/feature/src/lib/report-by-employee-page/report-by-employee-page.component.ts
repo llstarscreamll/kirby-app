@@ -147,7 +147,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   }
 
   get searchHasValidDates(): boolean {
-    return this.searchForm.get('start_date').valid && this.searchForm.get('end_date').valid;
+    return this.searchForm && this.searchForm.get('start_date').valid && this.searchForm.get('end_date').valid;
   }
 
   setApprovals(employeeId: string, day: string) {
