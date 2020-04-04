@@ -1,31 +1,27 @@
-<h1 (click)="searchTimeClockLogs()">Entradas/salidas</h1>
+<h1 (click)="searchTimeClockLogs()" class="my-4">Entradas/salidas</h1>
 
-<div class="row mt-4">
-  <div class="col-12">
-    <a
-      *kirbyCan="'time-clock-logs.check-in'"
-      routerLink="entry-and-exit-log"
-      mat-stroked-button
-      color="primary"
-      class="mr-2 mb-2"
-    >
-      Registrar entrada/salida
-    </a>
-  </div>
+<a
+  *kirbyCan="'time-clock-logs.check-in'"
+  routerLink="entry-and-exit-log"
+  mat-stroked-button
+  color="primary"
+>
+  Registrar entrada/salida
+</a>
 
-  <div class="col-12 mt-2">
-    <mat-form-field *kirbyCan="'time-clock-logs.search'" class="w-100">
-      <input
-        (change)="
-          searchTimeClockLogs({ search: $event.srcElement.value, page: 1 })
-        "
-        matInput
-        placeholder="Buscar por nombre, apellido, email, código o identificación"
-        type="search"
-      />
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-  </div>
+<div class="mt-4">
+  <mat-form-field *kirbyCan="'time-clock-logs.search'" class="w-100">
+    <input
+      (change)="
+        searchTimeClockLogs({ search: $event.srcElement.value, page: 1 })
+      "
+      matInput
+      placeholder="Buscar por nombre, apellido, email, código o identificación"
+      type="search"
+      autocomplete="off"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
 </div>
 
 <div class="table-responsive">

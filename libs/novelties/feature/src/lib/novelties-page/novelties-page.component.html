@@ -4,6 +4,7 @@
   *kirbyCan="'novelties.create-many'"
   routerLink="/novelties/create-novelties-to-employees"
   mat-stroked-button
+  color="primary"
 >
   Registrar novedades
 </a>
@@ -11,12 +12,13 @@
   *kirbyCan="'novelties.report-by-employee'"
   routerLink="/novelties/report-by-employee"
   mat-stroked-button
+  color="primary"
   class="ml-2"
 >
   Reporte por empleado
 </a>
 
-<div class="mt-2">
+<div class="mt-4">
   <mat-form-field class="w-100">
     <input
       *kirbyCan="'novelties.search'"
@@ -24,6 +26,7 @@
       matInput
       placeholder="Buscar por nombre, apellido, email, código, identificación o novedad"
       type="search"
+      autocomplete="off"
     />
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
