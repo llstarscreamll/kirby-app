@@ -258,7 +258,7 @@ export class NoveltiesEffects {
   );
 
   @Effect({ dispatch: false }) deleteApprovalsByEmployeeAndDateRangeOk$ = this.actions$.pipe(
-    ofType(NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeOk),
+    ofType(NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeOk),
     tap(action =>
       this.snackBar.open('Actualiza el reporte para ver los cambios', 'Ok', {
         duration: 5 * 1000
