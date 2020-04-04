@@ -228,15 +228,55 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
     expect(option.querySelector('button mat-icon')).toBeTruthy();
   });
 
-  it('should remove item from novelty type form controls array group on cancel button click', () => {
+  it('should remove item from novelty type form controls array group on remove button click', () => {
+    let formData = {
+      novelty_types: [
+        // two novelties
+        {
+          novelty_type: {
+            ...createNoveltyType('n1'),
+            requires_comment: true // this novelty type requires comment
+          },
+          scheduled_start_date: moment('2019-01-01 00:00:00'),
+          scheduled_start_hour: '10',
+          scheduled_start_minute: '00',
+          scheduled_end_date: moment('2019-01-01 00:00:00'),
+          scheduled_end_hour: '12',
+          scheduled_end_minute: '00',
+          comment: '' // empty comment
+        },
+        {
+          novelty_type: {
+            ...createNoveltyType('n2'),
+            requires_comment: true // this novelty type requires comment
+          },
+          scheduled_start_date: moment('2019-01-01 00:00:00'),
+          scheduled_start_hour: '10',
+          scheduled_start_minute: '00',
+          scheduled_end_date: moment('2019-01-01 00:00:00'),
+          scheduled_end_hour: '12',
+          scheduled_end_minute: '00',
+          comment: '' // empty comment
+        }
+      ]
+    };
+
+    component.addNoveltyOption();
+    component.form.patchValue(formData);
+    fixture.detectChanges();
+
     const firstOption = template.querySelector(
       '.novelty-type-options .option:first-child'
     );
 
+    // two novelties on form setted
+    expect(component.form.get('novelty_types').value.length).toBe(2);
+
     firstOption.querySelector<HTMLButtonElement>('button').click();
     fixture.detectChanges();
 
-    expect(component.form.get('novelty_types').value.length).toBe(0);
+    // one novelty on form setted
+    expect(component.form.get('novelty_types').value.length).toBe(1);
   });
 
   it('should add item from novelty type form controls array group on button click', () => {

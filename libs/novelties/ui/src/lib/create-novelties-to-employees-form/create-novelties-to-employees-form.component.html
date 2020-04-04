@@ -156,7 +156,7 @@
       </mat-form-field>
 
       <div class="text-right">
-        <button (click)="removeNoveltyOption(i)" mat-button color="warn">
+        <button (click)="removeNoveltyOption(i)" [disabled]="noveltyTypesArrayControl.length <= 1" mat-stroked-button color="warn">
           <mat-icon>cancel</mat-icon>
           Remover
         </button>
@@ -168,7 +168,7 @@
 
   <button
     (click)="addNoveltyOption()"
-    mat-raised-button
+    mat-stroked-button
     type="button"
     class="add-novelty-option"
   >
