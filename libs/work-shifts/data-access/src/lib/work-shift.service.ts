@@ -19,7 +19,7 @@ export class WorkShiftService extends BaseAuthService {
   ) { super(); }
 
   public search(query: any = {}): Observable<Pagination<WorkShiftInterface>> {
-    return this.http.get<Pagination<WorkShiftInterface>>(this.endpoint, { headers: this.defaultHeaders });
+    return this.http.get<Pagination<WorkShiftInterface>>(this.endpoint, { headers: this.defaultHeaders, params: query });
   }
 
   public create(workShiftData: any): Observable<WorkShiftInterface> {
