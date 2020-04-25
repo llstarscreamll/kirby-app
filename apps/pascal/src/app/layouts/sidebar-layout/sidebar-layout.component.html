@@ -38,9 +38,10 @@
     [opened]="!(isHandset$ | async) && (authenticated$ | async)"
   >
     <mat-nav-list>
-      <ng-container *ngFor="let menuItem of menuItems">
-        <a *kirbyCan="menuItem.can" mat-list-item [routerLink]="menuItem.link">
-          <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+      <ng-container *ngFor="let menuItem of menuItems"> 
+        <a *kirbyCan="menuItem.can" mat-list-item [routerLink]="menuItem.link" routerLinkActive="active">
+          <mat-icon>{{ menuItem.icon }}</mat-icon>
+          <span>{{ menuItem.label }}</span>
         </a>
       </ng-container>
     </mat-nav-list>
@@ -48,12 +49,9 @@
 
   <!-- main content -->
   <mat-sidenav-content>
-
     <!-- pages -->
-    <div class="container-fluid">
-      <div class="m-4">
-        <ng-content></ng-content>
-      </div>
+    <div ngClass="px-10"  class="mb-5 border-green-500">
+      <ng-content></ng-content>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

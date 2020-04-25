@@ -4,6 +4,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -67,6 +68,7 @@ export const routes: Route[] = [
 @NgModule({
   imports: [
     BrowserModule,
+    FlexLayoutModule,
     HttpClientModule,
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),

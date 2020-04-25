@@ -32,8 +32,8 @@
   </mat-form-field>
 </div>
 
-<div class="table-responsive">
-  <table class="table">
+<div class="responsive-table">
+  <table class="table table-auto shadow">
     <thead>
       <tr>
         <th>Id</th>
@@ -44,7 +44,7 @@
         <th>Horas</th>
         <th>Aprobaciones</th>
         <th>Creada en</th>
-        <th></th>
+        <th class="text-right"></th>
       </tr>
     </thead>
     <tbody>
@@ -63,7 +63,7 @@
           </div>
         </td>
         <td>{{ novelty.created_at | date: 'yy-MM-dd HH:mm' }}</td>
-        <td>
+        <td class="text-right">
           <button
             *ngIf="showApproveButton(novelty)"
             (click)="approveNovelty(novelty)"

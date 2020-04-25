@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+
+.responsive-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  @apply w-full rounded shadow;
+}
+
+table thead tr th {
+  @apply px-2 py-4 border-b-2;
+}
+
+table tbody tr td {
+  @apply border-b px-2 py-4;
+}
+
+@tailwind utilities;
