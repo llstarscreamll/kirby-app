@@ -20,7 +20,10 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
+            "assets": [
+              "apps/pascal/src/favicon.ico",
+              "apps/pascal/src/assets"
+            ],
             "styles": [
               "apps/pascal/src/styles.scss",
               "apps/pascal/src/styles.css"
@@ -102,7 +105,9 @@
               "apps/pascal/tsconfig.app.json",
               "apps/pascal/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -137,7 +142,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -155,7 +162,9 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -186,7 +195,9 @@
               "libs/shared/tsconfig.lib.json",
               "libs/shared/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -217,7 +228,9 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -248,7 +261,9 @@
               "libs/authentication/utils/tsconfig.lib.json",
               "libs/authentication/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -278,7 +293,9 @@
               "libs/work-shifts/util/tsconfig.lib.json",
               "libs/work-shifts/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -308,7 +325,9 @@
               "libs/work-shifts/feature/tsconfig.lib.json",
               "libs/work-shifts/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -339,7 +358,9 @@
               "libs/work-shifts/ui/tsconfig.lib.json",
               "libs/work-shifts/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -370,7 +391,9 @@
               "libs/time-clock-logs/data-access/tsconfig.lib.json",
               "libs/time-clock-logs/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -401,7 +424,9 @@
               "libs/time-clock-logs/util/tsconfig.lib.json",
               "libs/time-clock-logs/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -431,7 +456,9 @@
               "libs/users/util/tsconfig.lib.json",
               "libs/users/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -461,7 +488,9 @@
               "libs/time-clock-logs/feature/tsconfig.lib.json",
               "libs/time-clock-logs/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -492,7 +521,9 @@
               "libs/time-clock-logs/ui/tsconfig.lib.json",
               "libs/time-clock-logs/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -523,7 +554,9 @@
               "libs/employees/data-access/tsconfig.lib.json",
               "libs/employees/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -554,7 +587,9 @@
               "libs/employees/feature/tsconfig.lib.json",
               "libs/employees/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -585,7 +620,9 @@
               "libs/employees/util/tsconfig.lib.json",
               "libs/employees/util/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -615,7 +652,9 @@
               "libs/novelties/data/tsconfig.lib.json",
               "libs/novelties/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -645,7 +684,9 @@
               "libs/novelties/utils/tsconfig.lib.json",
               "libs/novelties/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -675,7 +716,9 @@
               "libs/novelty-types/utils/tsconfig.lib.json",
               "libs/novelty-types/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -705,7 +748,9 @@
               "libs/novelty-types/data/tsconfig.lib.json",
               "libs/novelty-types/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -735,7 +780,9 @@
               "libs/novelties/feature/tsconfig.lib.json",
               "libs/novelties/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -766,7 +813,9 @@
               "libs/novelties/ui/tsconfig.lib.json",
               "libs/novelties/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -797,7 +846,9 @@
               "libs/novelties/data-access/tsconfig.lib.json",
               "libs/novelties/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -828,7 +879,10 @@
               "libs/authorization/ui/tsconfig.lib.json",
               "libs/authorization/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/authorization/ui/**"
+            ]
           }
         },
         "test": {
@@ -859,7 +913,10 @@
               "libs/authorization/data/tsconfig.lib.json",
               "libs/authorization/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/authorization/data/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/authorization/data/**"
+            ]
           }
         },
         "test": {
@@ -884,7 +941,10 @@
               "libs/employees/testing/tsconfig.lib.json",
               "libs/employees/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/employees/testing/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/employees/testing/**"
+            ]
           }
         },
         "test": {
@@ -911,7 +971,10 @@
               "libs/novelties/testing/tsconfig.lib.json",
               "libs/novelties/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelties/testing/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelties/testing/**"
+            ]
           }
         },
         "test": {
@@ -938,7 +1001,10 @@
               "libs/novelty-types/testing/tsconfig.lib.json",
               "libs/novelty-types/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/testing/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/testing/**"
+            ]
           }
         },
         "test": {
@@ -995,7 +1061,10 @@
               "libs/users/testing/tsconfig.lib.json",
               "libs/users/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/users/testing/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/users/testing/**"
+            ]
           }
         },
         "test": {
@@ -1022,7 +1091,10 @@
               "libs/work-shifts/testing/tsconfig.lib.json",
               "libs/work-shifts/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/work-shifts/testing/**"
+            ]
           }
         },
         "test": {
@@ -1049,7 +1121,10 @@
               "libs/employees/ui/tsconfig.lib.json",
               "libs/employees/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/employees/ui/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/employees/ui/**"
+            ]
           }
         },
         "test": {
@@ -1080,7 +1155,10 @@
               "libs/cost-centers/data/tsconfig.lib.json",
               "libs/cost-centers/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/cost-centers/data/**"
+            ]
           }
         },
         "test": {
@@ -1094,7 +1172,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "2dd836ef-b6f2-44c2-bab1-8c08d7a4397c"
   },
   "schematics": {
     "@nrwl/schematics:application": {
