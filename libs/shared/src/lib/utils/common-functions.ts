@@ -8,7 +8,7 @@ import { Pagination } from '../interfaces/pagination';
 export function flatApiErrors(apiErrors: ApiError): string[] {
   const errors = [].concat(...toArray(get(apiErrors, 'error.errors')));
 
-  return errors.map(error => (isObject(error) ? error.detail : error));
+  return errors.map(error => (error?.detail ?? error));
 }
 
 /**
