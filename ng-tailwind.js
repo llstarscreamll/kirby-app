@@ -1,8 +1,8 @@
 module.exports = {
   // Tailwind Paths
-  configJS: '/Users/johan/Code/AlarComputing/angular-kirby/tailwind.config.js',
-  sourceCSS: '/Users/johan/Code/AlarComputing/angular-kirby/apps/pascal/src/tailwind.css',
-  outputCSS: '/Users/johan/Code/AlarComputing/angular-kirby/apps/pascal/src/styles.css',
+  configJS: './tailwind.config.js',
+  sourceCSS: './apps/pascal/src/tailwind.css',
+  outputCSS: './apps/pascal/src/styles.css',
   // Sass
   sass: false,
   // PurgeCSS Settings
