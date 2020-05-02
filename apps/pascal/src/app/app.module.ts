@@ -11,7 +11,11 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MatFormFieldModule,
+  MatFormFieldDefaultOptions,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS
+} from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -33,6 +37,8 @@ import { LandingPageComponent } from './containers/landing-page/landing-page.com
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
 import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
+
+const matFormFieldAppearance: MatFormFieldDefaultOptions = { appearance: 'outline' };
 
 export const routes: Route[] = [
   { path: '', pathMatch: 'full', component: LandingPageComponent },
@@ -102,7 +108,13 @@ export const routes: Route[] = [
     SignUpPageComponent,
     SidebarLayoutComponent
   ],
-  providers: [{ provide: 'environment', useValue: environment }],
+  providers: [
+    { provide: 'environment', useValue: environment },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: matFormFieldAppearance
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
