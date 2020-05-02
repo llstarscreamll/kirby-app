@@ -1,11 +1,11 @@
 <!-- top bar -->
-<mat-toolbar class="main-top-bar d-print-none">
+<mat-toolbar fxLayout="row" class="main-top-bar">
   <!-- Links if unauthenticated -->
   <ng-container *ngIf="!(authenticated$ | async)">
     <a [routerLink]="['/']">Pascal</a>
-    <div class="flex-fill"></div>
-    <a [routerLink]="['/sign-up']">Crear cuenta</a>
-    <a [routerLink]="['/login']">Entrar</a>
+    <span fxFlex="fill"></span>
+    <a [routerLink]="['/sign-up']" class="mx-3">Crear cuenta</a>
+    <a [routerLink]="['/login']" class="ml-3">Entrar</a>
   </ng-container>
 
   <!-- Links if authenticated -->
@@ -19,8 +19,8 @@
     >
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
-    <a [routerLink]="['/']">Pascal</a>
-    <div class="flex-fill"></div>
+    <a [routerLink]="['/']" class="mx-3">Pascal</a>
+    <div fxFlex="fill"></div>
     <button mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
