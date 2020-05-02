@@ -13,6 +13,7 @@ export interface EmployeeInterface {
   cost_center_id?: string;
   first_name: string;
   last_name: string;
+  email?: string;
   code: string;
   identification_number: string;
   position: string;
