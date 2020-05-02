@@ -2,21 +2,23 @@
 
 <a
   *kirbyCan="'novelties.create-many'"
-  routerLink="/novelties/create-novelties-to-employees"
+  routerLink="./create-novelties-to-employees"
   mat-stroked-button
   color="primary"
 >
   Registrar novedades
 </a>
-<a
+
+<div class="inline mx-3">
+  <a
   *kirbyCan="'novelties.report-by-employee'"
-  routerLink="/novelties/report-by-employee"
+  routerLink="./report-by-employee"
   mat-stroked-button
   color="primary"
-  class="ml-2"
->
+  >
   Reporte por empleado
 </a>
+</div>
 
 <div class="mt-4">
   <mat-form-field class="w-full">
@@ -49,11 +51,17 @@
     </thead>
     <tbody>
       <tr *ngFor="let novelty of (novelties$ | async)?.data">
-        <td><a [routerLink]="['/novelties', novelty.id, 'edit']">{{ novelty.id }}</a></td>
+        <td>
+          <a [routerLink]="['/novelties', novelty.id, 'edit']">{{
+            novelty.id
+          }}</a>
+        </td>
         <td>
           {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
         </td>
-        <td title="{{ novelty.comment || 'Sin comentario' }}">{{ novelty.novelty_type.code }}</td>
+        <td title="{{ novelty.comment || 'Sin comentario' }}">
+          {{ novelty.novelty_type.code }}
+        </td>
         <td>{{ novelty.scheduled_start_at | date: 'yy-MM-dd HH:mm' }}</td>
         <td>{{ novelty.scheduled_end_at | date: 'yy-MM-dd HH:mm' }}</td>
         <td>{{ novelty.total_time_in_hours }}</td>

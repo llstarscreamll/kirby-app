@@ -3,7 +3,7 @@
   <!-- Links if unauthenticated -->
   <ng-container *ngIf="!(authenticated$ | async)">
     <a [routerLink]="['/']">Pascal</a>
-    <span fxFlex="fill"></span>
+    <div fxFlex="fill"></div>
     <a [routerLink]="['/sign-up']" class="mx-3">Crear cuenta</a>
     <a [routerLink]="['/login']" class="ml-3">Entrar</a>
   </ng-container>
