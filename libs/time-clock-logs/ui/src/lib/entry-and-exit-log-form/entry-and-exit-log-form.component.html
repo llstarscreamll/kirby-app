@@ -9,13 +9,13 @@
     (click)="toggleAction()"
     mat-stroked-button
     [ngClass]="actionClass"
-    class="action w-100"
+    class="action w-full"
     type="button"
   >
     Registrar {{ readableActionName }}
   </button>
 
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <input
       #codeInput
       formControlName="identification_code"
@@ -79,7 +79,7 @@
     </mat-radio-group>
   </ng-container>
 
-  <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-100">
+  <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-full">
     <input
       matInput
       placeholder="Sub centro de costo de novedad"
@@ -100,7 +100,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-form-field *ngIf="displaySubCostCenterField" class="w-100">
+  <mat-form-field *ngIf="displaySubCostCenterField" class="w-full">
     <input
       matInput
       placeholder="Sub centro de costo del turno"
