@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Pagination, emptyPagination } from '@kirby/shared';
@@ -23,6 +23,7 @@ import {
 } from './employees.actions';
 import { EmployeeService } from '../employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class EmployeesEffects {
@@ -71,6 +72,17 @@ export class EmployeesEffects {
     }
   );
 
+  @Effect({ dispatch: false })
+  public updateEmployeeOk$ = this.dataPersistence.actions.pipe(
+    ofType(EmployeesActionTypes.UpdateEmployeeOk),
+    tap(_ =>
+      this.snackBar.open('Datos actualizados correctamente', 'Ok', {
+        duration: 2000
+      })
+    ),
+    tap(_ => this.router.navigate(['/employees']))
+  );
+
   /**
    * @todo move the snack bar stuff to the feature lib
    */
@@ -102,6 +114,7 @@ export class EmployeesEffects {
   );
 
   constructor(
+    private router: Router,
     private snackBar: MatSnackBar,
     private employeeService: EmployeeService,
     private dataPersistence: DataPersistence<EmployeesPartialState>

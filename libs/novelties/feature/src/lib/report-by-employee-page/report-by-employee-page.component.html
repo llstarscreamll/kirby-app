@@ -114,7 +114,7 @@
         </td>
         <td>
           <button
-            *ngIf="row.userHasAnyToApprove(user.id)"
+            *ngIf="user.can('novelties.create-approvals-by-employee-and-date-range') && row.userHasAnyToApprove(user.id)"
             (click)="setApprovals(row.employee.id, row.date)"
             matTooltip="Aprobar todo en este día"
             mat-icon-button
@@ -124,7 +124,7 @@
             <mat-icon>check_circle</mat-icon>
           </button>
           <button
-            *ngIf="row.userHasApprovals(user)"
+            *ngIf="user.can('novelties.delete-approvals-by-employee-and-date-range') && row.userHasApprovals(user)"
             (click)="deleteApprovals(row.employee.id, row.date)"
             matTooltip="Borrar aprobaciones de este día"
             mat-icon-button
