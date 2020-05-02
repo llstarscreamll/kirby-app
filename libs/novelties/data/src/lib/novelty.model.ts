@@ -1,4 +1,4 @@
-import { round } from "lodash";
+import { round } from 'lodash';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 
@@ -8,14 +8,13 @@ export class NoveltyModel {
   time_clock_log_id: string;
   employee_id: string;
   novelty_type_id: string;
-  scheduled_start_at?: string;
-  scheduled_end_at?: string;
-  total_time_in_minutes: number;
+  scheduled_start_at?: Date;
+  scheduled_end_at?: Date;
   comment: string;
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
-  
+
   employee?: EmployeeInterface;
   subCostCenter?: any;
   sub_cost_center?: any;
@@ -23,7 +22,15 @@ export class NoveltyModel {
   approvals: any[];
 
   public static fromJson(data: any): NoveltyModel {
-    return Object.assign(new NoveltyModel(), data);
+    return Object.assign(new NoveltyModel(), {
+      ...data,
+      scheduled_start_at: data.scheduled_start_at
+        ? new Date(data.scheduled_start_at)
+        : null,
+      scheduled_end_at: data.scheduled_end_at
+        ? new Date(data.scheduled_end_at)
+        : null
+    });
   }
 
   public static fromJsonList(arr: any[]): NoveltyModel[] {
@@ -37,7 +44,13 @@ export class NoveltyModel {
     );
   }
 
-  public get total_time_in_hours() {
-    return round(this.total_time_in_minutes / 60, 2);
+  public get time_difference(): number | null {
+    return this.scheduled_start_at && this.scheduled_end_at
+      ? this.scheduled_end_at.getTime() - this.scheduled_start_at.getTime()
+      : null;
+  }
+
+  public get total_time_in_hours(): number {
+    return this.time_difference ? round(this.time_difference / 3.6e+6, 2) : 0;
   }
 }

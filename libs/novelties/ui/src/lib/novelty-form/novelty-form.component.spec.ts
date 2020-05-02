@@ -23,9 +23,9 @@ describe('NoveltyFormComponent', () => {
   // form elements
   const employeeFieldSelector = 'form [formControlName="employee"]';
   const noveltyTypeFieldSelector = 'form [formControlName="novelty_type"]';
-  const scheduledStartFieldSelector = 'form [formControlName="scheduled_start_at"]';
+  const scheduledStartFieldSelector =
+    'form [formControlName="scheduled_start_at"]';
   const scheduledEndFieldSelector = 'form [formControlName="scheduled_end_at"]';
-  const timeFieldSelector = 'form [formControlName="total_time_in_minutes"]';
   const commentFieldSelector = 'form [formControlName="comment"]';
   const formButtonSelector = 'form button';
   const trashButtonSelector = 'form button.trash';
@@ -63,7 +63,6 @@ describe('NoveltyFormComponent', () => {
   it('should have certain form fields by default', () => {
     expect(template.querySelector(employeeFieldSelector)).toBeTruthy();
     expect(template.querySelector(noveltyTypeFieldSelector)).toBeTruthy();
-    expect(template.querySelector(timeFieldSelector)).toBeFalsy();
     expect(template.querySelector(scheduledStartFieldSelector)).toBeTruthy();
     expect(template.querySelector(scheduledEndFieldSelector)).toBeTruthy();
     expect(template.querySelector(commentFieldSelector)).toBeTruthy();
@@ -73,113 +72,9 @@ describe('NoveltyFormComponent', () => {
   it('should have certain form fields validity by default', () => {
     expect(component.form.get('employee').valid).toBeFalsy();
     expect(component.form.get('novelty_type').valid).toBeFalsy();
-    expect(component.form.get('scheduled_start_at').valid).toBeFalsy();
-    expect(component.form.get('scheduled_end_at').valid).toBeFalsy();
-    expect(component.form.get('total_time_in_minutes').valid).toBeTruthy();
-    expect(component.form.get('comment').valid).toBeTruthy();
-  });
-
-  it('should have certain form fields validity when default values have filled total_time_in_minutes and empty scheduled times', () => {
-    const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };
-    const noveltyType = { id: 2, name: 'Foo' };
-    const defaults = {
-      employee: employee,
-      employee_id: employee.id,
-      novelty_type: noveltyType,
-      novelty_type_id: noveltyType.id,
-      scheduled_end_at: null,
-      scheduled_start_at: null,
-      total_time_in_minutes: 120,
-      comment: null
-    };
-
-    component.defaults = defaults;
-    component.ngOnInit();
-    component.form.patchValue({total_time_in_minutes: null});
-
-    fixture.detectChanges();
-
-    expect(component.form.get('employee').valid).toBeTruthy();
-    expect(component.form.get('novelty_type').valid).toBeTruthy();
-    // this fields should be not required since they were empty on default values and total_time_in_minutes is not empty
     expect(component.form.get('scheduled_start_at').valid).toBeTruthy();
     expect(component.form.get('scheduled_end_at').valid).toBeTruthy();
-    // this field should be invalid because should be now required since there are no scheduled times setted
-    expect(component.form.get('total_time_in_minutes').valid).toBeFalsy();
     expect(component.form.get('comment').valid).toBeTruthy();
-  });
-
-  it('should have certain form fields validity when default values have empty scheduled times and total_time_in_minutes', () => {
-    const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };
-    const noveltyType = { id: 2, name: 'Foo' };
-    const defaults = {
-      employee: employee,
-      employee_id: employee.id,
-      novelty_type: noveltyType,
-      novelty_type_id: noveltyType.id,
-      scheduled_end_at: null,
-      scheduled_start_at: null,
-      total_time_in_minutes: null,
-      comment: null
-    };
-
-    component.defaults = defaults;
-    component.ngOnInit();
-    component.form.patchValue({total_time_in_minutes: null});
-
-    fixture.detectChanges();
-
-    expect(component.form.get('employee').valid).toBeTruthy();
-    expect(component.form.get('novelty_type').valid).toBeTruthy();
-    expect(component.form.get('scheduled_start_at').valid).toBeFalsy();
-    expect(component.form.get('scheduled_end_at').valid).toBeFalsy();
-    expect(component.form.get('total_time_in_minutes').valid).toBeTruthy();
-    expect(component.form.get('comment').valid).toBeTruthy();
-  });
-
-  it('should show scheduled times fields and hide time field when those default values are not empty', () => {
-    const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };
-    const noveltyType = { id: 2, name: 'Foo' };
-    component.form.patchValue({
-      employee_id: employee.id,
-      novelty_type_id: noveltyType.id,
-      scheduled_end_at: '2020-03-01T15:00:00.000000Z', // not empty
-      scheduled_start_at: '2020-03-01T13:00:00.000000Z', // not empty
-      total_time_in_minutes: 120,
-      employee: employee,
-      novelty_type: noveltyType,
-      comment: 'foo'
-    });
-
-    fixture.detectChanges();
-
-    expect(template.querySelector(timeFieldSelector)).toBeFalsy();
-    expect(template.querySelector(scheduledStartFieldSelector)).toBeTruthy();
-    expect(template.querySelector(scheduledEndFieldSelector)).toBeTruthy();
-  });
-
-  it('should hide scheduled times fields and show time field when those default values are empty', () => {
-    const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };
-    const noveltyType = { id: 2, name: 'Foo' };
-    const defaults = {
-      employee_id: employee.id,
-      novelty_type_id: noveltyType.id,
-      scheduled_end_at: null, // empty
-      scheduled_start_at: null, // empty
-      total_time_in_minutes: 120,
-      employee: employee,
-      novelty_type: noveltyType,
-      comment: 'foo'
-    };
-
-    component.defaults = defaults;
-    component.form.patchValue(defaults);
-
-    fixture.detectChanges();
-
-    expect(template.querySelector(timeFieldSelector)).toBeTruthy();
-    expect(template.querySelector(scheduledStartFieldSelector)).toBeFalsy();
-    expect(template.querySelector(scheduledEndFieldSelector)).toBeFalsy();
   });
 
   it('should have submit button disabled by default because invalid form', () => {
@@ -245,7 +140,6 @@ describe('NoveltyFormComponent', () => {
     component.defaults = {
       employee_id: employee.id,
       novelty_type_id: noveltyType.id,
-      total_time_in_minutes: 500,
       employee: employee,
       novelty_type: noveltyType,
       comment: 'foo'
@@ -258,7 +152,6 @@ describe('NoveltyFormComponent', () => {
 
     expect(component.form.get('employee').value).toEqual(employee);
     expect(component.form.get('novelty_type').value).toEqual(noveltyType);
-    expect(component.form.get('total_time_in_minutes').value).toBe(500);
     expect(component.form.get('comment').value).toBe('foo');
   });
 
@@ -273,7 +166,6 @@ describe('NoveltyFormComponent', () => {
       novelty_type_id: noveltyType.id,
       scheduled_end_at: '2020-03-01T15:00:00.000000Z',
       scheduled_start_at: '2020-03-01T13:00:00.000000Z',
-      total_time_in_minutes: 120,
       employee: employee,
       novelty_type: noveltyType,
       comment: 'foo'
@@ -292,7 +184,6 @@ describe('NoveltyFormComponent', () => {
       novelty_type_id: noveltyType.id,
       scheduled_end_at: '2020-03-01T15:00:00.000Z',
       scheduled_start_at: '2020-03-01T13:00:00.000Z',
-      total_time_in_minutes: 120,
       comment: 'foo'
     });
   });
@@ -323,7 +214,8 @@ describe('NoveltyFormComponent', () => {
       id: 10,
       employee_id: employee.id,
       novelty_type_id: noveltyType.id,
-      total_time_in_minutes: 500,
+      scheduled_end_at: '2020-03-01T15:00:00.000000Z',
+      scheduled_start_at: '2020-03-01T13:00:00.000000Z',
       employee: employee,
       novelty_type: noveltyType
     };

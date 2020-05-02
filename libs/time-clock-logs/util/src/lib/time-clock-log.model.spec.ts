@@ -7,12 +7,14 @@ describe('TimeClockLogModel', () => {
     const firstNovelty = createNovelty(null, {
       name: 'FN-01',
       time_clock_log_id: model.id,
-      total_time_in_minutes: 60 * 5
+      scheduled_end_at: '2020-03-01T15:00:00.000000Z',
+      scheduled_start_at: '2020-03-01T20:00:00.000000Z'
     });
     const secondNovelty = createNovelty(null, {
       name: 'SN-02',
       time_clock_log_id: model.id,
-      total_time_in_minutes: 60 * 10
+      scheduled_end_at: '2020-03-01T10:00:00.000000Z',
+      scheduled_start_at: '2020-03-01T20:00:00.000000Z'
     });
     model.novelties = [firstNovelty, secondNovelty];
 
@@ -20,13 +22,13 @@ describe('TimeClockLogModel', () => {
       firstNovelty.novelty_type.code
     );
     expect(model.concatenatedNoveltiesCount).toContain(
-      firstNovelty.total_time_in_minutes / 60
+      firstNovelty.total_time_in_hours
     );
     expect(model.concatenatedNoveltiesCount).toContain(
       secondNovelty.novelty_type.code
     );
     expect(model.concatenatedNoveltiesCount).toContain(
-      secondNovelty.total_time_in_minutes / 60
+      secondNovelty.total_time_in_hours
     );
   });
 });

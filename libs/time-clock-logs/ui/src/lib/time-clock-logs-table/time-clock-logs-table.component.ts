@@ -51,12 +51,8 @@ export class TimeClockLogsTableComponent implements OnInit {
     ].join(' ');
   }
 
-  public readableNovelty(novelty: NoveltyModel) {
-    return (
-      novelty.novelty_type.code +
-      ' ' +
-      round(novelty.total_time_in_minutes / 60, 2)
-    );
+  public readableNovelty(novelty: NoveltyModel): string {
+    return `${novelty.novelty_type.code} ${novelty.total_time_in_hours}`;
   }
 
   public showApproveButton(row: TimeClockLogModel): boolean {

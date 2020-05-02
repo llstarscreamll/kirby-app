@@ -12,7 +12,7 @@ import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { User } from '@kirby/users/util/src';
-import { NoveltyReport } from '@kirby/novelties/data/src';
+import { NoveltyReport, NoveltyModel } from '@kirby/novelties/data/src';
 
 function objectIsSelected(control) {
   return typeof control.value === 'object' ? null : { objectIsSelected: false };
@@ -124,12 +124,10 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     return this.searchForm && !this.searchForm.get('employee').valid;
   }
 
-  totalHours(novelties: any[]): number {
-    return (
-      novelties
-        .map(novelty => novelty.total_time_in_minutes)
-        .reduce((acc, minutes) => acc + minutes, 0) / 60
-    );
+  totalHours(novelties: NoveltyModel[]): number {
+    return novelties
+      .map(novelty => novelty.total_time_in_hours)
+      .reduce((acc, hours) => acc + hours, 0);
   }
 
   displayEmployeeFieldValue(employee) {
@@ -147,7 +145,11 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   }
 
   get searchHasValidDates(): boolean {
-    return this.searchForm && this.searchForm.get('start_date').valid && this.searchForm.get('end_date').valid;
+    return (
+      this.searchForm &&
+      this.searchForm.get('start_date').valid &&
+      this.searchForm.get('end_date').valid
+    );
   }
 
   setApprovals(employeeId: string, day: string) {

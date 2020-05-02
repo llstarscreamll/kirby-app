@@ -43,8 +43,8 @@ class ReportRow {
   get totalHours(): number {
     return (
       this.novelties
-        .map(novelty => novelty.total_time_in_minutes)
-        .reduce((acc, minutes) => acc + minutes, 0) / 60
+        .map(novelty => novelty.total_time_in_hours)
+        .reduce((acc, hours) => acc + hours, 0)
     );
   }
 

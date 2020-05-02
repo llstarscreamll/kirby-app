@@ -70,7 +70,6 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
       novelty_type: [, [Validators.required]],
       scheduled_end_at: [, [Validators.required]],
       scheduled_start_at: [, [Validators.required]],
-      total_time_in_minutes: [],
       comment: []
     });
   }
@@ -78,12 +77,6 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
   private patchForm() {
     if (!this.defaults) {
       return;
-    }
-
-    if (! this.hasScheduledTimes && this.defaults.total_time_in_minutes) {
-      this.form.get('scheduled_start_at').setValidators([]);
-      this.form.get('scheduled_end_at').setValidators([]);
-      this.form.get('total_time_in_minutes').setValidators([Validators.required]);
     }
 
     this.form.patchValue({
@@ -139,10 +132,6 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  public get displayScheduledTimesFields(): boolean {
-    return (this.hasScheduledTimes || !this.defaults);
-  }
-
   public get disableFormSubmitBtn(): boolean {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
@@ -155,12 +144,6 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
     return !!this.defaults;
   }
 
-  public get timeHint(): string {
-    const timeInMinutes = this.form.get('total_time_in_minutes').value;
-    const timeInHours = (parseInt(timeInMinutes || '0', 10) / 60).toFixed(2);
-    return `${timeInHours} horas`;
-  }
-
   public displayEmployeeFieldValue(employee) {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
@@ -171,25 +154,14 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
 
   public submit() {
     const formValue = this.form.value;
-    let scheduledTimes = {
-      scheduled_start_at: null,
-      scheduled_end_at: null,
-    };
-
-    if (this.displayScheduledTimesFields) {
-      scheduledTimes = {
-        scheduled_start_at: moment(formValue.scheduled_start_at).toISOString(),
-        scheduled_end_at: moment(formValue.scheduled_end_at).toISOString(),
-      };
-    }
 
     this.submitted.emit({
       id: this.defaults ? this.defaults.id : null,
       employee_id: formValue.employee.id,
       novelty_type_id: formValue.novelty_type.id,
-      total_time_in_minutes: formValue.total_time_in_minutes,
       comment: formValue.comment,
-      ...scheduledTimes
+      scheduled_start_at: moment(formValue.scheduled_start_at).toISOString(),
+      scheduled_end_at: moment(formValue.scheduled_end_at).toISOString()
     });
   }
 

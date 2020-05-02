@@ -19,7 +19,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <div *ngIf="displayScheduledTimesFields" class="w-full">
+  <div class="w-full">
     <mat-form-field class="w-50">
       <input formControlName="scheduled_start_at" matInput type="datetime-local" placeholder="Inicio">
     </mat-form-field>
@@ -27,11 +27,6 @@
       <input formControlName="scheduled_end_at" matInput type="datetime-local" placeholder="Fin">
     </mat-form-field>
   </div>
-
-  <mat-form-field *ngIf="! displayScheduledTimesFields" class="w-full">
-    <input formControlName="total_time_in_minutes" matInput type="number" placeholder="Tiempo en minutos">
-    <mat-hint align="end">{{ timeHint }}</mat-hint>
-  </mat-form-field>
 
   <mat-form-field class="w-full">
     <textarea formControlName="comment" matInput placeholder="Comentario" rows="5">

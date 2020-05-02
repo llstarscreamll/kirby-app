@@ -1,8 +1,9 @@
-import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import { User } from '@kirby/users/util';
-import { EmployeeInterface } from '@kirby/employees/util';
-import { NoveltyModel } from '@kirby/novelties/data';
 import { round } from 'lodash';
+
+import { User } from '@kirby/users/util';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 export class TimeClockLogModel {
   id?: string;
@@ -25,7 +26,12 @@ export class TimeClockLogModel {
   deleted_at?: string;
 
   public static fromJson(data: any): TimeClockLogModel {
-    return Object.assign(new TimeClockLogModel(), data);
+    return Object.assign(new TimeClockLogModel(), data, {
+      novelties: data.novelties
+        ? NoveltyModel.fromJsonList(data.novelties)
+        : [],
+      approvals: data.approvals ? User.fromJsonList(data.approvals) : []
+    });
   }
 
   public static fromJsonList(arr: any[]): TimeClockLogModel[] {
@@ -34,12 +40,7 @@ export class TimeClockLogModel {
 
   public get concatenatedNoveltiesCount(): string {
     return (this.novelties || [])
-      .map(
-        novelty =>
-          novelty.novelty_type.code +
-          ' ' +
-          round(novelty.total_time_in_minutes / 60, 2)
-      )
+      .map(novelty => novelty.total_time_in_hours)
       .join(', ');
   }
 
