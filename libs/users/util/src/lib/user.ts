@@ -14,15 +14,15 @@ export class User {
   updated_at?: string;
   deleted_at?: string;
 
-  public static fromJson(data: any): User {
+  static fromJson(data: any): User {
     return Object.assign(new User(), data);
   }
 
-  public static fromJsonList(arr: any[]): User[] {
+  static fromJsonList(arr: any[]): User[] {
     return arr.map(data => User.fromJson(data));
   }
 
-  public can(permissionName: string): boolean {
+  can(permissionName: string): boolean {
     return (
       isEmpty(permissionName) ||
       (permissionName &&

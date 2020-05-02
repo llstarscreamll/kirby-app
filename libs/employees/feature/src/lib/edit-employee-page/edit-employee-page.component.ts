@@ -12,7 +12,7 @@ import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 export class EditEmployeePageComponent implements OnInit, OnDestroy {
   private employeeId: string;
 
-  public employee$ = this.employeesFacade.selectedEmployee$.pipe(
+  employee$ = this.employeesFacade.selectedEmployee$.pipe(
     tap(employee => (employee ? (this.employeeId = employee.id) : null))
   );
   public workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
@@ -28,11 +28,11 @@ export class EditEmployeePageComponent implements OnInit, OnDestroy {
     this.workShiftsFacade.search({ limit: 0 });
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.employeesFacade.cleanSelected();
   }
 
-  public employeeFormSubmitted(data) {
+  employeeFormSubmitted(data) {
     this.employeesFacade.update(this.employeeId, data);
   }
 }

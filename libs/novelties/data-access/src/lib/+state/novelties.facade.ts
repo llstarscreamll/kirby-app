@@ -26,35 +26,35 @@ import { User } from '@kirby/users/util/src';
 
 @Injectable()
 export class NoveltiesFacade {
-  public loaded$ = this.store.pipe(select(noveltiesQuery.getLoaded));
-  public error$ = this.store.pipe(select(noveltiesQuery.getError));
-  public createNoveltiesToEmployeesStatus$ = this.store.pipe(
+  loaded$ = this.store.pipe(select(noveltiesQuery.getLoaded));
+  error$ = this.store.pipe(select(noveltiesQuery.getError));
+  createNoveltiesToEmployeesStatus$ = this.store.pipe(
     select(noveltiesQuery.getCreateNoveltiesToEmployeesStatus)
   );
-  public paginatedNovelties$ = this.store.pipe(
+  paginatedNovelties$ = this.store.pipe(
     select(noveltiesQuery.getPaginatedList)
   );
-  public paginatedNoveltyTypes$ = this.store.pipe(
+  paginatedNoveltyTypes$ = this.store.pipe(
     select(noveltiesQuery.getPaginatedNoveltyTypesList)
   );
-  public selectedNovelty$ = this.store.pipe(
+  selectedNovelty$ = this.store.pipe(
     select(noveltiesQuery.getSelectedNovelty)
   );
-  public reportByEmployee$ = this.store.pipe(
+  reportByEmployee$ = this.store.pipe(
     select(noveltiesQuery.getReportByEmployee)
   );
 
-  public constructor(private store: Store<NoveltiesPartialState>) {}
+  constructor(private store: Store<NoveltiesPartialState>) {}
 
-  public search(query: any = {}) {
+  search(query: any = {}) {
     this.store.dispatch(new SearchNovelties(query));
   }
 
-  public get(noveltyId: string) {
+  get(noveltyId: string) {
     this.store.dispatch(new GetNovelty(noveltyId));
   }
 
-  public getReportByEmployee(
+  getReportByEmployee(
     employeeId: string,
     startDate: string,
     endDate: string
@@ -68,7 +68,7 @@ export class NoveltiesFacade {
     );
   }
 
-  public updateReportByEmployeeQuery(query: any) {
+  updateReportByEmployeeQuery(query: any) {
     this.store.dispatch(new UpdateReportByEmployeeQuery(query));
   }
 
@@ -77,15 +77,15 @@ export class NoveltiesFacade {
     this.store.dispatch(new GetReportByEmployeeOk(null));
   }
 
-  public update(noveltyId: string, noveltyData) {
+  update(noveltyId: string, noveltyData) {
     this.store.dispatch(new UpdateNovelty({ id: noveltyId, noveltyData }));
   }
 
-  public trash(noveltyId: string) {
+  trash(noveltyId: string) {
     this.store.dispatch(new TrashNovelty(noveltyId));
   }
 
-  public createNoveltiesToEmployees(data) {
+  createNoveltiesToEmployees(data) {
     this.store.dispatch(new CreateNoveltiesToEmployees(data));
   }
 
@@ -93,27 +93,27 @@ export class NoveltiesFacade {
    * @todo move all related stuff from novelty types to specific lib
    * @param query
    */
-  public searchNoveltyTypes(query: any = {}) {
+  searchNoveltyTypes(query: any = {}) {
     this.store.dispatch(new SearchNoveltyTypes(query));
   }
 
-  public cleanSelected() {
+  cleanSelected() {
     this.store.dispatch(new CleanSelectedNovelty());
   }
 
-  public resetCreateNoveltiesToEmployees() {
+  resetCreateNoveltiesToEmployees() {
     this.store.dispatch(new ResetCreateNoveltiesToEmployees());
   }
 
-  public cleanApiErrors() {
+  cleanApiErrors() {
     this.store.dispatch(new CleanApiErrors());
   }
 
-  public approve(noveltyId: string, user: User) {
+  approve(noveltyId: string, user: User) {
     this.store.dispatch(new ApproveNovelty({ noveltyId, user }));
   }
 
-  public setApprovalsByEmployeeAndDateRange(
+  setApprovalsByEmployeeAndDateRange(
     employeeId: string,
     startDate: string,
     endDate: string
@@ -123,11 +123,11 @@ export class NoveltiesFacade {
     );
   }
 
-  public deleteNoveltyApproval(noveltyId: string, user: User) {
+  deleteNoveltyApproval(noveltyId: string, user: User) {
     this.store.dispatch(new DeleteNoveltyApproval({ noveltyId, user }));
   }
 
-  public deleteApprovalsByEmployeeAndDateRange(
+  deleteApprovalsByEmployeeAndDateRange(
     employeeId: string,
     startDate: string,
     endDate: string

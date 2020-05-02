@@ -28,22 +28,22 @@ export class CanDirective implements OnDestroy {
 
   private destroy$ = new Subject();
 
-  public constructor(
+  constructor(
     private authFacade: AuthFacade,
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef
   ) {}
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  public show() {
+  show() {
     this.viewContainer.createEmbeddedView(this.templateRef);
   }
 
-  public remove() {
+  remove() {
     this.viewContainer.clear();
   }
 }

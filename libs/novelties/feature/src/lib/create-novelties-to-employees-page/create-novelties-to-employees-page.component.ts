@@ -23,14 +23,14 @@ export class CreateNoveltiesToEmployeesPageComponent
   public apiError$: Observable<ApiError>;
   private destroy$ = new Subject();
 
-  public constructor(
+  constructor(
     private snackBar: MatSnackBar,
     private router: Router,
     private noveltiesFacade: NoveltiesFacade,
     private employeesFacade: EmployeesFacade
   ) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.employees$ = this.employeesFacade.paginatedEmployees$;
     this.noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
     this.createNoveltiesToEmployeesStatus$ = this.noveltiesFacade.createNoveltiesToEmployeesStatus$;
@@ -49,21 +49,21 @@ export class CreateNoveltiesToEmployeesPageComponent
       .subscribe();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.noveltiesFacade.resetCreateNoveltiesToEmployees();
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  public onSearchEmployees(query) {
+  onSearchEmployees(query) {
     this.employeesFacade.search(query);
   }
 
-  public onSearchNovelties(query) {
+  onSearchNovelties(query) {
     this.noveltiesFacade.searchNoveltyTypes(query);
   }
 
-  public onSubmit(data) {
+  onSubmit(data) {
     this.noveltiesFacade.createNoveltiesToEmployees(data);
   }
 }

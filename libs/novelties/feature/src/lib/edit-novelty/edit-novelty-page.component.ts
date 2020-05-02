@@ -24,30 +24,30 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
   public employees$: Observable<Pagination<EmployeeInterface>>;
   public noveltyTypes$: Observable<Pagination<NoveltyTypeInterface>>;
 
-  public constructor(
+  constructor(
     private noveltiesFacade: NoveltiesFacade,
     private employeesFacade: EmployeesFacade
   ) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.novelty$ = this.noveltiesFacade.selectedNovelty$;
     this.employees$ = this.employeesFacade.paginatedEmployees$;
     this.noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.noveltiesFacade.cleanSelected();
   }
 
-  public onSearchEmployees(query) {
+  onSearchEmployees(query) {
     this.employeesFacade.search(query);
   }
 
-  public onSearchNovelties(query) {
+  onSearchNovelties(query) {
     this.noveltiesFacade.searchNoveltyTypes(query);
   }
 
-  public onNoveltyUpdated(novelty) {
+  onNoveltyUpdated(novelty) {
     this.noveltiesFacade.update(novelty.id, novelty);
   }
 
@@ -55,7 +55,7 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
    * @todo add tests to this trash functionality
    * @param novelty 
    */
-  public onNoveltyTrashed(novelty) {
+  onNoveltyTrashed(novelty) {
     this.noveltiesFacade.trash(novelty.id);
   }
 }

@@ -144,7 +144,7 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  public approveNovelty$ = this.dataPersistence.fetch(
+  approveNovelty$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.ApproveNovelty,
     {
       run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
@@ -162,7 +162,7 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  public setApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
+  setApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange,
     {
       run: ({
@@ -202,7 +202,7 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  public trashNovelty$ = this.dataPersistence.fetch(
+  trashNovelty$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.TrashNovelty,
     {
       run: (action: TrashNovelty, state: NoveltiesPartialState) => {
@@ -221,7 +221,7 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  public deleteNoveltyApproval$ = this.dataPersistence.fetch(
+  deleteNoveltyApproval$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.DeleteNoveltyApproval,
     {
       run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
@@ -239,7 +239,7 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  public deleteApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
+  deleteApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRange,
     {
       run: ({
@@ -279,7 +279,7 @@ export class NoveltiesEffects {
   );
   
   @Effect()
-  public downloadNoveltiesReport$ = this.dataPersistence.fetch(
+  downloadNoveltiesReport$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.DownLoadNoveltiesReport,
     {
       run: ({payload}: DownLoadNoveltiesReport) => {
@@ -335,7 +335,7 @@ export class NoveltiesEffects {
     )
   );
 
-  public constructor(
+  constructor(
     private router: Router,
     private actions$: Actions,
     private snackBar: MatSnackBar,

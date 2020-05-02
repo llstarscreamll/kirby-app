@@ -36,30 +36,30 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
   public status: LoadStatuses;
 
   @Output()
-  public searchEmployees = new EventEmitter();
+  searchEmployees = new EventEmitter();
 
   @Output()
-  public searchNoveltyTypes = new EventEmitter();
+  searchNoveltyTypes = new EventEmitter();
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
 
   @Output()
-  public trashed = new EventEmitter();
+  trashed = new EventEmitter();
 
   private destroy$ = new Subject();
 
   public form: FormGroup;
 
-  public constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.buildForm();
     this.patchForm();
     this.listenFormChanges();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -112,19 +112,19 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  public get allEmployees(): any[] {
+  get allEmployees(): any[] {
     return (this.employeesFound || [])
       .concat(get(this.defaults, 'employee'))
       .filter(e => !!e);
   }
 
-  public get allNoveltyTypes(): any[] {
+  get allNoveltyTypes(): any[] {
     return (this.noveltyTypesFound || [])
       .concat(get(this.defaults, 'novelty_type'))
       .filter(nt => !!nt);
   }
 
-  public get hasScheduledTimes(): boolean {
+  get hasScheduledTimes(): boolean {
     return (
       this.defaults &&
       this.defaults.scheduled_start_at &&
@@ -132,27 +132,27 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  public get disableFormSubmitBtn(): boolean {
+  get disableFormSubmitBtn(): boolean {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
 
-  public get disableTrashSubmitBtn(): boolean {
+  get disableTrashSubmitBtn(): boolean {
     return this.defaults && !!this.defaults.deleted_at;
   }
 
-  public get displayTrashButton(): boolean {
+  get displayTrashButton(): boolean {
     return !!this.defaults;
   }
 
-  public displayEmployeeFieldValue(employee) {
+  displayEmployeeFieldValue(employee) {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
-  public displayNoveltyTypeFieldValue(noveltyType) {
+  displayNoveltyTypeFieldValue(noveltyType) {
     return noveltyType ? noveltyType.name : null;
   }
 
-  public submit() {
+  submit() {
     const formValue = this.form.value;
 
     this.submitted.emit({
@@ -165,7 +165,7 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  public trash() {
+  trash() {
     this.trashed.emit(this.defaults);
   }
 }

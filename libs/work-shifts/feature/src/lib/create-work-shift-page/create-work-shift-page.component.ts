@@ -7,7 +7,7 @@ import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
   styleUrls: ['./create-work-shift-page.component.scss']
 })
 export class CreateWorkShiftPageComponent implements OnInit {
-  public constructor(private workShiftsFacade: WorkShiftsFacade) {}
+  constructor(private workShiftsFacade: WorkShiftsFacade) {}
 
-  public ngOnInit() {}
+  ngOnInit() {}
 }

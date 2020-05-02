@@ -13,48 +13,48 @@ import { EmployeesPartialState } from './employees.reducer';
 
 @Injectable()
 export class EmployeesFacade {
-  public paginatedEmployees$ = this.store.pipe(
+  paginatedEmployees$ = this.store.pipe(
     select(employeesQuery.getPaginated)
   );
 
-  public paginatingStatus$ = this.store.pipe(
+  paginatingStatus$ = this.store.pipe(
     select(employeesQuery.getPaginatingStatus)
   );
 
-  public selectedEmployee$ = this.store.pipe(
+  selectedEmployee$ = this.store.pipe(
     select(employeesQuery.getSelectedEmployee)
   );
 
-  public selectingStatus$ = this.store.pipe(
+  selectingStatus$ = this.store.pipe(
     select(employeesQuery.getSelectingStatus)
   );
-  public updatingStatus$ = this.store.pipe(
+  updatingStatus$ = this.store.pipe(
     select(employeesQuery.getUpdatingStatus)
   );
 
-  public constructor(private store: Store<EmployeesPartialState>) {}
+  constructor(private store: Store<EmployeesPartialState>) {}
 
   /**
    * @todo type the query argument
    * @param query
    */
-  public search(query: any) {
+  search(query: any) {
     this.store.dispatch(new SearchEmployees(query));
   }
 
-  public syncEmployeesByCsvFile(data: any) {
+  syncEmployeesByCsvFile(data: any) {
     this.store.dispatch(new SyncEmployeesByCsv(data));
   }
 
-  public get(employeeId: string) {
+  get(employeeId: string) {
     this.store.dispatch(new GetEmployee(employeeId));
   }
 
-  public update(employeeId: string, data: any) {
+  update(employeeId: string, data: any) {
     this.store.dispatch(new UpdateEmployee({ employeeId, data }));
   }
 
-  public cleanSelected() {
+  cleanSelected() {
     this.store.dispatch(new GetEmployeeOk(null));
   }
 }

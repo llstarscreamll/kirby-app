@@ -8,9 +8,9 @@ import { AuthTokens } from '@kirby/authentication/utils';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  public constructor(private authFacade: AuthFacade) { }
+  constructor(private authFacade: AuthFacade) { }
 
-  public intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
     return this.authFacade.authTokens$.pipe(
       take(1),
       flatMap((tokens: AuthTokens) => {

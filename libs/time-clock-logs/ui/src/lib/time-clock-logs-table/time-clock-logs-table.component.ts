@@ -29,16 +29,16 @@ export class TimeClockLogsTableComponent implements OnInit {
   public actionButtons = [];
 
   @Output()
-  public approve = new EventEmitter();
+  approve = new EventEmitter();
 
   @Output()
-  public deleteApproval = new EventEmitter();
+  deleteApproval = new EventEmitter();
 
-  public constructor() {}
+  constructor() {}
 
-  public ngOnInit() {}
+  ngOnInit() {}
 
-  public shortName(approver: { first_name: string; last_name: string }) {
+  shortName(approver: { first_name: string; last_name: string }) {
     return [
       approver.first_name
         .trim()
@@ -51,11 +51,11 @@ export class TimeClockLogsTableComponent implements OnInit {
     ].join(' ');
   }
 
-  public readableNovelty(novelty: NoveltyModel): string {
+  readableNovelty(novelty: NoveltyModel): string {
     return `${novelty.novelty_type.code} ${novelty.total_time_in_hours}`;
   }
 
-  public showApproveButton(row: TimeClockLogModel): boolean {
+  showApproveButton(row: TimeClockLogModel): boolean {
     return (
       this.actionButtons &&
       this.actionButtons.includes('approve') &&
@@ -63,7 +63,7 @@ export class TimeClockLogsTableComponent implements OnInit {
     );
   }
 
-  public showDeleteApprovalButton(row: TimeClockLogModel): boolean {
+  showDeleteApprovalButton(row: TimeClockLogModel): boolean {
     return (
       this.actionButtons &&
       this.actionButtons.includes('delete-approval') &&

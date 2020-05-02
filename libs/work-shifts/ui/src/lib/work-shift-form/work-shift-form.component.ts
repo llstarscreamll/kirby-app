@@ -21,17 +21,17 @@ export class WorkShiftFormComponent implements OnInit {
   public disable: boolean;
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
 
   public form: FormGroup;
 
-  public constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { }
 
-  public get shouldDisableBtn(): boolean {
+  get shouldDisableBtn(): boolean {
     return this.form.invalid || this.status === LoadStatuses.Loading;
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       start_time: ['', [Validators.required]],
@@ -52,7 +52,7 @@ export class WorkShiftFormComponent implements OnInit {
     }
   }
 
-  public onSubmit() {
+  onSubmit() {
     this.submitted.emit(this.form.value);
   }
 

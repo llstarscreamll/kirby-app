@@ -36,18 +36,18 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   public status: LoadStatuses;
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
 
   @Output()
-  public searchCostCenters = new EventEmitter();
+  searchCostCenters = new EventEmitter();
 
   private destroy$ = new Subject();
 
   public form: FormGroup;
 
-  public constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.buildForm();
     this.patchForm();
     this.listenFormChanges();
@@ -70,7 +70,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -110,31 +110,31 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  public addIdentification() {
+  addIdentification() {
     this.identificationsArrayControl.push(this.buildIdentificationsFormGroup());
   }
 
-  public removeIdentificationCode(index: number) {
+  removeIdentificationCode(index: number) {
     this.identificationsArrayControl.removeAt(index);
   }
 
-  public get identificationsArrayControl(): FormArray {
+  get identificationsArrayControl(): FormArray {
     return this.form.get('identifications') as FormArray;
   }
 
-  public get disableSubmitButton(): boolean {
+  get disableSubmitButton(): boolean {
     return !this.form.valid || this.status === LoadStatuses.Loading;
   }
 
-  public displayCostCenterFieldValue(costCenter: CostCenter) {
+  displayCostCenterFieldValue(costCenter: CostCenter) {
     return costCenter ? costCenter.name : null;
   }
 
-  public compareWithFunction(item1, item2): boolean {
+  compareWithFunction(item1, item2): boolean {
     return item1 && item2 ? item1.id === item2.id : item1 === item2;
   }
 
-  public submit() {
+  submit() {
     this.submitted.emit(this.form.value);
   }
 }

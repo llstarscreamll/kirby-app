@@ -11,7 +11,7 @@ import { EditEmployeePageComponent } from '../edit-employee-page/edit-employee-p
 @Injectable()
 export class EmployeeFeatureEffects {
   @Effect()
-  public getEmployee$: Observable<Action> = this.dataPersistence.navigation(
+  getEmployee$: Observable<Action> = this.dataPersistence.navigation(
     EditEmployeePageComponent,
     {
       run: (routerSnapShot: ActivatedRouteSnapshot) =>
@@ -20,7 +20,7 @@ export class EmployeeFeatureEffects {
     }
   );
 
-  public constructor(
+  constructor(
     private employeesFacade: EmployeesFacade,
     private dataPersistence: DataPersistence<any>
   ) {}

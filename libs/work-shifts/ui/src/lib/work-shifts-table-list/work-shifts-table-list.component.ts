@@ -16,8 +16,8 @@ export class WorkShiftsTableListComponent implements OnInit {
   @Input()
   public columns: string[];
 
-  public constructor() { }
+  constructor() { }
 
-  public ngOnInit() { }
+  ngOnInit() { }
 
 }

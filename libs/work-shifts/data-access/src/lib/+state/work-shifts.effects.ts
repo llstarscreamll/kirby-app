@@ -27,7 +27,7 @@ import {
 @Injectable()
 export class WorkShiftsEffects {
   @Effect()
-  public searchWorkShifts$ = this.dataPersistence.fetch(
+  searchWorkShifts$ = this.dataPersistence.fetch(
     WorkShiftsActionTypes.SearchWorkShifts,
     {
       run: (action: SearchWorkShifts, state: WorkShiftsPartialState) => {
@@ -42,7 +42,7 @@ export class WorkShiftsEffects {
   );
 
   @Effect()
-  public createWorkShift$ = this.dataPersistence.fetch(
+  createWorkShift$ = this.dataPersistence.fetch(
     WorkShiftsActionTypes.CreateWorkShift,
     {
       run: (action: CreateWorkShift, state: WorkShiftsPartialState) => {
@@ -57,7 +57,7 @@ export class WorkShiftsEffects {
   );
 
   @Effect()
-  public getWorkShift$ = this.dataPersistence.fetch(
+  getWorkShift$ = this.dataPersistence.fetch(
     WorkShiftsActionTypes.GetWorkShift,
     {
       run: (action: GetWorkShift, state: WorkShiftsPartialState) => {
@@ -72,7 +72,7 @@ export class WorkShiftsEffects {
   );
 
   @Effect()
-  public updateWorkShift$ = this.dataPersistence.fetch(
+  updateWorkShift$ = this.dataPersistence.fetch(
     WorkShiftsActionTypes.UpdateWorkShift,
     {
       run: (action: UpdateWorkShift, state: WorkShiftsPartialState) => {
@@ -87,7 +87,7 @@ export class WorkShiftsEffects {
   );
 
   @Effect()
-  public deleteWorkShift$ = this.dataPersistence.fetch(
+  deleteWorkShift$ = this.dataPersistence.fetch(
     WorkShiftsActionTypes.DeleteWorkShift,
     {
       run: (action: DeleteWorkShift, state: WorkShiftsPartialState) => {
@@ -101,7 +101,7 @@ export class WorkShiftsEffects {
     }
   );
 
-  public constructor(
+  constructor(
     private workShiftService: WorkShiftService,
     private dataPersistence: DataPersistence<WorkShiftsPartialState>
   ) {}

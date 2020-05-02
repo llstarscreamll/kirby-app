@@ -19,66 +19,66 @@ export enum AuthActionTypes {
 
 export class CheckIfUserIsAuthenticated {
   public readonly type = AuthActionTypes.CheckIfAuthenticated;
-  public constructor() { }
+  constructor() { }
 }
 export class SignUp {
   public readonly type = AuthActionTypes.SignUp;
-  public constructor(public payload: NewAccount) { }
+  constructor(public payload: NewAccount) { }
 }
 
 export class SignUpSuccess {
   public readonly type = AuthActionTypes.SignUpSuccess;
-  public constructor(public payload: AuthTokens) { }
+  constructor(public payload: AuthTokens) { }
 }
 
 export class SignUpError {
   public readonly type = AuthActionTypes.SignUpError;
-  public constructor(public payload: any) { }
+  constructor(public payload: any) { }
 }
 
 export class LoginWithCredentials implements Action {
   public readonly type = AuthActionTypes.LoginWithCredentials;
-  public constructor(public payload: { email: string, password: string }) { }
+  constructor(public payload: { email: string, password: string }) { }
 }
 
 export class LoginSuccess implements Action {
   public readonly type = AuthActionTypes.LoginSuccess;
-  public constructor(public payload: AuthTokens) { }
+  constructor(public payload: AuthTokens) { }
 }
 
 export class LoginError implements Action {
   public readonly type = AuthActionTypes.LoginError;
-  public constructor(public payload: any) { }
+  constructor(public payload: any) { }
 }
 
 export class GetAuthUser implements Action {
   public readonly type = AuthActionTypes.GetAuthUser;
-  public constructor() { }
+  constructor() { }
 }
 
 export class GetAuthUserSuccess implements Action {
   public readonly type = AuthActionTypes.GetAuthUserSuccess;
-  public constructor(public payload: any) { }
+  constructor(public payload: any) { }
 }
 
 export class GetAuthUserError implements Action {
   public readonly type = AuthActionTypes.GetAuthUserError;
-  public constructor(public payload: any) { }
+  constructor(public payload: any) { }
 }
 
 export class Logout implements Action {
   public readonly type = AuthActionTypes.Logout;
-  public constructor() { }
+  constructor() { }
 }
 
 export class LogoutSuccess implements Action {
   public readonly type = AuthActionTypes.LogoutSuccess;
-  public constructor() { }
+  constructor() { }
 }
 
 export class CleanErrors implements Action {
   public readonly type = AuthActionTypes.CleanErrors;
-  public constructor() { }
+  constructor() { }
 }
 
 export type AuthAction = CheckIfUserIsAuthenticated | SignUp | SignUpSuccess

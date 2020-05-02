@@ -21,12 +21,12 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public searchQuery = {};
 
-  public constructor(
+  constructor(
     private noveltiesFacade: NoveltiesFacade,
     private authFacade: AuthFacade
   ) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.novelties$ = this.noveltiesFacade.paginatedNovelties$;
     this.user$ = this.authFacade.authUser$;
     this.user$
@@ -43,12 +43,12 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public searchNovelties(query: any = {}) {
+  searchNovelties(query: any = {}) {
     this.searchQuery = { ...this.searchQuery, ...query };
     this.noveltiesFacade.search(this.searchQuery);
   }
 
-  public shortName(approver: { first_name: string; last_name: string }) {
+  shortName(approver: { first_name: string; last_name: string }) {
     return [
       approver.first_name
         .trim()
@@ -61,7 +61,7 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
     ].join(' ');
   }
 
-  public showApproveButton(novelty: NoveltyModel): boolean {
+  showApproveButton(novelty: NoveltyModel): boolean {
     return (
       this.user &&
       this.user.can('novelties.approvals.create') &&
@@ -69,7 +69,7 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  public showDeleteApprovalButton(novelty: NoveltyModel): boolean {
+  showDeleteApprovalButton(novelty: NoveltyModel): boolean {
     return (
       this.user &&
       this.user.can('novelties.approvals.delete') &&
@@ -77,11 +77,11 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  public approveNovelty(novelty: NoveltyModel) {
+  approveNovelty(novelty: NoveltyModel) {
     this.noveltiesFacade.approve(novelty.id, this.user);
   }
 
-  public deleteNoveltyApproval(novelty: NoveltyModel) {
+  deleteNoveltyApproval(novelty: NoveltyModel) {
     this.noveltiesFacade.deleteNoveltyApproval(novelty.id, this.user);
   }
 }

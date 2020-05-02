@@ -20,9 +20,9 @@ import {
 
 @Injectable()
 class FakeService {
-  public constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  public sendData(data = {}) {
+  sendData(data = {}) {
     return this.httpClient.post('http://fake-endpoint.test/path', data);
   }
 }

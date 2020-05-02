@@ -10,13 +10,13 @@ import { EmployeesFacade } from '@kirby/employees/data-access';
 export class EmployeesPageComponent implements OnInit {
   public employees$ = this.employeesFacade.paginatedEmployees$;
 
-  public constructor(private employeesFacade: EmployeesFacade) {}
+  constructor(private employeesFacade: EmployeesFacade) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.searchEmployees();
   }
 
-  public searchEmployees(query = {}) {
+  searchEmployees(query = {}) {
     this.employeesFacade.search(query);
   }
 }

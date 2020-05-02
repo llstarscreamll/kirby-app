@@ -25,7 +25,7 @@ export class TimeClockLogModel {
   updated_at?: string;
   deleted_at?: string;
 
-  public static fromJson(data: any): TimeClockLogModel {
+  static fromJson(data: any): TimeClockLogModel {
     return Object.assign(new TimeClockLogModel(), data, {
       novelties: data.novelties
         ? NoveltyModel.fromJsonList(data.novelties)
@@ -34,17 +34,17 @@ export class TimeClockLogModel {
     });
   }
 
-  public static fromJsonList(arr: any[]): TimeClockLogModel[] {
+  static fromJsonList(arr: any[]): TimeClockLogModel[] {
     return arr.map(data => TimeClockLogModel.fromJson(data));
   }
 
-  public get concatenatedNoveltiesCount(): string {
+  get concatenatedNoveltiesCount(): string {
     return (this.novelties || [])
       .map(novelty => novelty.total_time_in_hours)
       .join(', ');
   }
 
-  public isApprovedByUserId(userId: string): boolean {
+  isApprovedByUserId(userId: string): boolean {
     return (
       this.approvals &&
       this.approvals.map(approver => approver.id).includes(userId)

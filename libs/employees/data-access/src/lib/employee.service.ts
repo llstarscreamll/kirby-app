@@ -8,7 +8,7 @@ import { map } from 'rxjs/internal/operators/map';
 export class EmployeeService extends BaseService {
   private endpoint = this.env.api + 'api/v1/employees/';
 
-  public constructor(
+  constructor(
     @Inject('environment')
     private env,
     private http: HttpClient
@@ -16,14 +16,14 @@ export class EmployeeService extends BaseService {
     super();
   }
 
-  public search(query: any = {}): Observable<any> {
+  search(query: any = {}): Observable<any> {
     return this.http.get<any>(this.endpoint, {
       headers: this.defaultHeaders,
       params: query
     });
   }
 
-  public get(id: string): Observable<any> {
+  get(id: string): Observable<any> {
     return this.http
       .get<any>(this.endpoint + id, {
         headers: this.defaultHeaders
@@ -31,7 +31,7 @@ export class EmployeeService extends BaseService {
       .pipe(map(response => response.data));
   }
 
-  public update(employeeId: string, data: any): Observable<any> {
+  update(employeeId: string, data: any): Observable<any> {
     return this.http
       .put<any>(this.endpoint + employeeId, data, {
         headers: this.defaultHeaders
@@ -39,7 +39,7 @@ export class EmployeeService extends BaseService {
       .pipe(map(response => response.data));
   }
 
-  public syncEmployeesByCsvFile(data: any): Observable<any> {
+  syncEmployeesByCsvFile(data: any): Observable<any> {
     const formData = new FormData();
     formData.append('csv_file', data.csv_file);
     return this.http.post(this.endpoint + 'sync-by-csv-file', formData);

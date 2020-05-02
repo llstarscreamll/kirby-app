@@ -34,49 +34,49 @@ export class CreateNoveltiesToEmployeesFormComponent
   public status: LoadStatuses;
 
   @Output()
-  public searchEmployees = new EventEmitter();
+  searchEmployees = new EventEmitter();
 
   @Output()
-  public searchNoveltyTypes = new EventEmitter();
+  searchNoveltyTypes = new EventEmitter();
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
 
   private destroy$ = new Subject();
 
   public form: FormGroup;
 
-  public hours = new Array(24)
+  hours = new Array(24)
     .join()
     .split(',')
     .map((_, i: number) => i.toString().padStart(2, '0'));
 
-  public minutes = new Array(60)
+  minutes = new Array(60)
     .join()
     .split(',')
     .map((_, i: number) => i.toString().padStart(2, '0'));
 
-  public constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.buildForm();
     this.listenFormChanges();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  public get selectedEmployees(): any[] {
+  get selectedEmployees(): any[] {
     return this.form ? this.form.get('selected_employees').value : [];
   }
 
-  public get noveltyTypesArrayControl(): FormArray {
+  get noveltyTypesArrayControl(): FormArray {
     return this.form.get('novelty_types') as FormArray;
   }
 
-  public get displayableEmployees(): any[] {
+  get displayableEmployees(): any[] {
     return this.employees.filter(
       employee => !this.selectedEmployees.map(se => se.id).includes(employee.id)
     );
@@ -166,7 +166,7 @@ export class CreateNoveltiesToEmployeesFormComponent
     this.form.get('employee').setValue('');
   }
 
-  public removeEmployee(employee) {
+  removeEmployee(employee) {
     const selectedEmployees = this.selectedEmployees;
     const index = selectedEmployees.map(se => se.id).indexOf(employee.id);
 
@@ -177,27 +177,27 @@ export class CreateNoveltiesToEmployeesFormComponent
     this.form.get('selected_employees').setValue(selectedEmployees);
   }
 
-  public addNoveltyOption() {
+  addNoveltyOption() {
     this.noveltyTypesArrayControl.push(this.setUpNoveltyOptionFormGroup());
   }
 
-  public removeNoveltyOption(index) {
+  removeNoveltyOption(index) {
     this.noveltyTypesArrayControl.removeAt(index);
   }
 
-  public get disableFormSubmitBtn(): boolean {
+  get disableFormSubmitBtn(): boolean {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
 
-  public displayEmployeeFieldValue(employee) {
+  displayEmployeeFieldValue(employee) {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
-  public displayNoveltyTypeFieldValue(noveltyType) {
+  displayNoveltyTypeFieldValue(noveltyType) {
     return noveltyType ? noveltyType.name : null;
   }
 
-  public selectedNoveltyTypeRequiresComment(selectedNoveltyType) {
+  selectedNoveltyTypeRequiresComment(selectedNoveltyType) {
     return (
       !!selectedNoveltyType &&
       typeof selectedNoveltyType === 'object' &&
@@ -205,11 +205,11 @@ export class CreateNoveltiesToEmployeesFormComponent
     );
   }
 
-  public submit() {
+  submit() {
     this.submitted.emit(this.parseFormData());
   }
 
-  public parseFormData() {
+  parseFormData() {
     const formData = this.form.value;
 
     return {

@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class EmployeesEffects {
   @Effect()
-  public searchEmployees$ = this.dataPersistence.fetch(
+  searchEmployees$ = this.dataPersistence.fetch(
     EmployeesActionTypes.SearchEmployees,
     {
       run: (action: SearchEmployees, state: EmployeesPartialState) =>
@@ -43,7 +43,7 @@ export class EmployeesEffects {
   );
 
   @Effect()
-  public getEmployee$ = this.dataPersistence.fetch(
+  getEmployee$ = this.dataPersistence.fetch(
     EmployeesActionTypes.GetEmployee,
     {
       run: (action: GetEmployee, state: EmployeesPartialState) =>
@@ -58,7 +58,7 @@ export class EmployeesEffects {
   );
 
   @Effect()
-  public updateEmployee$ = this.dataPersistence.fetch(
+  updateEmployee$ = this.dataPersistence.fetch(
     EmployeesActionTypes.UpdateEmployee,
     {
       run: (action: UpdateEmployee, state: EmployeesPartialState) =>
@@ -73,7 +73,7 @@ export class EmployeesEffects {
   );
 
   @Effect({ dispatch: false })
-  public updateEmployeeOk$ = this.dataPersistence.actions.pipe(
+  updateEmployeeOk$ = this.dataPersistence.actions.pipe(
     ofType(EmployeesActionTypes.UpdateEmployeeOk),
     tap(_ =>
       this.snackBar.open('Datos actualizados correctamente', 'Ok', {
@@ -87,7 +87,7 @@ export class EmployeesEffects {
    * @todo move the snack bar stuff to the feature lib
    */
   @Effect()
-  public syncEmployeesByCsvFile$ = this.dataPersistence.fetch(
+  syncEmployeesByCsvFile$ = this.dataPersistence.fetch(
     EmployeesActionTypes.SyncEmployeesByCsv,
     {
       run: (action: SyncEmployeesByCsv, state: EmployeesPartialState) => {

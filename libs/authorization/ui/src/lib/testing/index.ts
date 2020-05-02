@@ -8,7 +8,7 @@ export class CanDirective {
     this.viewContainer.createEmbeddedView(this.templateRef);
   }
 
-  public constructor(
+  constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef
   ) {}

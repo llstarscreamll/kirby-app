@@ -43,7 +43,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable()
 export class TimeClockLogsEffects {
   @Effect()
-  public searchTimeClockLogs$ = this.dataPersistence.fetch(
+  searchTimeClockLogs$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.SearchTimeClockLogs,
     {
       run: (action: SearchTimeClockLogs, state: TimeClockLogsPartialState) => {
@@ -58,7 +58,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public getEmployeeTimeClockData$ = this.dataPersistence.fetch(
+  getEmployeeTimeClockData$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.GetEmployeeTimeClockData,
     {
       run: (action: GetEmployeeTimeClockData) => {
@@ -73,7 +73,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public searchSubCostCenters$ = this.dataPersistence.fetch(
+  searchSubCostCenters$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.SearchSubCostCenters,
     {
       run: (action: SearchSubCostCenters) => {
@@ -88,7 +88,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public createTimeClockLog$ = this.dataPersistence.fetch(
+  createTimeClockLog$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.CreateTimeClockLog,
     {
       run: (action: CreateTimeClockLog, state: TimeClockLogsPartialState) => {
@@ -103,7 +103,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public createEntryAndExitLog$ = this.dataPersistence.fetch(
+  createEntryAndExitLog$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.CreateEntryAndExitLog,
     {
       run: (
@@ -132,7 +132,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect({ dispatch: false })
-  public createEntryAndExitLogOk$ = this.dataPersistence.fetch(
+  createEntryAndExitLogOk$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.CreateEntryAndExitLogOk,
     {
       run: (
@@ -149,7 +149,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public getTimeClockLog$ = this.dataPersistence.fetch(
+  getTimeClockLog$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.GetTimeClockLog,
     {
       run: (action: GetTimeClockLog, state: TimeClockLogsPartialState) => {
@@ -164,7 +164,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public updateTimeClockLog$ = this.dataPersistence.fetch(
+  updateTimeClockLog$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.UpdateTimeClockLog,
     {
       run: (action: UpdateTimeClockLog, state: TimeClockLogsPartialState) => {
@@ -179,7 +179,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public deleteTimeClockLog$ = this.dataPersistence.fetch(
+  deleteTimeClockLog$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.DeleteTimeClockLog,
     {
       run: (action: DeleteTimeClockLog, state: TimeClockLogsPartialState) => {
@@ -194,7 +194,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public approveTimeClockLog$ = this.dataPersistence.fetch(
+  approveTimeClockLog$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.ApproveTimeClockLog,
     {
       run: (action: ApproveTimeClockLog, state: TimeClockLogsPartialState) => {
@@ -218,7 +218,7 @@ export class TimeClockLogsEffects {
   );
 
   @Effect()
-  public deleteTimeClockLogApproval$ = this.dataPersistence.fetch(
+  deleteTimeClockLogApproval$ = this.dataPersistence.fetch(
     TimeClockLogsActionTypes.DeleteTimeClockLogApproval,
     {
       run: (

@@ -62,7 +62,7 @@ export enum NoveltiesActionTypes {
 
 export class SearchNovelties implements Action {
   readonly type = NoveltiesActionTypes.SearchNovelties;
-  public constructor(public payload: any = {}) {}
+  constructor(public payload: any = {}) {}
 }
 
 export class SearchNoveltiesOk implements Action {
@@ -273,7 +273,7 @@ export class TrashNoveltyError implements Action {
 
 export class SearchNoveltyTypes implements Action {
   readonly type = NoveltiesActionTypes.SearchNoveltyTypes;
-  public constructor(public payload: any = {}) {}
+  constructor(public payload: any = {}) {}
 }
 
 export class SearchNoveltyTypesOk implements Action {

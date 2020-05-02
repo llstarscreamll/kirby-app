@@ -9,27 +9,27 @@ import { LoginWithCredentials, Logout, SignUp, CleanErrors } from './auth.action
 @Injectable()
 export class AuthFacade {
 
-  public errors$ = this.store.select(authQuery.getErrors);
-  public status$ = this.store.select(authQuery.getStatus);
-  public authUser$ = this.store.select(authQuery.getAuthUser);
-  public authTokens$ = this.store.select(authQuery.getAuthTokens);
-  public isLoggedIn$ = this.store.select(authQuery.getIsLoggedIn);
+  errors$ = this.store.select(authQuery.getErrors);
+  status$ = this.store.select(authQuery.getStatus);
+  authUser$ = this.store.select(authQuery.getAuthUser);
+  authTokens$ = this.store.select(authQuery.getAuthTokens);
+  isLoggedIn$ = this.store.select(authQuery.getIsLoggedIn);
 
-  public constructor(private store: Store<AuthState>) { }
+  constructor(private store: Store<AuthState>) { }
 
-  public loginWithCredentials(credentials: { email: string, password: string }) {
+  loginWithCredentials(credentials: { email: string, password: string }) {
     this.store.dispatch(new LoginWithCredentials(credentials));
   }
 
-  public logout() {
+  logout() {
     this.store.dispatch(new Logout);
   }
 
-  public signUp(newAccount: NewAccount) {
+  signUp(newAccount: NewAccount) {
     this.store.dispatch(new SignUp(newAccount));
   }
 
-  public cleanErrors() {
+  cleanErrors() {
     this.store.dispatch(new CleanErrors());
   }
 }

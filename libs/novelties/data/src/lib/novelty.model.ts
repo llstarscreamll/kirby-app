@@ -21,7 +21,7 @@ export class NoveltyModel {
   novelty_type?: NoveltyTypeInterface;
   approvals: any[];
 
-  public static fromJson(data: any): NoveltyModel {
+  static fromJson(data: any): NoveltyModel {
     return Object.assign(new NoveltyModel(), {
       ...data,
       scheduled_start_at: data.scheduled_start_at
@@ -33,24 +33,24 @@ export class NoveltyModel {
     });
   }
 
-  public static fromJsonList(arr: any[]): NoveltyModel[] {
+  static fromJsonList(arr: any[]): NoveltyModel[] {
     return arr.map(data => NoveltyModel.fromJson(data));
   }
 
-  public isApprovedByUserId(userId: string): boolean {
+  isApprovedByUserId(userId: string): boolean {
     return (
       this.approvals &&
       this.approvals.map(approver => approver.id).includes(userId)
     );
   }
 
-  public get time_difference(): number | null {
+  get time_difference(): number | null {
     return this.scheduled_start_at && this.scheduled_end_at
       ? this.scheduled_end_at.getTime() - this.scheduled_start_at.getTime()
       : null;
   }
 
-  public get total_time_in_hours(): number {
+  get total_time_in_hours(): number {
     return this.time_difference ? round(this.time_difference / 3.6e+6, 2) : 0;
   }
 }

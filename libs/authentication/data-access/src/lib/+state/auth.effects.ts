@@ -26,7 +26,7 @@ import {
 @Injectable()
 export class AuthEffects {
   @Effect()
-  public signUp$ = this.dataPersistence.pessimisticUpdate(
+  signUp$ = this.dataPersistence.pessimisticUpdate(
     AuthActionTypes.SignUp,
     {
       run: (action: SignUp) => {
@@ -41,13 +41,13 @@ export class AuthEffects {
   );
 
   @Effect()
-  public signUpSuccess$ = this.dataPersistence.actions.pipe(
+  signUpSuccess$ = this.dataPersistence.actions.pipe(
     ofType(AuthActionTypes.SignUpSuccess),
     map((action: SignUpSuccess) => new LoginSuccess(action.payload))
   );
 
   @Effect()
-  public loginWithCredentials$ = this.dataPersistence.pessimisticUpdate(
+  loginWithCredentials$ = this.dataPersistence.pessimisticUpdate(
     AuthActionTypes.LoginWithCredentials,
     {
       run: (action: LoginWithCredentials) => {
@@ -62,7 +62,7 @@ export class AuthEffects {
   );
 
   @Effect()
-  public loginSuccess$ = this.dataPersistence.actions.pipe(
+  loginSuccess$ = this.dataPersistence.actions.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     tap((action: LoginSuccess) =>
       this.localStorage.setItem(AUTH_FEATURE_KEY, { tokens: action.payload })
@@ -76,7 +76,7 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
-  public getUserSuccess$ = this.dataPersistence.optimisticUpdate(
+  getUserSuccess$ = this.dataPersistence.optimisticUpdate(
     AuthActionTypes.GetAuthUserSuccess,
     {
       run: (action: GetAuthUserSuccess, state: AuthPartialState) => {
@@ -92,7 +92,7 @@ export class AuthEffects {
   );
 
   @Effect()
-  public logout$ = this.dataPersistence.optimisticUpdate(
+  logout$ = this.dataPersistence.optimisticUpdate(
     AuthActionTypes.Logout,
     {
       run: (action: Logout, state: AuthPartialState) => {
@@ -105,14 +105,14 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
-  public logoutSuccess$ = this.dataPersistence.actions.pipe(
+  logoutSuccess$ = this.dataPersistence.actions.pipe(
     ofType(AuthActionTypes.LogoutSuccess),
     tap(() => this.localStorage.removeItem(AUTH_FEATURE_KEY)),
     tap(() => this.router.navigate(['/']))
   );
 
   @Effect()
-  public checkIfAuthenticated$ = this.dataPersistence.optimisticUpdate(
+  checkIfAuthenticated$ = this.dataPersistence.optimisticUpdate(
     AuthActionTypes.CheckIfAuthenticated,
     {
       run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
@@ -135,7 +135,7 @@ export class AuthEffects {
   @Effect()
   init$ = defer(() => from([new CheckIfUserIsAuthenticated()]));
 
-  public constructor(
+  constructor(
     private router: Router,
     private authService: AuthService,
     private localStorage: LocalStorageService,

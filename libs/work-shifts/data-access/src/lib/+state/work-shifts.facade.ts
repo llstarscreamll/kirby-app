@@ -14,50 +14,50 @@ import {
 
 @Injectable()
 export class WorkShiftsFacade {
-  public paginatedWorkShifts$ = this.store.pipe(
+  paginatedWorkShifts$ = this.store.pipe(
     select(workShiftsQuery.getPaginatedWorkShifts)
   );
-  public getWorkShiftsList$ = this.store.pipe(
+  getWorkShiftsList$ = this.store.pipe(
     select(workShiftsQuery.getWorkShiftsList)
   );
-  public paginatingStatus$ = this.store.pipe(
+  paginatingStatus$ = this.store.pipe(
     select(workShiftsQuery.paginatingStatus)
   );
-  public creatingStatus$ = this.store.pipe(
+  creatingStatus$ = this.store.pipe(
     select(workShiftsQuery.creatingStatus)
   );
-  public selectedWorkShift$ = this.store.pipe(
+  selectedWorkShift$ = this.store.pipe(
     select(workShiftsQuery.getSelectedWorkShift)
   );
-  public selectingStatus$ = this.store.pipe(
+  selectingStatus$ = this.store.pipe(
     select(workShiftsQuery.selectingStatus)
   );
-  public updatingStatus$ = this.store.pipe(
+  updatingStatus$ = this.store.pipe(
     select(workShiftsQuery.updatingStatus)
   );
-  public deletingStatus$ = this.store.pipe(
+  deletingStatus$ = this.store.pipe(
     select(workShiftsQuery.deletingStatus)
   );
 
-  public constructor(private store: Store<WorkShiftsPartialState>) {}
+  constructor(private store: Store<WorkShiftsPartialState>) {}
 
-  public search(query: any = {}) {
+  search(query: any = {}) {
     this.store.dispatch(new SearchWorkShifts(query));
   }
 
-  public create(workShift: WorkShiftInterface) {
+  create(workShift: WorkShiftInterface) {
     this.store.dispatch(new CreateWorkShift(workShift));
   }
 
-  public get(id: string) {
+  get(id: string) {
     this.store.dispatch(new GetWorkShift(id));
   }
 
-  public update(id: string, workShift: WorkShiftInterface) {
+  update(id: string, workShift: WorkShiftInterface) {
     this.store.dispatch(new UpdateWorkShift({ id, data: workShift }));
   }
 
-  public delete(id: string) {
+  delete(id: string) {
     this.store.dispatch(new DeleteWorkShift(id));
   }
 }

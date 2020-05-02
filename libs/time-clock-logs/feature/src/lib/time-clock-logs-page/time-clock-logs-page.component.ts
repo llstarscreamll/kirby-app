@@ -19,12 +19,12 @@ export class TimeClockLogsPageComponent implements OnInit {
   public user: User;
   public searchQuery = {};
 
-  public constructor(
+  constructor(
     private authFacade: AuthFacade,
     private timeClockFacade: TimeClockLogsFacade
   ) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.user$ = this.authFacade.authUser$.pipe(
       tap(user => (this.user = user))
     );
@@ -33,7 +33,7 @@ export class TimeClockLogsPageComponent implements OnInit {
     this.searchTimeClockLogs();
   }
 
-  public get timeClockLogsTableButtons() {
+  get timeClockLogsTableButtons() {
     const buttons = [];
 
     if (this.user && this.user.can('time-clock-logs.approvals.create')) {
@@ -47,16 +47,16 @@ export class TimeClockLogsPageComponent implements OnInit {
     return buttons;
   }
 
-  public searchTimeClockLogs(query = {}) {
+  searchTimeClockLogs(query = {}) {
     this.searchQuery = { ...this.searchQuery, ...query };
     this.timeClockFacade.search(this.searchQuery);
   }
 
-  public onApprove(timeClockLogId: string) {
+  onApprove(timeClockLogId: string) {
     this.timeClockFacade.approve(timeClockLogId, this.user);
   }
 
-  public onDeleteApproval(timeClockLogId: string) {
+  onDeleteApproval(timeClockLogId: string) {
     this.timeClockFacade.deleteApproval(timeClockLogId, this.user);
   }
 }

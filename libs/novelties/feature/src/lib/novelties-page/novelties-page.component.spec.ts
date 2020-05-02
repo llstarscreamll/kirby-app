@@ -8,7 +8,7 @@ import { NoveltiesPageComponent } from './novelties-page.component';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 
 class AuthFacadeMock {
-  public authUser$ = from([]);
+  authUser$ = from([]);
 }
 
 describe('NoveltiesPageComponent', () => {

@@ -44,29 +44,29 @@ export class PaginationComponent implements OnInit {
   };
 
   @Output()
-  public paginate = new EventEmitter();
+  paginate = new EventEmitter();
 
-  public constructor() {}
+  constructor() {}
 
-  public ngOnInit(): void {}
+  ngOnInit(): void {}
 
-  public get currentPage(): number {
+  get currentPage(): number {
     return get(this.pagination, 'current_page', 0);
   }
 
-  public get disablePrev(): boolean {
+  get disablePrev(): boolean {
     return !this.pagination || this.currentPage === 1;
   }
 
-  public get disabledNext(): boolean {
+  get disabledNext(): boolean {
     return !this.pagination || this.pagination.to < this.pagination.per_page;
   }
 
-  public clickPrev() {
+  clickPrev() {
     this.paginate.emit({ page: this.currentPage - 1 });
   }
 
-  public clickNext() {
+  clickNext() {
     this.paginate.emit({ page: this.currentPage + 1 });
   }
 }

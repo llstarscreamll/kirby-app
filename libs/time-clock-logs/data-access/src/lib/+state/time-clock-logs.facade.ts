@@ -17,68 +17,68 @@ import { User } from '@kirby/users/util';
 
 @Injectable()
 export class TimeClockLogsFacade {
-  public paginatedTimeClockLogs$ = this.store.pipe(
+  paginatedTimeClockLogs$ = this.store.pipe(
     select(timeClockLogsQuery.getPaginatedTimeClockLogs)
   );
-  public paginatingStatus$ = this.store.pipe(
+  paginatingStatus$ = this.store.pipe(
     select(timeClockLogsQuery.getPaginatingStatus)
   );
-  public creatingStatus$ = this.store.pipe(
+  creatingStatus$ = this.store.pipe(
     select(timeClockLogsQuery.getCreatingStatus)
   );
-  public selectedTimeClockLog$ = this.store.pipe(
+  selectedTimeClockLog$ = this.store.pipe(
     select(timeClockLogsQuery.getSelectedTimeClockLog)
   );
-  public selectingStatus$ = this.store.pipe(
+  selectingStatus$ = this.store.pipe(
     select(timeClockLogsQuery.getSelectingStatus)
   );
-  public updatingStatus$ = this.store.pipe(
+  updatingStatus$ = this.store.pipe(
     select(timeClockLogsQuery.getUpdatingStatus)
   );
-  public deletingStatus$ = this.store.pipe(
+  deletingStatus$ = this.store.pipe(
     select(timeClockLogsQuery.getDeletingStatus)
   );
-  public apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
-  public subCostCenters$ = this.store.pipe(
+  apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
+  subCostCenters$ = this.store.pipe(
     select(timeClockLogsQuery.getSubCostCenters)
   );
-  public employeeTimeClockData$ = this.store.pipe(
+  employeeTimeClockData$ = this.store.pipe(
     select(timeClockLogsQuery.getEmployeeTimeClockData)
   );
 
-  public constructor(private store: Store<TimeClockLogsPartialState>) {}
+  constructor(private store: Store<TimeClockLogsPartialState>) {}
 
-  public search(query: any = {}) {
+  search(query: any = {}) {
     this.store.dispatch(new SearchTimeClockLogs(query));
   }
 
-  public getTimeClockData(log: {
+  getTimeClockData(log: {
     identification_code: string;
     action: string;
   }) {
     this.store.dispatch(new GetEmployeeTimeClockData(log));
   }
 
-  public searchSubCostCenters(query: any) {
+  searchSubCostCenters(query: any) {
     this.store.dispatch(new SearchSubCostCenters(query));
   }
 
-  public createEntryAndExitLog(log: {
+  createEntryAndExitLog(log: {
     identification_code: string;
     action: string;
   }) {
     this.store.dispatch(new CreateEntryAndExitLog(log));
   }
 
-  public approve(timeClockLogId: string, user: User) {
+  approve(timeClockLogId: string, user: User) {
     this.store.dispatch(new ApproveTimeClockLog(timeClockLogId, user));
   }
 
-  public deleteApproval(timeClockLogId: string, user: User) {
+  deleteApproval(timeClockLogId: string, user: User) {
     this.store.dispatch(new DeleteTimeClockLogApproval(timeClockLogId, user));
   }
 
-  public cleanError() {
+  cleanError() {
     this.store.dispatch(new CleanError());
   }
 }

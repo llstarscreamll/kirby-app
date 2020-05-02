@@ -50,7 +50,7 @@ export enum TimeClockLogsActionTypes {
 
 export class SearchTimeClockLogs implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogs;
-  public constructor(public payload: any) {}
+  constructor(public payload: any) {}
 }
 
 export class SearchTimeClockLogsOk implements Action {
@@ -65,7 +65,7 @@ export class SearchTimeClockLogsError implements Action {
 
 export class GetEmployeeTimeClockData implements Action {
   readonly type = TimeClockLogsActionTypes.GetEmployeeTimeClockData;
-  public constructor(public payload: any) {}
+  constructor(public payload: any) {}
 }
 
 export class GetEmployeeTimeClockDataOk implements Action {
@@ -80,7 +80,7 @@ export class GetEmployeeTimeClockDataError implements Action {
 
 export class SearchSubCostCenters implements Action {
   readonly type = TimeClockLogsActionTypes.SearchSubCostCenters;
-  public constructor(public payload: any) {}
+  constructor(public payload: any) {}
 }
 
 export class SearchSubCostCentersOk implements Action {
@@ -95,7 +95,7 @@ export class SearchSubCostCentersError implements Action {
 
 export class CreateTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.CreateTimeClockLog;
-  public constructor(public payload: TimeClockLogModel) {}
+  constructor(public payload: TimeClockLogModel) {}
 }
 
 export class CreateTimeClockLogOk implements Action {
@@ -110,7 +110,7 @@ export class CreateTimeClockLogError implements Action {
 
 export class CreateEntryAndExitLog implements Action {
   readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLog;
-  public constructor(
+  constructor(
     public payload: { identification_code: string; action: string }
   ) {}
 }
@@ -127,7 +127,7 @@ export class CreateEntryAndExitLogError implements Action {
 
 export class GetTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.GetTimeClockLog;
-  public constructor(public payload: string) {}
+  constructor(public payload: string) {}
 }
 
 export class GetTimeClockLogOk implements Action {
@@ -142,7 +142,7 @@ export class GetTimeClockLogError implements Action {
 
 export class UpdateTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.UpdateTimeClockLog;
-  public constructor(public payload: { id: string; data: TimeClockLogModel }) {}
+  constructor(public payload: { id: string; data: TimeClockLogModel }) {}
 }
 
 export class UpdateTimeClockLogOk implements Action {
@@ -157,7 +157,7 @@ export class UpdateTimeClockLogError implements Action {
 
 export class DeleteTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLog;
-  public constructor(public payload: string) {}
+  constructor(public payload: string) {}
 }
 
 export class DeleteTimeClockLogOk implements Action {
@@ -172,7 +172,7 @@ export class DeleteTimeClockLogError implements Action {
 
 export class ApproveTimeClockLog implements Action {
   readonly type = TimeClockLogsActionTypes.ApproveTimeClockLog;
-  public constructor(public timeClockLogId: string, public user: User) {}
+  constructor(public timeClockLogId: string, public user: User) {}
 }
 
 export class ApproveTimeClockLogOk implements Action {
@@ -191,7 +191,7 @@ export class ApproveTimeClockLogError implements Action {
 
 export class DeleteTimeClockLogApproval implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApproval;
-  public constructor(public timeClockLogId: string, public user: User) {}
+  constructor(public timeClockLogId: string, public user: User) {}
 }
 
 export class DeleteTimeClockLogApprovalOk implements Action {

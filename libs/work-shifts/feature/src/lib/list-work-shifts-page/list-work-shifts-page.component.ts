@@ -13,9 +13,9 @@ import { WorkShiftInterface } from '@kirby/work-shifts/util';
 export class ListWorkShiftsPageComponent implements OnInit {
   public paginatedWorkShifts$: Observable<Pagination<WorkShiftInterface>>;
 
-  public constructor(private workShiftsFacade: WorkShiftsFacade) {}
+  constructor(private workShiftsFacade: WorkShiftsFacade) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.paginatedWorkShifts$ = this.workShiftsFacade.paginatedWorkShifts$;
 
     this.workShiftsFacade.search();
