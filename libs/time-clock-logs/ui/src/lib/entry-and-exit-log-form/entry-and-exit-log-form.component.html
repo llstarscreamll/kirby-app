@@ -116,7 +116,7 @@
         *ngFor="let subCostCenter of allSubCostCenters"
         [value]="subCostCenter"
       >
-        <span>{{ subCostCenter.name }}</span>
+        <span>{{ subCostCenter.code + " - " + subCostCenter.name }}</span>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
