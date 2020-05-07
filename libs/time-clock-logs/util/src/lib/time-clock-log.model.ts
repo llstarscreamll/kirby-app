@@ -1,5 +1,3 @@
-import { round } from 'lodash';
-
 import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { EmployeeInterface } from '@kirby/employees/util';
@@ -36,12 +34,6 @@ export class TimeClockLogModel {
 
   static fromJsonList(arr: any[]): TimeClockLogModel[] {
     return arr.map(data => TimeClockLogModel.fromJson(data));
-  }
-
-  get concatenatedNoveltiesCount(): string {
-    return (this.novelties || [])
-      .map(novelty => novelty.total_time_in_hours)
-      .join(', ');
   }
 
   isApprovedByUserId(userId: string): boolean {
