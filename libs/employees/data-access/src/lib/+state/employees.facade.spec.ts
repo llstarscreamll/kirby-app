@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { readFirst } from '@nrwl/angular/testing';
@@ -43,7 +44,8 @@ describe('EmployeesFacade', () => {
               search: query => true
             }
           },
-          { provide: MatSnackBar, useValue: { open: () => true } }
+          { provide: MatSnackBar, useValue: { open: () => true } },
+          { provide: Router, useValue: {} }
         ]
       })
       class CustomFeatureModule {}

@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -34,6 +35,7 @@ describe('EmployeesEffects', () => {
         DataPersistence,
         EmployeesEffects,
         provideMockActions(() => actions),
+        { provide: Router, useValue: {} },
         { provide: MatSnackBar, useValue: { open: () => true } },
         {
           provide: EmployeeService,

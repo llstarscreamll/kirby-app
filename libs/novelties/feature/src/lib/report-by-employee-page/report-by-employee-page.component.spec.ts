@@ -10,6 +10,7 @@ import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { ReportByEmployeePageComponent } from './report-by-employee-page.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 describe('ReportByEmployeePageComponent', () => {
   let component: ReportByEmployeePageComponent;
@@ -17,7 +18,7 @@ describe('ReportByEmployeePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatAutocompleteModule, ReactiveFormsModule],
+      imports: [MatAutocompleteModule, MatMenuModule, ReactiveFormsModule],
       declarations: [ReportByEmployeePageComponent],
       providers: [
         { provide: AuthFacade, useValue: { authUser$: of(USER) } },

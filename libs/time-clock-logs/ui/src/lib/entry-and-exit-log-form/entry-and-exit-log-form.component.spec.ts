@@ -221,11 +221,10 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(template.querySelector('form#code-form')).toBeFalsy();
   });
 
-  it('should set sub_cost_center validation rules when action == check_out', () => {
+  it('should set sub_cost_center as required when action == check_out', () => {
     // when action is check in, then sub_cost_center is not required
     component.codeForm.patchValue({ action: 'check_in' });
     expect(component.checkForm.get('sub_cost_center').valid).toBe(true);
-    expect(component.checkForm.get('sub_cost_center').validator).toBe(null);
 
     component.codeForm.patchValue({ action: 'check_out' });
     component.timeClockData = earlyTimeClockData;
@@ -238,7 +237,6 @@ describe('EntryAndExitLogFormComponent', () => {
     // remove sub_cost_center field suggested value
     component.checkForm.get('sub_cost_center').setValue(null);
     expect(component.checkForm.get('sub_cost_center').valid).toBe(false);
-    expect(component.checkForm.get('sub_cost_center').validator).not.toBe(null);
   });
 
   it("should NOT set novelty type field as required if time clock data doesn't have novelty types", () => {
@@ -263,9 +261,6 @@ describe('EntryAndExitLogFormComponent', () => {
     expect(component.checkForm.get('novelty_type_id').valid).toBe(true);
     expect(component.checkForm.get('novelty_type_id').validator).toBe(null);
     expect(component.checkForm.get('novelty_sub_cost_center').valid).toBe(true);
-    expect(component.checkForm.get('novelty_sub_cost_center').validator).toBe(
-      null
-    );
     expect(
       template.querySelector('form button[type="submit"]:disabled')
     ).toBeFalsy();
