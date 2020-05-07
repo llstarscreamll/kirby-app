@@ -130,8 +130,10 @@ describe('EntryAndExitLogPageComponent', () => {
 
     fixture.detectChanges();
 
-    expect(timeClockLogFacade.searchSubCostCenters).toHaveBeenCalledWith(
-      eventData
-    );
+    expect(timeClockLogFacade.searchSubCostCenters).toHaveBeenCalledWith({
+      ...eventData,
+      orderBy: 'code',
+      searchFields: 'code:like'
+    });
   });
 });
