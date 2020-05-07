@@ -17,7 +17,7 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { LoadStatuses, ApiError } from '@kirby/shared';
+import { LoadStatuses, ApiError, isObject } from '@kirby/shared';
 
 @Component({
   selector: 'kirby-entry-and-exit-log-form',
@@ -200,8 +200,8 @@ export class EntryAndExitLogFormComponent
     this.checkForm = this.formBuilder.group({
       novelty_type_id: [],
       work_shift_id: [],
-      sub_cost_center: [],
-      novelty_sub_cost_center: []
+      sub_cost_center: [,[isObject]],
+      novelty_sub_cost_center: [, [isObject]]
     });
   }
 
@@ -241,8 +241,14 @@ export class EntryAndExitLogFormComponent
         debounce(() => timer(300)),
         tap(value =>
           this.setFormFieldsRules(
-            ['novelty_type_id', 'sub_cost_center'],
+            ['novelty_type_id'],
             value == this.fallbackWorkShift[0].id ? [Validators.required] : []
+          )
+        ),
+        tap(value =>
+          this.setFormFieldsRules(
+            ['sub_cost_center'],
+            value == this.fallbackWorkShift[0].id ? [Validators.required, isObject] : []
           )
         ),
         takeUntil(this.destroy$)
@@ -277,7 +283,7 @@ export class EntryAndExitLogFormComponent
     if (this.currentAction === 'check_out') {
       this.checkForm
         .get('sub_cost_center')
-        .setValidators([Validators.required]);
+        .setValidators([Validators.required, isObject]);
     } else {
       this.checkForm.get('sub_cost_center').setValidators([]);
     }
