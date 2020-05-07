@@ -72,8 +72,8 @@ describe('NoveltyFormComponent', () => {
   it('should have certain form fields validity by default', () => {
     expect(component.form.get('employee').valid).toBeFalsy();
     expect(component.form.get('novelty_type').valid).toBeFalsy();
-    expect(component.form.get('scheduled_start_at').valid).toBeTruthy();
-    expect(component.form.get('scheduled_end_at').valid).toBeTruthy();
+    expect(component.form.get('scheduled_start_at').valid).toBeFalsy();
+    expect(component.form.get('scheduled_end_at').valid).toBeFalsy();
     expect(component.form.get('comment').valid).toBeTruthy();
   });
 
