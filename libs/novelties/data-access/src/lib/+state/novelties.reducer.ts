@@ -24,8 +24,6 @@ export interface NoveltiesState {
   paginatedList: Pagination<NoveltyModel>;
   paginatedNoveltyTypesList: Pagination<NoveltyTypeInterface>;
   selected?: NoveltyModel;
-  reportByEmployee?: any[];
-  reportByEmployeeQuery?: { employee_id; start_date; end_date };
   loaded: boolean;
   createNoveltiesToEmployeesStatus: LoadStatuses;
   error?: any;
@@ -153,7 +151,7 @@ export function noveltiesReducer(
       state = { ...state, error: null };
       break;
     }
-    
+
     case NoveltiesActionTypes.GetNoveltyOk: {
       state = { ...state, selected: action.payload };
       break;
@@ -161,26 +159,6 @@ export function noveltiesReducer(
 
     case NoveltiesActionTypes.GetNoveltyError: {
       state = { ...state, error: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetReportByEmployee: {
-      state = { ...state, error: null };
-      break;
-    }
-    
-    case NoveltiesActionTypes.GetReportByEmployeeOk: {
-      state = { ...state, reportByEmployee: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetReportByEmployeeError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.UpdateReportByEmployeeQuery: {
-      state = { ...state, reportByEmployeeQuery: action.payload };
       break;
     }
 
