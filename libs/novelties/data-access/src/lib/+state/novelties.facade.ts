@@ -15,12 +15,10 @@ import {
   ApproveNovelty,
   DeleteNoveltyApproval,
   TrashNovelty,
-  GetReportByEmployee,
-  GetReportByEmployeeOk,
-  UpdateReportByEmployeeQuery,
   SetApprovalsByEmployeeAndDateRange,
   DeleteApprovalsByEmployeeAndDateRange,
-  DownLoadNoveltiesReport
+  DownLoadNoveltiesReport,
+  SearchNoveltiesOk
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -54,23 +52,9 @@ export class NoveltiesFacade {
     this.store.dispatch(new GetNovelty(noveltyId));
   }
 
-  getReportByEmployee(
-    employeeId: string,
-    startDate: string,
-    endDate: string
-  ) {
-    this.store.dispatch(
-      new GetReportByEmployee({
-        employee_id: employeeId,
-        start_date: startDate,
-        end_date: endDate
-      })
-    );
-  }
-
-  cleanReportByEmployee() {
+  cleanNoveltiesSearch() {
     this.store.dispatch(new CleanApiErrors());
-    this.store.dispatch(new GetReportByEmployeeOk(null));
+    this.store.dispatch(new SearchNoveltiesOk(null));
   }
 
   update(noveltyId: string, noveltyData) {

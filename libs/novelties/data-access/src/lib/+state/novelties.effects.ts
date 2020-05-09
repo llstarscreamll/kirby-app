@@ -28,10 +28,6 @@ import {
   TrashNovelty,
   TrashNoveltyOk,
   TrashNoveltyError,
-  GetReportByEmployee,
-  GetReportByEmployeeOk,
-  GetReportByEmployeeError,
-  UpdateReportByEmployeeQuery,
   SetApprovalsByEmployeeAndDateRange,
   SetApprovalsByEmployeeAndDateRangeError,
   SetApprovalsByEmployeeAndDateRangeOk,
@@ -96,29 +92,6 @@ export class NoveltiesEffects {
           .pipe(map(apiResponse => new GetNoveltyOk(apiResponse))),
       onError: (action: GetNovelty, error) => new GetNoveltyError(error)
     }
-  );
-
-  @Effect() getReportByEmployee$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.GetReportByEmployee,
-    {
-      run: ({ payload }: GetReportByEmployee) =>
-        this.noveltyService
-          .search(payload)
-          .pipe(map(apiResponse => new GetReportByEmployeeOk(apiResponse))),
-      onError: (_: GetReportByEmployee, error) =>
-        new GetReportByEmployeeError(error)
-    }
-  );
-
-  @Effect() updateReportByEmployeeQuery$ = this.actions$.pipe(
-    ofType(NoveltiesActionTypes.UpdateReportByEmployeeQuery),
-    tap(({ payload }: UpdateReportByEmployeeQuery) =>
-      this.router.navigate([], { queryParams: payload })
-    ),
-    map(
-      ({ payload }: UpdateReportByEmployeeQuery) =>
-        new GetReportByEmployee(payload)
-    )
   );
 
   @Effect() updateNovelty$ = this.dataPersistence.optimisticUpdate(
