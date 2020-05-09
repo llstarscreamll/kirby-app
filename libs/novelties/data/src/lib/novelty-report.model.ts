@@ -44,8 +44,6 @@ class ReportRow {
   }
 
   get totalHours(): number {
-    console.warn(this.novelties);
-    
     return this.novelties
       .map(novelty => novelty.total_time_in_hours)
       .reduce((acc, hours) => acc + hours, 0);
@@ -74,10 +72,10 @@ class ReportRow {
 export class NoveltyReport {
   data: ReportRow[];
 
-  constructor(data: any) {    
+  constructor(data: any) {
     const mappedData = NoveltyModel.fromJsonList(data.data).map(novelty => ({
       ...novelty,
-      grouping_date: novelty.scheduled_start_at.setHours(0, 0, 0, 0)
+      grouping_date: new Date(novelty.scheduled_start_at).setHours(0, 0, 0, 0)
     }));
 
     this.data = toArray(groupBy(mappedData, 'grouping_date')).map(row =>
@@ -86,7 +84,7 @@ export class NoveltyReport {
         employee: row[0].employee,
         novelties: NoveltyModel.fromJsonList(row)
       })
-    );    
+    );
   }
 
   /*constructor(data: any[]) {

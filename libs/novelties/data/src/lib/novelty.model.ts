@@ -51,6 +51,6 @@ export class NoveltyModel {
   }
 
   get total_time_in_hours(): number {
-    return this.time_difference ? round(this.time_difference / 3.6e+6, 2) : 0;
+    return this.time_difference ? round(this.time_difference / 3.6e6, 2) : 0;
   }
 }
