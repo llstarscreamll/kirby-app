@@ -54,7 +54,7 @@ echo "{{ $newReleaseName }}" > release-name.txt
 @task('compile', ['on' => 'local'])
 {{ logMessage("🚚  Compile project...") }}
 echo $PWD
-ng build --prod --project={{ $project }} --configuration={{ $configuration }}
+ngtw build && ng build --prod --project={{ $project }} --configuration={{ $configuration }}
 @endtask
 
 @task('uploadCompiledFiles', ['on' => 'local'])
