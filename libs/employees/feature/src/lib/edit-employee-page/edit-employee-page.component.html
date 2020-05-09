@@ -1,8 +1,8 @@
 <h1>Editar empleado</h1>
 
-<div class="row">
+<div class="card">
   <kirby-employee-form
-    *ngIf="(employee$ | async)"
+    *ngIf="employee$ | async"
     [employee]="employee$ | async"
     [workShifts]="workShifts$ | async"
     [status]="updatingStatus$ | async"

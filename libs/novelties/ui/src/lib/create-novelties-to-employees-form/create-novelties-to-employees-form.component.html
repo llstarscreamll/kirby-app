@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-form-field class="w-full">
+    <mat-label>Buscar empleado</mat-label>
     <input
       matInput
-      placeholder="Buscar empleado"
       [matAutocomplete]="employeeAutocomplete"
       formControlName="employee"
     />
@@ -23,7 +23,7 @@
 
   <div
     *ngIf="selectedEmployees.length === 0"
-    class="no-employees-selected badge badge-danger"
+    class="no-employees-selected badge badge-warn"
   >
     No has seleccionado empleados *
   </div>
@@ -44,14 +44,13 @@
         let i = index
       "
       [formGroup]="noveltyTypeOptionGroup"
-      class="option"
+      class="option py-5"
     >
-      <hr />
       <mat-form-field class="w-full">
+        <mat-label>Tipo de novedad</mat-label>
         <input
           matInput
           required="true"
-          placeholder="Tipo de novedad"
           [matAutocomplete]="noveltyTypeAutocomplete"
           formControlName="novelty_type"
         />
@@ -68,15 +67,13 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <div class="clearfix"></div>
-
-      <div class="row">
-        <mat-form-field class="col-md-6">
+      <div fxLayout="column" fxLayout.md="row" fxLayoutGap="0px" fxLayoutGap.md="20px">
+        <mat-form-field fxFlex="grow">
+          <mat-label>Fecha de inicio</mat-label>
           <input
             formControlName="scheduled_start_date"
             matInput
             [matDatepicker]="scheduledStartDatePicker"
-            placeholder="Fecha de inicio"
             required="true"
           />
           <mat-datepicker-toggle
@@ -86,7 +83,7 @@
           <mat-datepicker #scheduledStartDatePicker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="col-md-3">
+        <mat-form-field fxFlex="grow">
           <mat-label>Hora</mat-label>
           <mat-select formControlName="scheduled_start_hour" required>
             <mat-option *ngFor="let hour of hours" [value]="hour">
@@ -95,7 +92,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="col-md-3">
+        <mat-form-field fxFlex="grow">
           <mat-label>Minutos</mat-label>
           <mat-select formControlName="scheduled_start_minute" required>
             <mat-option *ngFor="let minute of minutes" [value]="minute">
@@ -105,13 +102,13 @@
         </mat-form-field>
       </div>
 
-      <div class="row">
-        <mat-form-field class="col-md-6">
+      <div fxLayout="column" fxLayout.md="row" fxLayoutGap="0px" fxLayoutGap.md="20px">
+        <mat-form-field fxFlex="grow">
+          <mat-label>Fecha de fin</mat-label>
           <input
             formControlName="scheduled_end_date"
             matInput
             [matDatepicker]="scheduledEndDatePicker"
-            placeholder="Fecha de fin"
             required="true"
           />
           <mat-datepicker-toggle
@@ -121,7 +118,7 @@
           <mat-datepicker #scheduledEndDatePicker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="col-md-3">
+        <mat-form-field fxFlex="grow">
           <mat-label>Hora</mat-label>
           <mat-select formControlName="scheduled_end_hour" required>
             <mat-option *ngFor="let hour of hours" [value]="hour">
@@ -130,7 +127,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="col-md-3">
+        <mat-form-field fxFlex="grow">
           <mat-label>Minutos</mat-label>
           <mat-select formControlName="scheduled_end_minute" required>
             <mat-option *ngFor="let minute of minutes" [value]="minute">
@@ -140,7 +137,8 @@
         </mat-form-field>
       </div>
 
-      <mat-form-field class="w-full mt-2">
+      <mat-form-field class="w-full">
+        <mat-label>Comentario</mat-label>
         <textarea
           formControlName="comment"
           matInput
@@ -150,13 +148,17 @@
               noveltyTypeOptionGroup.get('novelty_type').value
             )
           "
-          placeholder="Comentario"
         ></textarea>
         <mat-hint>Máximo 255 caracteres</mat-hint>
       </mat-form-field>
 
       <div class="text-right">
-        <button (click)="removeNoveltyOption(i)" [disabled]="noveltyTypesArrayControl.length <= 1" mat-stroked-button color="warn">
+        <button
+          (click)="removeNoveltyOption(i)"
+          [disabled]="noveltyTypesArrayControl.length <= 1"
+          mat-stroked-button
+          color="warn"
+        >
           <mat-icon>cancel</mat-icon>
           Remover
         </button>
@@ -166,26 +168,31 @@
 
   <hr />
 
-  <button
-    (click)="addNoveltyOption()"
-    mat-stroked-button
-    type="button"
-    class="add-novelty-option"
-  >
-    Añadir tipo de novedad
-  </button>
+  <div class="my-4">
+    <button
+      (click)="addNoveltyOption()"
+      mat-stroked-button
+      type="button"
+      class="add-novelty-option"
+    >
+      Añadir tipo de novedad
+    </button>
+  </div>
 
   <div class="clearfix"></div>
 
-  <button
-    [disabled]="disableFormSubmitBtn"
-    mat-raised-button
-    type="submit"
-    class="mt-4"
-    color="primary"
-  >
-    Guardar
-  </button>
-  <div class="clearfix"></div>
-  <span class="text-muted">Los campos marcados con * son obligatorios</span>
+  <div class="my-4">
+    <button
+      [disabled]="disableFormSubmitBtn"
+      mat-raised-button
+      type="submit"
+      color="primary"
+      class="mt-4"
+      ngClass.xs="block w-full h-12"
+    >
+      Guardar
+    </button>
+  </div>
+
+  <span class="font-hairline">Los campos marcados con * son obligatorios</span>
 </form>

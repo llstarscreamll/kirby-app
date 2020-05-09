@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +22,7 @@ import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form/entry-an
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    FlexLayoutModule,
     MatTooltipModule,
     MatFormFieldModule,
     ReactiveFormsModule,

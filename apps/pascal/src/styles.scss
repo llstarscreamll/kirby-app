@@ -47,9 +47,24 @@ $default-theme: mat-light-theme(
   @include sidebar-layout-theme($theme);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
 
   .table {
     background: mat-color($background, card);
+  }
+
+  a {
+    color: mat-color($primary);
+  }
+  .card {
+    background-color: mat-color($background, card);
+  }
+
+  .badge-warn {
+    background-color: mat-color($warn);
+    color: mat-color($warn, lighter);
   }
 }
 

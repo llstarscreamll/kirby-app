@@ -1,21 +1,30 @@
-<h1 class="mb-4">Reporte de novedades de empleado</h1>
+<h1 class="mb-4">Reporte de novedades</h1>
 
 <kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
 
 <div class="text-right my-3">
   <button
-    mat-icon-button
+    mat-button
     [matMenuTriggerFor]="downloadMenu"
     color="primary"
     aria-label="Descargar reporte"
   >
+    <span class="mr-2">Exportar</span>
     <mat-icon>cloud_download</mat-icon>
   </button>
   <mat-menu #downloadMenu="matMenu">
-    <button (click)="downloadSelectedFilter()" [disabled]="searchForm.invalid" mat-menu-item>
+    <button
+      (click)="downloadSelectedFilter()"
+      [disabled]="searchForm.invalid"
+      mat-menu-item
+    >
       <span>Filtro seleccionado</span>
     </button>
-    <button (click)="downloadAllOnDateRange()" [disabled]="!searchHasValidDates" mat-menu-item>
+    <button
+      (click)="downloadAllOnDateRange()"
+      [disabled]="!searchHasValidDates"
+      mat-menu-item
+    >
       <span>Todo en el rango de fecha</span>
     </button>
   </mat-menu>
@@ -23,9 +32,9 @@
 
 <form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5">
   <mat-form-field class="w-full">
+    <mat-label>Empleado</mat-label>
     <input
       matInput
-      placeholder="Empleado"
       [matAutocomplete]="employeeAutocomplete"
       formControlName="employee"
     />
@@ -42,23 +51,22 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-form-field class="w-50">
-    <input
-      formControlName="start_date"
-      placeholder="Fecha inicial"
-      type="date"
-      matInput
-    />
-  </mat-form-field>
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    fxLayoutGap="0px"
+    fxLayoutGap.gt-xs="20px"
+  >
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fecha inicial</mat-label>
+      <input formControlName="start_date" type="date" matInput />
+    </mat-form-field>
 
-  <mat-form-field class="w-50">
-    <input
-      formControlName="end_date"
-      placeholder="Fecha final"
-      type="date"
-      matInput
-    />
-  </mat-form-field>
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fecha final</mat-label>
+      <input formControlName="end_date" type="date" matInput />
+    </mat-form-field>
+  </div>
 
   <div class="text-center">
     <button
@@ -66,13 +74,14 @@
       mat-stroked-button
       color="primary"
       type="submit"
+      ngClass.xs="block w-full h-12"
     >
       Generar
     </button>
   </div>
 </form>
 
-<div class="table-responsive">
+<div class="responsive-table shadow">
   <table class="table">
     <thead>
       <tr>
@@ -114,7 +123,11 @@
         </td>
         <td>
           <button
-            *ngIf="user.can('novelties.create-approvals-by-employee-and-date-range') && row.userHasAnyToApprove(user.id)"
+            *ngIf="
+              user.can(
+                'novelties.create-approvals-by-employee-and-date-range'
+              ) && row.userHasAnyToApprove(user.id)
+            "
             (click)="setApprovals(row.employee.id, row.date)"
             matTooltip="Aprobar todo en este día"
             mat-icon-button
@@ -124,7 +137,11 @@
             <mat-icon>check_circle</mat-icon>
           </button>
           <button
-            *ngIf="user.can('novelties.delete-approvals-by-employee-and-date-range') && row.userHasApprovals(user)"
+            *ngIf="
+              user.can(
+                'novelties.delete-approvals-by-employee-and-date-range'
+              ) && row.userHasApprovals(user)
+            "
             (click)="deleteApprovals(row.employee.id, row.date)"
             matTooltip="Borrar aprobaciones de este día"
             mat-icon-button

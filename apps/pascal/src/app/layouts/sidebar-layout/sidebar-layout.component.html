@@ -31,7 +31,7 @@
   <!-- side navigation -->
   <mat-sidenav
     #drawer
-    class="d-print-none sidenav"
+    class="sidenav"
     fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) || mediaQueryList.matches ? 'over' : 'side'"

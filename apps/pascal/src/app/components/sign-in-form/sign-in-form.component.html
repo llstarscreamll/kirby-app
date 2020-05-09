@@ -1,12 +1,14 @@
 <kirby-api-errors [apiError]="errors"></kirby-api-errors>
 
 <form [formGroup]="form" (ngSubmit)="submitForm()">
-  <mat-form-field class="w-100">
-    <input formControlName="email" matInput placeholder="Email" type="email">
+  <mat-form-field class="w-full">
+    <mat-label>Email</mat-label>
+    <input formControlName="email" matInput type="email">
   </mat-form-field>
 
-  <mat-form-field class="w-100">
-    <input formControlName="password" matInput placeholder="Password" type="password">
+  <mat-form-field class="w-full">
+    <mat-label>Password</mat-label>
+    <input formControlName="password" matInput type="password">
   </mat-form-field>
 
   <div class="text-center">

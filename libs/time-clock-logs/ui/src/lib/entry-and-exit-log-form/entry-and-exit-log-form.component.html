@@ -30,7 +30,13 @@
     />
   </mat-form-field>
 
-  <button mat-raised-button [disabled]="disableCodeFormSubmitBtn" type="submit">
+  <button
+    mat-raised-button
+    [disabled]="disableCodeFormSubmitBtn"
+    class="submit-btn"
+    ngClass.xs="block w-full"
+    type="submit"
+  >
     Siguiente
   </button>
 </form>
@@ -116,7 +122,7 @@
         *ngFor="let subCostCenter of allSubCostCenters"
         [value]="subCostCenter"
       >
-        <span>{{ subCostCenter.code + " - " + subCostCenter.name }}</span>
+        <span>{{ subCostCenter.code + ' - ' + subCostCenter.name }}</span>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
@@ -124,8 +130,10 @@
   <div class="clearfix"></div>
 
   <button
-    mat-raised-button
     [disabled]="disableCheckFormSubmitBtn"
+    class="submit-btn"
+    ngClass.xs="block w-full"
+    mat-raised-button
     type="submit"
   >
     Enviar

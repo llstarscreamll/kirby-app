@@ -25,8 +25,8 @@
               "apps/pascal/src/assets"
             ],
             "styles": [
-              "apps/pascal/src/styles.scss",
-              "apps/pascal/src/styles.css"
+              "apps/pascal/src/styles.css",
+              "apps/pascal/src/styles.scss"
             ],
             "scripts": []
           },

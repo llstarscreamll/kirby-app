@@ -1,27 +1,28 @@
 <h1 class="my-4">Novedades</h1>
 
-<a
-  *kirbyCan="'novelties.create-many'"
-  routerLink="./create-novelties-to-employees"
-  mat-stroked-button
-  color="primary"
->
-  Registrar novedades
-</a>
-
-<div class="inline mx-3">
+<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px" fxLayoutGap.gt-xs="20px">
   <a
-  *kirbyCan="'novelties.report-by-employee'"
-  routerLink="./report-by-employee"
-  mat-stroked-button
-  color="primary"
+    *kirbyCan="'novelties.create-many'"
+    routerLink="./create-novelties-to-employees"
+    mat-stroked-button
+    color="primary"
   >
-  Reporte por empleado
-</a>
+    Crear
+  </a>
+
+  <a
+    *kirbyCan="'novelties.report-by-employee'"
+    routerLink="./report-by-employee"
+    mat-stroked-button
+    color="primary"
+  >
+    Reporte
+  </a>
 </div>
 
 <div class="mt-4">
   <mat-form-field class="w-full">
+    <mat-label>Buscar</mat-label>
     <input
       *kirbyCan="'novelties.search'"
       (change)="searchNovelties({ search: $event.srcElement.value, page: 1 })"
@@ -34,8 +35,8 @@
   </mat-form-field>
 </div>
 
-<div class="responsive-table">
-  <table class="table table-auto shadow">
+<div class="responsive-table shadow">
+  <table class="table">
     <thead>
       <tr>
         <th>Id</th>

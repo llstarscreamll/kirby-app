@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +19,7 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component';
     MatInputModule,
     MatSelectModule,
     MatIconModule,
+    FlexLayoutModule,
     MatFormFieldModule,
     MatAutocompleteModule
   ],

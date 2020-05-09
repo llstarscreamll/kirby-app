@@ -632,19 +632,35 @@ table {
 }
 
 table thead tr th {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  border-bottom-width: 2px;
+}
+
+table thead tr th,
+table tbody tr td {
+  padding-left: 1rem;
+  padding-right: 1rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  border-bottom-width: 2px;
+  text-align: left;
 }
 
 table tbody tr td {
   border-bottom-width: 1px;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.25rem;
+}
+
+.badge {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: inline;
+  border-radius: 9999px;
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
