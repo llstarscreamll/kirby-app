@@ -48,7 +48,8 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
 
   private searchOptions = {
     orderBy: 'scheduled_start_at',
-    sortedBy: 'desc'
+    sortedBy: 'desc',
+    limit: 100,
   };
 
   constructor(
@@ -124,7 +125,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    this.noveltyFacade.cleanReportByEmployee();
+    this.noveltyFacade.cleanNoveltiesSearch();
   }
 
   get isEmployeeClean(): boolean {
