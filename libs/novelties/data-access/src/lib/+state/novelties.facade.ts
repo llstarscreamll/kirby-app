@@ -68,10 +68,6 @@ export class NoveltiesFacade {
     );
   }
 
-  updateReportByEmployeeQuery(query: any) {
-    this.store.dispatch(new UpdateReportByEmployeeQuery(query));
-  }
-
   cleanReportByEmployee() {
     this.store.dispatch(new CleanApiErrors());
     this.store.dispatch(new GetReportByEmployeeOk(null));

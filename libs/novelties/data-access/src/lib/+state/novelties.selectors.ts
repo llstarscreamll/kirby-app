@@ -34,7 +34,7 @@ const getSelectedNovelty = createSelector(
 );
 const getReportByEmployee = createSelector(
   getNoveltiesState,
-  (state: NoveltiesState) => state.reportByEmployee ? new NoveltyReport(state.reportByEmployee) : null
+  (state: NoveltiesState) => state.paginatedList ? new NoveltyReport(state.paginatedList) : null
 );
 
 function mapPaginatedDataToModel(

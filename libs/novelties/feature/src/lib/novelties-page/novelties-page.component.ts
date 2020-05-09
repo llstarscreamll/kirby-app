@@ -20,6 +20,10 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
   private user: User;
   private destroy$ = new Subject();
   public searchQuery = {};
+  private searchOptions = {
+    orderBy: 'created_at',
+    sortedBy: 'desc'
+  };
 
   constructor(
     private noveltiesFacade: NoveltiesFacade,
@@ -45,7 +49,7 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
 
   searchNovelties(query: any = {}) {
     this.searchQuery = { ...this.searchQuery, ...query };
-    this.noveltiesFacade.search(this.searchQuery);
+    this.noveltiesFacade.search({ ...this.searchOptions, ...this.searchQuery });
   }
 
   shortName(approver: { first_name: string; last_name: string }) {

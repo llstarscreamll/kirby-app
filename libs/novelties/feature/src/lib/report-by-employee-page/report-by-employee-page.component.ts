@@ -46,6 +46,11 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     .endOf('month')
     .format('YYYY-MM-DD');
 
+  private searchOptions = {
+    orderBy: 'scheduled_start_at',
+    sortedBy: 'desc'
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private authFacade: AuthFacade,
@@ -89,7 +94,9 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
         tap(params =>
           this.searchForm.patchValue({ ...params, employee_id: null })
         ),
-        tap(query => this.noveltyFacade.updateReportByEmployeeQuery(query))
+        tap(query =>
+          this.noveltyFacade.search({ ...this.searchOptions, ...query })
+        )
       )
       .subscribe();
   }
@@ -175,7 +182,8 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   searchSubmitted() {
     const formValue = this.searchForm.value;
 
-    this.noveltyFacade.updateReportByEmployeeQuery({
+    this.noveltyFacade.search({
+      ...this.searchOptions,
       employee_id: formValue.employee.id,
       start_date: formValue.start_date,
       end_date: formValue.end_date

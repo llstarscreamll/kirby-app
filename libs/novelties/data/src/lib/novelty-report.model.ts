@@ -1,4 +1,4 @@
-import { uniqBy } from 'lodash';
+import { uniqBy, groupBy, toArray } from 'lodash';
 
 import { NoveltyModel } from './novelty.model';
 import { EmployeeInterface } from '@kirby/employees/util';
@@ -29,7 +29,10 @@ class ReportRow {
 
   get approvals(): any[] {
     return uniqBy(
-      [].concat.apply([], this.novelties.map(n => n.approvals)),
+      [].concat.apply(
+        [],
+        this.novelties.map(n => n.approvals)
+      ),
       'id'
     );
   }
@@ -41,11 +44,11 @@ class ReportRow {
   }
 
   get totalHours(): number {
-    return (
-      this.novelties
-        .map(novelty => novelty.total_time_in_hours)
-        .reduce((acc, hours) => acc + hours, 0)
-    );
+    console.warn(this.novelties);
+    
+    return this.novelties
+      .map(novelty => novelty.total_time_in_hours)
+      .reduce((acc, hours) => acc + hours, 0);
   }
 
   userHasApprovals(user: User): boolean {
@@ -59,7 +62,7 @@ class ReportRow {
 
   userHasAnyToApprove(userId: string): boolean {
     return (
-      this.approvals.length == 0 ||
+      this.approvals.length === 0 ||
       (userId &&
         this.approvals
           .map(approval => approval.id)
@@ -71,14 +74,29 @@ class ReportRow {
 export class NoveltyReport {
   data: ReportRow[];
 
-  constructor(data: any[]) {
+  constructor(data: any) {    
+    const mappedData = NoveltyModel.fromJsonList(data.data).map(novelty => ({
+      ...novelty,
+      grouping_date: novelty.scheduled_start_at.setHours(0, 0, 0, 0)
+    }));
+
+    this.data = toArray(groupBy(mappedData, 'grouping_date')).map(row =>
+      Object.assign(new ReportRow(), {
+        date: row[0].grouping_date,
+        employee: row[0].employee,
+        novelties: NoveltyModel.fromJsonList(row)
+      })
+    );    
+  }
+
+  /*constructor(data: any[]) {
     this.data = data.map(row =>
       Object.assign(new ReportRow(), {
         ...row,
         novelties: NoveltyModel.fromJsonList(row.novelties)
       })
     );
-  }
+  }*/
 
   get employee(): any {
     return this.data && this.data.length > 0 ? this.data[0].employee : null;

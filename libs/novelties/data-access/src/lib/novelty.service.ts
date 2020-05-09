@@ -46,20 +46,6 @@ export class NoveltyService extends BaseService {
       .pipe(map(response => response.data));
   }
 
-  getReportByEmployee(
-    employeeId: string,
-    startDate: string,
-    endDate: string
-  ): Observable<any> {
-    const endpoint = `${this.endpoint}report-by-employee/${employeeId}`;
-    return this.http
-      .get<any>(endpoint, {
-        headers: this.defaultHeaders,
-        params: { start_date: startDate, end_date: endDate }
-      })
-      .pipe(map(response => response.data));
-  }
-
   downloadReport(query: {
     employee_id?: string;
     start_date: string;
