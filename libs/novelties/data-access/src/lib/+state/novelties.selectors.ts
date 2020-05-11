@@ -42,7 +42,7 @@ function mapPaginatedDataToModel(
 ): Pagination<NoveltyModel> {
   return {
     ...paginatedData,
-    data: NoveltyModel.fromJsonList(paginatedData.data)
+    data: NoveltyModel.fromJsonList(paginatedData?.data || [])
   };
 }
 

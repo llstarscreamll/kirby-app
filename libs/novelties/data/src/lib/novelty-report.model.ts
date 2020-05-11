@@ -75,8 +75,8 @@ export class NoveltyReport {
   constructor(data: any) {
     const mappedData = NoveltyModel.fromJsonList(data.data).map(novelty => ({
       ...novelty,
-      grouping_date: new Date(novelty.scheduled_start_at).setHours(0, 0, 0, 0)
-    }));
+      grouping_date: new Date(novelty.time_clock_log.checked_out_at).setHours(0, 0, 0, 0)
+    }));   
 
     this.data = toArray(groupBy(mappedData, 'grouping_date')).map(row =>
       Object.assign(new ReportRow(), {

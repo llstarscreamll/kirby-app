@@ -59,12 +59,20 @@
   >
     <mat-form-field fxFlex="grow">
       <mat-label>Fecha inicial</mat-label>
-      <input formControlName="start_date" type="date" matInput />
+      <input
+        formControlName="time_clock_log_check_out_start_date"
+        type="date"
+        matInput
+      />
     </mat-form-field>
 
     <mat-form-field fxFlex="grow">
       <mat-label>Fecha final</mat-label>
-      <input formControlName="end_date" type="date" matInput />
+      <input
+        formControlName="time_clock_log_check_out_end_date"
+        type="date"
+        matInput
+      />
     </mat-form-field>
   </div>
 
@@ -109,7 +117,7 @@
           <a
             *ngFor="let novelty of row.novelties"
             [routerLink]="['..', novelty.id, 'edit']"
-            class="d-block"
+            class="block"
           >
             {{ novelty.total_time_in_hours }}
             {{ novelty.novelty_type.code }}

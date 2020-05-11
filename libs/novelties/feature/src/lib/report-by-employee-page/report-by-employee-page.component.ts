@@ -49,7 +49,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   private searchOptions = {
     orderBy: 'scheduled_start_at',
     sortedBy: 'desc',
-    limit: 100,
+    limit: 100
   };
 
   constructor(
@@ -79,18 +79,18 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
       .pipe(
         map(params => ({
           employee_id: params.get('employee_id'),
-          start_date: params.get('start_date'),
-          end_date: params.get('end_date')
+          time_clock_log_check_out_start_date: params.get('time_clock_log_check_out_start_date'),
+          time_clock_log_check_out_end_date: params.get('time_clock_log_check_out_end_date')
         })),
-        map(({ employee_id, start_date, end_date }) => ({
+        map(({ employee_id, time_clock_log_check_out_start_date, time_clock_log_check_out_end_date }) => ({
           employee_id,
-          start_date: !start_date ? this.defaultStartAt : start_date,
-          end_date: !end_date ? this.defaultEndAt : end_date
+          time_clock_log_check_out_start_date: !time_clock_log_check_out_start_date ? this.defaultStartAt : time_clock_log_check_out_start_date,
+          time_clock_log_check_out_end_date: !time_clock_log_check_out_end_date ? this.defaultEndAt : time_clock_log_check_out_end_date
         })),
         take(1),
         filter(
-          ({ employee_id, start_date, end_date }) =>
-            !!employee_id && !!start_date && !!end_date
+          ({ employee_id, time_clock_log_check_out_start_date, time_clock_log_check_out_end_date }) =>
+            !!employee_id && !!time_clock_log_check_out_start_date && !!time_clock_log_check_out_end_date
         ),
         tap(params =>
           this.searchForm.patchValue({ ...params, employee_id: null })
@@ -105,8 +105,8 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   buildForm() {
     this.searchForm = this.formBuilder.group({
       employee: [, [Validators.required, objectIsSelected]],
-      start_date: [this.defaultStartAt, [Validators.required]],
-      end_date: [this.defaultEndAt, [Validators.required]]
+      time_clock_log_check_out_start_date: [this.defaultStartAt, [Validators.required]],
+      time_clock_log_check_out_end_date: [this.defaultEndAt, [Validators.required]]
     });
   }
 
@@ -155,8 +155,8 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   get searchHasValidDates(): boolean {
     return (
       this.searchForm &&
-      this.searchForm.get('start_date').valid &&
-      this.searchForm.get('end_date').valid
+      this.searchForm.get('time_clock_log_check_out_start_date').valid &&
+      this.searchForm.get('time_clock_log_check_out_end_date').valid
     );
   }
 
@@ -185,9 +185,8 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
 
     this.noveltyFacade.search({
       ...this.searchOptions,
-      employee_id: formValue.employee.id,
-      start_date: formValue.start_date,
-      end_date: formValue.end_date
+      ...formValue,
+      employee_id: formValue.employee.id
     });
   }
 

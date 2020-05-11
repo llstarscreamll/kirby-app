@@ -18,6 +18,7 @@ export class NoveltyModel {
   employee?: EmployeeInterface;
   subCostCenter?: any;
   sub_cost_center?: any;
+  time_clock_log?: any;
   novelty_type?: NoveltyTypeInterface;
   approvals: any[];
 
