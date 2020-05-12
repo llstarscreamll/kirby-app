@@ -26,9 +26,9 @@ describe('EmployeeFormComponent', () => {
   const salarySelector = 'form [formControlName=salary]';
   const workShiftsSelector = 'form [formControlName=work_shifts]';
   const identificationNameSelector =
-    'form .identifications .row [formControlName=name]';
+    'form .identifications div [formControlName=name]';
   const identificationCodeSelector =
-    'form .identifications .row [formControlName=code]';
+    'form .identifications div [formControlName=code]';
   const addIdentificationBtnSelector = 'form .add-identification-code';
 
   /**
@@ -135,7 +135,7 @@ describe('EmployeeFormComponent', () => {
     fixture.detectChanges();
 
     const buttonElement: HTMLButtonElement = html.querySelector(
-      'form .identifications .row:first-child .remove-identification-code'
+      'form .identifications div:first-child .remove-identification-code'
     );
     buttonElement.click();
 
@@ -152,7 +152,7 @@ describe('EmployeeFormComponent', () => {
       addIdentificationBtnSelector
     );
     const removeButton: HTMLButtonElement = html.querySelector(
-      'form .identifications .row:first-child .remove-identification-code'
+      'form .identifications div:first-child .remove-identification-code'
     );
 
     expect(addButton.disabled).toBe(true);
