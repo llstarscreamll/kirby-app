@@ -12,7 +12,7 @@ cache:
     - node_modules
 
 install:
-  - yarn install --network-timeout 1000000
+  - npm ci
 
 notifications:
   email: true
