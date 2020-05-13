@@ -63,8 +63,8 @@
         <td title="{{ novelty.comment || 'Sin comentario' }}">
           {{ novelty.novelty_type.code }}
         </td>
-        <td>{{ novelty.scheduled_start_at | date: 'yy-MM-dd HH:mm' }}</td>
-        <td>{{ novelty.scheduled_end_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>{{ novelty.start_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>{{ novelty.end_at | date: 'yy-MM-dd HH:mm' }}</td>
         <td>{{ novelty.total_time_in_hours }}</td>
         <td>
           <div *ngFor="let approver of novelty.approvals">

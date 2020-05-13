@@ -47,7 +47,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     .format('YYYY-MM-DD');
 
   private searchOptions = {
-    orderBy: 'scheduled_start_at',
+    orderBy: 'start_at',
     sortedBy: 'desc',
     limit: 100
   };

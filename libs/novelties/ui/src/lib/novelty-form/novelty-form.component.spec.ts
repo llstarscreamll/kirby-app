@@ -24,8 +24,8 @@ describe('NoveltyFormComponent', () => {
   const employeeFieldSelector = 'form [formControlName="employee"]';
   const noveltyTypeFieldSelector = 'form [formControlName="novelty_type"]';
   const scheduledStartFieldSelector =
-    'form [formControlName="scheduled_start_at"]';
-  const scheduledEndFieldSelector = 'form [formControlName="scheduled_end_at"]';
+    'form [formControlName="start_at"]';
+  const scheduledEndFieldSelector = 'form [formControlName="end_at"]';
   const commentFieldSelector = 'form [formControlName="comment"]';
   const formButtonSelector = 'form button';
   const trashButtonSelector = 'form button.trash';
@@ -72,8 +72,8 @@ describe('NoveltyFormComponent', () => {
   it('should have certain form fields validity by default', () => {
     expect(component.form.get('employee').valid).toBeFalsy();
     expect(component.form.get('novelty_type').valid).toBeFalsy();
-    expect(component.form.get('scheduled_start_at').valid).toBeFalsy();
-    expect(component.form.get('scheduled_end_at').valid).toBeFalsy();
+    expect(component.form.get('start_at').valid).toBeFalsy();
+    expect(component.form.get('end_at').valid).toBeFalsy();
     expect(component.form.get('comment').valid).toBeTruthy();
   });
 
@@ -164,8 +164,8 @@ describe('NoveltyFormComponent', () => {
     component.form.patchValue({
       employee_id: employee.id,
       novelty_type_id: noveltyType.id,
-      scheduled_end_at: '2020-03-01T15:00:00.000000Z',
-      scheduled_start_at: '2020-03-01T13:00:00.000000Z',
+      end_at: '2020-03-01T15:00:00.000000Z',
+      start_at: '2020-03-01T13:00:00.000000Z',
       employee: employee,
       novelty_type: noveltyType,
       comment: 'foo'
@@ -182,8 +182,8 @@ describe('NoveltyFormComponent', () => {
       id: null,
       employee_id: employee.id,
       novelty_type_id: noveltyType.id,
-      scheduled_end_at: '2020-03-01T15:00:00.000Z',
-      scheduled_start_at: '2020-03-01T13:00:00.000Z',
+      end_at: '2020-03-01T15:00:00.000Z',
+      start_at: '2020-03-01T13:00:00.000Z',
       comment: 'foo'
     });
   });
@@ -214,8 +214,8 @@ describe('NoveltyFormComponent', () => {
       id: 10,
       employee_id: employee.id,
       novelty_type_id: noveltyType.id,
-      scheduled_end_at: '2020-03-01T15:00:00.000000Z',
-      scheduled_start_at: '2020-03-01T13:00:00.000000Z',
+      end_at: '2020-03-01T15:00:00.000000Z',
+      start_at: '2020-03-01T13:00:00.000000Z',
       employee: employee,
       novelty_type: noveltyType
     };

@@ -68,8 +68,8 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       employee: [, [Validators.required]],
       novelty_type: [, [Validators.required]],
-      scheduled_end_at: [, [Validators.required]],
-      scheduled_start_at: [, [Validators.required]],
+      end_at: [, [Validators.required]],
+      start_at: [, [Validators.required]],
       comment: []
     });
   }
@@ -81,8 +81,8 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
 
     this.form.patchValue({
       ...this.defaults,
-      scheduled_start_at: this.formatDate(this.defaults.scheduled_start_at),
-      scheduled_end_at: this.formatDate(this.defaults.scheduled_end_at)
+      start_at: this.formatDate(this.defaults.start_at),
+      end_at: this.formatDate(this.defaults.end_at)
     });
   }
 
@@ -127,8 +127,8 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
   get hasScheduledTimes(): boolean {
     return (
       this.defaults &&
-      this.defaults.scheduled_start_at &&
-      this.defaults.scheduled_end_at
+      this.defaults.start_at &&
+      this.defaults.end_at
     );
   }
 
@@ -160,8 +160,8 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
       employee_id: formValue.employee.id,
       novelty_type_id: formValue.novelty_type.id,
       comment: formValue.comment,
-      scheduled_start_at: moment(formValue.scheduled_start_at).toISOString(),
-      scheduled_end_at: moment(formValue.scheduled_end_at).toISOString()
+      start_at: moment(formValue.start_at).toISOString(),
+      end_at: moment(formValue.end_at).toISOString()
     });
   }
 

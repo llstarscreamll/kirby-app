@@ -8,8 +8,8 @@ export class NoveltyModel {
   time_clock_log_id: string;
   employee_id: string;
   novelty_type_id: string;
-  scheduled_start_at?: Date;
-  scheduled_end_at?: Date;
+  start_at?: Date;
+  end_at?: Date;
   comment: string;
   created_at?: string;
   updated_at?: string;
@@ -25,11 +25,11 @@ export class NoveltyModel {
   static fromJson(data: any): NoveltyModel {
     return Object.assign(new NoveltyModel(), {
       ...data,
-      scheduled_start_at: data.scheduled_start_at
-        ? new Date(data.scheduled_start_at)
+      start_at: data.start_at
+        ? new Date(data.start_at)
         : null,
-      scheduled_end_at: data.scheduled_end_at
-        ? new Date(data.scheduled_end_at)
+      end_at: data.end_at
+        ? new Date(data.end_at)
         : null
     });
   }
@@ -46,8 +46,8 @@ export class NoveltyModel {
   }
 
   get time_difference(): number | null {
-    return this.scheduled_start_at && this.scheduled_end_at
-      ? this.scheduled_end_at.getTime() - this.scheduled_start_at.getTime()
+    return this.start_at && this.end_at
+      ? this.end_at.getTime() - this.start_at.getTime()
       : null;
   }
 

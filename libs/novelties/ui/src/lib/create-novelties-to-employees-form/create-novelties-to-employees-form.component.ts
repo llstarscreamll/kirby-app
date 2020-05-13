@@ -227,8 +227,8 @@ export class CreateNoveltiesToEmployeesFormComponent
           novelty_type_id: novelty.novelty_type
             ? novelty.novelty_type.id
             : null,
-          scheduled_start_at: startDate.toISOString(),
-          scheduled_end_at: endDate.toISOString(),
+          start_at: startDate.toISOString(),
+          end_at: endDate.toISOString(),
           comment: novelty.comment
         };
       })

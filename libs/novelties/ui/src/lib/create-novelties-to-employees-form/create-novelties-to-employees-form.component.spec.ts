@@ -360,8 +360,8 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
       novelties: [
         {
           novelty_type_id: 'n1',
-          scheduled_start_at: moment('2019-01-01 10:00:00').toISOString(),
-          scheduled_end_at: moment('2019-01-01 12:00:00').toISOString(),
+          start_at: moment('2019-01-01 10:00:00').toISOString(),
+          end_at: moment('2019-01-01 12:00:00').toISOString(),
           comment: 'test comment'
         }
       ]
