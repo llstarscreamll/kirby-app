@@ -5,7 +5,7 @@ export const environment = {
   envName: 'dev',
   test: false,
   appName: 'Pascal',
-  api: 'http://206.189.32.117:8000/',
+  api: 'http://192.168.0.15:8001/',
   i18nPrefix: '',
   version
 };
