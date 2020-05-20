@@ -200,7 +200,7 @@ export class EntryAndExitLogFormComponent
     this.checkForm = this.formBuilder.group({
       novelty_type_id: [],
       work_shift_id: [],
-      sub_cost_center: [,[isObject]],
+      sub_cost_center: [, [isObject]],
       novelty_sub_cost_center: [, [isObject]]
     });
   }
@@ -248,7 +248,9 @@ export class EntryAndExitLogFormComponent
         tap(value =>
           this.setFormFieldsRules(
             ['sub_cost_center'],
-            value == this.fallbackWorkShift[0].id ? [Validators.required, isObject] : []
+            value == this.fallbackWorkShift[0].id
+              ? [Validators.required, isObject]
+              : []
           )
         ),
         takeUntil(this.destroy$)
@@ -314,6 +316,7 @@ export class EntryAndExitLogFormComponent
     this.checkForm.reset();
     this.codeForm.reset();
     this.buildForms();
+    this.listenCheckFormChanges();
   }
 
   private mappedCheckFormData() {
