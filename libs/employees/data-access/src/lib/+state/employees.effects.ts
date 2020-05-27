@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Effect, ofType } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
-import { Effect, Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
-import { Pagination, emptyPagination } from '@kirby/shared';
 
 import { EmployeesPartialState } from './employees.reducer';
 import {
@@ -11,9 +10,6 @@ import {
   SearchEmployeesOk,
   SearchEmployeesError,
   EmployeesActionTypes,
-  SyncEmployeesByCsv,
-  SyncEmployeesByCsvOk,
-  SyncEmployeesByCsvError,
   GetEmployee,
   GetEmployeeOk,
   GetEmployeeError,
@@ -43,19 +39,16 @@ export class EmployeesEffects {
   );
 
   @Effect()
-  getEmployee$ = this.dataPersistence.fetch(
-    EmployeesActionTypes.GetEmployee,
-    {
-      run: (action: GetEmployee, state: EmployeesPartialState) =>
-        this.employeeService
-          .get(action.payload)
-          .pipe(map(apiResponse => new GetEmployeeOk(apiResponse))),
+  getEmployee$ = this.dataPersistence.fetch(EmployeesActionTypes.GetEmployee, {
+    run: (action: GetEmployee, state: EmployeesPartialState) =>
+      this.employeeService
+        .get(action.payload)
+        .pipe(map(apiResponse => new GetEmployeeOk(apiResponse))),
 
-      onError: (action: GetEmployee, error) => {
-        return new GetEmployeeError(error);
-      }
+    onError: (action: GetEmployee, error) => {
+      return new GetEmployeeError(error);
     }
-  );
+  });
 
   @Effect()
   updateEmployee$ = this.dataPersistence.fetch(
@@ -81,36 +74,6 @@ export class EmployeesEffects {
       })
     ),
     tap(_ => this.router.navigate(['/employees']))
-  );
-
-  /**
-   * @todo move the snack bar stuff to the feature lib
-   */
-  @Effect()
-  syncEmployeesByCsvFile$ = this.dataPersistence.fetch(
-    EmployeesActionTypes.SyncEmployeesByCsv,
-    {
-      run: (action: SyncEmployeesByCsv, state: EmployeesPartialState) => {
-        return this.employeeService.syncEmployeesByCsvFile(action.payload).pipe(
-          map(response => new SyncEmployeesByCsvOk()),
-          tap(() =>
-            this.snackBar.open(
-              'Sincronización programada correctamente',
-              'Ok',
-              { duration: 2000 }
-            )
-          )
-        );
-      },
-      onError: (action: SyncEmployeesByCsv, error) => {
-        this.snackBar.open('Error programando sincronización', 'Ok', {
-          duration: 2000
-        });
-        return new SyncEmployeesByCsvError(
-          error.message || 'Error desconocido'
-        );
-      }
-    }
   );
 
   constructor(

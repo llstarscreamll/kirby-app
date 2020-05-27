@@ -14,10 +14,6 @@ export enum EmployeesActionTypes {
   UpdateEmployee = '[Employees] update',
   UpdateEmployeeOk = '[Employees] update ok',
   UpdateEmployeeError = '[Employees] update error',
-
-  SyncEmployeesByCsv = '[Employees] sync by csv',
-  SyncEmployeesByCsvOk = '[Employees] sync by csv ok',
-  SyncEmployeesByCsvError = '[Employees] sync by csv error'
 }
 
 export class SearchEmployees implements Action {
@@ -65,20 +61,6 @@ export class UpdateEmployeeError implements Action {
   constructor(public payload: ApiError) {}
 }
 
-export class SyncEmployeesByCsv implements Action {
-  public readonly type = EmployeesActionTypes.SyncEmployeesByCsv;
-  constructor(public payload: any) {}
-}
-
-export class SyncEmployeesByCsvOk implements Action {
-  public readonly type = EmployeesActionTypes.SyncEmployeesByCsvOk;
-}
-
-export class SyncEmployeesByCsvError implements Action {
-  public readonly type = EmployeesActionTypes.SyncEmployeesByCsvError;
-  constructor(public payload: any) {}
-}
-
 export type EmployeesAction =
   | SearchEmployees
   | SearchEmployeesOk
@@ -88,10 +70,7 @@ export type EmployeesAction =
   | GetEmployeeError
   | UpdateEmployee
   | UpdateEmployeeOk
-  | UpdateEmployeeError
-  | SyncEmployeesByCsv
-  | SyncEmployeesByCsvOk
-  | SyncEmployeesByCsvError;
+  | UpdateEmployeeError;
 
 export const fromEmployeesActions = {
   SearchEmployees,
@@ -103,7 +82,4 @@ export const fromEmployeesActions = {
   UpdateEmployee,
   UpdateEmployeeOk,
   UpdateEmployeeError,
-  SyncEmployeesByCsv,
-  SyncEmployeesByCsvOk,
-  SyncEmployeesByCsvError
 };

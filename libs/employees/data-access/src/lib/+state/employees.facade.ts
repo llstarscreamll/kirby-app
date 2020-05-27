@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 
 import {
   SearchEmployees,
-  SyncEmployeesByCsv,
   GetEmployee,
   GetEmployeeOk,
   UpdateEmployee
@@ -13,9 +12,7 @@ import { EmployeesPartialState } from './employees.reducer';
 
 @Injectable()
 export class EmployeesFacade {
-  paginatedEmployees$ = this.store.pipe(
-    select(employeesQuery.getPaginated)
-  );
+  paginatedEmployees$ = this.store.pipe(select(employeesQuery.getPaginated));
 
   paginatingStatus$ = this.store.pipe(
     select(employeesQuery.getPaginatingStatus)
@@ -25,12 +22,8 @@ export class EmployeesFacade {
     select(employeesQuery.getSelectedEmployee)
   );
 
-  selectingStatus$ = this.store.pipe(
-    select(employeesQuery.getSelectingStatus)
-  );
-  updatingStatus$ = this.store.pipe(
-    select(employeesQuery.getUpdatingStatus)
-  );
+  selectingStatus$ = this.store.pipe(select(employeesQuery.getSelectingStatus));
+  updatingStatus$ = this.store.pipe(select(employeesQuery.getUpdatingStatus));
 
   constructor(private store: Store<EmployeesPartialState>) {}
 
@@ -40,10 +33,6 @@ export class EmployeesFacade {
    */
   search(query: any) {
     this.store.dispatch(new SearchEmployees(query));
-  }
-
-  syncEmployeesByCsvFile(data: any) {
-    this.store.dispatch(new SyncEmployeesByCsv(data));
   }
 
   get(employeeId: string) {
