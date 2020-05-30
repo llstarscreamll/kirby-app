@@ -9,6 +9,7 @@ export interface NoveltyTypeInterface {
   apply_on_days_of_type?: DayType;
   apply_on_time_slots?: any[];
   operator: NoveltyTypeOperator;
+  requires_comment: boolean;
   created_at: string;
   updated_at: string;
   delete_at?: string;

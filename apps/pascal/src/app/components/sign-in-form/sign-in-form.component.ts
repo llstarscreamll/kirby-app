@@ -1,15 +1,14 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
-import { ApiError } from '@llstarscreamll/shared';
+import { ApiError } from '@kirby/shared';
 
 @Component({
-  selector: 'auth-sign-in-form',
+  selector: 'pascal-auth-sign-in-form',
   templateUrl: './sign-in-form.component.html',
   styleUrls: ['./sign-in-form.component.scss']
 })
 export class SignInFormComponent implements OnInit {
-
   @Input()
   public status: string;
 
@@ -21,12 +20,12 @@ export class SignInFormComponent implements OnInit {
 
   public form: FormGroup;
 
-  public constructor(private fb: FormBuilder) { }
+  public constructor(private fb: FormBuilder) {}
 
   public ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 

@@ -1,22 +1,30 @@
-import { Entity, NoveltiesState } from './novelties.reducer';
+import {
+  NoveltiesPartialState,
+  NOVELTIES_FEATURE_KEY
+} from './novelties.reducer';
+import { emptyPagination } from '@kirby/shared';
 import { noveltiesQuery } from './novelties.selectors';
+import { createNovelty } from '@kirby/novelties/testing';
 
 describe('Novelties Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const createNovelties = (id: string, name = ''): Entity => ({ id, name: name || `name-${id}` });
-  const getNoveltiesId = it => it['id'];
-  const novelty = createNovelties('PRODUCT-AAA');
+  const novelty = createNovelty('PRODUCT-AAA');
 
-  let storeState;
+  let storeState: NoveltiesPartialState;
 
   beforeEach(() => {
     storeState = {
-      novelties: {
-        list: [
-          novelty,
-          createNovelties('PRODUCT-BBB'),
-          createNovelties('PRODUCT-CCC')
-        ],
+      [NOVELTIES_FEATURE_KEY]: {
+        paginatedList: {
+          ...emptyPagination(),
+          data: [
+            novelty,
+            createNovelty('PRODUCT-BBB'),
+            createNovelty('PRODUCT-CCC')
+          ]
+        },
+        paginatedNoveltyTypesList: emptyPagination(),
+        createNoveltiesToEmployeesStatus: null,
         selected: novelty,
         error: ERROR_MSG,
         loaded: true
@@ -27,10 +35,8 @@ describe('Novelties Selectors', () => {
   describe('Novelties Selectors', () => {
     it('getAllNovelties() should return the list of Novelties', () => {
       const results = noveltiesQuery.getPaginatedList(storeState);
-      const selId = getNoveltiesId(results[1]);
 
-      expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(results.data.length).toBe(3);
     });
 
     it('getSelectedNovelty() should return the selected Entity', () => {

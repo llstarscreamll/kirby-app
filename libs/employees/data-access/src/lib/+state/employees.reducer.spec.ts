@@ -1,34 +1,32 @@
-import { SearchEmployeesOk } from './employees.actions';
 import {
   EmployeesState,
-  Entity,
   initialState,
   employeesReducer
 } from './employees.reducer';
+import { emptyPagination, LoadStatuses } from '@kirby/shared';
+import { SearchEmployeesOk } from './employees.actions';
+import { createEmployee } from '@kirby/employees/testing';
 
 describe('Employees Reducer', () => {
   const getEmployeesId = it => it['id'];
-  let createEmployees;
 
-  beforeEach(() => {
-    createEmployees = (id: string, name = ''): Entity => ({
-      id,
-      name: name || `name-${id}`
-    });
-  });
+  beforeEach(() => {});
 
   describe('valid Employees actions ', () => {
     it('should return set the list of known Employees', () => {
       const employees = [
-        createEmployees('PRODUCT-AAA'),
-        createEmployees('PRODUCT-zzz')
+        createEmployee('PRODUCT-AAA'),
+        createEmployee('PRODUCT-zzz')
       ];
-      const action = new SearchEmployeesOk(employees);
+      const action = new SearchEmployeesOk({
+        ...emptyPagination(),
+        data: employees
+      });
       const result: EmployeesState = employeesReducer(initialState, action);
-      const selId: string = getEmployeesId(result.paginatedList[1]);
+      const selId: string = getEmployeesId(result.paginatedList.data[1]);
 
-      expect(result.loaded).toBe(true);
-      expect(result.paginatedList.length).toBe(2);
+      expect(result.paginatingStatus).toBe(LoadStatuses.Completed);
+      expect(result.paginatedList.data.length).toBe(2);
       expect(selId).toBe('PRODUCT-zzz');
     });
   });

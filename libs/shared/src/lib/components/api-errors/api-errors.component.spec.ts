@@ -27,7 +27,7 @@ describe('ApiErrorsComponent', () => {
     component.apiError = null;
 
     fixture.detectChanges();
-    let template: HTMLElement = fixture.debugElement.nativeElement;
+    const template: HTMLElement = fixture.debugElement.nativeElement;
 
     expect(template.querySelector('.errors-container')).toBeFalsy();
   });
@@ -36,23 +36,23 @@ describe('ApiErrorsComponent', () => {
     component.apiError = { message: 'http request failure', ok: false };
 
     fixture.detectChanges();
-    let template: HTMLElement = fixture.debugElement.nativeElement;
+    const template: HTMLElement = fixture.debugElement.nativeElement;
 
     expect(template.querySelector('.errors-container')).toBeTruthy();
   });
 
   it('should show top level message text if specific error message is null', () => {
-    let apiError = { message: 'http request failure', ok: false };
+    const apiError = { message: 'http request failure', ok: false };
     component.apiError = apiError;
 
     fixture.detectChanges();
-    let template: HTMLElement = fixture.debugElement.nativeElement;
+    const template: HTMLElement = fixture.debugElement.nativeElement;
 
     expect(template.querySelector('.errors-container').textContent).toContain(apiError.message);
   });
 
   it('should show specific error message if exists', () => {
-    let apiError = {
+    const apiError = {
       message: 'http request failure',
       ok: false,
       error: { message: 'something went wrong' }
@@ -60,13 +60,13 @@ describe('ApiErrorsComponent', () => {
     component.apiError = apiError;
 
     fixture.detectChanges();
-    let template: HTMLElement = fixture.debugElement.nativeElement;
+    const template: HTMLElement = fixture.debugElement.nativeElement;
 
     expect(template.querySelector('.errors-container').textContent).toContain(apiError.error.message);
   });
 
   it('should render list with validation errors if exists', () => {
-    let apiError = {
+    const apiError = {
       message: 'http request failure',
       ok: false,
       error: {
@@ -82,8 +82,8 @@ describe('ApiErrorsComponent', () => {
     component.apiError = apiError;
 
     fixture.detectChanges();
-    let template: HTMLElement = fixture.debugElement.nativeElement;
-    let emailErrors = apiError.error.errors.email;
+    const template: HTMLElement = fixture.debugElement.nativeElement;
+    const emailErrors = apiError.error.errors.email;
 
     expect(template.querySelector('.errors-container ul').textContent).toContain(emailErrors[0]);
     expect(template.querySelector('.errors-container ul').textContent).toContain(emailErrors[1]);

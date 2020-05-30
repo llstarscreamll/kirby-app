@@ -3,49 +3,82 @@ import { select, Store } from '@ngrx/store';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
-import { SearchTimeClockLogs, CreateEntryAndExitLog, CleanError, GetEmployeeTimeClockData, SearchSubCostCenters, ApproveTimeClockLog, DeleteTimeClockLog, DeleteTimeClockLogApproval } from './time-clock-logs.actions';
-import { UserInterface } from '@llstarscreamll/users/util/src';
+import {
+  SearchTimeClockLogs,
+  CreateEntryAndExitLog,
+  CleanError,
+  GetEmployeeTimeClockData,
+  SearchSubCostCenters,
+  ApproveTimeClockLog,
+  DeleteTimeClockLog,
+  DeleteTimeClockLogApproval
+} from './time-clock-logs.actions';
+import { User } from '@kirby/users/util';
 
 @Injectable()
 export class TimeClockLogsFacade {
-  public paginatedTimeClockLogs$ = this.store.pipe(select(timeClockLogsQuery.getPaginatedTimeClockLogs));
-  public paginatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getPaginatingStatus));
-  public creatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getCreatingStatus));
-  public selectedTimeClockLog$ = this.store.pipe(select(timeClockLogsQuery.getSelectedTimeClockLog));
-  public selectingStatus$ = this.store.pipe(select(timeClockLogsQuery.getSelectingStatus));
-  public updatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getUpdatingStatus));
-  public deletingStatus$ = this.store.pipe(select(timeClockLogsQuery.getDeletingStatus));
-  public apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
-  public subCostCenters$ = this.store.pipe(select(timeClockLogsQuery.getSubCostCenters));
-  public employeeTimeClockData$ = this.store.pipe(select(timeClockLogsQuery.getEmployeeTimeClockData));
+  paginatedTimeClockLogs$ = this.store.pipe(
+    select(timeClockLogsQuery.getPaginatedTimeClockLogs)
+  );
+  paginatingStatus$ = this.store.pipe(
+    select(timeClockLogsQuery.getPaginatingStatus)
+  );
+  creatingStatus$ = this.store.pipe(
+    select(timeClockLogsQuery.getCreatingStatus)
+  );
+  selectedTimeClockLog$ = this.store.pipe(
+    select(timeClockLogsQuery.getSelectedTimeClockLog)
+  );
+  selectingStatus$ = this.store.pipe(
+    select(timeClockLogsQuery.getSelectingStatus)
+  );
+  updatingStatus$ = this.store.pipe(
+    select(timeClockLogsQuery.getUpdatingStatus)
+  );
+  deletingStatus$ = this.store.pipe(
+    select(timeClockLogsQuery.getDeletingStatus)
+  );
+  apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
+  subCostCenters$ = this.store.pipe(
+    select(timeClockLogsQuery.getSubCostCenters)
+  );
+  employeeTimeClockData$ = this.store.pipe(
+    select(timeClockLogsQuery.getEmployeeTimeClockData)
+  );
 
-  public constructor(private store: Store<TimeClockLogsPartialState>) { }
+  constructor(private store: Store<TimeClockLogsPartialState>) {}
 
-  public search(query: any = {}) {
+  search(query: any = {}) {
     this.store.dispatch(new SearchTimeClockLogs(query));
   }
 
-  public getTimeClockData(log: { identification_code: string, action: string }) {
+  getTimeClockData(log: {
+    identification_code: string;
+    action: string;
+  }) {
     this.store.dispatch(new GetEmployeeTimeClockData(log));
   }
 
-  public searchSubCostCenters(query: any) {
+  searchSubCostCenters(query: any) {
     this.store.dispatch(new SearchSubCostCenters(query));
   }
 
-  public createEntryAndExitLog(log: { identification_code: string, action: string }) {
+  createEntryAndExitLog(log: {
+    identification_code: string;
+    action: string;
+  }) {
     this.store.dispatch(new CreateEntryAndExitLog(log));
   }
 
-  public approve(timeClockLogId: string, user: UserInterface) {
+  approve(timeClockLogId: string, user: User) {
     this.store.dispatch(new ApproveTimeClockLog(timeClockLogId, user));
   }
 
-  public deleteApproval(timeClockLogId: string, user: UserInterface) {
+  deleteApproval(timeClockLogId: string, user: User) {
     this.store.dispatch(new DeleteTimeClockLogApproval(timeClockLogId, user));
   }
 
-  public cleanError() {
+  cleanError() {
     this.store.dispatch(new CleanError());
   }
 }

@@ -1,7 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
 
-  <mat-form-field class="w-100">
-    <input matInput placeholder="Empleado" [matAutocomplete]="employeeAutocomplete" formControlName="employee">
+  <mat-form-field class="w-full">
+    <mat-label>Empleado</mat-label>
+    <input matInput [matAutocomplete]="employeeAutocomplete" formControlName="employee">
     <mat-autocomplete #employeeAutocomplete="matAutocomplete" [displayWith]="displayEmployeeFieldValue">
       <mat-option *ngFor="let employee of allEmployees" [value]="employee">
         <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
@@ -9,8 +10,9 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-form-field class="w-100">
-    <input matInput placeholder="Tipo de novedad" [matAutocomplete]="noveltyTypeAutocomplete"
+  <mat-form-field class="w-full">
+    <mat-label>Tipo de novedad</mat-label>
+    <input matInput [matAutocomplete]="noveltyTypeAutocomplete"
       formControlName="novelty_type">
     <mat-autocomplete #noveltyTypeAutocomplete="matAutocomplete" [displayWith]="displayNoveltyTypeFieldValue">
       <mat-option *ngFor="let noveltyType of allNoveltyTypes" [value]="noveltyType">
@@ -19,13 +21,26 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-form-field class="w-100">
-    <input formControlName="total_time_in_minutes" matInput type="number" placeholder="Tiempo en minutos">
-    <mat-hint align="end">{{ timeHint }}</mat-hint>
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+    <mat-form-field fxFlex="grow">
+      <mat-label>Inicio</mat-label>
+      <input formControlName="start_at" matInput type="datetime-local">
+    </mat-form-field>
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fin</mat-label>
+      <input formControlName="end_at" matInput type="datetime-local">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="w-full">
+    <mat-label>Comentario</mat-label>
+    <textarea formControlName="comment" matInput rows="5">
+    </textarea>
   </mat-form-field>
 
   <div class="clearfix mb-4"></div>
 
-  <button mat-raised-button [disabled]="disableFormSubmitBtn" type="submit">Guardar</button>
+  <button [disabled]="disableFormSubmitBtn" mat-raised-button color="primary" type="submit">Guardar</button>
+  <button *ngIf="displayTrashButton" (click)="trash()" [disabled]="disableTrashSubmitBtn" mat-raised-button type="button" class="trash ml-2 float-right">Mover a papelera</button>
 
 </form>

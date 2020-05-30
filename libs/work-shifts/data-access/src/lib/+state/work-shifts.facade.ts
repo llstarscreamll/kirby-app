@@ -3,40 +3,61 @@ import { select, Store } from '@ngrx/store';
 
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
-import { SearchWorkShifts, CreateWorkShift, UpdateWorkShift, DeleteWorkShift, GetWorkShift } from './work-shifts.actions';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
+import {
+  SearchWorkShifts,
+  CreateWorkShift,
+  UpdateWorkShift,
+  DeleteWorkShift,
+  GetWorkShift
+} from './work-shifts.actions';
 
 @Injectable()
 export class WorkShiftsFacade {
+  paginatedWorkShifts$ = this.store.pipe(
+    select(workShiftsQuery.getPaginatedWorkShifts)
+  );
+  getWorkShiftsList$ = this.store.pipe(
+    select(workShiftsQuery.getWorkShiftsList)
+  );
+  paginatingStatus$ = this.store.pipe(
+    select(workShiftsQuery.paginatingStatus)
+  );
+  creatingStatus$ = this.store.pipe(
+    select(workShiftsQuery.creatingStatus)
+  );
+  selectedWorkShift$ = this.store.pipe(
+    select(workShiftsQuery.getSelectedWorkShift)
+  );
+  selectingStatus$ = this.store.pipe(
+    select(workShiftsQuery.selectingStatus)
+  );
+  updatingStatus$ = this.store.pipe(
+    select(workShiftsQuery.updatingStatus)
+  );
+  deletingStatus$ = this.store.pipe(
+    select(workShiftsQuery.deletingStatus)
+  );
 
-  public paginatedWorkShifts$ = this.store.pipe(select(workShiftsQuery.getPaginatedWorkShifts));
-  public paginatingStatus$ = this.store.pipe(select(workShiftsQuery.paginatingStatus));
-  public creatingStatus$ = this.store.pipe(select(workShiftsQuery.creatingStatus));
-  public selectedWorkShift$ = this.store.pipe(select(workShiftsQuery.getSelectedWorkShift));
-  public selectingStatus$ = this.store.pipe(select(workShiftsQuery.selectingStatus));
-  public updatingStatus$ = this.store.pipe(select(workShiftsQuery.updatingStatus));
-  public deletingStatus$ = this.store.pipe(select(workShiftsQuery.deletingStatus));
+  constructor(private store: Store<WorkShiftsPartialState>) {}
 
-  public constructor(private store: Store<WorkShiftsPartialState>) { }
-
-  public search(query: any = {}) {
+  search(query: any = {}) {
     this.store.dispatch(new SearchWorkShifts(query));
   }
 
-  public create(workShift: WorkShiftInterface) {
+  create(workShift: WorkShiftInterface) {
     this.store.dispatch(new CreateWorkShift(workShift));
   }
 
-  public get(id: string) {
+  get(id: string) {
     this.store.dispatch(new GetWorkShift(id));
   }
 
-  public update(id: string, workShift: WorkShiftInterface) {
+  update(id: string, workShift: WorkShiftInterface) {
     this.store.dispatch(new UpdateWorkShift({ id, data: workShift }));
   }
 
-  public delete(id: string) {
+  delete(id: string) {
     this.store.dispatch(new DeleteWorkShift(id));
   }
-
 }

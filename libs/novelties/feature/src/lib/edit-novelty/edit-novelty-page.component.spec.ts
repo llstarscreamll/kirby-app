@@ -2,11 +2,11 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditNoveltyPageComponent } from './edit-novelty-page.component';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
-import { EmployeesFacade } from '@llstarscreamll/employees/data-access/src';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
+import { EmployeesFacade } from '@kirby/employees/data-access';
 
-class NoveltiesFacadeMock { }
-class EmployeesFacadeMock { }
+class NoveltiesFacadeMock {}
+class EmployeesFacadeMock {}
 
 describe('EditNoveltyComponent', () => {
   let component: EditNoveltyPageComponent;
@@ -14,12 +14,10 @@ describe('EditNoveltyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        EditNoveltyPageComponent
-      ],
+      declarations: [EditNoveltyPageComponent],
       providers: [
         { provide: NoveltiesFacade, useClass: NoveltiesFacadeMock },
-        { provide: EmployeesFacade, useClass: EmployeesFacadeMock },
+        { provide: EmployeesFacade, useClass: EmployeesFacadeMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

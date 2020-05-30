@@ -1,9 +1,13 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
+import {
+  BreakpointObserver,
+  Breakpoints,
+  MediaMatcher
+} from '@angular/cdk/layout';
 
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication-data-access';
 
 @Component({
   selector: 'pascal-sidebar-layout',
@@ -11,7 +15,6 @@ import { AuthFacade } from '@llstarscreamll/authentication-data-access';
   styleUrls: ['./sidebar-layout.component.scss']
 })
 export class SidebarLayoutComponent implements OnInit {
-
   public isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(map(result => result.matches));
@@ -20,8 +23,24 @@ export class SidebarLayoutComponent implements OnInit {
 
   public menuItems = [
     { icon: 'home', link: ['/welcome'], label: 'Home' },
-    { icon: 'supervised_user_circle', link: ['/employees/sync-by-csv-file'], label: 'Empleados' },
-    { icon: 'alarm', link: ['/time-clock-logs'], label: 'Portería' },
+    {
+      icon: 'supervised_user_circle',
+      link: ['/employees/'],
+      label: 'Empleados',
+      can: 'employees.search'
+    },
+    {
+      icon: 'compare_arrows',
+      link: ['/time-clock-logs'],
+      label: 'Entradas/salidas',
+      can: 'time-clock-logs.search'
+    },
+    {
+      icon: 'feedback',
+      link: ['/novelties'],
+      label: 'Novedades',
+      can: 'novelties.search'
+    }
   ];
 
   public mediaQueryList: MediaQueryList;
@@ -29,8 +48,8 @@ export class SidebarLayoutComponent implements OnInit {
   public constructor(
     private authFacade: AuthFacade,
     private mediaMatcher: MediaMatcher,
-    private breakpointObserver: BreakpointObserver,
-  ) { }
+    private breakpointObserver: BreakpointObserver
+  ) {}
 
   public get isPrint(): boolean {
     return this.mediaQueryList.matches;
@@ -44,5 +63,4 @@ export class SidebarLayoutComponent implements OnInit {
   public logout() {
     this.authFacade.logout();
   }
-
 }

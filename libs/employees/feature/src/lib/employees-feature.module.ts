@@ -1,24 +1,38 @@
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 
-import { EmployeesDataAccessModule } from "@llstarscreamll/employees/data-access";
-import { SyncEmployeesByCsvFilePageComponent } from './sync-employees-by-csv-file-page/sync-employees-by-csv-file-page.component';
+import { SharedModule } from '@kirby/shared';
+import { EmployeesUiModule } from '@kirby/employees/ui';
+import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
+import { EmployeeFeatureEffects } from './+state/employee-feature.effects';
+import { WorkShiftsDataAccessModule } from '@kirby/work-shifts/data-access/src';
+import { EmployeesPageComponent } from './employees-page/employees-page.component';
+import { EditEmployeePageComponent } from './edit-employee-page/edit-employee-page.component';
 
 export const employeesFeatureRoutes: Route[] = [
-  { path: 'sync-by-csv-file', component: SyncEmployeesByCsvFilePageComponent }
+  { path: '', pathMatch: 'full', component: EmployeesPageComponent },
+  { path: ':id', component: EditEmployeePageComponent }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     MatButtonModule,
+    EmployeesUiModule,
     ReactiveFormsModule,
     EmployeesDataAccessModule,
+    WorkShiftsDataAccessModule,
+    EffectsModule.forFeature([EmployeeFeatureEffects]),
     RouterModule.forChild(employeesFeatureRoutes)
   ],
-  declarations: [SyncEmployeesByCsvFilePageComponent]
+  declarations: [
+    EmployeesPageComponent,
+    EditEmployeePageComponent
+  ]
 })
-export class EmployeesFeatureModule { }
+export class EmployeesFeatureModule {}

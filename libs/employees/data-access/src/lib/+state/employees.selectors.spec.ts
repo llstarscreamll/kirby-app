@@ -1,24 +1,32 @@
-import { Entity, EmployeesState, EMPLOYEES_FEATURE_KEY, EmployeesPartialState } from './employees.reducer';
+import {
+  EMPLOYEES_FEATURE_KEY,
+  EmployeesPartialState
+} from './employees.reducer';
+import { emptyPagination, LoadStatuses } from '@kirby/shared';
 import { employeesQuery } from './employees.selectors';
+import { createEmployee } from '@kirby/employees/testing';
 
 describe('Employees Selectors', () => {
-  const ERROR_MSG = 'No Error Available';
-  const getEmployeesId = it => it['id'];
-  const createEmployees = (id: string, name = ''): Entity => ({ id, name: name || `name-${id}` });
-  const employee = createEmployees('EMPLOYEE-AAA');
+  const ERROR_MSG = { message: 'Crap!!', ok: false };
+  const employee = createEmployee('EMPLOYEE-AAA');
   let storeState: EmployeesPartialState;
 
   beforeEach(() => {
     storeState = {
       [EMPLOYEES_FEATURE_KEY]: {
-        paginatedList: [
-          employee,
-          createEmployees('EMPLOYEE-BBB'),
-          createEmployees('EMPLOYEE-CCC')
-        ],
+        paginatedList: {
+          ...emptyPagination(),
+          data: [
+            employee,
+            createEmployee('EMPLOYEE-BBB'),
+            createEmployee('EMPLOYEE-CCC')
+          ]
+        },
         selected: employee,
         error: ERROR_MSG,
-        loaded: true
+        paginatingStatus: LoadStatuses.Completed,
+        selectingStatus: LoadStatuses.Completed,
+        updatingStatus: LoadStatuses.Completed
       }
     };
   });
@@ -31,9 +39,9 @@ describe('Employees Selectors', () => {
     });
 
     it("getLoaded() should return the current 'loaded' status", () => {
-      const result = employeesQuery.getLoaded(storeState);
+      const result = employeesQuery.getPaginatingStatus(storeState);
 
-      expect(result).toBe(true);
+      expect(result).toBe(LoadStatuses.Completed);
     });
 
     it("getError() should return the current 'error' storeState", () => {

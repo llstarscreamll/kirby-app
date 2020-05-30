@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc/libs/time-clock-logs/ui",
+    "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"]
   },

@@ -1,13 +1,30 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { get } from 'lodash';
 
 @Component({
-  selector: 'llstarscreamll-pagination',
+  selector: 'kirby-pagination',
   template: `
-    <button [disabled]="!pagination || currentPage === 1" mat-icon-button (click)="clickPrev()" class="prev">
+    <button
+      [disabled]="disablePrev"
+      mat-icon-button
+      (click)="clickPrev()"
+      class="prev"
+    >
       <mat-icon>navigate_before</mat-icon>
     </button>
-    <button [disabled]="!pagination" mat-icon-button (click)="clickNext()" class="next">
+    <button
+      [disabled]="disabledNext"
+      mat-icon-button
+      (click)="clickNext()"
+      class="next"
+    >
       <mat-icon>navigate_next</mat-icon>
     </button>
   `,
@@ -15,7 +32,6 @@ import { get } from 'lodash';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent implements OnInit {
-
   @Input()
   public pagination: {
     current_page: number;
@@ -28,21 +44,29 @@ export class PaginationComponent implements OnInit {
   };
 
   @Output()
-  public paginate = new EventEmitter();
+  paginate = new EventEmitter();
 
-  public constructor() { }
+  constructor() {}
 
-  public ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  public get currentPage(): number {
+  get currentPage(): number {
     return get(this.pagination, 'current_page', 0);
   }
 
-  public clickPrev() {
+  get disablePrev(): boolean {
+    return !this.pagination || this.currentPage === 1;
+  }
+
+  get disabledNext(): boolean {
+    return !this.pagination || this.pagination.to < this.pagination.per_page;
+  }
+
+  clickPrev() {
     this.paginate.emit({ page: this.currentPage - 1 });
   }
 
-  public clickNext() {
+  clickNext() {
     this.paginate.emit({ page: this.currentPage + 1 });
   }
 }

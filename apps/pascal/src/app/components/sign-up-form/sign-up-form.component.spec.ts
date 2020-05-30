@@ -2,17 +2,18 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NewAccount } from '@kirby/authentication/utils';
+import { TESTING_PROVIDERS } from '../../utils/testing';
 import { SignUpFormComponent } from './sign-up-form.component';
-import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NewAccount } from '@llstarscreamll/authentication/utils';
 
 describe('SignUpFormComponent', () => {
   let component: SignUpFormComponent;
   let fixture: ComponentFixture<SignUpFormComponent>;
   let html: HTMLDocument;
   let submitBtn: HTMLButtonElement;
-  let nameInput: HTMLInputElement;
+  let firstNameInput: HTMLInputElement;
+  let lastNameInput: HTMLInputElement;
   let emailInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
   let passwordConfirmationInput: HTMLInputElement;
@@ -21,18 +22,15 @@ describe('SignUpFormComponent', () => {
     last_name: 'Stark',
     email: 'tony@stark.com',
     password: 'tony.123',
-    password_confirmation: 'tony.123',
+    password_confirmation: 'tony.123'
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
       declarations: [SignUpFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [...TESTING_PROVIDERS],
+      providers: [...TESTING_PROVIDERS]
     }).compileComponents();
   }));
 
@@ -42,10 +40,15 @@ describe('SignUpFormComponent', () => {
 
     html = fixture.nativeElement;
     submitBtn = html.querySelector('form button[type=submit]');
-    nameInput = html.querySelector('form input[formControlName="name"]');
+    firstNameInput = html.querySelector('form input[formControlName="first_name"]');
+    lastNameInput = html.querySelector('form input[formControlName="last_name"]');
     emailInput = html.querySelector('form input[formControlName="email"]');
-    passwordInput = html.querySelector('form input[formControlName="password"]');
-    passwordConfirmationInput = html.querySelector('form input[formControlName="password_confirmation"]');
+    passwordInput = html.querySelector(
+      'form input[formControlName="password"]'
+    );
+    passwordConfirmationInput = html.querySelector(
+      'form input[formControlName="password_confirmation"]'
+    );
 
     fixture.detectChanges();
   });
@@ -55,7 +58,8 @@ describe('SignUpFormComponent', () => {
   });
 
   it('should have certain form elements', () => {
-    expect(name).toBeTruthy();
+    expect(firstNameInput).toBeTruthy();
+    expect(lastNameInput).toBeTruthy();
     expect(emailInput).toBeTruthy();
     expect(passwordInput).toBeTruthy();
     expect(passwordConfirmationInput).toBeTruthy();
@@ -101,17 +105,20 @@ describe('SignUpFormComponent', () => {
     expect(component.submitted.emit).toHaveBeenCalledWith(newAccount);
   });
 
-  it('should use llstarscreamll-api-errors component in template', () => {
+  it('should use kirby-api-errors component in template', () => {
     component.errors = {
       message: 'Unprocessable entity',
       ok: false,
-      error: { message: 'Wrong data!!', errors: { email: ['email is invalid'] } }
+      error: {
+        message: 'Wrong data!!',
+        errors: { email: ['email is invalid'] }
+      }
     };
 
     fixture.detectChanges();
 
     const template: HTMLDocument = fixture.nativeElement;
-    const errorsComponent = template.querySelector('llstarscreamll-api-errors');
+    const errorsComponent = template.querySelector('kirby-api-errors');
 
     expect(errorsComponent).toBeTruthy();
   });

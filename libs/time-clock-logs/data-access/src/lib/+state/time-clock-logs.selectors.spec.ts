@@ -1,7 +1,14 @@
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
-import { INVALID_DATA_API_ERROR, LoadStatuses } from '@llstarscreamll/shared';
-import { TimeClockLogModel, createTimeClockLog } from '@llstarscreamll/time-clock-logs/util';
-import { TimeClockLogsPartialState, TIME_CLOCK_LOGS_FEATURE_KEY } from "./time-clock-logs.reducer";
+import {
+  INVALID_DATA_API_ERROR,
+  LoadStatuses,
+  emptyPagination
+} from '@kirby/shared';
+import {
+  TimeClockLogsPartialState,
+  TIME_CLOCK_LOGS_FEATURE_KEY
+} from './time-clock-logs.reducer';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 describe('TimeClockLogs Selectors', () => {
   let storeState: TimeClockLogsPartialState;
@@ -10,21 +17,21 @@ describe('TimeClockLogs Selectors', () => {
     storeState = {
       [TIME_CLOCK_LOGS_FEATURE_KEY]: {
         paginatedList: {
+          ...emptyPagination(),
           data: [
             createTimeClockLog('PRODUCT-AAA'),
             createTimeClockLog('PRODUCT-BBB'),
             createTimeClockLog('PRODUCT-CCC')
-          ], meta: {}
+          ]
         },
         paginatingStatus: LoadStatuses.Empty,
         selected: createTimeClockLog('PRODUCT-AAA'),
-        error: INVALID_DATA_API_ERROR,
+        error: INVALID_DATA_API_ERROR
       }
     };
   });
 
   describe('TimeClockLogs Selectors', () => {
-
     it('getPaginatedTimeClockLogs() should return the paginated list of TimeClockLogs', () => {
       const results = timeClockLogsQuery.getPaginatedTimeClockLogs(storeState);
       expect(results.data.length).toBe(3);
@@ -48,6 +55,5 @@ describe('TimeClockLogs Selectors', () => {
 
       expect(result).toBe(INVALID_DATA_API_ERROR);
     });
-
   });
 });

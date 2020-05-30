@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { WorkShiftFormComponent } from './work-shift-form.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { LoadStatuses } from "@llstarscreamll/shared";
+import { LoadStatuses } from "@kirby/shared";
 
 describe('WorkShiftFormComponent', () => {
   let component: WorkShiftFormComponent;
@@ -77,7 +77,7 @@ describe('WorkShiftFormComponent', () => {
 
     fixture.detectChanges();
 
-    let submitBtn: HTMLButtonElement = template.querySelector('form button[type="submit"]');
+    const submitBtn: HTMLButtonElement = template.querySelector('form button[type="submit"]');
     submitBtn.click();
 
     fixture.detectChanges();

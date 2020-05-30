@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "llstarscreamll",
+      "kirby",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "llstarscreamll",
+      "kirby",
       "kebab-case"
     ]
   }

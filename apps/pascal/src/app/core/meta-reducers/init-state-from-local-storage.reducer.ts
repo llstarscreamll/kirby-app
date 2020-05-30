@@ -1,6 +1,6 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
 
-import { LocalStorageService } from '@llstarscreamll/shared';
+import { LocalStorageService } from '@kirby/shared';
 
 export function initStateFromLocalStorage(
   reducer: ActionReducer<any>

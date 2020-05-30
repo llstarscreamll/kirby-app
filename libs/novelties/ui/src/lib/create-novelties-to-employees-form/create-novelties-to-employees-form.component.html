@@ -1,0 +1,198 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field class="w-full">
+    <mat-label>Buscar empleado</mat-label>
+    <input
+      matInput
+      [matAutocomplete]="employeeAutocomplete"
+      formControlName="employee"
+    />
+    <mat-autocomplete
+      #employeeAutocomplete="matAutocomplete"
+      [displayWith]="displayEmployeeFieldValue"
+    >
+      <mat-option
+        *ngFor="let employee of displayableEmployees"
+        [value]="employee"
+      >
+        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div class="clearfix"></div>
+
+  <div
+    *ngIf="selectedEmployees.length === 0"
+    class="no-employees-selected badge badge-warn"
+  >
+    No has seleccionado empleados *
+  </div>
+
+  <mat-chip-list class="mb-4">
+    <mat-chip *ngFor="let employee of selectedEmployees">
+      {{ employee.first_name + ' ' + employee.last_name }}
+      <mat-icon matChipRemove (click)="removeEmployee(employee)"
+        >cancel</mat-icon
+      >
+    </mat-chip>
+  </mat-chip-list>
+
+  <div formArrayName="novelty_types" class="novelty-type-options">
+    <div
+      *ngFor="
+        let noveltyTypeOptionGroup of noveltyTypesArrayControl.controls;
+        let i = index
+      "
+      [formGroup]="noveltyTypeOptionGroup"
+      class="option py-5"
+    >
+      <mat-form-field class="w-full">
+        <mat-label>Tipo de novedad</mat-label>
+        <input
+          matInput
+          required="true"
+          [matAutocomplete]="noveltyTypeAutocomplete"
+          formControlName="novelty_type"
+        />
+        <mat-autocomplete
+          #noveltyTypeAutocomplete="matAutocomplete"
+          [displayWith]="displayNoveltyTypeFieldValue"
+        >
+          <mat-option
+            *ngFor="let noveltyType of noveltyTypes"
+            [value]="noveltyType"
+          >
+            <span>{{ noveltyType.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="0px" fxLayoutGap.gt-md="20px">
+        <mat-form-field fxFlex="grow">
+          <mat-label>Fecha de inicio</mat-label>
+          <input
+            formControlName="scheduled_start_date"
+            matInput
+            [matDatepicker]="scheduledStartDatePicker"
+            required="true"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="scheduledStartDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #scheduledStartDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="grow">
+          <mat-label>Hora</mat-label>
+          <mat-select formControlName="scheduled_start_hour" required>
+            <mat-option *ngFor="let hour of hours" [value]="hour">
+              {{ hour }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="grow">
+          <mat-label>Minutos</mat-label>
+          <mat-select formControlName="scheduled_start_minute" required>
+            <mat-option *ngFor="let minute of minutes" [value]="minute">
+              {{ minute }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="0px" fxLayoutGap.gt-md="20px">
+        <mat-form-field fxFlex="grow">
+          <mat-label>Fecha de fin</mat-label>
+          <input
+            formControlName="scheduled_end_date"
+            matInput
+            [matDatepicker]="scheduledEndDatePicker"
+            required="true"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="scheduledEndDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #scheduledEndDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="grow">
+          <mat-label>Hora</mat-label>
+          <mat-select formControlName="scheduled_end_hour" required>
+            <mat-option *ngFor="let hour of hours" [value]="hour">
+              {{ hour }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="grow">
+          <mat-label>Minutos</mat-label>
+          <mat-select formControlName="scheduled_end_minute" required>
+            <mat-option *ngFor="let minute of minutes" [value]="minute">
+              {{ minute }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="w-full">
+        <mat-label>Comentario</mat-label>
+        <textarea
+          formControlName="comment"
+          matInput
+          rows="5"
+          [required]="
+            selectedNoveltyTypeRequiresComment(
+              noveltyTypeOptionGroup.get('novelty_type').value
+            )
+          "
+        ></textarea>
+        <mat-hint>Máximo 255 caracteres</mat-hint>
+      </mat-form-field>
+
+      <div class="text-right">
+        <button
+          (click)="removeNoveltyOption(i)"
+          [disabled]="noveltyTypesArrayControl.length <= 1"
+          mat-stroked-button
+          color="warn"
+        >
+          <mat-icon>cancel</mat-icon>
+          Remover
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="my-4">
+    <button
+      (click)="addNoveltyOption()"
+      mat-stroked-button
+      type="button"
+      class="add-novelty-option"
+    >
+      Añadir tipo de novedad
+    </button>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="my-4">
+    <button
+      [disabled]="disableFormSubmitBtn"
+      mat-raised-button
+      type="submit"
+      color="primary"
+      class="mt-4"
+      ngClass.xs="block w-full h-12"
+    >
+      Guardar
+    </button>
+  </div>
+
+  <span class="font-hairline">Los campos marcados con * son obligatorios</span>
+</form>

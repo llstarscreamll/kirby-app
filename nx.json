@@ -1,5 +1,5 @@
 {
-  "npmScope": "llstarscreamll",
+  "npmScope": "kirby",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -32,15 +32,6 @@
         "platform:web",
         "platform:desktop"
       ]
-    },
-    "libs": {
-      "tags": []
-    },
-    "xplat": {
-      "tags": []
-    },
-    "electron-pascal-desktop": {
-      "tags": ["scope:work-shifts", "type:app", "platform:desktop"]
     },
     "work-shifts-data-access": {
       "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
@@ -98,6 +89,36 @@
     },
     "novelties-data-access": {
       "tags": ["scope:novelties", "type:data-access", "platform:web"]
+    },
+    "authorization-ui": {
+      "tags": []
+    },
+    "authorization-data": {
+      "tags": []
+    },
+    "employees-testing": {
+      "tags": []
+    },
+    "novelties-testing": {
+      "tags": []
+    },
+    "novelty-types-testing": {
+      "tags": []
+    },
+    "time-clock-logs-testing": {
+      "tags": []
+    },
+    "users-testing": {
+      "tags": []
+    },
+    "work-shifts-testing": {
+      "tags": []
+    },
+    "employees-ui": {
+      "tags": []
+    },
+    "cost-centers-data": {
+      "tags": []
     }
   }
 }

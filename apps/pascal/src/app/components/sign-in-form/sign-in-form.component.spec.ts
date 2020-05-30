@@ -91,7 +91,7 @@ describe('SignInFormComponent', () => {
     expect(component.submitted.emit).toHaveBeenCalledWith(credentials);
   });
 
-  it('should use llstarscreamll-api-errors component in template', () => {
+  it('should use kirby-api-errors component in template', () => {
     component.errors = {
       message: 'Unprocessable entity',
       ok: false,
@@ -101,7 +101,7 @@ describe('SignInFormComponent', () => {
     fixture.detectChanges();
 
     const template: HTMLDocument = fixture.nativeElement;
-    const errorsComponent = template.querySelector('llstarscreamll-api-errors');
+    const errorsComponent = template.querySelector('kirby-api-errors');
 
     expect(errorsComponent).toBeTruthy();
   });

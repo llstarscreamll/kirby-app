@@ -1,11 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
-import { LoadStatuses } from '@llstarscreamll/shared';
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
+import { LoadStatuses } from '@kirby/shared';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 @Component({
-  selector: 'llstarscreamll-work-shift-form',
+  selector: 'kirby-work-shift-form',
   templateUrl: './work-shift-form.component.html',
   styleUrls: ['./work-shift-form.component.scss']
 })
@@ -21,17 +21,17 @@ export class WorkShiftFormComponent implements OnInit {
   public disable: boolean;
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
 
   public form: FormGroup;
 
-  public constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { }
 
-  public get shouldDisableBtn(): boolean {
+  get shouldDisableBtn(): boolean {
     return this.form.invalid || this.status === LoadStatuses.Loading;
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       start_time: ['', [Validators.required]],
@@ -52,7 +52,7 @@ export class WorkShiftFormComponent implements OnInit {
     }
   }
 
-  public onSubmit() {
+  onSubmit() {
     this.submitted.emit(this.form.value);
   }
 

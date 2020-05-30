@@ -3,38 +3,129 @@ import { select, Store } from '@ngrx/store';
 
 import { noveltiesQuery } from './novelties.selectors';
 import { NoveltiesPartialState } from './novelties.reducer';
-import { SearchNovelties, GetNovelty, SearchNoveltyTypes, UpdateNovelty, GetNoveltyOk, CleanSelectedNovelty } from './novelties.actions';
+import {
+  SearchNovelties,
+  GetNovelty,
+  SearchNoveltyTypes,
+  UpdateNovelty,
+  CleanSelectedNovelty,
+  CreateNoveltiesToEmployees,
+  CleanApiErrors,
+  ResetCreateNoveltiesToEmployees,
+  ApproveNovelty,
+  DeleteNoveltyApproval,
+  TrashNovelty,
+  SetApprovalsByEmployeeAndDateRange,
+  DeleteApprovalsByEmployeeAndDateRange,
+  DownLoadNoveltiesReport,
+  SearchNoveltiesOk
+} from './novelties.actions';
+import { User } from '@kirby/users/util/src';
 
 @Injectable()
 export class NoveltiesFacade {
-  public loaded$ = this.store.pipe(select(noveltiesQuery.getLoaded));
-  public paginatedNovelties$ = this.store.pipe(select(noveltiesQuery.getPaginatedList));
-  public paginatedNoveltyTypes$ = this.store.pipe(select(noveltiesQuery.getPaginatedNoveltyTypesList));
-  public selectedNovelty$ = this.store.pipe(select(noveltiesQuery.getSelectedNovelty));
+  loaded$ = this.store.pipe(select(noveltiesQuery.getLoaded));
+  error$ = this.store.pipe(select(noveltiesQuery.getError));
+  createNoveltiesToEmployeesStatus$ = this.store.pipe(
+    select(noveltiesQuery.getCreateNoveltiesToEmployeesStatus)
+  );
+  paginatedNovelties$ = this.store.pipe(
+    select(noveltiesQuery.getPaginatedList)
+  );
+  paginatedNoveltyTypes$ = this.store.pipe(
+    select(noveltiesQuery.getPaginatedNoveltyTypesList)
+  );
+  selectedNovelty$ = this.store.pipe(
+    select(noveltiesQuery.getSelectedNovelty)
+  );
+  reportByEmployee$ = this.store.pipe(
+    select(noveltiesQuery.getReportByEmployee)
+  );
 
-  public constructor(private store: Store<NoveltiesPartialState>) { }
+  constructor(private store: Store<NoveltiesPartialState>) {}
 
-  public search(query: any = {}) {
+  search(query: any = {}) {
     this.store.dispatch(new SearchNovelties(query));
   }
 
-  public get(noveltyId: string) {
+  get(noveltyId: string) {
     this.store.dispatch(new GetNovelty(noveltyId));
   }
 
-  public cleanSelected() {
-    this.store.dispatch(new CleanSelectedNovelty());
+  cleanNoveltiesSearch() {
+    this.store.dispatch(new CleanApiErrors());
+    this.store.dispatch(new SearchNoveltiesOk(null));
   }
 
-  public update(noveltyId: string, noveltyData) {
+  update(noveltyId: string, noveltyData) {
     this.store.dispatch(new UpdateNovelty({ id: noveltyId, noveltyData }));
+  }
+
+  trash(noveltyId: string) {
+    this.store.dispatch(new TrashNovelty(noveltyId));
+  }
+
+  createNoveltiesToEmployees(data) {
+    this.store.dispatch(new CreateNoveltiesToEmployees(data));
   }
 
   /**
    * @todo move all related stuff from novelty types to specific lib
    * @param query
    */
-  public searchNoveltyTypes(query: any = {}) {
+  searchNoveltyTypes(query: any = {}) {
     this.store.dispatch(new SearchNoveltyTypes(query));
+  }
+
+  cleanSelected() {
+    this.store.dispatch(new CleanSelectedNovelty());
+  }
+
+  resetCreateNoveltiesToEmployees() {
+    this.store.dispatch(new ResetCreateNoveltiesToEmployees());
+  }
+
+  cleanApiErrors() {
+    this.store.dispatch(new CleanApiErrors());
+  }
+
+  approve(noveltyId: string, user: User) {
+    this.store.dispatch(new ApproveNovelty({ noveltyId, user }));
+  }
+
+  setApprovalsByEmployeeAndDateRange(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ) {
+    this.store.dispatch(
+      new SetApprovalsByEmployeeAndDateRange({ employeeId, startDate, endDate })
+    );
+  }
+
+  deleteNoveltyApproval(noveltyId: string, user: User) {
+    this.store.dispatch(new DeleteNoveltyApproval({ noveltyId, user }));
+  }
+
+  deleteApprovalsByEmployeeAndDateRange(
+    employeeId: string,
+    startDate: string,
+    endDate: string
+  ) {
+    this.store.dispatch(
+      new DeleteApprovalsByEmployeeAndDateRange({
+        employeeId,
+        startDate,
+        endDate
+      })
+    );
+  }
+
+  downloadReport(query: {
+    employee_id?: string;
+    start_date: string;
+    end_date: string;
+  }) {
+    this.store.dispatch(new DownLoadNoveltiesReport(query));
   }
 }

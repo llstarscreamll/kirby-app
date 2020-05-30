@@ -9,7 +9,7 @@ export class LocalStorageService {
   /**
    * @todo write tests to this method
    */
-  public static loadInitialState() {
+  static loadInitialState() {
     return Object.keys(localStorage).reduce((state: any, storageKey) => {
       if (storageKey.includes(APP_PREFIX)) {
         state = state || {};
@@ -30,15 +30,15 @@ export class LocalStorageService {
     }, undefined);
   }
 
-  public setItem(key: string, value: any) {
+  setItem(key: string, value: any) {
     localStorage.setItem(`${APP_PREFIX}${key}`, JSON.stringify(value));
   }
 
-  public getItem(key: string) {
+  getItem(key: string) {
     return JSON.parse(localStorage.getItem(`${APP_PREFIX}${key}`));
   }
 
-  public removeItem(key: string) {
+  removeItem(key: string) {
     localStorage.removeItem(`${APP_PREFIX}${key}`);
   }
 }

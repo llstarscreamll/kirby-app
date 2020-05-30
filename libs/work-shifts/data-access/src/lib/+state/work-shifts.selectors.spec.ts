@@ -1,7 +1,7 @@
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { ApiError, LoadStatuses } from '@llstarscreamll/shared';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { ApiError, LoadStatuses, emptyPagination } from '@kirby/shared';
+import { createWorkShift } from '@kirby/work-shifts/testing';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {
@@ -9,7 +9,7 @@ describe('WorkShifts Selectors', () => {
     message: 'Resource not found',
     error: {
       message: 'Resource not found',
-      error: 'not_found',
+      error: 'not_found'
     }
   };
   const getWorkShiftsId = it => it['id'];
@@ -20,11 +20,12 @@ describe('WorkShifts Selectors', () => {
     storeState = {
       workShifts: {
         paginatedList: {
+          ...emptyPagination(),
           data: [
             createWorkShift('AAA'),
             createWorkShift('BBB'),
             createWorkShift('CCC')
-          ], meta: {}
+          ]
         },
         selected: createWorkShift('DDD'),
         paginatingStatus: LoadStatuses.Completed,
@@ -32,7 +33,7 @@ describe('WorkShifts Selectors', () => {
         creatingStatus: LoadStatuses.Loading,
         updatingStatus: LoadStatuses.Error,
         deletingStatus: LoadStatuses.Completed,
-        error: ERROR_MSG,
+        error: ERROR_MSG
       }
     };
   });

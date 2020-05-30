@@ -3,7 +3,7 @@
     <tr>
       <th width="10">#</th>
       <th>Empleado</th>
-      <th>Scc</th>
+      <th>SCC</th>
       <th>Turno</th>
       <th>H. entrada</th>
       <th>H. salida</th>
@@ -15,24 +15,44 @@
   <tbody>
     <tr *ngFor="let row of timeClockLogs?.data">
       <td>{{ row.id }}</td>
-      <td>{{ row.employee.user.first_name + ' ' + row.employee.user.last_name }}</td>
+      <td>
+        {{ row.employee.user.first_name + ' ' + row.employee.user.last_name }}
+      </td>
       <td>{{ row.sub_cost_center?.name || '---' }}</td>
       <td>{{ row.work_shift?.name || '---' }}</td>
-      <td>{{ row.checked_in_at | date:'yy-MM-dd HH:mm' }}</td>
-      <td>{{ row.checked_out_at | date:'yy-MM-dd HH:mm' }}</td>
+      <td>{{ row.checked_in_at | date: 'yy-MM-dd HH:mm' }}</td>
+      <td>{{ row.checked_out_at | date: 'yy-MM-dd HH:mm' }}</td>
       <td>
-        <a *ngFor="let novelty of row.novelties"
-          [routerLink]="['/novelties', novelty.id, 'edit']">{{ readableNovelty(novelty) }}</a>
+        <a
+          *ngFor="let novelty of row.novelties"
+          [routerLink]="['/novelties', novelty.id, 'edit']"
+          >{{ readableNovelty(novelty) }}</a
+        >
       </td>
       <td>
-        <div *ngFor="let approver of row.approvals">{{ shortName(approver) }}</div>
+        <div *ngFor="let approver of row.approvals">
+          {{ shortName(approver) }}
+        </div>
       </td>
       <td>
-        <button *ngIf="showApproveButton(row)" (click)="approve.emit(row.id)" mat-icon-button class="approve">
+        <button
+          *ngIf="showApproveButton(row)"
+          (click)="approve.emit(row.id)"
+          matTooltip="Aprobar"
+          mat-icon-button
+          color="primary"
+          class="approve"
+        >
           <mat-icon>check_circle</mat-icon>
         </button>
-        <button *ngIf="showDeleteApprovalButton(row)" (click)="deleteApproval.emit(row.id)" mat-icon-button
-          class="delete-approval">
+        <button
+          *ngIf="showDeleteApprovalButton(row)"
+          (click)="deleteApproval.emit(row.id)"
+          matTooltip="Borrar aprobación"
+          mat-icon-button
+          color="warn"
+          class="delete-approval"
+        >
           <mat-icon>remove_circle</mat-icon>
         </button>
       </td>

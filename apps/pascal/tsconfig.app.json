@@ -1,13 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc/apps/pascal",
+    "outDir": "../../dist/out-tsc",
     "types": []
   },
-  "exclude": [
-    "src/test-setup.ts",
-    "**/*.spec.ts"
-  ],
+  "exclude": ["src/test-setup.ts", "**/*.spec.ts"],
   "include": [
     "**/*.ts",
     "../../libs/work-shifts/feature/src/index.ts",

@@ -1,60 +1,85 @@
 import { Action } from '@ngrx/store';
-import { Entity } from './employees.reducer';
-import { Pagination } from "@llstarscreamll/shared";
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
+import { Pagination, ApiError } from '@kirby/shared';
+import { EmployeeInterface } from '@kirby/employees/util';
 
 export enum EmployeesActionTypes {
   SearchEmployees = '[Employees] search',
   SearchEmployeesOk = '[Employees] search ok',
   SearchEmployeesError = '[Employees] search error',
 
-  SyncEmployeesByCsv = '[Employees] sync by csv',
-  SyncEmployeesByCsvOk = '[Employees] sync by csv ok',
-  SyncEmployeesByCsvError = '[Employees] sync by csv error',
+  GetEmployee = '[Employees] get',
+  GetEmployeeOk = '[Employees] get ok',
+  GetEmployeeError = '[Employees] get error',
+
+  UpdateEmployee = '[Employees] update',
+  UpdateEmployeeOk = '[Employees] update ok',
+  UpdateEmployeeError = '[Employees] update error',
 }
 
 export class SearchEmployees implements Action {
   public readonly type = EmployeesActionTypes.SearchEmployees;
-  public constructor(public payload: any = {}) { }
+  constructor(public payload: any = {}) {}
 }
 
 export class SearchEmployeesOk implements Action {
   public readonly type = EmployeesActionTypes.SearchEmployeesOk;
-  public constructor(public payload: Pagination<EmployeeInterface>) { }
+  constructor(public payload: Pagination<EmployeeInterface>) {}
 }
 
 export class SearchEmployeesError implements Action {
   public readonly type = EmployeesActionTypes.SearchEmployeesError;
-  public constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
-export class SyncEmployeesByCsv implements Action {
-  public readonly type = EmployeesActionTypes.SyncEmployeesByCsv;
-  public constructor(public payload: any) { }
+export class GetEmployee implements Action {
+  public readonly type = EmployeesActionTypes.GetEmployee;
+  constructor(public payload: string) {}
 }
 
-export class SyncEmployeesByCsvOk implements Action {
-  public readonly type = EmployeesActionTypes.SyncEmployeesByCsvOk;
+export class GetEmployeeOk implements Action {
+  public readonly type = EmployeesActionTypes.GetEmployeeOk;
+  constructor(public payload: EmployeeInterface) {}
 }
 
-export class SyncEmployeesByCsvError implements Action {
-  public readonly type = EmployeesActionTypes.SyncEmployeesByCsvError;
-  public constructor(public payload: any) { }
+export class GetEmployeeError implements Action {
+  public readonly type = EmployeesActionTypes.GetEmployeeError;
+  constructor(public payload: ApiError) {}
+}
+
+export class UpdateEmployee implements Action {
+  public readonly type = EmployeesActionTypes.UpdateEmployee;
+  constructor(public payload: { employeeId: string; data: any }) {}
+}
+
+export class UpdateEmployeeOk implements Action {
+  public readonly type = EmployeesActionTypes.UpdateEmployeeOk;
+  constructor(public payload: EmployeeInterface) {}
+}
+
+export class UpdateEmployeeError implements Action {
+  public readonly type = EmployeesActionTypes.UpdateEmployeeError;
+  constructor(public payload: ApiError) {}
 }
 
 export type EmployeesAction =
   | SearchEmployees
   | SearchEmployeesOk
   | SearchEmployeesError
-  | SyncEmployeesByCsv
-  | SyncEmployeesByCsvOk
-  | SyncEmployeesByCsvError;
+  | GetEmployee
+  | GetEmployeeOk
+  | GetEmployeeError
+  | UpdateEmployee
+  | UpdateEmployeeOk
+  | UpdateEmployeeError;
 
 export const fromEmployeesActions = {
   SearchEmployees,
   SearchEmployeesOk,
   SearchEmployeesError,
-  SyncEmployeesByCsv,
-  SyncEmployeesByCsvOk,
-  SyncEmployeesByCsvError,
+  GetEmployee,
+  GetEmployeeOk,
+  GetEmployeeError,
+  UpdateEmployee,
+  UpdateEmployeeOk,
+  UpdateEmployeeError,
 };

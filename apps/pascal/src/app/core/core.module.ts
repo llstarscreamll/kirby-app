@@ -1,21 +1,22 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { CommonModule, Location, PlatformLocation } from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { storeFreeze } from 'ngrx-store-freeze';
-import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
-
+import { CommonModule } from '@angular/common';
+import { MetaReducer, StoreModule } from '@ngrx/store';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
+import {
+  StoreRouterConnectingModule,
+  DefaultRouterStateSerializer
+} from '@ngrx/router-store';
 
 import { debug } from './meta-reducers/debug.reducer';
-import { AnimationsService } from './animations/animations.service';
 import { environment } from '../../environments/environment';
+import { AnimationsService } from './animations/animations.service';
 import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
 
 export const metaReducers: MetaReducer<any>[] = [initStateFromLocalStorage];
 
 if (!environment.production) {
-  metaReducers.unshift(storeFreeze);
+  // metaReducers.unshift(storeFreeze);
   if (!environment.test) {
     metaReducers.unshift(debug);
   }
@@ -28,14 +29,23 @@ if (!environment.production) {
     HttpClientModule,
 
     // ngrx
-    StoreModule.forRoot({}, { metaReducers }),
+    StoreModule.forRoot(
+      {},
+      {
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true
+        }
+      }
+    ),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({
+      serializer: DefaultRouterStateSerializer
+    })
   ],
   declarations: [],
-  providers: [
-    AnimationsService,
-  ],
+  providers: [AnimationsService],
   exports: []
 })
 export class CoreModule {

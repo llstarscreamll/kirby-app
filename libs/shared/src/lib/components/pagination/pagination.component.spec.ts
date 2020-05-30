@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import * as moment from 'moment';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -12,10 +12,11 @@ describe('PaginationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PaginationComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(PaginationComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(PaginationComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
+      })
       .compileComponents();
   }));
 
@@ -37,7 +38,7 @@ describe('PaginationComponent', () => {
       from: 1,
       path: 'https://my.api/foo',
       per_page: 10,
-      to: 10,
+      to: 10
     };
 
     fixture.detectChanges();
@@ -50,4 +51,17 @@ describe('PaginationComponent', () => {
     expect(template.querySelector('button.next:disabled')).toBeTruthy();
   });
 
+  it('should disable next button displayed items <= items per page', () => {
+    component.pagination = {
+      current_page: 1,
+      from: 1,
+      path: 'https://my.api/foo',
+      per_page: 10,
+      to: 2
+    };
+
+    fixture.detectChanges();
+
+    expect(template.querySelector('button.next:disabled')).toBeTruthy();
+  });
 });
