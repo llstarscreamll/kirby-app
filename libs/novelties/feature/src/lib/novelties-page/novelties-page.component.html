@@ -1,6 +1,13 @@
 <h1 class="my-4">Novedades</h1>
 
-<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px" fxLayoutGap.gt-xs="20px">
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
+<div
+  fxLayout="column"
+  fxLayout.gt-xs="row"
+  fxLayoutGap="10px"
+  fxLayoutGap.gt-xs="20px"
+>
   <a
     *kirbyCan="'novelties.create-many'"
     routerLink="./create-novelties-to-employees"
@@ -20,19 +27,16 @@
   </a>
 </div>
 
-<div class="mt-4">
-  <mat-form-field class="w-full">
-    <mat-label>Buscar</mat-label>
-    <input
-      *kirbyCan="'novelties.search'"
-      (change)="searchNovelties({ search: $event.srcElement.value, page: 1 })"
-      matInput
-      placeholder="Buscar por nombre, apellido, email, código, identificación o novedad"
-      type="search"
-      autocomplete="off"
-    />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+<div class="mt-4" *kirbyCan="'novelties.search'">
+  <kirby-novelties-search-form
+    [costCentersFound]="paginatedCostCenters$ | async"
+    [employeesFound]="paginatedEmployees$ | async"
+    [noveltyTypesFound]="paginatedNoveltyTypes$ | async"
+    (submitted)="searchNovelties($event)"
+    (searchEmployees)="searchEmployees($event)"
+    (searchCostCenters)="searchCostCenters($event)"
+    (searchNoveltyTypes)="searchNoveltyTypes($event)"
+  ></kirby-novelties-search-form>
 </div>
 
 <div class="responsive-table shadow">

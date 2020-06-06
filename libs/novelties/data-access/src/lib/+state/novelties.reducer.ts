@@ -50,6 +50,11 @@ export function noveltiesReducer(
       break;
     }
 
+    case NoveltiesActionTypes.SearchNoveltiesError: {
+      state = { ...state, error: action.payload };
+      break;
+    }
+
     case NoveltiesActionTypes.CreateNoveltiesToEmployees: {
       state = {
         ...state,

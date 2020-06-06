@@ -18,6 +18,7 @@ import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { NoveltiesDataAccessModule } from '@kirby/novelties/data-access';
 import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
 import { NoveltiesFeatureEffects } from './+state/novelties-feature.effects';
+import { CostCentersDataAccessModule } from '@kirby/cost-centers/data-access';
 import { NoveltiesPageComponent } from './novelties-page/novelties-page.component';
 import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
 import { ReportByEmployeePageComponent } from './report-by-employee-page/report-by-employee-page.component';
@@ -40,6 +41,7 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
     MatAutocompleteModule,
     NoveltiesDataAccessModule,
     EmployeesDataAccessModule,
+    CostCentersDataAccessModule,
     RouterModule.forChild([
       {
         path: '',

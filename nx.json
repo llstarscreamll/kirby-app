@@ -119,6 +119,9 @@
     },
     "cost-centers-data": {
       "tags": []
+    },
+    "cost-centers-data-access": {
+      "tags": ["data-access"]
     }
   }
 }

@@ -1,0 +1,159 @@
+<form
+  *ngIf="!enableAdvancedSearch"
+  [formGroup]="simpleSearchForm"
+  (submit)="onSimpleSearchSubmit()"
+  class="simple-search mb-5"
+  autocomplete="off"
+>
+  <mat-form-field class="w-full">
+    <mat-label>Buscar</mat-label>
+    <input
+      formControlName="search"
+      matInput
+      placeholder="Buscar por nombre, apellido, email, código, identificación o tipo de novedad"
+      type="search"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div class="text-right">
+    <a
+      (click)="toggleAdvancedSearch()"
+      class="open-advanced-search"
+      role="button"
+      >Búsqueda avanzada</a
+    >
+  </div>
+</form>
+
+<form
+  *ngIf="enableAdvancedSearch"
+  [formGroup]="advancedSearchForm"
+  class="advanced-search-form mb-5"
+  (submit)="onAdvancedSearchSubmitted()"
+  autocomplete="off"
+>
+  <mat-form-field class="w-full">
+    <mat-label>Buscar empleado</mat-label>
+    <input
+      formControlName="employeesSearch"
+      matInput
+      [matAutocomplete]="employeeAutocomplete"
+      type="text"
+    />
+
+    <mat-autocomplete
+      #employeeAutocomplete="matAutocomplete"
+      [displayWith]="displayEmployeeFieldValue"
+    >
+      <mat-option
+        *ngFor="let employee of employeesFound?.data"
+        [value]="employee"
+      >
+        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-chip-list class="selected-employees">
+    <mat-chip *ngFor="let employee of selectedEmployees">
+      {{ employee.first_name + ' ' + employee.last_name }}
+      <mat-icon matChipRemove (click)="removeEmployee(employee)">
+        cancel
+      </mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    fxLayoutGap="0px"
+    fxLayoutGap.gt-xs="20px"
+  >
+    <div fxFlex="grow">
+      <mat-form-field class="w-full">
+        <mat-label>Tipo de novedad</mat-label>
+        <input
+          formControlName="noveltyTypesSearch"
+          matInput
+          [matAutocomplete]="noveltyTypeAutocomplete"
+          type="text"
+        />
+
+        <mat-autocomplete
+          #noveltyTypeAutocomplete="matAutocomplete"
+          [displayWith]="displayNoveltyTypeFieldValue"
+        >
+          <mat-option
+            *ngFor="let noveltyType of noveltyTypesFound?.data"
+            [value]="noveltyType"
+          >
+            <span>{{ noveltyType.code + ' ' + noveltyType.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-chip-list class="selected-novelty-types">
+        <mat-chip *ngFor="let noveltyType of selectedNoveltyTypes">
+          {{ noveltyType.code + ' ' + noveltyType.name }}
+          <mat-icon matChipRemove (click)="removeNoveltyType(noveltyType)">
+            cancel
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <div fxFlex="grow">
+      <mat-form-field class="w-full">
+        <mat-label>Centro de costo</mat-label>
+        <input
+          formControlName="costCentersSearch"
+          matInput
+          [matAutocomplete]="costCenterAutocomplete"
+          type="text"
+        />
+
+        <mat-autocomplete
+          #costCenterAutocomplete="matAutocomplete"
+          [displayWith]="displayCostCenterFieldValue"
+        >
+          <mat-option
+            *ngFor="let costCenter of costCentersFound?.data"
+            [value]="costCenter"
+          >
+            <span>{{ costCenter.code + ' ' + costCenter.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-chip-list class="selected-cost-centers">
+        <mat-chip *ngFor="let costCenter of selectedCostCenters">
+          {{ costCenter.code + ' ' + costCenter.name }}
+          <mat-icon matChipRemove (click)="removeCostCenter(costCenter)">
+            cancel
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    fxLayoutGap="0px"
+    fxLayoutGap.gt-xs="20px"
+  >
+    <mat-form-field fxFlex="grow">
+      <mat-label>Inicio</mat-label>
+      <input formControlName="startAtFrom" matInput type="datetime-local" />
+    </mat-form-field>
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fin</mat-label>
+      <input formControlName="startAtTo" matInput type="datetime-local" />
+    </mat-form-field>
+  </div>
+
+  <div class="text-center">
+    <button mat-raised-button type="submit" ngClass.xs="block w-full h-12">Buscar</button>
+  </div>
+</form>

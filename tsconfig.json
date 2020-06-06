@@ -63,7 +63,10 @@
       ],
       "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
       "@kirby/work-shifts/testing": ["libs/work-shifts/testing/src/index.ts"],
-      "@kirby/cost-centers/data": ["libs/cost-centers/data/src/index.ts"]
+      "@kirby/cost-centers/data": ["libs/cost-centers/data/src/index.ts"],
+      "@kirby/cost-centers/data-access": [
+        "libs/cost-centers/data-access/src/index.ts"
+      ]
     },
     "rootDir": "."
   },
