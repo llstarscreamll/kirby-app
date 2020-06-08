@@ -186,7 +186,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     this.noveltyFacade.search({
       ...this.searchOptions,
       ...formValue,
-      employee_id: formValue.employee.id
+      employees: [{id: formValue.employee.id}]
     });
   }
 
