@@ -36,7 +36,8 @@ import {
   DeleteApprovalsByEmployeeAndDateRangeError,
   DownLoadNoveltiesReport,
   DownLoadNoveltiesReportError,
-  DownLoadNoveltiesReportOk
+  DownLoadNoveltiesReportOk,
+  SearchNoveltyTypes
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -59,11 +60,11 @@ export class NoveltiesEffects {
   @Effect() searchNoveltyTypes$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.SearchNoveltyTypes,
     {
-      run: (action: SearchNovelties) =>
+      run: (action: SearchNoveltyTypes) =>
         this.noveltyService
           .searchNoveltyTypes(action.payload)
           .pipe(map(apiResponse => new SearchNoveltyTypesOk(apiResponse))),
-      onError: (action: SearchNovelties, error) =>
+      onError: (action: SearchNoveltyTypes, error) =>
         new SearchNoveltyTypesError(error)
     }
   );
