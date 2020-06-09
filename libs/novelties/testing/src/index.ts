@@ -3,7 +3,6 @@ import { NoveltyModel } from '@kirby/novelties/data';
 
 import { createEmployee } from '@kirby/employees/testing';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
-import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 export function createNovelty(id?: string, data: any = null): NoveltyModel {
   const employee = createEmployee();
@@ -11,7 +10,7 @@ export function createNovelty(id?: string, data: any = null): NoveltyModel {
 
   return NoveltyModel.fromJson({
     id: id || faker.random.uuid(),
-    time_clock_log_id: data ? data.time_clock_log_id : createTimeClockLog().id,
+    time_clock_log_id: data?.time_clock_log_id,
     employee_id: employee.id,
     novelty_type_id: noveltyType.id,
     novelty_type: noveltyType,

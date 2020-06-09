@@ -878,6 +878,7 @@
             "jestConfig": "libs/employees/testing/jest.config.js",
             "tsConfig": "libs/employees/testing/tsconfig.spec.json",
             "setupFile": "libs/employees/testing/src/test-setup.ts",
+            "passWithNoTests": true,
             "runInBand": true
           }
         }
@@ -906,6 +907,7 @@
             "jestConfig": "libs/novelties/testing/jest.config.js",
             "tsConfig": "libs/novelties/testing/tsconfig.spec.json",
             "setupFile": "libs/novelties/testing/src/test-setup.ts",
+            "passWithNoTests": true,
             "runInBand": true
           }
         }
@@ -934,6 +936,7 @@
             "jestConfig": "libs/novelty-types/testing/jest.config.js",
             "tsConfig": "libs/novelty-types/testing/tsconfig.spec.json",
             "setupFile": "libs/novelty-types/testing/src/test-setup.ts",
+            "passWithNoTests": true,
             "runInBand": true
           }
         }
@@ -965,6 +968,7 @@
             "jestConfig": "libs/time-clock-logs/testing/jest.config.js",
             "tsConfig": "libs/time-clock-logs/testing/tsconfig.spec.json",
             "setupFile": "libs/time-clock-logs/testing/src/test-setup.ts",
+            "passWithNoTests": true,
             "runInBand": true
           }
         }
@@ -993,6 +997,7 @@
             "jestConfig": "libs/users/testing/jest.config.js",
             "tsConfig": "libs/users/testing/tsconfig.spec.json",
             "setupFile": "libs/users/testing/src/test-setup.ts",
+            "passWithNoTests": true,
             "runInBand": true
           }
         }
@@ -1021,6 +1026,7 @@
             "jestConfig": "libs/work-shifts/testing/jest.config.js",
             "tsConfig": "libs/work-shifts/testing/tsconfig.spec.json",
             "setupFile": "libs/work-shifts/testing/src/test-setup.ts",
+            "passWithNoTests": true,
             "runInBand": true
           }
         }
