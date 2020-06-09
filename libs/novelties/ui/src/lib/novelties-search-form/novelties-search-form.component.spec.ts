@@ -18,6 +18,7 @@ import { createEmployee } from '@kirby/employees/testing/src';
 import { createNoveltyType } from '@kirby/novelty-types/testing/src';
 import { NoveltiesSearchFormComponent } from './novelties-search-form.component';
 import { MatChipsModule } from '@angular/material/chips';
+import moment from 'moment';
 
 describe('NoveltiesSearchFormComponent', () => {
   let component: NoveltiesSearchFormComponent;
@@ -121,6 +122,21 @@ describe('NoveltiesSearchFormComponent', () => {
 
       expect(component.advancedFormDestroy$.next).toHaveBeenCalled();
       expect(component.advancedSearchForm).toBeFalsy();
+    });
+
+    it('should have default values', () => {
+      expect(component.advancedSearchForm.get('startAtFrom').value).toBe(
+        moment()
+          .startOf('month')
+          .startOf('day')
+          .format('YYYY-MM-DDTHH:mm')
+      );
+      expect(component.advancedSearchForm.get('startAtTo').value).toBe(
+        moment()
+          .endOf('month')
+          .endOf('day')
+          .format('YYYY-MM-DDTHH:mm')
+      );
     });
 
     it('should have certain elements', () => {

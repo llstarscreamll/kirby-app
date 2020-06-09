@@ -1,4 +1,4 @@
-import { omit, isArray, isObject } from 'lodash';
+import { omit } from 'lodash';
 import {
   Component,
   OnInit,
@@ -16,6 +16,7 @@ import { Pagination } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data/src';
 import { EmployeeInterface } from '@kirby/employees/util/src';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data/src';
+import moment from 'moment';
 
 @Component({
   selector: 'kirby-novelties-search-form',
@@ -98,8 +99,18 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
 
   buildAdvancedSearchForm() {
     this.advancedSearchForm = this.formBuilder.group({
-      startAtFrom: [],
-      startAtTo: [],
+      startAtFrom: [
+        moment()
+          .startOf('month')
+          .startOf('day')
+          .format('YYYY-MM-DDTHH:mm')
+      ],
+      startAtTo: [
+        moment()
+          .endOf('month')
+          .endOf('day')
+          .format('YYYY-MM-DDTHH:mm')
+      ],
       noveltyTypesSearch: [],
       noveltyTypes: [[]],
       employeesSearch: [],
