@@ -1,10 +1,9 @@
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { User } from '@kirby/users/util';
-import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';

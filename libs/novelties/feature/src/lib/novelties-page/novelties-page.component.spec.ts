@@ -6,6 +6,8 @@ import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { NoveltiesPageComponent } from './novelties-page.component';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
+import { EmployeesFacade } from '@kirby/employees/data-access/src';
+import { CostCentersFacade } from '@kirby/cost-centers/data-access/src';
 
 class AuthFacadeMock {
   authUser$ = from([]);
@@ -21,6 +23,8 @@ describe('NoveltiesPageComponent', () => {
       declarations: [NoveltiesPageComponent],
       providers: [
         { provide: NoveltiesFacade, useValue: { search: query => true } },
+        { provide: EmployeesFacade, useValue: { search: query => true } },
+        { provide: CostCentersFacade, useValue: { search: query => true } },
         { provide: AuthFacade, useClass: AuthFacadeMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
