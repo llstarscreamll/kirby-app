@@ -44,7 +44,6 @@
       "@kirby/employees/ui": ["libs/employees/ui/src/index.ts"],
       "@kirby/novelties/data": ["libs/novelties/data/src/index.ts"],
       "@kirby/novelties/utils": ["libs/novelties/utils/src/index.ts"],
-      "@kirby/novelty-types/utils": ["libs/novelty-types/utils/src/index.ts"],
       "@kirby/novelty-types/data": ["libs/novelty-types/data/src/index.ts"],
       "@kirby/novelties/feature": ["libs/novelties/feature/src/index.ts"],
       "@kirby/novelties/ui": ["libs/novelties/ui/src/index.ts"],

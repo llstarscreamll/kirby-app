@@ -673,36 +673,6 @@
         }
       }
     },
-    "novelty-types-utils": {
-      "root": "libs/novelty-types/utils",
-      "sourceRoot": "libs/novelty-types/utils/src",
-      "projectType": "library",
-      "prefix": "kirby",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/novelty-types/utils/tsconfig.lib.json",
-              "libs/novelty-types/utils/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/novelty-types/utils/jest.config.js",
-            "tsConfig": "libs/novelty-types/utils/tsconfig.spec.json"
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/schematics:component": {
-          "styleext": "scss"
-        }
-      }
-    },
     "novelty-types-data": {
       "root": "libs/novelty-types/data",
       "sourceRoot": "libs/novelty-types/data/src",

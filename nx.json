@@ -46,7 +46,7 @@
       "tags": ["scope:work-shifts", "type:ui", "platform:web"]
     },
     "time-clock-logs-data-access": {
-      "tags": []
+      "tags": ["type:data-access"]
     },
     "time-clock-logs-util": {
       "tags": []
@@ -73,9 +73,6 @@
       "tags": []
     },
     "novelties-utils": {
-      "tags": []
-    },
-    "novelty-types-utils": {
       "tags": []
     },
     "novelty-types-data": {
@@ -118,10 +115,10 @@
       "tags": []
     },
     "cost-centers-data": {
-      "tags": []
+      "tags": ["type:data"]
     },
     "cost-centers-data-access": {
-      "tags": ["data-access"]
+      "tags": ["type:data-access"]
     }
   }
 }
