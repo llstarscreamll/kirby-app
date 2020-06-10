@@ -1,12 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { CostCentersService } from './cost-centers.service';
 
-describe('CostCentersServiceService', () => {
+describe('CostCentersService', () => {
   let service: CostCentersService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
+      providers: [
+      CostCentersService,
+      {provide: 'environment', useValue: {api: 'http://backend.api'}}
+    ]
+    });
     service = TestBed.inject(CostCentersService);
   });
 

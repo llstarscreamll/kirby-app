@@ -1,13 +1,10 @@
 import { map } from 'rxjs/operators';
+import { Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 
 import { CostCentersPartialState } from './cost-centers.reducer';
 import {
-  LoadCostCenters,
-  CostCentersLoaded,
-  CostCentersLoadError,
   CostCentersActionTypes,
   SearchCostCenters,
   SearchCostCentersError,
@@ -17,21 +14,6 @@ import { CostCentersService } from '../cost-centers.service';
 
 @Injectable()
 export class CostCentersEffects {
-  @Effect() loadCostCenters$ = this.dataPersistence.fetch(
-    CostCentersActionTypes.LoadCostCenters,
-    {
-      run: (action: LoadCostCenters, state: CostCentersPartialState) => {
-        // Your custom REST 'load' logic goes here. For now just return an empty list...
-        return new CostCentersLoaded([]);
-      },
-
-      onError: (action: LoadCostCenters, error) => {
-        console.error('Error', error);
-        return new CostCentersLoadError(error);
-      }
-    }
-  );
-
   @Effect() searchCostCenters$ = this.dataPersistence.fetch(
     CostCentersActionTypes.SearchCostCenters,
     {

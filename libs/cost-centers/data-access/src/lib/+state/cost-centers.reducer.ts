@@ -2,9 +2,8 @@ import {
   CostCentersAction,
   CostCentersActionTypes
 } from './cost-centers.actions';
-
-import { Pagination, emptyPagination } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data';
+import { Pagination, emptyPagination } from '@kirby/shared';
 
 export const COST_CENTERS_FEATURE_KEY = 'costCenters';
 
@@ -19,10 +18,7 @@ export const COST_CENTERS_FEATURE_KEY = 'costCenters';
 export interface Entity {}
 
 export interface CostCentersState {
-  list: Entity[]; // list of CostCenters; analogous to a sql normalized table
   paginatedList: Pagination<CostCenter>;
-  selectedId?: string | number; // which CostCenters record has been selected
-  loaded: boolean; // has the CostCenters list been loaded
   error?: any; // last none error (if any)
 }
 
@@ -31,8 +27,6 @@ export interface CostCentersPartialState {
 }
 
 export const initialState: CostCentersState = {
-  list: [],
-  loaded: false,
   paginatedList: emptyPagination()
 };
 
@@ -45,7 +39,6 @@ export function reducer(
       state = {
         ...state,
         paginatedList: action.payload,
-        loaded: true
       };
       break;
     }

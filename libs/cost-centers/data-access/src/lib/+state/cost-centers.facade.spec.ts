@@ -1,35 +1,34 @@
+import { of } from 'rxjs';
 import { NgModule } from '@angular/core';
+import { NxModule } from '@nrwl/angular';
+import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
+import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from '@nrwl/angular/testing';
 
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
-
-import { NxModule } from '@nrwl/angular';
-
-import { CostCentersEffects } from './cost-centers.effects';
-import { CostCentersFacade } from './cost-centers.facade';
-
-import { costCentersQuery } from './cost-centers.selectors';
-import { LoadCostCenters, CostCentersLoaded } from './cost-centers.actions';
 import {
   CostCentersState,
-  Entity,
   initialState,
   reducer
 } from './cost-centers.reducer';
+import { emptyPagination } from '@kirby/shared';
+import { CostCentersFacade } from './cost-centers.facade';
+import { CostCentersEffects } from './cost-centers.effects';
+import { SearchCostCentersOk } from './cost-centers.actions';
+import { CostCentersService } from '../cost-centers.service';
 
 interface TestSchema {
   costCenters: CostCentersState;
 }
 
 describe('CostCentersFacade', () => {
+  let createCostCenters;
   let facade: CostCentersFacade;
   let store: Store<TestSchema>;
-  let createCostCenters;
+  let costCenterService: CostCentersService;
 
   beforeEach(() => {
-    createCostCenters = (id: string, name = ''): Entity => ({
+    createCostCenters = (id: string, name = '') => ({
       id,
       name: name || `name-${id}`
     });
@@ -42,7 +41,10 @@ describe('CostCentersFacade', () => {
           StoreModule.forFeature('costCenters', reducer, { initialState }),
           EffectsModule.forFeature([CostCentersEffects])
         ],
-        providers: [CostCentersFacade]
+        providers: [
+          CostCentersFacade,
+          { provide: CostCentersService, useValue: { search: q => q } }
+        ]
       })
       class CustomFeatureModule {}
 
@@ -59,26 +61,31 @@ describe('CostCentersFacade', () => {
 
       store = TestBed.get(Store);
       facade = TestBed.get(CostCentersFacade);
+      costCenterService = TestBed.get(CostCentersService);
     });
 
     /**
      * The initially generated facade::loadAll() returns empty array
      */
-    it('loadAll() should return empty list with loaded == true', async done => {
+    it('search(...) should return paginated list', async done => {
       try {
-        let list = await readFirst(facade.allCostCenters$);
-        let isLoaded = await readFirst(facade.loaded$);
+        let paginatedList = await readFirst(facade.paginatedList$);
 
-        expect(list.length).toBe(0);
-        expect(isLoaded).toBe(false);
+        expect(paginatedList.data.length).toBe(0);
 
-        facade.loadAll();
+        const query = { search: 'foo' };
+        const serviceResponse = emptyPagination();
+        spyOn(costCenterService, 'search').and.returnValue(
+          of({
+            ...serviceResponse,
+            data: [createCostCenters('AAA'), createCostCenters('BBB')]
+          })
+        );
 
-        list = await readFirst(facade.allCostCenters$);
-        isLoaded = await readFirst(facade.loaded$);
+        facade.search(query);
+        paginatedList = await readFirst(facade.paginatedList$);
 
-        expect(list.length).toBe(0);
-        expect(isLoaded).toBe(true);
+        expect(paginatedList.data.length).toBe(2);
 
         done();
       } catch (err) {
@@ -89,26 +96,22 @@ describe('CostCentersFacade', () => {
     /**
      * Use `CostCentersLoaded` to manually submit list for state management
      */
-    it('allCostCenters$ should return the loaded list; and loaded flag == true', async done => {
+    it('paginatedList$ should return paginated list', async done => {
       try {
-        let list = await readFirst(facade.allCostCenters$);
-        let isLoaded = await readFirst(facade.loaded$);
+        let page = await readFirst(facade.paginatedList$);
 
-        expect(list.length).toBe(0);
-        expect(isLoaded).toBe(false);
+        expect(page.data.length).toBe(0);
 
         store.dispatch(
-          new CostCentersLoaded([
-            createCostCenters('AAA'),
-            createCostCenters('BBB')
-          ])
+          new SearchCostCentersOk({
+            ...emptyPagination(),
+            data: [createCostCenters('AAA'), createCostCenters('BBB')]
+          })
         );
 
-        list = await readFirst(facade.allCostCenters$);
-        isLoaded = await readFirst(facade.loaded$);
+        page = await readFirst(facade.paginatedList$);
 
-        expect(list.length).toBe(2);
-        expect(isLoaded).toBe(true);
+        expect(page.data.length).toBe(2);
 
         done();
       } catch (err) {

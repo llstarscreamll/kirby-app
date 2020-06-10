@@ -1,35 +1,33 @@
-import { CostCentersLoaded } from './cost-centers.actions';
+import { SearchCostCentersOk } from './cost-centers.actions';
 import {
   CostCentersState,
-  Entity,
   initialState,
   reducer
 } from './cost-centers.reducer';
+import { emptyPagination } from '@kirby/shared';
 
 describe('CostCenters Reducer', () => {
-  const getCostCentersId = it => it['id'];
   let createCostCenters;
 
   beforeEach(() => {
-    createCostCenters = (id: string, name = ''): Entity => ({
+    createCostCenters = (id: string, name = '') => ({
       id,
       name: name || `name-${id}`
     });
   });
 
   describe('valid CostCenters actions ', () => {
-    it('should return set the list of known CostCenters', () => {
-      const costCenterss = [
+    it('should return paginated list of CostCenters', () => {
+      let paginatedCostCenters = emptyPagination();
+      paginatedCostCenters.data = [
         createCostCenters('PRODUCT-AAA'),
         createCostCenters('PRODUCT-zzz')
       ];
-      const action = new CostCentersLoaded(costCenterss);
-      const result: CostCentersState = reducer(initialState, action);
-      const selId: string = getCostCentersId(result.list[1]);
 
-      expect(result.loaded).toBe(true);
-      expect(result.list.length).toBe(2);
-      expect(selId).toBe('PRODUCT-zzz');
+      const action = new SearchCostCentersOk(paginatedCostCenters);
+      const result: CostCentersState = reducer(initialState, action);
+
+      expect(result.paginatedList.data.length).toBe(2);
     });
   });
 

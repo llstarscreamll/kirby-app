@@ -1,57 +1,49 @@
-import { Entity, CostCentersState } from './cost-centers.reducer';
 import { costCentersQuery } from './cost-centers.selectors';
+import {
+  CostCentersPartialState,
+  COST_CENTERS_FEATURE_KEY
+} from './cost-centers.reducer';
+import { emptyPagination } from '@kirby/shared';
 
 describe('CostCenters Selectors', () => {
   const ERROR_MSG = 'No Error Available';
-  const getCostCentersId = it => it['id'];
-
-  let storeState;
+  let storeState: CostCentersPartialState;
 
   beforeEach(() => {
-    const createCostCenters = (id: string, name = ''): Entity => ({
+    const createCostCenters = (id: string, name = '') => ({
       id,
-      name: name || `name-${id}`
+      name: name || `name-${id}`,
+      code: 'foo'
     });
+
     storeState = {
-      costCenters: {
-        list: [
-          createCostCenters('PRODUCT-AAA'),
-          createCostCenters('PRODUCT-BBB'),
-          createCostCenters('PRODUCT-CCC')
-        ],
-        selectedId: 'PRODUCT-BBB',
-        error: ERROR_MSG,
-        loaded: true
+      [COST_CENTERS_FEATURE_KEY]: {
+        paginatedList: {
+          ...emptyPagination(),
+          data: [
+            createCostCenters('PRODUCT-AAA'),
+            createCostCenters('PRODUCT-BBB'),
+            createCostCenters('PRODUCT-CCC')
+          ]
+        },
+        error: ERROR_MSG
       }
     };
   });
 
   describe('CostCenters Selectors', () => {
-    it('getAllCostCenters() should return the list of CostCenters', () => {
-      const results = costCentersQuery.getAllCostCenters(storeState);
-      const selId = getCostCentersId(results[1]);
+    it('getError() should return api errors', () => {
+      const error = costCentersQuery.getError(storeState);
 
-      expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(error).toBeTruthy();
+      expect(error).toEqual(ERROR_MSG);
     });
 
-    it('getSelectedCostCenters() should return the selected Entity', () => {
-      const result = costCentersQuery.getSelectedCostCenters(storeState);
-      const selId = getCostCentersId(result);
+    it('getPaginated() should return the selected Entity', () => {
+      const result = costCentersQuery.getPaginated(storeState);
 
-      expect(selId).toBe('PRODUCT-BBB');
-    });
-
-    it("getLoaded() should return the current 'loaded' status", () => {
-      const result = costCentersQuery.getLoaded(storeState);
-
-      expect(result).toBe(true);
-    });
-
-    it("getError() should return the current 'error' storeState", () => {
-      const result = costCentersQuery.getError(storeState);
-
-      expect(result).toBe(ERROR_MSG);
+      expect(result).toBeTruthy();
+      expect(result.data.length).toBe(3);
     });
   });
 });
