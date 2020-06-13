@@ -840,7 +840,7 @@
               "libs/authorization/ui/tsconfig.lib.json",
               "libs/authorization/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**"]
+            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**/*"]
           }
         },
         "test": {
@@ -873,7 +873,7 @@
               "libs/authorization/data/tsconfig.lib.json",
               "libs/authorization/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/authorization/data/**"]
+            "exclude": ["**/node_modules/**", "!libs/authorization/data/**/*"]
           }
         },
         "test": {
@@ -900,7 +900,7 @@
               "libs/employees/testing/tsconfig.lib.json",
               "libs/employees/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/employees/testing/**"]
+            "exclude": ["**/node_modules/**", "!libs/employees/testing/**/*"]
           }
         },
         "test": {
@@ -929,7 +929,7 @@
               "libs/novelties/testing/tsconfig.lib.json",
               "libs/novelties/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelties/testing/**"]
+            "exclude": ["**/node_modules/**", "!libs/novelties/testing/**/*"]
           }
         },
         "test": {
@@ -958,7 +958,10 @@
               "libs/novelty-types/testing/tsconfig.lib.json",
               "libs/novelty-types/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/testing/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/testing/**/*"
+            ]
           }
         },
         "test": {
@@ -989,7 +992,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/time-clock-logs/testing/**"
+              "!libs/time-clock-logs/testing/**/*"
             ]
           }
         },
@@ -1019,7 +1022,7 @@
               "libs/users/testing/tsconfig.lib.json",
               "libs/users/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/users/testing/**"]
+            "exclude": ["**/node_modules/**", "!libs/users/testing/**/*"]
           }
         },
         "test": {
@@ -1048,7 +1051,7 @@
               "libs/work-shifts/testing/tsconfig.lib.json",
               "libs/work-shifts/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**"]
+            "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**/*"]
           }
         },
         "test": {
@@ -1077,7 +1080,7 @@
               "libs/employees/ui/tsconfig.lib.json",
               "libs/employees/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/employees/ui/**"]
+            "exclude": ["**/node_modules/**", "!libs/employees/ui/**/*"]
           }
         },
         "test": {
@@ -1110,7 +1113,7 @@
               "libs/cost-centers/data/tsconfig.lib.json",
               "libs/cost-centers/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**"]
+            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**/*"]
           }
         },
         "test": {
@@ -1139,7 +1142,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/cost-centers/data-access/**"
+              "!libs/cost-centers/data-access/**/*"
             ]
           }
         },
