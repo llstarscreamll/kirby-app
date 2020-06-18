@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
 import { BaseService, oneLevelFlattenObject } from '@kirby/shared';
-import { map } from 'rxjs/internal/operators/map';
 
 @Injectable()
 export class NoveltyService extends BaseService {
@@ -20,7 +20,7 @@ export class NoveltyService extends BaseService {
   search(query: any = {}): Observable<any> {
     return this.http.get<any>(this.endpoint, {
       headers: this.defaultHeaders,
-      params: oneLevelFlattenObject(query)
+      params: oneLevelFlattenObject(query),
     });
   }
 
@@ -28,7 +28,7 @@ export class NoveltyService extends BaseService {
     const endpoint = this.env.api + 'api/v1/novelty-types/';
     return this.http.get<any>(endpoint, {
       headers: this.defaultHeaders,
-      params: query
+      params: query,
     });
   }
 
@@ -36,14 +36,14 @@ export class NoveltyService extends BaseService {
     const endpoint = this.endpoint + 'create-many';
     return this.http
       .post<any>(endpoint, data, { headers: this.defaultHeaders })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
   get(id: string): Observable<any> {
     const endpoint = this.endpoint + id;
     return this.http
       .get<any>(endpoint, { headers: this.defaultHeaders })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
   downloadReport(query: {
@@ -54,16 +54,16 @@ export class NoveltyService extends BaseService {
     const endpoint = `${this.endpoint}export`;
     return this.http
       .post<any>(endpoint, query, {
-        headers: this.defaultHeaders
+        headers: this.defaultHeaders,
       })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
   update(id: string, noveltyData: any): Observable<any> {
     const endpoint = this.endpoint + id;
     return this.http
       .put<any>(endpoint, noveltyData, { headers: this.defaultHeaders })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
   trash(id: string): Observable<any> {
@@ -87,7 +87,7 @@ export class NoveltyService extends BaseService {
       {
         employee_id: employeeId,
         start_date: startDate,
-        end_date: endDate
+        end_date: endDate,
       },
       { headers: this.defaultHeaders }
     );
@@ -104,8 +104,8 @@ export class NoveltyService extends BaseService {
       params: {
         employee_id: employeeId,
         start_date: startDate,
-        end_date: endDate
-      }
+        end_date: endDate,
+      },
     });
   }
 
