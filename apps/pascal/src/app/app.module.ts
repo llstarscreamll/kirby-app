@@ -1,34 +1,35 @@
-import { NxModule } from '@nrwl/angular';
-import { NgModule } from '@angular/core';
-import { LayoutModule } from '@angular/cdk/layout';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Route } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserModule } from '@angular/platform-browser';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import {
   MatFormFieldModule,
   MatFormFieldDefaultOptions,
   MAT_FORM_FIELD_DEFAULT_OPTIONS
 } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { NxModule } from '@nrwl/angular';
+import { NgModule } from '@angular/core';
+import { LayoutModule } from '@angular/cdk/layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Route } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { SharedModule } from '@kirby/shared';
 import { environment } from '../environments/environment';
 import { AuthorizationUiModule } from '@kirby/authorization/ui';
+import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -36,7 +37,6 @@ import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.comp
 import { LandingPageComponent } from './containers/landing-page/landing-page.component';
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
 import { SidebarLayoutComponent } from './layouts/sidebar-layout/sidebar-layout.component';
-import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
 
 const matFormFieldAppearance: MatFormFieldDefaultOptions = { appearance: 'outline' };
 

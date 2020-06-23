@@ -23,6 +23,7 @@ export function createNoveltyType(id?: string): NoveltyTypeInterface {
     apply_on_time_slots: [{ start, end }],
     operator: null,
     requires_comment: faker.random.arrayElement([true, false]),
+    keep_in_report: faker.random.arrayElement([true, false]),
     created_at: faker.date.past(),
     updated_at: faker.date.past()
   };

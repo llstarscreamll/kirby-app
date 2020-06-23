@@ -119,6 +119,15 @@
     },
     "cost-centers-data-access": {
       "tags": ["type:data-access"]
+    },
+    "novelty-types-data-access": {
+      "tags": ["data-access"]
+    },
+    "novelty-types-ui": {
+      "tags": ["ui"]
+    },
+    "novelty-types-feature": {
+      "tags": ["ui"]
     }
   }
 }

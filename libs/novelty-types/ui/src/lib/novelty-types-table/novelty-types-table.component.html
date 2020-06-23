@@ -1,0 +1,40 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nombre</th>
+      <th>Operador</th>
+      <th>Requiere comentario?</th>
+      <th>Mantener en reporte?</th>
+      <th class="text-right" style="width: 7.5rem;">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let noveltyType of noveltyTypes">
+      <td>{{ noveltyType.code }}</td>
+      <td>{{ noveltyType.name }}</td>
+      <td>
+        <mat-icon>{{ operatorIcon(noveltyType.operator) }}</mat-icon>
+      </td>
+      <td>
+        <span class="boolean-badge"
+              [ngClass]="{true: noveltyType.requires_comment,false: !noveltyType.requires_comment}">
+          {{ readableBoolean(noveltyType.requires_comment) }}
+        </span>
+      </td>
+      <td>
+        <span class="boolean-badge" [ngClass]="{true: noveltyType.keep_in_report,false: !noveltyType.keep_in_report}">
+          {{ readableBoolean(noveltyType.keep_in_report) }}
+        </span>
+      </td>
+      <td class="text-right">
+        <a [routerLink]="[noveltyType.id, 'edit']" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button (click)="onRowTrashed(noveltyType.id)" mat-icon-button class="trash">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

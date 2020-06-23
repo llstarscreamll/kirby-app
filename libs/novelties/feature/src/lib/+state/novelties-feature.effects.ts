@@ -5,12 +5,9 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 
 import {
   NoveltiesFacade,
-  NoveltiesPartialState
+  NoveltiesPartialState,
 } from '@kirby/novelties/data-access';
 import { EditNoveltyPageComponent } from '../edit-novelty/edit-novelty-page.component';
-import { ReportByEmployeePageComponent } from '../report-by-employee-page/report-by-employee-page.component';
-import moment from 'moment';
-import { of } from 'rxjs';
 
 @Injectable()
 export class NoveltiesFeatureEffects {
@@ -19,7 +16,7 @@ export class NoveltiesFeatureEffects {
     {
       run: (routerSnapShot: ActivatedRouteSnapshot) =>
         this.noveltiesFacade.get(routerSnapShot.params['id']),
-      onError: () => {}
+      onError: () => {},
     }
   );
 
