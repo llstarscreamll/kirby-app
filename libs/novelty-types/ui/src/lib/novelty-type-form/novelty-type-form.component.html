@@ -1,0 +1,52 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+    <mat-form-field fxFlex="grow">
+      <mat-label>Código</mat-label>
+      <input formControlName="code" matInput type="text" required>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Nombre</mat-label>
+      <input formControlName="name" matInput type="text" required>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+    <div fxFlex="grow">
+      <label id="operator_options" class="block mb-5 font-medium" ngClass.gt-xs="my-2">Operador</label>
+      <mat-radio-group formControlName="operator" aria-labelledby="operator_options">
+        <mat-radio-button *ngFor="let operator of operators" [value]="operator.id" class="mr-6">
+          {{ operator.name }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div fxFlex="grow">
+      <label id="required_comment_options" class="block my-5 font-medium" ngClass.gt-xs="my-2">Requiere
+        comentario?</label>
+      <mat-radio-group formControlName="requires_comment" aria-labelledby="required_comment_options">
+        <mat-radio-button [value]="true" class="mr-6">Si</mat-radio-button>
+        <mat-radio-button [value]="false" class="mr-6">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div fxFlex="grow">
+      <label id="keep_in_report_options" class="block my-5 font-medium" ngClass.gt-xs="my-2">Aplicar en cálculos de
+        reporte?</label>
+      <mat-radio-group formControlName="keep_in_report" aria-labelledby="keep_in_report_options">
+        <mat-radio-button [value]="true" class="mr-6">Si</mat-radio-button>
+        <mat-radio-button [value]="false" class="mr-6">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <button [disabled]="!form.valid"
+            mat-raised-button
+            type="submit"
+            ngClass.xs="block w-full h-12"
+            color="primary">Guardar</button>
+  </div>
+
+</form>

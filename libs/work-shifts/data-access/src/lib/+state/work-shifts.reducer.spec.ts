@@ -1,13 +1,37 @@
-import { INVALID_DATA_API_ERROR, LoadStatuses } from '@llstarscreamll/shared';
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
-import { WorkShiftsState, initialState, workShiftsReducer } from './work-shifts.reducer';
-import { SearchWorkShiftsOk, SearchWorkShiftsError, CreateWorkShift, CreateWorkShiftOk, CreateWorkShiftError, GetWorkShift, GetWorkShiftOk, GetWorkShiftError, SearchWorkShifts, UpdateWorkShift, UpdateWorkShiftOk, UpdateWorkShiftError, DeleteWorkShift, DeleteWorkShiftOk, DeleteWorkShiftError } from './work-shifts.actions';
+import {
+  INVALID_DATA_API_ERROR,
+  LoadStatuses,
+  emptyPagination
+} from '@kirby/shared';
+import {
+  WorkShiftsState,
+  initialState,
+  workShiftsReducer
+} from './work-shifts.reducer';
+import { createWorkShift } from '@kirby/work-shifts/testing';
+import {
+  SearchWorkShiftsOk,
+  SearchWorkShiftsError,
+  CreateWorkShift,
+  CreateWorkShiftOk,
+  CreateWorkShiftError,
+  GetWorkShift,
+  GetWorkShiftOk,
+  GetWorkShiftError,
+  SearchWorkShifts,
+  UpdateWorkShift,
+  UpdateWorkShiftOk,
+  UpdateWorkShiftError,
+  DeleteWorkShift,
+  DeleteWorkShiftOk,
+  DeleteWorkShiftError
+} from './work-shifts.actions';
 
 describe('WorkShifts Reducer', () => {
   const apiError = INVALID_DATA_API_ERROR;
   const newEntity = createWorkShift('1');
 
-  beforeEach(() => { });
+  beforeEach(() => {});
 
   describe('valid WorkShifts actions ', () => {
     it('SearchWorkShifts should return status == loading', () => {
@@ -20,7 +44,10 @@ describe('WorkShifts Reducer', () => {
     it('SearchWorkShiftsOk should return paginated list of items and status == completed', () => {
       const workShifts = [createWorkShift('1'), createWorkShift('2')];
 
-      const action = new SearchWorkShiftsOk({ data: workShifts, meta: {} });
+      const action = new SearchWorkShiftsOk({
+        ...emptyPagination(),
+        data: workShifts
+      });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
       expect(result.paginatingStatus).toBe(LoadStatuses.Completed);

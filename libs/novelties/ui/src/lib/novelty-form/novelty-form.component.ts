@@ -1,20 +1,28 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-
-import { LoadStatuses, ApiError } from "@llstarscreamll/shared";
+import { get } from 'lodash';
 import { Subject } from 'rxjs/internal/Subject';
 import { timer } from 'rxjs/internal/observable/timer';
-import { get } from 'lodash';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy
+} from '@angular/core';
+
+import { LoadStatuses } from '@kirby/shared';
+import moment from 'moment';
 
 @Component({
-  selector: 'llstarscreamll-novelty-form',
+  selector: 'kirby-novelty-form',
   templateUrl: './novelty-form.component.html',
   styleUrls: ['./novelty-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NoveltyFormComponent implements OnInit {
-
+export class NoveltyFormComponent implements OnInit, OnDestroy {
   @Input()
   public defaults: any;
 
@@ -28,27 +36,30 @@ export class NoveltyFormComponent implements OnInit {
   public status: LoadStatuses;
 
   @Output()
-  public searchEmployees = new EventEmitter();
+  searchEmployees = new EventEmitter();
 
   @Output()
-  public searchNoveltyTypes = new EventEmitter();
+  searchNoveltyTypes = new EventEmitter();
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
+
+  @Output()
+  trashed = new EventEmitter();
 
   private destroy$ = new Subject();
 
   public form: FormGroup;
 
-  public constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.buildForm();
     this.patchForm();
     this.listenFormChanges();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -57,70 +68,104 @@ export class NoveltyFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       employee: [, [Validators.required]],
       novelty_type: [, [Validators.required]],
-      total_time_in_minutes: [, [Validators.required]],
+      end_at: [, [Validators.required]],
+      start_at: [, [Validators.required]],
+      comment: []
     });
   }
 
   private patchForm() {
-    if (this.defaults) {
-      this.form.patchValue(this.defaults);
+    if (!this.defaults) {
+      return;
     }
+
+    this.form.patchValue({
+      ...this.defaults,
+      start_at: this.formatDate(this.defaults.start_at),
+      end_at: this.formatDate(this.defaults.end_at)
+    });
+  }
+
+  private formatDate(date) {
+    return date ? moment(date).format('YYYY-MM-DDTHH:mm') : null;
   }
 
   private listenFormChanges() {
-    this.form.get('employee').valueChanges.pipe(
-      debounce(() => timer(400)),
-      filter(value => typeof value === 'string'),
-      tap(value => this.searchEmployees.emit({ search: value })),
-      takeUntil(this.destroy$),
-    ).subscribe();
+    this.form
+      .get('employee')
+      .valueChanges.pipe(
+        debounce(() => timer(400)),
+        filter(value => typeof value === 'string'),
+        tap(value => this.searchEmployees.emit({ search: value })),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
 
-    this.form.get('novelty_type').valueChanges.pipe(
-      debounce(() => timer(400)),
-      filter(value => typeof value === 'string'),
-      tap(value => this.searchNoveltyTypes.emit({ search: value })),
-      takeUntil(this.destroy$),
-    ).subscribe();
+    this.form
+      .get('novelty_type')
+      .valueChanges.pipe(
+        debounce(() => timer(400)),
+        filter(value => typeof value === 'string'),
+        tap(value => this.searchNoveltyTypes.emit({ search: value })),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
-  public get allEmployees(): any[] {
+  get allEmployees(): any[] {
     return (this.employeesFound || [])
       .concat(get(this.defaults, 'employee'))
       .filter(e => !!e);
   }
 
-  public get allNoveltyTypes(): any[] {
+  get allNoveltyTypes(): any[] {
     return (this.noveltyTypesFound || [])
       .concat(get(this.defaults, 'novelty_type'))
       .filter(nt => !!nt);
   }
 
-  public get disableFormSubmitBtn(): boolean {
+  get hasScheduledTimes(): boolean {
+    return (
+      this.defaults &&
+      this.defaults.start_at &&
+      this.defaults.end_at
+    );
+  }
+
+  get disableFormSubmitBtn(): boolean {
     return this.status === LoadStatuses.Loading || this.form.invalid;
   }
 
-  public get timeHint(): string {
-    const timeInMinutes = this.form.get('total_time_in_minutes').value;
-    const timeInHours = (parseInt(timeInMinutes || '0', 10) / 60).toFixed(2);
-    return `${timeInHours} horas`;
+  get disableTrashSubmitBtn(): boolean {
+    return this.defaults && !!this.defaults.deleted_at;
   }
 
-  public displayEmployeeFieldValue(employee) {
+  get displayTrashButton(): boolean {
+    return !!this.defaults;
+  }
+
+  displayEmployeeFieldValue(employee) {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
-  public displayNoveltyTypeFieldValue(noveltyType) {
+  displayNoveltyTypeFieldValue(noveltyType) {
     return noveltyType ? noveltyType.name : null;
   }
 
-  public submit() {
+  submit() {
     const formValue = this.form.value;
+
     this.submitted.emit({
       id: this.defaults ? this.defaults.id : null,
       employee_id: formValue.employee.id,
       novelty_type_id: formValue.novelty_type.id,
-      total_time_in_minutes: formValue.total_time_in_minutes,
+      comment: formValue.comment,
+      start_at: moment(formValue.start_at).toISOString(),
+      end_at: moment(formValue.end_at).toISOString()
     });
   }
 
+  trash() {
+    this.trashed.emit(this.defaults);
+  }
 }

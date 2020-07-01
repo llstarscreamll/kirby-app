@@ -3,8 +3,8 @@ import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { BaseAuthService } from '@llstarscreamll/authentication/utils';
-import { NewAccount, AuthTokens } from '@llstarscreamll/authentication/utils';
+import { BaseAuthService } from '@kirby/authentication/utils';
+import { NewAccount, AuthTokens } from '@kirby/authentication/utils';
 
 @Injectable()
 export class AuthService extends BaseAuthService {
@@ -14,25 +14,25 @@ export class AuthService extends BaseAuthService {
   private logoutEndpoint = this.env.api + 'api/v1/auth/logout';
   private authUserEndpoint = this.env.api + 'api/v1/auth/user';
 
-  public constructor(
+  constructor(
     @Inject('environment')
     private env,
     private http: HttpClient
   ) { super(); }
 
-  public signUp(newAccount: NewAccount): Observable<AuthTokens> {
+  signUp(newAccount: NewAccount): Observable<AuthTokens> {
     return this.http.post<AuthTokens>(this.signUpEndpoint, newAccount, { headers: this.defaultHeaders });
   }
 
-  public loginWithCredentials(credentials): Observable<AuthTokens> {
+  loginWithCredentials(credentials): Observable<AuthTokens> {
     return this.http.post<AuthTokens>(this.loginEndpoint, credentials, { headers: this.defaultHeaders });
   }
 
-  public logout(): Observable<any> {
+  logout(): Observable<any> {
     return this.http.delete(this.logoutEndpoint, { headers: this.defaultHeaders });
   }
 
-  public getAuthUser(): Observable<any> {
+  getAuthUser(): Observable<any> {
     return this.http.get<any>(this.authUserEndpoint, { headers: this.defaultHeaders })
       .pipe(map(res => res.data));
   }

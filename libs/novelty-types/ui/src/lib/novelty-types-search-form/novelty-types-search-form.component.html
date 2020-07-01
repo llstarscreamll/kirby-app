@@ -1,0 +1,7 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+  <mat-form-field class="w-full">
+    <mat-label>Buscar</mat-label>
+    <input formControlName="search" matInput type="search" placeholder="Buscar por nombre o código">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</form>

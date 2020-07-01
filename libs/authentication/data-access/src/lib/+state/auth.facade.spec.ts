@@ -1,23 +1,35 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
-import { readFirst, cold, getTestScheduler } from '@nrwl/nx/testing';
+import { readFirst, cold, getTestScheduler } from '@nrwl/angular/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AuthFacade } from './auth.facade';
 import { AuthEffects } from './auth.effects';
 import { AuthService } from '../services/auth.service';
-import { SharedModule, ApiError } from '@llstarscreamll/shared';
-import { AUTH_TOKENS_MOCK, USER } from '@llstarscreamll/authentication/utils';
-import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../utils/mocks';
-import { AuthState, initialState, authReducer, AUTH_FEATURE_KEY } from './auth.reducer';
-import { LoginWithCredentials, Logout, LoginSuccess, GetAuthUserSuccess, SignUp } from './auth.actions';
+import { SharedModule, ApiError } from '@kirby/shared';
+import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
+import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../testing';
+import {
+  AuthState,
+  initialState,
+  authReducer,
+  AUTH_FEATURE_KEY
+} from './auth.reducer';
+import {
+  LoginWithCredentials,
+  Logout,
+  LoginSuccess,
+  GetAuthUserSuccess,
+  SignUp
+} from './auth.actions';
+import { User } from '@kirby/users/util';
 
 interface TestSchema {
-  [AUTH_FEATURE_KEY]: AuthState
+  [AUTH_FEATURE_KEY]: AuthState;
 }
 
 describe('AuthFacade', () => {
@@ -30,13 +42,14 @@ describe('AuthFacade', () => {
   const credentials = CREDENTIALS;
 
   describe('used in NgModule', () => {
-
     beforeEach(() => {
       @NgModule({
         imports: [
           SharedModule,
           HttpClientTestingModule,
-          StoreModule.forFeature(AUTH_FEATURE_KEY, authReducer, { initialState }),
+          StoreModule.forFeature(AUTH_FEATURE_KEY, authReducer, {
+            initialState
+          }),
           EffectsModule.forFeature([AuthEffects])
         ],
         providers: [
@@ -44,20 +57,28 @@ describe('AuthFacade', () => {
           AuthFacade,
           AuthEffects,
           { provide: 'environment', useValue: { api: 'http://my.api.com/' } },
-          { provide: Router, useValue: { navigate: (url) => true } },
+          { provide: Router, useValue: { navigate: url => true } }
         ]
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
           NxModule.forRoot(),
-          StoreModule.forRoot({}),
+          StoreModule.forRoot(
+            {},
+            {
+              runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+              }
+            }
+          ),
           EffectsModule.forRoot([]),
-          CustomFeatureModule,
+          CustomFeatureModule
         ]
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.get(Store);
@@ -72,25 +93,30 @@ describe('AuthFacade', () => {
     /**
      * The initially generated facade::login() returns null
      */
-    it('should return auth tokens, user and status == loggedIn on login() success', async (done) => {
+    it('should return auth tokens, user and status == loggedIn on login() success', async done => {
       // api auth response ok
-      spyOn(authService, 'loginWithCredentials').and.returnValue(cold('-a|', { a: authTokens }));
+      spyOn(authService, 'loginWithCredentials').and.returnValue(
+        cold('-a|', { a: authTokens })
+      );
       // get current user api ok
-      spyOn(authService, 'getAuthUser').and.returnValue(cold('--a|', { a: authUser }));
+      spyOn(authService, 'getAuthUser').and.returnValue(
+        cold('--a|', { a: authUser })
+      );
 
       try {
-
         let tokens = await readFirst(facade.authTokens$);
         let user = await readFirst(facade.authUser$);
         let status = await readFirst(facade.status$);
 
-        expect(user).toBe(null, 'initial auth user is null');
-        expect(tokens).toBe(null, 'initial tokens are null');
-        expect(status).toBe(null, 'initial status is null');
+        expect(user).toBe(null);
+        expect(tokens).toBe(null);
+        expect(status).toBe(null);
 
         await facade.loginWithCredentials(credentials);
 
-        expect(store.dispatch).toHaveBeenCalledWith(new LoginWithCredentials(credentials));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          new LoginWithCredentials(credentials)
+        );
 
         getTestScheduler().flush();
 
@@ -98,7 +124,7 @@ describe('AuthFacade', () => {
         tokens = await readFirst(facade.authTokens$);
         user = await readFirst(facade.authUser$);
 
-        expect(status).toBe('loggedIn', 'after login success, status == loggedIn');
+        expect(status).toBe('loggedIn');
         expect(tokens).toBeTruthy();
         expect(user).toBeTruthy();
 
@@ -108,9 +134,11 @@ describe('AuthFacade', () => {
       }
     });
 
-    it('should return auth errors when login throws error', async (done) => {
+    it('should return auth errors when login throws error', async done => {
       // api auth response ok
-      spyOn(authService, 'loginWithCredentials').and.returnValue(cold('-#', {}, INCORRECT_CREDENTIALS_API_ERROR));
+      spyOn(authService, 'loginWithCredentials').and.returnValue(
+        cold('-#', {}, INCORRECT_CREDENTIALS_API_ERROR)
+      );
 
       try {
         let errors = await readFirst(facade.errors$);
@@ -130,7 +158,7 @@ describe('AuthFacade', () => {
       }
     });
 
-    it('should dispatch logout action on logout()', async (done) => {
+    it('should dispatch logout action on logout()', async done => {
       // api logout response ok
       spyOn(authService, 'logout').and.returnValue(cold('-a', { a: ['ok'] }));
       store.dispatch(new LoginSuccess(AUTH_TOKENS_MOCK));
@@ -149,7 +177,7 @@ describe('AuthFacade', () => {
 
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(new Logout);
+        expect(store.dispatch).toHaveBeenCalledWith(new Logout());
         user = await readFirst(facade.authUser$);
         tokens = await readFirst(facade.authTokens$);
         status = await readFirst(facade.status$);
@@ -164,30 +192,33 @@ describe('AuthFacade', () => {
     });
 
     describe('signUp()', () => {
-      it('should set logged in state when sign up API responds ok', async (done) => {
+      it('should set logged in state when sign up API responds ok', async done => {
         // api sign up response ok
-        spyOn(authService, 'signUp').and.returnValue(cold('-a', { a: authTokens }));
+        spyOn(authService, 'signUp').and.returnValue(
+          cold('-a', { a: authTokens })
+        );
         // get current user api ok
-        spyOn(authService, 'getAuthUser').and.returnValue(cold('--a|', { a: authUser }));
+        spyOn(authService, 'getAuthUser').and.returnValue(
+          cold('--a|', { a: authUser })
+        );
 
         try {
-
           let tokens = await readFirst(facade.authTokens$);
           let user = await readFirst(facade.authUser$);
           let status = await readFirst(facade.status$);
           let errors = await readFirst(facade.errors$);
 
-          expect(user).toBe(null, 'initial auth user is null');
-          expect(tokens).toBe(null, 'initial tokens are null');
-          expect(status).toBe(null, 'initial status is null');
+          expect(user).toBe(null);
+          expect(tokens).toBe(null);
+          expect(status).toBe(null);
           expect(errors).toBeFalsy();
 
-          let newAccount = {
+          const newAccount = {
             first_name: 'John',
             last_name: 'Doe',
             email: 'john@doe.com',
             password: 'john.123456',
-            password_confirmation: 'john.123456',
+            password_confirmation: 'john.123456'
           };
 
           await facade.signUp(newAccount);
@@ -201,9 +232,11 @@ describe('AuthFacade', () => {
           user = await readFirst(facade.authUser$);
           errors = await readFirst(facade.errors$);
 
-          expect(status).toBe('loggedIn', 'after sign up success, status == loggedIn');
+          expect(status).toBe('loggedIn');
           expect(tokens).toBeTruthy();
-          expect(user).toBe(authUser);
+          expect(user).toBeInstanceOf(User);
+          expect(user.id).toBe(authUser.id);
+          expect(user.first_name).toBe(authUser.first_name);
           expect(errors).toBeFalsy();
 
           done();
@@ -212,29 +245,35 @@ describe('AuthFacade', () => {
         }
       });
 
-      it('should set errors in state when sign up API responds error', async (done) => {
+      it('should set errors in state when sign up API responds error', async done => {
         // api sign up response ok
-        let apiError: ApiError = { message: 'Unprocessable entity', ok: false, error: { message: 'Invalida data!!', errors: { email: ['email is invalid'] } } };
+        const apiError: ApiError = {
+          message: 'Unprocessable entity',
+          ok: false,
+          error: {
+            message: 'Invalida data!!',
+            errors: { email: ['email is invalid'] }
+          }
+        };
         spyOn(authService, 'signUp').and.returnValue(cold('-#', {}, apiError));
 
         try {
-
           let tokens = await readFirst(facade.authTokens$);
           let user = await readFirst(facade.authUser$);
           let status = await readFirst(facade.status$);
           let errors = await readFirst(facade.errors$);
 
-          expect(user).toBe(null, 'initial auth user is null');
-          expect(tokens).toBe(null, 'initial tokens are null');
-          expect(status).toBe(null, 'initial status is null');
+          expect(user).toBe(null);
+          expect(tokens).toBe(null);
+          expect(status).toBe(null);
           expect(errors).toBeFalsy();
 
-          let newAccount = {
+          const newAccount = {
             first_name: 'John',
             last_name: 'Doe',
             email: 'john@doe.com',
             password: 'john.123456',
-            password_confirmation: 'john.123456',
+            password_confirmation: 'john.123456'
           };
 
           await facade.signUp(newAccount);
@@ -248,7 +287,7 @@ describe('AuthFacade', () => {
           user = await readFirst(facade.authUser$);
           errors = await readFirst(facade.errors$);
 
-          expect(status).toBe('signInError', 'after sign up error, status == signInError');
+          expect(status).toBe('signInError');
           expect(tokens).toBeFalsy();
           expect(user).toBeFalsy();
           expect(errors).toBeTruthy();
@@ -261,5 +300,4 @@ describe('AuthFacade', () => {
       });
     });
   });
-
 });

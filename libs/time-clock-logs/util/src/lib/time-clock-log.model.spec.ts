@@ -1,19 +1,29 @@
-import { createTimeClockLog } from "./mocks";
-import { createNovelty } from '@llstarscreamll/novelties/utils';
+import { createUser } from '@kirby/users/testing/src';
+import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 describe('TimeClockLogModel', () => {
+  describe('isApprovedByUserId', () => {
+    it('should return false when approvals is null', () => {
+      const model = createTimeClockLog();
+      const user = createUser();
 
-    it('should display related novelties as concatenated string', () => {
-        let model = createTimeClockLog();
-        let firstNovelty = createNovelty(null, { name: 'FN-01', time_clock_log_id: model.id, total_time_in_minutes: 60 * 5 });
-        let secondNovelty = createNovelty(null, { name: 'SN-02', time_clock_log_id: model.id, total_time_in_minutes: 60 * 10 });
-        model.novelties = [firstNovelty, secondNovelty];
-
-        expect(model.concatenatedNoveltiesCount).toContain(firstNovelty.novelty_type.code);
-        expect(model.concatenatedNoveltiesCount).toContain(firstNovelty.total_time_in_minutes / 60);
-        expect(model.concatenatedNoveltiesCount).toContain(secondNovelty.novelty_type.code);
-        expect(model.concatenatedNoveltiesCount).toContain(secondNovelty.total_time_in_minutes / 60);
+      expect(model.isApprovedByUserId(user.id)).toBe(false);
     });
 
-});
+    it('should return false when approvals is empty array', () => {
+      const model = createTimeClockLog();
+      const user = createUser();
+      model.approvals = [];
 
+      expect(model.isApprovedByUserId(user.id)).toBe(false);
+    });
+
+    it('should return true when argument exists as approval', () => {
+      const model = createTimeClockLog();
+      const user = createUser();
+      model.approvals = [user];
+
+      expect(model.isApprovedByUserId(user.id)).toBe(true);
+    });
+  });
+});

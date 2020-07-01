@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs';
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
-import { DataPersistence } from '@nrwl/nx';
 import { EffectsModule } from '@ngrx/effects';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { DataPersistence } from '@nrwl/angular';
 import { provideMockActions } from '@ngrx/effects/testing';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { NoveltiesFeatureEffects } from './novelties-feature.effects';
-import { NoveltiesFacade } from '@llstarscreamll/novelties/data-access';
 
 describe('NoveltiesEffects', () => {
   let actions: Observable<any>;
@@ -17,14 +18,22 @@ describe('NoveltiesEffects', () => {
     TestBed.configureTestingModule({
       imports: [
         NxModule.forRoot(),
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(
+          {},
+          {
+            runtimeChecks: {
+              strictStateImmutability: true,
+              strictActionImmutability: true
+            }
+          }
+        ),
         EffectsModule.forRoot([])
       ],
       providers: [
         NoveltiesFeatureEffects,
         DataPersistence,
         provideMockActions(() => actions),
-        { provide: NoveltiesFacade, useValue: { get: (params) => true } }
+        { provide: NoveltiesFacade, useValue: { get: params => true } }
       ]
     });
 

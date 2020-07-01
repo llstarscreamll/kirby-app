@@ -1,5 +1,5 @@
 {
-  "npmScope": "llstarscreamll",
+  "npmScope": "kirby",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -33,15 +33,6 @@
         "platform:desktop"
       ]
     },
-    "libs": {
-      "tags": []
-    },
-    "xplat": {
-      "tags": []
-    },
-    "electron-pascal-desktop": {
-      "tags": ["scope:work-shifts", "type:app", "platform:desktop"]
-    },
     "work-shifts-data-access": {
       "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
     },
@@ -55,7 +46,7 @@
       "tags": ["scope:work-shifts", "type:ui", "platform:web"]
     },
     "time-clock-logs-data-access": {
-      "tags": []
+      "tags": ["type:data-access"]
     },
     "time-clock-logs-util": {
       "tags": []
@@ -84,9 +75,6 @@
     "novelties-utils": {
       "tags": []
     },
-    "novelty-types-utils": {
-      "tags": []
-    },
     "novelty-types-data": {
       "tags": []
     },
@@ -98,6 +86,48 @@
     },
     "novelties-data-access": {
       "tags": ["scope:novelties", "type:data-access", "platform:web"]
+    },
+    "authorization-ui": {
+      "tags": []
+    },
+    "authorization-data": {
+      "tags": []
+    },
+    "employees-testing": {
+      "tags": []
+    },
+    "novelties-testing": {
+      "tags": []
+    },
+    "novelty-types-testing": {
+      "tags": []
+    },
+    "time-clock-logs-testing": {
+      "tags": []
+    },
+    "users-testing": {
+      "tags": []
+    },
+    "work-shifts-testing": {
+      "tags": []
+    },
+    "employees-ui": {
+      "tags": []
+    },
+    "cost-centers-data": {
+      "tags": ["type:data"]
+    },
+    "cost-centers-data-access": {
+      "tags": ["type:data-access"]
+    },
+    "novelty-types-data-access": {
+      "tags": ["data-access"]
+    },
+    "novelty-types-ui": {
+      "tags": ["ui"]
+    },
+    "novelty-types-feature": {
+      "tags": ["ui"]
     }
   }
 }

@@ -1,13 +1,10 @@
-import { NxModule } from '@nrwl/nx';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page.component';
-import { WorkShiftsDataAccessModule } from '@llstarscreamll/work-shifts/data-access/src';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatIconModule } from '@angular/material/icon';
 
 describe('CreateWorkShiftPageComponent', () => {
   let component: CreateWorkShiftPageComponent;
@@ -16,19 +13,10 @@ describe('CreateWorkShiftPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule,
-        NxModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([]),
-        WorkShiftsDataAccessModule,
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
+      imports: [MatIconModule, RouterTestingModule],
       declarations: [CreateWorkShiftPageComponent],
-      providers: [
-        { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
-      ]
+      providers: [{ provide: WorkShiftsFacade, useValue: {} }],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -46,5 +34,8 @@ describe('CreateWorkShiftPageComponent', () => {
   it('should contain certain elements and components', () => {
     expect(template.querySelector('h1')).toBeTruthy();
     expect(template.querySelector('a').getAttribute('href')).toBe('/');
+    expect(
+      template.querySelector('kirby-work-shift-form')
+    ).toBeTruthy();
   });
 });

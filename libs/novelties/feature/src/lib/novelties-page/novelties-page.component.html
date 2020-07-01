@@ -1,0 +1,103 @@
+<div class="my-4">
+  <h1 class="inline">Novedades</h1>
+  <a [routerLink]="['novelty-types']" mat-icon-button class="float-right">
+    <mat-icon>settings</mat-icon>
+  </a>
+</div>
+
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
+<div fxLayout="column"
+     fxLayout.gt-xs="row"
+     fxLayoutGap="10px"
+     fxLayoutGap.gt-xs="20px">
+  <a *kirbyCan="'novelties.create-many'"
+     routerLink="./create-novelties-to-employees"
+     mat-stroked-button
+     color="primary">
+    Crear
+  </a>
+
+  <a *kirbyCan="'novelties.report-by-employee'"
+     routerLink="./report-by-employee"
+     mat-stroked-button
+     color="primary">
+    Reporte
+  </a>
+</div>
+
+<div class="mt-4" *kirbyCan="'novelties.search'">
+  <kirby-novelties-search-form [costCentersFound]="paginatedCostCenters$ | async"
+                               [employeesFound]="paginatedEmployees$ | async"
+                               [noveltyTypesFound]="paginatedNoveltyTypes$ | async"
+                               (submitted)="searchNovelties($event)"
+                               (searchEmployees)="searchEmployees($event)"
+                               (searchCostCenters)="searchCostCenters($event)"
+                               (searchNoveltyTypes)="searchNoveltyTypes($event)"></kirby-novelties-search-form>
+</div>
+
+<div class="responsive-table shadow">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Empleado</th>
+        <th>Novedad</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Horas</th>
+        <th>Aprobaciones</th>
+        <th>Creada en</th>
+        <th class="text-right"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let novelty of (novelties$ | async)?.data">
+        <td>
+          <a [routerLink]="['/novelties', novelty.id, 'edit']">{{
+            novelty.id
+          }}</a>
+        </td>
+        <td>
+          {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
+        </td>
+        <td title="{{ novelty.comment || 'Sin comentario' }}">
+          {{ novelty.novelty_type.code }}
+        </td>
+        <td>{{ novelty.start_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>{{ novelty.end_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td>{{ novelty.total_time_in_hours }}</td>
+        <td>
+          <div *ngFor="let approver of novelty.approvals">
+            {{ shortName(approver) }}
+          </div>
+        </td>
+        <td>{{ novelty.created_at | date: 'yy-MM-dd HH:mm' }}</td>
+        <td class="text-right">
+          <button *ngIf="showApproveButton(novelty)"
+                  (click)="approveNovelty(novelty)"
+                  matTooltip="Aprobar"
+                  mat-icon-button
+                  color="primary"
+                  class="approve">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button *ngIf="showDeleteApprovalButton(novelty)"
+                  (click)="deleteNoveltyApproval(novelty)"
+                  matTooltip="Borrar aprobación"
+                  mat-icon-button
+                  color="warn"
+                  class="delete-approval">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-right">
+  <kirby-pagination [pagination]="(novelties$ | async)?.meta"
+                    (paginate)="searchNovelties($event)">
+  </kirby-pagination>
+</div>

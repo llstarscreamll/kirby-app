@@ -1,8 +1,7 @@
-import { WorkShiftInterface } from "@llstarscreamll/work-shifts/util";
-import { UserInterface } from "@llstarscreamll/users/util";
-import { EmployeeInterface } from '@llstarscreamll/employees/util';
-import { NoveltyInterface } from '@llstarscreamll/novelties/data';
-import { round } from 'lodash';
+import { User } from '@kirby/users/util';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 export class TimeClockLogModel {
   id?: string;
@@ -13,33 +12,34 @@ export class TimeClockLogModel {
   checked_in_at: string;
   checked_out_at?: string;
   checked_in_by_id: string;
-  checked_in_by: UserInterface;
+  checked_in_by: User;
   sub_cost_center?: any;
   checked_out_by_id?: string;
-  checked_out_by?: UserInterface;
+  checked_out_by?: User;
   novelties_count?: number;
-  novelties?: NoveltyInterface[];
-  approvals?: UserInterface[];
+  novelties?: NoveltyModel[];
+  approvals?: User[];
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
 
-  public static fromJson(data: any): TimeClockLogModel {
-    return Object.assign(new TimeClockLogModel(), data);
+  static fromJson(data: any): TimeClockLogModel {
+    return Object.assign(new TimeClockLogModel(), data, {
+      novelties: data.novelties
+        ? NoveltyModel.fromJsonList(data.novelties)
+        : [],
+      approvals: data.approvals ? User.fromJsonList(data.approvals) : []
+    });
   }
 
-  public static fromJsonList(arr: any[]): TimeClockLogModel[] {
+  static fromJsonList(arr: any[]): TimeClockLogModel[] {
     return arr.map(data => TimeClockLogModel.fromJson(data));
   }
 
-  public get concatenatedNoveltiesCount(): string {
-    return (this.novelties || [])
-      .map(novelty => novelty.novelty_type.code + ' ' + round(novelty.total_time_in_minutes / 60, 2))
-      .join(', ');
+  isApprovedByUserId(userId: string): boolean {
+    return (
+      this.approvals &&
+      this.approvals.map(approver => approver.id).includes(userId)
+    );
   }
-
-  public isApprovedByUserId(userId: string): boolean {
-    return this.approvals && this.approvals.map(approver => approver.id).includes(userId);
-  }
-
 }

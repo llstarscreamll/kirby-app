@@ -1,0 +1,21 @@
+import { NgModule, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input } from '@angular/core';
+
+@Directive({ selector: '[kirbyCan]' })
+export class CanDirective {
+  @Input()
+  set kirbyCan(permissionName: string) {
+    this.viewContainer.createEmbeddedView(this.templateRef);
+  }
+
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef
+  ) {}
+}
+
+@NgModule({
+  declarations: [CanDirective],
+  exports: [CanDirective]
+})
+export class AuthorizationUiTestModule {}

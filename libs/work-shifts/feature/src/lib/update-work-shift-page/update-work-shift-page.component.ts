@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 
 @Component({
-  selector: 'update-work-shift-page',
+  selector: 'kirby-update-work-shift-page',
   templateUrl: './update-work-shift-page.component.html',
   styleUrls: ['./update-work-shift-page.component.scss']
 })
 export class UpdateWorkShiftPageComponent implements OnInit {
+  constructor(private workShiftsFacade: WorkShiftsFacade) {}
 
-  public constructor(private workShiftsFacade: WorkShiftsFacade) { }
-
-  public ngOnInit() { }
-
+  ngOnInit() {}
 }

@@ -1,8 +1,8 @@
 @setup
-require '/Users/johan_alvarez/.composer/vendor/autoload.php';
-\Dotenv\Dotenv::create(__DIR__, '.env')->load();
+require '/Users/johan/.composer/vendor/autoload.php';
+\Dotenv\Dotenv::createImmutable(__DIR__, '.env')->load();
 
-$site = env('SITE');
+$site = env(strtoupper($target ?? 'lab').'_SITE');
 $userAndServers = explode(';', env(strtoupper($target ?? 'lab').'_SERVERS'));
 $baseDir = "~/{$site}";
 $releasesDir = "{$baseDir}/releases";
@@ -12,6 +12,8 @@ $newReleaseDir = "{$releasesDir}/{$newReleaseName}";
 $branch = $branch ?? env('DEFAULT_BRANCH', 'develop');
 $user = get_current_user();
 
+$configuration = isset($target) && $target == 'prod' ? 'production' : 'staging';
+
 function logMessage($message) {
 return "echo '\033[32m" .$message. "\033[0m';\n";
 }
@@ -20,7 +22,7 @@ return "echo '\033[32m" .$message. "\033[0m';\n";
 @servers(['local' => '127.0.0.1', 'remote' => $userAndServers])
 
 @story('deploy')
-{{-- startDeployment --}}
+startDeployment
 setupReleaseDir
 compile
 uploadCompiledFiles
@@ -38,7 +40,7 @@ git pull origin {{ $branch }}
 
 @task('setupReleaseDir', ['on' => 'remote'])
 {{ logMessage("🌀  Setup release dir...") }}
-[ -d {{ $releasesDir }} ] || mkdir {{ $releasesDir }};
+[ -d {{ $releasesDir }} ] || mkdir -p {{ $releasesDir }};
 cd {{ $releasesDir }};
 
 # Create the release dir
@@ -52,7 +54,7 @@ echo "{{ $newReleaseName }}" > release-name.txt
 @task('compile', ['on' => 'local'])
 {{ logMessage("🚚  Compile project...") }}
 echo $PWD
-ng build --prod --project={{ $project }};
+ngtw build && ng build --prod --project={{ $project }} --configuration={{ $configuration }}
 @endtask
 
 @task('uploadCompiledFiles', ['on' => 'local'])
@@ -64,7 +66,7 @@ ng build --prod --project={{ $project }};
 
 @task('setPermissions', ['on' => 'remote'])
 {{ logMessage("🔐  Set folders permissions...") }}
-cd {{ $newReleaseDir }};
+cd {{ $baseDir }};
 sudo chgrp -R www-data .
 sudo chmod -R ug+rwx .
 @endtask

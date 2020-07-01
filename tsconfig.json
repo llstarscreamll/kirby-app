@@ -1,76 +1,80 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "esModuleInterop": true,
+    "downlevelIteration": true,
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es5",
-    "module": "es2015",
+    "target": "es2015",
+    "module": "esnext",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@llstarscreamll/authentication-data-access": [
+      "@kirby/authentication-data-access": [
         "libs/authentication/data-access/src/index.ts"
       ],
-      "@llstarscreamll/authentication/utils": [
-        "libs/authentication/utils/src/index.ts"
-      ],
-      "@llstarscreamll/shared": ["libs/shared/src/index.ts"],
-      "@llstarscreamll/*": ["libs/*"],
-      "@llstarscreamll/electron": ["xplat/electron/index.ts"],
-      "@llstarscreamll/electron/*": ["xplat/electron/*"],
-      "@llstarscreamll/web": ["xplat/web/index.ts"],
-      "@llstarscreamll/web/*": ["xplat/web/*"],
-      "@llstarscreamll/work-shifts/data-access": [
+      "@kirby/authentication/utils": ["libs/authentication/utils/src/index.ts"],
+      "@kirby/shared": ["libs/shared/src/index.ts"],
+      "@kirby/*": ["libs/*"],
+      "@kirby/work-shifts/data-access": [
         "libs/work-shifts/data-access/src/index.ts"
       ],
-      "@llstarscreamll/work-shifts/util": [
-        "libs/work-shifts/util/src/index.ts"
-      ],
-      "@llstarscreamll/work-shifts/feature": [
-        "libs/work-shifts/feature/src/index.ts"
-      ],
-      "@llstarscreamll/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
-      "@llstarscreamll/time-clock-logs/data-access": [
+      "@kirby/work-shifts/util": ["libs/work-shifts/util/src/index.ts"],
+      "@kirby/work-shifts/feature": ["libs/work-shifts/feature/src/index.ts"],
+      "@kirby/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
+      "@kirby/time-clock-logs/data-access": [
         "libs/time-clock-logs/data-access/src/index.ts"
       ],
-      "@llstarscreamll/time-clock-logs/util": [
-        "libs/time-clock-logs/util/src/index.ts"
-      ],
-      "@llstarscreamll/users/util": ["libs/users/util/src/index.ts"],
-      "@llstarscreamll/time-clock-logs/feature": [
+      "@kirby/time-clock-logs/util": ["libs/time-clock-logs/util/src/index.ts"],
+      "@kirby/users/util": ["libs/users/util/src/index.ts"],
+      "@kirby/time-clock-logs/feature": [
         "libs/time-clock-logs/feature/src/index.ts"
       ],
-      "@llstarscreamll/time-clock-logs/ui": [
-        "libs/time-clock-logs/ui/src/index.ts"
-      ],
-      "@llstarscreamll/employees/data-access": [
+      "@kirby/time-clock-logs/ui": ["libs/time-clock-logs/ui/src/index.ts"],
+      "@kirby/employees/data-access": [
         "libs/employees/data-access/src/index.ts"
       ],
-      "@llstarscreamll/employees/feature": [
-        "libs/employees/feature/src/index.ts"
-      ],
-      "@llstarscreamll/employees/util": ["libs/employees/util/src/index.ts"],
-      "@llstarscreamll/novelties/data": ["libs/novelties/data/src/index.ts"],
-      "@llstarscreamll/novelties/utils": ["libs/novelties/utils/src/index.ts"],
-      "@llstarscreamll/novelty-types/utils": [
-        "libs/novelty-types/utils/src/index.ts"
-      ],
-      "@llstarscreamll/novelty-types/data": [
-        "libs/novelty-types/data/src/index.ts"
-      ],
-      "@llstarscreamll/novelties/feature": [
-        "libs/novelties/feature/src/index.ts"
-      ],
-      "@llstarscreamll/novelties/ui": ["libs/novelties/ui/src/index.ts"],
-      "@llstarscreamll/novelties/data-access": [
+      "@kirby/employees/feature": ["libs/employees/feature/src/index.ts"],
+      "@kirby/employees/util": ["libs/employees/util/src/index.ts"],
+      "@kirby/employees/ui": ["libs/employees/ui/src/index.ts"],
+      "@kirby/novelties/data": ["libs/novelties/data/src/index.ts"],
+      "@kirby/novelties/utils": ["libs/novelties/utils/src/index.ts"],
+      "@kirby/novelty-types/data": ["libs/novelty-types/data/src/index.ts"],
+      "@kirby/novelties/feature": ["libs/novelties/feature/src/index.ts"],
+      "@kirby/novelties/ui": ["libs/novelties/ui/src/index.ts"],
+      "@kirby/novelties/data-access": [
         "libs/novelties/data-access/src/index.ts"
+      ],
+      "@kirby/authorization/ui": ["libs/authorization/ui/src/index.ts"],
+      "@kirby/authorization/data": ["libs/authorization/data/src/index.ts"],
+      "@kirby/employees/testing": ["libs/employees/testing/src/index.ts"],
+      "@kirby/novelties/testing": ["libs/novelties/testing/src/index.ts"],
+      "@kirby/novelty-types/testing": [
+        "libs/novelty-types/testing/src/index.ts"
+      ],
+      "@kirby/time-clock-logs/testing": [
+        "libs/time-clock-logs/testing/src/index.ts"
+      ],
+      "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
+      "@kirby/work-shifts/testing": ["libs/work-shifts/testing/src/index.ts"],
+      "@kirby/cost-centers/data": ["libs/cost-centers/data/src/index.ts"],
+      "@kirby/cost-centers/data-access": [
+        "libs/cost-centers/data-access/src/index.ts"
+      ],
+      "@kirby/novelty-types/data-access": [
+        "libs/novelty-types/data-access/src/index.ts"
+      ],
+      "@kirby/novelty-types/ui": ["libs/novelty-types/ui/src/index.ts"],
+      "@kirby/novelty-types/feature": [
+        "libs/novelty-types/feature/src/index.ts"
       ]
-    }
+    },
+    "rootDir": "."
   },
   "exclude": ["node_modules", "tmp"]
 }

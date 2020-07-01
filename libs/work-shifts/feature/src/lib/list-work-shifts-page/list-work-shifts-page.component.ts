@@ -1,25 +1,23 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
-import { WorkShiftsFacade } from '@llstarscreamll/work-shifts/data-access';
-import { createWorkShift, WorkShiftInterface } from '@llstarscreamll/work-shifts/util';
-import { Observable } from 'rxjs';
-import { Pagination } from '@llstarscreamll/shared';
+import { Pagination } from '@kirby/shared';
+import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
 @Component({
-  selector: 'list-work-shifts-page',
+  selector: 'kirby-list-work-shifts-page',
   templateUrl: './list-work-shifts-page.component.html',
   styleUrls: ['./list-work-shifts-page.component.scss']
 })
 export class ListWorkShiftsPageComponent implements OnInit {
-
   public paginatedWorkShifts$: Observable<Pagination<WorkShiftInterface>>;
 
-  public constructor(private workShiftsFacade: WorkShiftsFacade) { }
+  constructor(private workShiftsFacade: WorkShiftsFacade) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.paginatedWorkShifts$ = this.workShiftsFacade.paginatedWorkShifts$;
 
     this.workShiftsFacade.search();
   }
-
 }

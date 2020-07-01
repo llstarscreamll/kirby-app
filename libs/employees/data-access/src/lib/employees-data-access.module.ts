@@ -23,4 +23,4 @@ import { EmployeesFacade } from './+state/employees.facade';
   ],
   providers: [EmployeesFacade, EmployeeService]
 })
-export class EmployeesDataAccessModule { }
+export class EmployeesDataAccessModule {}

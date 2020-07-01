@@ -1,0 +1,7 @@
+<h1 class="my-4">Crear tipo de Novedad</h1>
+
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
+<div class="card p-4">
+    <kirby-novelty-type-form (submitted)="onFormSubmit($event)"></kirby-novelty-type-form>
+</div>

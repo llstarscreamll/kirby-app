@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+
+.responsive-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  @apply w-full rounded shadow;
+}
+
+table thead tr th {
+  @apply border-b-2;
+}
+
+table thead tr th,
+table tbody tr td {
+  @apply px-4 py-4 text-left;
+}
+
+table tbody tr td {
+  @apply border-b;
+}
+
+.card {
+  @apply p-4 shadow rounded;
+}
+
+.badge {
+  @apply py-2 px-4 inline rounded-full;
+}
+
+@tailwind utilities;

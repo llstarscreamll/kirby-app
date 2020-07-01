@@ -1,4 +1,77 @@
-$enable-responsive-font-sizes: true;
-@import '~bootstrap/scss/bootstrap';
+@import '~@angular/material/theming';
+@import './app/layouts/sidebar-layout/sidebar-layout.component.theme.scss';
+// Plus imports for other components in your app.
 
-html, body { height: 100%; }
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$default-theme-primary: mat-palette($mat-indigo);
+$default-theme-accent: mat-palette($mat-pink);
+$default-theme-warn: mat-palette($mat-red);
+
+$layout-color: mat-color($mat-gray, 50);
+
+$mat-light-theme-background: (
+  status-bar: map_get($mat-grey, 300),
+  app-bar:    map_get($mat-grey, 100),
+  background: $layout-color,
+  hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+  card:       white,
+  dialog:     white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-grey, 300),
+  selected-disabled-button: map_get($mat-grey, 400),
+  disabled-button-toggle: map_get($mat-grey, 200),
+  unselected-chip: map_get($mat-grey, 300),
+  disabled-list-option: map_get($mat-grey, 200),
+);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$default-theme: mat-light-theme(
+  $default-theme-primary,
+  $default-theme-accent,
+  $default-theme-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@mixin components-theme($theme) {
+  @include sidebar-layout-theme($theme);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  .table {
+    background: mat-color($background, card);
+  }
+
+  a {
+    color: mat-color($primary);
+  }
+  .card {
+    background-color: mat-color($background, card);
+  }
+
+  .badge-warn {
+    background-color: mat-color($warn);
+    color: mat-color($warn, lighter);
+  }
+}
+
+@include angular-material-theme($default-theme);
+@include components-theme($default-theme);
+
+html,
+body {
+  height: 100%;
+}

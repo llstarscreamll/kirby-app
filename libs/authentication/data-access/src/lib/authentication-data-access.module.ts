@@ -9,7 +9,7 @@ import { AuthFacade } from './+state/auth.facade';
 import { AuthEffects } from './+state/auth.effects';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './services/auth.service';
-import { SharedModule } from '@llstarscreamll/shared';
+import { SharedModule } from '@kirby/shared';
 import { authReducer, initialState, AUTH_FEATURE_KEY } from './+state/auth.reducer';
 
 @NgModule({

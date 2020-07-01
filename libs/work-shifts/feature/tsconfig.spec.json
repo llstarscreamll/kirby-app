@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc/libs/work-shifts/feature",
+    "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"]
   },

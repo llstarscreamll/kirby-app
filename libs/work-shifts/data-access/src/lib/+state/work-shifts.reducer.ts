@@ -1,6 +1,6 @@
-import { WorkShiftInterface } from '@llstarscreamll/work-shifts/util/src';
+import { WorkShiftInterface } from '@kirby/work-shifts/util';
 import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
-import { Pagination, emptyPagination, ApiError, LoadStatuses } from '@llstarscreamll/shared';
+import { Pagination, emptyPagination, ApiError, LoadStatuses } from '@kirby/shared';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
 

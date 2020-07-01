@@ -1,2 +1,1 @@
-export * from './lib/mocks';
-export * from './lib/user.interface';
+export * from './lib/user';

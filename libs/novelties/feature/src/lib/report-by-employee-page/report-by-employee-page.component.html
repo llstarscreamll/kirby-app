@@ -1,0 +1,175 @@
+<h1 class="mb-4">Reporte de novedades</h1>
+
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
+<div class="text-right my-3">
+  <button
+    mat-button
+    [matMenuTriggerFor]="downloadMenu"
+    color="primary"
+    aria-label="Descargar reporte"
+  >
+    <span class="mr-2">Exportar</span>
+    <mat-icon>cloud_download</mat-icon>
+  </button>
+  <mat-menu #downloadMenu="matMenu">
+    <button
+      (click)="downloadSelectedFilter()"
+      [disabled]="searchForm.invalid"
+      mat-menu-item
+    >
+      <span>Filtro seleccionado</span>
+    </button>
+    <button
+      (click)="downloadAllOnDateRange()"
+      [disabled]="!searchHasValidDates"
+      mat-menu-item
+    >
+      <span>Todo en el rango de fecha</span>
+    </button>
+  </mat-menu>
+</div>
+
+<form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5">
+  <mat-form-field class="w-full">
+    <mat-label>Empleado</mat-label>
+    <input
+      matInput
+      [matAutocomplete]="employeeAutocomplete"
+      formControlName="employee"
+    />
+    <mat-autocomplete
+      #employeeAutocomplete="matAutocomplete"
+      [displayWith]="displayEmployeeFieldValue"
+    >
+      <mat-option
+        *ngFor="let employee of (foundEmployees$ | async)?.data"
+        [value]="employee"
+      >
+        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    fxLayoutGap="0px"
+    fxLayoutGap.gt-xs="20px"
+  >
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fecha inicial</mat-label>
+      <input
+        formControlName="time_clock_log_check_out_start_date"
+        type="date"
+        matInput
+      />
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fecha final</mat-label>
+      <input
+        formControlName="time_clock_log_check_out_end_date"
+        type="date"
+        matInput
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="text-center">
+    <button
+      [disabled]="searchForm.invalid"
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      ngClass.xs="block w-full h-12"
+    >
+      Generar
+    </button>
+  </div>
+</form>
+
+<div class="responsive-table shadow">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>CC</th>
+        <th>SCC</th>
+        <th>Total Hrs.</th>
+        <th>Novedades</th>
+        <th>Comentarios</th>
+        <th>Aprobadores</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of (noveltiesReport$ | async)?.data">
+        <td>{{ row.date | date }}</td>
+        <td>
+          <div *ngFor="let cc of row.costCenters">{{ cc.code }}</div>
+        </td>
+        <td>
+          <div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div>
+        </td>
+        <td>{{ row.totalHours }}</td>
+        <td>
+          <a
+            *ngFor="let novelty of row.novelties"
+            [routerLink]="['..', novelty.id, 'edit']"
+            class="block"
+          >
+            {{ novelty.total_time_in_hours }}
+            {{ novelty.novelty_type.code }}
+          </a>
+        </td>
+        <td>{{ row.comments.length }}</td>
+        <td>
+          <div *ngFor="let approver of row.approvals">
+            {{ approver.first_name + ' ' + approver.last_name }}
+          </div>
+        </td>
+        <td>
+          <button
+            *ngIf="
+              user.can(
+                'novelties.create-approvals-by-employee-and-date-range'
+              ) && row.userHasAnyToApprove(user.id)
+            "
+            (click)="setApprovals(row.employee.id, row.date)"
+            matTooltip="Aprobar todo en este día"
+            mat-icon-button
+            color="primary"
+            class="approve"
+          >
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button
+            *ngIf="
+              user.can(
+                'novelties.delete-approvals-by-employee-and-date-range'
+              ) && row.userHasApprovals(user)
+            "
+            (click)="deleteApprovals(row.employee.id, row.date)"
+            matTooltip="Borrar aprobaciones de este día"
+            mat-icon-button
+            color="warn"
+            class="delete-approval"
+          >
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="(noveltiesReport$ | async)?.length === 0">
+        <td colspan="7" class="text-center">No se encontraron datos</td>
+      </tr>
+
+      <tr *ngIf="!(noveltiesReport$ | async)">
+        <td colspan="7" class="text-center">
+          Elige un empleado para generar el reporte
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

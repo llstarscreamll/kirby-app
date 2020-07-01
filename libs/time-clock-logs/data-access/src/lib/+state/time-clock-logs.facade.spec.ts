@@ -1,16 +1,21 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
-import { getTestScheduler } from '@nrwl/nx/testing';
+import { getTestScheduler } from '@nrwl/angular/testing';
 
 import { TimeClockLogsFacade } from './time-clock-logs.facade';
 import { SearchTimeClockLogs } from './time-clock-logs.actions';
 import { TimeClockLogsEffects } from './time-clock-logs.effects';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TimeClockLogsState, initialState, timeClockLogsReducer, TIME_CLOCK_LOGS_FEATURE_KEY } from './time-clock-logs.reducer';
+import {
+  TimeClockLogsState,
+  initialState,
+  timeClockLogsReducer,
+  TIME_CLOCK_LOGS_FEATURE_KEY
+} from './time-clock-logs.reducer';
 
 interface TestSchema {
   timeClockLogs: TimeClockLogsState;
@@ -19,34 +24,28 @@ interface TestSchema {
 describe('TimeClockLogsFacade', () => {
   let facade: TimeClockLogsFacade;
   let store: Store<TestSchema>;
-  let createTimeClockLogs;
 
-  beforeEach(() => { });
+  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
-        imports: [
-          StoreModule.forFeature(TIME_CLOCK_LOGS_FEATURE_KEY, timeClockLogsReducer, { initialState }),
-          EffectsModule.forFeature([TimeClockLogsEffects])
-        ],
-        providers: [TimeClockLogsFacade, TimeClockLogsService]
+        imports: [],
+        providers: [TimeClockLogsFacade]
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
-        imports: [
-          NxModule.forRoot(),
-          StoreModule.forRoot({}),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule,
-          HttpClientTestingModule,
-        ],
+        imports: [CustomFeatureModule, HttpClientTestingModule],
         providers: [
           { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
+          {
+            provide: Store,
+            useValue: { dispatch: () => true, pipe: () => true }
+          }
         ]
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.get(Store);
@@ -55,19 +54,14 @@ describe('TimeClockLogsFacade', () => {
       spyOn(store, 'dispatch');
     });
 
-    it('search() should call SearchTimeClockLogs action', async done => {
-      try {
-        let query = {};
-        await facade.search(query);
-        getTestScheduler().flush();
+    it('search() should call SearchTimeClockLogs action', () => {
+      const query = {};
+      facade.search(query);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(new SearchTimeClockLogs(query));
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new SearchTimeClockLogs(query)
+      );
     });
-
   });
 });

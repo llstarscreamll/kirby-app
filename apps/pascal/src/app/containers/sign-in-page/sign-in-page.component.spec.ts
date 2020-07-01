@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { SignInPageComponent } from './sign-in-page.component';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 
@@ -13,9 +13,7 @@ describe('SignInPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ...TESTING_IMPORTS,
-      ],
+      imports: [...TESTING_IMPORTS],
       declarations: [SignInPageComponent],
       providers: [...TESTING_PROVIDERS],
       schemas: [NO_ERRORS_SCHEMA]
@@ -45,7 +43,11 @@ describe('SignInPageComponent', () => {
   });
 
   it('should have sign in component on template', () => {
-    expect(fixture.debugElement.nativeElement.querySelector('auth-sign-in-form')).toBeTruthy();
+    expect(
+      fixture.debugElement.nativeElement.querySelector(
+        'pascal-auth-sign-in-form'
+      )
+    ).toBeTruthy();
   });
 
   it('should dispatch login action on onSubmit method', () => {

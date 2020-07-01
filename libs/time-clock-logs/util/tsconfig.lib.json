@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc/libs/time-clock-logs/util",
+    "outDir": "../../../dist/out-tsc",
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
@@ -22,5 +22,5 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true
   },
-  "exclude": ["src/test.ts", "**/*.spec.ts"]
+  "exclude": ["src/lib/testing/index.ts", "src/test.ts", "**/*.spec.ts"]
 }

@@ -1,19 +1,30 @@
-import { NxModule } from '@nrwl/nx';
+import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
-import { cold, getTestScheduler } from '@nrwl/nx/testing';
+import { cold, getTestScheduler } from '@nrwl/angular/testing';
 import { StoreModule, Store, select } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { createWorkShift } from '@llstarscreamll/work-shifts/util';
+import { createWorkShift } from '@kirby/work-shifts/testing';
 import { WorkShiftsFacade } from './work-shifts.facade';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
-import { AuthFacade } from '@llstarscreamll/authentication-data-access';
-import { AUTH_TOKENS_MOCK } from '@llstarscreamll/authentication/utils';
-import { WorkShiftsState, initialState, workShiftsReducer, WORK_SHIFTS_FEATURE_KEY } from './work-shifts.reducer';
-import { GetWorkShift, UpdateWorkShift, DeleteWorkShift, CreateWorkShift, SearchWorkShifts } from './work-shifts.actions';
+import { AuthFacade } from '@kirby/authentication-data-access';
+import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
+import {
+  WorkShiftsState,
+  initialState,
+  workShiftsReducer,
+  WORK_SHIFTS_FEATURE_KEY
+} from './work-shifts.reducer';
+import {
+  GetWorkShift,
+  UpdateWorkShift,
+  DeleteWorkShift,
+  CreateWorkShift,
+  SearchWorkShifts
+} from './work-shifts.actions';
 
 interface TestSchema {
   workShifts: WorkShiftsState;
@@ -21,42 +32,53 @@ interface TestSchema {
 
 /**
  * @todo: remove redundant tests, some test belongs to the effects class, some to the reducer function
-*/
+ */
 describe('WorkShiftsFacade', () => {
   let facade: WorkShiftsFacade;
   let store: Store<TestSchema>;
-  let authTokens = AUTH_TOKENS_MOCK;
+  const authTokens = AUTH_TOKENS_MOCK;
   const entity = createWorkShift('1');
 
-  beforeEach(() => {
-
-  });
+  beforeEach(() => {});
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
         imports: [
-          StoreModule.forFeature(WORK_SHIFTS_FEATURE_KEY, workShiftsReducer, { initialState }),
+          StoreModule.forFeature(WORK_SHIFTS_FEATURE_KEY, workShiftsReducer, {
+            initialState
+          }),
           EffectsModule.forFeature([WorkShiftsEffects])
         ],
         providers: [WorkShiftsFacade, WorkShiftService]
       })
-      class CustomFeatureModule { }
+      class CustomFeatureModule {}
 
       @NgModule({
         imports: [
           NxModule.forRoot(),
-          StoreModule.forRoot({}),
+          StoreModule.forRoot(
+            {},
+            {
+              runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true
+              }
+            }
+          ),
           EffectsModule.forRoot([]),
           CustomFeatureModule,
-          HttpClientTestingModule,
+          HttpClientTestingModule
         ],
         providers: [
           { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
-          { provide: AuthFacade, useValue: { authTokens$: cold('a', { a: authTokens }) } }
+          {
+            provide: AuthFacade,
+            useValue: { authTokens$: cold('a', { a: authTokens }) }
+          }
         ]
       })
-      class RootModule { }
+      class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
       store = TestBed.get(Store);
@@ -67,11 +89,13 @@ describe('WorkShiftsFacade', () => {
 
     it('search() should call SearchWorkShifts action', async done => {
       try {
-        let query = {};
+        const query = {};
         await facade.search(query);
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(new SearchWorkShifts(query));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          new SearchWorkShifts(query)
+        );
 
         done();
       } catch (err) {
@@ -84,7 +108,9 @@ describe('WorkShiftsFacade', () => {
         await facade.create(entity);
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(new CreateWorkShift(entity));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          new CreateWorkShift(entity)
+        );
 
         done();
       } catch (err) {
@@ -97,7 +123,9 @@ describe('WorkShiftsFacade', () => {
         await facade.get(entity.id);
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(new GetWorkShift(entity.id));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          new GetWorkShift(entity.id)
+        );
 
         done();
       } catch (err) {
@@ -110,10 +138,12 @@ describe('WorkShiftsFacade', () => {
         await facade.update(entity.id, entity);
         getTestScheduler().flush();
 
-
-        expect(store.dispatch).toHaveBeenCalledWith(new UpdateWorkShift({
-          id: entity.id, data: entity
-        }));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          new UpdateWorkShift({
+            id: entity.id,
+            data: entity
+          })
+        );
 
         done();
       } catch (err) {
@@ -123,7 +153,7 @@ describe('WorkShiftsFacade', () => {
 
     it('delete() should call DeleteWorkShift action', async done => {
       try {
-        let id = 'AAA';
+        const id = 'AAA';
         await facade.delete(id);
         getTestScheduler().flush();
 
@@ -134,6 +164,5 @@ describe('WorkShiftsFacade', () => {
         done.fail(err);
       }
     });
-
   });
 });
