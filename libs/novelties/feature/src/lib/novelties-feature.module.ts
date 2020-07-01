@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -46,28 +46,36 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
       {
         path: '',
         pathMatch: 'full',
-        component: NoveltiesPageComponent
+        component: NoveltiesPageComponent,
       },
       {
         path: ':id/edit',
-        component: EditNoveltyPageComponent
+        component: EditNoveltyPageComponent,
       },
       {
         path: 'report-by-employee',
-        component: ReportByEmployeePageComponent
+        component: ReportByEmployeePageComponent,
       },
       {
         path: 'create-novelties-to-employees',
-        component: CreateNoveltiesToEmployeesPageComponent
-      }
+        component: CreateNoveltiesToEmployeesPageComponent,
+      },
+      {
+        path: 'novelty-types',
+        loadChildren: () =>
+          import('@kirby/novelty-types/feature').then(
+            (m) => m.NoveltyTypesFeatureModule
+          ),
+      },
     ]),
-    EffectsModule.forFeature([NoveltiesFeatureEffects])
+
+    EffectsModule.forFeature([NoveltiesFeatureEffects]),
   ],
   declarations: [
     NoveltiesPageComponent,
     EditNoveltyPageComponent,
     ReportByEmployeePageComponent,
-    CreateNoveltiesToEmployeesPageComponent
-  ]
+    CreateNoveltiesToEmployeesPageComponent,
+  ],
 })
 export class NoveltiesFeatureModule {}

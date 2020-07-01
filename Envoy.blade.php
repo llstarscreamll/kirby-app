@@ -1,5 +1,5 @@
 @setup
-require '/home/johan/.config/composer/vendor/autoload.php';
+require '/Users/johan/.composer/vendor/autoload.php';
 \Dotenv\Dotenv::createImmutable(__DIR__, '.env')->load();
 
 $site = env(strtoupper($target ?? 'lab').'_SITE');

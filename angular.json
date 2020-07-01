@@ -1162,6 +1162,108 @@
           "style": "scss"
         }
       }
+    },
+    "novelty-types-data-access": {
+      "projectType": "library",
+      "root": "libs/novelty-types/data-access",
+      "sourceRoot": "libs/novelty-types/data-access/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelty-types/data-access/tsconfig.lib.json",
+              "libs/novelty-types/data-access/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/data-access/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/novelty-types/data-access/jest.config.js",
+            "tsConfig": "libs/novelty-types/data-access/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/novelty-types/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "novelty-types-ui": {
+      "projectType": "library",
+      "root": "libs/novelty-types/ui",
+      "sourceRoot": "libs/novelty-types/ui/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelty-types/ui/tsconfig.lib.json",
+              "libs/novelty-types/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/ui/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/novelty-types/ui/jest.config.js",
+            "tsConfig": "libs/novelty-types/ui/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/novelty-types/ui/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "novelty-types-feature": {
+      "projectType": "library",
+      "root": "libs/novelty-types/feature",
+      "sourceRoot": "libs/novelty-types/feature/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/novelty-types/feature/tsconfig.lib.json",
+              "libs/novelty-types/feature/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/feature/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/novelty-types/feature/jest.config.js",
+            "tsConfig": "libs/novelty-types/feature/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/novelty-types/feature/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

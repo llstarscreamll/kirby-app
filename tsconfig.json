@@ -65,6 +65,13 @@
       "@kirby/cost-centers/data": ["libs/cost-centers/data/src/index.ts"],
       "@kirby/cost-centers/data-access": [
         "libs/cost-centers/data-access/src/index.ts"
+      ],
+      "@kirby/novelty-types/data-access": [
+        "libs/novelty-types/data-access/src/index.ts"
+      ],
+      "@kirby/novelty-types/ui": ["libs/novelty-types/ui/src/index.ts"],
+      "@kirby/novelty-types/feature": [
+        "libs/novelty-types/feature/src/index.ts"
       ]
     },
     "rootDir": "."
