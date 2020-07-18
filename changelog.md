@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.2.1 (2020-07-17)](https://github.com/llstarscreamll/angular-kirby/compare/v0.2.1..v0.2)
+
+### Fixed
+
+- bug searching for cost centers on employees form.
+
 ## [v0.2 (2020-06-30)](https://github.com/llstarscreamll/angular-kirby/compare/v0.1..0.2)
 
 ### Added
