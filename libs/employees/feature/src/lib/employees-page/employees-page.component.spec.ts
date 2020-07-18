@@ -4,8 +4,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { emptyPagination } from '@kirby/shared';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createEmployee } from '@kirby/employees/testing';
-import { EmployeesFacade } from '@kirby/employees/data-access/src';
+import { EmployeesFacade } from '@kirby/employees/data-access';
 import { EmployeesPageComponent } from './employees-page.component';
+import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 
 describe('EmployeesPageComponent', () => {
   let component: EmployeesPageComponent;
@@ -18,17 +19,18 @@ describe('EmployeesPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [AuthorizationUiTestModule],
       declarations: [EmployeesPageComponent],
       providers: [
         {
           provide: EmployeesFacade,
           useValue: {
             paginatedEmployees$: of(paginatedEmployees),
-            search: ({}) => true
-          }
-        }
+            search: ({}) => true,
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -68,11 +70,11 @@ describe('EmployeesPageComponent', () => {
       2: 'first_name',
       3: 'last_name',
       4: 'code',
-      5: 'position'
+      5: 'position',
     };
 
     paginatedEmployees.data.forEach((employee, row) => {
-      Object.keys(tableCellsMap).forEach(column => {
+      Object.keys(tableCellsMap).forEach((column) => {
         const attribute = tableCellsMap[column];
         const tableCell = html.querySelector(
           `table tbody tr:nth-child(${row + 1}) td:nth-child(${column})`

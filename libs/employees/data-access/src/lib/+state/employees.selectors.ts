@@ -24,6 +24,10 @@ const getUpdatingStatus = createSelector(
   getEmployeesState,
   (state: EmployeesState) => state.updatingStatus
 );
+const getCreatingStatus = createSelector(
+  getEmployeesState,
+  (state: EmployeesState) => state.creatingStatus
+);
 const getError = createSelector(
   getEmployeesState,
   (state: EmployeesState) => state.error
@@ -35,5 +39,6 @@ export const employeesQuery = {
   getSelectedEmployee,
   getPaginatingStatus,
   getSelectingStatus,
-  getUpdatingStatus
+  getCreatingStatus,
+  getUpdatingStatus,
 };

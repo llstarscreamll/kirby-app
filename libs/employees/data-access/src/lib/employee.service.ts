@@ -19,24 +19,32 @@ export class EmployeeService extends BaseService {
   search(query: any = {}): Observable<any> {
     return this.http.get<any>(this.endpoint, {
       headers: this.defaultHeaders,
-      params: query
+      params: query,
     });
   }
 
   get(id: string): Observable<any> {
     return this.http
       .get<any>(this.endpoint + id, {
-        headers: this.defaultHeaders
+        headers: this.defaultHeaders,
       })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
+  }
+
+  create(data: any): Observable<any> {
+    return this.http
+      .post<any>(this.endpoint, data, {
+        headers: this.defaultHeaders,
+      })
+      .pipe(map((response) => response.data));
   }
 
   update(employeeId: string, data: any): Observable<any> {
     return this.http
       .put<any>(this.endpoint + employeeId, data, {
-        headers: this.defaultHeaders
+        headers: this.defaultHeaders,
       })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
   syncEmployeesByCsvFile(data: any): Observable<any> {
