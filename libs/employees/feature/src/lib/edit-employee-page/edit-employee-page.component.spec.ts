@@ -8,6 +8,7 @@ import { EmployeesFacade } from '@kirby/employees/data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { EditEmployeePageComponent } from './edit-employee-page.component';
 import { LoadStatuses } from '@kirby/shared';
+import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 
 describe('EditEmployeePageComponent', () => {
   let component: EditEmployeePageComponent;
@@ -32,6 +33,13 @@ describe('EditEmployeePageComponent', () => {
           provide: WorkShiftsFacade,
           useValue: {
             getAll$: of([morningWorkShift]),
+            search: query => query
+          }
+        },
+        {
+          provide: CostCentersFacade,
+          useValue: {
+            paginatedList$: of([]),
             search: query => query
           }
         }

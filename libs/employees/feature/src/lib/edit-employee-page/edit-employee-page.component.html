@@ -5,7 +5,9 @@
     *ngIf="employee$ | async"
     [employee]="employee$ | async"
     [workShifts]="workShifts$ | async"
+    [costCenters]="(costCenters$ | async)?.data"
     [status]="updatingStatus$ | async"
+    (searchCostCenters)="searchCostCenters($event)"
     (submitted)="employeeFormSubmitted($event)"
     class="col-sm-11 col-md-10 col-xl-8"
   ></kirby-employee-form>
