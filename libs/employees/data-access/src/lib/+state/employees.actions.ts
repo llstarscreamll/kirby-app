@@ -11,6 +11,10 @@ export enum EmployeesActionTypes {
   GetEmployeeOk = '[Employees] get ok',
   GetEmployeeError = '[Employees] get error',
 
+  CreateEmployee = '[Employees] create',
+  CreateEmployeeOk = '[Employees] create ok',
+  CreateEmployeeError = '[Employees] create error',
+
   UpdateEmployee = '[Employees] update',
   UpdateEmployeeOk = '[Employees] update ok',
   UpdateEmployeeError = '[Employees] update error',
@@ -61,6 +65,21 @@ export class UpdateEmployeeError implements Action {
   constructor(public payload: ApiError) {}
 }
 
+export class CreateEmployee implements Action {
+  public readonly type = EmployeesActionTypes.CreateEmployee;
+  constructor(public payload: any) {}
+}
+
+export class CreateEmployeeOk implements Action {
+  public readonly type = EmployeesActionTypes.CreateEmployeeOk;
+  constructor(public payload: EmployeeInterface) {}
+}
+
+export class CreateEmployeeError implements Action {
+  public readonly type = EmployeesActionTypes.CreateEmployeeError;
+  constructor(public payload: ApiError) {}
+}
+
 export type EmployeesAction =
   | SearchEmployees
   | SearchEmployeesOk
@@ -68,6 +87,9 @@ export type EmployeesAction =
   | GetEmployee
   | GetEmployeeOk
   | GetEmployeeError
+  | CreateEmployee
+  | CreateEmployeeOk
+  | CreateEmployeeError
   | UpdateEmployee
   | UpdateEmployeeOk
   | UpdateEmployeeError;
@@ -79,6 +101,9 @@ export const fromEmployeesActions = {
   GetEmployee,
   GetEmployeeOk,
   GetEmployeeError,
+  CreateEmployee,
+  CreateEmployeeOk,
+  CreateEmployeeError,
   UpdateEmployee,
   UpdateEmployeeOk,
   UpdateEmployeeError,

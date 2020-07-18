@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.3 (2020-07-17)](https://github.com/llstarscreamll/angular-kirby/compare/v0.3..v0.2.1)
+
+### Added
+
+- employees: new ability to create employees
+
 ## [v0.2.1 (2020-07-17)](https://github.com/llstarscreamll/angular-kirby/compare/v0.2.1..v0.2)
 
 ### Fixed

@@ -5,7 +5,8 @@ import {
   SearchEmployees,
   GetEmployee,
   GetEmployeeOk,
-  UpdateEmployee
+  UpdateEmployee,
+  CreateEmployee
 } from './employees.actions';
 import { employeesQuery } from './employees.selectors';
 import { EmployeesPartialState } from './employees.reducer';
@@ -24,6 +25,7 @@ export class EmployeesFacade {
 
   selectingStatus$ = this.store.pipe(select(employeesQuery.getSelectingStatus));
   updatingStatus$ = this.store.pipe(select(employeesQuery.getUpdatingStatus));
+  creatingStatus$ = this.store.pipe(select(employeesQuery.getCreatingStatus));
 
   constructor(private store: Store<EmployeesPartialState>) {}
 
@@ -41,6 +43,10 @@ export class EmployeesFacade {
 
   update(employeeId: string, data: any) {
     this.store.dispatch(new UpdateEmployee({ employeeId, data }));
+  }
+
+  create(data: any) {
+    this.store.dispatch(new CreateEmployee(data));
   }
 
   cleanSelected() {

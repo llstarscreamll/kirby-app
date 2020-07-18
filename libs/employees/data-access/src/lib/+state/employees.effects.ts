@@ -15,7 +15,10 @@ import {
   GetEmployeeError,
   UpdateEmployee,
   UpdateEmployeeOk,
-  UpdateEmployeeError
+  UpdateEmployeeError,
+  CreateEmployee,
+  CreateEmployeeError,
+  CreateEmployeeOk,
 } from './employees.actions';
 import { EmployeeService } from '../employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -30,11 +33,11 @@ export class EmployeesEffects {
       run: (action: SearchEmployees, state: EmployeesPartialState) =>
         this.employeeService
           .search(action.payload)
-          .pipe(map(apiResponse => new SearchEmployeesOk(apiResponse))),
+          .pipe(map((apiResponse) => new SearchEmployeesOk(apiResponse))),
 
       onError: (action: SearchEmployees, error) => {
         return new SearchEmployeesError(error);
-      }
+      },
     }
   );
 
@@ -43,12 +46,38 @@ export class EmployeesEffects {
     run: (action: GetEmployee, state: EmployeesPartialState) =>
       this.employeeService
         .get(action.payload)
-        .pipe(map(apiResponse => new GetEmployeeOk(apiResponse))),
+        .pipe(map((apiResponse) => new GetEmployeeOk(apiResponse))),
 
     onError: (action: GetEmployee, error) => {
       return new GetEmployeeError(error);
-    }
+    },
   });
+
+  @Effect()
+  createEmployee$ = this.dataPersistence.fetch(
+    EmployeesActionTypes.CreateEmployee,
+    {
+      run: (action: CreateEmployee, state: EmployeesPartialState) =>
+        this.employeeService
+          .create(action.payload)
+          .pipe(map((apiResponse) => new CreateEmployeeOk(apiResponse))),
+
+      onError: (action: CreateEmployee, error) => {
+        return new CreateEmployeeError(error);
+      },
+    }
+  );
+
+  @Effect({ dispatch: false })
+  createEmployeeOk$ = this.dataPersistence.actions.pipe(
+    ofType(EmployeesActionTypes.CreateEmployeeOk),
+    tap((_) =>
+      this.snackBar.open('Empleado creado correctamente', 'Ok', {
+        duration: 2000,
+      })
+    ),
+    tap((_) => this.router.navigate(['/employees']))
+  );
 
   @Effect()
   updateEmployee$ = this.dataPersistence.fetch(
@@ -57,23 +86,23 @@ export class EmployeesEffects {
       run: (action: UpdateEmployee, state: EmployeesPartialState) =>
         this.employeeService
           .update(action.payload.employeeId, action.payload.data)
-          .pipe(map(apiResponse => new UpdateEmployeeOk(apiResponse))),
+          .pipe(map((apiResponse) => new UpdateEmployeeOk(apiResponse))),
 
       onError: (action: UpdateEmployee, error) => {
         return new UpdateEmployeeError(error);
-      }
+      },
     }
   );
 
   @Effect({ dispatch: false })
   updateEmployeeOk$ = this.dataPersistence.actions.pipe(
     ofType(EmployeesActionTypes.UpdateEmployeeOk),
-    tap(_ =>
+    tap((_) =>
       this.snackBar.open('Datos actualizados correctamente', 'Ok', {
-        duration: 2000
+        duration: 2000,
       })
     ),
-    tap(_ => this.router.navigate(['/employees']))
+    tap((_) => this.router.navigate(['/employees']))
   );
 
   constructor(
