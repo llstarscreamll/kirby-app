@@ -14,6 +14,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NoveltyFormComponent } from './novelty-form/novelty-form.component';
 import { NoveltiesSearchFormComponent } from './novelties-search-form/novelties-search-form.component';
 import { CreateNoveltiesToEmployeesFormComponent } from './create-novelties-to-employees-form/create-novelties-to-employees-form.component';
+import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-employees-and-novelty-types-table/resume-by-employees-and-novelty-types-table.component';
 
 @NgModule({
   imports: [
@@ -33,12 +34,14 @@ import { CreateNoveltiesToEmployeesFormComponent } from './create-novelties-to-e
   declarations: [
     NoveltyFormComponent,
     NoveltiesSearchFormComponent,
-    CreateNoveltiesToEmployeesFormComponent
+    CreateNoveltiesToEmployeesFormComponent,
+    ResumeByEmployeesAndNoveltyTypesTableComponent
   ],
   exports: [
     NoveltyFormComponent,
     NoveltiesSearchFormComponent,
-    CreateNoveltiesToEmployeesFormComponent
+    CreateNoveltiesToEmployeesFormComponent,
+    ResumeByEmployeesAndNoveltyTypesTableComponent
   ]
 })
 export class NoveltiesUiModule {}

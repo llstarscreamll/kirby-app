@@ -25,23 +25,19 @@ export class NoveltyModel {
   static fromJson(data: any): NoveltyModel {
     return Object.assign(new NoveltyModel(), {
       ...data,
-      start_at: data.start_at
-        ? new Date(data.start_at)
-        : null,
-      end_at: data.end_at
-        ? new Date(data.end_at)
-        : null
+      start_at: data.start_at ? new Date(data.start_at) : null,
+      end_at: data.end_at ? new Date(data.end_at) : null,
     });
   }
 
   static fromJsonList(arr: any[]): NoveltyModel[] {
-    return arr.map(data => NoveltyModel.fromJson(data));
+    return arr.map((data) => NoveltyModel.fromJson(data));
   }
 
   isApprovedByUserId(userId: string): boolean {
     return (
       this.approvals &&
-      this.approvals.map(approver => approver.id).includes(userId)
+      this.approvals.map((approver) => approver.id).includes(userId)
     );
   }
 

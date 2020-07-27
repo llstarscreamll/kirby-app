@@ -89,15 +89,6 @@ export class NoveltyReport {
     );
   }
 
-  /*constructor(data: any[]) {
-    this.data = data.map(row =>
-      Object.assign(new ReportRow(), {
-        ...row,
-        novelties: NoveltyModel.fromJsonList(row.novelties)
-      })
-    );
-  }*/
-
   get employee(): any {
     return this.data && this.data.length > 0 ? this.data[0].employee : null;
   }

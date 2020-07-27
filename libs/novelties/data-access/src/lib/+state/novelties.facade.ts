@@ -18,7 +18,8 @@ import {
   SetApprovalsByEmployeeAndDateRange,
   DeleteApprovalsByEmployeeAndDateRange,
   DownLoadNoveltiesReport,
-  SearchNoveltiesOk
+  SearchNoveltiesOk,
+  GetResume,
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -35,11 +36,13 @@ export class NoveltiesFacade {
   paginatedNoveltyTypes$ = this.store.pipe(
     select(noveltiesQuery.getPaginatedNoveltyTypesList)
   );
-  selectedNovelty$ = this.store.pipe(
-    select(noveltiesQuery.getSelectedNovelty)
-  );
+  selectedNovelty$ = this.store.pipe(select(noveltiesQuery.getSelectedNovelty));
   reportByEmployee$ = this.store.pipe(
     select(noveltiesQuery.getReportByEmployee)
+  );
+
+  resumeByEmployeesAndNoveltyTypes$ = this.store.pipe(
+    select(noveltiesQuery.getResumeByEmployeesAndNoveltyTypes)
   );
 
   constructor(private store: Store<NoveltiesPartialState>) {}
@@ -116,7 +119,7 @@ export class NoveltiesFacade {
       new DeleteApprovalsByEmployeeAndDateRange({
         employeeId,
         startDate,
-        endDate
+        endDate,
       })
     );
   }
@@ -127,5 +130,9 @@ export class NoveltiesFacade {
     end_date: string;
   }) {
     this.store.dispatch(new DownLoadNoveltiesReport(query));
+  }
+
+  getResumeByEmployeesAndNoveltyTypes(query) {
+    this.store.dispatch(new GetResume(query));
   }
 }

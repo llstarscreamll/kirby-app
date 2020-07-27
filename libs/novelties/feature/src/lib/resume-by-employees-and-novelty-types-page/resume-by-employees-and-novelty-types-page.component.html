@@ -1,0 +1,51 @@
+<div class="my-4">
+    <h1>Resumen por tipos de novedad</h1>
+</div>
+
+<form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5" autocomplete="off">
+    <mat-form-field class="w-full">
+        <mat-label>Buscar empleado</mat-label>
+        <input matInput formControlName="search" type="search" />
+    </mat-form-field>
+
+    <div fxLayout="column"
+         fxLayout.gt-xs="row"
+         fxLayoutGap="0px"
+         fxLayoutGap.gt-xs="20px">
+        <mat-form-field fxFlex="grow">
+            <mat-label>Fecha inicial</mat-label>
+            <input formControlName="start_date"
+                   type="date"
+                   matInput />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="grow">
+            <mat-label>Fecha final</mat-label>
+            <input
+                   formControlName="end_date"
+                   type="date"
+                   matInput />
+        </mat-form-field>
+    </div>
+
+    <div class="text-center">
+        <button
+                [disabled]="searchForm.invalid"
+                mat-stroked-button
+                color="primary"
+                type="submit"
+                ngClass.xs="block w-full h-12">
+            Generar
+        </button>
+    </div>
+</form>
+
+<div class="responsive-table">
+    <kirby-resume-by-employees-and-novelty-types-table *ngIf="(paginatedResume$ | async)?.data.length > 0"
+                                                       [employees]="(paginatedResume$ | async)?.data">
+    </kirby-resume-by-employees-and-novelty-types-table>
+</div>
+
+<div class="text-right my-2">
+    <kirby-pagination [pagination]="(paginatedResume$ | async)?.meta"></kirby-pagination>
+</div>

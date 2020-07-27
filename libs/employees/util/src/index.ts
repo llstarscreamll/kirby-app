@@ -1,1 +1,1 @@
-export * from './lib/employee.interface';
+export * from './lib/employee.model';

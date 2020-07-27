@@ -39,6 +39,10 @@ export enum NoveltiesActionTypes {
   DownLoadNoveltiesReportOk = '[Novelties] download report ok',
   DownLoadNoveltiesReportError = '[Novelties] download report error',
 
+  GetResume = '[Novelties] get resume',
+  GetResumeOk = '[Novelties] get resume ok',
+  GetResumeError = '[Novelties] get resume error',
+
   UpdateNovelty = '[Novelties] update',
   UpdateNoveltyOk = '[Novelties] update ok',
   UpdateNoveltyError = '[Novelties] update error',
@@ -52,7 +56,7 @@ export enum NoveltiesActionTypes {
   SearchNoveltyTypesError = '[NoveltyTypes] search error',
 
   CleanSelectedNovelty = '[Novelties] clean selected',
-  CleanApiErrors = '[Novelties] clean api errors'
+  CleanApiErrors = '[Novelties] clean api errors',
 }
 
 export class SearchNovelties implements Action {
@@ -156,7 +160,8 @@ export class DeleteApprovalsByEmployeeAndDateRangeOk implements Action {
 }
 
 export class DeleteApprovalsByEmployeeAndDateRangeError implements Action {
-  readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
+  readonly type =
+    NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
   constructor(
     public payload: {
       employeeId: string;
@@ -166,7 +171,6 @@ export class DeleteApprovalsByEmployeeAndDateRangeError implements Action {
     }
   ) {}
 }
-
 
 export class GetNovelty implements Action {
   readonly type = NoveltiesActionTypes.GetNovelty;
@@ -201,6 +205,21 @@ export class DownLoadNoveltiesReportOk implements Action {
 
 export class DownLoadNoveltiesReportError implements Action {
   readonly type = NoveltiesActionTypes.DownLoadNoveltiesReportError;
+  constructor(public payload: any) {}
+}
+
+export class GetResume implements Action {
+  readonly type = NoveltiesActionTypes.GetResume;
+  constructor(public payload: any) {}
+}
+
+export class GetResumeOk implements Action {
+  readonly type = NoveltiesActionTypes.GetResumeOk;
+  constructor(public payload: Pagination<any>) {}
+}
+
+export class GetResumeError implements Action {
+  readonly type = NoveltiesActionTypes.GetResumeError;
   constructor(public payload: any) {}
 }
 
@@ -282,6 +301,9 @@ export type NoveltiesAction =
   | DownLoadNoveltiesReport
   | DownLoadNoveltiesReportOk
   | DownLoadNoveltiesReportError
+  | GetResume
+  | GetResumeOk
+  | GetResumeError
   | UpdateNovelty
   | UpdateNoveltyOk
   | UpdateNoveltyError
@@ -320,6 +342,9 @@ export const fromNoveltiesActions = {
   DownLoadNoveltiesReport,
   DownLoadNoveltiesReportOk,
   DownLoadNoveltiesReportError,
+  GetResume,
+  GetResumeOk,
+  GetResumeError,
   UpdateNovelty,
   UpdateNoveltyOk,
   UpdateNoveltyError,
@@ -331,5 +356,5 @@ export const fromNoveltiesActions = {
   SearchNoveltyTypesError,
   CleanSelectedNovelty,
   CleanApiErrors,
-  ResetCreateNoveltiesToEmployees
+  ResetCreateNoveltiesToEmployees,
 };

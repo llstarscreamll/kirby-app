@@ -3,6 +3,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel, NoveltyReport } from '@kirby/novelties/data';
 import { NOVELTIES_FEATURE_KEY, NoveltiesState } from './novelties.reducer';
+import { EmployeeInterface } from '@kirby/employees/util/src';
 
 // Lookup the 'Novelties' feature state managed by NgRx
 const getNoveltiesState = createFeatureSelector<NoveltiesState>(
@@ -24,6 +25,13 @@ const getPaginatedList = createSelector(
   getNoveltiesState,
   (state: NoveltiesState) => mapPaginatedDataToModel(state.paginatedList)
 );
+
+const getResumeByEmployeesAndNoveltyTypes = createSelector(
+  getNoveltiesState,
+  (state: NoveltiesState) =>
+    mapPaginatedEmployeesDataToModel(state.resumeByEmployeesAndNoveltyTypes)
+);
+
 const getPaginatedNoveltyTypesList = createSelector(
   getNoveltiesState,
   (state: NoveltiesState) => state.paginatedNoveltyTypesList
@@ -34,7 +42,8 @@ const getSelectedNovelty = createSelector(
 );
 const getReportByEmployee = createSelector(
   getNoveltiesState,
-  (state: NoveltiesState) => state.paginatedList ? new NoveltyReport(state.paginatedList) : null
+  (state: NoveltiesState) =>
+    state.paginatedList ? new NoveltyReport(state.paginatedList) : null
 );
 
 function mapPaginatedDataToModel(
@@ -42,7 +51,16 @@ function mapPaginatedDataToModel(
 ): Pagination<NoveltyModel> {
   return {
     ...paginatedData,
-    data: NoveltyModel.fromJsonList(paginatedData?.data || [])
+    data: NoveltyModel.fromJsonList(paginatedData?.data || []),
+  };
+}
+
+function mapPaginatedEmployeesDataToModel(
+  paginatedData: Pagination<any>
+): Pagination<EmployeeInterface> {
+  return {
+    ...paginatedData,
+    data: EmployeeInterface.fromJsonList(paginatedData?.data || []),
   };
 }
 
@@ -54,4 +72,5 @@ export const noveltiesQuery = {
   getReportByEmployee,
   getPaginatedNoveltyTypesList,
   getCreateNoveltiesToEmployeesStatus,
+  getResumeByEmployeesAndNoveltyTypes,
 };

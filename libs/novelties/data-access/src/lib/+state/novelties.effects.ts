@@ -37,7 +37,10 @@ import {
   DownLoadNoveltiesReport,
   DownLoadNoveltiesReportError,
   DownLoadNoveltiesReportOk,
-  SearchNoveltyTypes
+  SearchNoveltyTypes,
+  GetResume,
+  GetResumeError,
+  GetResumeOk,
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -51,9 +54,9 @@ export class NoveltiesEffects {
       run: (action: SearchNovelties, state: NoveltiesPartialState) =>
         this.noveltyService
           .search(action.payload)
-          .pipe(map(apiResponse => new SearchNoveltiesOk(apiResponse))),
+          .pipe(map((apiResponse) => new SearchNoveltiesOk(apiResponse))),
       onError: (action: SearchNovelties, error) =>
-        new SearchNoveltiesError(error)
+        new SearchNoveltiesError(error),
     }
   );
 
@@ -63,9 +66,20 @@ export class NoveltiesEffects {
       run: (action: SearchNoveltyTypes) =>
         this.noveltyService
           .searchNoveltyTypes(action.payload)
-          .pipe(map(apiResponse => new SearchNoveltyTypesOk(apiResponse))),
+          .pipe(map((apiResponse) => new SearchNoveltyTypesOk(apiResponse))),
       onError: (action: SearchNoveltyTypes, error) =>
-        new SearchNoveltyTypesError(error)
+        new SearchNoveltyTypesError(error),
+    }
+  );
+
+  @Effect() getResume$ = this.dataPersistence.fetch(
+    NoveltiesActionTypes.GetResume,
+    {
+      run: (action: GetResume) =>
+        this.noveltyService
+          .getResume(action.payload)
+          .pipe(map((apiResponse) => new GetResumeOk(apiResponse))),
+      onError: (action: GetResume, error) => new GetResumeError(error),
     }
   );
 
@@ -77,10 +91,10 @@ export class NoveltiesEffects {
         this.noveltyService
           .createMany(action.payload)
           .pipe(
-            map(apiResponse => new CreateNoveltiesToEmployeesOk(apiResponse))
+            map((apiResponse) => new CreateNoveltiesToEmployeesOk(apiResponse))
           ),
       onError: (action: CreateNoveltiesToEmployees, error) =>
-        new CreateNoveltiesToEmployeesError(error)
+        new CreateNoveltiesToEmployeesError(error),
     }
   );
 
@@ -90,8 +104,8 @@ export class NoveltiesEffects {
       run: (action: GetNovelty) =>
         this.noveltyService
           .get(action.payload)
-          .pipe(map(apiResponse => new GetNoveltyOk(apiResponse))),
-      onError: (action: GetNovelty, error) => new GetNoveltyError(error)
+          .pipe(map((apiResponse) => new GetNoveltyOk(apiResponse))),
+      onError: (action: GetNovelty, error) => new GetNoveltyError(error),
     }
   );
 
@@ -103,15 +117,15 @@ export class NoveltiesEffects {
           .update(action.payload.id, action.payload.noveltyData)
           .pipe(
             map(
-              response =>
+              (response) =>
                 new UpdateNoveltyOk({
                   id: action.payload.id,
-                  noveltyData: response
+                  noveltyData: response,
                 })
             )
           ),
       undoAction: (action: UpdateNovelty, error: any) =>
-        new UpdateNoveltyError({ ...action.payload, error })
+        new UpdateNoveltyError({ ...action.payload, error }),
     }
   );
 
@@ -122,14 +136,14 @@ export class NoveltiesEffects {
       run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
         return this.noveltyService
           .approve(action.payload.noveltyId)
-          .pipe(map(response => new ApproveNoveltyOk(action.payload)));
+          .pipe(map((response) => new ApproveNoveltyOk(action.payload)));
       },
       onError: (action: ApproveNovelty, error) => {
         return new ApproveNoveltyError({
           ...action.payload,
-          error: error
+          error: error,
         });
-      }
+      },
     }
   );
 
@@ -138,29 +152,31 @@ export class NoveltiesEffects {
     NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange,
     {
       run: ({
-        payload: { employeeId, startDate, endDate }
+        payload: { employeeId, startDate, endDate },
       }: SetApprovalsByEmployeeAndDateRange) => {
         return this.noveltyService
           .setApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
           .pipe(
-            map(response => new SetApprovalsByEmployeeAndDateRangeOk(response))
+            map(
+              (response) => new SetApprovalsByEmployeeAndDateRangeOk(response)
+            )
           );
       },
       onError: (action: SetApprovalsByEmployeeAndDateRange, error) => {
         return new SetApprovalsByEmployeeAndDateRangeError({
           ...action.payload,
-          error: error
+          error: error,
         });
-      }
+      },
     }
   );
 
   @Effect({ dispatch: false })
   setApprovalsByEmployeeAndDateRangeOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeOk),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Actualiza el reporte para ver los cambios', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     )
   );
@@ -168,9 +184,9 @@ export class NoveltiesEffects {
   @Effect({ dispatch: false })
   setApprovalsByEmployeeAndDateRangeError$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRangeError),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Ocurrió un error realizando la operación.', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     )
   );
@@ -181,16 +197,16 @@ export class NoveltiesEffects {
     {
       run: (action: TrashNovelty, state: NoveltiesPartialState) => {
         return this.noveltyService.trash(action.payload).pipe(
-          map(_ => new TrashNoveltyOk(action.payload)),
-          tap(_ => this.router.navigate(['novelties']))
+          map((_) => new TrashNoveltyOk(action.payload)),
+          tap((_) => this.router.navigate(['novelties']))
         );
       },
       onError: (action: TrashNovelty, error) => {
         return new TrashNoveltyError({
           id: action.payload,
-          error: error
+          error: error,
         });
-      }
+      },
     }
   );
 
@@ -201,14 +217,14 @@ export class NoveltiesEffects {
       run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
         return this.noveltyService
           .deleteApproval(action.payload.noveltyId)
-          .pipe(map(response => new DeleteNoveltyApprovalOk(action.payload)));
+          .pipe(map((response) => new DeleteNoveltyApprovalOk(action.payload)));
       },
       onError: (action: ApproveNovelty, error) => {
         return new DeleteNoveltyApprovalError({
           ...action.payload,
-          error: error
+          error: error,
         });
-      }
+      },
     }
   );
 
@@ -217,31 +233,32 @@ export class NoveltiesEffects {
     NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRange,
     {
       run: ({
-        payload: { employeeId, startDate, endDate }
+        payload: { employeeId, startDate, endDate },
       }: DeleteApprovalsByEmployeeAndDateRange) => {
         return this.noveltyService
           .deleteApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
           .pipe(
             map(
-              response => new DeleteApprovalsByEmployeeAndDateRangeOk(response)
+              (response) =>
+                new DeleteApprovalsByEmployeeAndDateRangeOk(response)
             )
           );
       },
       onError: (action: DeleteApprovalsByEmployeeAndDateRange, error) => {
         return new DeleteApprovalsByEmployeeAndDateRangeError({
           ...action.payload,
-          error: error
+          error: error,
         });
-      }
+      },
     }
   );
 
   @Effect({ dispatch: false })
   deleteApprovalsByEmployeeAndDateRangeOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeOk),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Actualiza el reporte para ver los cambios', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     )
   );
@@ -249,9 +266,9 @@ export class NoveltiesEffects {
   @Effect({ dispatch: false })
   deleteApprovalsByEmployeeAndDateRangeError$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Ocurrió un error realizando la operación.', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     )
   );
@@ -263,25 +280,25 @@ export class NoveltiesEffects {
       run: ({ payload }: DownLoadNoveltiesReport) => {
         return this.noveltyService
           .downloadReport(payload)
-          .pipe(map(response => new DownLoadNoveltiesReportOk(response)));
+          .pipe(map((response) => new DownLoadNoveltiesReportOk(response)));
       },
       onError: (action: DownLoadNoveltiesReport, error) => {
         return new DownLoadNoveltiesReportError({
           ...action.payload,
-          error: error
+          error: error,
         });
-      }
+      },
     }
   );
 
   @Effect({ dispatch: false }) downloadNoveltiesReportOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.DownLoadNoveltiesReportOk),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open(
         'El reporte será enviado a tu correo electrónico',
         'Ok',
         {
-          duration: 5 * 1000
+          duration: 5 * 1000,
         }
       )
     )
@@ -290,28 +307,28 @@ export class NoveltiesEffects {
   @Effect({ dispatch: false })
   downloadNoveltiesReportError$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.DownLoadNoveltiesReportError),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Ocurrió un error solicitando el reporte.', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     )
   );
 
   @Effect({ dispatch: false }) updateNoveltyOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.UpdateNoveltyOk),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Novedad actualizada correctamente', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     ),
-    tap(action => this.router.navigate(['/novelties']))
+    tap((action) => this.router.navigate(['/novelties']))
   );
 
   @Effect({ dispatch: false }) updateNoveltyError$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.UpdateNoveltyError),
-    tap(action =>
+    tap((action) =>
       this.snackBar.open('Error actualizando la novedad', 'Ok', {
-        duration: 5 * 1000
+        duration: 5 * 1000,
       })
     )
   );

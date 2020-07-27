@@ -5,6 +5,7 @@ import { NoveltyModel } from '@kirby/novelties/data';
 import { Pagination, emptyPagination, LoadStatuses } from '@kirby/shared';
 import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 import { User } from '@kirby/users/util';
+import { EmployeeInterface } from '@kirby/employees/util/src';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
 
@@ -22,6 +23,7 @@ export interface Entity {}
 
 export interface NoveltiesState {
   paginatedList: Pagination<NoveltyModel>;
+  resumeByEmployeesAndNoveltyTypes?: Pagination<EmployeeInterface>;
   paginatedNoveltyTypesList: Pagination<NoveltyTypeInterface>;
   selected?: NoveltyModel;
   loaded: boolean;
@@ -37,7 +39,7 @@ export const initialState: NoveltiesState = {
   paginatedList: emptyPagination(),
   paginatedNoveltyTypesList: emptyPagination(),
   loaded: false,
-  createNoveltiesToEmployeesStatus: null
+  createNoveltiesToEmployeesStatus: null,
 };
 
 export function noveltiesReducer(
@@ -55,10 +57,20 @@ export function noveltiesReducer(
       break;
     }
 
+    case NoveltiesActionTypes.GetResumeOk: {
+      state = { ...state, resumeByEmployeesAndNoveltyTypes: action.payload };
+      break;
+    }
+
+    case NoveltiesActionTypes.GetResumeError: {
+      state = { ...state, error: action.payload };
+      break;
+    }
+
     case NoveltiesActionTypes.CreateNoveltiesToEmployees: {
       state = {
         ...state,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Loading
+        createNoveltiesToEmployeesStatus: LoadStatuses.Loading,
       };
       break;
     }
@@ -66,7 +78,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.CreateNoveltiesToEmployeesOk: {
       state = {
         ...state,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Completed
+        createNoveltiesToEmployeesStatus: LoadStatuses.Completed,
       };
       break;
     }
@@ -75,7 +87,7 @@ export function noveltiesReducer(
       state = {
         ...state,
         error: action.payload,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Error
+        createNoveltiesToEmployeesStatus: LoadStatuses.Error,
       };
       break;
     }
@@ -87,7 +99,7 @@ export function noveltiesReducer(
           state.paginatedList,
           action.payload.noveltyId,
           action.payload.user
-        )
+        ),
       };
       break;
     }
@@ -99,7 +111,7 @@ export function noveltiesReducer(
           state.paginatedList,
           action.payload.noveltyId,
           action.payload.user
-        )
+        ),
       };
       break;
     }
@@ -107,7 +119,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.TrashNovelty: {
       state = {
         ...state,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Loading
+        createNoveltiesToEmployeesStatus: LoadStatuses.Loading,
       };
       break;
     }
@@ -115,7 +127,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.TrashNoveltyOk: {
       state = {
         ...state,
-        selected: null
+        selected: null,
       };
       break;
     }
@@ -123,7 +135,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.TrashNoveltyError: {
       state = {
         ...state,
-        error: action.payload.error
+        error: action.payload.error,
       };
       break;
     }
@@ -135,7 +147,7 @@ export function noveltiesReducer(
           state.paginatedList,
           action.payload.noveltyId,
           action.payload.user
-        )
+        ),
       };
       break;
     }
@@ -147,7 +159,7 @@ export function noveltiesReducer(
           state.paginatedList,
           action.payload.noveltyId,
           action.payload.user
-        )
+        ),
       };
       break;
     }
@@ -197,7 +209,7 @@ function appendApproverToEntity(
 ) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 
-  entities = entities.map(item => {
+  entities = entities.map((item) => {
     const approvals =
       item.id === entityId ? [...item.approvals, approver] : item.approvals;
 
@@ -214,10 +226,10 @@ function removeApproverToEntity(
 ) {
   let entities: any[] = get(paginatedEntities, 'data', []);
 
-  entities = entities.map(item => {
+  entities = entities.map((item) => {
     const approvals =
       item.id === entityId
-        ? item.approvals.filter(a => a.id !== approver.id)
+        ? item.approvals.filter((a) => a.id !== approver.id)
         : item.approvals;
 
     return { ...item, approvals };
