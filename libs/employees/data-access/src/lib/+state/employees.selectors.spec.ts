@@ -1,6 +1,6 @@
 import {
   EMPLOYEES_FEATURE_KEY,
-  EmployeesPartialState
+  EmployeesPartialState,
 } from './employees.reducer';
 import { emptyPagination, LoadStatuses } from '@kirby/shared';
 import { employeesQuery } from './employees.selectors';
@@ -19,15 +19,16 @@ describe('Employees Selectors', () => {
           data: [
             employee,
             createEmployee('EMPLOYEE-BBB'),
-            createEmployee('EMPLOYEE-CCC')
-          ]
+            createEmployee('EMPLOYEE-CCC'),
+          ],
         },
         selected: employee,
         error: ERROR_MSG,
         paginatingStatus: LoadStatuses.Completed,
         selectingStatus: LoadStatuses.Completed,
-        updatingStatus: LoadStatuses.Completed
-      }
+        creatingStatus: null,
+        updatingStatus: LoadStatuses.Completed,
+      },
     };
   });
 

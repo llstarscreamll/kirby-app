@@ -6,7 +6,7 @@ import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { EmployeesFacade } from '@kirby/employees/data-access';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 @Component({
   selector: 'kirby-edit-novelty-page',
@@ -22,7 +22,7 @@ import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 export class EditNoveltyPageComponent implements OnInit, OnDestroy {
   public novelty$: Observable<NoveltyModel>;
   public employees$: Observable<Pagination<EmployeeInterface>>;
-  public noveltyTypes$: Observable<Pagination<NoveltyTypeInterface>>;
+  public noveltyTypes$: Observable<Pagination<NoveltyType>>;
 
   constructor(
     private noveltiesFacade: NoveltiesFacade,

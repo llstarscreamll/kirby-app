@@ -1,30 +1,18 @@
 import { get } from 'lodash';
 
-import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
-import { NoveltyModel } from '@kirby/novelties/data';
-import { Pagination, emptyPagination, LoadStatuses } from '@kirby/shared';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 import { User } from '@kirby/users/util';
-import { EmployeeInterface } from '@kirby/employees/util/src';
+import { NoveltyModel } from '@kirby/novelties/data';
+import { INoveltyType } from '@kirby/novelty-types/data';
+import { EmployeeInterface } from '@kirby/employees/util';
+import { Pagination, emptyPagination, LoadStatuses } from '@kirby/shared';
+import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
-
-/**
- * Interface for the 'Novelties' data used in
- *  - NoveltiesState, and
- *  - noveltiesReducer
- *
- *  Note: replace if already defined in another module
- * @todo: delete this empty interface
- */
-
-/* tslint:disable:no-empty-interface */
-export interface Entity {}
 
 export interface NoveltiesState {
   paginatedList: Pagination<NoveltyModel>;
   resumeByEmployeesAndNoveltyTypes?: Pagination<EmployeeInterface>;
-  paginatedNoveltyTypesList: Pagination<NoveltyTypeInterface>;
+  paginatedNoveltyTypesList: Pagination<INoveltyType>;
   selected?: NoveltyModel;
   loaded: boolean;
   createNoveltiesToEmployeesStatus: LoadStatuses;

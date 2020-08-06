@@ -20,6 +20,7 @@ describe('NoveltyTypesPageComponent', () => {
           provide: NoveltyTypesFacade,
           useValue: {
             search: (q) => true,
+            trash: (q) => true,
             paginatedNoveltyTypes$: hot('-a|', { a: emptyPagination() }),
           },
         },

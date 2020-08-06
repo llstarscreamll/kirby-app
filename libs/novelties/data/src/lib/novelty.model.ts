@@ -1,6 +1,6 @@
 import { round } from 'lodash';
 import { EmployeeInterface } from '@kirby/employees/util';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 export class NoveltyModel {
   id: string;
@@ -19,7 +19,7 @@ export class NoveltyModel {
   subCostCenter?: any;
   sub_cost_center?: any;
   time_clock_log?: any;
-  novelty_type?: NoveltyTypeInterface;
+  novelty_type?: NoveltyType;
   approvals: any[];
 
   static fromJson(data: any): NoveltyModel {

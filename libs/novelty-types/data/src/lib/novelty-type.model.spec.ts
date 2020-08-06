@@ -1,6 +1,7 @@
 import { NoveltyTypeOperator } from '..';
 import { createNovelty } from '@kirby/novelties/testing';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
+import { NoveltyType } from './novelty-type.model';
 
 describe('NoveltyType', () => {
   describe('noveltyTypeTotalHours', () => {
@@ -21,7 +22,7 @@ describe('NoveltyType', () => {
         ],
       });
 
-      expect(noveltyType.total_novelties_time_in_hours).toBe(5);
+      expect(NoveltyType.fromJson(noveltyType).total_novelties_time_in_hours).toBe(5);
     });
 
     it('should return total hours negative number when novelty type operator is subtraction', () => {
@@ -41,11 +42,11 @@ describe('NoveltyType', () => {
         ],
       });
 
-      expect(noveltyType.total_novelties_time_in_hours).toBe(-5);
+      expect(NoveltyType.fromJson(noveltyType).total_novelties_time_in_hours).toBe(-5);
     });
 
     it('should return 0 when novelties attribute is null or undefined', () => {
-      const additionNoveltyType = createNoveltyType('NT1');
+      const additionNoveltyType = NoveltyType.fromJson(createNoveltyType('NT1'));
 
       additionNoveltyType.novelties = null;
       expect(additionNoveltyType.total_novelties_time_in_hours).toBe(0);

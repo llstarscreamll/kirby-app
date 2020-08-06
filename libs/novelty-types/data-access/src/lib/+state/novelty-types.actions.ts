@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Pagination, ApiError } from '@kirby/shared';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { INoveltyType } from '@kirby/novelty-types/data';
 
 export enum NoveltyTypesActionTypes {
   Search = '[NoveltyTypes] search',
@@ -34,7 +34,7 @@ export class SearchNoveltyTypes implements Action {
 
 export class SearchNoveltyTypesOk implements Action {
   readonly type = NoveltyTypesActionTypes.SearchOk;
-  constructor(public payload: Pagination<NoveltyTypeInterface>) {}
+  constructor(public payload: Pagination<INoveltyType>) {}
 }
 
 export class SearchNoveltyTypesError implements Action {
@@ -49,7 +49,7 @@ export class GetNoveltyType implements Action {
 
 export class GetNoveltyTypeOk implements Action {
   readonly type = NoveltyTypesActionTypes.GetOk;
-  constructor(public payload: NoveltyTypeInterface) {}
+  constructor(public payload: INoveltyType) {}
 }
 
 export class GetNoveltyTypeError implements Action {
@@ -64,7 +64,7 @@ export class CreateNoveltyType implements Action {
 
 export class CreateNoveltyTypeOk implements Action {
   readonly type = NoveltyTypesActionTypes.CreateOk;
-  constructor(public payload: NoveltyTypeInterface) {}
+  constructor(public payload: INoveltyType) {}
 }
 
 export class CreateNoveltyTypeError implements Action {
@@ -79,14 +79,13 @@ export class UpdateNoveltyType implements Action {
 
 export class UpdateNoveltyTypeOk implements Action {
   readonly type = NoveltyTypesActionTypes.UpdateOk;
-  constructor(public payload: NoveltyTypeInterface) {}
+  constructor(public payload: INoveltyType) {}
 }
 
 export class UpdateNoveltyTypeError implements Action {
   readonly type = NoveltyTypesActionTypes.UpdateError;
   constructor(public payload: ApiError) {}
 }
-
 
 export class TrashNoveltyType implements Action {
   readonly type = NoveltyTypesActionTypes.Trash;

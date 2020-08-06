@@ -1,7 +1,9 @@
 import { map, tap } from 'rxjs/operators';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
+import { Effect, Actions, ofType } from '@ngrx/effects';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { NoveltiesPartialState } from './novelties.reducer';
 import {
@@ -43,8 +45,6 @@ import {
   GetResumeOk,
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, PRIMARY_OUTLET } from '@angular/router';
 
 @Injectable()
 export class NoveltiesEffects {

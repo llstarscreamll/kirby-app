@@ -1,13 +1,9 @@
 import { DayType } from './day-type.enum';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { NoveltyTypeOperator } from './novelty-type-operator.enum';
+import { INoveltyType, TimeSlot } from './novelty-type.interface';
 
-export interface TimeSlot {
-  start: string;
-  end: string;
-}
-
-export class NoveltyTypeInterface {
+export class NoveltyType implements INoveltyType {
   id?: string;
   code: string;
   name: string;
@@ -22,8 +18,8 @@ export class NoveltyTypeInterface {
   updated_at: string;
   delete_at?: string;
 
-  static fromJson(data: any): NoveltyTypeInterface {
-    return Object.assign(new NoveltyTypeInterface(), {
+  static fromJson(data: any): NoveltyType {
+    return Object.assign(new NoveltyType(), {
       ...data,
       novelties: NoveltyModel.fromJsonList(data.novelties || []),
       created_at: data.created_at ? new Date(data.created_at) : null,
@@ -31,8 +27,8 @@ export class NoveltyTypeInterface {
     });
   }
 
-  static fromJsonList(arr: any[]): NoveltyTypeInterface[] {
-    return arr.map((data) => NoveltyTypeInterface.fromJson(data));
+  static fromJsonList(arr: any[]): NoveltyType[] {
+    return arr.map((data) => NoveltyType.fromJson(data));
   }
 
   get operatorSign(): number {

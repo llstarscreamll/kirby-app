@@ -1,7 +1,7 @@
 import { User } from '@kirby/users/util';
 import { CostCenter } from '@kirby/cost-centers/data';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 export interface IdentificationsInterface {
   employee_id: string;
@@ -26,14 +26,14 @@ export class EmployeeInterface {
   costCenter?: CostCenter;
   workShifts?: WorkShiftInterface[];
   identifications?: IdentificationsInterface[];
-  novelty_types?: NoveltyTypeInterface[];
+  novelty_types?: NoveltyType[];
   created_at: string;
   updated_at: string;
 
   static fromJson(data: any): EmployeeInterface {
     return Object.assign(new EmployeeInterface(), {
       ...data,
-      novelty_types: NoveltyTypeInterface.fromJsonList(
+      novelty_types: NoveltyType.fromJsonList(
         data.novelty_types || []
       ),
       created_at: data.created_at ? new Date(data.created_at) : null,

@@ -7,7 +7,7 @@ import { EmployeeInterface } from '@kirby/employees/util';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
 import {
   NoveltyTypeOperator,
-  NoveltyTypeInterface,
+  NoveltyType,
 } from '@kirby/novelty-types/data';
 import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-employees-and-novelty-types-table.component';
 

@@ -15,7 +15,7 @@ import { takeUntil, filter, tap, debounce } from 'rxjs/internal/operators';
 import { Pagination } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data/src';
 import { EmployeeInterface } from '@kirby/employees/util/src';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data/src';
+import { NoveltyType } from '@kirby/novelty-types/data/src';
 import moment from 'moment';
 
 @Component({
@@ -27,7 +27,7 @@ import moment from 'moment';
 export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
   @Input() costCentersFound: Pagination<CostCenter>;
   @Input() employeesFound: Pagination<EmployeeInterface>;
-  @Input() noveltyTypesFound: Pagination<NoveltyTypeInterface>;
+  @Input() noveltyTypesFound: Pagination<NoveltyType>;
 
   @Output() submitted = new EventEmitter();
   @Output() searchEmployees = new EventEmitter();
@@ -160,8 +160,8 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  addNoveltyType(noveltyType: NoveltyTypeInterface) {
-    let selectedNoveltyTypes: NoveltyTypeInterface[] = this.advancedSearchForm.get(
+  addNoveltyType(noveltyType: NoveltyType) {
+    let selectedNoveltyTypes: NoveltyType[] = this.advancedSearchForm.get(
       'noveltyTypes'
     ).value;
 
@@ -235,7 +235,7 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
-  displayNoveltyTypeFieldValue(noveltyType: NoveltyTypeInterface) {
+  displayNoveltyTypeFieldValue(noveltyType: NoveltyType) {
     return noveltyType ? noveltyType.code + ' ' + noveltyType.name : null;
   }
 

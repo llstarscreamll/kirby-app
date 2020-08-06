@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { User } from '@kirby/users/util';
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 export enum NoveltiesActionTypes {
   SearchNovelties = '[Novelties] search',
@@ -260,7 +260,7 @@ export class SearchNoveltyTypes implements Action {
 
 export class SearchNoveltyTypesOk implements Action {
   readonly type = NoveltiesActionTypes.SearchNoveltyTypesOk;
-  constructor(public payload: Pagination<NoveltyTypeInterface>) {}
+  constructor(public payload: Pagination<NoveltyType>) {}
 }
 
 export class SearchNoveltyTypesError implements Action {

@@ -8,7 +8,7 @@ import { sortBy } from 'lodash';
 
 import {
   NoveltyTypeOperator,
-  NoveltyTypeInterface,
+  NoveltyType,
 } from '@kirby/novelty-types/data/src';
 import { EmployeeInterface } from '@kirby/employees/util';
 
@@ -26,20 +26,20 @@ export class ResumeByEmployeesAndNoveltyTypesTableComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  get noveltyTypes(): NoveltyTypeInterface[] {
+  get noveltyTypes(): NoveltyType[] {
     return this.employees
       ? this.employees[0]?.novelty_types || []
       : [];
   }
 
-  get additionNoveltyTypes(): NoveltyTypeInterface[] {
+  get additionNoveltyTypes(): NoveltyType[] {
     return sortBy(
       this.getNoveltyTypesByOperator(NoveltyTypeOperator.Addition),
       'code'
     );
   }
 
-  get subtractNoveltyTypes(): NoveltyTypeInterface[] {
+  get subtractNoveltyTypes(): NoveltyType[] {
     return sortBy(
       this.getNoveltyTypesByOperator(NoveltyTypeOperator.Subtraction),
       'code'
@@ -48,7 +48,7 @@ export class ResumeByEmployeesAndNoveltyTypesTableComponent implements OnInit {
 
   getNoveltyTypesByOperator(
     operator: NoveltyTypeOperator
-  ): NoveltyTypeInterface[] {
+  ): NoveltyType[] {
     return this.noveltyTypes.filter(
       (noveltyType) => noveltyType.operator === operator
     );
