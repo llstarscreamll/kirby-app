@@ -30,7 +30,8 @@
     <input
            matInput
            [matAutocomplete]="employeeAutocomplete"
-           formControlName="employee" />
+           formControlName="employee"
+           required/>
     <mat-autocomplete
                       #employeeAutocomplete="matAutocomplete"
                       [displayWith]="displayEmployeeFieldValue">
@@ -52,7 +53,8 @@
       <input
              formControlName="time_clock_log_check_out_start_date"
              type="date"
-             matInput />
+             matInput
+             required/>
     </mat-form-field>
 
     <mat-form-field fxFlex="grow">
@@ -60,7 +62,8 @@
       <input
              formControlName="time_clock_log_check_out_end_date"
              type="date"
-             matInput />
+             matInput
+             required />
     </mat-form-field>
   </div>
 
