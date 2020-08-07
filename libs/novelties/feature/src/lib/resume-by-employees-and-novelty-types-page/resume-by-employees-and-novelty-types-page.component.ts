@@ -59,6 +59,10 @@ export class ResumeByEmployeesAndNoveltyTypesPageComponent
   getResume(query = {}) {
     this.noveltiesFacade.getResumeByEmployeesAndNoveltyTypes(query);
   }
+  
+  paginate(query) {
+    this.noveltiesFacade.getResumeByEmployeesAndNoveltyTypes({...this.searchForm.value, ...query});
+  }
 
   openBalanceDialog(employeeNoveltiesResumeByNoveltyType) {
     const dialogReference = this.dialog.open(BalanceDialogComponent, {
