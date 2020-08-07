@@ -60,7 +60,7 @@ export class EmployeeInterface {
       .reduce((acc, next) => acc + next, 0);
   }
 
-  oldestNoveltyTypeRecordsDate(): Date {
+  oldestNoveltyTypeRecordDate(): Date {
     return (this.novelty_types || [])
       .map((noveltyType) => noveltyType.novelties)
       .reduce((acc, novelties) => acc.concat(novelties), [])

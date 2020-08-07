@@ -29,15 +29,23 @@ export class BalanceDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       employee_id: [this.employee.id, [Validators.required]],
       start_date: [
-        moment(this.employee.oldestNoveltyTypeRecordsDate()).format('YYYY-MM-DD'),
+        moment(this.employee.oldestNoveltyTypeRecordDate()).format(
+          'YYYY-MM-DD'
+        ),
         [Validators.required],
       ],
       time: [this.employee.noveltyTypesTotalHours(), [Validators.required]],
-      comment: ['', [Validators.required]],
+      comment: [
+        '',
+        [Validators.required, Validators.min(5), Validators.max(255)],
+      ],
     });
   }
 
   onSubmit() {
-    this.dialogReference.close(this.form.value);
+    this.dialogReference.close({
+      ...this.form.value,
+      start_date: moment(this.form.value.start_date),
+    });
   }
 }

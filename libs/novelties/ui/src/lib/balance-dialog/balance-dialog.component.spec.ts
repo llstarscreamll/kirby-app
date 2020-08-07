@@ -12,6 +12,7 @@ import { createEmployee } from '@kirby/employees/testing';
 import { NoveltyTypeOperator } from '@kirby/novelty-types/data';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { BalanceDialogComponent } from './balance-dialog.component';
+import moment from 'moment';
 
 describe('BalanceDialogComponent', () => {
   let template: HTMLDivElement;
@@ -108,7 +109,9 @@ describe('BalanceDialogComponent', () => {
     expect(template.querySelector('.employee').textContent).toContain(
       tonyStark.fullName
     );
-    expect(template.querySelector('form [formControlName=start_date]')).toBeTruthy();
+    expect(
+      template.querySelector('form [formControlName=start_date]')
+    ).toBeTruthy();
     expect(template.querySelector('form [formControlName=time]')).toBeTruthy();
     expect(
       template.querySelector('form [formControlName=comment]')
@@ -129,16 +132,17 @@ describe('BalanceDialogComponent', () => {
   it('should close dialog on form submit with form data', () => {
     component.form.patchValue({ comment: 'foo' });
 
+    expect(component.form.valid).toBe(true);
     spyOn(dialogReference, 'close');
     fixture.detectChanges();
 
-    const submitBtn: HTMLButtonElement = template.querySelector(
-      'button[type="submit"]'
-    );
-    submitBtn.click();
+    const form: HTMLFormElement = template.querySelector('form');
+    form.submit();
+
+    fixture.detectChanges();
 
     expect(dialogReference.close).toHaveBeenLastCalledWith({
-      start_date: '1999-01-01',
+      start_date: moment('1999-01-01'),
       time: tonyStark.noveltyTypesTotalHours(),
       comment: 'foo',
       employee_id: tonyStark.id,

@@ -5,9 +5,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { BalanceDialogComponent } from '@kirby/novelties/ui';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthFacade } from '@kirby/authentication-data-access';
 
 @Component({
   selector: 'kirby-resume-by-employees-and-novelty-types-page',
@@ -23,27 +23,33 @@ export class ResumeByEmployeesAndNoveltyTypesPageComponent
 
   searchForm: FormGroup;
 
-  defaultStartDate = moment().startOf('month').format('YYYY-MM-DD');
-  defaultEndDate = moment().endOf('month').format('YYYY-MM-DD');
+  defaultStartDate = moment().startOf('month');
+  defaultEndDate = moment().endOf('month');
 
   constructor(
     private dialog: MatDialog,
     private authFacade: AuthFacade,
     private formBuilder: FormBuilder,
-    private noveltiesFacade: NoveltiesFacade,
+    private noveltiesFacade: NoveltiesFacade
   ) {}
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       page: 1,
       search: [''],
-      start_date: [this.defaultStartDate, [Validators.required]],
-      end_date: [this.defaultEndDate, [Validators.required]],
+      start_date: [
+        this.defaultStartDate.format('YYYY-MM-DD'),
+        [Validators.required],
+      ],
+      end_date: [
+        this.defaultEndDate.format('YYYY-MM-DD'),
+        [Validators.required],
+      ],
     });
 
     this.getResume({
-      start_date: this.defaultStartDate,
-      end_date: this.defaultEndDate,
+      start_date: this.defaultStartDate.toISOString(),
+      end_date: this.defaultEndDate.toISOString(),
     });
   }
 
@@ -52,16 +58,27 @@ export class ResumeByEmployeesAndNoveltyTypesPageComponent
     this.destroy$.complete();
   }
 
-  searchSubmitted() {
-    this.getResume(this.searchForm.value);
+  parsedFormValue() {
+    return {
+      ...this.searchForm.value,
+      start_date: moment(this.searchForm.value.start_date).toISOString(),
+      end_date: moment(this.searchForm.value.end_date).toISOString(),
+    };
+  }
+
+  searchSubmitted(): any {
+    this.getResume(this.parsedFormValue());
   }
 
   getResume(query = {}) {
     this.noveltiesFacade.getResumeByEmployeesAndNoveltyTypes(query);
   }
-  
+
   paginate(query) {
-    this.noveltiesFacade.getResumeByEmployeesAndNoveltyTypes({...this.searchForm.value, ...query});
+    this.noveltiesFacade.getResumeByEmployeesAndNoveltyTypes({
+      ...this.parsedFormValue(),
+      ...query,
+    });
   }
 
   openBalanceDialog(employeeNoveltiesResumeByNoveltyType) {

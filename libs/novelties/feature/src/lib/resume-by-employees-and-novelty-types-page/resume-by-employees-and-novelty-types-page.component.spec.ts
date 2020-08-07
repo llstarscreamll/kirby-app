@@ -66,8 +66,8 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
     expect(
       noveltiesFacade.getResumeByEmployeesAndNoveltyTypes
     ).toHaveBeenCalledWith({
-      start_date: moment().startOf('month').format('YYYY-MM-DD'),
-      end_date: moment().endOf('month').format('YYYY-MM-DD'),
+      start_date: moment().startOf('month').toISOString(),
+      end_date: moment().endOf('month').toISOString(),
     });
   });
 
@@ -173,8 +173,8 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
         noveltiesFacade.getResumeByEmployeesAndNoveltyTypes
       ).toHaveBeenCalledWith({
         search: 'foo',
-        start_date: '2020-01-01',
-        end_date: '2020-02-01',
+        start_date: moment('2020-01-01').toISOString(),
+        end_date: moment('2020-02-01').toISOString(),
         page: 1,
       });
     });

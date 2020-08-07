@@ -23,6 +23,6 @@
 </form>
 
 <div mat-dialog-actions class="mb-4">
-    <button mat-button [mat-dialog-close]="false" class="cancel">Cancelar</button>
-    <button mat-button type="submit" form="balance-novelties" cdkFocusInitial color="primary">Crear</button>
+    <button mat-button cdkFocusInitial [mat-dialog-close]="false" class="cancel">Cancelar</button>
+    <button [disabled]="form.invalid" mat-button type="submit" form="balance-novelties" color="primary">Crear</button>
 </div>

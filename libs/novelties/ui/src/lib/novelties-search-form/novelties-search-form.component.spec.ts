@@ -3,11 +3,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import {
-  async,
-  ComponentFixture,
-  TestBed,
   tick,
-  fakeAsync
+  async,
+  TestBed,
+  fakeAsync,
+  ComponentFixture,
 } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -30,10 +30,10 @@ describe('NoveltiesSearchFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MatAutocompleteModule, MatChipsModule],
       declarations: [NoveltiesSearchFormComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(NoveltiesSearchFormComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       })
       .compileComponents();
 
@@ -74,7 +74,7 @@ describe('NoveltiesSearchFormComponent', () => {
 
       expect(component.submitted.emit).toHaveBeenCalledWith({
         search: 'foo',
-        page: 1
+        page: 1,
       });
     });
 
@@ -126,16 +126,10 @@ describe('NoveltiesSearchFormComponent', () => {
 
     it('should have default values', () => {
       expect(component.advancedSearchForm.get('startAtFrom').value).toBe(
-        moment()
-          .startOf('month')
-          .startOf('day')
-          .format('YYYY-MM-DDTHH:mm')
+        moment().startOf('month').startOf('day').format('YYYY-MM-DDTHH:mm')
       );
       expect(component.advancedSearchForm.get('startAtTo').value).toBe(
-        moment()
-          .endOf('month')
-          .endOf('day')
-          .format('YYYY-MM-DDTHH:mm')
+        moment().endOf('month').endOf('day').format('YYYY-MM-DDTHH:mm')
       );
     });
 
@@ -154,7 +148,7 @@ describe('NoveltiesSearchFormComponent', () => {
       component.employeesFound = emptyPagination();
       component.employeesFound.data = [
         createEmployee('AAA'),
-        createEmployee('AAA-BBB')
+        createEmployee('AAA-BBB'),
       ];
 
       fixture.detectChanges();
@@ -171,14 +165,14 @@ describe('NoveltiesSearchFormComponent', () => {
       component.noveltyTypesFound = emptyPagination();
       component.noveltyTypesFound.data = [
         createNoveltyType('N-A'),
-        createNoveltyType('N-AB')
+        createNoveltyType('N-AB'),
       ];
 
       fixture.detectChanges();
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
-          selector: noveltyTypesSearchFieldSelector
+          selector: noveltyTypesSearchFieldSelector,
         })
       );
       await autocomplete.enterText('N');
@@ -196,7 +190,7 @@ describe('NoveltiesSearchFormComponent', () => {
       tick(500);
 
       expect(component.searchEmployees.emit).toHaveBeenCalledWith({
-        search: 'AA'
+        search: 'AA',
       });
     }));
 
@@ -205,14 +199,14 @@ describe('NoveltiesSearchFormComponent', () => {
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
-          selector: noveltyTypesSearchFieldSelector
+          selector: noveltyTypesSearchFieldSelector,
         })
       );
       await autocomplete.enterText('NN');
       tick(500);
 
       expect(component.searchNoveltyTypes.emit).toHaveBeenCalledWith({
-        search: 'NN'
+        search: 'NN',
       });
     }));
 
@@ -221,14 +215,14 @@ describe('NoveltiesSearchFormComponent', () => {
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
-          selector: costCentersSearchFieldSelector
+          selector: costCentersSearchFieldSelector,
         })
       );
       await autocomplete.enterText('CC1');
       tick(500);
 
       expect(component.searchCostCenters.emit).toHaveBeenCalledWith({
-        search: 'CC1'
+        search: 'CC1',
       });
     }));
 
@@ -237,19 +231,19 @@ describe('NoveltiesSearchFormComponent', () => {
       component.noveltyTypesFound = emptyPagination();
       component.noveltyTypesFound.data = [
         expectedNoveltyType,
-        createNoveltyType('N-AB')
+        createNoveltyType('N-AB'),
       ];
 
       fixture.detectChanges();
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
-          selector: noveltyTypesSearchFieldSelector
+          selector: noveltyTypesSearchFieldSelector,
         })
       );
       await autocomplete.enterText('N');
       await autocomplete.selectOption({
-        text: expectedNoveltyType.code + ' ' + expectedNoveltyType.name
+        text: expectedNoveltyType.code + ' ' + expectedNoveltyType.name,
       });
 
       const noveltyTypesControl = component.advancedSearchForm.get(
@@ -268,19 +262,19 @@ describe('NoveltiesSearchFormComponent', () => {
       component.employeesFound = emptyPagination();
       component.employeesFound.data = [
         expectedEmployee,
-        createEmployee('E-AB')
+        createEmployee('E-AB'),
       ];
 
       fixture.detectChanges();
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
-          selector: employeesSearchFieldSelector
+          selector: employeesSearchFieldSelector,
         })
       );
       await autocomplete.enterText('E');
       await autocomplete.selectOption({
-        text: expectedEmployee.first_name + ' ' + expectedEmployee.last_name
+        text: expectedEmployee.first_name + ' ' + expectedEmployee.last_name,
       });
 
       const employeesControl = component.advancedSearchForm.get('employees');
@@ -296,24 +290,24 @@ describe('NoveltiesSearchFormComponent', () => {
       const expectedCostCenter = {
         id: 'A1',
         code: 'CC1',
-        name: 'Cost center 1'
+        name: 'Cost center 1',
       };
       component.costCentersFound = emptyPagination();
       component.costCentersFound.data = [
         expectedCostCenter,
-        { id: 'B2', code: 'CC2', name: 'Cost center 2' }
+        { id: 'B2', code: 'CC2', name: 'Cost center 2' },
       ];
 
       fixture.detectChanges();
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
-          selector: costCentersSearchFieldSelector
+          selector: costCentersSearchFieldSelector,
         })
       );
       await autocomplete.enterText('C');
       await autocomplete.selectOption({
-        text: expectedCostCenter.code + ' ' + expectedCostCenter.name
+        text: expectedCostCenter.code + ' ' + expectedCostCenter.name,
       });
 
       const costCentersControl = component.advancedSearchForm.get(
@@ -432,7 +426,7 @@ describe('NoveltiesSearchFormComponent', () => {
         startAtTo: '2020-01-15 23:59:59',
         noveltyTypes: [noveltyType],
         employees: [employee],
-        costCenters: [costCenter]
+        costCenters: [costCenter],
       };
       component.advancedSearchForm.patchValue(formData);
 
@@ -448,12 +442,12 @@ describe('NoveltiesSearchFormComponent', () => {
         start_at: { from: '2020-01-01 00:00:00', to: '2020-01-15 23:59:59' },
         novelty_types: [noveltyType],
         employees: [employee],
-        cost_centers: [costCenter]
+        cost_centers: [costCenter],
       };
 
       expect(component.submitted.emit).toHaveBeenCalledWith({
         ...expectedOutput,
-        page: 1
+        page: 1,
       });
     });
   });
