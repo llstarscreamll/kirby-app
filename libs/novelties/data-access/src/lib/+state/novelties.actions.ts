@@ -15,6 +15,10 @@ export enum NoveltiesActionTypes {
   CreateNoveltiesToEmployeesError = '[Novelties] create novelties to employees error',
   ResetCreateNoveltiesToEmployees = '[Novelties] clean create novelties to employees',
 
+  CreateBalanceNovelty = '[Novelties] create balance ',
+  CreateBalanceNoveltyOk = '[Novelties] create balance ok',
+  CreateBalanceNoveltyError = '[Novelties] create balance error',
+
   ApproveNovelty = '[Novelties] approve',
   ApproveNoveltyOk = '[Novelties] approve ok',
   ApproveNoveltyError = '[Novelties] approve error',
@@ -91,6 +95,28 @@ export class CreateNoveltiesToEmployeesError implements Action {
 
 export class ResetCreateNoveltiesToEmployees implements Action {
   readonly type = NoveltiesActionTypes.ResetCreateNoveltiesToEmployees;
+}
+
+export class CreateBalanceNovelty implements Action {
+  readonly type = NoveltiesActionTypes.CreateBalanceNovelty;
+  constructor(
+    public payload: {
+      employee_id: string;
+      start_date: Date;
+      time: number;
+      comment: string;
+    }
+  ) {}
+}
+
+export class CreateBalanceNoveltyOk implements Action {
+  readonly type = NoveltiesActionTypes.CreateBalanceNoveltyOk;
+  constructor(public payload: any) {}
+}
+
+export class CreateBalanceNoveltyError implements Action {
+  readonly type = NoveltiesActionTypes.CreateBalanceNoveltyError;
+  constructor(public payload: any) {}
 }
 
 export class ApproveNovelty implements Action {
@@ -283,6 +309,9 @@ export type NoveltiesAction =
   | CreateNoveltiesToEmployees
   | CreateNoveltiesToEmployeesOk
   | CreateNoveltiesToEmployeesError
+  | CreateBalanceNovelty
+  | CreateBalanceNoveltyOk
+  | CreateBalanceNoveltyError
   | ApproveNovelty
   | ApproveNoveltyOk
   | ApproveNoveltyError
@@ -324,6 +353,9 @@ export const fromNoveltiesActions = {
   CreateNoveltiesToEmployees,
   CreateNoveltiesToEmployeesOk,
   CreateNoveltiesToEmployeesError,
+  CreateBalanceNovelty,
+  CreateBalanceNoveltyOk,
+  CreateBalanceNoveltyError,
   ApproveNovelty,
   ApproveNoveltyOk,
   ApproveNoveltyError,

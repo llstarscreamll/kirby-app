@@ -1,0 +1,28 @@
+<h3 mat-dialog-title>Balancear tiempo de novedades</h3>
+
+<form id="balance-novelties" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="employee">{{ employee.fullName }}</div>
+
+    <mat-form-field fxFlex="grow">
+        <mat-label>Fecha de aplicación</mat-label>
+        <input formControlName="start_date"
+               type="date"
+               matInput />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Tiempo <small>(hrs)</small></mat-label>
+        <input formControlName="time" type="number" step="0.1" matInput />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+        <mat-label>Comentario</mat-label>
+        <textarea formControlName="comment" matInput rows="5">
+        </textarea>
+    </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false" class="cancel">Cancelar</button>
+    <button mat-button type="submit" form="balance-novelties" cdkFocusInitial color="primary">Crear</button>
+</div>

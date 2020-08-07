@@ -63,6 +63,22 @@ export function noveltiesReducer(
       break;
     }
 
+    case NoveltiesActionTypes.CreateBalanceNoveltyOk: {
+      state = {
+        ...state,
+        error: null,
+      };
+      break;
+    }
+
+    case NoveltiesActionTypes.CreateBalanceNoveltyError: {
+      state = {
+        ...state,
+        error: action.payload,
+      };
+      break;
+    }
+
     case NoveltiesActionTypes.CreateNoveltiesToEmployeesOk: {
       state = {
         ...state,

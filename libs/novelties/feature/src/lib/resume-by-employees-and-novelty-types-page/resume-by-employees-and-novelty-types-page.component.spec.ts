@@ -2,14 +2,18 @@ import { of } from 'rxjs';
 import moment from 'moment';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { emptyPagination } from '@kirby/shared';
 import { createEmployee } from '@kirby/employees/testing';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
+import { BalanceDialogComponent, NoveltiesUiModule } from '@kirby/novelties/ui';
 import { ResumeByEmployeesAndNoveltyTypesPageComponent } from './resume-by-employees-and-novelty-types-page.component';
+import { AuthFacade } from '@kirby/authentication-data-access';
 
 describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
+  let dialog: MatDialog;
   let template: HTMLDivElement;
   let noveltiesFacade: NoveltiesFacade;
   let component: ResumeByEmployeesAndNoveltyTypesPageComponent;
@@ -17,14 +21,21 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, MatDialogModule, NoveltiesUiModule],
       declarations: [ResumeByEmployeesAndNoveltyTypesPageComponent],
       providers: [
         {
           provide: NoveltiesFacade,
           useValue: {
             resumeByEmployeesAndNoveltyTypes$: of(emptyPagination()),
+            createBalanceNovelty: (q) => true,
             getResumeByEmployeesAndNoveltyTypes: (q) => true,
+          },
+        },
+        {
+          provide: AuthFacade,
+          useValue: {
+            authUser$: of(null),
           },
         },
       ],
@@ -39,6 +50,7 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
     template = fixture.nativeElement;
     component = fixture.componentInstance;
     noveltiesFacade = TestBed.get(NoveltiesFacade);
+    dialog = TestBed.get(MatDialog);
     fixture.detectChanges();
   });
 
@@ -92,6 +104,40 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
     ).toBeTruthy();
 
     expect(fixture.nativeElement.querySelector('form')).toBeTruthy();
+  });
+
+  it('should open balance modal on openBalanceDialog method', () => {
+    spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(null) });
+
+    component.openBalanceDialog({ foo: 'bar' });
+
+    expect(dialog.open).toHaveBeenLastCalledWith(BalanceDialogComponent, {
+      data: { foo: 'bar' },
+    });
+  });
+
+  it('should dispatch create novelty action when dialog response is not empty', () => {
+    spyOn(dialog, 'open').and.returnValue({
+      afterClosed: () => of({ some: 'data' }),
+    });
+    spyOn(noveltiesFacade, 'createBalanceNovelty');
+
+    component.openBalanceDialog({ foo: 'bar' });
+
+    expect(noveltiesFacade.createBalanceNovelty).toHaveBeenCalledWith({
+      some: 'data',
+    });
+  });
+
+  it('should not dispatch create novelty action when dialog response is empty', () => {
+    spyOn(dialog, 'open').and.returnValue({
+      afterClosed: () => of(null),
+    });
+    spyOn(noveltiesFacade, 'createBalanceNovelty');
+
+    component.openBalanceDialog({ foo: 'bar' });
+
+    expect(noveltiesFacade.createBalanceNovelty).not.toHaveBeenCalled();
   });
 
   describe('search form', () => {

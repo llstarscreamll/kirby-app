@@ -3,6 +3,8 @@ import {
   OnInit,
   Component,
   ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { sortBy } from 'lodash';
 
@@ -22,14 +24,18 @@ export class ResumeByEmployeesAndNoveltyTypesTableComponent implements OnInit {
   @Input()
   employees: EmployeeInterface[] = [];
 
+  @Input()
+  showBalanceButton = false;
+
+  @Output()
+  balance = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}
 
   get noveltyTypes(): NoveltyType[] {
-    return this.employees
-      ? this.employees[0]?.novelty_types || []
-      : [];
+    return this.employees ? this.employees[0]?.novelty_types || [] : [];
   }
 
   get additionNoveltyTypes(): NoveltyType[] {
@@ -46,9 +52,7 @@ export class ResumeByEmployeesAndNoveltyTypesTableComponent implements OnInit {
     );
   }
 
-  getNoveltyTypesByOperator(
-    operator: NoveltyTypeOperator
-  ): NoveltyType[] {
+  getNoveltyTypesByOperator(operator: NoveltyTypeOperator): NoveltyType[] {
     return this.noveltyTypes.filter(
       (noveltyType) => noveltyType.operator === operator
     );

@@ -12,9 +12,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { NoveltyFormComponent } from './novelty-form/novelty-form.component';
+import { BalanceDialogComponent } from './balance-dialog/balance-dialog.component';
 import { NoveltiesSearchFormComponent } from './novelties-search-form/novelties-search-form.component';
 import { CreateNoveltiesToEmployeesFormComponent } from './create-novelties-to-employees-form/create-novelties-to-employees-form.component';
 import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-employees-and-novelty-types-table/resume-by-employees-and-novelty-types-table.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -24,24 +26,28 @@ import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-empl
     MatIconModule,
     MatChipsModule,
     MatButtonModule,
+    MatDialogModule,
     MatSelectModule,
     FlexLayoutModule,
     MatFormFieldModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   declarations: [
     NoveltyFormComponent,
     NoveltiesSearchFormComponent,
     CreateNoveltiesToEmployeesFormComponent,
-    ResumeByEmployeesAndNoveltyTypesTableComponent
+    ResumeByEmployeesAndNoveltyTypesTableComponent,
+    BalanceDialogComponent,
   ],
   exports: [
     NoveltyFormComponent,
     NoveltiesSearchFormComponent,
     CreateNoveltiesToEmployeesFormComponent,
-    ResumeByEmployeesAndNoveltyTypesTableComponent
-  ]
+    ResumeByEmployeesAndNoveltyTypesTableComponent,
+    BalanceDialogComponent,
+  ],
+  entryComponents: [BalanceDialogComponent]
 })
 export class NoveltiesUiModule {}

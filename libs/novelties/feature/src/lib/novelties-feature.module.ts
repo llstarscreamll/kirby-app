@@ -24,6 +24,7 @@ import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.compo
 import { ReportByEmployeePageComponent } from './report-by-employee-page/report-by-employee-page.component';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
 import { ResumeByEmployeesAndNoveltyTypesPageComponent } from './resume-by-employees-and-novelty-types-page/resume-by-employees-and-novelty-types-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ResumeByEmployeesAndNoveltyTypesPageComponent } from './resume-by-emplo
     MatMenuModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     MatTooltipModule,
     FlexLayoutModule,
     NoveltiesUiModule,

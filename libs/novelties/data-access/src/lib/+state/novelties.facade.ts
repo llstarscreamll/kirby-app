@@ -20,6 +20,7 @@ import {
   DownLoadNoveltiesReport,
   SearchNoveltiesOk,
   GetResume,
+  CreateBalanceNovelty,
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -70,6 +71,10 @@ export class NoveltiesFacade {
 
   createNoveltiesToEmployees(data) {
     this.store.dispatch(new CreateNoveltiesToEmployees(data));
+  }
+
+  createBalanceNovelty(data) {
+    this.store.dispatch(new CreateBalanceNovelty(data));
   }
 
   /**

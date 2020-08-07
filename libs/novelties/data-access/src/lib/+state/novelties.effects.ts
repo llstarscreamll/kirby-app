@@ -43,6 +43,9 @@ import {
   GetResume,
   GetResumeError,
   GetResumeOk,
+  CreateBalanceNovelty,
+  CreateBalanceNoveltyError,
+  CreateBalanceNoveltyOk,
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 
@@ -96,6 +99,29 @@ export class NoveltiesEffects {
       onError: (action: CreateNoveltiesToEmployees, error) =>
         new CreateNoveltiesToEmployeesError(error),
     }
+  );
+
+  @Effect()
+  createBalanceNovelty$ = this.dataPersistence.pessimisticUpdate(
+    NoveltiesActionTypes.CreateBalanceNovelty,
+    {
+      run: (action: CreateBalanceNovelty) =>
+        this.noveltyService
+          .createBalance(action.payload)
+          .pipe(map((apiResponse) => new CreateBalanceNoveltyOk(apiResponse))),
+      onError: (action: CreateBalanceNovelty, error) =>
+        new CreateBalanceNoveltyError(error),
+    }
+  );
+
+  @Effect({dispatch: false})
+  createBalanceNoveltyOk$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.CreateBalanceNoveltyOk),
+    tap((action) =>
+      this.snackBar.open('Balance de novedades creado correctamente', 'Ok', {
+        duration: 5 * 1000,
+      })
+    )
   );
 
   @Effect() getNovelty$ = this.dataPersistence.fetch(
