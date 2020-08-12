@@ -1,5 +1,20 @@
 # Release notes
 
+## [v0.4 (2020-08-11)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4..v0.3)
+
+### Added
+
+- novelties: new ability to create balance novelty, create balance novelty from report by novelty type view, only those with certain permissions can access the new feature.
+- novelties: new resume report by novelty types(llstarscreamll@hotmail.com)
+
+### Changed
+
+- many minor visual improvements
+
+### Fixed
+
+- Error with unresponsive pagination buttons on report by novelty type
+
 ## [v0.3 (2020-07-17)](https://github.com/llstarscreamll/angular-kirby/compare/v0.3..v0.2.1)
 
 ### Added
