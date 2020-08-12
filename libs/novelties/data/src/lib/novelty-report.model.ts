@@ -1,4 +1,4 @@
-import { uniqBy, groupBy, toArray } from 'lodash';
+import { uniqBy, groupBy, toArray, round } from 'lodash';
 
 import { NoveltyModel } from './novelty.model';
 import { EmployeeInterface } from '@kirby/employees/util';
@@ -44,9 +44,9 @@ class ReportRow {
   }
 
   get totalHours(): number {
-    return this.novelties
+    return round(this.novelties
       .map(novelty => novelty.total_time_in_hours)
-      .reduce((acc, hours) => acc + hours, 0);
+      .reduce((acc, hours) => acc + hours, 0), 2);
   }
 
   userHasApprovals(user: User): boolean {

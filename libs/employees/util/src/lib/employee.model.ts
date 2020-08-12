@@ -1,3 +1,5 @@
+import { round } from 'lodash';
+
 import { User } from '@kirby/users/util';
 import { CostCenter } from '@kirby/cost-centers/data';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
@@ -55,9 +57,9 @@ export class EmployeeInterface {
   }
 
   noveltyTypesTotalHours(): number {
-    return (this.novelty_types || [])
+    return round((this.novelty_types || [])
       .map((noveltyType) => noveltyType.total_novelties_time_in_hours)
-      .reduce((acc, next) => acc + next, 0);
+      .reduce((acc, next) => acc + next, 0), 2);
   }
 
   oldestNoveltyTypeRecordDate(): Date {
