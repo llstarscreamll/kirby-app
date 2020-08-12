@@ -1,3 +1,5 @@
+import { round } from 'lodash';
+
 import { DayType } from './day-type.enum';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { NoveltyTypeOperator } from './novelty-type-operator.enum';
@@ -36,8 +38,8 @@ export class NoveltyType implements INoveltyType {
   }
 
   get total_novelties_time_in_hours(): number {
-    return (this.novelties || [])
+    return round((this.novelties || [])
       .map((novelty) => novelty.total_time_in_hours * this.operatorSign)
-      .reduce((acc, next) => acc + next, 0);
+      .reduce((acc, next) => acc + next, 0), 2);
   }
 }

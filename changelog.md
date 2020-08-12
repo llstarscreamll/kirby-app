@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.4.1 (2020-08-11)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4.1..v0.4)
+
+### Fixed
+
+- Issues with too long decimal values
+
 ## [v0.4 (2020-08-11)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4..v0.3)
 
 ### Added
