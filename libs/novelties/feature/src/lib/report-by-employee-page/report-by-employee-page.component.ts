@@ -21,7 +21,7 @@ function objectIsSelected(control) {
 @Component({
   selector: 'kirby-report-by-employee-page',
   templateUrl: './report-by-employee-page.component.html',
-  styleUrls: ['./report-by-employee-page.component.scss']
+  styleUrls: ['./report-by-employee-page.component.scss'],
 })
 export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
@@ -31,7 +31,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   foundEmployees$ = this.employeesFacade.paginatedEmployees$;
   user$ = this.authFacade.authUser$
     .pipe(
-      tap(user => (this.user = user)),
+      tap((user) => (this.user = user)),
       takeUntil(this.destroy$)
     )
     .subscribe();
@@ -39,17 +39,13 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   user: User;
   searchForm: FormGroup;
 
-  defaultStartAt = moment()
-    .startOf('month')
-    .format('YYYY-MM-DD');
-  defaultEndAt = moment()
-    .endOf('month')
-    .format('YYYY-MM-DD');
+  defaultStartAt = moment().startOf('month').format('YYYY-MM-DD');
+  defaultEndAt = moment().endOf('month').format('YYYY-MM-DD');
 
   private searchOptions = {
     orderBy: 'start_at',
     sortedBy: 'desc',
-    limit: 100
+    limit: 100,
   };
 
   constructor(
@@ -62,7 +58,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.noveltiesReport$ = this.noveltyFacade.reportByEmployee$.pipe(
-      tap(report =>
+      tap((report) =>
         this.isEmployeeClean &&
         !this.searchForm.touched &&
         report &&
@@ -77,25 +73,45 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
 
     this.activatedRoute.queryParamMap
       .pipe(
-        map(params => ({
+        map((params) => ({
           employee_id: params.get('employee_id'),
-          time_clock_log_check_out_start_date: params.get('time_clock_log_check_out_start_date'),
-          time_clock_log_check_out_end_date: params.get('time_clock_log_check_out_end_date')
+          time_clock_log_check_out_start_date: params.get(
+            'time_clock_log_check_out_start_date'
+          ),
+          time_clock_log_check_out_end_date: params.get(
+            'time_clock_log_check_out_end_date'
+          ),
         })),
-        map(({ employee_id, time_clock_log_check_out_start_date, time_clock_log_check_out_end_date }) => ({
-          employee_id,
-          time_clock_log_check_out_start_date: !time_clock_log_check_out_start_date ? this.defaultStartAt : time_clock_log_check_out_start_date,
-          time_clock_log_check_out_end_date: !time_clock_log_check_out_end_date ? this.defaultEndAt : time_clock_log_check_out_end_date
-        })),
+        map(
+          ({
+            employee_id,
+            time_clock_log_check_out_start_date,
+            time_clock_log_check_out_end_date,
+          }) => ({
+            employee_id,
+            time_clock_log_check_out_start_date: !time_clock_log_check_out_start_date
+              ? this.defaultStartAt
+              : time_clock_log_check_out_start_date,
+            time_clock_log_check_out_end_date: !time_clock_log_check_out_end_date
+              ? this.defaultEndAt
+              : time_clock_log_check_out_end_date,
+          })
+        ),
         take(1),
         filter(
-          ({ employee_id, time_clock_log_check_out_start_date, time_clock_log_check_out_end_date }) =>
-            !!employee_id && !!time_clock_log_check_out_start_date && !!time_clock_log_check_out_end_date
+          ({
+            employee_id,
+            time_clock_log_check_out_start_date,
+            time_clock_log_check_out_end_date,
+          }) =>
+            !!employee_id &&
+            !!time_clock_log_check_out_start_date &&
+            !!time_clock_log_check_out_end_date
         ),
-        tap(params =>
+        tap((params) =>
           this.searchForm.patchValue({ ...params, employee_id: null })
         ),
-        tap(query =>
+        tap((query) =>
           this.noveltyFacade.search({ ...this.searchOptions, ...query })
         )
       )
@@ -105,8 +121,14 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   buildForm() {
     this.searchForm = this.formBuilder.group({
       employee: [, [Validators.required, objectIsSelected]],
-      time_clock_log_check_out_start_date: [this.defaultStartAt, [Validators.required]],
-      time_clock_log_check_out_end_date: [this.defaultEndAt, [Validators.required]]
+      time_clock_log_check_out_start_date: [
+        this.defaultStartAt,
+        [Validators.required],
+      ],
+      time_clock_log_check_out_end_date: [
+        this.defaultEndAt,
+        [Validators.required],
+      ],
     });
   }
 
@@ -115,8 +137,8 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
       .get('employee')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.employeesFacade.search({ search: value })),
+        filter((value) => typeof value === 'string' && value !== ''),
+        tap((value) => this.employeesFacade.search({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -134,7 +156,7 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
 
   totalHours(novelties: NoveltyModel[]): number {
     return novelties
-      .map(novelty => novelty.total_time_in_hours)
+      .map((novelty) => novelty.total_time_in_hours)
       .reduce((acc, hours) => acc + hours, 0);
   }
 
@@ -186,21 +208,21 @@ export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
     this.noveltyFacade.search({
       ...this.searchOptions,
       ...formValue,
-      employees: [{id: formValue.employee.id}]
+      employees: [{ id: formValue.employee.id }],
     });
   }
 
   downloadSelectedFilter() {
     this.noveltyFacade.downloadReport({
       ...this.searchForm.value,
-      employee_id: this.searchForm.value.employee.id
+      employee_id: this.searchForm.value.employee.id,
     });
   }
 
   downloadAllOnDateRange() {
     this.noveltyFacade.downloadReport({
       ...this.searchForm.value,
-      employee_id: null
+      employee_id: null,
     });
   }
 }

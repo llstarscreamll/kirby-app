@@ -1,0 +1,31 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Empleado</th>
+            <th *ngFor="let noveltyType of additionNoveltyTypes">{{ noveltyType.code }}</th>
+            <th *ngFor="let noveltyType of subtractNoveltyTypes">{{ noveltyType.code }}</th>
+            <th>Total</th>
+            <th *ngIf="showBalanceButton"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let employee of employees">
+            <td>{{ employee.first_name + ' ' + employee.last_name }}</td>
+            <td *ngFor="let noveltyType of additionNoveltyTypes" class="addition">
+                {{ employee.totalHoursByNoveltyTypeId(noveltyType.id) }}
+            </td>
+            <td *ngFor="let noveltyType of subtractNoveltyTypes" class="subtract">
+                {{ employee.totalHoursByNoveltyTypeId(noveltyType.id) }}
+            </td>
+            <td>{{ employee.noveltyTypesTotalHours() }}</td>
+            <td *ngIf="showBalanceButton">
+                <button [disabled]="employee.noveltyTypesTotalHours() === 0"
+                        (click)="balance.emit(employee)"
+                        mat-icon-button>
+                    <mat-icon>swap_horizontal_circle</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

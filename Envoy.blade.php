@@ -22,7 +22,6 @@ return "echo '\033[32m" .$message. "\033[0m';\n";
 @servers(['local' => '127.0.0.1', 'remote' => $userAndServers])
 
 @story('deploy')
-startDeployment
 setupReleaseDir
 compile
 uploadCompiledFiles
@@ -31,12 +30,6 @@ blessNewRelease
 cleanOldReleases
 finishDeploy
 @endstory
-
-@task('startDeployment', ['on' => 'local'])
-{{ logMessage("🏃  Starting deployment...") }}
-git checkout {{ $branch }}
-git pull origin {{ $branch }}
-@endtask
 
 @task('setupReleaseDir', ['on' => 'remote'])
 {{ logMessage("🌀  Setup release dir...") }}

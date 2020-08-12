@@ -105,22 +105,22 @@ describe('NoveltyTypesEffects', () => {
 
   describe('getNoveltyType$', () => {
     it('should return GetNoveltyTypeOk on success service response', () => {
-      const data = createNoveltyType();
-      const noveltyTYpeId = data.id;
-      const expectedResult = { data: { ...data } };
+      const noveltyType = createNoveltyType();
+      const noveltyTypeId = noveltyType.id;
+      const expectedResult = { data: noveltyType };
 
       spyOn(noveltyTypeService, 'get').and.returnValue(
         cold('a|', { a: expectedResult })
       );
 
       actions = hot('-a-|', {
-        a: new GetNoveltyType(noveltyTYpeId),
+        a: new GetNoveltyType(noveltyTypeId),
       });
 
       expect(effects.getNoveltyType$).toBeObservable(
         hot('-a-|', { a: new GetNoveltyTypeOk(expectedResult.data) })
       );
-      expect(noveltyTypeService.get).toHaveBeenCalledWith(noveltyTYpeId);
+      expect(noveltyTypeService.get).toHaveBeenCalledWith(noveltyTypeId);
     });
 
     it('should return GetNoveltyTypeError on error service response', () => {
@@ -186,10 +186,10 @@ describe('NoveltyTypesEffects', () => {
 
   describe('updateNoveltyType$', () => {
     it('should return UpdateNoveltyTypeOk on success service response', () => {
-      const data = createNoveltyType();
-      const noveltyTYpeId = data.id;
-      delete data.id;
-      const expectedResult = { data: { ...data } };
+      const noveltyType = createNoveltyType();
+      const noveltyTYpeId = noveltyType.id;
+      const expectedResult = { data: { ...noveltyType } };
+      delete noveltyType.id;
 
       spyOn(noveltyTypeService, 'update').and.returnValue(
         cold('a|', { a: expectedResult })
@@ -199,7 +199,7 @@ describe('NoveltyTypesEffects', () => {
       spyOn(router, 'navigate');
 
       actions = hot('-a-|', {
-        a: new UpdateNoveltyType({ id: noveltyTYpeId, data }),
+        a: new UpdateNoveltyType({ id: noveltyTYpeId, data: noveltyType }),
       });
 
       expect(effects.updateNoveltyType$).toBeObservable(
@@ -207,7 +207,7 @@ describe('NoveltyTypesEffects', () => {
       );
       expect(noveltyTypeService.update).toHaveBeenCalledWith(
         noveltyTYpeId,
-        data
+        noveltyType
       );
       expect(snackBar.open).toHaveBeenCalledWith(
         'Tipo de novedad actualizada!',
@@ -258,7 +258,9 @@ describe('NoveltyTypesEffects', () => {
       expect(snackBar.open).toHaveBeenCalledWith(
         'Tipo de novedad movida a la papelera!',
         'Ok',
-        { duration: 5 * 1000 }
+        {
+          duration: 5 * 1000,
+        }
       );
     });
 

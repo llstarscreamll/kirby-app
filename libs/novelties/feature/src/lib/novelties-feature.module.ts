@@ -23,6 +23,8 @@ import { NoveltiesPageComponent } from './novelties-page/novelties-page.componen
 import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.component';
 import { ReportByEmployeePageComponent } from './report-by-employee-page/report-by-employee-page.component';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
+import { ResumeByEmployeesAndNoveltyTypesPageComponent } from './resume-by-employees-and-novelty-types-page/resume-by-employees-and-novelty-types-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -32,6 +34,7 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
     MatMenuModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     MatTooltipModule,
     FlexLayoutModule,
     NoveltiesUiModule,
@@ -61,6 +64,10 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
         component: CreateNoveltiesToEmployeesPageComponent,
       },
       {
+        path: 'resume-by-novelty-type-and-employee',
+        component: ResumeByEmployeesAndNoveltyTypesPageComponent,
+      },
+      {
         path: 'novelty-types',
         loadChildren: () =>
           import('@kirby/novelty-types/feature').then(
@@ -76,6 +83,7 @@ import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-e
     EditNoveltyPageComponent,
     ReportByEmployeePageComponent,
     CreateNoveltiesToEmployeesPageComponent,
+    ResumeByEmployeesAndNoveltyTypesPageComponent,
   ],
 })
 export class NoveltiesFeatureModule {}

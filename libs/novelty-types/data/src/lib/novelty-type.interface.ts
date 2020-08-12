@@ -1,4 +1,5 @@
 import { DayType } from './day-type.enum';
+import { NoveltyModel } from '@kirby/novelties/data';
 import { NoveltyTypeOperator } from './novelty-type-operator.enum';
 
 export interface TimeSlot {
@@ -6,7 +7,7 @@ export interface TimeSlot {
   end: string;
 }
 
-export interface NoveltyTypeInterface {
+export interface INoveltyType {
   id?: string;
   code: string;
   name: string;
@@ -16,6 +17,7 @@ export interface NoveltyTypeInterface {
   operator: NoveltyTypeOperator;
   requires_comment: boolean;
   keep_in_report: boolean;
+  novelties?: NoveltyModel[];
   created_at: string;
   updated_at: string;
   delete_at?: string;

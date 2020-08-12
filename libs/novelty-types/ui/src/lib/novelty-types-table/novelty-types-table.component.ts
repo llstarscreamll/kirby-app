@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import {
-  NoveltyTypeInterface,
+  NoveltyType,
   NoveltyTypeOperator,
 } from '@kirby/novelty-types/data';
 
@@ -19,7 +19,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyTypesTableComponent implements OnInit {
-  @Input() noveltyTypes: NoveltyTypeInterface[] = [];
+  @Input() noveltyTypes: NoveltyType[] = [];
 
   @Output() rowTrashed = new EventEmitter();
 

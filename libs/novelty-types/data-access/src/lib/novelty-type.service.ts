@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Pagination, BaseService } from '@kirby/shared';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data/src';
+import { NoveltyType } from '@kirby/novelty-types/data/src';
 
 @Injectable()
 export class NoveltyTypeService extends BaseService {
@@ -16,30 +16,30 @@ export class NoveltyTypeService extends BaseService {
     super();
   }
 
-  search(query: any = {}): Observable<Pagination<NoveltyTypeInterface>> {
-    return this.httpClient.get<Pagination<NoveltyTypeInterface>>(
+  search(query: any = {}): Observable<Pagination<NoveltyType>> {
+    return this.httpClient.get<Pagination<NoveltyType>>(
       this.endpoint,
       { headers: this.defaultHeaders, params: query }
     );
   }
 
-  get(id: any = {}): Observable<{ data: NoveltyTypeInterface }> {
-    return this.httpClient.get<{ data: NoveltyTypeInterface }>(
+  get(id: any = {}): Observable<{ data: NoveltyType }> {
+    return this.httpClient.get<{ data: NoveltyType }>(
       this.endpoint + id,
       { headers: this.defaultHeaders }
     );
   }
 
-  create(data): Observable<{ data: NoveltyTypeInterface }> {
-    return this.httpClient.post<{ data: NoveltyTypeInterface }>(
+  create(data): Observable<{ data: NoveltyType }> {
+    return this.httpClient.post<{ data: NoveltyType }>(
       this.endpoint,
       data,
       { headers: this.defaultHeaders }
     );
   }
 
-  update(id: string, data: any): Observable<{ data: NoveltyTypeInterface }> {
-    return this.httpClient.put<{ data: NoveltyTypeInterface }>(
+  update(id: string, data: any): Observable<{ data: NoveltyType }> {
+    return this.httpClient.put<{ data: NoveltyType }>(
       this.endpoint + id,
       data,
       { headers: this.defaultHeaders }

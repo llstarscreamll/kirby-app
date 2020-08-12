@@ -3,13 +3,13 @@ import {
   NoveltyTypesActionTypes,
 } from './novelty-types.actions';
 import { Pagination, emptyPagination } from '@kirby/shared';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data/src';
+import { NoveltyType, INoveltyType } from '@kirby/novelty-types/data';
 
 export const NOVELTY_TYPES_FEATURE_KEY = 'noveltyTypes';
 
 export interface NoveltyTypesState {
-  paginatedList: Pagination<NoveltyTypeInterface>;
-  selected?: NoveltyTypeInterface;
+  paginatedList: Pagination<INoveltyType>;
+  selected?: INoveltyType;
   error?: any;
 }
 

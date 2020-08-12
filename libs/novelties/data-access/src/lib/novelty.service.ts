@@ -32,8 +32,24 @@ export class NoveltyService extends BaseService {
     });
   }
 
+  getResume(query: any = {}): Observable<any> {
+    const endpoint =
+      this.env.api + 'api/v1/novelties/resume-by-employee-and-novelty-types';
+    return this.http.get<any>(endpoint, {
+      headers: this.defaultHeaders,
+      params: query,
+    });
+  }
+
   createMany(data: any): Observable<any> {
     const endpoint = this.endpoint + 'create-many';
+    return this.http
+      .post<any>(endpoint, data, { headers: this.defaultHeaders })
+      .pipe(map((response) => response.data));
+  }
+
+  createBalance(data: any): Observable<any> {
+    const endpoint = this.endpoint + 'balance';
     return this.http
       .post<any>(endpoint, data, { headers: this.defaultHeaders })
       .pipe(map((response) => response.data));

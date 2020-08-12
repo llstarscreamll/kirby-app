@@ -14,7 +14,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { LoadStatuses } from '@kirby/shared';
 import { EmployeeInterface } from '@kirby/employees/util';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 @Component({
   selector: 'kirby-create-novelties-to-employees-form',
@@ -28,7 +28,7 @@ export class CreateNoveltiesToEmployeesFormComponent
   public employees: EmployeeInterface[] = [];
 
   @Input()
-  public noveltyTypes: NoveltyTypeInterface;
+  public noveltyTypes: NoveltyType;
 
   @Input()
   public status: LoadStatuses;

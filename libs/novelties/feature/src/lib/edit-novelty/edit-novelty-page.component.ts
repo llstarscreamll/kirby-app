@@ -1,12 +1,7 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 
-import { Pagination } from '@kirby/shared';
-import { NoveltyModel } from '@kirby/novelties/data';
-import { EmployeeInterface } from '@kirby/employees/util';
 import { EmployeesFacade } from '@kirby/employees/data-access';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
 
 @Component({
   selector: 'kirby-edit-novelty-page',
@@ -16,24 +11,20 @@ import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
       kirby-novelty-form {
         display: block;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class EditNoveltyPageComponent implements OnInit, OnDestroy {
-  public novelty$: Observable<NoveltyModel>;
-  public employees$: Observable<Pagination<EmployeeInterface>>;
-  public noveltyTypes$: Observable<Pagination<NoveltyTypeInterface>>;
+  novelty$ = this.noveltiesFacade.selectedNovelty$;
+  employees$ = this.employeesFacade.paginatedEmployees$;
+  noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
 
   constructor(
     private noveltiesFacade: NoveltiesFacade,
     private employeesFacade: EmployeesFacade
   ) {}
 
-  ngOnInit() {
-    this.novelty$ = this.noveltiesFacade.selectedNovelty$;
-    this.employees$ = this.employeesFacade.paginatedEmployees$;
-    this.noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     this.noveltiesFacade.cleanSelected();
@@ -53,7 +44,7 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
 
   /**
    * @todo add tests to this trash functionality
-   * @param novelty 
+   * @param novelty
    */
   onNoveltyTrashed(novelty) {
     this.noveltiesFacade.trash(novelty.id);

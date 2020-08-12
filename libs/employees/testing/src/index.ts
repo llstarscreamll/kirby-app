@@ -3,15 +3,12 @@ import * as faker from 'faker';
 import { createUser } from '@kirby/users/testing';
 import { EmployeeInterface } from '@kirby/employees/util';
 
-export function createEmployee(
-  id?: string,
-  first_name: string = null
-): EmployeeInterface {
+export function createEmployee(id?: string, data = {}): EmployeeInterface {
   const user = createUser(id);
 
-  return {
+  return EmployeeInterface.fromJson({
     id: user.id,
-    first_name: first_name || faker.name.firstName(),
+    first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
     cost_center_id: faker.random.uuid(),
     code: 'E-' + user.id,
@@ -23,6 +20,7 @@ export function createEmployee(
     salary: faker.random.number(),
     user: user,
     created_at: faker.date.past(),
-    updated_at: faker.date.past()
-  };
+    updated_at: faker.date.past(),
+    ...data,
+  });
 }

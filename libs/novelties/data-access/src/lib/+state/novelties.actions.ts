@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { User } from '@kirby/users/util';
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
-import { NoveltyTypeInterface } from '@kirby/novelty-types/data';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 export enum NoveltiesActionTypes {
   SearchNovelties = '[Novelties] search',
@@ -14,6 +14,10 @@ export enum NoveltiesActionTypes {
   CreateNoveltiesToEmployeesOk = '[Novelties] create novelties to employees ok',
   CreateNoveltiesToEmployeesError = '[Novelties] create novelties to employees error',
   ResetCreateNoveltiesToEmployees = '[Novelties] clean create novelties to employees',
+
+  CreateBalanceNovelty = '[Novelties] create balance ',
+  CreateBalanceNoveltyOk = '[Novelties] create balance ok',
+  CreateBalanceNoveltyError = '[Novelties] create balance error',
 
   ApproveNovelty = '[Novelties] approve',
   ApproveNoveltyOk = '[Novelties] approve ok',
@@ -39,6 +43,10 @@ export enum NoveltiesActionTypes {
   DownLoadNoveltiesReportOk = '[Novelties] download report ok',
   DownLoadNoveltiesReportError = '[Novelties] download report error',
 
+  GetResume = '[Novelties] get resume',
+  GetResumeOk = '[Novelties] get resume ok',
+  GetResumeError = '[Novelties] get resume error',
+
   UpdateNovelty = '[Novelties] update',
   UpdateNoveltyOk = '[Novelties] update ok',
   UpdateNoveltyError = '[Novelties] update error',
@@ -52,7 +60,7 @@ export enum NoveltiesActionTypes {
   SearchNoveltyTypesError = '[NoveltyTypes] search error',
 
   CleanSelectedNovelty = '[Novelties] clean selected',
-  CleanApiErrors = '[Novelties] clean api errors'
+  CleanApiErrors = '[Novelties] clean api errors',
 }
 
 export class SearchNovelties implements Action {
@@ -87,6 +95,28 @@ export class CreateNoveltiesToEmployeesError implements Action {
 
 export class ResetCreateNoveltiesToEmployees implements Action {
   readonly type = NoveltiesActionTypes.ResetCreateNoveltiesToEmployees;
+}
+
+export class CreateBalanceNovelty implements Action {
+  readonly type = NoveltiesActionTypes.CreateBalanceNovelty;
+  constructor(
+    public payload: {
+      employee_id: string;
+      start_date: Date;
+      time: number;
+      comment: string;
+    }
+  ) {}
+}
+
+export class CreateBalanceNoveltyOk implements Action {
+  readonly type = NoveltiesActionTypes.CreateBalanceNoveltyOk;
+  constructor(public payload: any) {}
+}
+
+export class CreateBalanceNoveltyError implements Action {
+  readonly type = NoveltiesActionTypes.CreateBalanceNoveltyError;
+  constructor(public payload: any) {}
 }
 
 export class ApproveNovelty implements Action {
@@ -156,7 +186,8 @@ export class DeleteApprovalsByEmployeeAndDateRangeOk implements Action {
 }
 
 export class DeleteApprovalsByEmployeeAndDateRangeError implements Action {
-  readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
+  readonly type =
+    NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
   constructor(
     public payload: {
       employeeId: string;
@@ -166,7 +197,6 @@ export class DeleteApprovalsByEmployeeAndDateRangeError implements Action {
     }
   ) {}
 }
-
 
 export class GetNovelty implements Action {
   readonly type = NoveltiesActionTypes.GetNovelty;
@@ -201,6 +231,21 @@ export class DownLoadNoveltiesReportOk implements Action {
 
 export class DownLoadNoveltiesReportError implements Action {
   readonly type = NoveltiesActionTypes.DownLoadNoveltiesReportError;
+  constructor(public payload: any) {}
+}
+
+export class GetResume implements Action {
+  readonly type = NoveltiesActionTypes.GetResume;
+  constructor(public payload: any) {}
+}
+
+export class GetResumeOk implements Action {
+  readonly type = NoveltiesActionTypes.GetResumeOk;
+  constructor(public payload: Pagination<any>) {}
+}
+
+export class GetResumeError implements Action {
+  readonly type = NoveltiesActionTypes.GetResumeError;
   constructor(public payload: any) {}
 }
 
@@ -241,7 +286,7 @@ export class SearchNoveltyTypes implements Action {
 
 export class SearchNoveltyTypesOk implements Action {
   readonly type = NoveltiesActionTypes.SearchNoveltyTypesOk;
-  constructor(public payload: Pagination<NoveltyTypeInterface>) {}
+  constructor(public payload: Pagination<NoveltyType>) {}
 }
 
 export class SearchNoveltyTypesError implements Action {
@@ -264,6 +309,9 @@ export type NoveltiesAction =
   | CreateNoveltiesToEmployees
   | CreateNoveltiesToEmployeesOk
   | CreateNoveltiesToEmployeesError
+  | CreateBalanceNovelty
+  | CreateBalanceNoveltyOk
+  | CreateBalanceNoveltyError
   | ApproveNovelty
   | ApproveNoveltyOk
   | ApproveNoveltyError
@@ -282,6 +330,9 @@ export type NoveltiesAction =
   | DownLoadNoveltiesReport
   | DownLoadNoveltiesReportOk
   | DownLoadNoveltiesReportError
+  | GetResume
+  | GetResumeOk
+  | GetResumeError
   | UpdateNovelty
   | UpdateNoveltyOk
   | UpdateNoveltyError
@@ -302,6 +353,9 @@ export const fromNoveltiesActions = {
   CreateNoveltiesToEmployees,
   CreateNoveltiesToEmployeesOk,
   CreateNoveltiesToEmployeesError,
+  CreateBalanceNovelty,
+  CreateBalanceNoveltyOk,
+  CreateBalanceNoveltyError,
   ApproveNovelty,
   ApproveNoveltyOk,
   ApproveNoveltyError,
@@ -320,6 +374,9 @@ export const fromNoveltiesActions = {
   DownLoadNoveltiesReport,
   DownLoadNoveltiesReportOk,
   DownLoadNoveltiesReportError,
+  GetResume,
+  GetResumeOk,
+  GetResumeError,
   UpdateNovelty,
   UpdateNoveltyOk,
   UpdateNoveltyError,
@@ -331,5 +388,5 @@ export const fromNoveltiesActions = {
   SearchNoveltyTypesError,
   CleanSelectedNovelty,
   CleanApiErrors,
-  ResetCreateNoveltiesToEmployees
+  ResetCreateNoveltiesToEmployees,
 };

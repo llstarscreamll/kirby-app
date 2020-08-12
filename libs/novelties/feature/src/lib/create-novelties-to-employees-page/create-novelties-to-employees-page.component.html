@@ -5,14 +5,12 @@
 </div>
 
 <div class="card">
-  <kirby-create-novelties-to-employees-form
-    [employees]="(employees$ | async)?.data"
-    [noveltyTypes]="(noveltyTypes$ | async)?.data"
-    [status]="createNoveltiesToEmployeesStatus$ | async"
-    (searchEmployees)="onSearchEmployees($event)"
-    (searchNoveltyTypes)="onSearchNovelties($event)"
-    (submitted)="onSubmit($event)"
-    class="d-block col-md-10"
-  >
+  <kirby-create-novelties-to-employees-form [status]="createStatus$ | async"
+                                            [employees]="(employees$ | async)?.data"
+                                            [noveltyTypes]="(noveltyTypes$ | async)?.data"
+                                            (searchEmployees)="onSearchEmployees($event)"
+                                            (searchNoveltyTypes)="onSearchNovelties($event)"
+                                            (submitted)="onSubmit($event)"
+                                            class="d-block col-md-10">
   </kirby-create-novelties-to-employees-form>
 </div>

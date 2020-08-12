@@ -9,11 +9,12 @@ import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { CostCentersFacade } from '@kirby/cost-centers/data-access/src';
+import { EmployeeInterface } from '@kirby/employees/util/src';
 
 @Component({
   selector: 'kirby-novelties-page',
   templateUrl: './novelties-page.component.html',
-  styleUrls: ['./novelties-page.component.scss']
+  styleUrls: ['./novelties-page.component.scss'],
 })
 export class NoveltiesPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
@@ -28,7 +29,7 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
   public searchQuery = {};
   private searchOptions = {
     orderBy: 'created_at',
-    sortedBy: 'desc'
+    sortedBy: 'desc',
   };
 
   constructor(
@@ -38,10 +39,10 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
     private costCentersFacade: CostCentersFacade
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.user$
       .pipe(
-        tap(user => (this.user = user)),
+        tap((user) => (this.user = user)),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -74,14 +75,8 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
 
   shortName(approver: { first_name: string; last_name: string }) {
     return [
-      approver.first_name
-        .trim()
-        .split(' ')
-        .shift(),
-      approver.last_name
-        .trim()
-        .split(' ')
-        .shift()
+      approver.first_name.trim().split(' ').shift(),
+      approver.last_name.trim().split(' ').shift(),
     ].join(' ');
   }
 
