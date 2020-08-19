@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { takeUntil, filter, tap, debounce } from 'rxjs/internal/operators';
+import { takeUntil, filter, tap, debounce } from 'rxjs/operators';
 
 import { Pagination } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data';

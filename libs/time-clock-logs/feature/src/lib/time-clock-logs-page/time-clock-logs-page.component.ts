@@ -5,7 +5,7 @@ import { Pagination } from '@kirby/shared';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { User } from '@kirby/users/util';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'kirby-time-clock-logs-page',

@@ -8,7 +8,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { timer, Subject } from 'rxjs';
-import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
+import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 
 import { LoadStatuses } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data';

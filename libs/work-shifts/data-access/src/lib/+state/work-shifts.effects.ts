@@ -1,7 +1,7 @@
 import { Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsPartialState } from './work-shifts.reducer';

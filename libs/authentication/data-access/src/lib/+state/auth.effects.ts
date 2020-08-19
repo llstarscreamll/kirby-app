@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
 import { Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { defer } from 'rxjs/internal/observable/defer';
+import { defer } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from '@kirby/shared';

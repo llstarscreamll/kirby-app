@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
-import { map } from 'rxjs/internal/operators/map';
-import { tap } from 'rxjs/internal/operators/tap';
+import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { EmployeesPartialState } from './employees.reducer';
 import {

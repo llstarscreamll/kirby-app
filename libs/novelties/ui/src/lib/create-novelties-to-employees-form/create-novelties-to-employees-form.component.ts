@@ -9,7 +9,7 @@ import {
   EventEmitter,
   OnDestroy
 } from '@angular/core';
-import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
+import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { LoadStatuses } from '@kirby/shared';

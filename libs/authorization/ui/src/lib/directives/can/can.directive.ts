@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { tap } from 'rxjs/internal/operators/tap';
-import { filter } from 'rxjs/internal/operators/filter';
+import { tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import {
   Directive,
   Input,

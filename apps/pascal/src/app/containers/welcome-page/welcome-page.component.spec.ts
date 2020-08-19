@@ -1,8 +1,8 @@
+import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WelcomePageComponent } from './welcome-page.component';
 import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
-import { of } from 'rxjs/internal/observable/of';
 
 describe('WelcomePageComponent', () => {
   let component: WelcomePageComponent;

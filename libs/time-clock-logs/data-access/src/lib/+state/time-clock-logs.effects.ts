@@ -1,7 +1,7 @@
 import { Effect } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import {

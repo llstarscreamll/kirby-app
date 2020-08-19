@@ -1,4 +1,4 @@
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmployeesFacade } from '@kirby/employees/data-access';
