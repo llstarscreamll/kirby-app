@@ -109,8 +109,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/pascal/jest.config.js",
-            "tsConfig": "apps/pascal/tsconfig.spec.json",
-            "setupFile": "apps/pascal/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -164,8 +162,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authentication/data-access/jest.config.js",
-            "tsConfig": "libs/authentication/data-access/tsconfig.spec.json",
-            "setupFile": "libs/authentication/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -197,8 +193,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/jest.config.js",
-            "tsConfig": "libs/shared/tsconfig.spec.json",
-            "setupFile": "libs/shared/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -230,8 +224,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/data-access/jest.config.js",
-            "tsConfig": "libs/work-shifts/data-access/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -263,7 +255,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authentication/utils/jest.config.js",
-            "tsConfig": "libs/authentication/utils/tsconfig.spec.json",
             "runInBand": true,
             "passWithNoTests": true
           }
@@ -295,7 +286,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/util/jest.config.js",
-            "tsConfig": "libs/work-shifts/util/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -327,8 +317,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/feature/jest.config.js",
-            "tsConfig": "libs/work-shifts/feature/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -360,8 +348,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/ui/jest.config.js",
-            "tsConfig": "libs/work-shifts/ui/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -393,8 +379,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/data-access/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/data-access/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -426,7 +410,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/util/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/util/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -457,7 +440,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/users/util/jest.config.js",
-            "tsConfig": "libs/users/util/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -488,8 +470,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/feature/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/feature/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -521,8 +501,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/ui/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/ui/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -554,8 +532,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/data-access/jest.config.js",
-            "tsConfig": "libs/employees/data-access/tsconfig.spec.json",
-            "setupFile": "libs/employees/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -587,8 +563,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/feature/jest.config.js",
-            "tsConfig": "libs/employees/feature/tsconfig.spec.json",
-            "setupFile": "libs/employees/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -620,7 +594,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/util/jest.config.js",
-            "tsConfig": "libs/employees/util/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -652,7 +625,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/data/jest.config.js",
-            "tsConfig": "libs/novelties/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -684,7 +656,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/utils/jest.config.js",
-            "tsConfig": "libs/novelties/utils/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -716,7 +687,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/data/jest.config.js",
-            "tsConfig": "libs/novelty-types/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -748,8 +718,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/feature/jest.config.js",
-            "tsConfig": "libs/novelties/feature/tsconfig.spec.json",
-            "setupFile": "libs/novelties/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -781,8 +749,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/ui/jest.config.js",
-            "tsConfig": "libs/novelties/ui/tsconfig.spec.json",
-            "setupFile": "libs/novelties/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -814,8 +780,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/data-access/jest.config.js",
-            "tsConfig": "libs/novelties/data-access/tsconfig.spec.json",
-            "setupFile": "libs/novelties/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -847,8 +811,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authorization/ui/jest.config.js",
-            "tsConfig": "libs/authorization/ui/tsconfig.spec.json",
-            "setupFile": "libs/authorization/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -880,7 +842,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authorization/data/jest.config.js",
-            "tsConfig": "libs/authorization/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -907,8 +868,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/testing/jest.config.js",
-            "tsConfig": "libs/employees/testing/tsconfig.spec.json",
-            "setupFile": "libs/employees/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -936,8 +895,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/testing/jest.config.js",
-            "tsConfig": "libs/novelties/testing/tsconfig.spec.json",
-            "setupFile": "libs/novelties/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -968,8 +925,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/testing/jest.config.js",
-            "tsConfig": "libs/novelty-types/testing/tsconfig.spec.json",
-            "setupFile": "libs/novelty-types/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1000,8 +955,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/testing/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/testing/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1029,8 +982,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/users/testing/jest.config.js",
-            "tsConfig": "libs/users/testing/tsconfig.spec.json",
-            "setupFile": "libs/users/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1058,8 +1009,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/testing/jest.config.js",
-            "tsConfig": "libs/work-shifts/testing/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1087,8 +1036,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/ui/jest.config.js",
-            "tsConfig": "libs/employees/ui/tsconfig.spec.json",
-            "setupFile": "libs/employees/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1120,7 +1067,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/cost-centers/data/jest.config.js",
-            "tsConfig": "libs/cost-centers/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1150,8 +1096,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/cost-centers/data-access/jest.config.js",
-            "tsConfig": "libs/cost-centers/data-access/tsconfig.spec.json",
-            "setupFile": "libs/cost-centers/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
           }
@@ -1186,9 +1130,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/data-access/jest.config.js",
-            "tsConfig": "libs/novelty-types/data-access/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/novelty-types/data-access/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -1218,9 +1160,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/ui/jest.config.js",
-            "tsConfig": "libs/novelty-types/ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/novelty-types/ui/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -1253,9 +1193,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/feature/jest.config.js",
-            "tsConfig": "libs/novelty-types/feature/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/novelty-types/feature/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
