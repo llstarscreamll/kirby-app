@@ -1,4 +1,4 @@
-import { get, toArray, isObject, isEmpty } from 'lodash';
+import { get, toArray, isObject } from 'lodash-es';
 import { ApiError } from '../interfaces/api-error';
 import { Pagination } from '../interfaces/pagination';
 

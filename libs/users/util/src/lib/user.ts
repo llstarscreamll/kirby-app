@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { Role, Permission } from '@kirby/authorization/data';
 
 export class User {

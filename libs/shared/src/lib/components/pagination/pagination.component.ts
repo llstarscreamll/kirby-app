@@ -6,7 +6,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 @Component({
   selector: 'kirby-pagination',

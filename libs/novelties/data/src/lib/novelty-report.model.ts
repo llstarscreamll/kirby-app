@@ -1,4 +1,4 @@
-import { uniqBy, groupBy, toArray, round } from 'lodash';
+import { uniqBy, groupBy, toArray, round } from 'lodash-es';
 
 import { NoveltyModel } from './novelty.model';
 import { EmployeeInterface } from '@kirby/employees/util';

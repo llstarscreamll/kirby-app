@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';

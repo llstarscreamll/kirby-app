@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { timer } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

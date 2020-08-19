@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { isArray } from 'lodash';
+import { isArray } from 'lodash-es';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
