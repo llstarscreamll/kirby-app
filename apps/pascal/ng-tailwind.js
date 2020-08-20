@@ -19,5 +19,5 @@ module.exports = {
     '.js'
   ],
   extractors: [],
-  content: []
+  content: ['./apps/pascal/scr/**/*.html', './libs/**/*.html']
 }
