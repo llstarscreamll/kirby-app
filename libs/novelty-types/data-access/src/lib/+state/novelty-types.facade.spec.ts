@@ -22,7 +22,7 @@ import {
   TrashNoveltyType,
 } from './novelty-types.actions';
 import { NoveltyTypesEffects } from './novelty-types.effects';
-import { createNoveltyType } from '@kirby/novelty-types/testing/src';
+import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -61,8 +61,8 @@ describe('NoveltyTypesFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(NoveltyTypesFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(NoveltyTypesFacade);
     });
 
     it('paginatedNoveltyTypes$ should return empty paginated list by default', async (done) => {

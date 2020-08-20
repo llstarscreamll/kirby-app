@@ -56,9 +56,9 @@ describe('AuthInterceptor', () => {
       ]
     });
 
-    httpController = TestBed.get(HttpTestingController);
-    fakeService = TestBed.get(FakeService);
-    facade = TestBed.get(AuthFacade);
+    httpController = TestBed.inject(HttpTestingController);
+    fakeService = TestBed.inject(FakeService);
+    facade = TestBed.inject(AuthFacade);
   });
 
   afterEach(() => {

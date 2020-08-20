@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { createNoveltyType } from '@kirby/novelty-types/testing';
-import { NoveltyTypeOperator } from '@kirby/novelty-types/data/src';
+import { NoveltyTypeOperator, NoveltyType } from '@kirby/novelty-types/data';
 import { NoveltyTypesTableComponent } from './novelty-types-table.component';
 
 describe('NoveltyTypesTableComponent', () => {
@@ -63,7 +63,7 @@ describe('NoveltyTypesTableComponent', () => {
     lastNoveltyType.requires_comment = false;
     lastNoveltyType.keep_in_report = false;
 
-    component.noveltyTypes = [firstNoveltyType, lastNoveltyType];
+    component.noveltyTypes = [NoveltyType.fromJson(firstNoveltyType), NoveltyType.fromJson(lastNoveltyType)];
 
     fixture.detectChanges();
 
@@ -117,7 +117,7 @@ describe('NoveltyTypesTableComponent', () => {
   });
 
   it('should emit delete row button click', () => {
-    component.noveltyTypes = [createNoveltyType('AAA')];
+    component.noveltyTypes = [NoveltyType.fromJson(createNoveltyType('AAA'))];
 
     fixture.detectChanges();
 

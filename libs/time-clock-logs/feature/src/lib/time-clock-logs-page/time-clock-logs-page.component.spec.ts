@@ -46,7 +46,7 @@ describe('TimeClockLogsPageComponent', () => {
     fixture = TestBed.createComponent(TimeClockLogsPageComponent);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
-    timeClockFacade = TestBed.get(TimeClockLogsFacade);
+    timeClockFacade = TestBed.inject(TimeClockLogsFacade);
 
     spyOn(timeClockFacade, 'search').and.callThrough();
 

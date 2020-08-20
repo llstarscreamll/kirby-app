@@ -11,7 +11,7 @@ import { sortBy } from 'lodash-es';
 import {
   NoveltyTypeOperator,
   NoveltyType,
-} from '@kirby/novelty-types/data/src';
+} from '@kirby/novelty-types/data';
 import { EmployeeInterface } from '@kirby/employees/util';
 
 @Component({

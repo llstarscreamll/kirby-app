@@ -42,7 +42,7 @@ describe('NoveltiesEffects', () => {
       ]
     });
 
-    effects = TestBed.get(NoveltiesEffects);
+    effects = TestBed.inject(NoveltiesEffects);
   });
 
   it('should be defined', () => {

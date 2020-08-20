@@ -70,8 +70,8 @@ describe('EmployeesFacade', () => {
 
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(EmployeesFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(EmployeesFacade);
     });
 
     it('should be defined', () => {

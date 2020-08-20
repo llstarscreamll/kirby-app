@@ -62,8 +62,8 @@ describe('NoveltiesFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(NoveltiesFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(NoveltiesFacade);
     });
 
     it('should be defined', () => {

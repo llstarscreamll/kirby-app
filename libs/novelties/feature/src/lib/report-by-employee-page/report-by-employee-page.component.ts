@@ -11,8 +11,8 @@ import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { AuthFacade } from '@kirby/authentication-data-access';
-import { User } from '@kirby/users/util/src';
-import { NoveltyReport, NoveltyModel } from '@kirby/novelties/data/src';
+import { User } from '@kirby/users/util';
+import { NoveltyReport, NoveltyModel } from '@kirby/novelties/data';
 
 function objectIsSelected(control) {
   return typeof control.value === 'object' ? null : { objectIsSelected: false };

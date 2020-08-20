@@ -81,8 +81,8 @@ describe('WorkShiftsFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(WorkShiftsFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(WorkShiftsFacade);
 
       spyOn(store, 'dispatch');
     });

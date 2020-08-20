@@ -39,7 +39,7 @@ describe('EditNoveltyTypePageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditNoveltyTypePageComponent);
-    noveltyTypesFacade = TestBed.get(NoveltyTypesFacade);
+    noveltyTypesFacade = TestBed.inject(NoveltyTypesFacade);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
   });

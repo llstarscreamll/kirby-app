@@ -1,20 +1,19 @@
 import {
   NoveltiesState,
-  Entity,
   initialState,
-  noveltiesReducer
+  noveltiesReducer,
 } from './novelties.reducer';
 import { emptyPagination } from '@kirby/shared';
 import { SearchNoveltiesOk } from './novelties.actions';
 
 describe('Novelties Reducer', () => {
-  const getNoveltiesId = it => it['id'];
+  const getNoveltiesId = (it) => it['id'];
   let createNovelties;
 
   beforeEach(() => {
-    createNovelties = (id: string, name = ''): Entity => ({
+    createNovelties = (id: string, name = ''): any => ({
       id,
-      name: name || `name-${id}`
+      name: name || `name-${id}`,
     });
   });
 
@@ -22,7 +21,7 @@ describe('Novelties Reducer', () => {
     it('should return set the list of known Novelties', () => {
       const novelties = {
         ...emptyPagination(),
-        data: [createNovelties('PRODUCT-AAA'), createNovelties('PRODUCT-zzz')]
+        data: [createNovelties('PRODUCT-AAA'), createNovelties('PRODUCT-zzz')],
       };
       const action = new SearchNoveltiesOk(novelties);
       const result: NoveltiesState = noveltiesReducer(initialState, action);

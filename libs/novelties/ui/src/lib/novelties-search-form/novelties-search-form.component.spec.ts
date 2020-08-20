@@ -14,8 +14,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
 
 import { emptyPagination } from '@kirby/shared';
-import { createEmployee } from '@kirby/employees/testing/src';
-import { createNoveltyType } from '@kirby/novelty-types/testing/src';
+import { createEmployee } from '@kirby/employees/testing';
+import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { NoveltiesSearchFormComponent } from './novelties-search-form.component';
 import { MatChipsModule } from '@angular/material/chips';
 import moment from 'moment';

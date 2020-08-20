@@ -63,10 +63,10 @@ describe('AuthEffects', () => {
       ]
     });
 
-    effects = TestBed.get(AuthEffects);
-    authService = TestBed.get(AuthService);
-    router = TestBed.get(Router);
-    localStorageService = TestBed.get(LocalStorageService);
+    effects = TestBed.inject(AuthEffects);
+    authService = TestBed.inject(AuthService);
+    router = TestBed.inject(Router);
+    localStorageService = TestBed.inject(LocalStorageService);
 
     spyOn(router, 'navigate').and.returnValue(true);
     spyOn(localStorageService, 'setItem').and.returnValue(true);

@@ -8,7 +8,7 @@ import moment from 'moment';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { EmployeeInterface } from '@kirby/employees/util/src';
+import { EmployeeInterface } from '@kirby/employees/util';
 
 @Component({
   selector: 'kirby-balance-dialog',

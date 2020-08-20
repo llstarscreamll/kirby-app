@@ -2,7 +2,7 @@ import { uniqBy, groupBy, toArray, round } from 'lodash-es';
 
 import { NoveltyModel } from './novelty.model';
 import { EmployeeInterface } from '@kirby/employees/util';
-import { User } from '@kirby/users/util/src';
+import { User } from '@kirby/users/util';
 
 class ReportRow {
   date: string;

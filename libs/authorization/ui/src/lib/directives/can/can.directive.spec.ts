@@ -47,7 +47,7 @@ describe('CanDirective', () => {
       ]
     }).createComponent(TestComponent);
 
-    authFacade = TestBed.get(AuthFacade);
+    authFacade = TestBed.inject(AuthFacade);
   });
 
   it('should create an instance', () => {

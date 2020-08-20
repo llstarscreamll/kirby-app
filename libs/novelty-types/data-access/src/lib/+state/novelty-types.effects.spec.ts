@@ -64,10 +64,10 @@ describe('NoveltyTypesEffects', () => {
       ],
     });
 
-    router = TestBed.get(Router);
-    snackBar = TestBed.get(MatSnackBar);
-    effects = TestBed.get(NoveltyTypesEffects);
-    noveltyTypeService = TestBed.get(NoveltyTypeService);
+    router = TestBed.inject(Router);
+    snackBar = TestBed.inject(MatSnackBar);
+    effects = TestBed.inject(NoveltyTypesEffects);
+    noveltyTypeService = TestBed.inject(NoveltyTypeService);
   });
 
   describe('paginateNoveltyTypes$', () => {

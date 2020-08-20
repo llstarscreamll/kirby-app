@@ -31,8 +31,8 @@ describe('CostCentersEffects', () => {
       ]
     });
 
-    effects = TestBed.get(CostCentersEffects);
-    costCenterService = TestBed.get(CostCentersService);
+    effects = TestBed.inject(CostCentersEffects);
+    costCenterService = TestBed.inject(CostCentersService);
   });
 
   describe('searchCostCenters$', () => {

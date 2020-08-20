@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
 import { Pagination } from '@kirby/shared';
-import { CostCenter } from '@kirby/cost-centers/data/src';
+import { CostCenter } from '@kirby/cost-centers/data';
 import { BaseAuthService } from '@kirby/authentication/utils';
 
 @Injectable()

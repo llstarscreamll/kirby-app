@@ -18,7 +18,7 @@ describe('NoveltyService', () => {
       ],
     });
 
-    service = TestBed.get(NoveltyService);
+    service = TestBed.inject(NoveltyService);
   });
 
   // afterEach(() => { httpController.verify(); });
