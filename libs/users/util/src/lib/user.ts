@@ -3,13 +3,13 @@ import { Role, Permission } from '@kirby/authorization/data';
 
 export class User {
   id?: string;
-  first_name: string;
-  last_name: string;
-  email: string;
+  first_name: string = '';
+  last_name: string = '';
+  email: string = '';
   password?: string;
   email_verified_at?: string;
-  roles?: Role[];
-  permissions?: Permission[];
+  roles?: Role[] = [];
+  permissions?: Permission[] = [];
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
@@ -19,20 +19,18 @@ export class User {
   }
 
   static fromJsonList(arr: any[]): User[] {
-    return arr.map(data => User.fromJson(data));
+    return arr.map((data) => User.fromJson(data));
   }
 
   can(permissionName: string): boolean {
     return (
-      isEmpty(permissionName) ||
-      (permissionName &&
-        (!!this.roles &&
-          !!this.roles.find(
-            role =>
-              !!role.permissions.find(
-                rolePermission => rolePermission.name === permissionName
-              )
-          )))
+      !isEmpty(permissionName) &&
+      !!this.roles?.find(
+        (role) =>
+          !!role.permissions?.find(
+            (permission) => permission.name === permissionName
+          )
+      )
     );
   }
 }
