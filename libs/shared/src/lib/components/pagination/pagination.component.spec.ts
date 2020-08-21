@@ -12,10 +12,10 @@ describe('PaginationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PaginationComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(PaginationComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       })
       .compileComponents();
   }));
@@ -38,7 +38,7 @@ describe('PaginationComponent', () => {
       from: 1,
       path: 'https://my.api/foo',
       per_page: 10,
-      to: 10
+      to: 10,
     };
 
     fixture.detectChanges();
@@ -57,7 +57,7 @@ describe('PaginationComponent', () => {
       from: 1,
       path: 'https://my.api/foo',
       per_page: 10,
-      to: 2
+      to: 2,
     };
 
     fixture.detectChanges();

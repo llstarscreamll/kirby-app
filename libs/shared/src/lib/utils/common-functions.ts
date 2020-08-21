@@ -5,8 +5,8 @@ import { Pagination } from '../interfaces/pagination';
 /**
  * Maps API errors (mainly validation errors) to flat string array.
  */
-export function flatApiErrors(apiErrors: ApiError): string[] {
-  const errors = [].concat(...toArray(get(apiErrors, 'error.errors')));
+export function flatApiErrors(apiErrors: ApiError|null): string[] {
+  const errors: any[] = [].concat(...toArray(get(apiErrors, 'error.errors')));
 
   return errors.map(error => error?.detail ?? error);
 }
@@ -17,21 +17,21 @@ export function flatApiErrors(apiErrors: ApiError): string[] {
 export function emptyPagination(): Pagination<any> {
   return {
     data: [],
-    links: { first: null, last: null, prev: null, next: null },
+    links: { first: '', last: '', prev: '', next: '' },
     meta: {
-      current_page: null,
-      from: null,
-      path: null,
-      per_page: null,
-      to: null
+      current_page: 0,
+      from: 0,
+      path: '',
+      per_page: 0,
+      to: 0
     }
   };
 }
 
-export function oneLevelFlattenObject(query) {
+export function oneLevelFlattenObject(query: any) {
   let mappedQuery = {};
 
-  const mapObj = (prefix, obj, acc) => {
+  const mapObj = (prefix: string, obj: any, acc: any) => {
     Object.keys(obj).forEach(
       k =>
         (acc = isObject(obj[k])

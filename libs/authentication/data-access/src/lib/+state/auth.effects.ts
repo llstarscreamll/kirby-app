@@ -20,25 +20,22 @@ import {
   SignUp,
   SignUpSuccess,
   SignUpError,
-  CheckIfUserIsAuthenticated
+  CheckIfUserIsAuthenticated,
 } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
   @Effect()
-  signUp$ = this.dataPersistence.pessimisticUpdate(
-    AuthActionTypes.SignUp,
-    {
-      run: (action: SignUp) => {
-        return this.authService
-          .signUp(action.payload)
-          .pipe(map(tokens => new SignUpSuccess(tokens)));
-      },
-      onError: (action: SignUp, error) => {
-        return new SignUpError(error);
-      }
-    }
-  );
+  signUp$ = this.dataPersistence.pessimisticUpdate(AuthActionTypes.SignUp, {
+    run: (action: SignUp) => {
+      return this.authService
+        .signUp(action.payload)
+        .pipe(map((tokens) => new SignUpSuccess(tokens)));
+    },
+    onError: (action: SignUp, error) => {
+      return new SignUpError(error);
+    },
+  });
 
   @Effect()
   signUpSuccess$ = this.dataPersistence.actions.pipe(
@@ -53,11 +50,11 @@ export class AuthEffects {
       run: (action: LoginWithCredentials) => {
         return this.authService
           .loginWithCredentials(action.payload)
-          .pipe(map(tokens => new LoginSuccess(tokens)));
+          .pipe(map((tokens) => new LoginSuccess(tokens)));
       },
       onError: (action: LoginWithCredentials, error) => {
         return new LoginError(error);
-      }
+      },
     }
   );
 
@@ -69,40 +66,36 @@ export class AuthEffects {
     ),
     switchMap((action: LoginSuccess) =>
       this.authService.getAuthUser().pipe(
-        map(user => new GetAuthUserSuccess(user)),
-        tap(user => this.router.navigate(['/welcome']))
+        map((user) => new GetAuthUserSuccess(user)),
+        tap((user) => this.router.navigate(['/welcome']))
       )
     )
   );
 
   @Effect({ dispatch: false })
-  getUserSuccess$ = this.dataPersistence.optimisticUpdate(
+  getUserSuccess$ = this.dataPersistence.pessimisticUpdate(
     AuthActionTypes.GetAuthUserSuccess,
     {
       run: (action: GetAuthUserSuccess, state: AuthPartialState) => {
         return this.localStorage.setItem(AUTH_FEATURE_KEY, {
           ...state[AUTH_FEATURE_KEY],
-          user: action.payload
+          user: action.payload,
         });
       },
-      undoAction: (action: GetAuthUserSuccess, state: AuthPartialState) => {
-        return null;
-      }
+
+      onError: () => [],
     }
   );
 
   @Effect()
-  logout$ = this.dataPersistence.optimisticUpdate(
-    AuthActionTypes.Logout,
-    {
-      run: (action: Logout, state: AuthPartialState) => {
-        return this.authService.logout().pipe(map(() => new LogoutSuccess()));
-      },
-      undoAction: (action: Logout, state: AuthPartialState) => {
-        return new LogoutSuccess();
-      }
-    }
-  );
+  logout$ = this.dataPersistence.optimisticUpdate(AuthActionTypes.Logout, {
+    run: (action: Logout, state: AuthPartialState) => {
+      return this.authService.logout().pipe(map(() => new LogoutSuccess()));
+    },
+    undoAction: (action: Logout, state: AuthPartialState) => {
+      return new LogoutSuccess();
+    },
+  });
 
   @Effect({ dispatch: false })
   logoutSuccess$ = this.dataPersistence.actions.pipe(
@@ -117,18 +110,13 @@ export class AuthEffects {
     {
       run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
         // check user is authentication on server only if auth tokens exists
-        return state[AUTH_FEATURE_KEY].tokens
-          ? this.authService
-              .getAuthUser()
-              .pipe(map(user => new GetAuthUserSuccess(user)))
-          : null;
+        return this.authService
+          .getAuthUser()
+          .pipe(map((user) => new GetAuthUserSuccess(user)));
       },
-      undoAction: (
-        action: CheckIfUserIsAuthenticated,
-        state: AuthPartialState
-      ) => {
+      undoAction: (_: CheckIfUserIsAuthenticated) => {
         return new LogoutSuccess();
-      }
+      },
     }
   );
 

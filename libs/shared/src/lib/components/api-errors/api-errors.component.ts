@@ -7,16 +7,15 @@ import { flatApiErrors } from '../../utils/common-functions';
 @Component({
   selector: 'kirby-api-errors',
   templateUrl: './api-errors.component.html',
-  styleUrls: ['./api-errors.component.scss']
+  styleUrls: ['./api-errors.component.scss'],
 })
 export class ApiErrorsComponent implements OnInit {
-
   @Input()
-  public apiError: ApiError;
+  public apiError: ApiError | null = null;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   get topLevelErrorText(): string {
     return get(this.apiError, 'message', 'Unknown Error');
@@ -33,5 +32,4 @@ export class ApiErrorsComponent implements OnInit {
   get errors(): string[] {
     return flatApiErrors(this.apiError);
   }
-
 }

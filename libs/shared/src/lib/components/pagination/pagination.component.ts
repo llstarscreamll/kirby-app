@@ -4,9 +4,10 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { get } from 'lodash-es';
+import { emptyPagination } from '../../utils/common-functions';
 
 @Component({
   selector: 'kirby-pagination',
@@ -29,19 +30,11 @@ import { get } from 'lodash-es';
     </button>
   `,
   styles: [``],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent implements OnInit {
   @Input()
-  public pagination: {
-    current_page: number;
-    from: number;
-    path: string;
-    per_page: number;
-    to: number;
-    last_page?: number;
-    total?: number;
-  };
+  public pagination = emptyPagination().meta;
 
   @Output()
   paginate = new EventEmitter();
@@ -55,11 +48,11 @@ export class PaginationComponent implements OnInit {
   }
 
   get disablePrev(): boolean {
-    return !this.pagination || this.currentPage === 1;
+    return !this.pagination || this.currentPage <= 1;
   }
 
   get disabledNext(): boolean {
-    return !this.pagination || this.pagination.to < this.pagination.per_page;
+    return ! this.pagination?.to || this.pagination.to < this.pagination.per_page;
   }
 
   clickPrev() {

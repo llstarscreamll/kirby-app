@@ -6,7 +6,7 @@ export interface AuthState {
   user: any;
   tokens: any;
   tokens_received_at: Date | null;
-  status: 'loggingIn' | 'loggedIn' | 'loginFailed' | 'loginError' | 'loggingOut' | 'signingIn' | 'signInError';
+  status: 'loggingIn' | 'loggedIn' | 'loginFailed' | 'loginError' | 'loggingOut' | 'signingIn' | 'signInError' | null;
   errors?: any;
 };
 

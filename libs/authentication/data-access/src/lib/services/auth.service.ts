@@ -16,7 +16,7 @@ export class AuthService extends BaseAuthService {
 
   constructor(
     @Inject('environment')
-    private env,
+    private env: any,
     private http: HttpClient
   ) { super(); }
 
@@ -24,7 +24,7 @@ export class AuthService extends BaseAuthService {
     return this.http.post<AuthTokens>(this.signUpEndpoint, newAccount, { headers: this.defaultHeaders });
   }
 
-  loginWithCredentials(credentials): Observable<AuthTokens> {
+  loginWithCredentials(credentials: any): Observable<AuthTokens> {
     return this.http.post<AuthTokens>(this.loginEndpoint, credentials, { headers: this.defaultHeaders });
   }
 
