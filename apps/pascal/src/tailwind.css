@@ -1,10 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-body {
-  margin: 0;
-}
-
 .responsive-table {
   display: block;
   width: 100%;

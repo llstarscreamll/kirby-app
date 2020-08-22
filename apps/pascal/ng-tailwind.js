@@ -13,11 +13,12 @@ module.exports = {
   whitelist: [],
   whitelistPatterns: [],
   whitelistPatternsChildren: [],
-  extensions: [
-    '.ts',
-    '.html',
-    '.js'
-  ],
+  extensions: ['.ts', '.html', '.js'],
   extractors: [],
-  content: ['./apps/pascal/scr/**/*.html', './libs/**/*.html']
-}
+  content: [
+    './apps/pascal/src/app/components/**/*.html',
+    './apps/pascal/src/app/containers/**/*.html',
+    './apps/pascal/src/app/layouts/**/*.html',
+    './libs/**/**/src/lib/**/*.html',
+  ],
+};
