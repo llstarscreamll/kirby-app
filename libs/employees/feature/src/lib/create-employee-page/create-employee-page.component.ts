@@ -10,9 +10,10 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
   styleUrls: ['./create-employee-page.component.scss'],
 })
 export class CreateEmployeePageComponent implements OnInit {
-  public creatingStatus$ = this.employeesFacade.creatingStatus$;
-  public costCenters$ = this.costCentersFacade.paginatedList$;
-  public workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
+  creatingStatus$ = this.employeesFacade.creatingStatus$;
+  errors$ = this.employeesFacade.errors$;
+  costCenters$ = this.costCentersFacade.paginatedList$;
+  workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
 
   constructor(
     private employeesFacade: EmployeesFacade,

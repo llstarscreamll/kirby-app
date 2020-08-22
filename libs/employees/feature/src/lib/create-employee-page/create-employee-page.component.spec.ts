@@ -57,5 +57,6 @@ describe('CreateEmployeePageComponent', () => {
     fixture.detectChanges();
 
     expect(html.querySelector('kirby-employee-form')).toBeTruthy();
+    expect(html.querySelector('kirby-api-errors')).toBeTruthy();
   });
 });

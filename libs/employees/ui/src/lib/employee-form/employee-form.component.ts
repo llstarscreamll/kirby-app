@@ -5,7 +5,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { timer, Subject } from 'rxjs';
 import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   selector: 'kirby-employee-form',
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   @Input()
@@ -63,10 +63,11 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       position: [null, [Validators.required]],
       location: [null, [Validators.required]],
       address: [null, [Validators.required]],
-      phone: [null, [Validators.required]],
+      phone_prefix: ['+57', [Validators.required]],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
       salary: [null, [Validators.required]],
       work_shifts: [[], [Validators.required]],
-      identifications: this.buildIdentificationsArray()
+      identifications: this.buildIdentificationsArray(),
     });
   }
 
@@ -78,7 +79,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   private buildIdentificationsArray() {
     return this.formBuilder.array(
       this.employee
-        ? this.employee.identifications.map(_ =>
+        ? this.employee.identifications.map((_) =>
             this.buildIdentificationsFormGroup()
           )
         : [this.buildIdentificationsFormGroup()]
@@ -88,7 +89,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   private buildIdentificationsFormGroup() {
     return this.formBuilder.group({
       name: [null, [Validators.required]],
-      code: [null, [Validators.required]]
+      code: [null, [Validators.required]],
     });
   }
 
@@ -103,8 +104,8 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       .get('cost_center')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.searchCostCenters.emit({ search: value })),
+        filter((value) => typeof value === 'string' && value !== ''),
+        tap((value) => this.searchCostCenters.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();

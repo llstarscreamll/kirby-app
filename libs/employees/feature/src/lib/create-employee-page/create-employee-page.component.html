@@ -1,5 +1,7 @@
 <h1>Crear empleado</h1>
 
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
 <div class="card">
     <kirby-employee-form
                          [workShifts]="workShifts$ | async"

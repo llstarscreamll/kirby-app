@@ -8,18 +8,19 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 @Component({
   selector: 'kirby-edit-employee-page',
   templateUrl: './edit-employee-page.component.html',
-  styleUrls: ['./edit-employee-page.component.scss']
+  styleUrls: ['./edit-employee-page.component.scss'],
 })
 export class EditEmployeePageComponent implements OnInit, OnDestroy {
-  private employeeId: string;
-
   employee$ = this.employeesFacade.selectedEmployee$.pipe(
-    tap(employee => (employee ? (this.employeeId = employee.id) : null))
+    tap((employee) => (employee ? (this.employeeId = employee.id) : null))
   );
-  public costCenters$ = this.costCentersFacade.paginatedList$;
-  public workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
-  public updatingStatus$ = this.employeesFacade.updatingStatus$;
-  public selectingStatus$ = this.employeesFacade.selectingStatus$;
+  errors$ = this.employeesFacade.errors$;
+  costCenters$ = this.costCentersFacade.paginatedList$;
+  workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
+  updatingStatus$ = this.employeesFacade.updatingStatus$;
+  selectingStatus$ = this.employeesFacade.selectingStatus$;
+
+  private employeeId: string;
 
   constructor(
     private employeesFacade: EmployeesFacade,

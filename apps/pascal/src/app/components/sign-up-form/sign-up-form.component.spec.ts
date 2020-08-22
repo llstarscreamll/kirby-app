@@ -14,15 +14,18 @@ describe('SignUpFormComponent', () => {
   let submitBtn: HTMLButtonElement;
   let firstNameInput: HTMLInputElement;
   let lastNameInput: HTMLInputElement;
+  let phoneInput: HTMLInputElement;
   let emailInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
   let passwordConfirmationInput: HTMLInputElement;
-  const newAccount: NewAccount = {
+  const newAccount = {
     first_name: 'Tony',
     last_name: 'Stark',
+    phone_prefix: '57',
+    phone_number: '3219876543',
     email: 'tony@stark.com',
     password: 'tony.123',
-    password_confirmation: 'tony.123'
+    password_confirmation: 'tony.123',
   };
 
   beforeEach(async(() => {
@@ -30,7 +33,7 @@ describe('SignUpFormComponent', () => {
       imports: [ReactiveFormsModule, NoopAnimationsModule],
       declarations: [SignUpFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [...TESTING_PROVIDERS]
+      providers: [...TESTING_PROVIDERS],
     }).compileComponents();
   }));
 
@@ -40,8 +43,15 @@ describe('SignUpFormComponent', () => {
 
     html = fixture.nativeElement;
     submitBtn = html.querySelector('form button[type=submit]');
-    firstNameInput = html.querySelector('form input[formControlName="first_name"]');
-    lastNameInput = html.querySelector('form input[formControlName="last_name"]');
+    firstNameInput = html.querySelector(
+      'form input[formControlName="first_name"]'
+    );
+    lastNameInput = html.querySelector(
+      'form input[formControlName="last_name"]'
+    );
+    phoneInput = html.querySelector(
+      'form input[formControlName="phone_number"]'
+    );
     emailInput = html.querySelector('form input[formControlName="email"]');
     passwordInput = html.querySelector(
       'form input[formControlName="password"]'
@@ -60,6 +70,7 @@ describe('SignUpFormComponent', () => {
   it('should have certain form elements', () => {
     expect(firstNameInput).toBeTruthy();
     expect(lastNameInput).toBeTruthy();
+    expect(phoneInput).toBeTruthy();
     expect(emailInput).toBeTruthy();
     expect(passwordInput).toBeTruthy();
     expect(passwordConfirmationInput).toBeTruthy();
@@ -102,7 +113,10 @@ describe('SignUpFormComponent', () => {
     submitBtn.click();
     fixture.detectChanges();
 
-    expect(component.submitted.emit).toHaveBeenCalledWith(newAccount);
+    expect(component.submitted.emit).toHaveBeenCalledWith({
+      ...newAccount,
+      phone_number: `+${newAccount.phone_prefix}${newAccount.phone_number}`,
+    });
   });
 
   it('should use kirby-api-errors component in template', () => {
@@ -111,8 +125,8 @@ describe('SignUpFormComponent', () => {
       ok: false,
       error: {
         message: 'Wrong data!!',
-        errors: { email: ['email is invalid'] }
-      }
+        errors: { email: ['email is invalid'] },
+      },
     };
 
     fixture.detectChanges();

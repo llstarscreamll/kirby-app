@@ -1,5 +1,7 @@
 <h1>Editar empleado</h1>
 
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
 <div class="card">
   <kirby-employee-form
     *ngIf="employee$ | async"

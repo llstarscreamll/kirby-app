@@ -159,11 +159,12 @@ describe('EmployeeFormComponent', () => {
     expect(removeButton.disabled).toBe(true);
   });
 
-  it('should emit form value con form submit button click', () => {
+  it('should emit form value on form submit button click', () => {
     fixture.detectChanges();
 
     const employee = {
       ...createEmployee('A1'),
+      phone: '3201234567',
       cost_center: { id: 'CC1', name: 'Cost Center 1' },
       work_shifts: [{ id: 'WS1', name: 'Work Shift 1' }],
       identifications: [{ name: 'PIN', code: '123456ABC' }]

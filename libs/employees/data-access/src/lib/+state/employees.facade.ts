@@ -6,7 +6,7 @@ import {
   GetEmployee,
   GetEmployeeOk,
   UpdateEmployee,
-  CreateEmployee
+  CreateEmployee,
 } from './employees.actions';
 import { employeesQuery } from './employees.selectors';
 import { EmployeesPartialState } from './employees.reducer';
@@ -23,6 +23,7 @@ export class EmployeesFacade {
     select(employeesQuery.getSelectedEmployee)
   );
 
+  errors$ = this.store.pipe(select(employeesQuery.getError));
   selectingStatus$ = this.store.pipe(select(employeesQuery.getSelectingStatus));
   updatingStatus$ = this.store.pipe(select(employeesQuery.getUpdatingStatus));
   creatingStatus$ = this.store.pipe(select(employeesQuery.getCreatingStatus));
