@@ -47,7 +47,7 @@ echo "{{ $newReleaseName }}" > release-name.txt
 @task('compile', ['on' => 'local'])
 {{ logMessage("🚚  Compile project...") }}
 echo $PWD
-ngtw build --purge && ng build --prod --project={{ $project }} --configuration={{ $configuration }}
+ngtw build --purge -c apps/{{ $project }}/ng-tailwind.js && ng build --prod --project={{ $project }} --configuration={{ $configuration }}
 @endtask
 
 @task('uploadCompiledFiles', ['on' => 'local'])

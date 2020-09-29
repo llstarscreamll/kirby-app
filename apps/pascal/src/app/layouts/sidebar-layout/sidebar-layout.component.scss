@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
 .main-top-bar {
   position: sticky;
   top: 0;
@@ -31,5 +36,9 @@
         padding-right: 25px;
       }
     }
+  }
+
+  mat-sidenav-content {
+    padding-bottom: 20px;
   }
 }

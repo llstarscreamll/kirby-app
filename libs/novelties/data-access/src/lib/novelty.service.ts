@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
-import { BaseService, oneLevelFlattenObject } from '@kirby/shared';
+import { BaseService, flatToOneLevelNestedObjectObject } from '@kirby/shared';
 
 @Injectable()
 export class NoveltyService extends BaseService {
@@ -20,7 +20,7 @@ export class NoveltyService extends BaseService {
   search(query: any = {}): Observable<any> {
     return this.http.get<any>(this.endpoint, {
       headers: this.defaultHeaders,
-      params: oneLevelFlattenObject(query),
+      params: flatToOneLevelNestedObjectObject(query),
     });
   }
 

@@ -72,7 +72,10 @@
       "@kirby/novelty-types/ui": ["libs/novelty-types/ui/src/index.ts"],
       "@kirby/novelty-types/feature": [
         "libs/novelty-types/feature/src/index.ts"
-      ]
+      ],
+      "@kirby/products/data": ["libs/products/data/src/index.ts"],
+      "@kirby/products/data-access": ["libs/products/data-access/src/index.ts"],
+      "@kirby/products/testing": ["libs/products/testing/src/index.ts"]
     },
     "rootDir": "."
   },

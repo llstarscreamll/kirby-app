@@ -135,6 +135,15 @@
     "shop-e2e": {
       "tags": ["scope:pascal", "type:e2e", "platform:web"],
       "implicitDependencies": ["shop"]
+    },
+    "products-data": {
+      "tags": ["data"]
+    },
+    "products-data-access": {
+      "tags": ["data-access"]
+    },
+    "products-testing": {
+      "tags": ["testing"]
     }
   },
   "affected": {

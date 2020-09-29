@@ -1,0 +1,45 @@
+<ng-container *ngIf="product">
+    <div class="flex align-top bg-white rounded border border-gray-200 py-2">
+        <img [src]="product.sm_image_url" class="image w-24 h-24 object-cover flex-initial">
+
+        <div class="flex-1 ml-2">
+            <div class="inline name text-sm font-medium">
+                {{ product.sizedName(55) }}
+            </div>
+            <div class="inline text-xs font-light lowercase text-gray-600">
+                (<span class="quantity">{{ product.quantity }}</span><span class="unity">{{ product.unity }}</span>)
+            </div>
+            <div class="pum text-xs font-thin lowercase text-gray-500">
+                ${{ product.pum_price }}*{{ product.pum_unity }}
+            </div>
+            <div class="flex mt-3 mr-2">
+                <div class="price inline text-base font-medium pt-2">${{ product.price | number }}</div>
+                <div class="flex-grow"></div>
+                <div class="action-buttons">
+                    <!-- Add product to shopping cart -->
+                    <button *ngIf="! shoppingCart?.isProductAlreadyAdded(product)"
+                            (click)="emitAddProduct()"
+                            type="button"
+                            class="add inline py-1 px-3 text-sm text-gray-500 bg-gray-100 border border-gray-300 rounded">
+                        Añadir
+                    </button>
+
+                    <ng-container *ngIf="shoppingCart?.isProductAlreadyAdded(product)">
+                        <!-- Rest one product quantity from shopping cart -->
+                        <button (click)="emitRemoveProduct()" type="button"
+                                class="remove inline h-8 w-8 text-gray-500 font-normal bg-gray-100 border border-gray-500 rounded-full">
+                            <i class="fas fa-minus"></i>
+                        </button>
+
+                        <!-- Add one more product quantity to shopping cart -->
+                        <button (click)="emitAddProduct()" type="button"
+                                class="add-more inline h-8 w-8 text-gray-500 font-normal bg-gray-100 border border-gray-500 rounded-full">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </ng-container>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-container>

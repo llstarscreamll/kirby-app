@@ -1322,6 +1322,96 @@
           }
         }
       }
+    },
+    "products-data": {
+      "root": "libs/products/data",
+      "sourceRoot": "libs/products/data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/products/data/tsconfig.lib.json",
+              "libs/products/data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/products/data/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/products/data/jest.config.js",
+            "tsConfig": "libs/products/data/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "products-data-access": {
+      "projectType": "library",
+      "root": "libs/products/data-access",
+      "sourceRoot": "libs/products/data-access/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "tsConfig": [
+              "libs/products/data-access/tsconfig.lib.json",
+              "libs/products/data-access/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/products/data-access/**/*"
+            ],
+            "linter": "eslint"
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/products/data-access/jest.config.js",
+            "tsConfig": "libs/products/data-access/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/products/data-access/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "products-testing": {
+      "root": "libs/products/testing",
+      "sourceRoot": "libs/products/testing/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/products/testing/tsconfig.lib.json",
+              "libs/products/testing/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/products/testing/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/products/testing/jest.config.js",
+            "tsConfig": "libs/products/testing/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -1345,7 +1435,8 @@
       "strict": true
     },
     "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "strict": true
     }
   },
   "defaultProject": "shop"

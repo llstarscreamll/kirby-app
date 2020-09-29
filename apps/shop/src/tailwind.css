@@ -2,5 +2,58 @@
 @tailwind components;
 
 /* write custom css stuff here */
+html,
+body {
+  @apply m-0 w-full h-full bg-gray-100;
+}
+
+body {
+  @apply font-sans text-gray-700;
+}
+
+shop-root {
+  @apply m-0 w-full h-full block;
+}
+
+a {
+  @apply underline text-yellow-600;
+}
+
+.form-control {
+  @apply mb-4;
+}
+
+.form-control label {
+  @apply inline-block mb-1 text-gray-700;
+}
+
+.form-control input:not([type='checkbox']):not([type='radio']) {
+  @apply h-10 w-full block border-2 border-gray-300 rounded p-2 text-sm text-gray-700 leading-tight;
+}
+
+.form-control input:not([type='checkbox']):not([type='radio']):focus {
+  @apply border-teal-500;
+}
+
+.form-control
+  input:not([type='checkbox']):not([type='radio']).ng-invalid.ng-touched {
+  @apply border-red-400;
+}
+
+.form-control input[type='checkbox'] {
+  @apply h-4 w-4 mr-3 mt-3 text-lg;
+}
+
+.form-control input[type='checkbox'].ng-invalid.ng-touched {
+  @apply shadow-xs;
+}
+
+.btn {
+  @apply py-3 px-5 my-3 rounded border text-white font-medium;
+}
+
+.btn:disabled {
+  @apply border-gray-300 bg-gray-300 cursor-not-allowed;
+}
 
 @tailwind utilities;
