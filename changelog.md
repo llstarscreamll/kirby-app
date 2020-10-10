@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.4.2 (2020-10-10)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4.2..v0.4.1)
+
+### Fixed
+
+- TimeClock: change entry/exit input form type from password to text due to estrange behavior with browser passwords.
+
 ## [v0.4.1 (2020-08-11)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4.1..v0.4)
 
 ### Fixed
