@@ -38,6 +38,9 @@ export class WorkShiftsFacade {
   deletingStatus$ = this.store.pipe(
     select(workShiftsQuery.deletingStatus)
   );
+  error$ = this.store.pipe(
+    select(workShiftsQuery.getError)
+  );
 
   constructor(private store: Store<WorkShiftsPartialState>) {}
 

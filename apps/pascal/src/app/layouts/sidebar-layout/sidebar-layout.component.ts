@@ -36,11 +36,17 @@ export class SidebarLayoutComponent implements OnInit {
       can: 'time-clock-logs.search'
     },
     {
+      icon: 'alarm',
+      link: ['/work-shifts'],
+      label: 'Turnos',
+      can: 'work-shift.search'
+    },
+    {
       icon: 'feedback',
       link: ['/novelties'],
       label: 'Novedades',
       can: 'novelties.search'
-    }
+    },
   ];
 
   public mediaQueryList: MediaQueryList;

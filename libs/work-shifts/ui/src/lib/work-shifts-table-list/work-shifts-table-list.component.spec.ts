@@ -62,11 +62,5 @@ describe('WorkShiftsTableListComponent', () => {
     expect(
       template.querySelector(`${tableRow} td:nth-child(8)`).textContent
     ).toContain(itemsList[0].min_minutes_required_to_discount_meal_time);
-    expect(
-      template.querySelector(`${tableRow} td:nth-child(9)`).textContent
-    ).toBeTruthy();
-    expect(
-      template.querySelector(`${tableRow} td:nth-child(10)`).textContent
-    ).toBeTruthy();
   });
 });

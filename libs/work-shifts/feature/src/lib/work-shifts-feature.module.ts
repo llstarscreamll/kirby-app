@@ -1,24 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { WorkShiftsUiModule } from '@kirby/work-shifts/ui';
 import { WorkShiftsDataAccessModule } from '@kirby/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page/list-work-shifts-page.component';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-work-shift-page.component';
 import { UpdateWorkShiftPageComponent } from './update-work-shift-page/update-work-shift-page.component';
+import { SharedModule } from '@kirby/shared';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     MatIconModule,
     MatButtonModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: ListWorkShiftsPageComponent },
-      { path: 'create', pathMatch: 'full', component: CreateWorkShiftPageComponent },
-      { path: ':id/update', pathMatch: 'full', component: UpdateWorkShiftPageComponent },
+      {
+        path: 'create',
+        pathMatch: 'full',
+        component: CreateWorkShiftPageComponent,
+      },
+      {
+        path: ':id/update',
+        pathMatch: 'full',
+        component: UpdateWorkShiftPageComponent,
+      },
     ]),
     WorkShiftsUiModule,
     WorkShiftsDataAccessModule,
@@ -27,6 +37,6 @@ import { UpdateWorkShiftPageComponent } from './update-work-shift-page/update-wo
     ListWorkShiftsPageComponent,
     CreateWorkShiftPageComponent,
     UpdateWorkShiftPageComponent,
-  ]
+  ],
 })
-export class WorkShiftsFeatureModule { }
+export class WorkShiftsFeatureModule {}

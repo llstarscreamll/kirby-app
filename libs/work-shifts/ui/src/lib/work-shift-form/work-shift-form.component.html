@@ -1,49 +1,77 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col-xs-12 col-sm-10 col-md-10 col-lg-9">
 
   <mat-form-field class="w-full">
-    <input matInput formControlName="name" placeholder="Nombre">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name">
   </mat-form-field>
 
   <div class="clearfix"></div>
 
   <mat-form-field class="w-50 pr-2">
-    <input matInput formControlName="start_time" placeholder="Hora de entrada">
+    <mat-label>Minutos de gracia antes de entrada</mat-label>
+    <input matInput formControlName="grace_minutes_before_start_times" type="number" min="0">
   </mat-form-field>
 
-  <mat-form-field class="w-50 pl-2">
-    <input matInput formControlName="grace_minutes_for_start_time" placeholder="Minutos de gracia para entrada"
-           type="number">
+  <mat-form-field class="w-50 pr-2">
+    <mat-label>Minutos de gracia después de entrada</mat-label>
+    <input matInput formControlName="grace_minutes_after_start_times" type="number" min="0">
   </mat-form-field>
 
   <div class="clearfix"></div>
 
   <mat-form-field class="w-50 pr-2">
-    <input matInput formControlName="end_time" placeholder="Hora de salida">
+    <mat-label>Minutos de gracia antes de salida</mat-label>
+    <input matInput formControlName="grace_minutes_before_end_times" type="number" min="0">
   </mat-form-field>
 
-  <mat-form-field class="w-50 pl-2">
-    <input matInput formControlName="grace_minutes_for_end_time" placeholder="Minutos de gracia para salida"
-           type="number">
+  <mat-form-field class="w-50 pr-2">
+    <mat-label>Minutos de gracia después de salida</mat-label>
+    <input matInput formControlName="grace_minutes_after_end_times" type="number" min="0">
   </mat-form-field>
 
   <div class="clearfix"></div>
 
   <mat-form-field class="w-50 pr-2">
-    <input matInput formControlName="meal_start_time" placeholder="Hora de almuerzo">
+    <mat-label>Tiempo de almuerzo (minutos)</mat-label>
+    <input matInput formControlName="meal_time_in_minutes" type="number" min="0">
   </mat-form-field>
 
-  <mat-form-field class="w-50 pl-2">
-    <input matInput formControlName="meal_time_in_minutes" placeholder="Tiempo de almuerzo (min)" type="number">
-  </mat-form-field>
-
-  <div class="clearfix"></div>
-
-  <mat-form-field class="w-full">
-    <input matInput formControlName="min_minutes_required_to_discount_meal_time"
-           placeholder="Tiempo mínimo transcurrido para descontar almuerzo (min)" type="number">
+  <mat-form-field class="w-50 pr-2">
+    <mat-label>Tiempo mínimo para descontar tiempo de almuerzo</mat-label>
+    <input matInput formControlName="min_minutes_required_to_discount_meal_time" type="number" min="0">
   </mat-form-field>
 
   <div class="clearfix"></div>
+
+  <div class="mb-4">
+    <div class="mb-2">Días en que aplica:</div>
+    <ng-container *ngFor="let day of weekDays">
+      <mat-checkbox [value]="day.id" class="mr-4" color="primary" [checked]="weekDayIsSelected(day.id)"
+                    (change)="toggleSelectedDay($event)">{{ day.name }}
+      </mat-checkbox>
+    </ng-container>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="time-slots-container my-2">
+    <div class="mb-2">Franjas horarias:</div>
+
+    <div class="time-slots" formArrayName="time_slots">
+      <ng-container *ngFor="let timeSlot of timeSlotArrayForm.controls" [formGroup]="timeSlot">
+        <mat-form-field class="w-50 pr-2">
+          <mat-label>Inicio</mat-label>
+          <input matInput formControlName="start" type="text">
+          <mat-hint align="end">mm:hh</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="w-50">
+          <mat-label>Fin</mat-label>
+          <input matInput formControlName="end" type="text">
+          <mat-hint align="end">mm:hh</mat-hint>
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </div>
 
   <button [disabled]="shouldDisableBtn" type="submit" mat-raised-button color="primary">Guardar</button>
 

@@ -1,4 +1,4 @@
-import { Effect } from '@ngrx/effects';
+import { Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
 import { map } from 'rxjs/internal/operators/map';
@@ -23,6 +23,8 @@ import {
   GetWorkShiftOk,
   GetWorkShiftError
 } from './work-shifts.actions';
+import { tap } from 'rxjs/internal/operators/tap';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class WorkShiftsEffects {
@@ -54,6 +56,12 @@ export class WorkShiftsEffects {
         return new CreateWorkShiftError(error);
       }
     }
+  );
+
+  @Effect({dispatch: false})
+  createWorkShiftOk = this.dataPersistence.actions.pipe(
+    ofType(WorkShiftsActionTypes.CreateWorkShiftOk),
+    tap(_ => this.router.navigateByUrl('work-shifts'))
   );
 
   @Effect()
@@ -102,6 +110,7 @@ export class WorkShiftsEffects {
   );
 
   constructor(
+    private router: Router,
     private workShiftService: WorkShiftService,
     private dataPersistence: DataPersistence<WorkShiftsPartialState>
   ) {}
