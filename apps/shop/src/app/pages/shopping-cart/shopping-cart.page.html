@@ -1,20 +1,37 @@
-<div class="mb-16">
-    <h1 class="text-center text-2xl mb-4">Carrito de compras</h1>
+<div class="mb-16 relative">
+    <div class="title">
+        <a routerLink="/" class="absolute left-0 text-2xl text-gray-700"><i class="fas fa-chevron-left"></i></a>
+        <h1 class="text-center text-2xl font-semibold mb-4">Carrito de compras</h1>
+    </div>
 
-    <div *ngFor="let product of (shoppingCart$ | async)?.products" class="products my-3">
-        <shop-product [product]="product" [shoppingCart]="shoppingCart$ | async" (add)="addProduct($event)"
+    <div *ngIf="(shoppingCart$ | async)?.products.length > 0" class="products my-3">
+        <shop-product *ngFor="let cartItem of (shoppingCart$ | async)?.products"
+                      [product]="cartItem.product"
+                      [shoppingCart]="shoppingCart$ | async"
+                      (add)="addProduct($event)"
                       (remove)="removeProduct($event)">
         </shop-product>
     </div>
 
+    <div *ngIf="(shoppingCart$ | async)?.products.length < 1" class="empty-cart my-8 text-center">
+        <i class="fas fa-exclamation-circle text-4xl text-red-500"></i>
+        <p class="my-4 text-lg font-semibold text-red-500">¡Tu carrito está vacío!</p>
+    </div>
+
     <div class="text-center py-4">
-        <a [routerLink]="['/welcome']" class="text-sm font-light">Seguir comprando</a>
+        <a routerLink="/" class="text-sm font-light">Seguir comprando</a>
     </div>
 
     <div class="fixed left-0 bottom-0 w-full text-center text-sm font-light pb-2">
-        <a routerLink="/payment-and-shipping"
+        <a *ngIf="(userIsLoggedIn$ | async) && (shoppingCart$ | async)?.products.length > 0"
+           routerLink="/payment-and-shipping"
            class="block w-10/12 mx-auto py-4 bg-teal-500 text-lg text-white font-medium rounded shadow-lg no-underline">
             Pago y envío
+        </a>
+
+        <a *ngIf="!(userIsLoggedIn$ | async)" routerLink="/sign-in"
+           class="block w-10/12 mx-auto py-4 bg-teal-500 text-lg text-white font-medium rounded shadow-lg no-underline">
+            Inicia sesión para comprar
         </a>
     </div>
 </div>

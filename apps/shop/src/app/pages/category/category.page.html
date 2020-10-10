@@ -1,0 +1,16 @@
+<div class="header">
+    <shop-main-header [shoppingCart]="shoppingCart$ | async"></shop-main-header>
+</div>
+
+
+<h1 class="my-5 text-xl">{{ (category$ | async)?.name }}</h1>
+
+<div class="products">
+    <div *ngFor="let product of (products$ | async)?.data" class="products my-3">
+        <shop-product [product]="product"
+                      [shoppingCart]="shoppingCart$ | async"
+                      (add)="addProduct($event)"
+                      (remove)="removeProduct($event)">
+        </shop-product>
+    </div>
+</div>

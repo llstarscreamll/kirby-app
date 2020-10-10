@@ -13,6 +13,7 @@ export class CategoriesFacade {
     select(CategoriesSelectors.getCategoriesLoaded)
   );
   paginated$ = this.store.pipe(select(CategoriesSelectors.getPaginated));
+  selected$ = this.store.pipe(select(CategoriesSelectors.getSelected));
   selectedCategories$ = this.store.pipe(
     select(CategoriesSelectors.getSelected)
   );
@@ -21,5 +22,9 @@ export class CategoriesFacade {
 
   search({ query }: { query: QuerySearch }) {
     this.store.dispatch(actions.searchCategories({ query }));
+  }
+
+  getBySlug(slug: string, query: any = {}) {
+    this.store.dispatch(actions.getCategoryBySlug({ slug, query }));
   }
 }

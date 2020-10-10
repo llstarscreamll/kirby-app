@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { ShopFacade } from '../../+state/shop.facade';
 
 import { OrderVerifyPage } from './order-verify.page';
 
@@ -8,9 +10,14 @@ describe('OrderVerifyPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderVerifyPage ]
-    })
-    .compileComponents();
+      declarations: [OrderVerifyPage],
+      providers: [
+        {
+          provide: ShopFacade,
+          useValue: { shoppingCart$: of({ products: [] }) },
+        },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

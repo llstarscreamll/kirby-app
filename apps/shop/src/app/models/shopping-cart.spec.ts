@@ -16,7 +16,9 @@ describe('ShoppingCart', () => {
 
     it('should return true if product is added and has quantity > 0', () => {
       const shoppingCart = ShoppingCart.fromJson({
-        products: [ShoppingCartProduct.fromJson({ ...pencil, quantity: 1 })],
+        products: [
+          ShoppingCartProduct.fromJson({ product: pencil, requested_quantity: 1 }),
+        ],
       });
 
       expect(shoppingCart.isProductAlreadyAdded(pencil)).toBe(true);
@@ -24,7 +26,9 @@ describe('ShoppingCart', () => {
 
     it('should return false if product is added and has quantity < 1', () => {
       const shoppingCart = ShoppingCart.fromJson({
-        products: [ShoppingCartProduct.fromJson({ ...pencil, quantity: 0 })],
+        products: [
+          ShoppingCartProduct.fromJson({ product: pencil, requested_quantity: 0 }),
+        ],
       });
 
       expect(shoppingCart.isProductAlreadyAdded(pencil)).toBe(false);
@@ -39,28 +43,30 @@ describe('ShoppingCart', () => {
 
     shoppingCart.addProduct(pencil);
     expect(shoppingCart.products.length).toBe(1);
-    expect(shoppingCart.products[0].id).toBe(pencil.id);
-    expect(shoppingCart.products[0].quantity).toBe(2);
-    
+    expect(shoppingCart.products[0].product.id).toBe(pencil.id);
+    expect(shoppingCart.products[0].requested_quantity).toBe(2);
+
     shoppingCart.addProduct(pencil);
     shoppingCart.addProduct(pencil);
-    expect(shoppingCart.products[0].id).toBe(pencil.id);
-    expect(shoppingCart.products[0].quantity).toBe(4);
-    
+    expect(shoppingCart.products[0].product.id).toBe(pencil.id);
+    expect(shoppingCart.products[0].requested_quantity).toBe(4);
+
     shoppingCart.addProduct(book);
-    expect(shoppingCart.products[0].id).toBe(pencil.id);
-    expect(shoppingCart.products[1].id).toBe(book.id);
-    expect(shoppingCart.products[1].quantity).toBe(1);
+    expect(shoppingCart.products[0].product.id).toBe(pencil.id);
+    expect(shoppingCart.products[1].product.id).toBe(book.id);
+    expect(shoppingCart.products[1].requested_quantity).toBe(1);
   });
 
   it('should remove products from shopping cart', () => {
     const shoppingCart = ShoppingCart.fromJson({
-      products: [ShoppingCartProduct.fromJson({ ...pencil, requested_qty: 2 })],
+      products: [
+        ShoppingCartProduct.fromJson({ product: pencil, requested_quantity: 2 }),
+      ],
     });
 
     shoppingCart.removeProduct(pencil);
     expect(shoppingCart.products.length).toBe(1);
-    expect(shoppingCart.products[0].quantity).toBe(1);
+    expect(shoppingCart.products[0].requested_quantity).toBe(1);
 
     shoppingCart.removeProduct(pencil);
     expect(shoppingCart.products.length).toBe(0);
@@ -72,7 +78,10 @@ describe('ShoppingCart', () => {
 
   it('should return total products added', () => {
     const shoppingCart = ShoppingCart.fromJson({
-      products: [{ ...pencil, requested_qty: 2 }, {...book, requested_qty: 6}],
+      products: [
+        { product: pencil, requested_quantity: 2 },
+        { product: book, requested_quantity: 6 },
+      ],
     });
 
     expect(shoppingCart.totalProducts()).toEqual(8);

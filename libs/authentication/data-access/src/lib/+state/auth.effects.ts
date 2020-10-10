@@ -21,6 +21,7 @@ import {
   SignUpSuccess,
   SignUpError,
   CheckIfUserIsAuthenticated,
+  SetUnauthenticated,
 } from './auth.actions';
 
 @Injectable()
@@ -115,7 +116,8 @@ export class AuthEffects {
           .pipe(map((user) => new GetAuthUserSuccess(user)));
       },
       undoAction: (_: CheckIfUserIsAuthenticated) => {
-        return new LogoutSuccess();
+        this.localStorage.removeItem(AUTH_FEATURE_KEY);
+        return new SetUnauthenticated();
       },
     }
   );

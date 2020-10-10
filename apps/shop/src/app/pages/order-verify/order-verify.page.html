@@ -1,1 +1,72 @@
-<h1>Verificar Pedido</h1>
+<div class="mb-16 relative">
+    <div class="title">
+        <a routerLink="/payment-and-shipping" class="absolute left-0 text-2xl text-gray-700"><i
+               class="fas fa-chevron-left"></i></a>
+        <h1 class="text-center text-2xl font-semibold mb-4">
+            Verificar pedido
+        </h1>
+    </div>
+
+    <div class="products-summary rounded overflow-hidden">
+        <div class="products" *ngFor="let cartItem of (shoppingCart$ | async)?.products">
+            <div class="product-container flex items-start my-3">
+                <div class="product-info w-9/12 pr-2 inline-block text-sm">
+                    <div>
+                        {{ cartItem.product.sizedName(35) }}
+                    </div>
+                    <div class="text-xs text-gray-400">
+                        (<span class="quantity">{{ cartItem.product.quantity }}</span><span
+                              class="unity">{{ cartItem.product.unity }}</span>)
+                        <span>x{{ cartItem.requested_quantity }}</span>
+                    </div>
+                </div>
+                <div class="product-total h-full w-3/12 inline-block text-sm text-right">
+                    ${{ cartItem.product.price * cartItem.requested_quantity | number }}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="shipping-price my-2 text-sm">
+            <div class="w-8/12 pr-2 inline-block">Envío</div>
+            <div class="w-4/12 pr-2 inline-block text-right">${{ (shoppingCart$ | async)?.shipping?.price | number }}
+            </div>
+        </div>
+        <hr>
+        <div class="total my-3 font-semibold text-sm">
+            <div class="w-8/12 pr-2 inline-block uppercase">Total</div>
+            <div class="w-4/12 pr-2 inline-block text-right">${{ (shoppingCart$ | async)?.grandTotal() | number }}</div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="payment-method text-right my-3">
+        {{ (shoppingCart$ | async)?.payment_method?.display_name }}
+    </div>
+
+    <hr>
+
+    <div class="shipping my-3">
+        <div class="font-semibold">Sogamoso - Boyacá</div>
+        <div>
+            {{ (shoppingCart$ | async)?.shipping?.address_street_type }}
+            {{ (shoppingCart$ | async)?.shipping?.address_line_1 }} #
+            {{ (shoppingCart$ | async)?.shipping?.address_line_2 }} -
+            {{ (shoppingCart$ | async)?.shipping?.address_line_3 }}
+            <br>
+            {{ (shoppingCart$ | async)?.shipping?.address_additional_info }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="fixed left-0 bottom-0 w-full text-center text-sm font-light pb-2">
+        <button type="button"
+                (click)="placeOrder()"
+                [disabled]="placingOrder"
+                [ngClass]="{'bg-teal-500': !placingOrder, 'bg-gray-400': placingOrder}"
+                class="block w-10/12 mx-auto py-4 text-lg text-white font-medium rounded shadow-lg no-underline">
+            Realizar pedido
+        </button>
+    </div>
+</div>

@@ -10,6 +10,7 @@ import { ProductsEffects } from './+state/products.effects';
 import * as fromCategories from './+state/categories.reducer';
 import { CategoriesFacade } from './+state/categories.facade';
 import { CategoriesEffects } from './+state/categories.effects';
+import { ProductsService } from './products.service';
 
 @NgModule({
   imports: [
@@ -25,6 +26,6 @@ import { CategoriesEffects } from './+state/categories.effects';
     ),
     EffectsModule.forFeature([ProductsEffects]),
   ],
-  providers: [CategoriesFacade, ProductsFacade, CategoriesService],
+  providers: [CategoriesFacade, ProductsFacade, CategoriesService, ProductsService],
 })
 export class ProductsDataAccessModule {}

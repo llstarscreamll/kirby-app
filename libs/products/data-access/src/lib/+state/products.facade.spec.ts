@@ -66,7 +66,7 @@ describe('ProductsFacade', () => {
      */
     it('loadAll() should return empty list with loaded == true', async (done) => {
       try {
-        let list = await readFirst(facade.allProducts$);
+        let list = await readFirst(facade.paginatedProducts$);
         let isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(0);
@@ -74,7 +74,7 @@ describe('ProductsFacade', () => {
 
         facade.dispatch(ProductsActions.loadProducts());
 
-        list = await readFirst(facade.allProducts$);
+        list = await readFirst(facade.paginatedProducts$);
         isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(0);
@@ -91,7 +91,7 @@ describe('ProductsFacade', () => {
      */
     it('allProducts$ should return the loaded list; and loaded flag == true', async (done) => {
       try {
-        let list = await readFirst(facade.allProducts$);
+        let list = await readFirst(facade.paginatedProducts$);
         let isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(0);
@@ -106,7 +106,7 @@ describe('ProductsFacade', () => {
           })
         );
 
-        list = await readFirst(facade.allProducts$);
+        list = await readFirst(facade.paginatedProducts$);
         isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(2);

@@ -10,10 +10,10 @@
                 (<span class="quantity">{{ product.quantity }}</span><span class="unity">{{ product.unity }}</span>)
             </div>
             <div class="pum text-xs font-thin lowercase text-gray-500">
-                ${{ product.pum_price }}*{{ product.pum_unity }}
+                {{ product.pum_price | currency }}*{{ product.pum_unity }}
             </div>
             <div class="flex mt-3 mr-2">
-                <div class="price inline text-base font-medium pt-2">${{ product.price | number }}</div>
+                <div class="price inline text-base font-medium pt-2">{{ product.price | currency }}</div>
                 <div class="flex-grow"></div>
                 <div class="action-buttons">
                     <!-- Add product to shopping cart -->

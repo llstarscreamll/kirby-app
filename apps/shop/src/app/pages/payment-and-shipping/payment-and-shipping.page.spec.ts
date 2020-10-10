@@ -1,5 +1,8 @@
+import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ShopFacade } from '../../+state/shop.facade';
 import { PaymentAndShippingPage } from './payment-and-shipping.page';
 
 describe('PaymentAndShippingPage', () => {
@@ -8,9 +11,19 @@ describe('PaymentAndShippingPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaymentAndShippingPage ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule],
+      declarations: [PaymentAndShippingPage],
+      providers: [
+        {
+          provide: ShopFacade,
+          useValue: { setAddress: () => true, setPaymentMethod: () => true },
+        },
+        {
+          provide: Router,
+          useValue: { navigateByUrl: () => true },
+        },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

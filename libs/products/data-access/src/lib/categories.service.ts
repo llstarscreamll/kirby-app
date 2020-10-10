@@ -9,7 +9,7 @@ import {
   Pagination,
   deserializeJsonApi,
 } from '@kirby/shared';
-import { ICategory } from '@kirby/products/data/src';
+import { ICategory } from '@kirby/products/data';
 
 @Injectable()
 export class CategoriesService extends BaseService {
@@ -28,6 +28,15 @@ export class CategoriesService extends BaseService {
       .get<Pagination<ICategory>>(this.baseUrl, {
         headers: this.defaultHeaders,
         params: flatToOneLevelObject(query),
+      })
+      .pipe(map(deserializeJsonApi));
+  }
+
+  getBySlug(slug: string, query: any = {}) {
+    return this.http
+      .get<Pagination<ICategory>>(`${this.baseUrl}${slug}`, {
+        headers: this.defaultHeaders,
+        params: { ...query, by_slug: '1' },
       })
       .pipe(map(deserializeJsonApi));
   }

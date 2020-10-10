@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IProduct } from '@kirby/products/data';
 import { ShopFacade } from '../../+state/shop.facade';
 
 @Component({
@@ -10,8 +9,14 @@ import { ShopFacade } from '../../+state/shop.facade';
 })
 export class OrderVerifyPage implements OnInit {
   shoppingCart$ = this.shopFacade.shoppingCart$;
+  placingOrder = false;
 
   constructor(private shopFacade: ShopFacade) {}
 
   ngOnInit(): void {}
+
+  placeOrder() {
+    this.placingOrder = true;
+    this.shopFacade.placeOrder();
+  }
 }

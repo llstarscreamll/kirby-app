@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthFacade } from '@kirby/authentication-data-access';
 
 import { IProduct } from '@kirby/products/data';
 import { ShopFacade } from '../../+state/shop.facade';
@@ -10,8 +11,9 @@ import { ShopFacade } from '../../+state/shop.facade';
 })
 export class ShoppingCartPage implements OnInit {
   shoppingCart$ = this.shopFacade.shoppingCart$;
+  userIsLoggedIn$ = this.authFacade.isLoggedIn$;
 
-  constructor(private shopFacade: ShopFacade) {}
+  constructor(private shopFacade: ShopFacade, private authFacade: AuthFacade) {}
 
   ngOnInit(): void {}
 

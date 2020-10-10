@@ -1,0 +1,17 @@
+<div class="flex text-gray-700">
+    <div class="menu text-xl">
+        <a routerLink="/" class="text-gray-700"><i class="fas fa-store"></i></a>
+    </div>
+
+    <div class="flex-grow"></div>
+
+    <div class="shopping-cart text-xl">
+        <a [routerLink]="['/shopping-cart']" class="text-gray-700">
+            <i class="fas fa-shopping-cart"></i>
+            <span
+                  class="total-products h-5 w-5 rounded-full absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white text-center leading-5">
+                {{ shoppingCart?.totalProducts() }}
+            </span>
+        </a>
+    </div>
+</div>

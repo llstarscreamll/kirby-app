@@ -4,6 +4,7 @@ export interface ICategory {
   id: string;
   name: string;
   slug: string;
+  image_url: string;
   position: number;
   active?: boolean;
   firstTenProducts?: IProduct[];
@@ -15,6 +16,7 @@ export class Category implements ICategory {
   id = '';
   name = '';
   slug = '';
+  image_url = '';
   position = 0;
   active = undefined;
   firstTenProducts = [];

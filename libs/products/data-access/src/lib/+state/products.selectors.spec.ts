@@ -33,7 +33,7 @@ describe('Products Selectors', () => {
 
   describe('Products Selectors', () => {
     it('getAllProducts() should return the list of Products', () => {
-      const results = ProductsSelectors.getAllProducts(state);
+      const results = ProductsSelectors.getPaginated(state);
       const selId = getProductsId(results[1]);
 
       expect(results.length).toBe(3);

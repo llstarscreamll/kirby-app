@@ -6,9 +6,17 @@ export interface AuthState {
   user: any;
   tokens: any;
   tokens_received_at: Date | null;
-  status: 'loggingIn' | 'loggedIn' | 'loginFailed' | 'loginError' | 'loggingOut' | 'signingIn' | 'signInError' | null;
+  status:
+    | 'loggingIn'
+    | 'loggedIn'
+    | 'loginFailed'
+    | 'loginError'
+    | 'loggingOut'
+    | 'signingIn'
+    | 'signInError'
+    | null;
   errors?: any;
-};
+}
 
 export interface AuthPartialState {
   readonly [AUTH_FEATURE_KEY]: AuthState;
@@ -23,8 +31,8 @@ export const initialState: AuthState = {
 
 export function authReducer(
   state: AuthState = initialState,
-  action: AuthAction): AuthState {
-
+  action: AuthAction
+): AuthState {
   switch (action.type) {
     case AuthActionTypes.LoginWithCredentials: {
       state = { ...state, errors: null, status: 'loggingIn' };
@@ -32,7 +40,12 @@ export function authReducer(
     }
 
     case AuthActionTypes.LoginSuccess: {
-      state = { ...state, tokens: action.payload, status: 'loggedIn', tokens_received_at: new Date() };
+      state = {
+        ...state,
+        tokens: action.payload,
+        status: 'loggedIn',
+        tokens_received_at: new Date(),
+      };
       break;
     }
 
@@ -51,7 +64,7 @@ export function authReducer(
       break;
     }
 
-    case AuthActionTypes.LogoutSuccess: {
+    case AuthActionTypes.LogoutSuccess || AuthActionTypes.SetUnauthenticated: {
       state = initialState;
       break;
     }

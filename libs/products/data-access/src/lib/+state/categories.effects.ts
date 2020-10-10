@@ -27,6 +27,28 @@ export class CategoriesEffects {
     })
   );
 
+  getCategoryBySlug$ = createEffect(() =>
+    this.dataPersistence.fetch(actions.getCategoryBySlug, {
+      run: (action: ReturnType<typeof actions.getCategoryBySlug>) => {
+        return this.categoriesService
+          .getBySlug(action.slug, action.query)
+          .pipe(
+            map((response) =>
+              actions.getCategoryBySlugOk({ category: response.data })
+            )
+          );
+      },
+
+      onError: (
+        action: ReturnType<typeof actions.getCategoryBySlug>,
+        error
+      ) => {
+        console.error('Error', error);
+        return null;
+      },
+    })
+  );
+
   constructor(
     private actions$: Actions,
     private categoriesService: CategoriesService,

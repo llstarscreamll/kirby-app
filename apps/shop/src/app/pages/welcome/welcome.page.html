@@ -1,25 +1,10 @@
-<div class="header flex text-gray-700">
-    <div class="menu text-xl">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <div class="flex-grow"></div>
-
-    <div class="shopping-cart text-xl">
-        <a [routerLink]="['/shopping-cart']" class="text-gray-700">
-            <i class="fas fa-shopping-cart"></i>
-            <span
-                  class="total-products h-5 w-5 rounded-full absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white text-center leading-5">
-                {{ (shoppingCart$ | async)?.totalProducts() }}
-            </span>
-        </a>
-    </div>
-
+<div class="header">
+    <shop-main-header [shoppingCart]="shoppingCart$ | async"></shop-main-header>
 </div>
 
 <section class="search my-4">
-    <input type="search" placeholder="Buscar productos, categorías o marcas"
-           class="border-2 border-gray-200 rounded bg-gray-100 w-full px-4 py-2 text-gray-600 text-sm focus:border-teal-500">
+    <input type="search" placeholder="Buscar productos"
+           class="border-2 border-gray-200 rounded bg-white w-full px-4 py-2 text-gray-600 text-sm focus:border-teal-500">
 </section>
 
 <section class="categories my-4">
@@ -27,9 +12,13 @@
 
     <div class="categories-list w-full overflow-auto p-2">
         <div *ngFor="let category of (categories$ | async)?.data"
-             class="relative inline-block border rounded border-gray-500 bg-gray-400 h-24 w-40 mr-5">
+             class="relative inline-block overflow-hidden border rounded border-gray-500 bg-gray-400 h-24 w-40 mr-5">
+            <img *ngIf="category.image_url !== ''" [src]="category.image_url" [alt]="category.name"
+                 class="object-cover">
             <div class="absolute inset-x-0 bottom-0 text-white font-medium text-sm text-center p-2">
-                {{ category.name }}
+                <a [routerLink]="[category.slug, 'c']" class="no-underline text-white shadow">
+                    {{ category.name }}
+                </a>
             </div>
         </div>
     </div>

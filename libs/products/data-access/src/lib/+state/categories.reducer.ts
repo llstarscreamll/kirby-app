@@ -42,6 +42,10 @@ const categoriesReducer = createReducer(
   on(CategoriesActions.searchCategoriesFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(CategoriesActions.getCategoryBySlugOk, (state, { category }) => ({
+    ...state,
+    selected: category,
   }))
 );
 

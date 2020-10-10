@@ -8,7 +8,7 @@ describe('Shop Reducer', () => {
 
   describe('valid Shop actions', () => {
     it('should return set shopping cart data', () => {
-      const product = { ...createProduct('P1'), quantity: 2 };
+      const product = { product: createProduct('P1'), requested_quantity: 2 };
       const shoppingCart = { products: [product] };
       const action = ShopActions.setShoppingCart({ shoppingCart });
 

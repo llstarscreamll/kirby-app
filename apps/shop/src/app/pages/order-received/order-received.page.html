@@ -1,0 +1,18 @@
+<div *ngIf="hasOrderCreated$ | async" class="py-10">
+    
+    <div class="icon mt-10 text-center">
+        <i class="fas fa-check-circle font-bold text-green-600"></i>
+    </div>
+    
+    <p class="mt-12 text-center text-4xl">¡Hemos recibido tu pedido!</p>
+    <p class="mt-8 text-center text-xl text-gray-600">Te llamaremos para confirmar la compra.</p>
+    <p class="mt-8 text-center">
+        <a routerLink="/" class="text-xl">Seguir comprando</a>
+    </p>
+    
+</div>
+
+<div *ngIf="! (hasOrderCreated$ | async)" class="py-20 text-center">
+    <p class="my-10 text-4xl">¿Qué haces aquí?</p>
+    <a routerLink="/" class="my-5 text-2xl font-bold">Ve a la tienda...</a>
+</div>
