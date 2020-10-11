@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +13,7 @@ import { WorkShiftsTableListComponent } from './work-shifts-table-list/work-shif
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,

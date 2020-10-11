@@ -8,7 +8,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let item of items">
-      <td>{{ item.name }}</td>
+      <td>
+        <a [routerLink]="['/work-shifts', item.id, 'edit']">
+          {{ item.name }}
+        </a>
+      </td>
       <td>
         <div *ngFor="let timeSlot of item.time_slots">
           {{ timeSlot.start }} - {{ timeSlot.end }}

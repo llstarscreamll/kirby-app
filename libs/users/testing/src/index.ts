@@ -9,22 +9,19 @@ export const USER_MOCK = {
   email_verified_at: '1999-01-01 02:00:00',
   created_at: '1999-01-01 01:00:00',
   updated_at: '1999-01-01 01:00:00',
-  deleted_at: null
+  deleted_at: null,
 };
 
-export function createUser(
-  id?: string,
-  firstName: string = null,
-  lastName: string = null
-): User {
+export function createUser(id?: string, overrides: any = {}): User {
   const date = faker.date.past();
   return User.fromJson({
     id: id || faker.random.uuid(),
-    first_name: firstName || faker.random.word(),
-    last_name: lastName || faker.random.word(),
+    first_name: faker.random.word(),
+    last_name: faker.random.word(),
     email: faker.email,
     email_verified_at: date,
     created_at: date,
-    updated_at: date
+    updated_at: date,
+    ...overrides,
   });
 }

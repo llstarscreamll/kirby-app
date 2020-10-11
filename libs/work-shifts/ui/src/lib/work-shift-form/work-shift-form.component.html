@@ -43,11 +43,12 @@
 
   <div class="clearfix"></div>
 
-  <div class="mb-4">
+  <div class="apply_on_days mb-4">
     <div class="mb-2">Días en que aplica:</div>
     <ng-container *ngFor="let day of weekDays">
-      <mat-checkbox [value]="day.id" class="mr-4" color="primary" [checked]="weekDayIsSelected(day.id)"
-                    (change)="toggleSelectedDay($event)">{{ day.name }}
+      <mat-checkbox [value]="day.id" [checked]="weekDayIsSelected(day.id)"
+                    [disabled]="disable"
+                    (change)="toggleSelectedDay($event)" class="mr-4">{{ day.name }}
       </mat-checkbox>
     </ng-container>
   </div>
@@ -58,21 +59,22 @@
     <div class="mb-2">Franjas horarias:</div>
 
     <div class="time-slots" formArrayName="time_slots">
-      <ng-container *ngFor="let timeSlot of timeSlotArrayForm.controls" [formGroup]="timeSlot">
+      <div *ngFor="let timeSlot of timeSlotArrayForm.controls" [formGroup]="timeSlot">
         <mat-form-field class="w-50 pr-2">
           <mat-label>Inicio</mat-label>
           <input matInput formControlName="start" type="text">
           <mat-hint align="end">mm:hh</mat-hint>
         </mat-form-field>
+
         <mat-form-field class="w-50">
           <mat-label>Fin</mat-label>
           <input matInput formControlName="end" type="text">
           <mat-hint align="end">mm:hh</mat-hint>
         </mat-form-field>
-      </ng-container>
+      </div>
     </div>
   </div>
 
-  <button [disabled]="shouldDisableBtn" type="submit" mat-raised-button color="primary">Guardar</button>
+  <button [disabled]="shouldDisableBtn || disable" type="submit" mat-raised-button color="primary">Guardar</button>
 
 </form>

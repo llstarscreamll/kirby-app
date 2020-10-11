@@ -43,6 +43,19 @@ export class WorkShiftFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buildForm();
+
+    if (this.defaults) {
+      this.form.patchValue(this.defaults);
+      this.timeSlotArrayForm.setValue(this.defaults.time_slots);
+    }
+
+    if (this.disable) {
+      this.form.disable();
+    }
+  }
+
+  private buildForm() {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       grace_minutes_before_start_times: [15, [Validators.required]],
@@ -53,26 +66,26 @@ export class WorkShiftFormComponent implements OnInit {
       min_minutes_required_to_discount_meal_time: [0, [Validators.required]],
       applies_on_days: [[1, 2, 3, 4, 5], [Validators.required]],
       time_zone: ['America/Bogota', [Validators.required]],
-      time_slots: this.formBuilder.array([this.timeSlotFormGroup()]),
+      time_slots: this.formBuilder.array(this.timeSlotsFormArray()),
     });
+  }
 
-    if (this.defaults) {
-      this.form.patchValue(this.defaults);
-    }
+  private timeSlotsFormArray() {
+    return this.defaultTimeSlots().map((item) => this.timeSlotFormGroup(item));
+  }
 
-    if (this.disable) {
-      this.form.disable();
-    }
+  private defaultTimeSlots(): any[] {
+    return this.defaults?.time_slots || [{ start: '07:00', end: '17:00' }];
   }
 
   get timeSlotArrayForm() {
     return this.form.get('time_slots') as FormArray;
   }
 
-  private timeSlotFormGroup() {
+  private timeSlotFormGroup({ start, end }) {
     return this.formBuilder.group({
-      start: ['07:00', [Validators.required, Validators.min(5)]],
-      end: ['17:00', [Validators.required, Validators.min(5)]],
+      start: [start, [Validators.required, Validators.min(5)]],
+      end: [end, [Validators.required, Validators.min(5)]],
     });
   }
 
@@ -85,9 +98,7 @@ export class WorkShiftFormComponent implements OnInit {
   toggleSelectedDay(event: MatCheckboxChange) {
     const day = Number(event.source.value);
     const selectedDays: number[] = this.form.get('applies_on_days').value || [];
-    const selectedIndex = selectedDays.findIndex(
-      (selected) => selected === day
-    );
+    const selectedIndex = selectedDays.findIndex((selected) => selected === day);
 
     if (selectedIndex > -1) {
       selectedDays.splice(selectedIndex, 1);
@@ -101,6 +112,6 @@ export class WorkShiftFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted.emit(this.form.value);
+    this.submitted.emit({ ...this.form.value, id: this.defaults?.id });
   }
 }

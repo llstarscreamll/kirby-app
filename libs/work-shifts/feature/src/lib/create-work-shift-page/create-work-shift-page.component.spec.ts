@@ -15,8 +15,8 @@ describe('CreateWorkShiftPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatIconModule, RouterTestingModule],
       declarations: [CreateWorkShiftPageComponent],
-      providers: [{ provide: WorkShiftsFacade, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [{ provide: WorkShiftsFacade, useValue: { search: (query) => true } }],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -34,8 +34,6 @@ describe('CreateWorkShiftPageComponent', () => {
   it('should contain certain elements and components', () => {
     expect(template.querySelector('h1')).toBeTruthy();
     expect(template.querySelector('a').getAttribute('href')).toBe('/');
-    expect(
-      template.querySelector('kirby-work-shift-form')
-    ).toBeTruthy();
+    expect(template.querySelector('kirby-work-shift-form')).toBeTruthy();
   });
 });

@@ -5,6 +5,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page.component';
+import { emptyPagination } from '@kirby/shared';
+import { of } from 'rxjs';
 
 describe('ListWorkShiftsPageComponent', () => {
   let component: ListWorkShiftsPageComponent;
@@ -16,9 +18,12 @@ describe('ListWorkShiftsPageComponent', () => {
       imports: [MatButtonModule, RouterTestingModule],
       declarations: [ListWorkShiftsPageComponent],
       providers: [
-        { provide: WorkShiftsFacade, useValue: { search: query => true } }
+        {
+          provide: WorkShiftsFacade,
+          useValue: { paginatedWorkShifts$: of(emptyPagination()), search: (query) => true },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -36,8 +41,6 @@ describe('ListWorkShiftsPageComponent', () => {
   it('should contain certain elements and components', () => {
     expect(template.querySelector('h1')).toBeTruthy();
     expect(template.querySelector('a').getAttribute('href')).toBe('/create');
-    expect(
-      template.querySelector('kirby-work-shifts-table-list')
-    ).toBeTruthy();
+    expect(template.querySelector('kirby-work-shifts-table-list')).toBeTruthy();
   });
 });

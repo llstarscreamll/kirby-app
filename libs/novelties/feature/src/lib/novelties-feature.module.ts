@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -24,7 +25,6 @@ import { EditNoveltyPageComponent } from './edit-novelty/edit-novelty-page.compo
 import { ReportByEmployeePageComponent } from './report-by-employee-page/report-by-employee-page.component';
 import { CreateNoveltiesToEmployeesPageComponent } from './create-novelties-to-employees-page/create-novelties-to-employees-page.component';
 import { ResumeByEmployeesAndNoveltyTypesPageComponent } from './resume-by-employees-and-novelty-types-page/resume-by-employees-and-novelty-types-page.component';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [

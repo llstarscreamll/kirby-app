@@ -4,11 +4,11 @@
     <a routerLink="create" mat-stroked-button color="primary">Nuevo</a>
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive my-4">
     <kirby-work-shifts-table-list [items]="(paginatedWorkShifts$ | async)?.data">
     </kirby-work-shifts-table-list>
 </div>
 
-<div class="text-right my-2">
-    <kirby-pagination [pagination]="paginatedWorkShifts$ | async" (paginate)="search($event)"></kirby-pagination>
+<div class="text-right">
+    <kirby-pagination [pagination]="(paginatedWorkShifts$ | async).meta" (paginate)="search($event)"></kirby-pagination>
 </div>
