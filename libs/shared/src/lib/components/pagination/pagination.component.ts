@@ -1,35 +1,18 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { get } from 'lodash';
 
 @Component({
   selector: 'kirby-pagination',
   template: `
-    <button
-      [disabled]="disablePrev"
-      mat-icon-button
-      (click)="clickPrev()"
-      class="prev"
-    >
+    <button [disabled]="disablePrev" mat-icon-button (click)="clickPrev()" class="prev">
       <mat-icon>navigate_before</mat-icon>
     </button>
-    <button
-      [disabled]="disabledNext"
-      mat-icon-button
-      (click)="clickNext()"
-      class="next"
-    >
+    <button [disabled]="disabledNext" mat-icon-button (click)="clickNext()" class="next">
       <mat-icon>navigate_next</mat-icon>
     </button>
   `,
   styles: [``],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent implements OnInit {
   @Input()
@@ -59,7 +42,7 @@ export class PaginationComponent implements OnInit {
   }
 
   get disabledNext(): boolean {
-    return !this.pagination || this.pagination.to < this.pagination.per_page;
+    return this.pagination?.current_page === this.pagination?.last_page;
   }
 
   clickPrev() {

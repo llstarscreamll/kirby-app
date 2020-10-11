@@ -12,10 +12,10 @@ describe('PaginationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PaginationComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(PaginationComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       })
       .compileComponents();
   }));
@@ -38,7 +38,7 @@ describe('PaginationComponent', () => {
       from: 1,
       path: 'https://my.api/foo',
       per_page: 10,
-      to: 10
+      to: 10,
     };
 
     fixture.detectChanges();
@@ -47,17 +47,19 @@ describe('PaginationComponent', () => {
   });
 
   it('should disable all buttons if pagination is null', () => {
+    component.pagination = null;
     expect(template.querySelector('button.prev:disabled')).toBeTruthy();
     expect(template.querySelector('button.next:disabled')).toBeTruthy();
   });
 
-  it('should disable next button displayed items <= items per page', () => {
+  it('should disable next button when there are no pages', () => {
     component.pagination = {
       current_page: 1,
+      last_page: 1,
       from: 1,
       path: 'https://my.api/foo',
       per_page: 10,
-      to: 2
+      to: 2,
     };
 
     fixture.detectChanges();
