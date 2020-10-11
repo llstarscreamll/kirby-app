@@ -1,23 +1,19 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import {
-  BreakpointObserver,
-  Breakpoints,
-  MediaMatcher
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
 
 import { AuthFacade } from '@kirby/authentication-data-access';
 
 @Component({
   selector: 'pascal-sidebar-layout',
   templateUrl: './sidebar-layout.component.html',
-  styleUrls: ['./sidebar-layout.component.scss']
+  styleUrls: ['./sidebar-layout.component.scss'],
 })
 export class SidebarLayoutComponent implements OnInit {
   public isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small])
-    .pipe(map(result => result.matches));
+    .pipe(map((result) => result.matches));
 
   public authenticated$: Observable<boolean>;
 
@@ -27,25 +23,25 @@ export class SidebarLayoutComponent implements OnInit {
       icon: 'supervised_user_circle',
       link: ['/employees/'],
       label: 'Empleados',
-      can: 'employees.search'
+      can: 'employees.search',
     },
     {
       icon: 'compare_arrows',
       link: ['/time-clock-logs'],
       label: 'Entradas/salidas',
-      can: 'time-clock-logs.search'
-    },
-    {
-      icon: 'alarm',
-      link: ['/work-shifts'],
-      label: 'Turnos',
-      can: 'work-shift.search'
+      can: 'time-clock-logs.search',
     },
     {
       icon: 'feedback',
       link: ['/novelties'],
       label: 'Novedades',
-      can: 'novelties.search'
+      can: 'novelties.search',
+    },
+    {
+      icon: 'alarm',
+      link: ['/work-shifts'],
+      label: 'Turnos',
+      can: 'work-shift.search',
     },
   ];
 
