@@ -1,11 +1,6 @@
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
 import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
-import {
-  Pagination,
-  emptyPagination,
-  ApiError,
-  LoadStatuses,
-} from '@kirby/shared';
+import { Pagination, emptyPagination, ApiError, LoadStatuses } from '@kirby/shared';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
 
@@ -29,10 +24,7 @@ export const initialState: WorkShiftsState = {
   paginatingStatus: LoadStatuses.Empty,
 };
 
-export function workShiftsReducer(
-  state: WorkShiftsState = initialState,
-  action: WorkShiftsAction
-): WorkShiftsState {
+export function workShiftsReducer(state: WorkShiftsState = initialState, action: WorkShiftsAction): WorkShiftsState {
   switch (action.type) {
     case WorkShiftsActionTypes.SearchWorkShifts: {
       state = { ...state, paginatingStatus: LoadStatuses.Loading };
@@ -42,6 +34,7 @@ export function workShiftsReducer(
     case WorkShiftsActionTypes.SearchWorkShiftsOk: {
       state = {
         ...state,
+        error: null,
         paginatedList: action.payload,
         paginatingStatus: LoadStatuses.Completed,
       };
@@ -63,7 +56,7 @@ export function workShiftsReducer(
     }
 
     case WorkShiftsActionTypes.CreateWorkShiftOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed };
+      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null };
       break;
     }
 
@@ -84,6 +77,7 @@ export function workShiftsReducer(
     case WorkShiftsActionTypes.GetWorkShiftOk: {
       state = {
         ...state,
+        error: null,
         selected: action.payload,
         selectingStatus: LoadStatuses.Completed,
       };
@@ -108,6 +102,7 @@ export function workShiftsReducer(
     case WorkShiftsActionTypes.UpdateWorkShiftOk: {
       state = {
         ...state,
+        error: null,
         selected: action.payload,
         updatingStatus: LoadStatuses.Completed,
       };
@@ -129,7 +124,7 @@ export function workShiftsReducer(
     }
 
     case WorkShiftsActionTypes.DeleteWorkShiftOk: {
-      state = { ...state, deletingStatus: LoadStatuses.Completed };
+      state = { ...state, deletingStatus: LoadStatuses.Completed, error: null };
       break;
     }
 
