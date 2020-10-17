@@ -4,6 +4,7 @@
       <th>Nombre</th>
       <th>Franjas horarias</th>
       <th>Días en que aplica</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,11 @@
         <span *ngFor="let day of item.applies_on_days" class="mx-1">
           {{ getDisplayDay(day) }}
         </span>
+      </td>
+      <td class="w-3 text-right">
+        <button *ngIf="showDeleteBtn" mat-icon-button type="button" (click)="trash(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </tr>
   </tbody>

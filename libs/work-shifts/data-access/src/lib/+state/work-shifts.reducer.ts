@@ -124,7 +124,15 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
     }
 
     case WorkShiftsActionTypes.DeleteWorkShiftOk: {
-      state = { ...state, deletingStatus: LoadStatuses.Completed, error: null };
+      state = {
+        ...state,
+        deletingStatus: LoadStatuses.Completed,
+        error: null,
+        paginatedList: {
+          ...state.paginatedList,
+          data: state.paginatedList.data.filter((i) => i.id !== action.payload),
+        },
+      };
       break;
     }
 

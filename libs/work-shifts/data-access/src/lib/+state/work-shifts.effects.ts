@@ -97,6 +97,13 @@ export class WorkShiftsEffects {
     },
   });
 
+  @Effect({ dispatch: false })
+  deleteWorkShiftOk = this.dataPersistence.actions.pipe(
+    ofType(WorkShiftsActionTypes.DeleteWorkShiftOk),
+    tap((_) => this.router.navigateByUrl('work-shifts')),
+    tap((_) => this.snackBar.open('Turno movido a papelera exitosamente', 'Ok', { duration: 5 * 1000 }))
+  );
+
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,

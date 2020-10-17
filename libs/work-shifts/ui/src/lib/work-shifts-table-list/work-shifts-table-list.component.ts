@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
@@ -19,6 +14,12 @@ export class WorkShiftsTableListComponent implements OnInit {
 
   @Input()
   public columns: string[];
+
+  @Input()
+  public showDeleteBtn = false;
+
+  @Output()
+  trashed = new EventEmitter();
 
   weekDaysMapping = {
     1: 'L',
@@ -36,5 +37,9 @@ export class WorkShiftsTableListComponent implements OnInit {
 
   getDisplayDay(day): string {
     return this.weekDaysMapping[day];
+  }
+
+  trash(item) {
+    this.trashed.emit(item);
   }
 }

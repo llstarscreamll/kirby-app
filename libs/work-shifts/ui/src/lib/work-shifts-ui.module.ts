@@ -9,11 +9,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { WorkShiftFormComponent } from './work-shift-form/work-shift-form.component';
 import { WorkShiftsTableListComponent } from './work-shifts-table-list/work-shifts-table-list.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    MatIconModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -21,6 +23,6 @@ import { WorkShiftsTableListComponent } from './work-shifts-table-list/work-shif
     ReactiveFormsModule,
   ],
   declarations: [WorkShiftsTableListComponent, WorkShiftFormComponent],
-  exports: [WorkShiftsTableListComponent, WorkShiftFormComponent]
+  exports: [WorkShiftsTableListComponent, WorkShiftFormComponent],
 })
-export class WorkShiftsUiModule { }
+export class WorkShiftsUiModule {}
