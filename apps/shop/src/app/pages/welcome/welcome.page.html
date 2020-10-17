@@ -1,11 +1,7 @@
 <div class="header">
-    <shop-main-header [shoppingCart]="shoppingCart$ | async"></shop-main-header>
+    <shop-main-header [shoppingCart]="shoppingCart$ | async"
+                      (searched)="search($event)"></shop-main-header>
 </div>
-
-<section class="search my-4">
-    <input type="search" placeholder="Buscar productos"
-           class="border-2 border-gray-200 rounded bg-white w-full px-4 py-2 text-gray-600 text-sm focus:border-teal-500">
-</section>
 
 <section class="categories my-4">
     <h2 class="text-xl mb-2">Categorías</h2>

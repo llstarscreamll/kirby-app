@@ -1,0 +1,7 @@
+<div class="header">
+    <shop-main-header *ngIf="params$ | async"
+     [shoppingCart]="shoppingCart$ | async"
+                      [queryParams]="params$ | async"
+                      (searched)="foo($event)">
+    </shop-main-header>
+</div>

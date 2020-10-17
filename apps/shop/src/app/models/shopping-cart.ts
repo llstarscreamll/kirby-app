@@ -79,6 +79,10 @@ export class ShoppingCart implements IShoppingCart {
     return addedProduct !== undefined && addedProduct.requested_quantity > 0;
   }
 
+  areThereSelectedProducts(): boolean {
+    return this.products.length > 0;
+  }
+
   totalProducts(): number {
     return this.products.reduce(
       (acc, product) => acc + product.requested_quantity,
@@ -88,7 +92,8 @@ export class ShoppingCart implements IShoppingCart {
 
   grandTotal(): number {
     return this.products.reduce(
-      (acc, cartItem) => acc + cartItem.requested_quantity * cartItem.product.price,
+      (acc, cartItem) =>
+        acc + cartItem.requested_quantity * cartItem.product.price,
       0
     );
   }

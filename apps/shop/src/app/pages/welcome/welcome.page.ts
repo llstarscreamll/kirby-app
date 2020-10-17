@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { IProduct } from '@kirby/products/data/src';
@@ -14,6 +15,7 @@ export class WelcomePage implements OnInit {
   shoppingCart$ = this.shopFacade.shoppingCart$;
 
   constructor(
+    private router: Router,
     private shopFacade: ShopFacade,
     private categoriesFacade: CategoriesFacade
   ) {}
@@ -34,5 +36,9 @@ export class WelcomePage implements OnInit {
 
   removeProduct(product: IProduct) {
     this.shopFacade.removeProductFromShoppingCart(product);
+  }
+
+  search(query: any = {}) {
+    this.router.navigate(['/search'], { queryParams: { query: query.search } });
   }
 }

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ShoppingCart } from '../../models/shopping-cart';
 
 @Component({
@@ -10,7 +11,23 @@ export class MainHeaderComponent implements OnInit {
   @Input()
   shoppingCart: ShoppingCart | null = new ShoppingCart();
 
-  constructor() {}
+  @Input()
+  queryParams: any = {};
 
-  ngOnInit(): void {}
+  @Output()
+  searched = new EventEmitter();
+
+  searchForm: any;
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.searchForm = this.formBuilder.group({
+      search: [this.queryParams.query || ''],
+    });
+  }
+
+  querySearch() {
+    this.searched.emit({ search: this.searchForm.value.search.trim() });
+  }
 }

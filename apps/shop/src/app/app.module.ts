@@ -35,6 +35,7 @@ import { OrderVerifyPage } from './pages/order-verify/order-verify.page';
 import { OrderReceivedPage } from './pages/order-received/order-received.page';
 import { CategoryPage } from './pages/category/category.page';
 import { MainHeaderComponent } from './components/main-header/main-header.component';
+import { SearchPage } from './pages/search/search.page';
 
 export const metaReducers: MetaReducer<any>[] = [initStateFromLocalStorage];
 
@@ -57,6 +58,7 @@ if (!environment.production) {
     OrderReceivedPage,
     CategoryPage,
     MainHeaderComponent,
+    SearchPage,
   ],
   imports: [
     BrowserModule,
