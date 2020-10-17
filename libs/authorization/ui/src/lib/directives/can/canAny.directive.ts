@@ -6,15 +6,15 @@ import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@ang
 
 import { AuthFacade } from '@kirby/authentication-data-access';
 
-@Directive({ selector: '[kirbyCan]' })
-export class CanDirective implements OnDestroy {
+@Directive({ selector: '[kirbyCanAny]' })
+export class CanAnyDirective implements OnDestroy {
   @Input()
-  set kirbyCan(permissionName: string) {
+  set kirbyCanAny(permissions: string[]) {
     this.authFacade.authUser$
       .pipe(
         tap((_) => this.remove()),
         filter((user) => !!user),
-        tap((user) => (user.can(permissionName) ? this.show() : this.remove())),
+        tap((user) => (user.canAny(permissions || []) ? this.show() : this.remove())),
         takeUntil(this.destroy$)
       )
       .subscribe();
