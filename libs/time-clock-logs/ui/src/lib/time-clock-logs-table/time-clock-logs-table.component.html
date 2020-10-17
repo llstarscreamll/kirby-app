@@ -1,7 +1,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th width="10">#</th>
       <th>Empleado</th>
       <th>SCC</th>
       <th>Turno</th>
@@ -14,7 +13,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of timeClockLogs?.data">
-      <td>{{ row.id }}</td>
       <td>
         {{ row.employee.user.first_name + ' ' + row.employee.user.last_name }}
       </td>

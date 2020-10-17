@@ -44,7 +44,6 @@ describe('TimeClockLogsTableComponent', () => {
 
   it('should display default table headers', () => {
     const theadRowMap = {
-      1: '#',
       2: 'Empleado',
       3: 'SCC',
       4: 'Turno',
