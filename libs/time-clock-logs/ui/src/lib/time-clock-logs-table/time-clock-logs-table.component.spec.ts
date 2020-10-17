@@ -44,14 +44,14 @@ describe('TimeClockLogsTableComponent', () => {
 
   it('should display default table headers', () => {
     const theadRowMap = {
-      2: 'Empleado',
-      3: 'SCC',
-      4: 'Turno',
-      5: 'H. entrada',
-      6: 'H. salida',
-      7: 'Novedades',
-      8: 'Aprobaciones',
-      9: '',
+      1: 'Empleado',
+      2: 'SCC',
+      3: 'Turno',
+      4: 'H. entrada',
+      5: 'H. salida',
+      6: 'Novedades',
+      7: 'Aprobaciones',
+      8: '',
     };
 
     fixture.detectChanges();
@@ -82,14 +82,13 @@ describe('TimeClockLogsTableComponent', () => {
     };
 
     const firstTbodyRowMap = {
-      1: timeClockLog.id,
-      2: timeClockLog.employee.user.first_name + ' ' + timeClockLog.employee.user.last_name,
-      3: timeClockLog.sub_cost_center.name,
-      4: timeClockLog.work_shift.name,
-      5: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
-      6: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
-      7: timeClockLog.novelties.map((novelty) => novelty.novelty_type.code),
-      8: ['Tony Stark', 'Steve Rogers'],
+      1: timeClockLog.employee.user.first_name + ' ' + timeClockLog.employee.user.last_name,
+      2: timeClockLog.sub_cost_center.name,
+      3: timeClockLog.work_shift.name,
+      4: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
+      5: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
+      6: timeClockLog.novelties.map((novelty) => novelty.novelty_type.code),
+      7: ['Tony Stark', 'Steve Rogers'],
     };
 
     fixture.detectChanges();

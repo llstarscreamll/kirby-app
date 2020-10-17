@@ -1,12 +1,14 @@
+import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { emptyPagination } from '@kirby/shared';
+import { createUser } from '@kirby/users/testing';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page.component';
-import { emptyPagination } from '@kirby/shared';
-import { of } from 'rxjs';
 
 describe('ListWorkShiftsPageComponent', () => {
   let component: ListWorkShiftsPageComponent;
@@ -22,6 +24,7 @@ describe('ListWorkShiftsPageComponent', () => {
           provide: WorkShiftsFacade,
           useValue: { paginatedWorkShifts$: of(emptyPagination()), search: (query) => true },
         },
+        { provide: AuthFacade, useValue: { authUser$: of(createUser('U1', { roles: [], permissions: [] })) } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

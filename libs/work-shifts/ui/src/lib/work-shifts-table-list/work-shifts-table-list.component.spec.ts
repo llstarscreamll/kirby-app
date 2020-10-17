@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,6 +14,7 @@ describe('WorkShiftsTableListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [WorkShiftsTableListComponent],
       imports: [RouterTestingModule],
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(WorkShiftsTableListComponent, {
         set: { changeDetection: ChangeDetectionStrategy.Default },
