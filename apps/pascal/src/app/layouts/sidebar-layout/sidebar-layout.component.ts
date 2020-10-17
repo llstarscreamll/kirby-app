@@ -18,30 +18,29 @@ export class SidebarLayoutComponent implements OnInit {
   public authenticated$: Observable<boolean>;
 
   public menuItems = [
-    { icon: 'home', link: ['/welcome'], label: 'Home' },
     {
       icon: 'supervised_user_circle',
       link: ['/employees/'],
       label: 'Empleados',
-      can: 'employees.search',
+      can: ['employees.search'],
     },
     {
       icon: 'compare_arrows',
       link: ['/time-clock-logs'],
       label: 'Entradas/salidas',
-      can: 'time-clock-logs.search',
+      can: ['time-clock-logs.global-search', 'time-clock-logs.employee-search'],
     },
     {
       icon: 'feedback',
       link: ['/novelties'],
       label: 'Novedades',
-      can: 'novelties.search',
+      can: ['novelties.global-search', 'novelties.employee-search'],
     },
     {
       icon: 'alarm',
       link: ['/work-shifts'],
       label: 'Turnos',
-      can: 'work-shift.search',
+      can: ['work-shift.search'],
     },
   ];
 
