@@ -6,7 +6,7 @@
       <th>Operador</th>
       <th>Requiere comentario?</th>
       <th>Mantener en reporte?</th>
-      <th class="text-right" style="width: 7.5rem;">Acciones</th>
+      <th *ngIf="showActionsColumn" class="text-right" style="width: 7.5rem;">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +27,7 @@
           {{ readableBoolean(noveltyType.keep_in_report) }}
         </span>
       </td>
-      <td class="text-right">
+      <td *ngIf="showActionsColumn" class="text-right">
         <a [routerLink]="[noveltyType.id, 'edit']" mat-icon-button>
           <mat-icon>edit</mat-icon>
         </a>
