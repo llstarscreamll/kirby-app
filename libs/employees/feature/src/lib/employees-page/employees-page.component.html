@@ -10,7 +10,7 @@
 </div>
 
 <div class="mt-4">
-  <mat-form-field *kirbyCan="'time-clock-logs.search'" class="w-full">
+  <mat-form-field *kirbyCan="'employees.search'" class="w-full">
     <mat-label>Buscar</mat-label>
     <input
            (change)="searchEmployees({ search: $event.srcElement.value, page: 1 })"
@@ -22,7 +22,7 @@
   </mat-form-field>
 </div>
 
-<div class="responsive-table shadow mt-5">
+<div class="responsive-table shadow my-4">
   <table class="table">
     <thead>
       <tr>
