@@ -1,15 +1,15 @@
 <h1 class="mb-4">Editar novedad</h1>
 
 <div class="card p-4">
-  <kirby-novelty-form
-    *ngIf="novelty$ | async"
-    [defaults]="novelty$ | async"
-    [employeesFound]="(employees$ | async)?.data"
-    [noveltyTypesFound]="(noveltyTypes$ | async)?.data"
-    (searchEmployees)="onSearchEmployees($event)"
-    (searchNoveltyTypes)="onSearchNovelties($event)"
-    (submitted)="onNoveltyUpdated($event)"
-    (trashed)="onNoveltyTrashed($event)"
-  >
+  <kirby-novelty-form *ngIf="(novelty$ | async) && (user$ | async)"
+                      [defaults]="novelty$ | async"
+                      [disable]="! (user$ | async)?.can('novelties.update')"
+                      [showDeleteBtn]="(user$ | async)?.can('novelties.delete')"
+                      [employeesFound]="(employees$ | async)?.data"
+                      [noveltyTypesFound]="(noveltyTypes$ | async)?.data"
+                      (searchEmployees)="onSearchEmployees($event)"
+                      (searchNoveltyTypes)="onSearchNovelties($event)"
+                      (submitted)="onNoveltyUpdated($event)"
+                      (trashed)="onNoveltyTrashed($event)">
   </kirby-novelty-form>
 </div>

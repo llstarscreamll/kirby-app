@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 
 import { EmployeesFacade } from '@kirby/employees/data-access';
+import { AuthFacade } from '@kirby/authentication-data-access';
 
 @Component({
   selector: 'kirby-edit-novelty-page',
@@ -15,11 +16,13 @@ import { EmployeesFacade } from '@kirby/employees/data-access';
   ],
 })
 export class EditNoveltyPageComponent implements OnInit, OnDestroy {
+  user$ = this.authFacade.authUser$;
   novelty$ = this.noveltiesFacade.selectedNovelty$;
   employees$ = this.employeesFacade.paginatedEmployees$;
   noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
 
   constructor(
+    private authFacade: AuthFacade,
     private noveltiesFacade: NoveltiesFacade,
     private employeesFacade: EmployeesFacade
   ) {}

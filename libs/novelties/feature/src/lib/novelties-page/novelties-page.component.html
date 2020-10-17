@@ -1,6 +1,9 @@
 <div class="my-4">
   <h1 class="inline">Novedades</h1>
-  <a [routerLink]="['novelty-types']" mat-icon-button class="float-right">
+  <a *ngIf="(user$ | async)?.can('novelty-types.search')"
+     [routerLink]="['novelty-types']"
+     mat-icon-button
+     class="float-right">
     <mat-icon>settings</mat-icon>
   </a>
 </div>
@@ -33,38 +36,32 @@
   </a>
 </div>
 
-<div class="mt-4" *kirbyCan="'novelties.search'">
+<div class="mt-4" *kirbyCanAny="['novelties.global-search', 'novelties.employee-search']">
   <kirby-novelties-search-form [costCentersFound]="paginatedCostCenters$ | async"
                                [employeesFound]="paginatedEmployees$ | async"
                                [noveltyTypesFound]="paginatedNoveltyTypes$ | async"
+                               [globalSearch]="!(user$ | async)?.can('novelties.employee-search')"
                                (submitted)="searchNovelties($event)"
                                (searchEmployees)="searchEmployees($event)"
                                (searchCostCenters)="searchCostCenters($event)"
                                (searchNoveltyTypes)="searchNoveltyTypes($event)"></kirby-novelties-search-form>
 </div>
 
-<div class="responsive-table shadow">
+<div class="responsive-table shadow my-4">
   <table class="table">
     <thead>
       <tr>
-        <th>Id</th>
         <th>Empleado</th>
         <th>Novedad</th>
         <th>Inicio</th>
         <th>Fin</th>
         <th>Horas</th>
         <th>Aprobaciones</th>
-        <th>Creada en</th>
         <th class="text-right"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let novelty of (novelties$ | async)?.data">
-        <td>
-          <a [routerLink]="['/novelties', novelty.id, 'edit']">{{
-            novelty.id
-          }}</a>
-        </td>
         <td>
           {{ novelty.employee.first_name + ' ' + novelty.employee.last_name }}
         </td>
@@ -79,8 +76,10 @@
             {{ shortName(approver) }}
           </div>
         </td>
-        <td>{{ novelty.created_at | date: 'yy-MM-dd HH:mm' }}</td>
         <td class="text-right">
+          <a mat-icon-button [routerLink]="['/novelties', novelty.id, 'edit']">
+            <mat-icon>visibility</mat-icon>
+          </a>
           <button *ngIf="showApproveButton(novelty)"
                   (click)="approveNovelty(novelty)"
                   matTooltip="Aprobar"
