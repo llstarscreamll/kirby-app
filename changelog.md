@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.4.3 (2020-10-19)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4.3..v0.4.2)
+
+### Fixed
+
+- Employees: add attribute 'phone_prefix' in employees form with '+57' as default value.
+
 ## [v0.4.2 (2020-10-10)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4.2..v0.4.1)
 
 ### Fixed

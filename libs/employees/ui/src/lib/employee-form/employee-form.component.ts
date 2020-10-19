@@ -63,6 +63,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       position: [null, [Validators.required]],
       location: [null, [Validators.required]],
       address: [null, [Validators.required]],
+      phone_prefix: ['+57', [Validators.required]],
       phone: [null, [Validators.required]],
       salary: [null, [Validators.required]],
       work_shifts: [[], [Validators.required]],
