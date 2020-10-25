@@ -1,7 +1,23 @@
 <div class="header">
-    <shop-main-header *ngIf="params$ | async"
-     [shoppingCart]="shoppingCart$ | async"
-                      [queryParams]="params$ | async"
-                      (searched)="foo($event)">
+    <shop-main-header *ngIf="params$ | async; let params"
+                      [queryParams]="params"
+                      [shoppingCart]="shoppingCart$ | async"
+                      (searched)="onSearch($event)">
     </shop-main-header>
+</div>
+
+<div class="search-results">
+    <div *ngFor="let product of (products$ | async)?.data" class="products my-3">
+        <shop-product [product]="product"
+                      [shoppingCart]="shoppingCart$ | async"
+                      (add)="addProduct($event)"
+                      (remove)="removeProduct($event)">
+        </shop-product>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="text-center my-3">
+    <shop-pagination [pagination]="(products$ | async).meta" (paginate)="paginate($event)"></shop-pagination>
 </div>

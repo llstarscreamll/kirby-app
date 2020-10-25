@@ -12,7 +12,7 @@
             <img *ngIf="category.image_url !== ''" [src]="category.image_url" [alt]="category.name"
                  class="object-cover">
             <div class="absolute inset-x-0 bottom-0 text-white font-medium text-sm text-center p-2">
-                <a [routerLink]="[category.slug, 'c']" class="no-underline text-white shadow">
+                <a [routerLink]="[category.slug, 'c']" class="no-underline text-white">
                     {{ category.name }}
                 </a>
             </div>
@@ -27,5 +27,9 @@
         <shop-product [product]="product" [shoppingCart]="shoppingCart$ | async" (add)="addProduct($event)"
                       (remove)="removeProduct($event)">
         </shop-product>
+    </div>
+
+    <div class="my-4 text-right text-sm">
+        <a [routerLink]="[category.slug, 'c']">Ver más en {{ category.name }}</a>
     </div>
 </section>

@@ -12,6 +12,7 @@ import { ShoppingCart } from '../models/shopping-cart';
 import { ShopService } from '../services/shop.service';
 import { CategoryPage } from '../pages/category/category.page';
 import { CategoriesFacade, ProductsFacade } from '@kirby/products/data-access';
+import { SearchPage } from '../pages/search/search.page';
 
 @Injectable()
 export class ShopEffects {
@@ -115,9 +116,27 @@ export class ShopEffects {
           active: true,
         });
         this.productsFacade.search({
+          limit: 25,
+          page: router.queryParams.page || 1,
           filter: {
-            'products.active': true,
+            active: true,
             category_slug: router.params['category-slug'],
+          },
+        });
+      },
+    })
+  );
+
+  searchPage$ = createEffect(() =>
+    this.dataPersistence.navigation(SearchPage, {
+      run: (router) => {
+        this.productsFacade.search({
+          limit: 25,
+          page: router.queryParams.page || 1,
+          filter: {
+            name: router.queryParams.query,
+            active: true,
+            'categories.active': true,
           },
         });
       },

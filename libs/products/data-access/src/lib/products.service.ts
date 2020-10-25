@@ -27,6 +27,9 @@ export class ProductsService extends BaseService {
         headers: this.defaultHeaders,
         params: flatToOneLevelObject(query),
       })
-      .pipe(map(deserializeJsonApi));
+      .pipe(
+        map(deserializeJsonApi),
+        map(pagination => ({...pagination, meta: pagination.meta.pagination}))
+        );
   }
 }

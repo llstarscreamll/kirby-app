@@ -20,22 +20,23 @@ import { ShopEffects } from './+state/shop.effects';
 import { LegalPage } from './pages/legal/legal.page';
 import { ShopService } from './services/shop.service';
 import { debug } from './meta-reducers/debug.reducer';
+import { SearchPage } from './pages/search/search.page';
 import { environment } from '../environments/environment';
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { SignUpPage } from './pages/sign-up/sign-up.page';
 import { WelcomePage } from './pages/welcome/welcome.page';
-import { ProductsDataAccessModule } from '@kirby/products/data-access';
-import { ProductComponent } from './components/product/product.component';
-import { VerifyAccountPage } from './pages/verify-account/verify-account.page';
-import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
-import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
-import { ShoppingCartPage } from './pages/shopping-cart/shopping-cart.page';
-import { PaymentAndShippingPage } from './pages/payment-and-shipping/payment-and-shipping.page';
-import { OrderVerifyPage } from './pages/order-verify/order-verify.page';
-import { OrderReceivedPage } from './pages/order-received/order-received.page';
 import { CategoryPage } from './pages/category/category.page';
+import { ProductsDataAccessModule } from '@kirby/products/data-access';
+import { OrderVerifyPage } from './pages/order-verify/order-verify.page';
+import { ProductComponent } from './components/product/product.component';
+import { ShoppingCartPage } from './pages/shopping-cart/shopping-cart.page';
+import { VerifyAccountPage } from './pages/verify-account/verify-account.page';
+import { OrderReceivedPage } from './pages/order-received/order-received.page';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
 import { MainHeaderComponent } from './components/main-header/main-header.component';
-import { SearchPage } from './pages/search/search.page';
+import { PaymentAndShippingPage } from './pages/payment-and-shipping/payment-and-shipping.page';
+import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local-storage.reducer';
 
 export const metaReducers: MetaReducer<any>[] = [initStateFromLocalStorage];
 
@@ -46,19 +47,20 @@ if (!environment.production) {
 @NgModule({
   declarations: [
     LegalPage,
+    SearchPage,
     SignInPage,
     SignUpPage,
     WelcomePage,
     AppComponent,
-    VerifyAccountPage,
+    CategoryPage,
+    OrderVerifyPage,
     ProductComponent,
     ShoppingCartPage,
-    PaymentAndShippingPage,
-    OrderVerifyPage,
     OrderReceivedPage,
-    CategoryPage,
+    VerifyAccountPage,
+    PaginationComponent,
     MainHeaderComponent,
-    SearchPage,
+    PaymentAndShippingPage,
   ],
   imports: [
     BrowserModule,
