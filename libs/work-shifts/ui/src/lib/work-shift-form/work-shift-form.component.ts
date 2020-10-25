@@ -97,8 +97,8 @@ export class WorkShiftFormComponent implements OnInit {
 
   toggleSelectedDay(event: MatCheckboxChange) {
     const day = Number(event.source.value);
-    const selectedDays: number[] = this.form.get('applies_on_days').value || [];
-    const selectedIndex = selectedDays.findIndex((selected) => selected === day);
+    const selectedDays: number[] = [...this.form.get('applies_on_days').value] || [];
+    const selectedIndex = selectedDays.findIndex((selected) => selected == day);
 
     if (selectedIndex > -1) {
       selectedDays.splice(selectedIndex, 1);
