@@ -18,5 +18,5 @@
 <div class="clearfix"></div>
 
 <div class="text-center my-3">
-    <shop-pagination [pagination]="(products$ | async).meta" (paginate)="paginate($event)"></shop-pagination>
+    <shop-pagination [pagination]="(products$ | async)?.meta" (paginate)="paginate($event)"></shop-pagination>
 </div>

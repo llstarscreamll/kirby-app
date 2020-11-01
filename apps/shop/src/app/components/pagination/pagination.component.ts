@@ -32,7 +32,7 @@ import { get } from 'lodash-es';
 })
 export class PaginationComponent implements OnInit {
   @Input()
-  pagination = {
+  pagination: null | any = {
     count: 0,
     current_page: 0,
     per_page: 0,
