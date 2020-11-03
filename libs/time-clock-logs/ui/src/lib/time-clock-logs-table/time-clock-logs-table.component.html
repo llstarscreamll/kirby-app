@@ -23,7 +23,7 @@
       <td>
         <a *ngFor="let novelty of row.novelties"
            [routerLink]="['/novelties', novelty.id, 'edit']"
-           title="{{ novelty.start_at | date: 'yy-MM-dd HH:mm' }} - {{ novelty.end_at | date: 'yy-MM-dd HH:mm' }}">{{ readableNovelty(novelty) }}</a>
+           title="{{ novelty.start_at | date: 'yy-MM-dd HH:mm:ss' }} - {{ novelty.end_at | date: 'yy-MM-dd HH:mm:ss' }}">{{ readableNovelty(novelty) }}</a>
       </td>
       <td>
         <div *ngFor="let approver of row.approvals">
