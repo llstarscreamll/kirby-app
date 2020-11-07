@@ -52,5 +52,6 @@ libs/**/*.metadata.json
 libs/**/*.ngfactory.ts
 libs/**/*.ngsummary.json
 
+.firebase
 /vendor/
 .env
