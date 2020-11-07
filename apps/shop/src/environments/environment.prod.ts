@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  appName: 'Shop',
-  api: 'http://localhost:8000/',
+  appName: 'Shop-i',
+  api: 'https://dah75vyqe3qge.cloudfront.net/',
 };

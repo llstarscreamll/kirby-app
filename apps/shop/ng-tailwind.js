@@ -19,5 +19,10 @@ module.exports = {
     '.js'
   ],
   extractors: [],
-  content: ['./apps/shop/scr/**/*.html']
+  content: [
+    './apps/shop/src/app/components/**/*.html',
+    './apps/shop/src/app/pages/**/*.html',
+    './apps/shop/src/app/*.html',
+    './apps/shop/src/index.html',
+]
 }

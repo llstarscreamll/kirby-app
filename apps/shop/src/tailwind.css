@@ -2,8 +2,7 @@
 @tailwind components;
 
 /* write custom css stuff here */
-html,
-body {
+html, body {
   @apply m-0 w-full h-full bg-gray-100;
 }
 

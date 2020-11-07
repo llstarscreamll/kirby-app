@@ -1,6 +1,6 @@
 <ng-container *ngIf="product">
     <div class="flex align-top bg-white rounded border border-gray-200 py-2">
-        <img [src]="product.sm_image_url" class="image w-24 h-24 object-cover flex-initial">
+        <img [src]="product.sm_image_url || 'assets/default-product-image.jpg'" class="image w-24 h-24 object-cover flex-initial">
 
         <div class="flex-1 ml-2">
             <div class="inline name text-sm font-medium">
