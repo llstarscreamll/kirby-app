@@ -20,8 +20,8 @@ module.exports = {
   ],
   extractors: [],
   content: [
-    './apps/shop/src/app/components/**/*.html',
-    './apps/shop/src/app/pages/**/*.html',
+    './apps/shop/src/app/components/*/*.html',
+    './apps/shop/src/app/pages/*/*.html',
     './apps/shop/src/app/*.html',
     './apps/shop/src/index.html',
 ]

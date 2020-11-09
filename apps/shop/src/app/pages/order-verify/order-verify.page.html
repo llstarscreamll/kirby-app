@@ -64,7 +64,7 @@
         <button type="button"
                 (click)="placeOrder()"
                 [disabled]="placingOrder"
-                [ngClass]="{'bg-teal-500': !placingOrder, 'bg-gray-400': placingOrder}"
+                [ngClass]="{'bg-primary': !placingOrder, 'bg-gray-400': placingOrder}"
                 class="block w-10/12 mx-auto py-4 text-lg text-white font-medium rounded shadow-lg no-underline">
             Realizar pedido
         </button>

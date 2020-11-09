@@ -1,8 +1,15 @@
+:root {
+  --color-primary: #702282;
+  --color-primary-light: #a02dba;
+  --color-contrast: #fbbb21;
+}
+
 @tailwind base;
 @tailwind components;
 
 /* write custom css stuff here */
-html, body {
+html,
+body {
   @apply m-0 w-full h-full bg-gray-100;
 }
 
@@ -10,12 +17,41 @@ body {
   @apply font-sans text-gray-700;
 }
 
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.focus\:border-primary-light:focus {
+  border-color: var(--color-primary-light);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-primary-light {
+  color: var(--color-primary-light);
+}
+
+.text-contrast {
+  color: var(--color-contrast);
+}
+
+.bg-contrast {
+  background-color: var(--color-contrast);
+}
+
 shop-root {
   @apply m-0 w-full h-full block;
 }
 
 a {
-  @apply underline text-yellow-600;
+  @apply underline;
+  color: var(--color-contrast);
 }
 
 .form-control {
@@ -31,7 +67,7 @@ a {
 }
 
 .form-control input:not([type='checkbox']):not([type='radio']):focus {
-  @apply border-teal-500;
+  border-color: var(--color-primary-light);
 }
 
 .form-control

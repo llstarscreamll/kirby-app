@@ -5,36 +5,42 @@
     <div class="form-control">
         <label for="first_name">Nombres</label>
         <input id="first_name" type="text" formControlName="first_name"
-               class="appearance-none leading-tight focus:outline-none">
+               class="appearance-none leading-tight focus:outline-none"
+               autocomplete="name">
     </div>
 
     <div class="form-control">
         <label for="last_name">Apellidos</label>
         <input id="last_name" type="text" formControlName="last_name"
-               class="appearance-none leading-tight focus:outline-none">
+               class="appearance-none leading-tight focus:outline-none"
+               autocomplete="family-name">
     </div>
 
     <div class="form-control">
         <label for="phone_number">No. celular</label>
         <input id="phone_number" type="number" formControlName="phone_number"
-               class="appearance-none leading-tight focus:outline-none">
+               class="appearance-none leading-tight focus:outline-none"
+               autocomplete="tel-national">
     </div>
 
     <div class="form-control">
         <label for="email">Correo electrónico</label>
-        <input id="email" type="email" formControlName="email" class="appearance-none leading-tight focus:outline-none">
+        <input id="email" type="email" formControlName="email" class="appearance-none leading-tight focus:outline-none"
+               autocomplete="email">
     </div>
 
     <div class="form-control">
         <label for="password">Contraseña</label>
         <input id="password" type="password" formControlName="password"
-               class="appearance-none leading-tight focus:outline-none">
+               class="appearance-none leading-tight focus:outline-none"
+               autocomplete="new-password">
     </div>
 
     <div class="form-control">
         <label for="password">Confirmar contraseña</label>
         <input id="password_confirmation" type="password" formControlName="password_confirmation"
-               class="appearance-none leading-tight focus:outline-none">
+               class="appearance-none leading-tight focus:outline-none"
+               autocomplete="new-password">
     </div>
 
     <div class="form-control font-medium">
@@ -42,7 +48,7 @@
         <label for="agreement">Acepto los <a routerLink="/legal">términos y condiciones</a></label>
     </div>
 
-    <button [disabled]="!form.valid" type="submit" class="btn border-teal-600 bg-teal-500 w-full mb-5">Enviar</button>
+    <button [disabled]="!form.valid" type="submit" class="btn bg-primary w-full mb-5">Enviar</button>
 
     <p class="text-center">¿Ya tienes una cuenta? <a routerLink="/sign-in">Inicia sesión</a></p>
 
