@@ -1,10 +1,14 @@
-<h1 class="text-2xl text-center font-medium">Inicia sesión</h1>
+<div class="text-center mb-4">
+    <a routerLink="/" class="inline-block">
+        <img src="/assets/logo.png" alt="shop logo" width="100px">
+    </a>
+</div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="pt-4">
     <div class="form-control">
         <label for="email">Correo electrónico</label>
         <input id="email" type="email" formControlName="email"
-                autocomplete="email"
+               autocomplete="email"
                class="appearance-none leading-tight focus:outline-none">
     </div>
 
@@ -15,7 +19,7 @@
                class="appearance-none leading-tight focus:outline-none">
     </div>
 
-    <button [disabled]="!form.valid" type="submit" class="btn bg-primary w-full mb-5">Entrar</button>
+    <button [disabled]="!form.valid" type="submit" class="btn bg-primary w-full mb-6">Iniciar sesión</button>
 
     <p class="text-center">¿No tienes una cuenta? <a routerLink="/sign-up">Crea tu cuenta</a></p>
 </form>
