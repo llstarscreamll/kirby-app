@@ -97,4 +97,8 @@ export class ShoppingCart implements IShoppingCart {
       0
     );
   }
+
+  productQuantity(productId: string) {
+    return this.products.find(item => item.product.id === productId)?.requested_quantity || 0;
+  }
 }

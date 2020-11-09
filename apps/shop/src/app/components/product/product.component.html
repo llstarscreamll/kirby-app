@@ -31,6 +31,10 @@
                             <i class="fas fa-minus"></i>
                         </button>
 
+                        <div class="inline-block m-2 font-medium">
+                            {{ shoppingCart?.productQuantity(product.id) }}
+                        </div>
+
                         <!-- Add one more product quantity to shopping cart -->
                         <button (click)="emitAddProduct()" type="button"
                                 class="add-more inline h-8 w-8 text-gray-500 font-normal bg-gray-100 border border-gray-500 rounded-full">
