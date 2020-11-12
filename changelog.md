@@ -1,5 +1,24 @@
 # Release notes
 
+## [v0.5 (2020-11-11)](https://github.com/llstarscreamll/angular-kirby/compare/v0.5..v0.4.3)
+
+### Added
+
+- time clock: add title with date intervals on novelties associated to time clock log
+- novelties: add novelty start and end dates as tooltip on report by employee table
+- time clock: new user ability to see only his own time clock log records based in his permissions
+- novelties: new user ability to see only his own novelties records based in his permissions
+- employees: new ability to search employees on list page
+- employees: many minor visual improvements
+- work shifts: new work shifts manager (list, search, create, update and trash)
+- novelty types: check for permissions to show some ui elements
+
+### Fixed
+
+- work shifts: error updating days when a work shift applies
+- work shifts: errors are not removed after success operations
+- shared: error disabling next button on pagination component
+
 ## [v0.4.3 (2020-10-19)](https://github.com/llstarscreamll/angular-kirby/compare/v0.4.3..v0.4.2)
 
 ### Fixed
@@ -23,7 +42,7 @@
 ### Added
 
 - novelties: new ability to create balance novelty, create balance novelty from report by novelty type view, only those with certain permissions can access the new feature.
-- novelties: new resume report by novelty types(llstarscreamll@hotmail.com)
+- novelties: new resume report by novelty types
 
 ### Changed
 
