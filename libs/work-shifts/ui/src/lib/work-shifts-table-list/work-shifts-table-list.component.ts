@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
 
@@ -6,18 +6,40 @@ import { WorkShiftInterface } from '@kirby/work-shifts/util';
   selector: 'kirby-work-shifts-table-list',
   templateUrl: './work-shifts-table-list.component.html',
   styleUrls: ['./work-shifts-table-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkShiftsTableListComponent implements OnInit {
-
   @Input()
   public items: WorkShiftInterface[];
 
   @Input()
   public columns: string[];
 
-  constructor() { }
+  @Input()
+  public showDeleteBtn = false;
 
-  ngOnInit() { }
+  @Output()
+  trashed = new EventEmitter();
 
+  weekDaysMapping = {
+    1: 'L',
+    2: 'M',
+    3: 'X',
+    4: 'J',
+    5: 'V',
+    6: 'S',
+    7: 'D',
+  };
+
+  constructor() {}
+
+  ngOnInit() {}
+
+  getDisplayDay(day): string {
+    return this.weekDaysMapping[day];
+  }
+
+  trash(item) {
+    this.trashed.emit(item);
+  }
 }

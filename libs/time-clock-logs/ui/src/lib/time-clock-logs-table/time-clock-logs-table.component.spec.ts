@@ -15,19 +15,17 @@ describe('TimeClockLogsTableComponent', () => {
   let template: HTMLDivElement;
   let component: TimeClockLogsTableComponent;
   let fixture: ComponentFixture<TimeClockLogsTableComponent>;
-  const approveButtonSelector =
-    'table tbody tr:first-child td:last-child .approve';
-  const deleteApprovalButtonSelector =
-    'table tbody tr:first-child td:last-child .delete-approval';
+  const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
+  const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AuthorizationUiTestModule, RouterTestingModule],
       declarations: [TimeClockLogsTableComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(TimeClockLogsTableComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       })
       .compileComponents();
   }));
@@ -46,58 +44,51 @@ describe('TimeClockLogsTableComponent', () => {
 
   it('should display default table headers', () => {
     const theadRowMap = {
-      1: '#',
-      2: 'Empleado',
-      3: 'SCC',
-      4: 'Turno',
-      5: 'H. entrada',
-      6: 'H. salida',
-      7: 'Novedades',
-      8: 'Aprobaciones',
-      9: ''
+      1: 'Empleado',
+      2: 'SCC',
+      3: 'Turno',
+      4: 'H. entrada',
+      5: 'H. salida',
+      6: 'Novedades',
+      7: 'Aprobaciones',
+      8: '',
     };
 
     fixture.detectChanges();
 
     expect(template.querySelectorAll('table thead tr').length).toBe(1);
-    Object.keys(theadRowMap).forEach(key => {
-      expect(
-        template.querySelector(
-          `table thead tr:first-child th:nth-child(${key})`
-        ).textContent
-      ).toContain(theadRowMap[key]);
+    Object.keys(theadRowMap).forEach((key) => {
+      expect(template.querySelector(`table thead tr:first-child th:nth-child(${key})`).textContent).toContain(
+        theadRowMap[key]
+      );
     });
   });
 
   it('should display paginated items on table whe data available', () => {
-    const tony = createUser(null, 'Tony Iron', 'Stark');
-    const steve = createUser(null, 'Steve Captain', 'Rogers');
+    const tony = createUser(null, { first_name: 'Tony Iron', last_name: 'Stark' });
+    const steve = createUser(null, { first_name: 'Steve Captain', last_name: 'Rogers' });
     const timeClockLog = createTimeClockLog();
     timeClockLog.sub_cost_center = { id: 'scc-1', name: 'SCC One' };
     timeClockLog.approvals = [tony, steve];
     timeClockLog.novelties = [
       createNovelty(null, { time_clock_log_id: timeClockLog.id }),
-      createNovelty(null, { time_clock_log_id: timeClockLog.id })
+      createNovelty(null, { time_clock_log_id: timeClockLog.id }),
     ];
     timeClockLog.novelties_count = timeClockLog.novelties.length;
 
     component.timeClockLogs = {
       ...emptyPagination(),
-      data: [timeClockLog, createTimeClockLog()]
+      data: [timeClockLog, createTimeClockLog()],
     };
 
     const firstTbodyRowMap = {
-      1: timeClockLog.id,
-      2:
-        timeClockLog.employee.user.first_name +
-        ' ' +
-        timeClockLog.employee.user.last_name,
-      3: timeClockLog.sub_cost_center.name,
-      4: timeClockLog.work_shift.name,
-      5: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
-      6: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
-      7: timeClockLog.novelties.map(novelty => novelty.novelty_type.code),
-      8: ['Tony Stark', 'Steve Rogers']
+      1: timeClockLog.employee.user.first_name + ' ' + timeClockLog.employee.user.last_name,
+      2: timeClockLog.sub_cost_center.name,
+      3: timeClockLog.work_shift.name,
+      4: moment(timeClockLog.checked_in_at).format('YY-MM-DD HH:mm'),
+      5: moment(timeClockLog.checked_out_at).format('YY-MM-DD HH:mm'),
+      6: timeClockLog.novelties.map((novelty) => novelty.novelty_type.code),
+      7: ['Tony Stark', 'Steve Rogers'],
     };
 
     fixture.detectChanges();
@@ -105,13 +96,13 @@ describe('TimeClockLogsTableComponent', () => {
     let cellSelector, result, expectedValue;
 
     expect(template.querySelectorAll('table tbody tr').length).toBe(2);
-    Object.keys(firstTbodyRowMap).forEach(key => {
+    Object.keys(firstTbodyRowMap).forEach((key) => {
       cellSelector = `table tbody tr:first-child td:nth-child(${key})`;
       result = template.querySelector(cellSelector).textContent;
       expectedValue = firstTbodyRowMap[key];
 
       isArray(expectedValue)
-        ? expectedValue.forEach(value => expect(result).toContain(value))
+        ? expectedValue.forEach((value) => expect(result).toContain(value))
         : expect(result).toContain(expectedValue);
     });
   });
@@ -123,13 +114,11 @@ describe('TimeClockLogsTableComponent', () => {
     component.userId = approver.id;
     component.timeClockLogs = {
       ...emptyPagination(),
-      data: [firstTimeClockLog, createTimeClockLog()]
+      data: [firstTimeClockLog, createTimeClockLog()],
     };
 
-    const approveButtonSelector =
-      'table tbody tr:last-child td:last-child .approve';
-    const deleteApprovalButtonSelector =
-      'table tbody tr:first-child td:last-child .delete-approval';
+    const approveButtonSelector = 'table tbody tr:last-child td:last-child .approve';
+    const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
 
     // show buttons
     component.actionButtons = ['approve', 'delete-approval'];
@@ -160,7 +149,7 @@ describe('TimeClockLogsTableComponent', () => {
     const firstTimeClockLog = createTimeClockLog();
     component.timeClockLogs = {
       ...emptyPagination(),
-      data: [firstTimeClockLog, createTimeClockLog()]
+      data: [firstTimeClockLog, createTimeClockLog()],
     };
 
     spyOn(component.approve, 'emit');
@@ -168,9 +157,7 @@ describe('TimeClockLogsTableComponent', () => {
 
     fixture.detectChanges();
 
-    const approveButton: HTMLButtonElement = template.querySelector(
-      approveButtonSelector
-    );
+    const approveButton: HTMLButtonElement = template.querySelector(approveButtonSelector);
     approveButton.click();
 
     expect(component.approve.emit).toHaveBeenCalledWith(firstTimeClockLog.id);
@@ -183,7 +170,7 @@ describe('TimeClockLogsTableComponent', () => {
     component.userId = approver.id;
     component.timeClockLogs = {
       ...emptyPagination(),
-      data: [firstTimeClockLog, createTimeClockLog()]
+      data: [firstTimeClockLog, createTimeClockLog()],
     };
 
     spyOn(component.deleteApproval, 'emit');
@@ -191,14 +178,10 @@ describe('TimeClockLogsTableComponent', () => {
 
     fixture.detectChanges();
 
-    const deleteApprovalButton: HTMLButtonElement = template.querySelector(
-      deleteApprovalButtonSelector
-    );
+    const deleteApprovalButton: HTMLButtonElement = template.querySelector(deleteApprovalButtonSelector);
     deleteApprovalButton.click();
 
-    expect(component.deleteApproval.emit).toHaveBeenCalledWith(
-      firstTimeClockLog.id
-    );
+    expect(component.deleteApproval.emit).toHaveBeenCalledWith(firstTimeClockLog.id);
   });
 
   it('should hide approve and show delete-approval button when row is approved by user', () => {
@@ -209,13 +192,11 @@ describe('TimeClockLogsTableComponent', () => {
     component.userId = approver.id;
     component.timeClockLogs = {
       ...emptyPagination(),
-      data: [firstTimeClockLog, createTimeClockLog()]
+      data: [firstTimeClockLog, createTimeClockLog()],
     };
 
-    const approveButtonSelector =
-      'table tbody tr:first-child td:last-child .approve';
-    const deleteApprovalButtonSelector =
-      'table tbody tr:first-child td:last-child .delete-approval';
+    const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
+    const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
 
     // show buttons
     component.actionButtons = ['approve', 'delete-approval'];
@@ -234,13 +215,11 @@ describe('TimeClockLogsTableComponent', () => {
     component.userId = approver.id;
     component.timeClockLogs = {
       ...emptyPagination(),
-      data: [firstTimeClockLog, createTimeClockLog()]
+      data: [firstTimeClockLog, createTimeClockLog()],
     };
 
-    const approveButtonSelector =
-      'table tbody tr:first-child td:last-child .approve';
-    const deleteApprovalButtonSelector =
-      'table tbody tr:first-child td:last-child .delete-approval';
+    const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
+    const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
 
     // show buttons
     component.actionButtons = ['approve', 'delete-approval'];

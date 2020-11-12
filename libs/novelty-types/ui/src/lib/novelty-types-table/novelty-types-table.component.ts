@@ -20,6 +20,7 @@ import {
 })
 export class NoveltyTypesTableComponent implements OnInit {
   @Input() noveltyTypes: NoveltyType[] = [];
+  @Input() showActionsColumn = true;
 
   @Output() rowTrashed = new EventEmitter();
 

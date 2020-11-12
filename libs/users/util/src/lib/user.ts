@@ -8,7 +8,7 @@ export class User {
   email: string;
   password?: string;
   email_verified_at?: string;
-  roles?: Role[];
+  roles?: Role[] = [];
   permissions?: Permission[];
   created_at?: string;
   updated_at?: string;
@@ -19,20 +19,20 @@ export class User {
   }
 
   static fromJsonList(arr: any[]): User[] {
-    return arr.map(data => User.fromJson(data));
+    return arr.map((data) => User.fromJson(data));
+  }
+
+  allPermissions(): string[] {
+    return this.permissions
+      .map((p) => p.name)
+      .concat(this.roles.reduce((acc, r) => acc.concat(r.permissions.map((rp) => rp.name)), []));
   }
 
   can(permissionName: string): boolean {
-    return (
-      isEmpty(permissionName) ||
-      (permissionName &&
-        (!!this.roles &&
-          !!this.roles.find(
-            role =>
-              !!role.permissions.find(
-                rolePermission => rolePermission.name === permissionName
-              )
-          )))
-    );
+    return this.allPermissions().indexOf(permissionName) >= 0;
+  }
+
+  canAny(permissions: string[]): boolean {
+    return this.allPermissions().filter((p) => permissions.includes(p)).length > 0;
   }
 }

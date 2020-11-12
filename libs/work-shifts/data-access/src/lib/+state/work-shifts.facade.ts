@@ -9,7 +9,8 @@ import {
   CreateWorkShift,
   UpdateWorkShift,
   DeleteWorkShift,
-  GetWorkShift
+  GetWorkShift,
+  GetWorkShiftOk,
 } from './work-shifts.actions';
 
 @Injectable()
@@ -20,24 +21,15 @@ export class WorkShiftsFacade {
   getWorkShiftsList$ = this.store.pipe(
     select(workShiftsQuery.getWorkShiftsList)
   );
-  paginatingStatus$ = this.store.pipe(
-    select(workShiftsQuery.paginatingStatus)
-  );
-  creatingStatus$ = this.store.pipe(
-    select(workShiftsQuery.creatingStatus)
-  );
+  paginatingStatus$ = this.store.pipe(select(workShiftsQuery.paginatingStatus));
+  creatingStatus$ = this.store.pipe(select(workShiftsQuery.creatingStatus));
   selectedWorkShift$ = this.store.pipe(
     select(workShiftsQuery.getSelectedWorkShift)
   );
-  selectingStatus$ = this.store.pipe(
-    select(workShiftsQuery.selectingStatus)
-  );
-  updatingStatus$ = this.store.pipe(
-    select(workShiftsQuery.updatingStatus)
-  );
-  deletingStatus$ = this.store.pipe(
-    select(workShiftsQuery.deletingStatus)
-  );
+  selectingStatus$ = this.store.pipe(select(workShiftsQuery.selectingStatus));
+  updatingStatus$ = this.store.pipe(select(workShiftsQuery.updatingStatus));
+  deletingStatus$ = this.store.pipe(select(workShiftsQuery.deletingStatus));
+  error$ = this.store.pipe(select(workShiftsQuery.getError));
 
   constructor(private store: Store<WorkShiftsPartialState>) {}
 
@@ -55,6 +47,10 @@ export class WorkShiftsFacade {
 
   update(id: string, workShift: WorkShiftInterface) {
     this.store.dispatch(new UpdateWorkShift({ id, data: workShift }));
+  }
+
+  cleanSelected() {
+    this.store.dispatch(new GetWorkShiftOk(null));
   }
 
   delete(id: string) {

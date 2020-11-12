@@ -16,6 +16,9 @@ import { CostCentersDataAccessModule } from '@kirby/cost-centers/data-access';
 import { EmployeesPageComponent } from './employees-page/employees-page.component';
 import { EditEmployeePageComponent } from './edit-employee-page/edit-employee-page.component';
 import { CreateEmployeePageComponent } from './create-employee-page/create-employee-page.component';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 export const employeesFeatureRoutes: Route[] = [
   { path: '', pathMatch: 'full', component: EmployeesPageComponent },
@@ -27,6 +30,8 @@ export const employeesFeatureRoutes: Route[] = [
   imports: [
     CommonModule,
     SharedModule,
+    MatIconModule,
+    MatInputModule,
     MatButtonModule,
     FlexLayoutModule,
     EmployeesUiModule,
@@ -38,10 +43,6 @@ export const employeesFeatureRoutes: Route[] = [
     EffectsModule.forFeature([EmployeeFeatureEffects]),
     RouterModule.forChild(employeesFeatureRoutes),
   ],
-  declarations: [
-    EmployeesPageComponent,
-    EditEmployeePageComponent,
-    CreateEmployeePageComponent,
-  ],
+  declarations: [EmployeesPageComponent, EditEmployeePageComponent, CreateEmployeePageComponent],
 })
 export class EmployeesFeatureModule {}

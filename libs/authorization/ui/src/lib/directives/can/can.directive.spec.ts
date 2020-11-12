@@ -1,6 +1,6 @@
-import { from } from 'rxjs';
-import { Component, TemplateRef, ViewContainerRef } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { from, of } from 'rxjs';
+import { Component } from '@angular/core';
+import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 
 import { User } from '@kirby/users/util';
 import { CanDirective } from './can.directive';
@@ -10,7 +10,7 @@ import { AuthFacade } from '@kirby/authentication-data-access';
   template: `
     <div *kirbyCan="'posts.create'">You can create posts data</div>
     <div *kirbyCan="'posts.delete'">You can delete posts data</div>
-  `
+  `,
 })
 class TestComponent {}
 
@@ -22,6 +22,7 @@ describe('CanDirective', () => {
     first_name: 'Tony',
     last_name: 'Stark',
     email: 'tony@stark.com',
+    permissions: [],
     roles: [
       {
         id: 1,
@@ -32,22 +33,20 @@ describe('CanDirective', () => {
           {
             id: 1,
             name: 'posts.create',
-            display_name: 'create posts'
-          }
-        ]
-      }
-    ]
+            display_name: 'create posts',
+          },
+        ],
+      },
+    ],
   });
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       declarations: [CanDirective, TestComponent],
-      providers: [
-        { provide: AuthFacade, useValue: { authUser$: from([userMock]) } }
-      ]
+      providers: [{ provide: AuthFacade, useValue: { authUser$: of(userMock) } }],
     }).createComponent(TestComponent);
 
-    authFacade = TestBed.get(AuthFacade);
+    authFacade = TestBed.inject(AuthFacade);
   });
 
   it('should create an instance', () => {
@@ -55,12 +54,13 @@ describe('CanDirective', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display element if user has permission', () => {
+  it('should display element if user has permission', fakeAsync(() => {
     fixture.detectChanges();
+    tick(100);
 
     const template: HTMLDivElement = fixture.nativeElement;
 
     expect(template.textContent).toContain('You can create posts data');
     expect(template.textContent).not.toContain('You can delete posts data');
-  });
+  }));
 });

@@ -8,14 +8,31 @@ export class CanDirective {
     this.viewContainer.createEmbeddedView(this.templateRef);
   }
 
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+}
+
+@Directive({ selector: '[kirbyCant]' })
+export class CantDirective {
+  @Input()
+  set kirbyCant(permissionName: string) {
+    this.viewContainer.createEmbeddedView(this.templateRef);
+  }
+
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+}
+
+@Directive({ selector: '[kirbyCanAny]' })
+export class CanAnyDirective {
+  @Input()
+  set kirbyCanAny(permissions: string[]) {
+    this.viewContainer.createEmbeddedView(this.templateRef);
+  }
+
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
 }
 
 @NgModule({
-  declarations: [CanDirective],
-  exports: [CanDirective]
+  declarations: [CanDirective, CantDirective, CanAnyDirective],
+  exports: [CanDirective, CantDirective, CanAnyDirective],
 })
 export class AuthorizationUiTestModule {}

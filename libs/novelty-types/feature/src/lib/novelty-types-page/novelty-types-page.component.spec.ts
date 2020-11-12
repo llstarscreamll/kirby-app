@@ -3,8 +3,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 
 import { emptyPagination } from '@kirby/shared';
+import { createUser } from '@kirby/users/testing';
+import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 import { NoveltyTypesPageComponent } from './novelty-types-page.component';
+import { AuthorizationUiTestModule } from '@kirby/authorization/ui/src';
+import { of } from 'rxjs';
 
 describe('NoveltyTypesPageComponent', () => {
   let template: HTMLDivElement;
@@ -14,6 +18,7 @@ describe('NoveltyTypesPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [AuthorizationUiTestModule],
       declarations: [NoveltyTypesPageComponent],
       providers: [
         {
@@ -24,6 +29,7 @@ describe('NoveltyTypesPageComponent', () => {
             paginatedNoveltyTypes$: hot('-a|', { a: emptyPagination() }),
           },
         },
+        { provide: AuthFacade, useValue: { authUser$: of(createUser('A1', { roles: [], permissions: [] })) } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -51,9 +57,7 @@ describe('NoveltyTypesPageComponent', () => {
     fixture.detectChanges();
 
     expect(noveltyTypesFacade.search).toHaveBeenCalledWith({});
-    expect(component.paginatedNoveltyTypes$).toBeObservable(
-      hot('-a|', { a: emptyPagination() })
-    );
+    expect(component.paginatedNoveltyTypes$).toBeObservable(hot('-a|', { a: emptyPagination() }));
   });
 
   it('should call NoveltyTypesFacade.trash(...) on onTrashRow', async () => {
@@ -66,9 +70,7 @@ describe('NoveltyTypesPageComponent', () => {
 
   it('should have certain elements on page', () => {
     fixture.detectChanges();
-    expect(
-      template.querySelector('kirby-novelty-types-search-form')
-    ).toBeTruthy();
+    expect(template.querySelector('kirby-novelty-types-search-form')).toBeTruthy();
     expect(template.querySelector('kirby-novelty-types-table')).toBeTruthy();
     expect(template.querySelector('kirby-pagination')).toBeTruthy();
   });

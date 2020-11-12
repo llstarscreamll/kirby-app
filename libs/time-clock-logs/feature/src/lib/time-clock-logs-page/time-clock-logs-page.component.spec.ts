@@ -11,7 +11,7 @@ import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
 
 describe('TimeClockLogsPageComponent', () => {
-  const user = createUser();
+  const user = createUser('U1', { roles: [], permissions: [] });
   let template: HTMLDivElement;
   let timeClockFacade: TimeClockLogsFacade;
   let component: TimeClockLogsPageComponent;
@@ -19,11 +19,7 @@ describe('TimeClockLogsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AuthorizationUiTestModule,
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
+      imports: [AuthorizationUiTestModule, HttpClientTestingModule, RouterTestingModule],
       declarations: [TimeClockLogsPageComponent],
       providers: [
         { provide: AuthFacade, useValue: { authUser$: of(user) } },
@@ -31,14 +27,14 @@ describe('TimeClockLogsPageComponent', () => {
           provide: TimeClockLogsFacade,
           useValue: {
             cleanError: () => true,
-            createEntryAndExitLog: data => true,
-            getTimeClockData: code => true,
-            searchSubCostCenters: code => true,
-            search: query => true
-          }
-        }
+            createEntryAndExitLog: (data) => true,
+            getTimeClockData: (code) => true,
+            searchSubCostCenters: (code) => true,
+            search: (query) => true,
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -60,9 +56,7 @@ describe('TimeClockLogsPageComponent', () => {
 
   it('should have certain elements', () => {
     expect(template.querySelector('h1')).toBeTruthy();
-    expect(
-      template.querySelector('a[routerLink="entry-and-exit-log"]')
-    ).toBeTruthy();
+    expect(template.querySelector('a[routerLink="entry-and-exit-log"]')).toBeTruthy();
     expect(template.querySelector('kirby-time-clock-logs-table')).toBeTruthy();
     expect(template.querySelectorAll('kirby-pagination').length).toBe(1);
   });

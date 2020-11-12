@@ -2,29 +2,34 @@
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Entrada</th>
-      <th>Salida</th>
-      <th>Almuerzo</th>
-      <th title="Minutos de gracia para entrada">MGE</th>
-      <th title="Minutos de gracia para salida">MGS</th>
-      <th title="Tiempo de almuerzo (min)">TA</th>
-      <th title="Tiempo mínimo transcurrido para descontar almuerzo (min)">TMTDA</th>
-      <th>Creado</th>
-      <th>Actualizado</th>
+      <th>Franjas horarias</th>
+      <th>Días en que aplica</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of items">
-      <td>{{ item.name }}</td>
-      <td>{{ item.start_time }}</td>
-      <td>{{ item.end_time }}</td>
-      <td>{{ item.meal_start_time }}</td>
-      <td>{{ item.grace_minutes_for_start_time }}</td>
-      <td>{{ item.grace_minutes_for_end_time }}</td>
-      <td>{{ item.meal_time_in_minutes }}</td>
-      <td>{{ item.min_minutes_required_to_discount_meal_time }}</td>
-      <td>{{ item.created_at | date:'short' }}</td>
-      <td>{{ item.updated_at | date:'short' }}</td>
+      <td>
+        <a [routerLink]="['/work-shifts', item.id, 'edit']">
+          {{ item.name }}
+        </a>
+      </td>
+      <td>
+        <div *ngFor="let timeSlot of item.time_slots">
+          {{ timeSlot.start }} - {{ timeSlot.end }}
+        </div>
+      </td>
+      <td>
+        <span *ngIf="! item.applies_on_days?.length">Ninguno</span>
+        <span *ngFor="let day of item.applies_on_days" class="mx-1">
+          {{ getDisplayDay(day) }}
+        </span>
+      </td>
+      <td class="w-3 text-right">
+        <button *ngIf="showDeleteBtn" mat-icon-button type="button" (click)="trash(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

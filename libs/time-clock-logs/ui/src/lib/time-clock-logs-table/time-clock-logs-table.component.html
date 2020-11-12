@@ -1,7 +1,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th width="10">#</th>
       <th>Empleado</th>
       <th>SCC</th>
       <th>Turno</th>
@@ -14,7 +13,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of timeClockLogs?.data">
-      <td>{{ row.id }}</td>
       <td>
         {{ row.employee.user.first_name + ' ' + row.employee.user.last_name }}
       </td>
@@ -23,11 +21,9 @@
       <td>{{ row.checked_in_at | date: 'yy-MM-dd HH:mm' }}</td>
       <td>{{ row.checked_out_at | date: 'yy-MM-dd HH:mm' }}</td>
       <td>
-        <a
-          *ngFor="let novelty of row.novelties"
-          [routerLink]="['/novelties', novelty.id, 'edit']"
-          >{{ readableNovelty(novelty) }}</a
-        >
+        <a *ngFor="let novelty of row.novelties"
+           [routerLink]="['/novelties', novelty.id, 'edit']"
+           title="{{ novelty.start_at | date: 'yy-MM-dd HH:mm:ss' }} - {{ novelty.end_at | date: 'yy-MM-dd HH:mm:ss' }}">{{ readableNovelty(novelty) }}</a>
       </td>
       <td>
         <div *ngFor="let approver of row.approvals">
@@ -35,24 +31,20 @@
         </div>
       </td>
       <td>
-        <button
-          *ngIf="showApproveButton(row)"
-          (click)="approve.emit(row.id)"
-          matTooltip="Aprobar"
-          mat-icon-button
-          color="primary"
-          class="approve"
-        >
+        <button *ngIf="showApproveButton(row)"
+                (click)="approve.emit(row.id)"
+                matTooltip="Aprobar"
+                mat-icon-button
+                color="primary"
+                class="approve">
           <mat-icon>check_circle</mat-icon>
         </button>
-        <button
-          *ngIf="showDeleteApprovalButton(row)"
-          (click)="deleteApproval.emit(row.id)"
-          matTooltip="Borrar aprobación"
-          mat-icon-button
-          color="warn"
-          class="delete-approval"
-        >
+        <button *ngIf="showDeleteApprovalButton(row)"
+                (click)="deleteApproval.emit(row.id)"
+                matTooltip="Borrar aprobación"
+                mat-icon-button
+                color="warn"
+                class="delete-approval">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </td>

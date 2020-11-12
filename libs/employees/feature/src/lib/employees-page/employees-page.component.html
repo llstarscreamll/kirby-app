@@ -9,7 +9,20 @@
   </a>
 </div>
 
-<div class="responsive-table shadow mt-5">
+<div class="mt-4">
+  <mat-form-field *kirbyCan="'employees.search'" class="w-full">
+    <mat-label>Buscar</mat-label>
+    <input
+           (change)="searchEmployees({ search: $event.srcElement.value, page: 1 })"
+           matInput
+           placeholder="Buscar por nombre, apellido, email, código o identificación"
+           type="search"
+           autocomplete="off" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<div class="responsive-table shadow my-4">
   <table class="table">
     <thead>
       <tr>

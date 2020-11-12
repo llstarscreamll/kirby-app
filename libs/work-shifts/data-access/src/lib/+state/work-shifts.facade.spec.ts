@@ -2,29 +2,31 @@ import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
-import { cold, getTestScheduler } from '@nrwl/angular/testing';
 import { StoreModule, Store, select } from '@ngrx/store';
+import { cold, getTestScheduler } from '@nrwl/angular/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { createWorkShift } from '@kirby/work-shifts/testing';
 import { WorkShiftsFacade } from './work-shifts.facade';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
+import { createWorkShift } from '@kirby/work-shifts/testing';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 import {
   WorkShiftsState,
   initialState,
   workShiftsReducer,
-  WORK_SHIFTS_FEATURE_KEY
+  WORK_SHIFTS_FEATURE_KEY,
 } from './work-shifts.reducer';
 import {
   GetWorkShift,
   UpdateWorkShift,
   DeleteWorkShift,
   CreateWorkShift,
-  SearchWorkShifts
+  SearchWorkShifts,
 } from './work-shifts.actions';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface TestSchema {
   workShifts: WorkShiftsState;
@@ -46,11 +48,16 @@ describe('WorkShiftsFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature(WORK_SHIFTS_FEATURE_KEY, workShiftsReducer, {
-            initialState
+            initialState,
           }),
-          EffectsModule.forFeature([WorkShiftsEffects])
+          EffectsModule.forFeature([WorkShiftsEffects]),
         ],
-        providers: [WorkShiftsFacade, WorkShiftService]
+        providers: [
+          WorkShiftsFacade,
+          WorkShiftService,
+          { provide: Router, useValue: { navigateByUrl: () => true } },
+          { provide: MatSnackBar, useValue: { open: () => true } },
+        ],
       })
       class CustomFeatureModule {}
 
@@ -62,32 +69,32 @@ describe('WorkShiftsFacade', () => {
             {
               runtimeChecks: {
                 strictStateImmutability: true,
-                strictActionImmutability: true
-              }
+                strictActionImmutability: true,
+              },
             }
           ),
           EffectsModule.forRoot([]),
           CustomFeatureModule,
-          HttpClientTestingModule
+          HttpClientTestingModule,
         ],
         providers: [
           { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
           {
             provide: AuthFacade,
-            useValue: { authTokens$: cold('a', { a: authTokens }) }
-          }
-        ]
+            useValue: { authTokens$: cold('a', { a: authTokens }) },
+          },
+        ],
       })
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(WorkShiftsFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(WorkShiftsFacade);
 
       spyOn(store, 'dispatch');
     });
 
-    it('search() should call SearchWorkShifts action', async done => {
+    it('search() should call SearchWorkShifts action', async (done) => {
       try {
         const query = {};
         await facade.search(query);
@@ -103,7 +110,7 @@ describe('WorkShiftsFacade', () => {
       }
     });
 
-    it('create() should call CreateWorkShift action', async done => {
+    it('create() should call CreateWorkShift action', async (done) => {
       try {
         await facade.create(entity);
         getTestScheduler().flush();
@@ -118,7 +125,7 @@ describe('WorkShiftsFacade', () => {
       }
     });
 
-    it('get() should call GetWorkShift action', async done => {
+    it('get() should call GetWorkShift action', async (done) => {
       try {
         await facade.get(entity.id);
         getTestScheduler().flush();
@@ -133,7 +140,7 @@ describe('WorkShiftsFacade', () => {
       }
     });
 
-    it('update() should call UpdateWorkShift action', async done => {
+    it('update() should call UpdateWorkShift action', async (done) => {
       try {
         await facade.update(entity.id, entity);
         getTestScheduler().flush();
@@ -141,7 +148,7 @@ describe('WorkShiftsFacade', () => {
         expect(store.dispatch).toHaveBeenCalledWith(
           new UpdateWorkShift({
             id: entity.id,
-            data: entity
+            data: entity,
           })
         );
 
@@ -151,7 +158,7 @@ describe('WorkShiftsFacade', () => {
       }
     });
 
-    it('delete() should call DeleteWorkShift action', async done => {
+    it('delete() should call DeleteWorkShift action', async (done) => {
       try {
         const id = 'AAA';
         await facade.delete(id);

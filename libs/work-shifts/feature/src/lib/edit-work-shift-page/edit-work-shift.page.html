@@ -1,0 +1,12 @@
+<h1>Editar turno de trabajo</h1>
+
+<div class="clearfix"></div>
+
+<kirby-api-errors [apiError]="error$ | async"></kirby-api-errors>
+
+<kirby-work-shift-form *ngIf="(workShift$ | async) && (user$ | async)"
+                       [defaults]="workShift$ | async"
+                       [disable]="! (user$ | async).can('work-shift.update')"
+                       (submitted)="updateWorkShift($event)"
+                       class="block my-4">
+</kirby-work-shift-form>

@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { SharedModule } from '@kirby/shared';
 import { NoveltyTypesUiModule } from '@kirby/novelty-types/ui';
+import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { NoveltyTypesFeatureEffects } from './novelty-types-feature.effects';
 import { NoveltyTypesDataAccessModule } from '@kirby/novelty-types/data-access';
 import { NoveltyTypesPageComponent } from './novelty-types-page/novelty-types-page.component';
@@ -18,6 +19,7 @@ import { CreateNoveltyTypePageComponent } from './create-novelty-type-page/creat
     SharedModule,
     MatButtonModule,
     NoveltyTypesUiModule,
+    AuthorizationUiModule,
     NoveltyTypesDataAccessModule,
     EffectsModule.forFeature([NoveltyTypesFeatureEffects]),
     RouterModule.forChild([

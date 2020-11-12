@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AuthFacade } from '@kirby/authentication-data-access';
 
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access/src';
 
@@ -9,9 +10,10 @@ import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access/src';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyTypesPageComponent implements OnInit {
+  user$ = this.authFacade.authUser$;
   paginatedNoveltyTypes$ = this.noveltyTypesFacade.paginatedNoveltyTypes$;
 
-  constructor(private noveltyTypesFacade: NoveltyTypesFacade) {}
+  constructor(private noveltyTypesFacade: NoveltyTypesFacade, private authFacade: AuthFacade) {}
 
   ngOnInit(): void {
     this.searchNoveltyTypes();
