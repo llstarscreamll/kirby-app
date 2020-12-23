@@ -33,8 +33,15 @@ export class NoveltyService extends BaseService {
   }
 
   getResume(query: any = {}): Observable<any> {
-    const endpoint =
-      this.env.api + 'api/v1/novelties/resume-by-employee-and-novelty-types';
+    const endpoint = this.env.api + 'api/v1/novelties/resume-by-employee-and-novelty-types';
+    return this.http.get<any>(endpoint, {
+      headers: this.defaultHeaders,
+      params: query,
+    });
+  }
+
+  exportResume(query: { start_at: string; end_at: string }): Observable<any> {
+    const endpoint = this.env.api + 'api/v1/novelties/export-resume-by-novelty-type';
     return this.http.get<any>(endpoint, {
       headers: this.defaultHeaders,
       params: query,
@@ -62,11 +69,7 @@ export class NoveltyService extends BaseService {
       .pipe(map((response) => response.data));
   }
 
-  downloadReport(query: {
-    employee_id?: string;
-    start_date: string;
-    end_date: string;
-  }): Observable<any> {
+  downloadReport(query: { employee_id?: string; start_date: string; end_date: string }): Observable<any> {
     const endpoint = `${this.endpoint}export`;
     return this.http
       .post<any>(endpoint, query, {
@@ -92,11 +95,7 @@ export class NoveltyService extends BaseService {
     return this.http.post<any>(endpoint, {}, { headers: this.defaultHeaders });
   }
 
-  setApprovalsByEmployeeAndDateRange(
-    employeeId: string,
-    startDate: string,
-    endDate: string
-  ): Observable<any> {
+  setApprovalsByEmployeeAndDateRange(employeeId: string, startDate: string, endDate: string): Observable<any> {
     const endpoint = `${this.endpoint}approvals-by-employee-and-date-range`;
     return this.http.post<any>(
       endpoint,
@@ -109,11 +108,7 @@ export class NoveltyService extends BaseService {
     );
   }
 
-  deleteApprovalsByEmployeeAndDateRange(
-    employeeId: string,
-    startDate: string,
-    endDate: string
-  ): Observable<any> {
+  deleteApprovalsByEmployeeAndDateRange(employeeId: string, startDate: string, endDate: string): Observable<any> {
     const endpoint = `${this.endpoint}approvals-by-employee-and-date-range`;
     return this.http.delete<any>(endpoint, {
       headers: this.defaultHeaders,

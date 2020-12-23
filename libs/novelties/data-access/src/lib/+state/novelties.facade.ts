@@ -21,6 +21,7 @@ import {
   SearchNoveltiesOk,
   GetResume,
   CreateBalanceNovelty,
+  ExportResume,
 } from './novelties.actions';
 import { User } from '@kirby/users/util/src';
 
@@ -139,5 +140,9 @@ export class NoveltiesFacade {
 
   getResumeByEmployeesAndNoveltyTypes(query) {
     this.store.dispatch(new GetResume(query));
+  }
+
+  exportNoveltiesResume(query) {
+    this.store.dispatch(new ExportResume(query));
   }
 }
