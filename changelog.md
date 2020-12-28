@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.6 (2020-12-28)](https://github.com/llstarscreamll/angular-kirby/compare/v0.6..v0.5)
+
+### Added
+
+- novelties: new link to export resume by novelty type from all employees to csv
+
 ## [v0.5 (2020-11-11)](https://github.com/llstarscreamll/angular-kirby/compare/v0.5..v0.4.3)
 
 ### Added
