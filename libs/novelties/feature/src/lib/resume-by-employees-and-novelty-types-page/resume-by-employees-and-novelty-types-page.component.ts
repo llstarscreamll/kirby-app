@@ -14,8 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './resume-by-employees-and-novelty-types-page.component.html',
   styleUrls: ['./resume-by-employees-and-novelty-types-page.component.scss'],
 })
-export class ResumeByEmployeesAndNoveltyTypesPageComponent
-  implements OnInit, OnDestroy {
+export class ResumeByEmployeesAndNoveltyTypesPageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
   user$ = this.authFacade.authUser$;
   apiError$ = this.noveltiesFacade.error$;
@@ -37,14 +36,8 @@ export class ResumeByEmployeesAndNoveltyTypesPageComponent
     this.searchForm = this.formBuilder.group({
       page: 1,
       search: [''],
-      start_date: [
-        this.defaultStartDate.format('YYYY-MM-DD'),
-        [Validators.required],
-      ],
-      end_date: [
-        this.defaultEndDate.format('YYYY-MM-DD'),
-        [Validators.required],
-      ],
+      start_date: [this.defaultStartDate.format('YYYY-MM-DD'), [Validators.required]],
+      end_date: [this.defaultEndDate.format('YYYY-MM-DD'), [Validators.required]],
     });
 
     this.getResume({
@@ -94,5 +87,12 @@ export class ResumeByEmployeesAndNoveltyTypesPageComponent
         takeUntil(this.destroy$)
       )
       .subscribe();
+  }
+
+  exportNoveltiesResume() {
+    this.noveltiesFacade.exportNoveltiesResume({
+      start_at: moment(this.searchForm.value.start_date).toISOString(),
+      end_at: moment(this.searchForm.value.end_date).toISOString(),
+    });
   }
 }

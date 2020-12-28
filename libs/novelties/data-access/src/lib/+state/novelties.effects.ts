@@ -46,44 +46,48 @@ import {
   CreateBalanceNovelty,
   CreateBalanceNoveltyError,
   CreateBalanceNoveltyOk,
+  ExportResume,
+  ExportResumeError,
+  ExportResumeOk,
 } from './novelties.actions';
 import { NoveltyService } from '../novelty.service';
 
 @Injectable()
 export class NoveltiesEffects {
-  @Effect() searchNovelties$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.SearchNovelties,
-    {
-      run: (action: SearchNovelties, state: NoveltiesPartialState) =>
-        this.noveltyService
-          .search(action.payload)
-          .pipe(map((apiResponse) => new SearchNoveltiesOk(apiResponse))),
-      onError: (action: SearchNovelties, error) =>
-        new SearchNoveltiesError(error),
-    }
-  );
+  @Effect() searchNovelties$ = this.dataPersistence.fetch(NoveltiesActionTypes.SearchNovelties, {
+    run: (action: SearchNovelties, state: NoveltiesPartialState) =>
+      this.noveltyService.search(action.payload).pipe(map((apiResponse) => new SearchNoveltiesOk(apiResponse))),
+    onError: (action: SearchNovelties, error) => new SearchNoveltiesError(error),
+  });
 
-  @Effect() searchNoveltyTypes$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.SearchNoveltyTypes,
-    {
-      run: (action: SearchNoveltyTypes) =>
-        this.noveltyService
-          .searchNoveltyTypes(action.payload)
-          .pipe(map((apiResponse) => new SearchNoveltyTypesOk(apiResponse))),
-      onError: (action: SearchNoveltyTypes, error) =>
-        new SearchNoveltyTypesError(error),
-    }
-  );
+  @Effect() searchNoveltyTypes$ = this.dataPersistence.fetch(NoveltiesActionTypes.SearchNoveltyTypes, {
+    run: (action: SearchNoveltyTypes) =>
+      this.noveltyService
+        .searchNoveltyTypes(action.payload)
+        .pipe(map((apiResponse) => new SearchNoveltyTypesOk(apiResponse))),
+    onError: (action: SearchNoveltyTypes, error) => new SearchNoveltyTypesError(error),
+  });
 
-  @Effect() getResume$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.GetResume,
-    {
-      run: (action: GetResume) =>
-        this.noveltyService
-          .getResume(action.payload)
-          .pipe(map((apiResponse) => new GetResumeOk(apiResponse))),
-      onError: (action: GetResume, error) => new GetResumeError(error),
-    }
+  @Effect() getResume$ = this.dataPersistence.fetch(NoveltiesActionTypes.GetResume, {
+    run: (action: GetResume) =>
+      this.noveltyService.getResume(action.payload).pipe(map((apiResponse) => new GetResumeOk(apiResponse))),
+    onError: (action: GetResume, error) => new GetResumeError(error),
+  });
+
+  @Effect() exportResume$ = this.dataPersistence.fetch(NoveltiesActionTypes.ExportResume, {
+    run: (action: ExportResume) =>
+      this.noveltyService.exportResume(action.payload).pipe(map((apiResponse) => new ExportResumeOk(apiResponse))),
+    onError: (action: ExportResume, error) => new ExportResumeError(error),
+  });
+
+  @Effect({ dispatch: false })
+  exportResumeOk$ = this.actions$.pipe(
+    ofType(NoveltiesActionTypes.ExportResumeOk),
+    tap((_) =>
+      this.snackBar.open('El reporte será enviado a tu correo electrónico', 'Ok', {
+        duration: 5 * 1000,
+      })
+    )
   );
 
   @Effect()
@@ -93,28 +97,21 @@ export class NoveltiesEffects {
       run: (action: CreateNoveltiesToEmployees) =>
         this.noveltyService
           .createMany(action.payload)
-          .pipe(
-            map((apiResponse) => new CreateNoveltiesToEmployeesOk(apiResponse))
-          ),
-      onError: (action: CreateNoveltiesToEmployees, error) =>
-        new CreateNoveltiesToEmployeesError(error),
+          .pipe(map((apiResponse) => new CreateNoveltiesToEmployeesOk(apiResponse))),
+      onError: (action: CreateNoveltiesToEmployees, error) => new CreateNoveltiesToEmployeesError(error),
     }
   );
 
   @Effect()
-  createBalanceNovelty$ = this.dataPersistence.pessimisticUpdate(
-    NoveltiesActionTypes.CreateBalanceNovelty,
-    {
-      run: (action: CreateBalanceNovelty) =>
-        this.noveltyService
-          .createBalance(action.payload)
-          .pipe(map((apiResponse) => new CreateBalanceNoveltyOk(apiResponse))),
-      onError: (action: CreateBalanceNovelty, error) =>
-        new CreateBalanceNoveltyError(error),
-    }
-  );
+  createBalanceNovelty$ = this.dataPersistence.pessimisticUpdate(NoveltiesActionTypes.CreateBalanceNovelty, {
+    run: (action: CreateBalanceNovelty) =>
+      this.noveltyService
+        .createBalance(action.payload)
+        .pipe(map((apiResponse) => new CreateBalanceNoveltyOk(apiResponse))),
+    onError: (action: CreateBalanceNovelty, error) => new CreateBalanceNoveltyError(error),
+  });
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   createBalanceNoveltyOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.CreateBalanceNoveltyOk),
     tap((action) =>
@@ -124,69 +121,49 @@ export class NoveltiesEffects {
     )
   );
 
-  @Effect() getNovelty$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.GetNovelty,
-    {
-      run: (action: GetNovelty) =>
-        this.noveltyService
-          .get(action.payload)
-          .pipe(map((apiResponse) => new GetNoveltyOk(apiResponse))),
-      onError: (action: GetNovelty, error) => new GetNoveltyError(error),
-    }
-  );
+  @Effect() getNovelty$ = this.dataPersistence.fetch(NoveltiesActionTypes.GetNovelty, {
+    run: (action: GetNovelty) =>
+      this.noveltyService.get(action.payload).pipe(map((apiResponse) => new GetNoveltyOk(apiResponse))),
+    onError: (action: GetNovelty, error) => new GetNoveltyError(error),
+  });
 
-  @Effect() updateNovelty$ = this.dataPersistence.optimisticUpdate(
-    NoveltiesActionTypes.UpdateNovelty,
-    {
-      run: (action: UpdateNovelty) =>
-        this.noveltyService
-          .update(action.payload.id, action.payload.noveltyData)
-          .pipe(
-            map(
-              (response) =>
-                new UpdateNoveltyOk({
-                  id: action.payload.id,
-                  noveltyData: response,
-                })
-            )
-          ),
-      undoAction: (action: UpdateNovelty, error: any) =>
-        new UpdateNoveltyError({ ...action.payload, error }),
-    }
-  );
+  @Effect() updateNovelty$ = this.dataPersistence.optimisticUpdate(NoveltiesActionTypes.UpdateNovelty, {
+    run: (action: UpdateNovelty) =>
+      this.noveltyService.update(action.payload.id, action.payload.noveltyData).pipe(
+        map(
+          (response) =>
+            new UpdateNoveltyOk({
+              id: action.payload.id,
+              noveltyData: response,
+            })
+        )
+      ),
+    undoAction: (action: UpdateNovelty, error: any) => new UpdateNoveltyError({ ...action.payload, error }),
+  });
 
   @Effect()
-  approveNovelty$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.ApproveNovelty,
-    {
-      run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
-        return this.noveltyService
-          .approve(action.payload.noveltyId)
-          .pipe(map((response) => new ApproveNoveltyOk(action.payload)));
-      },
-      onError: (action: ApproveNovelty, error) => {
-        return new ApproveNoveltyError({
-          ...action.payload,
-          error: error,
-        });
-      },
-    }
-  );
+  approveNovelty$ = this.dataPersistence.fetch(NoveltiesActionTypes.ApproveNovelty, {
+    run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
+      return this.noveltyService
+        .approve(action.payload.noveltyId)
+        .pipe(map((response) => new ApproveNoveltyOk(action.payload)));
+    },
+    onError: (action: ApproveNovelty, error) => {
+      return new ApproveNoveltyError({
+        ...action.payload,
+        error: error,
+      });
+    },
+  });
 
   @Effect()
   setApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange,
     {
-      run: ({
-        payload: { employeeId, startDate, endDate },
-      }: SetApprovalsByEmployeeAndDateRange) => {
+      run: ({ payload: { employeeId, startDate, endDate } }: SetApprovalsByEmployeeAndDateRange) => {
         return this.noveltyService
           .setApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
-          .pipe(
-            map(
-              (response) => new SetApprovalsByEmployeeAndDateRangeOk(response)
-            )
-          );
+          .pipe(map((response) => new SetApprovalsByEmployeeAndDateRangeOk(response)));
       },
       onError: (action: SetApprovalsByEmployeeAndDateRange, error) => {
         return new SetApprovalsByEmployeeAndDateRangeError({
@@ -218,57 +195,44 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  trashNovelty$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.TrashNovelty,
-    {
-      run: (action: TrashNovelty, state: NoveltiesPartialState) => {
-        return this.noveltyService.trash(action.payload).pipe(
-          map((_) => new TrashNoveltyOk(action.payload)),
-          tap((_) => this.router.navigate(['novelties']))
-        );
-      },
-      onError: (action: TrashNovelty, error) => {
-        return new TrashNoveltyError({
-          id: action.payload,
-          error: error,
-        });
-      },
-    }
-  );
+  trashNovelty$ = this.dataPersistence.fetch(NoveltiesActionTypes.TrashNovelty, {
+    run: (action: TrashNovelty, state: NoveltiesPartialState) => {
+      return this.noveltyService.trash(action.payload).pipe(
+        map((_) => new TrashNoveltyOk(action.payload)),
+        tap((_) => this.router.navigate(['novelties']))
+      );
+    },
+    onError: (action: TrashNovelty, error) => {
+      return new TrashNoveltyError({
+        id: action.payload,
+        error: error,
+      });
+    },
+  });
 
   @Effect()
-  deleteNoveltyApproval$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.DeleteNoveltyApproval,
-    {
-      run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
-        return this.noveltyService
-          .deleteApproval(action.payload.noveltyId)
-          .pipe(map((response) => new DeleteNoveltyApprovalOk(action.payload)));
-      },
-      onError: (action: ApproveNovelty, error) => {
-        return new DeleteNoveltyApprovalError({
-          ...action.payload,
-          error: error,
-        });
-      },
-    }
-  );
+  deleteNoveltyApproval$ = this.dataPersistence.fetch(NoveltiesActionTypes.DeleteNoveltyApproval, {
+    run: (action: ApproveNovelty, state: NoveltiesPartialState) => {
+      return this.noveltyService
+        .deleteApproval(action.payload.noveltyId)
+        .pipe(map((response) => new DeleteNoveltyApprovalOk(action.payload)));
+    },
+    onError: (action: ApproveNovelty, error) => {
+      return new DeleteNoveltyApprovalError({
+        ...action.payload,
+        error: error,
+      });
+    },
+  });
 
   @Effect()
   deleteApprovalsByEmployeeAndDateRange$ = this.dataPersistence.fetch(
     NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRange,
     {
-      run: ({
-        payload: { employeeId, startDate, endDate },
-      }: DeleteApprovalsByEmployeeAndDateRange) => {
+      run: ({ payload: { employeeId, startDate, endDate } }: DeleteApprovalsByEmployeeAndDateRange) => {
         return this.noveltyService
           .deleteApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
-          .pipe(
-            map(
-              (response) =>
-                new DeleteApprovalsByEmployeeAndDateRangeOk(response)
-            )
-          );
+          .pipe(map((response) => new DeleteApprovalsByEmployeeAndDateRangeOk(response)));
       },
       onError: (action: DeleteApprovalsByEmployeeAndDateRange, error) => {
         return new DeleteApprovalsByEmployeeAndDateRangeError({
@@ -300,33 +264,26 @@ export class NoveltiesEffects {
   );
 
   @Effect()
-  downloadNoveltiesReport$ = this.dataPersistence.fetch(
-    NoveltiesActionTypes.DownLoadNoveltiesReport,
-    {
-      run: ({ payload }: DownLoadNoveltiesReport) => {
-        return this.noveltyService
-          .downloadReport(payload)
-          .pipe(map((response) => new DownLoadNoveltiesReportOk(response)));
-      },
-      onError: (action: DownLoadNoveltiesReport, error) => {
-        return new DownLoadNoveltiesReportError({
-          ...action.payload,
-          error: error,
-        });
-      },
-    }
-  );
+  downloadNoveltiesReport$ = this.dataPersistence.fetch(NoveltiesActionTypes.DownLoadNoveltiesReport, {
+    run: ({ payload }: DownLoadNoveltiesReport) => {
+      return this.noveltyService
+        .downloadReport(payload)
+        .pipe(map((response) => new DownLoadNoveltiesReportOk(response)));
+    },
+    onError: (action: DownLoadNoveltiesReport, error) => {
+      return new DownLoadNoveltiesReportError({
+        ...action.payload,
+        error: error,
+      });
+    },
+  });
 
   @Effect({ dispatch: false }) downloadNoveltiesReportOk$ = this.actions$.pipe(
     ofType(NoveltiesActionTypes.DownLoadNoveltiesReportOk),
     tap((action) =>
-      this.snackBar.open(
-        'El reporte será enviado a tu correo electrónico',
-        'Ok',
-        {
-          duration: 5 * 1000,
-        }
-      )
+      this.snackBar.open('El reporte será enviado a tu correo electrónico', 'Ok', {
+        duration: 5 * 1000,
+      })
     )
   );
 

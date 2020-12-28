@@ -47,6 +47,10 @@ export enum NoveltiesActionTypes {
   GetResumeOk = '[Novelties] get resume ok',
   GetResumeError = '[Novelties] get resume error',
 
+  ExportResume = '[Novelties] export resume',
+  ExportResumeOk = '[Novelties] export resume ok',
+  ExportResumeError = '[Novelties] export resume error',
+
   UpdateNovelty = '[Novelties] update',
   UpdateNoveltyOk = '[Novelties] update ok',
   UpdateNoveltyError = '[Novelties] update error',
@@ -136,9 +140,7 @@ export class ApproveNoveltyError implements Action {
 
 export class SetApprovalsByEmployeeAndDateRange implements Action {
   readonly type = NoveltiesActionTypes.SetApprovalsByEmployeeAndDateRange;
-  constructor(
-    public payload: { employeeId: string; startDate: string; endDate: string }
-  ) {}
+  constructor(public payload: { employeeId: string; startDate: string; endDate: string }) {}
 }
 
 export class SetApprovalsByEmployeeAndDateRangeOk implements Action {
@@ -175,9 +177,7 @@ export class DeleteNoveltyApprovalError implements Action {
 
 export class DeleteApprovalsByEmployeeAndDateRange implements Action {
   readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRange;
-  constructor(
-    public payload: { employeeId: string; startDate: string; endDate: string }
-  ) {}
+  constructor(public payload: { employeeId: string; startDate: string; endDate: string }) {}
 }
 
 export class DeleteApprovalsByEmployeeAndDateRangeOk implements Action {
@@ -186,8 +186,7 @@ export class DeleteApprovalsByEmployeeAndDateRangeOk implements Action {
 }
 
 export class DeleteApprovalsByEmployeeAndDateRangeError implements Action {
-  readonly type =
-    NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
+  readonly type = NoveltiesActionTypes.DeleteApprovalsByEmployeeAndDateRangeError;
   constructor(
     public payload: {
       employeeId: string;
@@ -246,6 +245,20 @@ export class GetResumeOk implements Action {
 
 export class GetResumeError implements Action {
   readonly type = NoveltiesActionTypes.GetResumeError;
+  constructor(public payload: any) {}
+}
+export class ExportResume implements Action {
+  readonly type = NoveltiesActionTypes.ExportResume;
+  constructor(public payload: any) {}
+}
+
+export class ExportResumeOk implements Action {
+  readonly type = NoveltiesActionTypes.ExportResumeOk;
+  constructor(public payload: Pagination<any>) {}
+}
+
+export class ExportResumeError implements Action {
+  readonly type = NoveltiesActionTypes.ExportResumeError;
   constructor(public payload: any) {}
 }
 
@@ -333,6 +346,9 @@ export type NoveltiesAction =
   | GetResume
   | GetResumeOk
   | GetResumeError
+  | ExportResume
+  | ExportResumeOk
+  | ExportResumeError
   | UpdateNovelty
   | UpdateNoveltyOk
   | UpdateNoveltyError
@@ -377,6 +393,9 @@ export const fromNoveltiesActions = {
   GetResume,
   GetResumeOk,
   GetResumeError,
+  ExportResume,
+  ExportResumeOk,
+  ExportResumeError,
   UpdateNovelty,
   UpdateNoveltyOk,
   UpdateNoveltyError,
