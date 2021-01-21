@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.7 (2021-01-20)](https://github.com/llstarscreamll/angular-kirby/compare/v0.7..v0.6)
+
+### Changes
+
+- Novelties: hide employee form control on report by employee when user doesn't have global search permission (llstarscreamll@hotmail.com)
+
 ## [v0.6 (2020-12-28)](https://github.com/llstarscreamll/angular-kirby/compare/v0.6..v0.5)
 
 ### Added
