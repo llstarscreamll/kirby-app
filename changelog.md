@@ -1,5 +1,11 @@
 # Release notes
 
+## [v0.8 (2021-01-21)](https://github.com/llstarscreamll/angular-kirby/compare/v0.8..v0.7)
+
+### Added
+
+- novelties: remove employee search control on resume by novelty type report based on ACL rules (llstarscreamll@hotmail.com)
+
 ## [v0.7 (2021-01-20)](https://github.com/llstarscreamll/angular-kirby/compare/v0.7..v0.6)
 
 ### Changes
