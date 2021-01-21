@@ -2,7 +2,7 @@
 
 <kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
 
-<div class="text-right my-3">
+<div *kirbyCan="'novelties.export'" class="text-right my-3">
   <button mat-button
           [matMenuTriggerFor]="downloadMenu"
           color="primary"
@@ -25,23 +25,26 @@
 </div>
 
 <form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5" autocomplete="off">
-  <mat-form-field class="w-full">
-    <mat-label>Empleado</mat-label>
-    <input
-           matInput
-           [matAutocomplete]="employeeAutocomplete"
-           formControlName="employee"
-           required />
-    <mat-autocomplete
-                      #employeeAutocomplete="matAutocomplete"
-                      [displayWith]="displayEmployeeFieldValue">
-      <mat-option
-                  *ngFor="let employee of (foundEmployees$ | async)?.data"
-                  [value]="employee">
-        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <ng-container *kirbyCan="'novelties.global-search'">
+    <!-- only show employee field when is already added on search reactive form -->
+    <mat-form-field *ngIf="searchForm.get('employee')" class="w-full">
+      <mat-label>Empleado</mat-label>
+      <input
+             matInput
+             [matAutocomplete]="employeeAutocomplete"
+             formControlName="employee"
+             required />
+      <mat-autocomplete
+                        #employeeAutocomplete="matAutocomplete"
+                        [displayWith]="displayEmployeeFieldValue">
+        <mat-option
+                    *ngFor="let employee of (foundEmployees$ | async)?.data"
+                    [value]="employee">
+          <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </ng-container>
 
   <div
        fxLayout="column"
@@ -153,7 +156,7 @@
 
       <tr *ngIf="!(noveltiesReport$ | async)">
         <td colspan="7" class="text-center">
-          Elige un empleado para generar el reporte
+          Pulsa el botón generar para ver el reporte
         </td>
       </tr>
     </tbody>

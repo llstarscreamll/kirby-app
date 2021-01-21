@@ -1,8 +1,8 @@
-import { NgModule, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Directive, Input } from '@angular/core';
+import { NgModule, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({ selector: '[kirbyCan]' })
-export class CanDirective {
+export class MockCanDirective {
   @Input()
   set kirbyCan(permissionName: string) {
     this.viewContainer.createEmbeddedView(this.templateRef);
@@ -12,7 +12,7 @@ export class CanDirective {
 }
 
 @Directive({ selector: '[kirbyCant]' })
-export class CantDirective {
+export class MockCantDirective {
   @Input()
   set kirbyCant(permissionName: string) {
     this.viewContainer.createEmbeddedView(this.templateRef);
@@ -22,7 +22,7 @@ export class CantDirective {
 }
 
 @Directive({ selector: '[kirbyCanAny]' })
-export class CanAnyDirective {
+export class MockCanAnyDirective {
   @Input()
   set kirbyCanAny(permissions: string[]) {
     this.viewContainer.createEmbeddedView(this.templateRef);
@@ -32,7 +32,7 @@ export class CanAnyDirective {
 }
 
 @NgModule({
-  declarations: [CanDirective, CantDirective, CanAnyDirective],
-  exports: [CanDirective, CantDirective, CanAnyDirective],
+  declarations: [MockCanDirective, MockCantDirective, MockCanAnyDirective],
+  exports: [MockCanDirective, MockCantDirective, MockCanAnyDirective],
 })
 export class AuthorizationUiTestModule {}
