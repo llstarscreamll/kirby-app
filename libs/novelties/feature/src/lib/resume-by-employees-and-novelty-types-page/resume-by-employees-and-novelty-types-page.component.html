@@ -5,7 +5,7 @@
 <kirby-api-errors [apiError]="apiError$ | async"></kirby-api-errors>
 
 <form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5" autocomplete="off">
-  <mat-form-field class="w-full">
+  <mat-form-field *kirbyCan="'novelties.global-search'" class="w-full">
     <mat-label>Buscar empleado</mat-label>
     <input matInput formControlName="search" type="search" />
   </mat-form-field>
