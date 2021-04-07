@@ -15,23 +15,13 @@
       "tags": ["scope:pascal", "type:e2e", "platform:web"]
     },
     "authentication-data-access": {
-      "tags": [
-        "scope:authentication",
-        "type:data-access",
-        "platform:web",
-        "platform:desktop"
-      ]
+      "tags": ["scope:authentication", "type:data-access", "platform:web", "platform:desktop"]
     },
     "shared": {
       "tags": ["scope:shared", "platform:web", "platform:desktop"]
     },
     "authentication-utils": {
-      "tags": [
-        "scope:authentication",
-        "type:util",
-        "platform:web",
-        "platform:desktop"
-      ]
+      "tags": ["scope:authentication", "type:util", "platform:web", "platform:desktop"]
     },
     "work-shifts-data-access": {
       "tags": ["scope:work-shifts", "type:data-access", "platform:web"]
@@ -128,6 +118,9 @@
     },
     "novelty-types-feature": {
       "tags": ["ui"]
+    },
+    "production-feature": {
+      "tags": ["type:feature"]
     }
   }
 }

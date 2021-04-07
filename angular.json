@@ -21,10 +21,7 @@
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
             "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
-            "styles": [
-              "apps/pascal/src/styles.css",
-              "apps/pascal/src/styles.scss"
-            ],
+            "styles": ["apps/pascal/src/styles.css", "apps/pascal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -98,10 +95,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/pascal/tsconfig.app.json",
-              "apps/pascal/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/pascal/tsconfig.app.json", "apps/pascal/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -186,10 +180,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/tsconfig.lib.json",
-              "libs/shared/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/shared/tsconfig.lib.json", "libs/shared/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -252,10 +243,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/authentication/utils/tsconfig.lib.json",
-              "libs/authentication/utils/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/authentication/utils/tsconfig.lib.json", "libs/authentication/utils/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -284,10 +272,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/util/tsconfig.lib.json",
-              "libs/work-shifts/util/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/work-shifts/util/tsconfig.lib.json", "libs/work-shifts/util/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -316,10 +301,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/feature/tsconfig.lib.json",
-              "libs/work-shifts/feature/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/work-shifts/feature/tsconfig.lib.json", "libs/work-shifts/feature/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -349,10 +331,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/ui/tsconfig.lib.json",
-              "libs/work-shifts/ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/work-shifts/ui/tsconfig.lib.json", "libs/work-shifts/ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -415,10 +394,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/util/tsconfig.lib.json",
-              "libs/time-clock-logs/util/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/time-clock-logs/util/tsconfig.lib.json", "libs/time-clock-logs/util/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -446,10 +422,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/users/util/tsconfig.lib.json",
-              "libs/users/util/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/users/util/tsconfig.lib.json", "libs/users/util/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -510,10 +483,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/ui/tsconfig.lib.json",
-              "libs/time-clock-logs/ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/time-clock-logs/ui/tsconfig.lib.json", "libs/time-clock-logs/ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -576,10 +546,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/feature/tsconfig.lib.json",
-              "libs/employees/feature/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/employees/feature/tsconfig.lib.json", "libs/employees/feature/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -609,10 +576,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/util/tsconfig.lib.json",
-              "libs/employees/util/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/employees/util/tsconfig.lib.json", "libs/employees/util/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -641,10 +605,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/data/tsconfig.lib.json",
-              "libs/novelties/data/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelties/data/tsconfig.lib.json", "libs/novelties/data/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -673,10 +634,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/utils/tsconfig.lib.json",
-              "libs/novelties/utils/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelties/utils/tsconfig.lib.json", "libs/novelties/utils/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -705,10 +663,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelty-types/data/tsconfig.lib.json",
-              "libs/novelty-types/data/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelty-types/data/tsconfig.lib.json", "libs/novelty-types/data/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -737,10 +692,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/feature/tsconfig.lib.json",
-              "libs/novelties/feature/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelties/feature/tsconfig.lib.json", "libs/novelties/feature/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -770,10 +722,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/ui/tsconfig.lib.json",
-              "libs/novelties/ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelties/ui/tsconfig.lib.json", "libs/novelties/ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -836,10 +785,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/authorization/ui/tsconfig.lib.json",
-              "libs/authorization/ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/authorization/ui/tsconfig.lib.json", "libs/authorization/ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/authorization/ui/**/*"]
           }
         },
@@ -869,10 +815,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/authorization/data/tsconfig.lib.json",
-              "libs/authorization/data/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/authorization/data/tsconfig.lib.json", "libs/authorization/data/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/authorization/data/**/*"]
           }
         },
@@ -896,10 +839,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/testing/tsconfig.lib.json",
-              "libs/employees/testing/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/employees/testing/tsconfig.lib.json", "libs/employees/testing/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/employees/testing/**/*"]
           }
         },
@@ -925,10 +865,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/testing/tsconfig.lib.json",
-              "libs/novelties/testing/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelties/testing/tsconfig.lib.json", "libs/novelties/testing/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/novelties/testing/**/*"]
           }
         },
@@ -958,10 +895,7 @@
               "libs/novelty-types/testing/tsconfig.lib.json",
               "libs/novelty-types/testing/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/testing/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/testing/**/*"]
           }
         },
         "test": {
@@ -990,10 +924,7 @@
               "libs/time-clock-logs/testing/tsconfig.lib.json",
               "libs/time-clock-logs/testing/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/time-clock-logs/testing/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/time-clock-logs/testing/**/*"]
           }
         },
         "test": {
@@ -1018,10 +949,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/users/testing/tsconfig.lib.json",
-              "libs/users/testing/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/users/testing/tsconfig.lib.json", "libs/users/testing/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/users/testing/**/*"]
           }
         },
@@ -1047,10 +975,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/testing/tsconfig.lib.json",
-              "libs/work-shifts/testing/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/work-shifts/testing/tsconfig.lib.json", "libs/work-shifts/testing/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**/*"]
           }
         },
@@ -1076,10 +1001,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/ui/tsconfig.lib.json",
-              "libs/employees/ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/employees/ui/tsconfig.lib.json", "libs/employees/ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/employees/ui/**/*"]
           }
         },
@@ -1109,10 +1031,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/cost-centers/data/tsconfig.lib.json",
-              "libs/cost-centers/data/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/cost-centers/data/tsconfig.lib.json", "libs/cost-centers/data/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**/*"]
           }
         },
@@ -1140,10 +1059,7 @@
               "libs/cost-centers/data-access/tsconfig.lib.json",
               "libs/cost-centers/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/cost-centers/data-access/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/cost-centers/data-access/**/*"]
           }
         },
         "test": {
@@ -1176,10 +1092,7 @@
               "libs/novelty-types/data-access/tsconfig.lib.json",
               "libs/novelty-types/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/data-access/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/data-access/**/*"]
           }
         },
         "test": {
@@ -1207,10 +1120,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelty-types/ui/tsconfig.lib.json",
-              "libs/novelty-types/ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/novelty-types/ui/tsconfig.lib.json", "libs/novelty-types/ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/novelty-types/ui/**/*"]
           }
         },
@@ -1243,10 +1153,7 @@
               "libs/novelty-types/feature/tsconfig.lib.json",
               "libs/novelty-types/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/feature/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/feature/**/*"]
           }
         },
         "test": {
@@ -1256,6 +1163,35 @@
             "tsConfig": "libs/novelty-types/feature/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/novelty-types/feature/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "production-feature": {
+      "projectType": "library",
+      "root": "libs/production/feature",
+      "sourceRoot": "libs/production/feature/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/production/feature/tsconfig.lib.json", "libs/production/feature/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/production/feature/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/production/feature/jest.config.js",
+            "tsConfig": "libs/production/feature/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/production/feature/src/test-setup.ts"
           }
         }
       },
