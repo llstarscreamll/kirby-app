@@ -17,7 +17,7 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { LoadStatuses, ApiError, isObject } from '@kirby/shared';
+import { LoadStatus, ApiError, isObject } from '@kirby/shared';
 
 @Component({
   selector: 'kirby-entry-and-exit-log-form',
@@ -31,7 +31,7 @@ export class EntryAndExitLogFormComponent
   public codeInput: ElementRef;
 
   @Input()
-  public status: LoadStatuses;
+  public status: LoadStatus;
 
   @Input()
   public timeClockData: {
@@ -84,7 +84,7 @@ export class EntryAndExitLogFormComponent
 
     if (
       changes['status'] &&
-      this.status === LoadStatuses.Completed &&
+      this.status === LoadStatus.Completed &&
       this.codeForm &&
       this.checkForm
     ) {
@@ -126,11 +126,11 @@ export class EntryAndExitLogFormComponent
   }
 
   get disableCodeFormSubmitBtn(): boolean {
-    return this.status === LoadStatuses.Loading || this.codeForm.invalid;
+    return this.status === LoadStatus.Loading || this.codeForm.invalid;
   }
 
   get disableCheckFormSubmitBtn(): boolean {
-    return this.status === LoadStatuses.Loading || this.checkForm.invalid;
+    return this.status === LoadStatus.Loading || this.checkForm.invalid;
   }
 
   get allSubCostCenters(): any[] {

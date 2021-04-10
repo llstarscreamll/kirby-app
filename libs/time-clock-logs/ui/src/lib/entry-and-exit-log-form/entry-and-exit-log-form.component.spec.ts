@@ -14,7 +14,7 @@ import {
   tick
 } from '@angular/core/testing';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
 
@@ -166,7 +166,7 @@ describe('EntryAndExitLogFormComponent', () => {
         template.querySelector(`${submitCodeFormBtnSelector}:disabled`)
       ).toBeFalsy();
 
-      component.status = LoadStatuses.Loading;
+      component.status = LoadStatus.Loading;
       fixture.detectChanges();
 
       expect(
@@ -616,11 +616,11 @@ describe('EntryAndExitLogFormComponent', () => {
       expect(component.codeForm.valid).toBe(true);
       expect(component.checkForm.valid).toBe(true);
 
-      component.status = LoadStatuses.Completed;
+      component.status = LoadStatus.Completed;
       component.ngOnChanges({
         status: new SimpleChange(
-          LoadStatuses.Empty,
-          LoadStatuses.Completed,
+          LoadStatus.Empty,
+          LoadStatus.Completed,
           false
         )
       });
