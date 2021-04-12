@@ -1,19 +1,19 @@
+import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
+import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from '@nrwl/angular/testing';
 
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule, Store } from '@ngrx/store';
-
-import { NxModule } from '@nrwl/angular';
-
 import { ProductionLog } from './production.models';
-import { ProductionEffects } from './production.effects';
 import { ProductionFacade } from './production.facade';
-
-import * as ProductionSelectors from './production.selectors';
+import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
+import * as ProductionSelectors from './production.selectors';
 import { PRODUCTION_FEATURE_KEY, State, initialState, reducer } from './production.reducer';
+import { ProductionService } from '../production.service';
+import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface TestSchema {
   production: State;
@@ -37,7 +37,11 @@ describe('ProductionFacade', () => {
           StoreModule.forFeature(PRODUCTION_FEATURE_KEY, reducer),
           EffectsModule.forFeature([ProductionEffects]),
         ],
-        providers: [ProductionFacade],
+        providers: [
+          ProductionFacade,
+          { provide: ProductionService, useValue: { searchProductionLogs: (_) => of({ data: [], meta: {} }) } },
+          { provide: MatSnackBar, useValue: { open: (_) => true } },
+        ],
       })
       class CustomFeatureModule {}
 
@@ -56,15 +60,15 @@ describe('ProductionFacade', () => {
      */
     it('loadAll() should return empty list with loaded == true', async (done) => {
       try {
-        let list = await readFirst(facade.allProduction$);
+        let list = await readFirst(facade.productionLogs$);
         let isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(0);
         expect(isLoaded).toBe(false);
 
-        facade.dispatch(ProductionActions.loadProduction());
+        facade.dispatch(ProductionActions.searchLogs({ query: { search: 'foo' } }));
 
-        list = await readFirst(facade.allProduction$);
+        list = await readFirst(facade.productionLogs$);
         isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(0);
@@ -81,19 +85,20 @@ describe('ProductionFacade', () => {
      */
     it('allProduction$ should return the loaded list; and loaded flag == true', async (done) => {
       try {
-        let list = await readFirst(facade.allProduction$);
+        let list = await readFirst(facade.productionLogs$);
         let isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(0);
         expect(isLoaded).toBe(false);
 
         facade.dispatch(
-          ProductionActions.loadProductionSuccess({
-            production: [createProductionEntity('AAA'), createProductionEntity('BBB')],
+          ProductionActions.searchLogsOk({
+            data: [createProductionEntity('AAA'), createProductionEntity('BBB')],
+            meta: {},
           })
         );
 
-        list = await readFirst(facade.allProduction$);
+        list = await readFirst(facade.productionLogs$);
         isLoaded = await readFirst(facade.loaded$);
 
         expect(list.length).toBe(2);

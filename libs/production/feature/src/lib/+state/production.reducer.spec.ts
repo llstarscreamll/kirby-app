@@ -13,8 +13,11 @@ describe('Production Reducer', () => {
 
   describe('valid Production actions', () => {
     it('loadProductionSuccess should return set the list of known Production', () => {
-      const production = [createProductionEntity('PRODUCT-AAA'), createProductionEntity('PRODUCT-zzz')];
-      const action = ProductionActions.loadProductionSuccess({ production });
+      const pagination = {
+        data: [createProductionEntity('PRODUCT-AAA'), createProductionEntity('PRODUCT-zzz')],
+        meta: {},
+      };
+      const action = ProductionActions.searchLogsOk(pagination);
 
       const result: State = reducer(initialState, action);
 

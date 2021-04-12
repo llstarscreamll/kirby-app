@@ -7,13 +7,13 @@ export const getProductionState = createFeatureSelector<ProductionPartialState, 
 const { selectAll, selectEntities } = productionAdapter.getSelectors();
 
 export const getProductionLoaded = createSelector(getProductionState, (state: State) => state.loaded);
-
+export const getCreationStatus = createSelector(getProductionState, (state: State) => state.creationStatus);
 export const getProductionError = createSelector(getProductionState, (state: State) => state.error);
-
-export const getAllProduction = createSelector(getProductionState, (state: State) => selectAll(state));
-
+export const getProducts = createSelector(getProductionState, (state: State) => state.products);
+export const getMachines = createSelector(getProductionState, (state: State) => state.machines);
+export const getCustomers = createSelector(getProductionState, (state: State) => state.customers);
+export const getAllProductionLogs = createSelector(getProductionState, (state: State) => selectAll(state));
 export const getProductionEntities = createSelector(getProductionState, (state: State) => selectEntities(state));
-
 export const getSelectedId = createSelector(getProductionState, (state: State) => state.selectedId);
 
 export const getSelected = createSelector(

@@ -1,15 +1,20 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-import * as ProductionActions from './production.actions';
+import { LoadStatus } from '@kirby/shared';
+import * as actions from './production.actions';
 import { ProductionLog } from './production.models';
 
 export const PRODUCTION_FEATURE_KEY = 'production';
 
 export interface State extends EntityState<ProductionLog> {
-  selectedId?: string | number; // which Production record has been selected
-  loaded: boolean; // has the Production list been loaded
-  error?: string | null; // last none error (if any)
+  selectedId?: string | number;
+  loaded: boolean;
+  creationStatus: LoadStatus;
+  error?: string | null;
+  products: any[];
+  machines: any[];
+  customers: any[];
 }
 
 export interface ProductionPartialState {
@@ -19,17 +24,38 @@ export interface ProductionPartialState {
 export const productionAdapter: EntityAdapter<ProductionLog> = createEntityAdapter<ProductionLog>();
 
 export const initialState: State = productionAdapter.getInitialState({
-  // set initial required properties
   loaded: false,
+  creationStatus: LoadStatus.Empty,
+  products: [],
+  machines: [],
+  customers: [],
 });
 
 const productionReducer = createReducer(
   initialState,
-  on(ProductionActions.loadProduction, (state) => ({ ...state, loaded: false, error: null })),
-  on(ProductionActions.loadProductionSuccess, (state, { production }) =>
-    productionAdapter.addAll(production, { ...state, loaded: true })
+  on(actions.searchLogs, (state) => ({ ...state, loaded: false, error: null })),
+  on(actions.searchLogsOk, (state, { data }) => productionAdapter.setAll(data, { ...state, loaded: true })),
+  on(actions.searchLogsError, (state, { error }) => ({ ...state, error })),
+
+  on(actions.createLogError, (state) => ({ ...state, creationStatus: LoadStatus.Loading, error: null })),
+  on(actions.createLogOk, (state, log) =>
+    productionAdapter.addOne(log, { ...state, creationStatus: LoadStatus.Completed, error: null })
   ),
-  on(ProductionActions.loadProductionFailure, (state, { error }) => ({ ...state, error }))
+  on(actions.createLogError, (state, { error }) => ({ ...state, creationStatus: LoadStatus.Error, error })),
+
+  // ######################################################################## //
+
+  on(actions.searchProducts, (state) => ({ ...state, error: null })),
+  on(actions.searchProductsOk, (state, { data }) => ({ ...state, products: data })),
+  on(actions.searchProductsError, (state, { error }) => ({ ...state, error })),
+
+  on(actions.searchMachines, (state) => ({ ...state, error: null })),
+  on(actions.searchMachinesOk, (state, { data }) => ({ ...state, machines: data })),
+  on(actions.searchMachinesError, (state, { error }) => ({ ...state, error })),
+
+  on(actions.searchCustomers, (state) => ({ ...state, error: null })),
+  on(actions.searchCustomersOk, (state, { data }) => ({ ...state, customers: data })),
+  on(actions.searchCustomersError, (state, { error }) => ({ ...state, error }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

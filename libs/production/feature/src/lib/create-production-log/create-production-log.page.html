@@ -1,1 +1,98 @@
-<p>create-production-log works!</p>
+<h1>Crear registro de producción</h1>
+
+<div class="card">
+
+  <kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
+
+  <form [formGroup]="form" autocomplete="off">
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Empleado</mat-label>
+        <input matInput
+               [matAutocomplete]="employeeAutocomplete"
+               formControlName="employee" />
+        <mat-autocomplete #employeeAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue">
+          <mat-option *ngFor="let employee of (paginatedEmployees$ | async).data"
+                      [value]="employee">
+            <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Producto</mat-label>
+        <input matInput
+               [matAutocomplete]="productAutocomplete"
+               formControlName="product"
+               autofocus />
+        <mat-autocomplete #productAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue">
+          <mat-option *ngFor="let product of products$ | async"
+                      [value]="product">
+            <span>{{ product.name + ' ' +product.internal_code }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Máquina</mat-label>
+        <input matInput
+               [matAutocomplete]="machineAutocomplete"
+               formControlName="machine" />
+        <mat-autocomplete #machineAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue">
+          <mat-option *ngFor="let machine of machines$ | async"
+                      [value]="machine">
+            <span>{{ machine.name + ' ' + machine.code }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Cliente</mat-label>
+        <input matInput
+               [matAutocomplete]="customerAutocomplete"
+               formControlName="customer" />
+        <mat-autocomplete #customerAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue">
+          <mat-option *ngFor="let customer of customers$ | async"
+                      [value]="customer">
+            <span>{{ customer.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Lote</mat-label>
+        <input formControlName="batch" matInput type="number" min="0" step="1" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Peso tara</mat-label>
+        <input #tareWeightField formControlName="tare_weight" matInput type="number" step="0.1" min="0" />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Peso bruto</mat-label>
+        <input formControlName="gross_weight" matInput type="number" step="0.1" min="0" />
+      </mat-form-field>
+    </div>
+
+    <button (click)="saveAndCreateOther()"
+            [disabled]="form.invalid || form.disabled"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="my-3"
+            ngClass.xs="block w-full h-12">
+      Guardar y crear otro
+    </button>
+  </form>
+
+</div>

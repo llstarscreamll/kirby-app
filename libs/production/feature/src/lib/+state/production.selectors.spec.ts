@@ -33,7 +33,7 @@ describe('Production Selectors', () => {
 
   describe('Production Selectors', () => {
     it('getAllProduction() should return the list of Production', () => {
-      const results = ProductionSelectors.getAllProduction(state);
+      const results = ProductionSelectors.getAllProductionLogs(state);
       const selId = getProductionId(results[1]);
 
       expect(results.length).toBe(3);
