@@ -10,7 +10,7 @@ import {
 import { timer, Subject } from 'rxjs';
 import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
@@ -33,7 +33,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   public workShifts: WorkShiftInterface[];
 
   @Input()
-  public status: LoadStatuses;
+  public status: LoadStatus;
 
   @Output()
   submitted = new EventEmitter();
@@ -124,7 +124,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   }
 
   get disableSubmitButton(): boolean {
-    return !this.form.valid || this.status === LoadStatuses.Loading;
+    return !this.form.valid || this.status === LoadStatus.Loading;
   }
 
   displayCostCenterFieldValue(costCenter: CostCenter) {

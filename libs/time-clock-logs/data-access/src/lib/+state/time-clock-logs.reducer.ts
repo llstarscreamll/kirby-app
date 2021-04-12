@@ -8,7 +8,7 @@ import {
 import {
   ApiError,
   Pagination,
-  LoadStatuses,
+  LoadStatus,
   emptyPagination
 } from '@kirby/shared';
 
@@ -16,11 +16,11 @@ export const TIME_CLOCK_LOGS_FEATURE_KEY = 'timeClockLogs';
 
 export interface TimeClockLogsState {
   paginatedList: Pagination<TimeClockLogModel>;
-  paginatingStatus: LoadStatuses;
-  selectingStatus?: LoadStatuses;
-  creatingStatus?: LoadStatuses;
-  updatingStatus?: LoadStatuses;
-  deletingStatus?: LoadStatuses;
+  paginatingStatus: LoadStatus;
+  selectingStatus?: LoadStatus;
+  creatingStatus?: LoadStatus;
+  updatingStatus?: LoadStatus;
+  deletingStatus?: LoadStatus;
   selected?: TimeClockLogModel;
   employeeTimeClockData?: any;
   /**
@@ -36,7 +36,7 @@ export interface TimeClockLogsPartialState {
 
 export const initialState: TimeClockLogsState = {
   paginatedList: emptyPagination(),
-  paginatingStatus: LoadStatuses.Empty
+  paginatingStatus: LoadStatus.Empty
 };
 
 export function timeClockLogsReducer(
@@ -45,7 +45,7 @@ export function timeClockLogsReducer(
 ): TimeClockLogsState {
   switch (action.type) {
     case TimeClockLogsActionTypes.SearchTimeClockLogs: {
-      state = { ...state, paginatingStatus: LoadStatuses.Loading };
+      state = { ...state, paginatingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -53,7 +53,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         paginatedList: action.payload,
-        selectingStatus: LoadStatuses.Completed
+        selectingStatus: LoadStatus.Completed
       };
       break;
     }
@@ -62,7 +62,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        paginatingStatus: LoadStatuses.Error
+        paginatingStatus: LoadStatus.Error
       };
       break;
     }
@@ -88,12 +88,12 @@ export function timeClockLogsReducer(
     }
 
     case TimeClockLogsActionTypes.CreateTimeClockLog: {
-      state = { ...state, creatingStatus: LoadStatuses.Loading };
+      state = { ...state, creatingStatus: LoadStatus.Loading };
       break;
     }
 
     case TimeClockLogsActionTypes.CreateTimeClockLogOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null };
+      state = { ...state, creatingStatus: LoadStatus.Completed, error: null };
       break;
     }
 
@@ -101,18 +101,18 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        creatingStatus: LoadStatuses.Error
+        creatingStatus: LoadStatus.Error
       };
       break;
     }
 
     case TimeClockLogsActionTypes.CreateEntryAndExitLog: {
-      state = { ...state, creatingStatus: LoadStatuses.Loading, error: null };
+      state = { ...state, creatingStatus: LoadStatus.Loading, error: null };
       break;
     }
 
     case TimeClockLogsActionTypes.CreateEntryAndExitLogOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null, subCostCenters: null };
+      state = { ...state, creatingStatus: LoadStatus.Completed, error: null, subCostCenters: null };
       break;
     }
 
@@ -120,13 +120,13 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        creatingStatus: LoadStatuses.Error
+        creatingStatus: LoadStatus.Error
       };
       break;
     }
 
     case TimeClockLogsActionTypes.GetTimeClockLog: {
-      state = { ...state, selectingStatus: LoadStatuses.Loading };
+      state = { ...state, selectingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -134,7 +134,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         selected: action.payload,
-        selectingStatus: LoadStatuses.Completed
+        selectingStatus: LoadStatus.Completed
       };
       break;
     }
@@ -144,13 +144,13 @@ export function timeClockLogsReducer(
         ...state,
         error: action.payload,
         selected: null,
-        selectingStatus: LoadStatuses.Error
+        selectingStatus: LoadStatus.Error
       };
       break;
     }
 
     case TimeClockLogsActionTypes.UpdateTimeClockLog: {
-      state = { ...state, updatingStatus: LoadStatuses.Loading };
+      state = { ...state, updatingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -158,7 +158,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         selected: action.payload,
-        updatingStatus: LoadStatuses.Completed
+        updatingStatus: LoadStatus.Completed
       };
       break;
     }
@@ -167,18 +167,18 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        updatingStatus: LoadStatuses.Error
+        updatingStatus: LoadStatus.Error
       };
       break;
     }
 
     case TimeClockLogsActionTypes.DeleteTimeClockLog: {
-      state = { ...state, deletingStatus: LoadStatuses.Loading };
+      state = { ...state, deletingStatus: LoadStatus.Loading };
       break;
     }
 
     case TimeClockLogsActionTypes.DeleteTimeClockLogOk: {
-      state = { ...state, deletingStatus: LoadStatuses.Completed };
+      state = { ...state, deletingStatus: LoadStatus.Completed };
       break;
     }
 
@@ -186,7 +186,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        deletingStatus: LoadStatuses.Error
+        deletingStatus: LoadStatus.Error
       };
       break;
     }

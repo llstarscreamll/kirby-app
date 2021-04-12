@@ -13,7 +13,7 @@ import {
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { NoveltyFormComponent } from './novelty-form.component';
 
 describe('NoveltyFormComponent', () => {
@@ -84,7 +84,7 @@ describe('NoveltyFormComponent', () => {
   });
 
   it('should have submit button disabled when status is == Loading', () => {
-    component.status = LoadStatuses.Loading;
+    component.status = LoadStatus.Loading;
     expect(
       template.querySelector(formButtonSelector + ':disabled')
     ).toBeTruthy();

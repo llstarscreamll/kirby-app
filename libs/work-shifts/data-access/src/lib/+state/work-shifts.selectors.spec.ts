@@ -1,6 +1,6 @@
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { ApiError, LoadStatuses, emptyPagination } from '@kirby/shared';
+import { ApiError, LoadStatus, emptyPagination } from '@kirby/shared';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 
 describe('WorkShifts Selectors', () => {
@@ -28,11 +28,11 @@ describe('WorkShifts Selectors', () => {
           ]
         },
         selected: createWorkShift('DDD'),
-        paginatingStatus: LoadStatuses.Completed,
-        selectingStatus: LoadStatuses.Empty,
-        creatingStatus: LoadStatuses.Loading,
-        updatingStatus: LoadStatuses.Error,
-        deletingStatus: LoadStatuses.Completed,
+        paginatingStatus: LoadStatus.Completed,
+        selectingStatus: LoadStatus.Empty,
+        creatingStatus: LoadStatus.Loading,
+        updatingStatus: LoadStatus.Error,
+        deletingStatus: LoadStatus.Completed,
         error: ERROR_MSG
       }
     };
@@ -54,31 +54,31 @@ describe('WorkShifts Selectors', () => {
     it("paginatingStatus() should return the current 'paginating' status", () => {
       const result = workShiftsQuery.paginatingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Completed);
+      expect(result).toBe(LoadStatus.Completed);
     });
 
     it("creatingStatus() should return the current 'creating' status", () => {
       const result = workShiftsQuery.creatingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Loading);
+      expect(result).toBe(LoadStatus.Loading);
     });
 
     it("selectingStatus() should return the current 'selecting' status", () => {
       const result = workShiftsQuery.selectingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Empty);
+      expect(result).toBe(LoadStatus.Empty);
     });
 
     it("updatingStatus() should return the current 'updating' status", () => {
       const result = workShiftsQuery.updatingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Error);
+      expect(result).toBe(LoadStatus.Error);
     });
 
     it("deletingStatus() should return the current 'deleting' status", () => {
       const result = workShiftsQuery.deletingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Completed);
+      expect(result).toBe(LoadStatus.Completed);
     });
 
     it("getError() should return the current 'error' storeState", () => {

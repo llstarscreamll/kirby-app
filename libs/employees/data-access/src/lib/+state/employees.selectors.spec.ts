@@ -2,7 +2,7 @@ import {
   EMPLOYEES_FEATURE_KEY,
   EmployeesPartialState,
 } from './employees.reducer';
-import { emptyPagination, LoadStatuses } from '@kirby/shared';
+import { emptyPagination, LoadStatus } from '@kirby/shared';
 import { employeesQuery } from './employees.selectors';
 import { createEmployee } from '@kirby/employees/testing';
 
@@ -24,10 +24,10 @@ describe('Employees Selectors', () => {
         },
         selected: employee,
         error: ERROR_MSG,
-        paginatingStatus: LoadStatuses.Completed,
-        selectingStatus: LoadStatuses.Completed,
+        paginatingStatus: LoadStatus.Completed,
+        selectingStatus: LoadStatus.Completed,
         creatingStatus: null,
-        updatingStatus: LoadStatuses.Completed,
+        updatingStatus: LoadStatus.Completed,
       },
     };
   });
@@ -42,7 +42,7 @@ describe('Employees Selectors', () => {
     it("getLoaded() should return the current 'loaded' status", () => {
       const result = employeesQuery.getPaginatingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Completed);
+      expect(result).toBe(LoadStatus.Completed);
     });
 
     it("getError() should return the current 'error' storeState", () => {

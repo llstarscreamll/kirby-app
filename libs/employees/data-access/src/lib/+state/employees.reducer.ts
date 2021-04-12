@@ -3,7 +3,7 @@ import { EmployeesAction, EmployeesActionTypes } from './employees.actions';
 import {
   Pagination,
   emptyPagination,
-  LoadStatuses,
+  LoadStatus,
   ApiError,
 } from '@kirby/shared';
 
@@ -11,11 +11,11 @@ export const EMPLOYEES_FEATURE_KEY = 'employees';
 
 export interface EmployeesState {
   paginatedList: Pagination<EmployeeInterface>;
-  paginatingStatus: LoadStatuses;
+  paginatingStatus: LoadStatus;
   selected?: EmployeeInterface;
-  selectingStatus: LoadStatuses;
-  creatingStatus: LoadStatuses;
-  updatingStatus: LoadStatuses;
+  selectingStatus: LoadStatus;
+  creatingStatus: LoadStatus;
+  updatingStatus: LoadStatus;
   error?: ApiError;
 }
 
@@ -39,7 +39,7 @@ export function employeesReducer(
     case EmployeesActionTypes.SearchEmployees: {
       state = {
         ...state,
-        paginatingStatus: LoadStatuses.Loading,
+        paginatingStatus: LoadStatus.Loading,
       };
       break;
     }
@@ -48,7 +48,7 @@ export function employeesReducer(
       state = {
         ...state,
         paginatedList: action.payload,
-        paginatingStatus: LoadStatuses.Completed,
+        paginatingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -56,13 +56,13 @@ export function employeesReducer(
     case EmployeesActionTypes.SearchEmployeesError: {
       state = {
         ...state,
-        paginatingStatus: LoadStatuses.Error,
+        paginatingStatus: LoadStatus.Error,
       };
       break;
     }
 
     case EmployeesActionTypes.GetEmployee: {
-      state = { ...state, selectingStatus: LoadStatuses.Loading };
+      state = { ...state, selectingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -70,7 +70,7 @@ export function employeesReducer(
       state = {
         ...state,
         selected: action.payload,
-        selectingStatus: LoadStatuses.Completed,
+        selectingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -78,7 +78,7 @@ export function employeesReducer(
     case EmployeesActionTypes.CreateEmployee: {
       state = {
         ...state,
-        creatingStatus: LoadStatuses.Loading,
+        creatingStatus: LoadStatus.Loading,
       };
       break;
     }
@@ -86,7 +86,7 @@ export function employeesReducer(
     case EmployeesActionTypes.CreateEmployeeOk: {
       state = {
         ...state,
-        creatingStatus: LoadStatuses.Completed,
+        creatingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -94,7 +94,7 @@ export function employeesReducer(
     case EmployeesActionTypes.CreateEmployeeError: {
       state = {
         ...state,
-        creatingStatus: LoadStatuses.Error,
+        creatingStatus: LoadStatus.Error,
         error: action.payload,
       };
       break;
@@ -104,13 +104,13 @@ export function employeesReducer(
       state = {
         ...state,
         error: action.payload,
-        selectingStatus: LoadStatuses.Error,
+        selectingStatus: LoadStatus.Error,
       };
       break;
     }
 
     case EmployeesActionTypes.UpdateEmployee: {
-      state = { ...state, updatingStatus: LoadStatuses.Loading };
+      state = { ...state, updatingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -118,7 +118,7 @@ export function employeesReducer(
       state = {
         ...state,
         selected: action.payload,
-        updatingStatus: LoadStatuses.Completed,
+        updatingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -127,7 +127,7 @@ export function employeesReducer(
       state = {
         ...state,
         error: action.payload,
-        updatingStatus: LoadStatuses.Error,
+        updatingStatus: LoadStatus.Error,
       };
       break;
     }

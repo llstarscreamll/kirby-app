@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { WorkShiftFormComponent } from './work-shift-form.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -114,7 +114,7 @@ describe('WorkShiftFormComponent', () => {
 
   it('should disable submit button when @Input status == loading', () => {
     component.defaults = validWorkShift;
-    component.status = LoadStatuses.Loading;
+    component.status = LoadStatus.Loading;
 
     component.ngOnInit();
     fixture.detectChanges();

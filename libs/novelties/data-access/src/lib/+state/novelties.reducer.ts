@@ -4,7 +4,7 @@ import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { INoveltyType } from '@kirby/novelty-types/data';
 import { EmployeeInterface } from '@kirby/employees/util';
-import { Pagination, emptyPagination, LoadStatuses } from '@kirby/shared';
+import { Pagination, emptyPagination, LoadStatus } from '@kirby/shared';
 import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
@@ -15,7 +15,7 @@ export interface NoveltiesState {
   paginatedNoveltyTypesList: Pagination<INoveltyType>;
   selected?: NoveltyModel;
   loaded: boolean;
-  createNoveltiesToEmployeesStatus: LoadStatuses;
+  createNoveltiesToEmployeesStatus: LoadStatus;
   error?: any;
 }
 
@@ -58,7 +58,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.CreateNoveltiesToEmployees: {
       state = {
         ...state,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Loading,
+        createNoveltiesToEmployeesStatus: LoadStatus.Loading,
       };
       break;
     }
@@ -82,7 +82,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.CreateNoveltiesToEmployeesOk: {
       state = {
         ...state,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Completed,
+        createNoveltiesToEmployeesStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -91,7 +91,7 @@ export function noveltiesReducer(
       state = {
         ...state,
         error: action.payload,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Error,
+        createNoveltiesToEmployeesStatus: LoadStatus.Error,
       };
       break;
     }
@@ -123,7 +123,7 @@ export function noveltiesReducer(
     case NoveltiesActionTypes.TrashNovelty: {
       state = {
         ...state,
-        createNoveltiesToEmployeesStatus: LoadStatuses.Loading,
+        createNoveltiesToEmployeesStatus: LoadStatus.Loading,
       };
       break;
     }

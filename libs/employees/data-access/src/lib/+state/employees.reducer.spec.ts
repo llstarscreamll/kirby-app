@@ -3,7 +3,7 @@ import {
   initialState,
   employeesReducer
 } from './employees.reducer';
-import { emptyPagination, LoadStatuses } from '@kirby/shared';
+import { emptyPagination, LoadStatus } from '@kirby/shared';
 import { SearchEmployeesOk } from './employees.actions';
 import { createEmployee } from '@kirby/employees/testing';
 
@@ -25,7 +25,7 @@ describe('Employees Reducer', () => {
       const result: EmployeesState = employeesReducer(initialState, action);
       const selId: string = getEmployeesId(result.paginatedList.data[1]);
 
-      expect(result.paginatingStatus).toBe(LoadStatuses.Completed);
+      expect(result.paginatingStatus).toBe(LoadStatus.Completed);
       expect(result.paginatedList.data.length).toBe(2);
       expect(selId).toBe('PRODUCT-zzz');
     });

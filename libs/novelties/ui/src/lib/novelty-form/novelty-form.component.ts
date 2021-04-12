@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 
 @Component({
   selector: 'kirby-novelty-form',
@@ -25,7 +25,7 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
   public noveltyTypesFound: any[];
 
   @Input()
-  public status: LoadStatuses;
+  public status: LoadStatus;
 
   @Input()
   public disable = false;
@@ -131,7 +131,7 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
   }
 
   get disableFormSubmitBtn(): boolean {
-    return this.status === LoadStatuses.Loading || this.form.invalid;
+    return this.status === LoadStatus.Loading || this.form.invalid;
   }
 
   get disableTrashSubmitBtn(): boolean {
