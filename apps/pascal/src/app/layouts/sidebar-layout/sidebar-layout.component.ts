@@ -42,6 +42,12 @@ export class SidebarLayoutComponent implements OnInit {
       label: 'Turnos',
       can: ['work-shift.search'],
     },
+    {
+      icon: 'precision_manufacturing',
+      link: ['/production'],
+      label: 'Producción',
+      can: ['production-logs.search'],
+    },
   ];
 
   public mediaQueryList: MediaQueryList;

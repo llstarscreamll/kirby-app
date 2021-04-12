@@ -1,7 +1,7 @@
 import {
   MatFormFieldModule,
   MatFormFieldDefaultOptions,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
 import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
@@ -47,26 +47,24 @@ export const routes: Route[] = [
   { path: 'welcome', component: WelcomePageComponent },
   {
     path: 'work-shifts',
-    loadChildren: () =>
-      import('@kirby/work-shifts/feature').then(m => m.WorkShiftsFeatureModule)
+    loadChildren: () => import('@kirby/work-shifts/feature').then((m) => m.WorkShiftsFeatureModule),
   },
   {
     path: 'time-clock-logs',
-    loadChildren: () =>
-      import('@kirby/time-clock-logs/feature').then(
-        m => m.TimeClockLogsFeatureModule
-      )
+    loadChildren: () => import('@kirby/time-clock-logs/feature').then((m) => m.TimeClockLogsFeatureModule),
   },
   {
     path: 'employees',
-    loadChildren: () =>
-      import('@kirby/employees/feature').then(m => m.EmployeesFeatureModule)
+    loadChildren: () => import('@kirby/employees/feature').then((m) => m.EmployeesFeatureModule),
   },
   {
     path: 'novelties',
-    loadChildren: () =>
-      import('@kirby/novelties/feature').then(m => m.NoveltiesFeatureModule)
-  }
+    loadChildren: () => import('@kirby/novelties/feature').then((m) => m.NoveltiesFeatureModule),
+  },
+  {
+    path: 'production',
+    loadChildren: () => import('@kirby/production/feature').then((m) => m.ProductionFeatureModule),
+  },
 ];
 
 @NgModule({
@@ -96,7 +94,7 @@ export const routes: Route[] = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   declarations: [
     AppComponent,
@@ -106,15 +104,15 @@ export const routes: Route[] = [
     LandingPageComponent,
     WelcomePageComponent,
     SignUpPageComponent,
-    SidebarLayoutComponent
+    SidebarLayoutComponent,
   ],
   providers: [
     { provide: 'environment', useValue: environment },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: matFormFieldAppearance
-    }
+      useValue: matFormFieldAppearance,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
