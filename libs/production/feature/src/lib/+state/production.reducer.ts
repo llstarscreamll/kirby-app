@@ -3,11 +3,12 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { LoadStatus } from '@kirby/shared';
 import * as actions from './production.actions';
-import { ProductionLog } from './production.models';
+import { IProductionLog } from './production.models';
 
 export const PRODUCTION_FEATURE_KEY = 'production';
 
-export interface State extends EntityState<ProductionLog> {
+export interface State extends EntityState<IProductionLog> {
+  pagination?: any;
   selectedId?: string | number;
   loaded: boolean;
   creationStatus: LoadStatus;
@@ -21,7 +22,7 @@ export interface ProductionPartialState {
   readonly [PRODUCTION_FEATURE_KEY]: State;
 }
 
-export const productionAdapter: EntityAdapter<ProductionLog> = createEntityAdapter<ProductionLog>();
+export const productionAdapter: EntityAdapter<IProductionLog> = createEntityAdapter<IProductionLog>();
 
 export const initialState: State = productionAdapter.getInitialState({
   loaded: false,
@@ -34,7 +35,9 @@ export const initialState: State = productionAdapter.getInitialState({
 const productionReducer = createReducer(
   initialState,
   on(actions.searchLogs, (state) => ({ ...state, loaded: false, error: null })),
-  on(actions.searchLogsOk, (state, { data }) => productionAdapter.setAll(data, { ...state, loaded: true })),
+  on(actions.searchLogsOk, (state, { data, meta }) =>
+    productionAdapter.setAll(data, { ...state, pagination: meta, loaded: true })
+  ),
   on(actions.searchLogsError, (state, { error }) => ({ ...state, error })),
 
   on(actions.createLogError, (state) => ({ ...state, creationStatus: LoadStatus.Loading, error: null })),

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ProductionLog } from './production.models';
+import { IProductionLog } from './production.models';
 
 interface GenericEntity {
   id: string;
@@ -7,11 +7,11 @@ interface GenericEntity {
 }
 
 export const createLog = createAction('[Production] create log', props<{ data: any }>());
-export const createLogOk = createAction('[Production] create log ok', props<ProductionLog>());
+export const createLogOk = createAction('[Production] create log ok', props<IProductionLog>());
 export const createLogError = createAction('[Production] create log error', props<{ error: any }>());
 
 export const searchLogs = createAction('[Production] search logs', props<{ query: any }>());
-export const searchLogsOk = createAction('[Production] search logs ok', props<{ data: ProductionLog[]; meta: any }>());
+export const searchLogsOk = createAction('[Production] search logs ok', props<{ data: IProductionLog[]; meta: any }>());
 export const searchLogsError = createAction('[Production] search logs error', props<{ error: any }>());
 
 export const searchProducts = createAction('[Production] search products', props<{ query: any }>());

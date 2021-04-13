@@ -9,7 +9,7 @@ import * as actions from './production.actions';
 export class ProductionFacade {
   loaded$ = this.store.pipe(select(selectors.getProductionLoaded));
   creationStatus$ = this.store.pipe(select(selectors.getCreationStatus));
-  productionLogs$ = this.store.pipe(select(selectors.getAllProductionLogs));
+  productionLogs$ = this.store.pipe(select(selectors.getProductionLogs));
   selectedProductionLogId$ = this.store.pipe(select(selectors.getSelected));
   products$ = this.store.pipe(select(selectors.getProducts));
   machines$ = this.store.pipe(select(selectors.getMachines));
@@ -22,6 +22,14 @@ export class ProductionFacade {
     this.store.dispatch(action);
   }
 
+  createProductionLog(data: any) {
+    this.store.dispatch(actions.createLog({ data }));
+  }
+
+  searchProductionLogs(query: any) {
+    this.store.dispatch(actions.searchLogs({ query }));
+  }
+
   searchProducts(query: any) {
     this.store.dispatch(actions.searchProducts({ query }));
   }
@@ -32,9 +40,5 @@ export class ProductionFacade {
 
   searchCustomers(query: any) {
     this.store.dispatch(actions.searchCustomers({ query }));
-  }
-
-  createProductionLog(data: any) {
-    this.store.dispatch(actions.createLog({ data }));
   }
 }

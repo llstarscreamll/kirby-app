@@ -3,7 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BaseService, oneLevelFlattenObject, Pagination } from '@kirby/shared';
-import { ProductionLog } from './+state/production.models';
+import { IProductionLog } from './+state/production.models';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProductionService extends BaseService {
@@ -18,7 +19,9 @@ export class ProductionService extends BaseService {
   }
 
   searchProductionLogs(query: any): Observable<any> {
-    return this.httpClient.get(this.endpoint, { headers: this.defaultHeaders, params: query });
+    return this.httpClient
+      .get(this.endpoint, { headers: this.defaultHeaders, params: query })
+      .pipe(map(({ data, ...meta }: any) => ({ data, meta })));
   }
 
   createProductionLog(data: any): Observable<any> {

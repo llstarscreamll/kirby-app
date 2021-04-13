@@ -1,20 +1,15 @@
-import { ProductionLog } from './production.models';
+import { IProductionLog } from './production.models';
 import * as ProductionActions from './production.actions';
 import { State, initialState, reducer } from './production.reducer';
+import { createProductionLog } from '../testing';
 
 describe('Production Reducer', () => {
-  const createProductionEntity = (id: string, name = '') =>
-    ({
-      id,
-      name: name || `name-${id}`,
-    } as ProductionLog);
-
   beforeEach(() => {});
 
   describe('valid Production actions', () => {
     it('loadProductionSuccess should return set the list of known Production', () => {
       const pagination = {
-        data: [createProductionEntity('PRODUCT-AAA'), createProductionEntity('PRODUCT-zzz')],
+        data: [createProductionLog('PRODUCT-AAA'), createProductionLog('PRODUCT-zzz')],
         meta: {},
       };
       const action = ProductionActions.searchLogsOk(pagination);

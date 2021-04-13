@@ -1,26 +1,18 @@
-import { ProductionLog } from './production.models';
+import { createProductionLog } from '../testing';
+import { IProductionLog } from './production.models';
 import { State, productionAdapter, initialState } from './production.reducer';
 import * as ProductionSelectors from './production.selectors';
 
 describe('Production Selectors', () => {
   const ERROR_MSG = 'No Error Available';
   const getProductionId = (it) => it['id'];
-  const createProductionEntity = (id: string, name = '') =>
-    ({
-      id,
-      name: name || `name-${id}`,
-    } as ProductionLog);
 
   let state;
 
   beforeEach(() => {
     state = {
-      production: productionAdapter.addAll(
-        [
-          createProductionEntity('PRODUCT-AAA'),
-          createProductionEntity('PRODUCT-BBB'),
-          createProductionEntity('PRODUCT-CCC'),
-        ],
+      production: productionAdapter.setAll(
+        [createProductionLog('PRODUCT-AAA'), createProductionLog('PRODUCT-BBB'), createProductionLog('PRODUCT-CCC')],
         {
           ...initialState,
           selectedId: 'PRODUCT-BBB',
@@ -33,7 +25,7 @@ describe('Production Selectors', () => {
 
   describe('Production Selectors', () => {
     it('getAllProduction() should return the list of Production', () => {
-      const results = ProductionSelectors.getAllProductionLogs(state);
+      const results = ProductionSelectors.getProductionLogs(state);
       const selId = getProductionId(results[1]);
 
       expect(results.length).toBe(3);

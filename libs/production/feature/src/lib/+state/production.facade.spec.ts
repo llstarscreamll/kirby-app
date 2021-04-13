@@ -1,19 +1,18 @@
+import { of } from 'rxjs';
 import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from '@nrwl/angular/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ProductionLog } from './production.models';
+import { createProductionLog } from '../testing';
 import { ProductionFacade } from './production.facade';
 import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
-import * as ProductionSelectors from './production.selectors';
-import { PRODUCTION_FEATURE_KEY, State, initialState, reducer } from './production.reducer';
 import { ProductionService } from '../production.service';
-import { of } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { PRODUCTION_FEATURE_KEY, State, reducer } from './production.reducer';
 
 interface TestSchema {
   production: State;
@@ -22,11 +21,6 @@ interface TestSchema {
 describe('ProductionFacade', () => {
   let facade: ProductionFacade;
   let store: Store<TestSchema>;
-  const createProductionEntity = (id: string, name = '') =>
-    ({
-      id,
-      name: name || `name-${id}`,
-    } as ProductionLog);
 
   beforeEach(() => {});
 
@@ -93,7 +87,7 @@ describe('ProductionFacade', () => {
 
         facade.dispatch(
           ProductionActions.searchLogsOk({
-            data: [createProductionEntity('AAA'), createProductionEntity('BBB')],
+            data: [createProductionLog('AAA'), createProductionLog('BBB')],
             meta: {},
           })
         );
