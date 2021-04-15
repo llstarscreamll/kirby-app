@@ -134,6 +134,29 @@ describe('CreateProductionLogPage', () => {
     });
   });
 
+  it('should call products facade method when batch and customer are missing', () => {
+    component.form.patchValue({ ...formData, batch: null, customer: null });
+
+    spyOn(productionFacade, 'createProductionLog');
+
+    fixture.detectChanges();
+
+    // submit button should be enabled
+    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('form button[type="submit"]');
+    expect(btn).toBeTruthy();
+    btn.click();
+
+    expect(productionFacade.createProductionLog).toBeCalledWith({
+      employee_id: user.id,
+      product_id: 'P1',
+      machine_id: 'M1',
+      customer_id: '',
+      batch: '',
+      tare_weight: 10.5,
+      gross_weight: 25.2,
+    });
+  });
+
   it('should disable buttons when form is disabled', () => {
     component.form.disable();
 

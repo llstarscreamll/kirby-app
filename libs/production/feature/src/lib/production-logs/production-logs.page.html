@@ -27,9 +27,9 @@
 
     <tbody>
       <tr *ngFor="let log of productionLogs$ | async">
-        <td>{{ log.product.name }}</td>
-        <td>{{ log.machine.name }}</td>
-        <td>{{ log.employee.first_name }}</td>
+        <td>{{ log.product?.name }}</td>
+        <td>{{ log.machine?.name }}</td>
+        <td>{{ log.employee?.first_name }}</td>
         <td>{{ log.netWeight() }}</td>
       </tr>
     </tbody>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="text-right">
-  <kirby-pagination [pagination]="(pagination$ | async)"
-                    (paginate)="searchNovelties($event)">
+  <kirby-pagination [pagination]="(productionLogs$ | async)"
+                    (paginate)="searchLogs($event)">
   </kirby-pagination>
 </div>

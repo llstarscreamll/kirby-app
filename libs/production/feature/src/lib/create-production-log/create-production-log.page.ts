@@ -128,10 +128,8 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
 
     this.creationStatus$
       .pipe(
-        filter((status) => status === LoadStatus.Completed),
-        tap((_) => this.form.enable()),
-        tap((_) => this.form.patchValue({ tare_weight: null, gross_weight: null })),
-        tap((_) => this.tareWeightField.nativeElement.focus()),
+        filter((status) => [LoadStatus.Completed, LoadStatus.Error].includes(status)),
+        tap((status) => (status === LoadStatus.Completed ? this.makeFormReadyToAddOtherRecord() : this.enableForm())),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -140,10 +138,20 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
       employee_id: form.employee.id,
       product_id: form.product.id,
       machine_id: form.machine.id,
-      customer_id: form.customer.id || '',
+      customer_id: form.customer?.id || '',
       batch: form.batch || '',
       tare_weight: form.tare_weight,
       gross_weight: form.gross_weight,
     });
+  }
+
+  private makeFormReadyToAddOtherRecord() {
+    this.form.enable();
+    this.form.patchValue({ tare_weight: null, gross_weight: null });
+    this.tareWeightField.nativeElement.focus();
+  }
+
+  private enableForm() {
+    this.form.enable();
   }
 }
