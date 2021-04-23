@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
-import { EmployeesFacade } from '@kirby/employees/data-access/src';
+import { EmployeesFacade } from '@kirby/employees/data-access';
 import { EditEmployeePageComponent } from '../edit-employee-page/edit-employee-page.component';
 
 @Injectable()

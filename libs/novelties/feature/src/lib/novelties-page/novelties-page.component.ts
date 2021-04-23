@@ -1,15 +1,15 @@
 import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators';
-import { tap } from 'rxjs/internal/operators/tap';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';
+import { EmployeeInterface } from '@kirby/employees/util';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
-import { CostCentersFacade } from '@kirby/cost-centers/data-access/src';
-import { EmployeeInterface } from '@kirby/employees/util/src';
+import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 
 @Component({
   selector: 'kirby-novelties-page',
@@ -74,26 +74,15 @@ export class NoveltiesPageComponent implements OnInit, OnDestroy {
   }
 
   shortName(approver: { first_name: string; last_name: string }) {
-    return [
-      approver.first_name.trim().split(' ').shift(),
-      approver.last_name.trim().split(' ').shift(),
-    ].join(' ');
+    return [approver.first_name.trim().split(' ').shift(), approver.last_name.trim().split(' ').shift()].join(' ');
   }
 
   showApproveButton(novelty: NoveltyModel): boolean {
-    return (
-      this.user &&
-      this.user.can('novelties.approvals.create') &&
-      !novelty.isApprovedByUserId(this.user.id)
-    );
+    return this.user && this.user.can('novelties.approvals.create') && !novelty.isApprovedByUserId(this.user.id);
   }
 
   showDeleteApprovalButton(novelty: NoveltyModel): boolean {
-    return (
-      this.user &&
-      this.user.can('novelties.approvals.delete') &&
-      novelty.isApprovedByUserId(this.user.id)
-    );
+    return this.user && this.user.can('novelties.approvals.delete') && novelty.isApprovedByUserId(this.user.id);
   }
 
   approveNovelty(novelty: NoveltyModel) {

@@ -1,6 +1,6 @@
+import { timer } from 'rxjs';
 import { Subject } from 'rxjs';
 import { get, sortBy } from 'lodash-es';
-import { timer } from 'rxjs/internal/observable/timer';
 import { debounce, takeUntil, tap, filter } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {

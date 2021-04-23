@@ -7,7 +7,7 @@ import { createUser } from '@kirby/users/testing';
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 import { NoveltyTypesPageComponent } from './novelty-types-page.component';
-import { AuthorizationUiTestModule } from '@kirby/authorization/ui/src';
+import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { of } from 'rxjs';
 
 describe('NoveltyTypesPageComponent', () => {

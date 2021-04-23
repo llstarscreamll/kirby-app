@@ -1,4 +1,4 @@
-import { Role } from '@kirby/authorization/data/src';
+import { Role } from '@kirby/authorization/data';
 import { createUser } from '@kirby/users/testing';
 
 describe('User', () => {

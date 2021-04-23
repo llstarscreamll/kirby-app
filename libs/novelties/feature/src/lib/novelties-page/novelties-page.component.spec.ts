@@ -6,8 +6,8 @@ import { AuthFacade } from '@kirby/authentication-data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { NoveltiesPageComponent } from './novelties-page.component';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
-import { EmployeesFacade } from '@kirby/employees/data-access/src';
-import { CostCentersFacade } from '@kirby/cost-centers/data-access/src';
+import { EmployeesFacade } from '@kirby/employees/data-access';
+import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 
 class AuthFacadeMock {
   authUser$ = from([]);

@@ -1,4 +1,4 @@
-import { createUser } from '@kirby/users/testing/src';
+import { createUser } from '@kirby/users/testing';
 import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
 describe('TimeClockLogModel', () => {

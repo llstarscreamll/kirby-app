@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators';
-import { tap } from 'rxjs/internal/operators/tap';
-import { filter } from 'rxjs/internal/operators/filter';
 import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 
 import { AuthFacade } from '@kirby/authentication-data-access';

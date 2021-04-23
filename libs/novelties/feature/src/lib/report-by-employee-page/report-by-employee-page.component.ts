@@ -1,18 +1,18 @@
 import moment from 'moment';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { Observable, Subject, timer } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntil, map, debounce, filter, take } from 'rxjs/operators';
 
+import { User } from '@kirby/users/util';
 import { Pagination } from '@kirby/shared';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { AuthFacade } from '@kirby/authentication-data-access';
-import { User } from '@kirby/users/util/src';
-import { NoveltyReport, NoveltyModel } from '@kirby/novelties/data/src';
+import { NoveltyReport, NoveltyModel } from '@kirby/novelties/data';
 
 function objectIsSelected(control) {
   return typeof control.value === 'object' ? null : { objectIsSelected: false };

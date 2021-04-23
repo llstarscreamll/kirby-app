@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthFacade } from '@kirby/authentication-data-access';
 
-import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access/src';
+import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 
 @Component({
   selector: 'kirby-novelty-types-page',
