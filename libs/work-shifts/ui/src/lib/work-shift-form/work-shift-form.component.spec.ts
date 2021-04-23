@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoadStatus } from '@kirby/shared';
 import { WorkShiftFormComponent } from './work-shift-form.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 describe('WorkShiftFormComponent', () => {
   let component: WorkShiftFormComponent;
@@ -26,7 +26,7 @@ describe('WorkShiftFormComponent', () => {
     time_slots: [{ start: '07:00', end: '17:00' }],
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatInputModule, MatFormFieldModule, MatButtonModule, ReactiveFormsModule, NoopAnimationsModule],
       declarations: [WorkShiftFormComponent],

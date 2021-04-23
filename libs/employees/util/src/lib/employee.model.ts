@@ -1,4 +1,4 @@
-import { round } from 'lodash';
+import { round } from 'lodash-es';
 
 import { User } from '@kirby/users/util';
 import { CostCenter } from '@kirby/cost-centers/data';

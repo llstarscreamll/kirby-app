@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { hot } from '@nrwl/angular/testing';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NxModule, DataPersistence } from '@nrwl/angular';
 import { provideMockActions } from '@ngrx/effects/testing';

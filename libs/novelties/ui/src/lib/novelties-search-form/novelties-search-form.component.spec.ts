@@ -2,13 +2,7 @@ import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import {
-  tick,
-  async,
-  TestBed,
-  fakeAsync,
-  ComponentFixture,
-} from '@angular/core/testing';
+import { tick, TestBed, fakeAsync, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatAutocompleteHarness } from '@angular/material/autocomplete/testing';
@@ -26,7 +20,7 @@ describe('NoveltiesSearchFormComponent', () => {
   let template: HTMLDivElement;
   let loader: HarnessLoader;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MatAutocompleteModule, MatChipsModule],
       declarations: [NoveltiesSearchFormComponent],

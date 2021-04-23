@@ -6,13 +6,7 @@ import {
   ChangeDetectionStrategy,
   SimpleChange
 } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 
 import { LoadStatus } from '@kirby/shared';
 import { createWorkShift } from '@kirby/work-shifts/testing';
@@ -46,7 +40,7 @@ describe('EntryAndExitLogFormComponent', () => {
 
   let earlyTimeClockData;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatRadioModule, ReactiveFormsModule, MatAutocompleteModule],
       declarations: [EntryAndExitLogFormComponent],

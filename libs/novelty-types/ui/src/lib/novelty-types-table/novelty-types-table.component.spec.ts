@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { createNoveltyType } from '@kirby/novelty-types/testing';
@@ -10,7 +10,7 @@ describe('NoveltyTypesTableComponent', () => {
   let fixture: ComponentFixture<NoveltyTypesTableComponent>;
   let template: HTMLDivElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NoveltyTypesTableComponent],
       schemas: [NO_ERRORS_SCHEMA],

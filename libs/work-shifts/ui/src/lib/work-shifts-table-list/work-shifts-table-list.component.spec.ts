@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { WorkShiftsTableListComponent } from './work-shifts-table-list.component';
@@ -10,7 +10,7 @@ describe('WorkShiftsTableListComponent', () => {
   let fixture: ComponentFixture<WorkShiftsTableListComponent>;
   const itemsList = [createWorkShift('AAA'), createWorkShift('BBB', { applies_on_days: [6, 7] })];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WorkShiftsTableListComponent],
       imports: [RouterTestingModule],

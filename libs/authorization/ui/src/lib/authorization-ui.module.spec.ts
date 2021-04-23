@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthorizationUiModule } from './authorization-ui.module';
 
 describe('AuthorizationUiModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AuthorizationUiModule]
     }).compileComponents();

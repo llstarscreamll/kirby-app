@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterTestingModule } from '@angular/router/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { emptyPagination } from '@kirby/shared';
 import { createUser } from '@kirby/users/testing';
@@ -15,7 +15,7 @@ describe('ListWorkShiftsPageComponent', () => {
   let fixture: ComponentFixture<ListWorkShiftsPageComponent>;
   let template: HTMLDivElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatButtonModule, RouterTestingModule],
       declarations: [ListWorkShiftsPageComponent],

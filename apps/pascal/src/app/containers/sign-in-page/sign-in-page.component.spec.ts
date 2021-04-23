@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AuthFacade } from '@kirby/authentication-data-access';
 import { SignInPageComponent } from './sign-in-page.component';
@@ -11,7 +11,7 @@ describe('SignInPageComponent', () => {
   let authFacade: AuthFacade;
   const credentials = { email: 'tony@stark.com', password: 'tony.123' };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [...TESTING_IMPORTS],
       declarations: [SignInPageComponent],

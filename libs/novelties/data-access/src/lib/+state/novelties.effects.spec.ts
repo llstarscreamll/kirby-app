@@ -4,7 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { hot } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 
 import { NoveltyService } from '../novelty.service';

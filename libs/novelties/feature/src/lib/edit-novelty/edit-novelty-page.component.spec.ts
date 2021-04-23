@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createUser } from '@kirby/users/testing';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
@@ -15,7 +15,7 @@ describe('EditNoveltyComponent', () => {
   let component: EditNoveltyPageComponent;
   let fixture: ComponentFixture<EditNoveltyPageComponent>;
   const user = createUser('U1', { roles: [], permissions: [] });
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EditNoveltyPageComponent],
       providers: [

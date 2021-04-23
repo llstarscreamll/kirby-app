@@ -1,4 +1,4 @@
-import { round } from 'lodash';
+import { round } from 'lodash-es';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyType } from '@kirby/novelty-types/data';
 

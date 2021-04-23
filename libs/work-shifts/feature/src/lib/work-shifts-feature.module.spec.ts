@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { WorkShiftsFeatureModule } from './work-shifts-feature.module';
 
 describe('WorkShiftsFeatureModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [WorkShiftsFeatureModule]
     }).compileComponents();

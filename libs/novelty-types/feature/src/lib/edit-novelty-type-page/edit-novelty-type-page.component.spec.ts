@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { hot, cold } from '@nrwl/angular/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 
 import { createNoveltyType } from '@kirby/novelty-types/testing';
@@ -14,7 +14,7 @@ describe('EditNoveltyTypePageComponent', () => {
   let fixture: ComponentFixture<EditNoveltyTypePageComponent>;
   const noveltyType = createNoveltyType('AAA');
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EditNoveltyTypePageComponent],
       providers: [

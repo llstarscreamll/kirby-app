@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SignInFormComponent } from './sign-in-form.component';
 import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
@@ -18,7 +18,7 @@ describe('SignInFormComponent', () => {
     password: 'tony.123',
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,

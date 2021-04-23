@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NoveltyTypeFormComponent } from './novelty-type-form.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -17,7 +17,7 @@ describe('NoveltyTypeFormComponent', () => {
   const keepInReportFieldSelector = 'form [formControlName=requires_comment]';
   const submitBtnSelector = 'form  button[type=submit]';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatRadioModule, ReactiveFormsModule],
       declarations: [NoveltyTypeFormComponent],

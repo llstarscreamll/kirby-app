@@ -20,8 +20,14 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
-            "styles": ["apps/pascal/src/styles.css", "apps/pascal/src/styles.scss"],
+            "assets": [
+              "apps/pascal/src/favicon.ico",
+              "apps/pascal/src/assets"
+            ],
+            "styles": [
+              "apps/pascal/src/styles.css",
+              "apps/pascal/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -35,7 +41,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -59,7 +64,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -73,7 +77,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -95,19 +102,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/pascal/tsconfig.app.json", "apps/pascal/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "apps/pascal/tsconfig.app.json",
+              "apps/pascal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/pascal/jest.config.js",
-            "tsConfig": "apps/pascal/tsconfig.spec.json",
-            "setupFile": "apps/pascal/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/pascal/"
+          ]
         }
       }
     },
@@ -133,7 +146,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -151,18 +166,21 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authentication/data-access/jest.config.js",
-            "tsConfig": "libs/authentication/data-access/tsconfig.spec.json",
-            "setupFile": "libs/authentication/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/authentication/data-access"
+          ]
         }
       },
       "schematics": {
@@ -180,19 +198,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/shared/tsconfig.lib.json", "libs/shared/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/shared/tsconfig.lib.json",
+              "libs/shared/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/jest.config.js",
-            "tsConfig": "libs/shared/tsconfig.spec.json",
-            "setupFile": "libs/shared/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared"
+          ]
         }
       },
       "schematics": {
@@ -214,18 +238,21 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/data-access/jest.config.js",
-            "tsConfig": "libs/work-shifts/data-access/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/work-shifts/data-access"
+          ]
         }
       },
       "schematics": {
@@ -243,18 +270,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/authentication/utils/tsconfig.lib.json", "libs/authentication/utils/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/authentication/utils/tsconfig.lib.json",
+              "libs/authentication/utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authentication/utils/jest.config.js",
-            "tsConfig": "libs/authentication/utils/tsconfig.spec.json",
             "runInBand": true,
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/authentication/utils"
+          ]
         }
       },
       "schematics": {
@@ -272,18 +306,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/work-shifts/util/tsconfig.lib.json", "libs/work-shifts/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/work-shifts/util/tsconfig.lib.json",
+              "libs/work-shifts/util/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/util/jest.config.js",
-            "tsConfig": "libs/work-shifts/util/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/work-shifts/util"
+          ]
         }
       },
       "schematics": {
@@ -301,19 +342,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/work-shifts/feature/tsconfig.lib.json", "libs/work-shifts/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/work-shifts/feature/tsconfig.lib.json",
+              "libs/work-shifts/feature/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/feature/jest.config.js",
-            "tsConfig": "libs/work-shifts/feature/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/work-shifts/feature"
+          ]
         }
       },
       "schematics": {
@@ -331,19 +378,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/work-shifts/ui/tsconfig.lib.json", "libs/work-shifts/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/work-shifts/ui/tsconfig.lib.json",
+              "libs/work-shifts/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/ui/jest.config.js",
-            "tsConfig": "libs/work-shifts/ui/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/work-shifts/ui"
+          ]
         }
       },
       "schematics": {
@@ -365,18 +418,21 @@
               "libs/time-clock-logs/data-access/tsconfig.lib.json",
               "libs/time-clock-logs/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/data-access/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/data-access/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/time-clock-logs/data-access"
+          ]
         }
       },
       "schematics": {
@@ -394,17 +450,24 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/time-clock-logs/util/tsconfig.lib.json", "libs/time-clock-logs/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/time-clock-logs/util/tsconfig.lib.json",
+              "libs/time-clock-logs/util/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/util/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/util/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/time-clock-logs/util"
+          ]
         }
       },
       "schematics": {
@@ -422,17 +485,24 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/users/util/tsconfig.lib.json", "libs/users/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/users/util/tsconfig.lib.json",
+              "libs/users/util/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/users/util/jest.config.js",
-            "tsConfig": "libs/users/util/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/users/util"
+          ]
         }
       },
       "schematics": {
@@ -454,18 +524,21 @@
               "libs/time-clock-logs/feature/tsconfig.lib.json",
               "libs/time-clock-logs/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/feature/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/feature/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/time-clock-logs/feature"
+          ]
         }
       },
       "schematics": {
@@ -483,19 +556,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/time-clock-logs/ui/tsconfig.lib.json", "libs/time-clock-logs/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/time-clock-logs/ui/tsconfig.lib.json",
+              "libs/time-clock-logs/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/ui/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/ui/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/time-clock-logs/ui"
+          ]
         }
       },
       "schematics": {
@@ -517,18 +596,21 @@
               "libs/employees/data-access/tsconfig.lib.json",
               "libs/employees/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/data-access/jest.config.js",
-            "tsConfig": "libs/employees/data-access/tsconfig.spec.json",
-            "setupFile": "libs/employees/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/employees/data-access"
+          ]
         }
       },
       "schematics": {
@@ -546,19 +628,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/employees/feature/tsconfig.lib.json", "libs/employees/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/employees/feature/tsconfig.lib.json",
+              "libs/employees/feature/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/feature/jest.config.js",
-            "tsConfig": "libs/employees/feature/tsconfig.spec.json",
-            "setupFile": "libs/employees/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/employees/feature"
+          ]
         }
       },
       "schematics": {
@@ -576,18 +664,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/employees/util/tsconfig.lib.json", "libs/employees/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/employees/util/tsconfig.lib.json",
+              "libs/employees/util/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/util/jest.config.js",
-            "tsConfig": "libs/employees/util/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/employees/util"
+          ]
         }
       },
       "schematics": {
@@ -605,18 +700,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelties/data/tsconfig.lib.json", "libs/novelties/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/novelties/data/tsconfig.lib.json",
+              "libs/novelties/data/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/data/jest.config.js",
-            "tsConfig": "libs/novelties/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelties/data"
+          ]
         }
       },
       "schematics": {
@@ -634,18 +736,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelties/utils/tsconfig.lib.json", "libs/novelties/utils/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/novelties/utils/tsconfig.lib.json",
+              "libs/novelties/utils/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/utils/jest.config.js",
-            "tsConfig": "libs/novelties/utils/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelties/utils"
+          ]
         }
       },
       "schematics": {
@@ -663,18 +772,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelty-types/data/tsconfig.lib.json", "libs/novelty-types/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/novelty-types/data/tsconfig.lib.json",
+              "libs/novelty-types/data/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/data/jest.config.js",
-            "tsConfig": "libs/novelty-types/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelty-types/data"
+          ]
         }
       },
       "schematics": {
@@ -692,19 +808,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelties/feature/tsconfig.lib.json", "libs/novelties/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/novelties/feature/tsconfig.lib.json",
+              "libs/novelties/feature/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/feature/jest.config.js",
-            "tsConfig": "libs/novelties/feature/tsconfig.spec.json",
-            "setupFile": "libs/novelties/feature/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelties/feature"
+          ]
         }
       },
       "schematics": {
@@ -722,19 +844,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelties/ui/tsconfig.lib.json", "libs/novelties/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/novelties/ui/tsconfig.lib.json",
+              "libs/novelties/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/ui/jest.config.js",
-            "tsConfig": "libs/novelties/ui/tsconfig.spec.json",
-            "setupFile": "libs/novelties/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelties/ui"
+          ]
         }
       },
       "schematics": {
@@ -756,18 +884,21 @@
               "libs/novelties/data-access/tsconfig.lib.json",
               "libs/novelties/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/data-access/jest.config.js",
-            "tsConfig": "libs/novelties/data-access/tsconfig.spec.json",
-            "setupFile": "libs/novelties/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelties/data-access"
+          ]
         }
       },
       "schematics": {
@@ -785,19 +916,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/authorization/ui/tsconfig.lib.json", "libs/authorization/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**/*"]
+            "tsConfig": [
+              "libs/authorization/ui/tsconfig.lib.json",
+              "libs/authorization/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/authorization/ui/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authorization/ui/jest.config.js",
-            "tsConfig": "libs/authorization/ui/tsconfig.spec.json",
-            "setupFile": "libs/authorization/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/authorization/ui"
+          ]
         }
       },
       "schematics": {
@@ -815,18 +953,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/authorization/data/tsconfig.lib.json", "libs/authorization/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/authorization/data/**/*"]
+            "tsConfig": [
+              "libs/authorization/data/tsconfig.lib.json",
+              "libs/authorization/data/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/authorization/data/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/authorization/data/jest.config.js",
-            "tsConfig": "libs/authorization/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/authorization/data"
+          ]
         }
       }
     },
@@ -839,19 +985,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/employees/testing/tsconfig.lib.json", "libs/employees/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/employees/testing/**/*"]
+            "tsConfig": [
+              "libs/employees/testing/tsconfig.lib.json",
+              "libs/employees/testing/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/employees/testing/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/testing/jest.config.js",
-            "tsConfig": "libs/employees/testing/tsconfig.spec.json",
-            "setupFile": "libs/employees/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/employees/testing"
+          ]
         }
       },
       "schematics": {}
@@ -865,19 +1018,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelties/testing/tsconfig.lib.json", "libs/novelties/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/novelties/testing/**/*"]
+            "tsConfig": [
+              "libs/novelties/testing/tsconfig.lib.json",
+              "libs/novelties/testing/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelties/testing/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelties/testing/jest.config.js",
-            "tsConfig": "libs/novelties/testing/tsconfig.spec.json",
-            "setupFile": "libs/novelties/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelties/testing"
+          ]
         }
       },
       "schematics": {}
@@ -895,18 +1055,22 @@
               "libs/novelty-types/testing/tsconfig.lib.json",
               "libs/novelty-types/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/testing/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/testing/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/testing/jest.config.js",
-            "tsConfig": "libs/novelty-types/testing/tsconfig.spec.json",
-            "setupFile": "libs/novelty-types/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/novelty-types/testing"
+          ]
         }
       },
       "schematics": {}
@@ -924,18 +1088,22 @@
               "libs/time-clock-logs/testing/tsconfig.lib.json",
               "libs/time-clock-logs/testing/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/time-clock-logs/testing/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/time-clock-logs/testing/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/time-clock-logs/testing/jest.config.js",
-            "tsConfig": "libs/time-clock-logs/testing/tsconfig.spec.json",
-            "setupFile": "libs/time-clock-logs/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/time-clock-logs/testing"
+          ]
         }
       },
       "schematics": {}
@@ -949,19 +1117,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/users/testing/tsconfig.lib.json", "libs/users/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/users/testing/**/*"]
+            "tsConfig": [
+              "libs/users/testing/tsconfig.lib.json",
+              "libs/users/testing/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/users/testing/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/users/testing/jest.config.js",
-            "tsConfig": "libs/users/testing/tsconfig.spec.json",
-            "setupFile": "libs/users/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/users/testing"
+          ]
         }
       },
       "schematics": {}
@@ -975,19 +1150,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/work-shifts/testing/tsconfig.lib.json", "libs/work-shifts/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**/*"]
+            "tsConfig": [
+              "libs/work-shifts/testing/tsconfig.lib.json",
+              "libs/work-shifts/testing/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/work-shifts/testing/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/work-shifts/testing/jest.config.js",
-            "tsConfig": "libs/work-shifts/testing/tsconfig.spec.json",
-            "setupFile": "libs/work-shifts/testing/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/work-shifts/testing"
+          ]
         }
       },
       "schematics": {}
@@ -1001,19 +1183,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/employees/ui/tsconfig.lib.json", "libs/employees/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/employees/ui/**/*"]
+            "tsConfig": [
+              "libs/employees/ui/tsconfig.lib.json",
+              "libs/employees/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/employees/ui/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/employees/ui/jest.config.js",
-            "tsConfig": "libs/employees/ui/tsconfig.spec.json",
-            "setupFile": "libs/employees/ui/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/employees/ui"
+          ]
         }
       },
       "schematics": {
@@ -1031,18 +1220,26 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/cost-centers/data/tsconfig.lib.json", "libs/cost-centers/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**/*"]
+            "tsConfig": [
+              "libs/cost-centers/data/tsconfig.lib.json",
+              "libs/cost-centers/data/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/cost-centers/data/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/cost-centers/data/jest.config.js",
-            "tsConfig": "libs/cost-centers/data/tsconfig.spec.json",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/cost-centers/data"
+          ]
         }
       }
     },
@@ -1059,18 +1256,22 @@
               "libs/cost-centers/data-access/tsconfig.lib.json",
               "libs/cost-centers/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/cost-centers/data-access/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/cost-centers/data-access/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/cost-centers/data-access/jest.config.js",
-            "tsConfig": "libs/cost-centers/data-access/tsconfig.spec.json",
-            "setupFile": "libs/cost-centers/data-access/src/test-setup.ts",
             "passWithNoTests": true,
             "runInBand": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/cost-centers/data-access"
+          ]
         }
       },
       "schematics": {
@@ -1092,17 +1293,21 @@
               "libs/novelty-types/data-access/tsconfig.lib.json",
               "libs/novelty-types/data-access/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/data-access/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/data-access/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/data-access/jest.config.js",
-            "tsConfig": "libs/novelty-types/data-access/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/novelty-types/data-access/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/novelty-types/data-access"
+          ]
         }
       },
       "schematics": {
@@ -1120,18 +1325,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/novelty-types/ui/tsconfig.lib.json", "libs/novelty-types/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/ui/**/*"]
+            "tsConfig": [
+              "libs/novelty-types/ui/tsconfig.lib.json",
+              "libs/novelty-types/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/ui/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/ui/jest.config.js",
-            "tsConfig": "libs/novelty-types/ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/novelty-types/ui/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/novelty-types/ui"
+          ]
         }
       },
       "schematics": {
@@ -1153,17 +1365,21 @@
               "libs/novelty-types/feature/tsconfig.lib.json",
               "libs/novelty-types/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/feature/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/novelty-types/feature/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/novelty-types/feature/jest.config.js",
-            "tsConfig": "libs/novelty-types/feature/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/novelty-types/feature/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/novelty-types/feature"
+          ]
         }
       },
       "schematics": {
@@ -1181,18 +1397,25 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/production/feature/tsconfig.lib.json", "libs/production/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/production/feature/**/*"]
+            "tsConfig": [
+              "libs/production/feature/tsconfig.lib.json",
+              "libs/production/feature/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/production/feature/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/production/feature/jest.config.js",
-            "tsConfig": "libs/production/feature/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/production/feature/src/test-setup.ts"
-          }
+            "passWithNoTests": true
+          },
+          "outputs": [
+            "coverage/libs/production/feature"
+          ]
         }
       },
       "schematics": {

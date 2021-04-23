@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NoveltiesDataAccessModule } from './novelties-data-access.module';
 
 describe('NoveltiesDataAccessModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoveltiesDataAccessModule]
     }).compileComponents();

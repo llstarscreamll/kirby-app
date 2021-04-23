@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
@@ -13,7 +13,7 @@ describe('CreateNoveltyTypePageComponent', () => {
   let component: CreateNoveltyTypePageComponent;
   let fixture: ComponentFixture<CreateNoveltyTypePageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CreateNoveltyTypePageComponent],
       providers: [

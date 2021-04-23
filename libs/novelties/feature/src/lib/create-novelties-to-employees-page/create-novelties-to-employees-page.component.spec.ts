@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { from } from 'rxjs/internal/observable/from';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
@@ -18,7 +18,7 @@ describe('CreateNoveltiesToEmployeesPageComponent', () => {
   let component: CreateNoveltiesToEmployeesPageComponent;
   let fixture: ComponentFixture<CreateNoveltiesToEmployeesPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [CreateNoveltiesToEmployeesPageComponent],

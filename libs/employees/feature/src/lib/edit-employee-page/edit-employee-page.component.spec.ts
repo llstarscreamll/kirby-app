@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createEmployee } from '@kirby/employees/testing';
 import { createWorkShift } from '@kirby/work-shifts/testing';
@@ -16,7 +16,7 @@ describe('EditEmployeePageComponent', () => {
   const john = createEmployee('A1', 'John');
   const morningWorkShift = createWorkShift('W1');
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EditEmployeePageComponent],
       providers: [

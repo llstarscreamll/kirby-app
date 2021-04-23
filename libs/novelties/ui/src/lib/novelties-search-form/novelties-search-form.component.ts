@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';

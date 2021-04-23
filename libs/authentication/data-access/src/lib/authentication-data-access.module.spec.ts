@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthenticationDataAccessModule } from './authentication-data-access.module';
 
 describe('AuthStateModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AuthenticationDataAccessModule]
     }).compileComponents();

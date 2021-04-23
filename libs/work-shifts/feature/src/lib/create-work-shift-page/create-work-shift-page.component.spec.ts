@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page.component';
@@ -11,7 +11,7 @@ describe('CreateWorkShiftPageComponent', () => {
   let fixture: ComponentFixture<CreateWorkShiftPageComponent>;
   let template: HTMLDivElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatIconModule, RouterTestingModule],
       declarations: [CreateWorkShiftPageComponent],

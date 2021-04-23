@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { EmployeesDataAccessModule } from './employees-data-access.module';
 
 describe('EmployeesDataAccessModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [EmployeesDataAccessModule]
     }).compileComponents();

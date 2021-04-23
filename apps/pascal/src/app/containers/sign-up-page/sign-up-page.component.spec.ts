@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SignUpPageComponent } from './sign-up-page.component';
 import { NewAccount } from '@kirby/authentication/utils';
@@ -18,7 +18,7 @@ describe('SignUpPageComponent', () => {
     password_confirmation: 'tony.123'
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [...TESTING_IMPORTS],
       declarations: [SignUpPageComponent],

@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { hot, cold, time, readFirst, readAll, getTestScheduler } from '@nrwl/angular/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { User } from '@kirby/users/util';
@@ -32,7 +32,7 @@ describe('CreateProductionLogPage', () => {
     gross_weight: 25.2,
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MatAutocompleteModule],
       declarations: [CreateProductionLogPage],

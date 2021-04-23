@@ -1,8 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { WorkShiftsDataAccessModule } from './work-shifts-data-access.module';
 
 describe('WorkShiftsDataAccessModule', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [WorkShiftsDataAccessModule]
     }).compileComponents();

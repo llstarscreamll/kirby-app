@@ -1,9 +1,9 @@
-import { get } from 'lodash';
 import moment from 'moment';
+import { get } from 'lodash-es';
 import { Subject } from 'rxjs/internal/Subject';
 import { timer } from 'rxjs/internal/observable/timer';
+import { debounce, takeUntil, tap, filter } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { debounce, takeUntil, tap, filter } from 'rxjs/internal/operators';
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 import { LoadStatus } from '@kirby/shared';

@@ -1,5 +1,5 @@
 import { hot } from '@nrwl/angular/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 
 import { emptyPagination } from '@kirby/shared';
@@ -16,7 +16,7 @@ describe('NoveltyTypesPageComponent', () => {
   let component: NoveltyTypesPageComponent;
   let fixture: ComponentFixture<NoveltyTypesPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AuthorizationUiTestModule],
       declarations: [NoveltyTypesPageComponent],

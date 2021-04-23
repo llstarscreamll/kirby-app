@@ -1,7 +1,7 @@
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Output, EventEmitter, Input } from '@angular/core';
 
 import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page.component';
@@ -48,7 +48,7 @@ describe('EntryAndExitLogPageComponent', () => {
   let timeClockLogFacade: TimeClockLogsFacade;
   let fixture: ComponentFixture<EntryAndExitLogPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [

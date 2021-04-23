@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProductionLogsPage } from './production-logs.page';
 import { ProductionFacade } from '../+state/production.facade';
@@ -8,7 +8,7 @@ describe('ProductionLogsPage', () => {
   let component: ProductionLogsPage;
   let fixture: ComponentFixture<ProductionLogsPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProductionLogsPage],
       providers: [

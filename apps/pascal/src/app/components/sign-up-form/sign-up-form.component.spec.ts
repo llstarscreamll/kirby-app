@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NewAccount } from '@kirby/authentication/utils';
 import { TESTING_PROVIDERS } from '../../utils/testing';
@@ -22,36 +22,34 @@ describe('SignUpFormComponent', () => {
     last_name: 'Stark',
     email: 'tony@stark.com',
     password: 'tony.123',
-    password_confirmation: 'tony.123'
+    password_confirmation: 'tony.123',
   };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, NoopAnimationsModule],
-      declarations: [SignUpFormComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [...TESTING_PROVIDERS]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule, NoopAnimationsModule],
+        declarations: [SignUpFormComponent],
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [...TESTING_PROVIDERS],
+      })
+        .compileComponents()
+        .then(() => {
+          fixture = TestBed.createComponent(SignUpFormComponent);
+          component = fixture.componentInstance;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SignUpFormComponent);
-    component = fixture.componentInstance;
+          html = fixture.nativeElement;
+          submitBtn = html.querySelector('form button[type=submit]');
+          firstNameInput = html.querySelector('form input[formControlName="first_name"]');
+          lastNameInput = html.querySelector('form input[formControlName="last_name"]');
+          emailInput = html.querySelector('form input[formControlName="email"]');
+          passwordInput = html.querySelector('form input[formControlName="password"]');
+          passwordConfirmationInput = html.querySelector('form input[formControlName="password_confirmation"]');
 
-    html = fixture.nativeElement;
-    submitBtn = html.querySelector('form button[type=submit]');
-    firstNameInput = html.querySelector('form input[formControlName="first_name"]');
-    lastNameInput = html.querySelector('form input[formControlName="last_name"]');
-    emailInput = html.querySelector('form input[formControlName="email"]');
-    passwordInput = html.querySelector(
-      'form input[formControlName="password"]'
-    );
-    passwordConfirmationInput = html.querySelector(
-      'form input[formControlName="password_confirmation"]'
-    );
-
-    fixture.detectChanges();
-  });
+          fixture.detectChanges();
+        });
+    })
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -111,8 +109,8 @@ describe('SignUpFormComponent', () => {
       ok: false,
       error: {
         message: 'Wrong data!!',
-        errors: { email: ['email is invalid'] }
-      }
+        errors: { email: ['email is invalid'] },
+      },
     };
 
     fixture.detectChanges();
