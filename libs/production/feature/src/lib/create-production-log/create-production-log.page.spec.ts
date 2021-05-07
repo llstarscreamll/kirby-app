@@ -9,7 +9,7 @@ import { User } from '@kirby/users/util';
 import { LoadStatus } from '@kirby/shared';
 import { ProductionFacade } from '../+state/production.facade';
 import { EmployeesFacade } from '@kirby/employees/data-access';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { CreateProductionLogPage } from './create-production-log.page';
 
 describe('CreateProductionLogPage', () => {

@@ -1,0 +1,33 @@
+<h1 class="font-bold text-center text-2xl">Bienvenido al Sistema de Registro de Producción</h1>
+
+<div class="my-10 text-center">
+  <a routerLink="login" class="text-2xl text-blue-700">Iniciar sesión</a>
+</div>
+
+<div *ngIf="weighingMachineAvailable">
+  <div class="flex flex-row gap-4 my-5">
+    <button mat-raised-button (click)="loadPorts()" class="flex-initial">Recargar puertos</button>
+    <div class="flex-grow"></div>
+    <pre>{{ portData$ | async }}</pre>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Vendor</th>
+        <th>Product</th>
+        <th>Path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let port of serialPorts$ | async">
+        <td class="text-center">{{ port.vendorId }}</td>
+        <td class="text-center">{{ port.productId }}</td>
+        <td class="text-center">
+          <button mat-button (click)="openConnection(port.path)" type="button">{{ port.path }}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

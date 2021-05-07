@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { ProductionFacade } from '../+state/production.facade';
 
 @Component({

@@ -74,13 +74,14 @@
 
     <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
       <mat-form-field fxFlex="grow">
-        <mat-label>Peso tara</mat-label>
+        <mat-label>Peso tara (gr)</mat-label>
         <input #tareWeightField formControlName="tare_weight" matInput type="number" step="0.1" min="0" />
       </mat-form-field>
 
       <mat-form-field fxFlex="grow">
-        <mat-label>Peso bruto</mat-label>
-        <input formControlName="gross_weight" matInput type="number" step="0.1" min="0" />
+        <mat-label>Peso bruto (gr)</mat-label>
+        <input #grossWeightField formControlName="gross_weight" matInput type="number" step="0.1" min="0" />
+        <mat-hint *ngIf="readyToConnectToWeighMachine()" align="end">{{ machineValue }}</mat-hint>
       </mat-form-field>
     </div>
 

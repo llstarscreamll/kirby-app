@@ -20,14 +20,8 @@
             "main": "apps/pascal/src/main.ts",
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
-            "assets": [
-              "apps/pascal/src/favicon.ico",
-              "apps/pascal/src/assets"
-            ],
-            "styles": [
-              "apps/pascal/src/styles.css",
-              "apps/pascal/src/styles.scss"
-            ],
+            "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
+            "styles": ["apps/pascal/src/styles.css", "apps/pascal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -78,9 +72,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -102,13 +94,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/pascal/tsconfig.app.json",
-              "apps/pascal/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/pascal/tsconfig.app.json", "apps/pascal/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -118,9 +105,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/apps/pascal/"
-          ]
+          "outputs": ["coverage/apps/pascal/"]
         }
       }
     },
@@ -146,9 +131,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -166,9 +149,7 @@
               "libs/authentication/data-access/tsconfig.lib.json",
               "libs/authentication/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -178,9 +159,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/authentication/data-access"
-          ]
+          "outputs": ["coverage/libs/authentication/data-access"]
         }
       },
       "schematics": {
@@ -198,13 +177,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/tsconfig.lib.json",
-              "libs/shared/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/shared/tsconfig.lib.json", "libs/shared/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -214,9 +188,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/shared"
-          ]
+          "outputs": ["coverage/libs/shared"]
         }
       },
       "schematics": {
@@ -238,9 +210,7 @@
               "libs/work-shifts/data-access/tsconfig.lib.json",
               "libs/work-shifts/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -250,9 +220,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/work-shifts/data-access"
-          ]
+          "outputs": ["coverage/libs/work-shifts/data-access"]
         }
       },
       "schematics": {
@@ -270,13 +238,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/authentication/utils/tsconfig.lib.json",
-              "libs/authentication/utils/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/authentication/utils/tsconfig.lib.json", "libs/authentication/utils/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -286,9 +249,7 @@
             "runInBand": true,
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/authentication/utils"
-          ]
+          "outputs": ["coverage/libs/authentication/utils"]
         }
       },
       "schematics": {
@@ -306,13 +267,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/util/tsconfig.lib.json",
-              "libs/work-shifts/util/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/work-shifts/util/tsconfig.lib.json", "libs/work-shifts/util/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -322,9 +278,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/work-shifts/util"
-          ]
+          "outputs": ["coverage/libs/work-shifts/util"]
         }
       },
       "schematics": {
@@ -342,13 +296,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/feature/tsconfig.lib.json",
-              "libs/work-shifts/feature/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/work-shifts/feature/tsconfig.lib.json", "libs/work-shifts/feature/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -358,9 +307,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/work-shifts/feature"
-          ]
+          "outputs": ["coverage/libs/work-shifts/feature"]
         }
       },
       "schematics": {
@@ -378,13 +325,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/ui/tsconfig.lib.json",
-              "libs/work-shifts/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/work-shifts/ui/tsconfig.lib.json", "libs/work-shifts/ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -394,9 +336,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/work-shifts/ui"
-          ]
+          "outputs": ["coverage/libs/work-shifts/ui"]
         }
       },
       "schematics": {
@@ -418,9 +358,7 @@
               "libs/time-clock-logs/data-access/tsconfig.lib.json",
               "libs/time-clock-logs/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -430,9 +368,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/time-clock-logs/data-access"
-          ]
+          "outputs": ["coverage/libs/time-clock-logs/data-access"]
         }
       },
       "schematics": {
@@ -450,13 +386,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/util/tsconfig.lib.json",
-              "libs/time-clock-logs/util/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/time-clock-logs/util/tsconfig.lib.json", "libs/time-clock-logs/util/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -465,9 +396,7 @@
             "jestConfig": "libs/time-clock-logs/util/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/time-clock-logs/util"
-          ]
+          "outputs": ["coverage/libs/time-clock-logs/util"]
         }
       },
       "schematics": {
@@ -485,13 +414,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/users/util/tsconfig.lib.json",
-              "libs/users/util/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/users/util/tsconfig.lib.json", "libs/users/util/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -500,9 +424,7 @@
             "jestConfig": "libs/users/util/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/users/util"
-          ]
+          "outputs": ["coverage/libs/users/util"]
         }
       },
       "schematics": {
@@ -524,9 +446,7 @@
               "libs/time-clock-logs/feature/tsconfig.lib.json",
               "libs/time-clock-logs/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -536,9 +456,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/time-clock-logs/feature"
-          ]
+          "outputs": ["coverage/libs/time-clock-logs/feature"]
         }
       },
       "schematics": {
@@ -556,13 +474,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/ui/tsconfig.lib.json",
-              "libs/time-clock-logs/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/time-clock-logs/ui/tsconfig.lib.json", "libs/time-clock-logs/ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -572,9 +485,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/time-clock-logs/ui"
-          ]
+          "outputs": ["coverage/libs/time-clock-logs/ui"]
         }
       },
       "schematics": {
@@ -596,9 +507,7 @@
               "libs/employees/data-access/tsconfig.lib.json",
               "libs/employees/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -608,9 +517,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/employees/data-access"
-          ]
+          "outputs": ["coverage/libs/employees/data-access"]
         }
       },
       "schematics": {
@@ -628,13 +535,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/feature/tsconfig.lib.json",
-              "libs/employees/feature/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/employees/feature/tsconfig.lib.json", "libs/employees/feature/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -644,9 +546,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/employees/feature"
-          ]
+          "outputs": ["coverage/libs/employees/feature"]
         }
       },
       "schematics": {
@@ -664,13 +564,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/util/tsconfig.lib.json",
-              "libs/employees/util/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/employees/util/tsconfig.lib.json", "libs/employees/util/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -680,9 +575,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/employees/util"
-          ]
+          "outputs": ["coverage/libs/employees/util"]
         }
       },
       "schematics": {
@@ -700,13 +593,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/data/tsconfig.lib.json",
-              "libs/novelties/data/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/novelties/data/tsconfig.lib.json", "libs/novelties/data/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -716,9 +604,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelties/data"
-          ]
+          "outputs": ["coverage/libs/novelties/data"]
         }
       },
       "schematics": {
@@ -736,13 +622,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/utils/tsconfig.lib.json",
-              "libs/novelties/utils/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/novelties/utils/tsconfig.lib.json", "libs/novelties/utils/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -752,9 +633,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelties/utils"
-          ]
+          "outputs": ["coverage/libs/novelties/utils"]
         }
       },
       "schematics": {
@@ -772,13 +651,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelty-types/data/tsconfig.lib.json",
-              "libs/novelty-types/data/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/novelty-types/data/tsconfig.lib.json", "libs/novelty-types/data/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -788,9 +662,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelty-types/data"
-          ]
+          "outputs": ["coverage/libs/novelty-types/data"]
         }
       },
       "schematics": {
@@ -808,13 +680,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/feature/tsconfig.lib.json",
-              "libs/novelties/feature/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/novelties/feature/tsconfig.lib.json", "libs/novelties/feature/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -824,9 +691,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelties/feature"
-          ]
+          "outputs": ["coverage/libs/novelties/feature"]
         }
       },
       "schematics": {
@@ -844,13 +709,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/ui/tsconfig.lib.json",
-              "libs/novelties/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/novelties/ui/tsconfig.lib.json", "libs/novelties/ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -860,9 +720,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelties/ui"
-          ]
+          "outputs": ["coverage/libs/novelties/ui"]
         }
       },
       "schematics": {
@@ -884,9 +742,7 @@
               "libs/novelties/data-access/tsconfig.lib.json",
               "libs/novelties/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -896,9 +752,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelties/data-access"
-          ]
+          "outputs": ["coverage/libs/novelties/data-access"]
         }
       },
       "schematics": {
@@ -916,14 +770,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/authorization/ui/tsconfig.lib.json",
-              "libs/authorization/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/authorization/ui/**/*"
-            ]
+            "tsConfig": ["libs/authorization/ui/tsconfig.lib.json", "libs/authorization/ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**/*"]
           }
         },
         "test": {
@@ -933,9 +781,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/authorization/ui"
-          ]
+          "outputs": ["coverage/libs/authorization/ui"]
         }
       },
       "schematics": {
@@ -953,14 +799,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/authorization/data/tsconfig.lib.json",
-              "libs/authorization/data/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/authorization/data/**/*"
-            ]
+            "tsConfig": ["libs/authorization/data/tsconfig.lib.json", "libs/authorization/data/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/authorization/data/**/*"]
           }
         },
         "test": {
@@ -970,9 +810,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/authorization/data"
-          ]
+          "outputs": ["coverage/libs/authorization/data"]
         }
       }
     },
@@ -985,14 +823,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/testing/tsconfig.lib.json",
-              "libs/employees/testing/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/employees/testing/**/*"
-            ]
+            "tsConfig": ["libs/employees/testing/tsconfig.lib.json", "libs/employees/testing/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/employees/testing/**/*"]
           }
         },
         "test": {
@@ -1002,9 +834,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/employees/testing"
-          ]
+          "outputs": ["coverage/libs/employees/testing"]
         }
       },
       "schematics": {}
@@ -1018,14 +848,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelties/testing/tsconfig.lib.json",
-              "libs/novelties/testing/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelties/testing/**/*"
-            ]
+            "tsConfig": ["libs/novelties/testing/tsconfig.lib.json", "libs/novelties/testing/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/novelties/testing/**/*"]
           }
         },
         "test": {
@@ -1035,9 +859,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelties/testing"
-          ]
+          "outputs": ["coverage/libs/novelties/testing"]
         }
       },
       "schematics": {}
@@ -1055,10 +877,7 @@
               "libs/novelty-types/testing/tsconfig.lib.json",
               "libs/novelty-types/testing/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/testing/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/testing/**/*"]
           }
         },
         "test": {
@@ -1068,9 +887,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/novelty-types/testing"
-          ]
+          "outputs": ["coverage/libs/novelty-types/testing"]
         }
       },
       "schematics": {}
@@ -1088,10 +905,7 @@
               "libs/time-clock-logs/testing/tsconfig.lib.json",
               "libs/time-clock-logs/testing/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/time-clock-logs/testing/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/time-clock-logs/testing/**/*"]
           }
         },
         "test": {
@@ -1101,9 +915,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/time-clock-logs/testing"
-          ]
+          "outputs": ["coverage/libs/time-clock-logs/testing"]
         }
       },
       "schematics": {}
@@ -1117,14 +929,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/users/testing/tsconfig.lib.json",
-              "libs/users/testing/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/users/testing/**/*"
-            ]
+            "tsConfig": ["libs/users/testing/tsconfig.lib.json", "libs/users/testing/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/users/testing/**/*"]
           }
         },
         "test": {
@@ -1134,9 +940,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/users/testing"
-          ]
+          "outputs": ["coverage/libs/users/testing"]
         }
       },
       "schematics": {}
@@ -1150,14 +954,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/work-shifts/testing/tsconfig.lib.json",
-              "libs/work-shifts/testing/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/work-shifts/testing/**/*"
-            ]
+            "tsConfig": ["libs/work-shifts/testing/tsconfig.lib.json", "libs/work-shifts/testing/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**/*"]
           }
         },
         "test": {
@@ -1167,9 +965,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/work-shifts/testing"
-          ]
+          "outputs": ["coverage/libs/work-shifts/testing"]
         }
       },
       "schematics": {}
@@ -1183,14 +979,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/employees/ui/tsconfig.lib.json",
-              "libs/employees/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/employees/ui/**/*"
-            ]
+            "tsConfig": ["libs/employees/ui/tsconfig.lib.json", "libs/employees/ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/employees/ui/**/*"]
           }
         },
         "test": {
@@ -1200,9 +990,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/employees/ui"
-          ]
+          "outputs": ["coverage/libs/employees/ui"]
         }
       },
       "schematics": {
@@ -1220,14 +1008,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/cost-centers/data/tsconfig.lib.json",
-              "libs/cost-centers/data/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/cost-centers/data/**/*"
-            ]
+            "tsConfig": ["libs/cost-centers/data/tsconfig.lib.json", "libs/cost-centers/data/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**/*"]
           }
         },
         "test": {
@@ -1237,9 +1019,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/cost-centers/data"
-          ]
+          "outputs": ["coverage/libs/cost-centers/data"]
         }
       }
     },
@@ -1256,10 +1036,7 @@
               "libs/cost-centers/data-access/tsconfig.lib.json",
               "libs/cost-centers/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/cost-centers/data-access/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/cost-centers/data-access/**/*"]
           }
         },
         "test": {
@@ -1269,9 +1046,7 @@
             "passWithNoTests": true,
             "runInBand": true
           },
-          "outputs": [
-            "coverage/libs/cost-centers/data-access"
-          ]
+          "outputs": ["coverage/libs/cost-centers/data-access"]
         }
       },
       "schematics": {
@@ -1293,10 +1068,7 @@
               "libs/novelty-types/data-access/tsconfig.lib.json",
               "libs/novelty-types/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/data-access/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/data-access/**/*"]
           }
         },
         "test": {
@@ -1305,9 +1077,7 @@
             "jestConfig": "libs/novelty-types/data-access/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/novelty-types/data-access"
-          ]
+          "outputs": ["coverage/libs/novelty-types/data-access"]
         }
       },
       "schematics": {
@@ -1325,14 +1095,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/novelty-types/ui/tsconfig.lib.json",
-              "libs/novelty-types/ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/ui/**/*"
-            ]
+            "tsConfig": ["libs/novelty-types/ui/tsconfig.lib.json", "libs/novelty-types/ui/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/ui/**/*"]
           }
         },
         "test": {
@@ -1341,9 +1105,7 @@
             "jestConfig": "libs/novelty-types/ui/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/novelty-types/ui"
-          ]
+          "outputs": ["coverage/libs/novelty-types/ui"]
         }
       },
       "schematics": {
@@ -1365,10 +1127,7 @@
               "libs/novelty-types/feature/tsconfig.lib.json",
               "libs/novelty-types/feature/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/novelty-types/feature/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/novelty-types/feature/**/*"]
           }
         },
         "test": {
@@ -1377,9 +1136,7 @@
             "jestConfig": "libs/novelty-types/feature/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/novelty-types/feature"
-          ]
+          "outputs": ["coverage/libs/novelty-types/feature"]
         }
       },
       "schematics": {
@@ -1397,14 +1154,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/production/feature/tsconfig.lib.json",
-              "libs/production/feature/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/production/feature/**/*"
-            ]
+            "tsConfig": ["libs/production/feature/tsconfig.lib.json", "libs/production/feature/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/production/feature/**/*"]
           }
         },
         "test": {
@@ -1413,14 +1164,188 @@
             "jestConfig": "libs/production/feature/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/production/feature"
-          ]
+          "outputs": ["coverage/libs/production/feature"]
         }
       },
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "electron-front": {
+      "projectType": "application",
+      "root": "apps/electron-front",
+      "sourceRoot": "apps/electron-front/src",
+      "prefix": "kirby",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/electron-front",
+            "index": "apps/electron-front/src/index.html",
+            "main": "apps/electron-front/src/main.ts",
+            "polyfills": "apps/electron-front/src/polyfills.ts",
+            "tsConfig": "apps/electron-front/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/electron-front/src/favicon.ico", "apps/electron-front/src/assets"],
+            "styles": ["apps/electron-front/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/electron-front/src/environments/environment.ts",
+                  "with": "apps/electron-front/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "electron-front:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "electron-front:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "electron-front:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/electron-front/src/**/*.ts", "apps/electron-front/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/electron-front"],
+          "options": {
+            "jestConfig": "apps/electron-front/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "electron-front-e2e": {
+      "root": "apps/electron-front-e2e",
+      "sourceRoot": "apps/electron-front-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/electron-front-e2e/cypress.json",
+            "tsConfig": "apps/electron-front-e2e/tsconfig.e2e.json",
+            "devServerTarget": "electron-front:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "electron-front:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/electron-front-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "electron-back": {
+      "root": "apps/electron-back",
+      "sourceRoot": "apps/electron-back/src",
+      "projectType": "application",
+      "prefix": "electron-back",
+      "architect": {
+        "build": {
+          "builder": "nx-electron:build",
+          "options": {
+            "outputPath": "dist/apps/electron-back",
+            "main": "apps/electron-back/src/main.ts",
+            "tsConfig": "apps/electron-back/tsconfig.app.json",
+            "assets": ["apps/electron-back/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/electron-back/src/environments/environment.ts",
+                  "with": "apps/electron-back/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "nx-electron:execute",
+          "options": {
+            "buildTarget": "electron-back:build"
+          }
+        },
+        "package": {
+          "builder": "nx-electron:package",
+          "options": {
+            "name": "electron-back",
+            "frontendProject": "electron-front",
+            "outputPath": "dist/packages",
+            "prepackageOnly": true
+          }
+        },
+        "make": {
+          "builder": "nx-electron:make",
+          "options": {
+            "name": "electron-back",
+            "frontendProject": "electron-front",
+            "outputPath": "dist/executables",
+            "buildDependenciesFromSource": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/electron-back/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/electron-back"],
+          "options": {
+            "jestConfig": "apps/electron-back/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     }
@@ -1439,6 +1364,20 @@
       "style": "scss",
       "unitTestRunner": "jest",
       "framework": "angular"
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   },
   "defaultProject": "pascal"

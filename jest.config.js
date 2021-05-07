@@ -37,5 +37,7 @@ module.exports = {
     '<rootDir>/libs/novelty-types/ui',
     '<rootDir>/libs/novelty-types/feature',
     '<rootDir>/libs/production/feature',
+    '<rootDir>/apps/electron-front',
+    '<rootDir>/apps/electron-back',
   ],
 };

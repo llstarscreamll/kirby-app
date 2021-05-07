@@ -18,8 +18,9 @@ import { ProductionFacade } from './+state/production.facade';
 import { ProductionEffects } from './+state/production.effects';
 import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
 import { ProductionLogsPage } from './production-logs/production-logs.page';
-import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
+import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { CreateProductionLogPage } from './create-production-log/create-production-log.page';
+import { WeighingMachineService } from './weighing-machine.service';
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import { CreateProductionLogPage } from './create-production-log/create-producti
     StoreModule.forFeature(fromProduction.PRODUCTION_FEATURE_KEY, fromProduction.reducer),
     EffectsModule.forFeature([ProductionEffects]),
   ],
-  providers: [ProductionFacade, ProductionService],
   declarations: [CreateProductionLogPage, ProductionLogsPage],
+  providers: [ProductionFacade, ProductionService, WeighingMachineService],
 })
 export class ProductionFeatureModule {}

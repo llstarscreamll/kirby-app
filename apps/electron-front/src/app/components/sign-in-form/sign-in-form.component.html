@@ -1,0 +1,17 @@
+<kirby-api-errors [apiError]="errors"></kirby-api-errors>
+
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <mat-form-field class="w-full">
+    <mat-label>Email</mat-label>
+    <input formControlName="email" matInput type="email" autofocus>
+  </mat-form-field>
+
+  <mat-form-field class="w-full">
+    <mat-label>Password</mat-label>
+    <input formControlName="password" matInput type="password">
+  </mat-form-field>
+
+  <div class="text-center">
+    <button [disabled]="disableButton" mat-raised-button type="submit" color="primary">Entrar</button>
+  </div>
+</form>

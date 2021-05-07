@@ -1,20 +1,22 @@
 import { timer, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounce, filter, tap, takeUntil, take } from 'rxjs/operators';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { User } from '@kirby/users/util';
-import { LoadStatus } from '@kirby/shared';
+import { LoadStatus, LocalStorageService } from '@kirby/shared';
 import { ProductionFacade } from '../+state/production.facade';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
+import { WeighingMachineService } from '../weighing-machine.service';
 
 @Component({
   selector: 'kirby-create-production-log',
   templateUrl: './create-production-log.page.html',
   styleUrls: ['./create-production-log.page.scss'],
 })
-export class CreateProductionLogPage implements OnInit, OnDestroy {
+export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy {
+  machineValue: string;
   destroy$ = new Subject();
   error$ = this.production.errors$;
   user$ = this.authFacade.authUser$;
@@ -25,16 +27,26 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
   paginatedEmployees$ = this.employeesFacade.paginatedEmployees$;
 
   @ViewChild('tareWeightField') tareWeightField: ElementRef;
+  @ViewChild('grossWeightField') grossWeightField: ElementRef;
 
   user: User;
   form: FormGroup;
 
   constructor(
+    private authFacade: AuthFacade,
     private formBuilder: FormBuilder,
     private production: ProductionFacade,
-    private authFacade: AuthFacade,
-    private employeesFacade: EmployeesFacade
+    private employeesFacade: EmployeesFacade,
+    private changeDetector: ChangeDetectorRef,
+    private localStorage: LocalStorageService,
+    private weighingMachineService: WeighingMachineService
   ) {}
+
+  ngAfterViewInit(): void {
+    if (this.readyToConnectToWeighMachine()) {
+      this.grossWeightField.nativeElement.readOnly = true;
+    }
+  }
 
   ngOnInit(): void {
     this.user$
@@ -43,6 +55,7 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
         tap((user) => (this.user = user)),
         tap((_) => this.buildForm()),
         tap((_) => this.listenFormChanges()),
+        tap((_) => this.setUpWeightMachine()),
         take(1),
         takeUntil(this.destroy$)
       )
@@ -112,6 +125,25 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  setUpWeightMachine() {
+    if (!this.readyToConnectToWeighMachine()) {
+      return;
+    }
+
+    const serialPortPreferences = this.localStorage.getItem('SerialPortConfig');
+
+    // el campo del peso neto será llenado con los valores que envíe la báscula
+    this.weighingMachineService.openConnection(serialPortPreferences.selected, (data) => {
+      this.machineValue = data;
+      this.form.patchValue({ gross_weight: getGramsFromWeighMachine(data) });
+      this.changeDetector.detectChanges();
+    });
+  }
+
+  readyToConnectToWeighMachine(): boolean {
+    return this.weighingMachineService.isAvailable && this.localStorage.getItem('SerialPortConfig')?.selected;
+  }
+
   displayNameValue(value) {
     if (!value) {
       return '';
@@ -147,6 +179,7 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
 
   private makeFormReadyToAddOtherRecord() {
     this.form.enable();
+    this.machineValue = '';
     this.form.patchValue({ tare_weight: null, gross_weight: null });
     this.tareWeightField.nativeElement.focus();
   }
@@ -154,4 +187,22 @@ export class CreateProductionLogPage implements OnInit, OnDestroy {
   private enableForm() {
     this.form.enable();
   }
+}
+
+function getGramsFromWeighMachine(value: string) {
+  const floatWithMeasureUnit = value.replace(/\w+:/i, '');
+  const measureUnit = floatWithMeasureUnit.replace(/\d|\./gi, '');
+  const numericValue = parseFloat(value.replace(/[A-Za-z|:|\ ]/gi, ''));
+
+  const gramsConversionLookUp = {
+    tm: (tms: number) => tms * 1e6,
+    kg: (kgs: number) => kgs * 1000,
+    lb: (lbs: number) => lbs * 453.592,
+  };
+
+  const converter = gramsConversionLookUp[measureUnit.toLowerCase()];
+
+  // tenemos el valor numérico y la unidad de medida, ahora tratamos de obtener
+  // el valor en gramos
+  return converter ? converter(numericValue) : numericValue;
 }
