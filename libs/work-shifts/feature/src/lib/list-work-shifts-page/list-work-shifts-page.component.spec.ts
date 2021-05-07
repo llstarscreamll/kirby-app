@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { emptyPagination } from '@kirby/shared';
 import { createUser } from '@kirby/users/testing';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page.component';
 

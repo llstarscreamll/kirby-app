@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createUser } from '@kirby/users/testing';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';

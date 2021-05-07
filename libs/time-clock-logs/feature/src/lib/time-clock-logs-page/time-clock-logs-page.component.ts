@@ -3,7 +3,7 @@ import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 import { Observable } from 'rxjs';
 import { Pagination } from '@kirby/shared';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { User } from '@kirby/users/util';
 import { tap } from 'rxjs/operators';
 

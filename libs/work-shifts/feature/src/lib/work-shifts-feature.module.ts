@@ -10,7 +10,7 @@ import { WorkShiftsUiModule } from '@kirby/work-shifts/ui';
 import { WorkShiftFeatureEffects } from './WorkShiftFeatureEffects';
 import { WorkShiftsDataAccessModule } from '@kirby/work-shifts/data-access';
 import { EditWorkShiftPage } from './edit-work-shift-page/edit-work-shift.page';
-import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
+import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page/list-work-shifts-page.component';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-work-shift-page.component';
 

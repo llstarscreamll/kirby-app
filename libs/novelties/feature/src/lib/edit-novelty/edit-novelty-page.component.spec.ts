@@ -5,7 +5,7 @@ import { createUser } from '@kirby/users/testing';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { EditNoveltyPageComponent } from './edit-novelty-page.component';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { of } from 'rxjs';
 
 class NoveltiesFacadeMock {}

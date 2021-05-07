@@ -2,7 +2,7 @@ import { from } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { NoveltiesPageComponent } from './novelties-page.component';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';

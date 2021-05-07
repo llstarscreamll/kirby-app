@@ -11,7 +11,7 @@ import { Pagination } from '@kirby/shared';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltyReport, NoveltyModel } from '@kirby/novelties/data';
 
 function objectIsSelected(control) {

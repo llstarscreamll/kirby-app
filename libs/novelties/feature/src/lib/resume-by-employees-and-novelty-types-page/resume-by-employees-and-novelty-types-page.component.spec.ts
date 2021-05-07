@@ -8,7 +8,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { emptyPagination } from '@kirby/shared';
 import { CanDirective } from '@kirby/authorization/ui';
 import { createEmployee } from '@kirby/employees/testing';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { BalanceDialogComponent, NoveltiesUiModule } from '@kirby/novelties/ui';
 import { ResumeByEmployeesAndNoveltyTypesPageComponent } from './resume-by-employees-and-novelty-types-page.component';

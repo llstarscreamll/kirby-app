@@ -6,7 +6,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { EmployeeInterface } from '@kirby/employees/util';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { CostCentersFacade } from '@kirby/cost-centers/data-access';

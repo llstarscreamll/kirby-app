@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 import { takeUntil } from 'rxjs/operators';
 import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 @Directive({ selector: '[kirbyCanAny]' })
 export class CanAnyDirective implements OnDestroy {

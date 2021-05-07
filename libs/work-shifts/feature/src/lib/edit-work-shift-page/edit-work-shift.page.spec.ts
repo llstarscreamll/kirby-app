@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createUser } from '@kirby/users/testing';
 import { EditWorkShiftPage } from './edit-work-shift.page';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 
 describe('EditWorkShiftComponent', () => {

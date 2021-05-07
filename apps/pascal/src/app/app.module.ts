@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '@kirby/shared';
 import { environment } from '../environments/environment';
 import { AuthorizationUiModule } from '@kirby/authorization/ui';
-import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
+import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -91,10 +91,9 @@ export const routes: Route[] = [
     MatButtonModule,
     MatToolbarModule,
     MatListModule,
-    MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     MatSelectModule,
+    MatFormFieldModule,
   ],
   declarations: [
     AppComponent,

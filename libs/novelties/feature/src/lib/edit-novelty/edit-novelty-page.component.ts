@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 
 import { EmployeesFacade } from '@kirby/employees/data-access';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 @Component({
   selector: 'kirby-edit-novelty-page',
