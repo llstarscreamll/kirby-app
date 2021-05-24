@@ -3,10 +3,19 @@
  * between the frontend to the electron backend.
  */
 
-import { app, ipcMain } from 'electron';
+import { join } from 'path';
+import { format } from 'url';
 const SerialPort = require('serialport');
 const CCTalk = require('@serialport/parser-cctalk');
+import { app, ipcMain, BrowserWindow } from 'electron';
 import { environment } from '../../environments/environment';
+
+const defaultCompany = {
+  name: 'Grapas y Puntillas el Caballo S.A.S',
+  address: 'Sogamoso Carrera 10A #30-07',
+  phone: '(578) 7701882 Fax (570) 7704666',
+  logoUrl: './logo-grapas-y-puntillas-el-caballo.png',
+};
 
 export default class ElectronEvents {
   static bootstrapElectronEvents(): Electron.IpcMain {
@@ -47,6 +56,129 @@ ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
     console.log('Port data available:', d.toString('utf-8'));
 
     event.sender.send('port-data-available', d.toString('utf-8'));
+  });
+});
+
+class PrinterWindow {
+  static company: any;
+  static productionLog: any;
+  static window: Electron.BrowserWindow;
+
+  static setParams(productionLog, company) {
+    PrinterWindow.company = company;
+    PrinterWindow.productionLog = productionLog;
+  }
+
+  static initWindow() {
+    if (PrinterWindow.window) {
+      PrinterWindow.window.close();
+    }
+
+    PrinterWindow.window = new BrowserWindow({
+      show: true,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: false,
+        backgroundThrottling: false,
+      },
+    });
+
+    PrinterWindow.window.setMenu(null);
+    PrinterWindow.window.center();
+    // PrinterWindow.window.webContents.openDevTools();
+
+    PrinterWindow.window.on('closed', () => {
+      console.warn('destroying window');
+
+      PrinterWindow.window = null;
+    });
+  }
+
+  static loadMainWindow() {
+    PrinterWindow.window.loadURL(
+      format({
+        slashes: true,
+        protocol: 'file:',
+        pathname: join(__dirname, 'assets', 'print.html'),
+      })
+    );
+  }
+
+  static sendEvents() {
+    // PrinterWindow.window.webContents.removeAllListeners();
+    PrinterWindow.window.webContents.on('did-finish-load', (event) => {
+      PrinterWindow.window.webContents.send('draw-data', {
+        productionLog: PrinterWindow.productionLog,
+        company: PrinterWindow.company,
+      });
+    });
+  }
+}
+
+ipcMain.handle('print', (event, productionLog, company = defaultCompany) => {
+  PrinterWindow.setParams(productionLog, company);
+  PrinterWindow.initWindow();
+  PrinterWindow.loadMainWindow();
+  PrinterWindow.sendEvents();
+});
+
+ipcMain.on('ticket-ready', () => {
+  console.log('ticket ready');
+
+  PrinterWindow.window.webContents.print(
+    {
+      silent: true,
+      color: false,
+      scaleFactor: 100,
+      printBackground: false,
+      margins: { marginType: 'custom', top: 5, bottom: 5, right: 5, left: 5 },
+      pageSize: { height: 10 * 10000, width: 10 * 10000 },
+    },
+    () => {
+      console.log('print ok');
+    }
+  );
+});
+
+ipcMain.handle('old-print', (event, productionLog: any, company = defaultCompany) => {
+  const win = new BrowserWindow({
+    show: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: false,
+      backgroundThrottling: false,
+    },
+  });
+
+  win.loadURL(
+    format({
+      slashes: true,
+      protocol: 'file:',
+      pathname: join(__dirname, 'assets', 'print.html'),
+    })
+  );
+
+  ipcMain.on('ticket-ready', () => {
+    win.webContents.print(
+      {
+        silent: true,
+        color: false,
+        scaleFactor: 100,
+        printBackground: false,
+        margins: { marginType: 'custom', top: 5, bottom: 5, right: 5, left: 5 },
+        pageSize: { height: 10 * 10000, width: 10 * 10000 },
+      },
+      () => {
+        win.removeAllListeners();
+        win.destroy();
+      }
+    );
+  });
+
+  win.webContents.on('did-finish-load', (event) => {
+    win.webContents.send('draw-data', { productionLog, company });
   });
 });
 

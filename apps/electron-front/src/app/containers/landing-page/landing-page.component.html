@@ -7,6 +7,7 @@
 <div *ngIf="weighingMachineAvailable">
   <div class="flex flex-row gap-4 my-5">
     <button mat-raised-button (click)="loadPorts()" class="flex-initial">Recargar puertos</button>
+    <button mat-raised-button (click)="printTestTicket()" class="flex-initial">Imprimir Ticket de Prueba</button>
     <div class="flex-grow"></div>
     <pre>{{ portData$ | async }}</pre>
   </div>

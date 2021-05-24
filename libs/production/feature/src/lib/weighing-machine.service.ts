@@ -1,24 +1,22 @@
-import { from, Subject } from 'rxjs';
+import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 declare let window: any;
 
 interface SerialPort {
+  path: string;
   vendorId?: string;
   productId?: string;
-  path: string;
 }
 
 @Injectable()
 export class WeighingMachineService {
   private _electron: any;
-  data$ = new Subject();
 
   get electron(): any {
     if (!this._electron && window && window.electron) {
       this._electron = window.electron;
-      return this._electron;
     }
 
     return this._electron;

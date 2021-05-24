@@ -4,10 +4,10 @@ import { debounce, filter, tap, takeUntil, take } from 'rxjs/operators';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { User } from '@kirby/users/util';
-import { LoadStatus, LocalStorageService } from '@kirby/shared';
 import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
+import { LoadStatus, LocalStorageService } from '@kirby/shared';
 import { WeighingMachineService } from '../weighing-machine.service';
 
 @Component({
@@ -55,6 +55,7 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
         tap((user) => (this.user = user)),
         tap((_) => this.buildForm()),
         tap((_) => this.listenFormChanges()),
+        tap((_) => this.listenCreationStatus()),
         tap((_) => this.setUpWeightMachine()),
         take(1),
         takeUntil(this.destroy$)
@@ -74,8 +75,8 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
       machine: [, [Validators.required]],
       customer: [],
       batch: [],
-      tare_weight: [, [Validators.required, Validators.min(0)]],
-      gross_weight: [, [Validators.required, Validators.min(0.1)]],
+      tare_weight: [0, [Validators.required, Validators.min(0)]],
+      gross_weight: [0, [Validators.required, Validators.min(0.1)]],
     });
 
     if (!this.user.can('production-logs.create-on-behalf-of-another-person')) {
@@ -135,7 +136,7 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
     // el campo del peso neto será llenado con los valores que envíe la báscula
     this.weighingMachineService.openConnection(serialPortPreferences.selected, (data) => {
       this.machineValue = data;
-      this.form.patchValue({ gross_weight: getGramsFromWeighMachine(data) });
+      this.form.patchValue({ gross_weight: getKilogramsFromWeighMachine(data) });
       this.changeDetector.detectChanges();
     });
   }
@@ -149,24 +150,36 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
       return '';
     }
 
-    const values = [value.name || '', value.internal_code || '', value.code || ''];
+    const values = [value.name || '', value.customer_code || '', value.code || ''];
 
     return values.filter((v) => v.trim() !== '').join(' - ');
   }
 
   saveAndCreateOther() {
-    const form = this.form.value;
     this.form.disable();
+    this.production.createProductionLog(this.getParsedFormValue());
+  }
 
+  saveAndPrint() {
+    this.form.disable();
+    this.production.createAndPrintProductionLog(this.getParsedFormValue());
+  }
+
+  private listenCreationStatus() {
     this.creationStatus$
       .pipe(
         filter((status) => [LoadStatus.Completed, LoadStatus.Error].includes(status)),
         tap((status) => (status === LoadStatus.Completed ? this.makeFormReadyToAddOtherRecord() : this.enableForm())),
+        tap((status) => this.production.setCreationStatus(LoadStatus.Empty)),
         takeUntil(this.destroy$)
       )
       .subscribe();
+  }
 
-    this.production.createProductionLog({
+  private getParsedFormValue() {
+    const form = this.form.value;
+
+    return {
       employee_id: form.employee.id,
       product_id: form.product.id,
       machine_id: form.machine.id,
@@ -174,7 +187,11 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
       batch: form.batch || '',
       tare_weight: form.tare_weight,
       gross_weight: form.gross_weight,
-    });
+    };
+  }
+
+  printerIsAvailable(): boolean {
+    return this.production.isPrinterAvailable();
   }
 
   private makeFormReadyToAddOtherRecord() {
@@ -187,22 +204,33 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
   private enableForm() {
     this.form.enable();
   }
+
+  get selectedProduct() {
+    return this.form?.get('product')?.value;
+  }
+
+  netWeight() {
+    return (
+      parseFloat(this.form?.get('gross_weight')?.value || '0') - parseFloat(this.form?.get('tare_weight')?.value || '0')
+    ).toFixed(4);
+  }
 }
 
-function getGramsFromWeighMachine(value: string) {
+function getKilogramsFromWeighMachine(value: string) {
   const floatWithMeasureUnit = value.replace(/\w+:/i, '');
   const measureUnit = floatWithMeasureUnit.replace(/\d|\./gi, '');
   const numericValue = parseFloat(value.replace(/[A-Za-z|:|\ ]/gi, ''));
 
   const gramsConversionLookUp = {
-    tm: (tms: number) => tms * 1e6,
-    kg: (kgs: number) => kgs * 1000,
-    lb: (lbs: number) => lbs * 453.592,
+    tm: (tms: number) => tms * 1000,
+    kg: (kgs: number) => kgs,
+    gr: (grs: number) => grs * 0.001,
+    lb: (lbs: number) => lbs * 0.453592,
   };
 
   const converter = gramsConversionLookUp[measureUnit.toLowerCase()];
 
   // tenemos el valor numérico y la unidad de medida, ahora tratamos de obtener
-  // el valor en gramos
+  // el valor en kilogramos
   return converter ? converter(numericValue) : numericValue;
 }

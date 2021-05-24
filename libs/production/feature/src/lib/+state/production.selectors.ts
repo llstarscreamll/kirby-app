@@ -19,8 +19,4 @@ export const getProductionLogs = createSelector(getProductionState, (state: Stat
 export const getProductionEntities = createSelector(getProductionState, (state: State) => selectEntities(state));
 export const getSelectedId = createSelector(getProductionState, (state: State) => state.selectedId);
 
-export const getSelected = createSelector(
-  getProductionEntities,
-  getSelectedId,
-  (entities, selectedId) => selectedId && entities[selectedId]
-);
+export const getSelected = createSelector(getProductionState, (state) => state.selected);

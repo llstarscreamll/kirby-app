@@ -25,7 +25,7 @@ import { SharedModule } from '@kirby/shared';
 import { AppComponent } from './app.component';
 import { LocalStorageService } from '@kirby/shared';
 import { environment } from '../environments/environment';
-import { WeighingMachineService } from '@kirby/production/feature';
+import { PrinterService, WeighingMachineService } from '@kirby/production/feature';
 import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -89,6 +89,7 @@ const routes: Route[] = [
   ],
   declarations: [AppComponent, LandingPageComponent, WelcomePageComponent, SignInPageComponent, SignInFormComponent],
   providers: [
+    PrinterService,
     WeighingMachineService,
     { provide: 'environment', useValue: environment },
     {

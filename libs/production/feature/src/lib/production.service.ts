@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { BaseService, oneLevelFlattenObject, Pagination } from '@kirby/shared';
-import { IProductionLog } from './+state/production.models';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ProductionService extends BaseService {
@@ -28,6 +27,15 @@ export class ProductionService extends BaseService {
     return this.httpClient.post(this.endpoint, data, { headers: this.defaultHeaders });
   }
 
+  get(id: string): Observable<any> {
+    return this.httpClient
+      .get(`${this.endpoint}${id}`, { headers: this.defaultHeaders })
+      .pipe(map(({ data }: any) => ({ data })));
+  }
+
+  // ######################################################################## //
+  // @todo: los siguientes métodos deben ser movidos a servicios especializados
+  // en las entidades correspondientes
   // ######################################################################## //
   searchProducts(query: any): Observable<any> {
     return this.httpClient.get(`${this.env.api}api/v1/products`, {

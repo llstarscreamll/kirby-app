@@ -1,3 +1,4 @@
+import { LoadStatus } from '@kirby/shared';
 import { createAction, props } from '@ngrx/store';
 import { IProductionLog } from './production.models';
 
@@ -6,13 +7,22 @@ interface GenericEntity {
   name: string;
 }
 
+
+export const setCreationStatus = createAction('[Production] set load status', props<{ status: LoadStatus }>());
 export const createLog = createAction('[Production] create log', props<{ data: any }>());
-export const createLogOk = createAction('[Production] create log ok', props<IProductionLog>());
+export const createAndPrintLog = createAction('[Production] create and print log', props<{ data: any }>());
+export const createLogOk = createAction('[Production] create log ok', props<{ productionLog: IProductionLog }>());
 export const createLogError = createAction('[Production] create log error', props<{ error: any }>());
+
+export const printProductionLogTicket = createAction('[Production] print', props<{ productionLog: IProductionLog }>());
 
 export const searchLogs = createAction('[Production] search logs', props<{ query: any }>());
 export const searchLogsOk = createAction('[Production] search logs ok', props<{ data: IProductionLog[]; meta: any }>());
 export const searchLogsError = createAction('[Production] search logs error', props<{ error: any }>());
+
+export const getLog = createAction('[Production] get log', props<{ id: string }>());
+export const getLogOk = createAction('[Production] get log ok', props<{ data: IProductionLog }>());
+export const getLogError = createAction('[Production] get log error', props<{ error: any }>());
 
 export const searchProducts = createAction('[Production] search products', props<{ query: any }>());
 export const searchProductsOk = createAction(

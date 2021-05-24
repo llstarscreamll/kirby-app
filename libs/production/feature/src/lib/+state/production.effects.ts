@@ -1,12 +1,15 @@
-import { map, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
+import { createEffect, ofType } from '@ngrx/effects';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
 
+import { PrinterService } from '../printer.service';
 import * as fromProduction from './production.reducer';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductionLogDetailsPage } from '../production-log-details/production-log-details.page';
 
 @Injectable()
 export class ProductionEffects {
@@ -27,9 +30,26 @@ export class ProductionEffects {
       run: (action: ReturnType<typeof ProductionActions.createLog>, _: fromProduction.ProductionPartialState) =>
         this.productionService
           .createProductionLog(action.data)
-          .pipe(map((response) => ProductionActions.createLogOk(response.data))),
+          .pipe(map((response) => ProductionActions.createLogOk({ productionLog: response.data }))),
 
       onError: (_: ReturnType<typeof ProductionActions.createLog>, error) =>
+        ProductionActions.createLogError({ error }),
+    })
+  );
+
+  createAndPrintProductionLog$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(ProductionActions.createAndPrintLog, {
+      run: (action: ReturnType<typeof ProductionActions.createAndPrintLog>, _: fromProduction.ProductionPartialState) =>
+        this.productionService
+          .createProductionLog(action.data)
+          .pipe(
+            mergeMap((response) => [
+              ProductionActions.createLogOk({ productionLog: response.data }),
+              ProductionActions.printProductionLogTicket({ productionLog: response.data }),
+            ])
+          ),
+
+      onError: (_: ReturnType<typeof ProductionActions.createAndPrintLog>, error) =>
         ProductionActions.createLogError({ error }),
     })
   );
@@ -41,6 +61,30 @@ export class ProductionEffects {
         tap((_) => this.snackBar.open('Registro creado exitosamente', 'ok', { duration: 5000 }))
       ),
     { dispatch: false }
+  );
+
+  printProductionTicket$ = createEffect(
+    () =>
+      this.dataPersistence.actions.pipe(
+        ofType(ProductionActions.printProductionLogTicket),
+        tap((action) => this.printerService.print(action.productionLog))
+      ),
+    { dispatch: false }
+  );
+
+  navigateToProductionLogDetailPage$ = createEffect(() =>
+    this.dataPersistence.navigation(ProductionLogDetailsPage, {
+      run: (activatedRoute) => ProductionActions.getLog({ id: activatedRoute.paramMap.get('id') }),
+    })
+  );
+
+  getLog$ = createEffect(() =>
+    this.dataPersistence.fetch(ProductionActions.getLog, {
+      run: (action: ReturnType<typeof ProductionActions.getLog>) =>
+        this.productionService
+          .get(action.id)
+          .pipe(map((response) => ProductionActions.getLogOk({ data: response.data }))),
+    })
   );
 
   // ######################################################################## //
@@ -82,8 +126,8 @@ export class ProductionEffects {
   );
 
   constructor(
-    private actions$: Actions,
     private snackBar: MatSnackBar,
+    private printerService: PrinterService,
     private productionService: ProductionService,
     private dataPersistence: DataPersistence<fromProduction.ProductionPartialState>
   ) {}

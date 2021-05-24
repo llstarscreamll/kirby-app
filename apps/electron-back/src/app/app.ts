@@ -1,8 +1,9 @@
-import { BrowserWindow, shell, screen } from 'electron';
-import { rendererAppName, rendererAppPort } from './constants';
-import { environment } from '../environments/environment';
 import { join } from 'path';
 import { format } from 'url';
+import { BrowserWindow, shell, screen } from 'electron';
+
+import { rendererAppName, rendererAppPort } from './constants';
+import { environment } from '../environments/environment';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -73,10 +74,12 @@ export default class App {
         preload: join(__dirname, 'preload.js'),
       },
     });
+
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
+
     if (!App.application.isPackaged) {
-      App.mainWindow.webContents.openDevTools();
+      // App.mainWindow.webContents.openDevTools();
     }
 
     // if main window is ready to show, close the splash window and show the main window

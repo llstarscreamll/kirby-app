@@ -10,6 +10,7 @@ export const PRODUCTION_FEATURE_KEY = 'production';
 export interface State extends EntityState<IProductionLog> {
   pagination?: any;
   selectedId?: string | number;
+  selected?: IProductionLog;
   loaded: boolean;
   creationStatus: LoadStatus;
   error?: string | null;
@@ -41,10 +42,12 @@ const productionReducer = createReducer(
   on(actions.searchLogsError, (state, { error }) => ({ ...state, error })),
 
   on(actions.createLogError, (state) => ({ ...state, creationStatus: LoadStatus.Loading, error: null })),
-  on(actions.createLogOk, (state, log) =>
-    productionAdapter.addOne(log, { ...state, creationStatus: LoadStatus.Completed, error: null })
+  on(actions.createLogOk, (state, { productionLog }) =>
+    productionAdapter.addOne(productionLog, { ...state, creationStatus: LoadStatus.Completed, error: null })
   ),
   on(actions.createLogError, (state, { error }) => ({ ...state, creationStatus: LoadStatus.Error, error })),
+  on(actions.getLogOk, (state, { data }) => ({ ...state, selected: data })),
+  on(actions.setCreationStatus, (state, { status }) => ({ ...state, creationStatus: status })),
 
   // ######################################################################## //
 
