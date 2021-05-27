@@ -34,6 +34,10 @@ export class ProductionFacade {
     this.store.dispatch(actions.createLog({ data }));
   }
 
+  exportToCsv(data: any) {
+    this.store.dispatch(actions.exportLogs({ query: data }));
+  }
+
   createAndPrintProductionLog(data: any) {
     this.store.dispatch(actions.createAndPrintLog({ data }));
   }

@@ -21,4 +21,8 @@ export class ProductionLogsPage implements OnInit {
   searchLogs(query: any = {}) {
     this.productionFacade.searchProductionLogs({ include: 'employee,product,machine', ...query });
   }
+
+  exportLogsToCsv() {
+    this.productionFacade.exportToCsv({});
+  }
 }

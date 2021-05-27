@@ -7,7 +7,6 @@ interface GenericEntity {
   name: string;
 }
 
-
 export const setCreationStatus = createAction('[Production] set load status', props<{ status: LoadStatus }>());
 export const createLog = createAction('[Production] create log', props<{ data: any }>());
 export const createAndPrintLog = createAction('[Production] create and print log', props<{ data: any }>());
@@ -19,6 +18,10 @@ export const printProductionLogTicket = createAction('[Production] print', props
 export const searchLogs = createAction('[Production] search logs', props<{ query: any }>());
 export const searchLogsOk = createAction('[Production] search logs ok', props<{ data: IProductionLog[]; meta: any }>());
 export const searchLogsError = createAction('[Production] search logs error', props<{ error: any }>());
+
+export const exportLogs = createAction('[Production] export logs', props<{ query: any }>());
+export const exportLogsOk = createAction('[Production] export logs ok', props<{ data: string }>());
+export const exportLogsError = createAction('[Production] export logs error', props<{ error: any }>());
 
 export const getLog = createAction('[Production] get log', props<{ id: string }>());
 export const getLogOk = createAction('[Production] get log ok', props<{ data: IProductionLog }>());

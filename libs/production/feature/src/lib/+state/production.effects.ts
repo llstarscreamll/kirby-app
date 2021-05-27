@@ -87,6 +87,34 @@ export class ProductionEffects {
     })
   );
 
+  exportLogs$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(ProductionActions.exportLogs, {
+      run: (action: ReturnType<typeof ProductionActions.exportLogs>) =>
+        this.productionService
+          .exportToCsv(action.query)
+          .pipe(map((response) => ProductionActions.exportLogsOk({ data: response.data }))),
+      onError: (_, error) => ProductionActions.exportLogsError({ error }),
+    })
+  );
+
+  exportLogsOk$ = createEffect(
+    () =>
+      this.dataPersistence.actions.pipe(
+        ofType(ProductionActions.exportLogsOk),
+        tap((_) => this.snackBar.open('El archivo será enviado a tu correo', 'ok', { duration: 5000 }))
+      ),
+    { dispatch: false }
+  );
+
+  exportLogsError$ = createEffect(
+    () =>
+      this.dataPersistence.actions.pipe(
+        ofType(ProductionActions.exportLogsError),
+        tap((_) => this.snackBar.open('Error solicitando exportación de datos', 'ok', { duration: 5000 }))
+      ),
+    { dispatch: false }
+  );
+
   // ######################################################################## //
 
   searchProducts$ = createEffect(() =>
