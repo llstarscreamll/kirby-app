@@ -21,7 +21,7 @@
             "polyfills": "apps/pascal/src/polyfills.ts",
             "tsConfig": "apps/pascal/tsconfig.app.json",
             "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
-            "styles": ["apps/pascal/src/styles.css", "apps/pascal/src/styles.scss"],
+            "styles": ["apps/pascal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
