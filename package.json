@@ -59,7 +59,7 @@
     "postcss": "^8.2.12",
     "rxjs": "6.5.5",
     "serialport": "^9.0.7",
-    "tailwindcss": "^2.1.1",
+    "tailwindcss": "^2.2.4",
     "tslib": "^1.13.0",
     "zone.js": "^0.10.3"
   },
