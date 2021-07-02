@@ -30,22 +30,22 @@
                matInput
                autofocus />
         <mat-autocomplete #productAutocomplete="matAutocomplete"
-                          [displayWith]="displayNameValue">
+                          [displayWith]="displayShortNameValue">
           <mat-option *ngFor="let product of products$ | async"
                       [value]="product">
-            <span>{{ product.name + ' ' +product.internal_code }}</span>
+            <span>{{ product.short_name }}</span>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field fxFlex="grow">
         <mat-label>Diámetro (BWG)</mat-label>
-        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_bwg" disabled />
+        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
       </mat-form-field>
 
       <mat-form-field fxFlex="grow">
         <mat-label>Diámetro (mm)</mat-label>
-        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_bwg" disabled />
+        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
       </mat-form-field>
     </div>
 

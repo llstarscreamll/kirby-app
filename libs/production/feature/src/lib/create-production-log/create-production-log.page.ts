@@ -100,7 +100,7 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
       .valueChanges.pipe(
         debounce(() => timer(400)),
         filter((value) => typeof value === 'string' && value.trim() !== ''),
-        tap((value) => this.production.searchProducts({ filter: { search: value } })),
+        tap((value) => this.production.searchProducts({ filter: { short_name: value } })),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -153,6 +153,14 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
     const values = [value.name || '', value.customer_code || '', value.code || ''];
 
     return values.filter((v) => v.trim() !== '').join(' - ');
+  }
+
+  displayShortNameValue(value) {
+    if (!value) {
+      return '';
+    }
+
+    return value.short_name;
   }
 
   saveAndCreateOther() {
