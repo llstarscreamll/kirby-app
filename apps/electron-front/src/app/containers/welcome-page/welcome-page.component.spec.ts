@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { WelcomePageComponent } from './welcome-page.component';
-import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 import { of } from 'rxjs/internal/observable/of';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 describe('WelcomePageComponent', () => {
   let component: WelcomePageComponent;
   let fixture: ComponentFixture<WelcomePageComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        ...TESTING_IMPORTS
-      ],
-      declarations: [WelcomePageComponent],
-      providers: [...TESTING_PROVIDERS]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [],
+        declarations: [WelcomePageComponent],
+        providers: [{ provide: AuthFacade, useValue: {} }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomePageComponent);

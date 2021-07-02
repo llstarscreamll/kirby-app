@@ -6,7 +6,7 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { emptyPagination } from '@kirby/shared';
-import { CanDirective } from '@kirby/authorization/ui';
+import { AuthorizationUiTestModule, CanDirective } from '@kirby/authorization/ui';
 import { createEmployee } from '@kirby/employees/testing';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
@@ -22,8 +22,8 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MatDialogModule, NoveltiesUiModule],
-      declarations: [CanDirective, ResumeByEmployeesAndNoveltyTypesPageComponent],
+      imports: [ReactiveFormsModule, MatDialogModule, NoveltiesUiModule, AuthorizationUiTestModule],
+      declarations: [ResumeByEmployeesAndNoveltyTypesPageComponent],
       providers: [
         {
           provide: NoveltiesFacade,

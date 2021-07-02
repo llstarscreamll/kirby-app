@@ -173,7 +173,7 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
     this.production.createAndPrintProductionLog(this.getParsedFormValue());
   }
 
-  private listenCreationStatus() {
+  public listenCreationStatus() {
     this.creationStatus$
       .pipe(
         filter((status) => [LoadStatus.Completed, LoadStatus.Error].includes(status)),

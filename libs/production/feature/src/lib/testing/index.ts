@@ -5,7 +5,12 @@ import { ProductionLog } from '../+state/production.models';
 
 export function createProductionLog(id?: string, data: any = {}): ProductionLog {
   const employee = createEmployee();
-  const product = { id: faker.random.uuid(), name: faker.random.word(), internal_code: faker.word };
+  const product = {
+    id: faker.random.uuid(),
+    short_name: faker.random.word(),
+    name: faker.random.word(),
+    internal_code: faker.word,
+  };
   const machine = { id: faker.random.uuid(), name: faker.random.word(), code: faker.word };
   const customer = { id: faker.random.uuid(), name: faker.random.word() };
 

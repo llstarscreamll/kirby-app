@@ -4,20 +4,20 @@ import { State, productionAdapter, initialState } from './production.reducer';
 import * as ProductionSelectors from './production.selectors';
 
 describe('Production Selectors', () => {
-  const ERROR_MSG = 'No Error Available';
-  const getProductionId = (it) => it['id'];
-
   let state;
+  const ERROR_MSG = 'No Error Available';
+  let selected = createProductionLog('PRODUCT-BBB');
 
   beforeEach(() => {
     state = {
       production: productionAdapter.setAll(
-        [createProductionLog('PRODUCT-AAA'), createProductionLog('PRODUCT-BBB'), createProductionLog('PRODUCT-CCC')],
+        [createProductionLog('PRODUCT-AAA'), selected, createProductionLog('PRODUCT-CCC')],
         {
           ...initialState,
           selectedId: 'PRODUCT-BBB',
           error: ERROR_MSG,
           loaded: true,
+          selected,
         }
       ),
     };
@@ -26,17 +26,15 @@ describe('Production Selectors', () => {
   describe('Production Selectors', () => {
     it('getAllProduction() should return the list of Production', () => {
       const results = ProductionSelectors.getProductionLogs(state);
-      const selId = getProductionId(results[1]);
 
       expect(results.length).toBe(3);
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(results[1].id).toBe('PRODUCT-BBB');
     });
 
     it('getSelected() should return the selected Entity', () => {
       const result = ProductionSelectors.getSelected(state);
-      const selId = getProductionId(result);
 
-      expect(selId).toBe('PRODUCT-BBB');
+      expect(result.id).toBe('PRODUCT-BBB');
     });
 
     it("getProductionLoaded() should return the current 'loaded' status", () => {

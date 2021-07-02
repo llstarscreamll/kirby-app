@@ -1,10 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SignInFormComponent } from './sign-in-form.component';
-import { TESTING_IMPORTS, TESTING_PROVIDERS } from '../../utils/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 describe('SignInFormComponent', () => {
   let component: SignInFormComponent;
@@ -18,17 +18,16 @@ describe('SignInFormComponent', () => {
     password: 'tony.123',
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-      ],
-      declarations: [SignInFormComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [...TESTING_PROVIDERS],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule, NoopAnimationsModule],
+        declarations: [SignInFormComponent],
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [{ provide: AuthFacade, useValue: {} }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SignInFormComponent);
@@ -95,7 +94,7 @@ describe('SignInFormComponent', () => {
     component.errors = {
       message: 'Unprocessable entity',
       ok: false,
-      error: { message: 'Wrong data!!', errors: { email: ['email is invalid'] } }
+      error: { message: 'Wrong data!!', errors: { email: ['email is invalid'] } },
     };
 
     fixture.detectChanges();

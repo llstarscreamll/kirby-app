@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ProductionFacade } from '../+state/production.facade';
 
 import { ProductionLogDetailsPage } from './production-log-details.page';
 
@@ -8,9 +9,16 @@ describe('ProductionLogDetailsPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductionLogDetailsPage ]
-    })
-    .compileComponents();
+      declarations: [ProductionLogDetailsPage],
+      providers: [
+        {
+          provide: ProductionFacade,
+          useValue: {
+            printProductionLogTicket: (d) => true,
+          },
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

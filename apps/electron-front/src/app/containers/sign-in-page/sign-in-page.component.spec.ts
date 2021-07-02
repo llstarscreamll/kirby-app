@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { SignInPageComponent } from './sign-in-page.component';
-import { TESTING_PROVIDERS, TESTING_IMPORTS } from '../../utils/testing';
 
 describe('SignInPageComponent', () => {
   let component: SignInPageComponent;
@@ -11,20 +10,23 @@ describe('SignInPageComponent', () => {
   let authFacade: AuthFacade;
   const credentials = { email: 'tony@stark.com', password: 'tony.123' };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [...TESTING_IMPORTS],
-      declarations: [SignInPageComponent],
-      providers: [...TESTING_PROVIDERS],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [],
+        declarations: [SignInPageComponent],
+        providers: [{ provide: AuthFacade, useValue: { cleanErrors: () => true, loginWithCredentials: () => true } }],
 
-    fixture = TestBed.createComponent(SignInPageComponent);
-    component = fixture.componentInstance;
-    authFacade = TestBed.get(AuthFacade);
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
 
-    spyOn(authFacade, 'loginWithCredentials').and.callThrough();
-  }));
+      fixture = TestBed.createComponent(SignInPageComponent);
+      component = fixture.componentInstance;
+      authFacade = TestBed.get(AuthFacade);
+
+      spyOn(authFacade, 'loginWithCredentials').and.callThrough();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SignInPageComponent);
@@ -43,11 +45,7 @@ describe('SignInPageComponent', () => {
   });
 
   it('should have sign in component on template', () => {
-    expect(
-      fixture.debugElement.nativeElement.querySelector(
-        'pascal-auth-sign-in-form'
-      )
-    ).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('pascal-auth-sign-in-form')).toBeTruthy();
   });
 
   it('should dispatch login action on onSubmit method', () => {

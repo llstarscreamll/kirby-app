@@ -8,6 +8,7 @@ import { readFirst } from '@nrwl/angular/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { createProductionLog } from '../testing';
+import { PrinterService } from '../printer.service';
 import { ProductionFacade } from './production.facade';
 import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
@@ -35,6 +36,7 @@ describe('ProductionFacade', () => {
           ProductionFacade,
           { provide: ProductionService, useValue: { searchProductionLogs: (_) => of({ data: [], meta: {} }) } },
           { provide: MatSnackBar, useValue: { open: (_) => true } },
+          { provide: PrinterService, useValue: {} },
         ],
       })
       class CustomFeatureModule {}
