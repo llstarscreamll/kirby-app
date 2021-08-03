@@ -1,5 +1,5 @@
 @setup
-require '/home/johan/.config/composer/vendor/autoload.php';
+require '/Users/johan/.composer/vendor/autoload.php';
 \Dotenv\Dotenv::createImmutable(__DIR__, '.env')->load();
 
 $site = env(strtoupper($target ?? 'lab').'_SITE');
@@ -47,7 +47,7 @@ echo "{{ $newReleaseName }}" > release-name.txt
 @task('compile', ['on' => 'local'])
 {{ logMessage("🚚  Compile project...") }}
 echo $PWD
-ngtw build && ng build --prod --project={{ $project }} --configuration={{ $configuration }}
+ng build --prod --project={{ $project }} --configuration={{ $configuration }}
 @endtask
 
 @task('uploadCompiledFiles', ['on' => 'local'])
