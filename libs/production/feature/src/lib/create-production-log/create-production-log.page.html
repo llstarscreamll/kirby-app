@@ -45,7 +45,7 @@
 
       <mat-form-field fxFlex="grow">
         <mat-label>Diámetro (mm)</mat-label>
-        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
+        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_mm || ''" disabled />
       </mat-form-field>
     </div>
 
@@ -56,9 +56,9 @@
                formControlName="machine"
                matInput />
         <mat-autocomplete #machineAutocomplete="matAutocomplete"
-                          [displayWith]="displayNameValue">
+                          [displayWith]="displayShortNameValue">
           <mat-option *ngFor="let machine of machines$ | async" [value]="machine">
-            <span>{{ machine.name + ' ' + machine.code }}</span>
+            <span>{{ machine.short_name }}</span>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

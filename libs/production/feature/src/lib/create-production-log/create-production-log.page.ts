@@ -110,7 +110,7 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
       .valueChanges.pipe(
         debounce(() => timer(400)),
         filter((value) => typeof value === 'string' && value.trim() !== ''),
-        tap((value) => this.production.searchMachines({ filter: { search: value } })),
+        tap((value) => this.production.searchMachines({ filter: { short_name: value } })),
         takeUntil(this.destroy$)
       )
       .subscribe();
