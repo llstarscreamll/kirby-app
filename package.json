@@ -6,8 +6,8 @@
   "scripts": {
     "ng": "nx",
     "nx": "nx",
-    "start": "ng serve & ngtw watch",
-    "build": "ngtw build && ng build",
+    "start": "ng serve",
+    "build": "ng build",
     "test": "ng test",
     "test-all": "nx run-many --all --target=test",
     "test-all-parallel": "nx run-many --all --target=test --parallel",
@@ -30,7 +30,6 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "deploy-pascal-lab": "envoy run deploy --project=pascal --target=lab",
-    "prestart": "ngtw build",
     "postinstall": "exitzero electron-builder install-app-deps",
     "workspace-generator": "nx workspace-generator"
   },
