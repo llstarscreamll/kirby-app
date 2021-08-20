@@ -30,7 +30,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "deploy-pascal-lab": "envoy run deploy --project=pascal --target=lab",
-    "postinstall": "exitzero electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "workspace-generator": "nx workspace-generator"
   },
   "dependencies": {

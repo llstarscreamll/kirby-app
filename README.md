@@ -45,10 +45,16 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
 
-## Deploy
+## Deploy Web App
 
 ```bash
 envoy run deploy --project=pascal
+```
+
+## Deploy Web App
+
+```bash
+ng build --project=electron-front --prod && ng build --project=electron-back && nx run electron-back:make --platform=linux --arch=x64 --publishPolicy=never
 ```
 
 ## Further help
