@@ -33,3 +33,36 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ```bash
 envoy run deploy --project=pascal
 ```
+
+## CRUD Management
+
+It's a full GUI data management for plain and boring CRUD operations driven by a configuration file in json format that makes available the next routes, e.g. with a `User` resource:
+
+```text
+localhost:4200/options/users/ -> listing users table with search capabilities
+localhost:4200/options/users/create -> create a user
+localhost:4200/options/users/1 -> show specific user details with trash, delete and restore capabilities
+localhost:4200/options/users/1/edit -> edit specific user data
+```
+
+To create said GUI you need to write a config file like this:
+
+```json
+{
+  "users": {
+    "label": "Usuarios",
+    "endpoint": "api/v1/users",
+    "attributes": {
+      "first_name": { "label": "Nombres", "type": "string", "required": true, "minLength": 3, "maxLength": 100 },
+      "last_name": { "label": "Apellidos", "type": "string", "required": true, "minLength": 3, "maxLength": 100 },
+      "roles": {
+        "label": "Roles",
+        "type": "remote-select",
+        "required": false,
+        "multiple": true,
+        "endpoint": "api/v1/roles"
+      }
+    }
+  }
+}
+```
