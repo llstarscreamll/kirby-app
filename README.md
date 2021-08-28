@@ -8,14 +8,28 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) using [Nrwl Nx](https://nrwl.io/nx).
 
+## Requirements
+
+Install gcc on Fedora:
+
+```bash
+sudo dnf install gcc-c++-11.2.1-1.fc34.x86_64
+```
+
+Install gcc on Debian/Ubuntu:
+
+```bash
+sudo apt install build-essential
+```
+
 ## Build
 
 To build all apps:
 
 ```bash
-ng build --project=pascal --prod --config=prod # build the web app
-ng build --project=electron-front --prod --config=prod # build electron frontend
-ng build --project=electron-back --prod --config=prod # build electron backend
+ng build --project=pascal --prod -c=production # build the web app
+ng build --project=electron-front --prod -c=production # build electron frontend
+ng build --project=electron-back --prod -c=production # build electron backend
 nx run electron-back:make --platform=linux --arch=x64 --publishPolicy=never # packaging electron .deb, .snap, etc
 ```
 
