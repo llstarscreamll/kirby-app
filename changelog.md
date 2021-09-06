@@ -1,16 +1,22 @@
 # Release notes
 
+## [v1.0.0 (2021-01-21)](https://github.com/llstarscreamll/angular-kirby/compare/v1.0.0..v0.8)
+
+### Added
+
+- Production: new web module and Linux desktop app for managing production logs, the desktop app o capable to connect to weighing machines by serial ports and print tickets with a fixed design that includes a barcode to physical printers connected via USB. This new functionality relies on employees, machines, products and customers data to create production logs. Data can be exported to csv.
+
 ## [v0.8 (2021-01-21)](https://github.com/llstarscreamll/angular-kirby/compare/v0.8..v0.7)
 
 ### Added
 
-- novelties: remove employee search control on resume by novelty type report based on ACL rules (llstarscreamll@hotmail.com)
+- novelties: remove employee search control on resume by novelty type report based on ACL rules
 
 ## [v0.7 (2021-01-20)](https://github.com/llstarscreamll/angular-kirby/compare/v0.7..v0.6)
 
 ### Changes
 
-- Novelties: hide employee form control on report by employee when user doesn't have global search permission (llstarscreamll@hotmail.com)
+- Novelties: hide employee form control on report by employee when user doesn't have global search permission
 
 ## [v0.6 (2020-12-28)](https://github.com/llstarscreamll/angular-kirby/compare/v0.6..v0.5)
 
