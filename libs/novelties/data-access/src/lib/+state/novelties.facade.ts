@@ -23,7 +23,7 @@ import {
   CreateBalanceNovelty,
   ExportResume,
 } from './novelties.actions';
-import { User } from '@kirby/users/util/src';
+import { User } from '@kirby/users/util';
 
 @Injectable()
 export class NoveltiesFacade {

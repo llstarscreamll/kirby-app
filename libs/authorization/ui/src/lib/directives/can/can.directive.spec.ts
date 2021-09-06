@@ -4,7 +4,7 @@ import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testin
 
 import { User } from '@kirby/users/util';
 import { CanDirective } from './can.directive';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 @Component({
   template: `

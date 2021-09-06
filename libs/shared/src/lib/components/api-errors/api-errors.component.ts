@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ApiError } from '../../interfaces/api-error';

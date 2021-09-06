@@ -1,8 +1,9 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+
 import { BaseService } from '@kirby/shared';
-import { map } from 'rxjs/internal/operators/map';
 
 @Injectable()
 export class EmployeeService extends BaseService {

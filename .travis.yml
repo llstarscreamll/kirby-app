@@ -21,7 +21,7 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 
-script: ng test -i --ci --bail=1 --code-coverage --verbose
+script: ng test --run-in-band --ci --bail=1 --clear-cache
 
 after_success:
   - npm run codecov

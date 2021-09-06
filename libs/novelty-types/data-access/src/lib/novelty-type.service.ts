@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Pagination, BaseService } from '@kirby/shared';
-import { NoveltyType } from '@kirby/novelty-types/data/src';
+import { NoveltyType } from '@kirby/novelty-types/data';
 
 @Injectable()
 export class NoveltyTypeService extends BaseService {

@@ -4,12 +4,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { User } from '@kirby/users/util';
 import { USER } from '@kirby/authentication/utils';
 import { CanDirective } from '@kirby/authorization/ui';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { ReportByEmployeePageComponent } from './report-by-employee-page.component';
@@ -18,7 +18,7 @@ describe('ReportByEmployeePageComponent', () => {
   let component: ReportByEmployeePageComponent;
   let fixture: ComponentFixture<ReportByEmployeePageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatAutocompleteModule, MatMenuModule, ReactiveFormsModule],
       declarations: [ReportByEmployeePageComponent, CanDirective],

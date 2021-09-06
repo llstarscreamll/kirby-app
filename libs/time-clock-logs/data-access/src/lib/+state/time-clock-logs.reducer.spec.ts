@@ -3,7 +3,7 @@ import {
   initialState,
   timeClockLogsReducer
 } from './time-clock-logs.reducer';
-import { LoadStatuses, emptyPagination } from '@kirby/shared';
+import { LoadStatus, emptyPagination } from '@kirby/shared';
 import { SearchTimeClockLogsOk } from './time-clock-logs.actions';
 import { createTimeClockLog } from '@kirby/time-clock-logs/testing';
 
@@ -23,7 +23,7 @@ describe('TimeClockLogs Reducer', () => {
       );
       const selId: string = result.paginatedList.data[1].id;
 
-      expect(result.selectingStatus).toBe(LoadStatuses.Completed);
+      expect(result.selectingStatus).toBe(LoadStatus.Completed);
       expect(result.paginatedList.data.length).toBe(2);
       expect(selId).toBe('zzz');
     });

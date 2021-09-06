@@ -4,7 +4,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 
@@ -32,7 +32,7 @@ export class CreateNoveltiesToEmployeesPageComponent
     this.createStatus$
       .pipe(
         tap((status) => {
-          if (status === LoadStatuses.Completed) {
+          if (status === LoadStatus.Completed) {
             this.snackBar.open('Novedades creadas correctamente', 'Ok', {
               duration: 5 * 1000,
             });

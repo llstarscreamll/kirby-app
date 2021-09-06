@@ -1,5 +1,5 @@
 import { of } from 'rxjs/internal/observable/of';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
@@ -11,7 +11,7 @@ describe('CreateEmployeePageComponent', () => {
   let component: CreateEmployeePageComponent;
   let fixture: ComponentFixture<CreateEmployeePageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CreateEmployeePageComponent],
       providers: [

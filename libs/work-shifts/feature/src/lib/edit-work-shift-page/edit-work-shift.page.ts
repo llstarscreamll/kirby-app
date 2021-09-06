@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 
 @Component({

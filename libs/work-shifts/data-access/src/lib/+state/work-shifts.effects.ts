@@ -2,7 +2,7 @@ import { Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
@@ -24,7 +24,7 @@ import {
   GetWorkShiftOk,
   GetWorkShiftError,
 } from './work-shifts.actions';
-import { tap } from 'rxjs/internal/operators/tap';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable()

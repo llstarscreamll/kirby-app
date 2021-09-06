@@ -5,7 +5,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { BalanceDialogComponent } from '@kirby/novelties/ui';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

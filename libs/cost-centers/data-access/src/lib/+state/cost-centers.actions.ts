@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Pagination, ApiError } from '@kirby/shared';
-import { CostCenter } from '@kirby/cost-centers/data/src';
+import { CostCenter } from '@kirby/cost-centers/data';
 
 export enum CostCentersActionTypes {
   SearchCostCenters = '[CostCenters] search',

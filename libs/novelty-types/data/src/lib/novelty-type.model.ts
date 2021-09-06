@@ -1,4 +1,4 @@
-import { round } from 'lodash';
+import { round } from 'lodash-es';
 
 import { DayType } from './day-type.enum';
 import { NoveltyModel } from '@kirby/novelties/data';

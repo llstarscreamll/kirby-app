@@ -1,16 +1,16 @@
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
 import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
-import { Pagination, emptyPagination, ApiError, LoadStatuses } from '@kirby/shared';
+import { Pagination, emptyPagination, ApiError, LoadStatus } from '@kirby/shared';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
 
 export interface WorkShiftsState {
   paginatedList: Pagination<WorkShiftInterface>;
-  paginatingStatus: LoadStatuses;
-  selectingStatus?: LoadStatuses;
-  creatingStatus?: LoadStatuses;
-  updatingStatus?: LoadStatuses;
-  deletingStatus?: LoadStatuses;
+  paginatingStatus: LoadStatus;
+  selectingStatus?: LoadStatus;
+  creatingStatus?: LoadStatus;
+  updatingStatus?: LoadStatus;
+  deletingStatus?: LoadStatus;
   selected?: WorkShiftInterface;
   error?: ApiError;
 }
@@ -21,13 +21,13 @@ export interface WorkShiftsPartialState {
 
 export const initialState: WorkShiftsState = {
   paginatedList: emptyPagination(),
-  paginatingStatus: LoadStatuses.Empty,
+  paginatingStatus: LoadStatus.Empty,
 };
 
 export function workShiftsReducer(state: WorkShiftsState = initialState, action: WorkShiftsAction): WorkShiftsState {
   switch (action.type) {
     case WorkShiftsActionTypes.SearchWorkShifts: {
-      state = { ...state, paginatingStatus: LoadStatuses.Loading };
+      state = { ...state, paginatingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -36,7 +36,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
         ...state,
         error: null,
         paginatedList: action.payload,
-        paginatingStatus: LoadStatuses.Completed,
+        paginatingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -45,18 +45,18 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       state = {
         ...state,
         error: action.payload,
-        paginatingStatus: LoadStatuses.Error,
+        paginatingStatus: LoadStatus.Error,
       };
       break;
     }
 
     case WorkShiftsActionTypes.CreateWorkShift: {
-      state = { ...state, creatingStatus: LoadStatuses.Loading };
+      state = { ...state, creatingStatus: LoadStatus.Loading };
       break;
     }
 
     case WorkShiftsActionTypes.CreateWorkShiftOk: {
-      state = { ...state, creatingStatus: LoadStatuses.Completed, error: null };
+      state = { ...state, creatingStatus: LoadStatus.Completed, error: null };
       break;
     }
 
@@ -64,13 +64,13 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       state = {
         ...state,
         error: action.payload,
-        creatingStatus: LoadStatuses.Error,
+        creatingStatus: LoadStatus.Error,
       };
       break;
     }
 
     case WorkShiftsActionTypes.GetWorkShift: {
-      state = { ...state, selectingStatus: LoadStatuses.Loading };
+      state = { ...state, selectingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -79,7 +79,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
         ...state,
         error: null,
         selected: action.payload,
-        selectingStatus: LoadStatuses.Completed,
+        selectingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -89,13 +89,13 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
         ...state,
         error: action.payload,
         selected: null,
-        selectingStatus: LoadStatuses.Error,
+        selectingStatus: LoadStatus.Error,
       };
       break;
     }
 
     case WorkShiftsActionTypes.UpdateWorkShift: {
-      state = { ...state, updatingStatus: LoadStatuses.Loading };
+      state = { ...state, updatingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -104,7 +104,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
         ...state,
         error: null,
         selected: action.payload,
-        updatingStatus: LoadStatuses.Completed,
+        updatingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -113,20 +113,20 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       state = {
         ...state,
         error: action.payload,
-        updatingStatus: LoadStatuses.Error,
+        updatingStatus: LoadStatus.Error,
       };
       break;
     }
 
     case WorkShiftsActionTypes.DeleteWorkShift: {
-      state = { ...state, deletingStatus: LoadStatuses.Loading };
+      state = { ...state, deletingStatus: LoadStatus.Loading };
       break;
     }
 
     case WorkShiftsActionTypes.DeleteWorkShiftOk: {
       state = {
         ...state,
-        deletingStatus: LoadStatuses.Completed,
+        deletingStatus: LoadStatus.Completed,
         error: null,
         paginatedList: {
           ...state.paginatedList,
@@ -140,7 +140,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       state = {
         ...state,
         error: action.payload,
-        deletingStatus: LoadStatuses.Error,
+        deletingStatus: LoadStatus.Error,
       };
       break;
     }

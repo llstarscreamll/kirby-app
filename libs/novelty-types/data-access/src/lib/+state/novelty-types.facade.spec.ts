@@ -22,7 +22,7 @@ import {
   TrashNoveltyType,
 } from './novelty-types.actions';
 import { NoveltyTypesEffects } from './novelty-types.effects';
-import { createNoveltyType } from '@kirby/novelty-types/testing/src';
+import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 

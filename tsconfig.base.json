@@ -15,30 +15,19 @@
     "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@kirby/authentication-data-access": [
-        "libs/authentication/data-access/src/index.ts"
-      ],
+      "@kirby/authentication/data-access": ["libs/authentication/data-access/src/index.ts"],
       "@kirby/authentication/utils": ["libs/authentication/utils/src/index.ts"],
       "@kirby/shared": ["libs/shared/src/index.ts"],
-      "@kirby/*": ["libs/*"],
-      "@kirby/work-shifts/data-access": [
-        "libs/work-shifts/data-access/src/index.ts"
-      ],
+      "@kirby/work-shifts/data-access": ["libs/work-shifts/data-access/src/index.ts"],
       "@kirby/work-shifts/util": ["libs/work-shifts/util/src/index.ts"],
       "@kirby/work-shifts/feature": ["libs/work-shifts/feature/src/index.ts"],
       "@kirby/work-shifts/ui": ["libs/work-shifts/ui/src/index.ts"],
-      "@kirby/time-clock-logs/data-access": [
-        "libs/time-clock-logs/data-access/src/index.ts"
-      ],
+      "@kirby/time-clock-logs/data-access": ["libs/time-clock-logs/data-access/src/index.ts"],
       "@kirby/time-clock-logs/util": ["libs/time-clock-logs/util/src/index.ts"],
-      "@kirby/users/util": ["libs/users/util/src/index.ts"],
-      "@kirby/time-clock-logs/feature": [
-        "libs/time-clock-logs/feature/src/index.ts"
-      ],
+      "@kirby/time-clock-logs/feature": ["libs/time-clock-logs/feature/src/index.ts"],
       "@kirby/time-clock-logs/ui": ["libs/time-clock-logs/ui/src/index.ts"],
-      "@kirby/employees/data-access": [
-        "libs/employees/data-access/src/index.ts"
-      ],
+      "@kirby/time-clock-logs/testing": ["libs/time-clock-logs/testing/src/index.ts"],
+      "@kirby/employees/data-access": ["libs/employees/data-access/src/index.ts"],
       "@kirby/employees/feature": ["libs/employees/feature/src/index.ts"],
       "@kirby/employees/util": ["libs/employees/util/src/index.ts"],
       "@kirby/employees/ui": ["libs/employees/ui/src/index.ts"],
@@ -47,32 +36,21 @@
       "@kirby/novelty-types/data": ["libs/novelty-types/data/src/index.ts"],
       "@kirby/novelties/feature": ["libs/novelties/feature/src/index.ts"],
       "@kirby/novelties/ui": ["libs/novelties/ui/src/index.ts"],
-      "@kirby/novelties/data-access": [
-        "libs/novelties/data-access/src/index.ts"
-      ],
+      "@kirby/novelties/data-access": ["libs/novelties/data-access/src/index.ts"],
       "@kirby/authorization/ui": ["libs/authorization/ui/src/index.ts"],
       "@kirby/authorization/data": ["libs/authorization/data/src/index.ts"],
       "@kirby/employees/testing": ["libs/employees/testing/src/index.ts"],
       "@kirby/novelties/testing": ["libs/novelties/testing/src/index.ts"],
-      "@kirby/novelty-types/testing": [
-        "libs/novelty-types/testing/src/index.ts"
-      ],
-      "@kirby/time-clock-logs/testing": [
-        "libs/time-clock-logs/testing/src/index.ts"
-      ],
-      "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
+      "@kirby/novelty-types/testing": ["libs/novelty-types/testing/src/index.ts"],
       "@kirby/work-shifts/testing": ["libs/work-shifts/testing/src/index.ts"],
+      "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
+      "@kirby/users/util": ["libs/users/util/src/index.ts"],
       "@kirby/cost-centers/data": ["libs/cost-centers/data/src/index.ts"],
-      "@kirby/cost-centers/data-access": [
-        "libs/cost-centers/data-access/src/index.ts"
-      ],
-      "@kirby/novelty-types/data-access": [
-        "libs/novelty-types/data-access/src/index.ts"
-      ],
+      "@kirby/cost-centers/data-access": ["libs/cost-centers/data-access/src/index.ts"],
+      "@kirby/novelty-types/data-access": ["libs/novelty-types/data-access/src/index.ts"],
       "@kirby/novelty-types/ui": ["libs/novelty-types/ui/src/index.ts"],
-      "@kirby/novelty-types/feature": [
-        "libs/novelty-types/feature/src/index.ts"
-      ]
+      "@kirby/novelty-types/feature": ["libs/novelty-types/feature/src/index.ts"],
+      "@kirby/production/feature": ["libs/production/feature/src/index.ts"]
     },
     "rootDir": "."
   },

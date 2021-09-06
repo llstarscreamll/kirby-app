@@ -1,11 +1,5 @@
 import moment from 'moment';
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import {
   ReactiveFormsModule,
   FormArray,
@@ -29,7 +23,7 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
   let template: HTMLDivElement;
   const employeeFieldSelector = 'form [formControlName="employee"]';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,

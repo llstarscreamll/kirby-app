@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pagination } from '@kirby/shared';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 @Component({
   selector: 'kirby-list-work-shifts-page',

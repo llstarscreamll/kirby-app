@@ -24,7 +24,7 @@ export function createWorkShift(id?: string, overrides: any = {}): WorkShiftInte
 
   return {
     id: id || faker.random.uuid(),
-    name: name || faker.random.word(),
+    name: faker.random.word(),
     grace_minutes_before_start_times: 10,
     grace_minutes_after_start_times: 10,
     grace_minutes_before_end_times: 10,

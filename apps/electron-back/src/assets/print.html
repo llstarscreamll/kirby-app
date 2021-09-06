@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Ticket de Producción</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <style>
+    html,
+    body {
+      margin: 0;
+      font-size: 110%;
+      font-weight: bolder;
+      line-height: 1.2;
+    }
+
+    body {
+      padding: 10px;
+    }
+
+    table {
+      width: 10cm;
+      height: 10cm;
+      margin: 0 auto;
+    }
+
+    .company-logo img {
+      width: 150px;
+      display: inline-block;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-xs {
+      font-size: 75%;
+    }
+
+    .print-btn {
+      background-color: rgb(235, 235, 235);
+      border: none;
+      box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+      font-size: large;
+      margin: 20px 0;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+
+    @media print {
+      .print-btn {
+        visibility: hidden;
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td class="text-center company-logo" colspan="2"></td>
+    </tr>
+    <tr>
+      <td colspan="2">Producto: <span class="product-name"></span></td>
+    </tr>
+    <tr>
+      <td>Calibre BWG: <span class="product-bwg"></span></td>
+      <td>Diámetro mm: <span class="product-mm"></span></td>
+    </tr>
+    <tr>
+      <td>Cod. Operario: <span class="employee-code"></span></td>
+      <td>Máquina: <span class="machine-code"></span></td>
+    </tr>
+    <tr>
+      <td colspan="2">Cliente: <span class="customer-name"></span></td>
+    </tr>
+    <tr>
+      <td>Peso Bruto: <span class="gross-weight"></span></td>
+      <td>Peso Neto: <span class="net-weight"></span></td>
+    </tr>
+    <tr>
+      <td>Lote: <span class="batch"></span></td>
+      <td>Fecha: <span class="current-date"></span></td>
+    </tr>
+    <tr>
+      <td colspan="2"><svg id="barcode"></svg></td>
+    </tr>
+    <tr class="text-xs">
+      <td class="text-center" colspan="2">
+        <span class="company-name"></span>
+        <br>
+        <span class="company-address"></span>
+        <br>
+        <span class="company-phone"></span>
+      </td>
+    </tr>
+  </table>
+
+  <div class="text-center">
+    <button type="button" class="print-btn">Imprimir</button>
+  </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/barcodes/JsBarcode.code128.min.js"></script>
+
+<script>
+  const { ipcRenderer } = require('electron');
+  ipcRenderer.on('draw-data', function (event, { productionLog, company }) {
+    const date = new Date(productionLog.created_at);
+    const netWeight = parseFloat(productionLog.gross_weight - productionLog.tare_weight).toFixed(2);
+    const currentDate = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')];
+
+    const img = new Image();
+    img.onload = () => event.sender.send('ticket-ready');
+    img.src = company.logoUrl;
+    document.querySelector('.company-logo').appendChild(img);
+
+    JsBarcode("#barcode", [
+      productionLog.product.customer_code,
+      currentDate.join(''), netWeight,
+    ].join(''), { height: 70, fontSize: 12, displayValue: true, marginTop: 5, width: 3 });
+
+    document.querySelector('title').innerHTML = `Ticket de registro de producción #${productionLog.id}`;
+    document.querySelector('.product-name').innerHTML = productionLog.product.name;
+    document.querySelector('.product-bwg').innerHTML = productionLog.product.wire_gauge_in_bwg;
+    document.querySelector('.product-mm').innerHTML = productionLog.product.wire_gauge_in_mm;
+    document.querySelector('.employee-code').innerHTML = productionLog.employee.code;
+    document.querySelector('.machine-code').innerHTML = productionLog.machine.code;
+    document.querySelector('.customer-name').innerHTML = productionLog.customer?.name || '---';
+    document.querySelector('.batch').innerHTML = productionLog.batch || '---';
+    document.querySelector('.gross-weight').innerHTML = productionLog.gross_weight;
+    document.querySelector('.net-weight').innerHTML = netWeight;
+    document.querySelector('.company-name').innerHTML = company.name;
+    document.querySelector('.company-address').innerHTML = company.address;
+    document.querySelector('.company-phone').innerHTML = company.phone;
+    document.querySelector('.current-date').innerHTML = currentDate.join('-') + " " + [date.getHours(), date.getMinutes(), date.getSeconds()].map(v => String(v).padStart(2, '0')).join(':');
+  });
+
+  document.querySelector('.print-btn').addEventListener('click', (event) => {
+    ipcRenderer.send('ticket-ready');
+  });
+</script>
+
+</html>

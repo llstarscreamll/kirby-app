@@ -1,6 +1,6 @@
 import {
   INVALID_DATA_API_ERROR,
-  LoadStatuses,
+  LoadStatus,
   emptyPagination
 } from '@kirby/shared';
 import {
@@ -38,7 +38,7 @@ describe('WorkShifts Reducer', () => {
       const action = new SearchWorkShifts(newEntity);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.paginatingStatus).toBe(LoadStatuses.Loading);
+      expect(result.paginatingStatus).toBe(LoadStatus.Loading);
     });
 
     it('SearchWorkShiftsOk should return paginated list of items and status == completed', () => {
@@ -50,7 +50,7 @@ describe('WorkShifts Reducer', () => {
       });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.paginatingStatus).toBe(LoadStatuses.Completed);
+      expect(result.paginatingStatus).toBe(LoadStatus.Completed);
       expect(result.paginatedList.data.length).toBe(2);
     });
 
@@ -58,7 +58,7 @@ describe('WorkShifts Reducer', () => {
       const action = new SearchWorkShiftsError(apiError);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.paginatingStatus).toBe(LoadStatuses.Error);
+      expect(result.paginatingStatus).toBe(LoadStatus.Error);
       expect(result.paginatedList.data.length).toBe(0);
     });
 
@@ -66,21 +66,21 @@ describe('WorkShifts Reducer', () => {
       const action = new CreateWorkShift(newEntity);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.creatingStatus).toBe(LoadStatuses.Loading);
+      expect(result.creatingStatus).toBe(LoadStatus.Loading);
     });
 
     it('CreateWorkShiftOk should return status == completed', () => {
       const action = new CreateWorkShiftOk(newEntity);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.creatingStatus).toBe(LoadStatuses.Completed);
+      expect(result.creatingStatus).toBe(LoadStatus.Completed);
     });
 
     it('CreateWorkShiftError should return error and status == error', () => {
       const action = new CreateWorkShiftError(apiError);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.creatingStatus).toBe(LoadStatuses.Error);
+      expect(result.creatingStatus).toBe(LoadStatus.Error);
       expect(result.error).toBeTruthy();
     });
 
@@ -90,14 +90,14 @@ describe('WorkShifts Reducer', () => {
       const action = new GetWorkShift(entityId);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.selectingStatus).toBe(LoadStatuses.Loading);
+      expect(result.selectingStatus).toBe(LoadStatus.Loading);
     });
 
     it('GetWorkShiftOk should return selected entity and status == completed', () => {
       const action = new GetWorkShiftOk(newEntity);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.selectingStatus).toBe(LoadStatuses.Completed);
+      expect(result.selectingStatus).toBe(LoadStatus.Completed);
       expect(result.selected).toBe(newEntity);
     });
 
@@ -105,7 +105,7 @@ describe('WorkShifts Reducer', () => {
       const action = new GetWorkShiftError(apiError);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.selectingStatus).toBe(LoadStatuses.Error);
+      expect(result.selectingStatus).toBe(LoadStatus.Error);
       expect(result.error).toBe(apiError);
       expect(result.selected).toBeFalsy();
     });
@@ -116,14 +116,14 @@ describe('WorkShifts Reducer', () => {
       const action = new UpdateWorkShift({ id: entityId, data: newEntity });
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.updatingStatus).toBe(LoadStatuses.Loading);
+      expect(result.updatingStatus).toBe(LoadStatus.Loading);
     });
 
     it('UpdateWorkShiftOk should return selected entity and status == completed', () => {
       const action = new UpdateWorkShiftOk(newEntity);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.updatingStatus).toBe(LoadStatuses.Completed);
+      expect(result.updatingStatus).toBe(LoadStatus.Completed);
       expect(result.selected).toBe(newEntity);
     });
 
@@ -131,7 +131,7 @@ describe('WorkShifts Reducer', () => {
       const action = new UpdateWorkShiftError(apiError);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.updatingStatus).toBe(LoadStatuses.Error);
+      expect(result.updatingStatus).toBe(LoadStatus.Error);
       expect(result.error).toBe(apiError);
       expect(result.selected).toBeFalsy();
     });
@@ -142,21 +142,21 @@ describe('WorkShifts Reducer', () => {
       const action = new DeleteWorkShift(entityId);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.deletingStatus).toBe(LoadStatuses.Loading);
+      expect(result.deletingStatus).toBe(LoadStatus.Loading);
     });
 
     it('DeleteWorkShiftOk should return selected entity and status == completed', () => {
       const action = new DeleteWorkShiftOk(newEntity.id);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.deletingStatus).toBe(LoadStatuses.Completed);
+      expect(result.deletingStatus).toBe(LoadStatus.Completed);
     });
 
     it('DeleteWorkShiftError should return error and status == error', () => {
       const action = new DeleteWorkShiftError(apiError);
       const result: WorkShiftsState = workShiftsReducer(initialState, action);
 
-      expect(result.deletingStatus).toBe(LoadStatuses.Error);
+      expect(result.deletingStatus).toBe(LoadStatus.Error);
       expect(result.error).toBe(apiError);
     });
   });

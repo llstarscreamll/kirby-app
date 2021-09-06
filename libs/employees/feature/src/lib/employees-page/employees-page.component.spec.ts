@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { emptyPagination } from '@kirby/shared';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -17,7 +17,7 @@ describe('EmployeesPageComponent', () => {
   const Jane = createEmployee('B2', 'Jane');
   const paginatedEmployees = { ...emptyPagination(), data: [John, Jane] };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AuthorizationUiTestModule],
       declarations: [EmployeesPageComponent],

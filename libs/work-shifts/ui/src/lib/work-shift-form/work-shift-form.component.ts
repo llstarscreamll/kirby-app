@@ -2,7 +2,7 @@ import { WeekDay } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -16,7 +16,7 @@ export class WorkShiftFormComponent implements OnInit {
   defaults: WorkShiftInterface;
 
   @Input()
-  status: LoadStatuses;
+  status: LoadStatus;
 
   @Input()
   disable: boolean;
@@ -39,7 +39,7 @@ export class WorkShiftFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   get shouldDisableBtn(): boolean {
-    return this.form.invalid || this.status === LoadStatuses.Loading;
+    return this.form.invalid || this.status === LoadStatus.Loading;
   }
 
   ngOnInit() {

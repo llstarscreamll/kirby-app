@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { isObject as IsObject, isEmpty } from 'lodash';
+import { isObject as IsObject, isEmpty } from 'lodash-es';
 
 export function isObject(control: AbstractControl): ValidationErrors | null {
   if (isEmpty(control.value) || IsObject(control.value)) {

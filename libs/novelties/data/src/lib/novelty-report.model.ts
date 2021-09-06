@@ -1,8 +1,8 @@
-import { uniqBy, groupBy, toArray, round } from 'lodash';
+import { uniqBy, groupBy, toArray, round } from 'lodash-es';
 
 import { NoveltyModel } from './novelty.model';
 import { EmployeeInterface } from '@kirby/employees/util';
-import { User } from '@kirby/users/util/src';
+import { User } from '@kirby/users/util';
 
 class ReportRow {
   date: string;
@@ -78,7 +78,7 @@ export class NoveltyReport {
       grouping_date: new Date(
         novelty.time_clock_log?.checked_out_at || novelty.end_at
       ).setHours(0, 0, 0, 0)
-    }));   
+    }));
 
     this.data = toArray(groupBy(mappedData, 'grouping_date')).map(row =>
       Object.assign(new ReportRow(), {

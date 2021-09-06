@@ -3,7 +3,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel, NoveltyReport } from '@kirby/novelties/data';
 import { NOVELTIES_FEATURE_KEY, NoveltiesState } from './novelties.reducer';
-import { EmployeeInterface } from '@kirby/employees/util/src';
+import { EmployeeInterface } from '@kirby/employees/util';
 
 // Lookup the 'Novelties' feature state managed by NgRx
 const getNoveltiesState = createFeatureSelector<NoveltiesState>(

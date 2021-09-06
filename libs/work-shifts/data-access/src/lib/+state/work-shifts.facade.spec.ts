@@ -10,7 +10,7 @@ import { WorkShiftsFacade } from './work-shifts.facade';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
 import { createWorkShift } from '@kirby/work-shifts/testing';
-import { AuthFacade } from '@kirby/authentication-data-access';
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 import {
   WorkShiftsState,

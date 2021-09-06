@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NoveltyTypesSearchFormComponent } from './novelty-types-search-form.component';
 
@@ -13,7 +13,7 @@ describe('NoveltyTypesSearchFormComponent', () => {
   let component: NoveltyTypesSearchFormComponent;
   let fixture: ComponentFixture<NoveltyTypesSearchFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       declarations: [NoveltyTypesSearchFormComponent],

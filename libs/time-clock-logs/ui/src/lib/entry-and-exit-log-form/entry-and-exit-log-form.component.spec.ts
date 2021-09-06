@@ -6,15 +6,9 @@ import {
   ChangeDetectionStrategy,
   SimpleChange
 } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { EntryAndExitLogFormComponent } from './entry-and-exit-log-form.component';
 
@@ -46,7 +40,7 @@ describe('EntryAndExitLogFormComponent', () => {
 
   let earlyTimeClockData;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatRadioModule, ReactiveFormsModule, MatAutocompleteModule],
       declarations: [EntryAndExitLogFormComponent],
@@ -166,7 +160,7 @@ describe('EntryAndExitLogFormComponent', () => {
         template.querySelector(`${submitCodeFormBtnSelector}:disabled`)
       ).toBeFalsy();
 
-      component.status = LoadStatuses.Loading;
+      component.status = LoadStatus.Loading;
       fixture.detectChanges();
 
       expect(
@@ -616,11 +610,11 @@ describe('EntryAndExitLogFormComponent', () => {
       expect(component.codeForm.valid).toBe(true);
       expect(component.checkForm.valid).toBe(true);
 
-      component.status = LoadStatuses.Completed;
+      component.status = LoadStatus.Completed;
       component.ngOnChanges({
         status: new SimpleChange(
-          LoadStatuses.Empty,
-          LoadStatuses.Completed,
+          LoadStatus.Empty,
+          LoadStatus.Completed,
           false
         )
       });

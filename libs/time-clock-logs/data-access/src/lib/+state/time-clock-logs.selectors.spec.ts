@@ -1,7 +1,7 @@
 import { timeClockLogsQuery } from './time-clock-logs.selectors';
 import {
   INVALID_DATA_API_ERROR,
-  LoadStatuses,
+  LoadStatus,
   emptyPagination
 } from '@kirby/shared';
 import {
@@ -24,7 +24,7 @@ describe('TimeClockLogs Selectors', () => {
             createTimeClockLog('PRODUCT-CCC')
           ]
         },
-        paginatingStatus: LoadStatuses.Empty,
+        paginatingStatus: LoadStatus.Empty,
         selected: createTimeClockLog('PRODUCT-AAA'),
         error: INVALID_DATA_API_ERROR
       }
@@ -47,7 +47,7 @@ describe('TimeClockLogs Selectors', () => {
     it("getPaginatingStatus() should return the current 'loaded' status", () => {
       const result = timeClockLogsQuery.getPaginatingStatus(storeState);
 
-      expect(result).toBe(LoadStatuses.Empty);
+      expect(result).toBe(LoadStatus.Empty);
     });
 
     it("getError() should return the current 'error' storeState", () => {

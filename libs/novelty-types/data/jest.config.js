@@ -1,5 +1,6 @@
 module.exports = {
-  name: 'novelty-types-data',
-  preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/libs/novelty-types/data'
+  preset: '../../../jest.preset.js',
+  coverageDirectory: '../../../coverage/libs/novelty-types/data',
+  globals: { 'ts-jest': { tsConfig: '<rootDir>/tsconfig.spec.json' } },
+  displayName: 'novelty-types-data',
 };

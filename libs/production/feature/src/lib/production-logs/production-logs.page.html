@@ -1,0 +1,50 @@
+<h1>Registros de producción</h1>
+
+<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
+<div fxLayout="column"
+     fxLayout.gt-xs="row"
+     fxLayoutGap="10px"
+     fxLayoutGap.gt-xs="20px">
+  <a *ngIf="(user$ | async).can('production-logs.create')"
+     routerLink="./create"
+     mat-stroked-button
+     color="primary">
+    Crear
+  </a>
+
+  <div fxFlex></div>
+
+  <button (click)="exportLogsToCsv()" mat-stroked-button color="primary" matTooltip="Exportar a CSV">
+    <mat-icon>download</mat-icon>
+  </button>
+</div>
+
+<div class="my-4 responsive-table shadow">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Máquina</th>
+        <th>Empleado</th>
+        <th>Peso Neto</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let log of productionLogs$ | async">
+        <td>{{ log.product?.name }}</td>
+        <td>{{ log.machine?.name }}</td>
+        <td>{{ log.employee?.first_name }}</td>
+        <td>{{ log.netWeight() }}</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="text-right">
+  <kirby-pagination [pagination]="(productionLogs$ | async)"
+                    (paginate)="searchLogs($event)">
+  </kirby-pagination>
+</div>

@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+  "productName": "Weisy",
+  "copyright": "Copyright © 2021 ALAR Computing",
+  "linux": {
+    "target": "deb",
+    "executableName": "Weisy",
+    "maintainer": "Johan Alvarez",
+    "category": "Utility",
+    "synopsis": "Sistema de pesaje",
+    "description": "Sistema de pesaje con conexión a básculas vía USB",
+    "vendor": "ALAR Computing"
+  }
+}

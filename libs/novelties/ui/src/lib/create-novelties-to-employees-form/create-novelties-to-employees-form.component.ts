@@ -9,10 +9,10 @@ import {
   EventEmitter,
   OnDestroy
 } from '@angular/core';
-import { debounce, filter, tap, takeUntil } from 'rxjs/internal/operators';
+import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyType } from '@kirby/novelty-types/data';
 
@@ -31,7 +31,7 @@ export class CreateNoveltiesToEmployeesFormComponent
   public noveltyTypes: NoveltyType;
 
   @Input()
-  public status: LoadStatuses;
+  public status: LoadStatus;
 
   @Output()
   searchEmployees = new EventEmitter();
@@ -186,7 +186,7 @@ export class CreateNoveltiesToEmployeesFormComponent
   }
 
   get disableFormSubmitBtn(): boolean {
-    return this.status === LoadStatuses.Loading || this.form.invalid;
+    return this.status === LoadStatus.Loading || this.form.invalid;
   }
 
   displayEmployeeFieldValue(employee) {

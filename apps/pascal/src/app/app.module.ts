@@ -1,7 +1,7 @@
 import {
   MatFormFieldModule,
   MatFormFieldDefaultOptions,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
 import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '@kirby/shared';
 import { environment } from '../environments/environment';
 import { AuthorizationUiModule } from '@kirby/authorization/ui';
-import { AuthenticationDataAccessModule } from '@kirby/authentication-data-access';
+import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -47,26 +47,24 @@ export const routes: Route[] = [
   { path: 'welcome', component: WelcomePageComponent },
   {
     path: 'work-shifts',
-    loadChildren: () =>
-      import('@kirby/work-shifts/feature').then(m => m.WorkShiftsFeatureModule)
+    loadChildren: () => import('@kirby/work-shifts/feature').then((m) => m.WorkShiftsFeatureModule),
   },
   {
     path: 'time-clock-logs',
-    loadChildren: () =>
-      import('@kirby/time-clock-logs/feature').then(
-        m => m.TimeClockLogsFeatureModule
-      )
+    loadChildren: () => import('@kirby/time-clock-logs/feature').then((m) => m.TimeClockLogsFeatureModule),
   },
   {
     path: 'employees',
-    loadChildren: () =>
-      import('@kirby/employees/feature').then(m => m.EmployeesFeatureModule)
+    loadChildren: () => import('@kirby/employees/feature').then((m) => m.EmployeesFeatureModule),
   },
   {
     path: 'novelties',
-    loadChildren: () =>
-      import('@kirby/novelties/feature').then(m => m.NoveltiesFeatureModule)
-  }
+    loadChildren: () => import('@kirby/novelties/feature').then((m) => m.NoveltiesFeatureModule),
+  },
+  {
+    path: 'production',
+    loadChildren: () => import('@kirby/production/feature').then((m) => m.ProductionFeatureModule),
+  },
 ];
 
 @NgModule({
@@ -75,7 +73,7 @@ export const routes: Route[] = [
     FlexLayoutModule,
     HttpClientModule,
     NxModule.forRoot(),
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled', relativeLinkResolution: 'legacy' }),
     ReactiveFormsModule,
     CoreModule,
     SharedModule,
@@ -93,10 +91,9 @@ export const routes: Route[] = [
     MatButtonModule,
     MatToolbarModule,
     MatListModule,
-    MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   declarations: [
     AppComponent,
@@ -106,15 +103,15 @@ export const routes: Route[] = [
     LandingPageComponent,
     WelcomePageComponent,
     SignUpPageComponent,
-    SidebarLayoutComponent
+    SidebarLayoutComponent,
   ],
   providers: [
     { provide: 'environment', useValue: environment },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: matFormFieldAppearance
-    }
+      useValue: matFormFieldAppearance,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

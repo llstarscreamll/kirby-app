@@ -1,13 +1,13 @@
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { createEmployee } from '@kirby/employees/testing';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 import { EditEmployeePageComponent } from './edit-employee-page.component';
-import { LoadStatuses } from '@kirby/shared';
+import { LoadStatus } from '@kirby/shared';
 import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 
 describe('EditEmployeePageComponent', () => {
@@ -16,7 +16,7 @@ describe('EditEmployeePageComponent', () => {
   const john = createEmployee('A1', 'John');
   const morningWorkShift = createWorkShift('W1');
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EditEmployeePageComponent],
       providers: [

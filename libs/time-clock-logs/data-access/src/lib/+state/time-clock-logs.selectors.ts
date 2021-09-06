@@ -1,4 +1,4 @@
-import { get, isArray } from 'lodash';
+import { get, isArray } from 'lodash-es';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { ApiError } from '@kirby/shared';

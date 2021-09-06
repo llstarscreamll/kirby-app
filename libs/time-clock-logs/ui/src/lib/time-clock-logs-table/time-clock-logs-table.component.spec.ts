@@ -1,7 +1,7 @@
 import moment from 'moment';
-import { isArray } from 'lodash';
+import { isArray } from 'lodash-es';
 import { RouterTestingModule } from '@angular/router/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { emptyPagination } from '@kirby/shared';
@@ -18,7 +18,7 @@ describe('TimeClockLogsTableComponent', () => {
   const approveButtonSelector = 'table tbody tr:first-child td:last-child .approve';
   const deleteApprovalButtonSelector = 'table tbody tr:first-child td:last-child .delete-approval';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AuthorizationUiTestModule, RouterTestingModule],
       declarations: [TimeClockLogsTableComponent],
