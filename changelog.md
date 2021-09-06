@@ -1,6 +1,6 @@
 # Release notes
 
-## [v1.0.0 (2021-01-21)](https://github.com/llstarscreamll/angular-kirby/compare/v1.0.0..v0.8)
+## [1.0.0 (2021-09-05)](https://github.com/llstarscreamll/angular-kirby/compare/1.0.0..v0.8)
 
 ### Added
 
