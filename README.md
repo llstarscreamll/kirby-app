@@ -1,10 +1,10 @@
 # Angular Kirby
 
-[![Build Status](https://travis-ci.com/llstarscreamll/angular-kirby.svg?branch=master)](https://travis-ci.com/llstarscreamll/angular-kirby)
-[![codecov](https://codecov.io/gh/llstarscreamll/angular-kirby/branch/master/graph/badge.svg)](https://codecov.io/gh/llstarscreamll/angular-kirby)
-[![dependencies Status](https://david-dm.org/llstarscreamll/angular-kirby/status.svg)](https://david-dm.org/llstarscreamll/angular-kirby)
-[![devDependencies Status](https://david-dm.org/llstarscreamll/angular-kirby/dev-status.svg)](https://david-dm.org/llstarscreamll/angular-kirby?type=dev)
-![GitHub](https://img.shields.io/github/license/llstarscreamll/angular-kirby?logo=github)
+[![Build Status](https://travis-ci.com/llstarscreamll/kirby-app.svg?branch=master)](https://travis-ci.com/llstarscreamll/kirby-app)
+[![codecov](https://codecov.io/gh/llstarscreamll/kirby-app/branch/master/graph/badge.svg)](https://codecov.io/gh/llstarscreamll/kirby-app)
+[![dependencies Status](https://david-dm.org/llstarscreamll/kirby-app/status.svg)](https://david-dm.org/llstarscreamll/kirby-app)
+[![devDependencies Status](https://david-dm.org/llstarscreamll/kirby-app/dev-status.svg)](https://david-dm.org/llstarscreamll/kirby-app?type=dev)
+![GitHub](https://img.shields.io/github/license/llstarscreamll/kirby-app?logo=github)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) using [Nrwl Nx](https://nrwl.io/nx).
 
