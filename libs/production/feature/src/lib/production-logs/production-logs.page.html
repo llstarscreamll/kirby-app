@@ -20,23 +20,25 @@
   </button>
 </div>
 
-<div class="my-4 responsive-table shadow">
+<div class="my-3 responsive-table shadow">
   <table class="table">
     <thead>
       <tr>
         <th>Producto</th>
         <th>Máquina</th>
         <th>Empleado</th>
-        <th>Peso Neto</th>
+        <th>Neto <small>(kg)</small></th>
+        <th>Fecha</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let log of productionLogs$ | async">
         <td>{{ log.product?.name }}</td>
-        <td>{{ log.machine?.name }}</td>
+        <td>{{ log.machine?.short_name }}</td>
         <td>{{ log.employee?.first_name }}</td>
         <td>{{ log.netWeight() }}</td>
+        <td>{{ log.created_at | date:'MMM d, h:mm a' }}</td>
       </tr>
     </tbody>
 

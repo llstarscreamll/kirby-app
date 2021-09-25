@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { ProductionFacade } from '../+state/production.facade';
 
@@ -12,7 +13,7 @@ export class ProductionLogsPage implements OnInit {
   errors$ = this.productionFacade.errors$;
   productionLogs$ = this.productionFacade.productionLogs$;
 
-  constructor(private productionFacade: ProductionFacade, private authFacade: AuthFacade) {}
+  constructor(private authFacade: AuthFacade, private productionFacade: ProductionFacade) {}
 
   ngOnInit(): void {
     this.searchLogs();
