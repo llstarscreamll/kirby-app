@@ -16,6 +16,7 @@ export const getCustomers = createSelector(getProductionState, (state: State) =>
 export const getProductionLogs = createSelector(getProductionState, (state: State) =>
   ProductionLog.fromJsonList(selectAll(state))
 );
+export const getPagination = createSelector(getProductionState, (state: State) => state.pagination);
 export const getProductionEntities = createSelector(getProductionState, (state: State) => selectEntities(state));
 export const getSelectedId = createSelector(getProductionState, (state: State) => state.selectedId);
 

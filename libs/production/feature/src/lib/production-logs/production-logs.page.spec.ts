@@ -2,11 +2,14 @@ import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { SharedModule } from '@kirby/shared';
+import { emptyPagination, SharedModule } from '@kirby/shared';
 import { ProductionLogsPage } from './production-logs.page';
 import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { User } from '@kirby/users/util';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EmployeesFacade } from '@kirby/employees/data-access';
 
 describe('ProductionLogsPage', () => {
   let component: ProductionLogsPage;
@@ -21,13 +24,19 @@ describe('ProductionLogsPage', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule],
+        imports: [SharedModule, ReactiveFormsModule, MatAutocompleteModule],
         declarations: [ProductionLogsPage],
         providers: [
           {
             provide: AuthFacade,
             useValue: {
               authUser$: of(user),
+            },
+          },
+          {
+            provide: EmployeesFacade,
+            useValue: {
+              paginatedEmployees$: of(emptyPagination()),
             },
           },
           {

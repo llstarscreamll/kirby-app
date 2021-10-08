@@ -150,7 +150,12 @@ export class CreateProductionLogPage implements OnInit, AfterViewInit, OnDestroy
       return '';
     }
 
-    const values = [value.name || '', value.customer_code || '', value.code || ''];
+    const values = [
+      (value.first_name || '') + ' ' + (value.last_name || ''),
+      value.name || '',
+      value.customer_code || '',
+      value.code || '',
+    ];
 
     return values.filter((v) => v.trim() !== '').join(' - ');
   }

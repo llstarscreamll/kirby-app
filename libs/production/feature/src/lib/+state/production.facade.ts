@@ -19,6 +19,7 @@ export class ProductionFacade {
   machines$ = this.store.pipe(select(selectors.getMachines));
   customers$ = this.store.pipe(select(selectors.getCustomers));
   errors$ = this.store.pipe(select(selectors.getProductionError));
+  pagination$ = this.store.pipe(select(selectors.getPagination));
 
   constructor(private store: Store<reducer.ProductionPartialState>, private printerService: PrinterService) {}
 
