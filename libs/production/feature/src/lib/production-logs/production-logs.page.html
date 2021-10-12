@@ -90,6 +90,7 @@
         <th>Empleado</th>
         <th>Neto <small>(kg)</small></th>
         <th>Fecha</th>
+        <th class="w-5"></th>
       </tr>
     </thead>
 
@@ -100,6 +101,11 @@
         <td>{{ log.employee?.first_name }}</td>
         <td>{{ log.netWeight() }}</td>
         <td>{{ log.created_at | date:'MMM d, h:mm a' }}</td>
+        <td>
+          <a mat-icon-button [routerLink]="[log.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </td>
       </tr>
     </tbody>
 

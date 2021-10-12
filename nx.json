@@ -50,7 +50,8 @@
     "production-feature": { "tags": ["type:feature"] },
     "electron-front": { "tags": [] },
     "electron-front-e2e": { "tags": [], "implicitDependencies": ["electron-front"] },
-    "electron-back": { "tags": [] }
+    "electron-back": { "tags": [] },
+    "production-ui": { "tags": ["production", "ui"] }
   },
   "affected": { "defaultBase": "master" }
 }

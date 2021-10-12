@@ -50,7 +50,8 @@
       "@kirby/novelty-types/data-access": ["libs/novelty-types/data-access/src/index.ts"],
       "@kirby/novelty-types/ui": ["libs/novelty-types/ui/src/index.ts"],
       "@kirby/novelty-types/feature": ["libs/novelty-types/feature/src/index.ts"],
-      "@kirby/production/feature": ["libs/production/feature/src/index.ts"]
+      "@kirby/production/feature": ["libs/production/feature/src/index.ts"],
+      "@kirby/production/ui": ["libs/production/ui/src/index.ts"]
     },
     "rootDir": "."
   },

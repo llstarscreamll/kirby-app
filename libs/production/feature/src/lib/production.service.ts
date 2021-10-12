@@ -25,6 +25,10 @@ export class ProductionService extends BaseService {
     return this.httpClient.post(this.endpoint, data, { headers: this.defaultHeaders });
   }
 
+  updateProductionLog(id, data: any): Observable<any> {
+    return this.httpClient.put(`${this.endpoint}${id}`, data, { headers: this.defaultHeaders });
+  }
+
   exportToCsv(data: any): Observable<any> {
     return this.httpClient.post(`${this.endpoint}export-to-csv`, data, { headers: this.defaultHeaders });
   }

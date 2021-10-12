@@ -1,16 +1,19 @@
 <h1 class="inline-block">
-  <a routerLink="..">Registros de producción</a> / Crear
+  <a routerLink="..">Registros de producción</a> / Editar
 </h1>
 
 <div class="card">
 
   <kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
 
-  <kirby-production-log-form *ngIf="user$ | async" [user]="user$ | async"
+  {{ status$ | async }}
+
+  <kirby-production-log-form *ngIf="productionLog$ | async; let productionLog" [user]="user$ | async"
+                             [defaults]="productionLog$ | async"
                              [products]="products$ | async"
                              [machines]="machines$ | async"
                              [customers]="customers$ | async"
-                             [status]="creationStatus$ | async"
+                             [status]="status$ | async"
                              [rawGrossWeight]="machineValue"
                              [employees]="(paginatedEmployees$ | async).data"
                              [printerIsAvailable]="printerIsAvailable()"
@@ -19,8 +22,8 @@
                              (searchProducts)="searchProducts($event)"
                              (searchMachines)="searchMachines($event)"
                              (searchCustomers)="searchCustomers($event)"
-                             (saveAndAddOther)="save($event)"
-                             (saveAndPrint)="saveAndPrint($event)"
+                             (save)="save(productionLog.id, $event)"
+                             (saveAndPrint)="saveAndPrint(productionLog.id, $event)"
                              class="block w-full">
   </kirby-production-log-form>
 

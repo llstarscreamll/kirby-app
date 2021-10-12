@@ -1,14 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ProductionLog } from './production.models';
-import { PRODUCTION_FEATURE_KEY, State, ProductionPartialState, productionAdapter } from './production.reducer';
+import { PRODUCTION_FEATURE_KEY, State, ProductionPartialState, adapter } from './production.reducer';
 
 // Lookup the 'Production' feature state managed by NgRx
 export const getProductionState = createFeatureSelector<ProductionPartialState, State>(PRODUCTION_FEATURE_KEY);
 
-const { selectAll, selectEntities } = productionAdapter.getSelectors();
+const { selectAll, selectEntities } = adapter.getSelectors();
 
 export const getProductionLoaded = createSelector(getProductionState, (state: State) => state.loaded);
-export const getCreationStatus = createSelector(getProductionState, (state: State) => state.creationStatus);
+export const getCreateStatus = createSelector(getProductionState, (state: State) => state.createStatus);
+export const getUpdateStatus = createSelector(getProductionState, (state: State) => state.updateStatus);
 export const getProductionError = createSelector(getProductionState, (state: State) => state.error);
 export const getProducts = createSelector(getProductionState, (state: State) => state.products);
 export const getMachines = createSelector(getProductionState, (state: State) => state.machines);

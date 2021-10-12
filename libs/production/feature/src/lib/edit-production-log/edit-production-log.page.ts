@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
@@ -7,25 +7,26 @@ import { LoadStatus, LocalStorageService } from '@kirby/shared';
 import { WeighingMachineService } from '../weighing-machine.service';
 
 @Component({
-  selector: 'kirby-create-production-log',
-  templateUrl: './create-production-log.page.html',
+  selector: 'kirby-edit-production-log',
+  templateUrl: './edit-production-log.page.html',
 })
-export class CreateProductionLogPage implements OnInit {
+export class EditProductionLogPage implements OnInit, OnDestroy {
   machineValue: string;
-  error$ = this.production.errors$;
   user$ = this.authFacade.authUser$;
-  products$ = this.production.products$;
-  machines$ = this.production.machines$;
-  customers$ = this.production.customers$;
-  creationStatus$ = this.production.creationStatus$;
+  error$ = this.productionFacade.errors$;
+  products$ = this.productionFacade.products$;
+  machines$ = this.productionFacade.machines$;
+  customers$ = this.productionFacade.customers$;
+  status$ = this.productionFacade.updateStatus$;
+  productionLog$ = this.productionFacade.selectedProductionLog$;
   paginatedEmployees$ = this.employeesFacade.paginatedEmployees$;
 
   constructor(
     private authFacade: AuthFacade,
-    private production: ProductionFacade,
     private employeesFacade: EmployeesFacade,
     private changeDetector: ChangeDetectorRef,
     private localStorage: LocalStorageService,
+    private productionFacade: ProductionFacade,
     private weighingMachineService: WeighingMachineService
   ) {}
 
@@ -33,8 +34,12 @@ export class CreateProductionLogPage implements OnInit {
     this.setUpWeightMachine();
   }
 
+  ngOnDestroy(): void {
+    this.productionFacade.clearSelectedProductionLog();
+  }
+
   printerIsAvailable(): boolean {
-    return this.production.isPrinterAvailable();
+    return this.productionFacade.isPrinterAvailable();
   }
 
   setUpWeightMachine() {
@@ -60,24 +65,26 @@ export class CreateProductionLogPage implements OnInit {
   }
 
   searchProducts(query) {
-    this.production.searchProducts(query);
+    this.productionFacade.searchProducts(query);
   }
 
   searchMachines(query) {
-    this.production.searchMachines(query);
+    this.productionFacade.searchMachines(query);
   }
 
   searchCustomers(query) {
-    this.production.searchCustomers(query);
+    this.productionFacade.searchCustomers(query);
   }
 
-  save(data) {
-    this.production.setCreateStatus(LoadStatus.Empty);
-    this.production.createProductionLog(data);
+  save(id, data) {
+    console.warn('updating', id, data);
+
+    this.productionFacade.setUpdateStatus(LoadStatus.Empty);
+    this.productionFacade.updateProductionLog(id, data);
   }
 
-  saveAndPrint(data) {
-    this.production.setCreateStatus(LoadStatus.Empty);
-    this.production.createAndPrintProductionLog(data);
+  saveAndPrint(id, data) {
+    this.productionFacade.setUpdateStatus(LoadStatus.Empty);
+    this.productionFacade.updateAndPrintProductionLog(id, data);
   }
 }

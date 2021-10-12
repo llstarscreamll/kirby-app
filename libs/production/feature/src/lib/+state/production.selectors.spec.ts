@@ -1,6 +1,5 @@
 import { createProductionLog } from '../testing';
-import { IProductionLog } from './production.models';
-import { State, productionAdapter, initialState } from './production.reducer';
+import { adapter, initialState } from './production.reducer';
 import * as ProductionSelectors from './production.selectors';
 
 describe('Production Selectors', () => {
@@ -10,16 +9,13 @@ describe('Production Selectors', () => {
 
   beforeEach(() => {
     state = {
-      production: productionAdapter.setAll(
-        [createProductionLog('PRODUCT-AAA'), selected, createProductionLog('PRODUCT-CCC')],
-        {
-          ...initialState,
-          selectedId: 'PRODUCT-BBB',
-          error: ERROR_MSG,
-          loaded: true,
-          selected,
-        }
-      ),
+      production: adapter.setAll([createProductionLog('PRODUCT-AAA'), selected, createProductionLog('PRODUCT-CCC')], {
+        ...initialState,
+        selectedId: 'PRODUCT-BBB',
+        error: ERROR_MSG,
+        loaded: true,
+        selected,
+      }),
     };
   });
 

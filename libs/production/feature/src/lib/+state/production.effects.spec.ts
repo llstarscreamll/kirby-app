@@ -10,6 +10,7 @@ import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 describe('ProductionEffects', () => {
   let actions: Observable<any>;
@@ -26,6 +27,7 @@ describe('ProductionEffects', () => {
         { provide: ProductionService, useValue: { searchProductionLogs: (_) => of({ data: [], meta: {} }) } },
         { provide: MatSnackBar, useValue: { open: (_) => true } },
         { provide: PrinterService, useValue: {} },
+        { provide: Router, useValue: {} },
       ],
     });
 

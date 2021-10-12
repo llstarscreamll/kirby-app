@@ -1348,6 +1348,28 @@
           }
         }
       }
+    },
+    "production-ui": {
+      "projectType": "library",
+      "root": "libs/production/ui",
+      "sourceRoot": "libs/production/ui/src",
+      "prefix": "kirby",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/production/ui/src/**/*.ts", "libs/production/ui/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/production/ui"],
+          "options": {
+            "jestConfig": "libs/production/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
