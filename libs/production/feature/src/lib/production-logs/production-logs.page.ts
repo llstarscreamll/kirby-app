@@ -6,6 +6,7 @@ import { debounce, filter, takeUntil, tap } from 'rxjs/operators';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { ProductionFacade } from '../+state/production.facade';
+import moment from 'moment';
 
 @Component({
   selector: 'kirby-production-logs',
@@ -26,7 +27,8 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
     machine: [''],
     employee: [''],
     net_weight: [''],
-    creation_date: [''],
+    creation_date_start: [''],
+    creation_date_end: [''],
   });
 
   constructor(
@@ -79,24 +81,32 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
   }
 
   searchLogs(query: any = {}) {
+    console.warn('search query', query);
+
     this.productionFacade.searchProductionLogs({ include: 'employee,product,machine', ...query });
   }
 
   submitSearchForm() {
+    this.searchLogs({ filter: this.parsedFormValue() });
+  }
+
+  parsedFormValue() {
     let formValue = this.searchForm.value;
-    let filter = {
+
+    return {
       employee_id: formValue.employee.id ?? '',
       product_id: formValue.product.id ?? '',
       machine_id: formValue.machine.id ?? '',
       net_weight: formValue.net_weight,
-      creation_date: formValue.creation_date,
+      creation_date: {
+        start: formValue.creation_date_start ? moment(formValue.creation_date_start).toISOString() : '',
+        end: formValue.creation_date_end ? moment(formValue.creation_date_end).toISOString() : '',
+      },
     };
-
-    this.searchLogs({ filter });
   }
 
-  exportLogsToCsv() {
-    this.productionFacade.exportToCsv({});
+  exportLogsToCsv(filter) {
+    this.productionFacade.exportToCsv({ filter });
   }
 
   displayNameValue(value) {

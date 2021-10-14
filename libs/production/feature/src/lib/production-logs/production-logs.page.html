@@ -15,9 +15,18 @@
 
   <div fxFlex></div>
 
-  <button (click)="exportLogsToCsv()" mat-stroked-button color="primary" matTooltip="Exportar a CSV">
-    <mat-icon>download</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+    <mat-icon>more_vert</mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu">
+    <button (click)="exportLogsToCsv(parsedFormValue())" mat-menu-item>
+      <span>Descargar filtro actual</span>
+    </button>
+    <button (click)="exportLogsToCsv({})" mat-menu-item>
+      <span>Descargar todo</span>
+    </button>
+  </mat-menu>
 </div>
 
 <div class="mt-3">
@@ -50,28 +59,33 @@
         </mat-autocomplete>
       </mat-form-field>
 
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
       <mat-form-field fxFlex="grow">
         <mat-label>Máquina</mat-label>
-        <input [matAutocomplete]="machineAutocomplete"
-               formControlName="machine"
-               matInput />
+        <input [matAutocomplete]="machineAutocomplete" formControlName="machine" matInput />
         <mat-autocomplete #machineAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
           <mat-option *ngFor="let machine of machines$ | async" [value]="machine">
             <span>{{ machine.short_name }}</span>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-    </div>
-
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
       <mat-form-field fxFlex="grow">
         <mat-label>Peso neto</mat-label>
         <input formControlName="net_weight" matInput type="number" min="0" step=".1" />
       </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Fecha de creación <small>inicio</small></mat-label>
+        <input formControlName="creation_date_start" matInput type="datetime-local" />
+      </mat-form-field>
 
       <mat-form-field fxFlex="grow">
-        <mat-label>Fecha de creación</mat-label>
-        <input formControlName="creation_date" matInput type="date" />
+        <mat-label>Fecha de creación <small>fin</small></mat-label>
+        <input formControlName="creation_date_end" matInput type="datetime-local" />
       </mat-form-field>
     </div>
 
