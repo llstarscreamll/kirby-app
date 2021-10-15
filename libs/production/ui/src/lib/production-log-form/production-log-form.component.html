@@ -82,6 +82,18 @@
     </mat-form-field>
   </div>
 
+  <div *ngIf="defaults" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+    <mat-form-field fxFlex="grow">
+      <mat-label>Etiqueta</mat-label>
+      <mat-select formControlName="tag">
+        <mat-option *ngFor="let option of tagOptions" [value]="option.id">{{ option.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div fxFlex="grow"></div>
+    <div fxFlex="grow"></div>
+  </div>
+
   <div fxLayout="row" fxLayoutGap="20px">
     <button *ngIf="defaults" (click)="emitSave()"
             [disabled]="form.invalid || form.disabled"
@@ -114,7 +126,5 @@
       Guardar e imprimir
     </button>
   </div>
-
-  {{ status }}
 
 </form>

@@ -46,10 +46,19 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   form: FormGroup;
   destroy$ = new Subject();
+  tagOptions = [
+    { id: 'InLine', name: 'En línea' },
+    { id: 'Error', name: 'Error de registro' },
+    { id: 'Rejected', name: 'Rechazado' },
+  ];
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (!this.form) {
+      return;
+    }
+
     if (changes.rawGrossWeight?.currentValue) {
       this.form.patchValue({ gross_weight: getKilogramsFromWeighMachine(changes.rawGrossWeight.currentValue) });
     }
@@ -92,6 +101,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       batch: [],
       tare_weight: [0, [Validators.required, Validators.min(0)]],
       gross_weight: [0, [Validators.required, Validators.min(0.1)]],
+      tag: [],
     });
 
     if (!this.user.can('production-logs.create-on-behalf-of-another-person')) {
@@ -200,6 +210,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       batch: form.batch || '',
       tare_weight: form.tare_weight,
       gross_weight: form.gross_weight,
+      tag: form.tag,
     };
   }
 
