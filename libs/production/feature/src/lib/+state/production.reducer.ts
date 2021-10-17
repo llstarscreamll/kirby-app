@@ -47,7 +47,7 @@ const productionReducer = createReducer(
   on(actions.createLog, (state) => ({ ...state, createStatus: LoadStatus.Loading })),
   on(actions.createAndPrintLog, (state) => ({ ...state, createStatus: LoadStatus.Loading })),
   on(actions.createLogOk, (state, { productionLog }) =>
-    adapter.addOne(productionLog, { ...state, creationStatus: LoadStatus.Completed, error: null })
+    adapter.addOne(productionLog, { ...state, createStatus: LoadStatus.Completed, error: null })
   ),
   on(actions.createLogError, (state, { error }) => ({ ...state, createStatus: LoadStatus.Error, error })),
 

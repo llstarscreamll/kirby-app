@@ -81,8 +81,6 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
   }
 
   searchLogs(query: any = {}) {
-    console.warn('search query', query);
-
     this.productionFacade.searchProductionLogs({ include: 'employee,product,machine', ...query });
   }
 

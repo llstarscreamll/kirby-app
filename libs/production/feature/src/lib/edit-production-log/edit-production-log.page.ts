@@ -77,8 +77,6 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
   }
 
   save(id, data) {
-    console.warn('updating', id, data);
-
     this.productionFacade.setUpdateStatus(LoadStatus.Empty);
     this.productionFacade.updateProductionLog(id, data);
   }
