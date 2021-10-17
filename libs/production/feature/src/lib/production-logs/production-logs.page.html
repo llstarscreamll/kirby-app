@@ -109,7 +109,8 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let log of productionLogs$ | async">
+      <tr *ngFor="let log of productionLogs$ | async"
+          [ngClass]="{'bg-red-100': log.tag === 'Rejected', 'bg-yellow-100': log.tag === 'Error'}">
         <td>{{ log.product?.name }}</td>
         <td>{{ log.machine?.short_name }}</td>
         <td>{{ log.employee?.first_name }}</td>
@@ -129,4 +130,10 @@
 <div class="text-right">
   <kirby-pagination [pagination]="pagination$ | async" (paginate)="searchLogs($event)">
   </kirby-pagination>
+</div>
+
+<div>
+  <span class="bg-yellow-100">Error de registro</span>
+  <br>
+  <span class="bg-red-100">Rechazado</span>
 </div>
