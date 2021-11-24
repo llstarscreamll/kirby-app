@@ -1,5 +1,25 @@
 # Release notes
 
+## [1.1.0 (2021-11-24)](https://github.com/llstarscreamll/angular-kirby/compare/1.1.0..1.0.0)
+
+### Added
+
+- New production logs search form
+- New ability to edit production log
+- New ability to download all production logs or the filtered ones onn search form
+- New ability to tagging production logs as Inline, Error and Rejected; tag can't be set at creation time (defaults to 'InLine') but can be updated
+
+### Changed
+
+- On production logs list table show creation date, machine short name and net weight measure unit
+- On production logs list table records are highlighted based on tag attribute
+- Many stability and security improvements
+- Improve production log ticket print design
+
+### Fixed
+
+- Fix error with production logs table list pagination
+
 ## [1.0.0 (2021-09-05)](https://github.com/llstarscreamll/angular-kirby/compare/1.0.0..v0.8)
 
 ### Added

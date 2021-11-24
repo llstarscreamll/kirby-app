@@ -1,6 +1,6 @@
 language: node_js
 
-node_js: 12
+node_js: 14
 
 dist: trusty
 
@@ -21,7 +21,7 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 
-script: ng test --run-in-band --ci --bail=1 --clear-cache
+script: ng test --run-in-band --ci --bail=1
 
 after_success:
   - npm run codecov
