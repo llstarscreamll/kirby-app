@@ -1,6 +1,7 @@
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DataPersistence } from '@nrwl/angular';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { createEffect, ofType } from '@ngrx/effects';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -8,7 +9,7 @@ import { PrinterService } from '../printer.service';
 import * as fromProduction from './production.reducer';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { EditProductionLogPage } from '../edit-production-log/edit-production-log.page';
 import { ProductionLogDetailsPage } from '../production-log-details/production-log-details.page';
 
 @Injectable()
@@ -54,7 +55,7 @@ export class ProductionEffects {
     })
   );
 
-  createProductionOk$ = createEffect(
+  createProductionLogOk$ = createEffect(
     () =>
       this.dataPersistence.actions.pipe(
         ofType(ProductionActions.createLogOk),
@@ -78,6 +79,12 @@ export class ProductionEffects {
     })
   );
 
+  navigateToEditProductionLogPage$ = createEffect(() =>
+    this.dataPersistence.navigation(EditProductionLogPage, {
+      run: (activatedRoute) => ProductionActions.getLog({ id: activatedRoute.paramMap.get('id') }),
+    })
+  );
+
   getLog$ = createEffect(() =>
     this.dataPersistence.fetch(ProductionActions.getLog, {
       run: (action: ReturnType<typeof ProductionActions.getLog>) =>
@@ -85,6 +92,45 @@ export class ProductionEffects {
           .get(action.id)
           .pipe(map((response) => ProductionActions.getLogOk({ data: response.data }))),
     })
+  );
+
+  updateProductionLog$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(ProductionActions.updateLog, {
+      run: (action: ReturnType<typeof ProductionActions.updateLog>, _: fromProduction.ProductionPartialState) =>
+        this.productionService
+          .updateProductionLog(action.id, action.data)
+          .pipe(map((response) => ProductionActions.updateLogOk({ productionLog: response.data }))),
+
+      onError: (_: ReturnType<typeof ProductionActions.updateLog>, error) =>
+        ProductionActions.updateLogError({ error }),
+    })
+  );
+
+  updateAndPrintProductionLog$ = createEffect(() =>
+    this.dataPersistence.pessimisticUpdate(ProductionActions.updateAndPrintLog, {
+      run: (action: ReturnType<typeof ProductionActions.updateAndPrintLog>, _: fromProduction.ProductionPartialState) =>
+        this.productionService
+          .updateProductionLog(action.id, action.data)
+          .pipe(
+            mergeMap((response) => [
+              ProductionActions.updateLogOk({ productionLog: response.data }),
+              ProductionActions.printProductionLogTicket({ productionLog: response.data }),
+            ])
+          ),
+
+      onError: (_: ReturnType<typeof ProductionActions.updateAndPrintLog>, error) =>
+        ProductionActions.updateLogError({ error }),
+    })
+  );
+
+  updateProductionLogOk$ = createEffect(
+    () =>
+      this.dataPersistence.actions.pipe(
+        ofType(ProductionActions.updateLogOk),
+        tap((_) => this.snackBar.open('Registro actualizado exitosamente', 'ok', { duration: 5000 })),
+        tap((_) => this.router.navigate(['production']))
+      ),
+    { dispatch: false }
   );
 
   exportLogs$ = createEffect(() =>
@@ -154,6 +200,7 @@ export class ProductionEffects {
   );
 
   constructor(
+    private router: Router,
     private snackBar: MatSnackBar,
     private printerService: PrinterService,
     private productionService: ProductionService,

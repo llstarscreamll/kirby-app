@@ -18,13 +18,15 @@ export class ProductionService extends BaseService {
   }
 
   searchProductionLogs(query: any): Observable<any> {
-    return this.httpClient
-      .get(this.endpoint, { headers: this.defaultHeaders, params: query })
-      .pipe(map(({ data, ...meta }: any) => ({ data, meta })));
+    return this.httpClient.get(this.endpoint, { headers: this.defaultHeaders, params: oneLevelFlattenObject(query) });
   }
 
   createProductionLog(data: any): Observable<any> {
     return this.httpClient.post(this.endpoint, data, { headers: this.defaultHeaders });
+  }
+
+  updateProductionLog(id, data: any): Observable<any> {
+    return this.httpClient.put(`${this.endpoint}${id}`, data, { headers: this.defaultHeaders });
   }
 
   exportToCsv(data: any): Observable<any> {

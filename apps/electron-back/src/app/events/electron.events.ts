@@ -135,8 +135,8 @@ ipcMain.on('ticket-ready', () => {
       margins: { marginType: 'custom', top: 5, bottom: 5, right: 5, left: 5 },
       pageSize: { height: 10 * 10000, width: 10 * 10000 },
     },
-    () => {
-      console.log('print ok');
+    (success, failureReason) => {
+      console.log('print operation:', success, failureReason);
     }
   );
 });

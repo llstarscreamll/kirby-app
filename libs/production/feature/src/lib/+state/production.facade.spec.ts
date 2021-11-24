@@ -14,6 +14,7 @@ import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
 import { PRODUCTION_FEATURE_KEY, State, reducer } from './production.reducer';
+import { Router } from '@angular/router';
 
 interface TestSchema {
   production: State;
@@ -37,6 +38,7 @@ describe('ProductionFacade', () => {
           { provide: ProductionService, useValue: { searchProductionLogs: (_) => of({ data: [], meta: {} }) } },
           { provide: MatSnackBar, useValue: { open: (_) => true } },
           { provide: PrinterService, useValue: {} },
+          { provide: Router, useValue: {} },
         ],
       })
       class CustomFeatureModule {}

@@ -15,28 +15,112 @@
 
   <div fxFlex></div>
 
-  <button (click)="exportLogsToCsv()" mat-stroked-button color="primary" matTooltip="Exportar a CSV">
-    <mat-icon>download</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+    <mat-icon>more_vert</mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu">
+    <button (click)="exportLogsToCsv(parsedFormValue())" mat-menu-item>
+      <span>Descargar filtro actual</span>
+    </button>
+    <button (click)="exportLogsToCsv({})" mat-menu-item>
+      <span>Descargar todo</span>
+    </button>
+  </mat-menu>
 </div>
 
-<div class="my-4 responsive-table shadow">
+<div class="mt-3">
+  <form [formGroup]="searchForm" autocomplete="off" (ngSubmit)="submitSearchForm()">
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Empleado</mat-label>
+        <input [matAutocomplete]="employeeAutocomplete"
+               formControlName="employee"
+               matInput />
+        <mat-autocomplete #employeeAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue">
+          <mat-option *ngFor="let employee of (paginatedEmployees$ | async).data" [value]="employee">
+            <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Producto</mat-label>
+        <input [matAutocomplete]="productAutocomplete"
+               formControlName="product"
+               matInput />
+        <mat-autocomplete #productAutocomplete="matAutocomplete"
+                          [displayWith]="displayShortNameValue">
+          <mat-option *ngFor="let product of products$ | async" [value]="product">
+            <span>{{ product.short_name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Máquina</mat-label>
+        <input [matAutocomplete]="machineAutocomplete" formControlName="machine" matInput />
+        <mat-autocomplete #machineAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
+          <mat-option *ngFor="let machine of machines$ | async" [value]="machine">
+            <span>{{ machine.short_name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field fxFlex="grow">
+        <mat-label>Peso neto</mat-label>
+        <input formControlName="net_weight" matInput type="number" min="0" step=".1" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Fecha de creación <small>inicio</small></mat-label>
+        <input formControlName="creation_date_start" matInput type="datetime-local" />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="grow">
+        <mat-label>Fecha de creación <small>fin</small></mat-label>
+        <input formControlName="creation_date_end" matInput type="datetime-local" />
+      </mat-form-field>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" mat-stroked-button color="primary">Buscar</button>
+    </div>
+  </form>
+</div>
+
+<div class="my-3 responsive-table shadow">
   <table class="table">
     <thead>
       <tr>
         <th>Producto</th>
         <th>Máquina</th>
         <th>Empleado</th>
-        <th>Peso Neto</th>
+        <th>Neto <small>(kg)</small></th>
+        <th>Fecha</th>
+        <th class="w-5"></th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let log of productionLogs$ | async">
+      <tr *ngFor="let log of productionLogs$ | async"
+          [ngClass]="{'bg-red-100': log.tag === 'Rejected', 'bg-yellow-100': log.tag === 'Error'}">
         <td>{{ log.product?.name }}</td>
-        <td>{{ log.machine?.name }}</td>
+        <td>{{ log.machine?.short_name }}</td>
         <td>{{ log.employee?.first_name }}</td>
         <td>{{ log.netWeight() }}</td>
+        <td>{{ log.created_at | date:'MMM d, h:mm a' }}</td>
+        <td>
+          <a mat-icon-button [routerLink]="[log.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </td>
       </tr>
     </tbody>
 
@@ -44,7 +128,12 @@
 </div>
 
 <div class="text-right">
-  <kirby-pagination [pagination]="(productionLogs$ | async)"
-                    (paginate)="searchLogs($event)">
+  <kirby-pagination [pagination]="pagination$ | async" (paginate)="searchLogs($event)">
   </kirby-pagination>
+</div>
+
+<div>
+  <span class="bg-yellow-100">Error de registro</span>
+  <br>
+  <span class="bg-red-100">Rechazado</span>
 </div>

@@ -39,5 +39,6 @@ module.exports = {
     '<rootDir>/libs/production/feature',
     '<rootDir>/apps/electron-front',
     '<rootDir>/apps/electron-back',
+    '<rootDir>/libs/production/ui',
   ],
 };

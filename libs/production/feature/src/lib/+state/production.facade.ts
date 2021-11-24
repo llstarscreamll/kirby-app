@@ -11,7 +11,8 @@ import { LoadStatus } from '@kirby/shared';
 @Injectable()
 export class ProductionFacade {
   loaded$ = this.store.pipe(select(selectors.getProductionLoaded));
-  creationStatus$ = this.store.pipe(select(selectors.getCreationStatus));
+  creationStatus$ = this.store.pipe(select(selectors.getCreateStatus));
+  updateStatus$ = this.store.pipe(select(selectors.getUpdateStatus));
   productionLogs$ = this.store.pipe(select(selectors.getProductionLogs));
   selectedProductionLog$ = this.store.pipe(select(selectors.getSelected));
   selectedProductionLogId$ = this.store.pipe(select(selectors.getSelectedId));
@@ -19,19 +20,36 @@ export class ProductionFacade {
   machines$ = this.store.pipe(select(selectors.getMachines));
   customers$ = this.store.pipe(select(selectors.getCustomers));
   errors$ = this.store.pipe(select(selectors.getProductionError));
+  pagination$ = this.store.pipe(select(selectors.getPagination));
 
   constructor(private store: Store<reducer.ProductionPartialState>, private printerService: PrinterService) {}
 
-  dispatch(action: Action) {
+  dispatch(action) {
     this.store.dispatch(action);
   }
 
-  setCreationStatus(status: LoadStatus) {
-    this.store.dispatch(actions.setCreationStatus({ status }));
+  setCreateStatus(status: LoadStatus) {
+    this.store.dispatch(actions.setCreateStatus({ status }));
   }
 
   createProductionLog(data: any) {
     this.store.dispatch(actions.createLog({ data }));
+  }
+
+  setUpdateStatus(status: LoadStatus) {
+    this.store.dispatch(actions.setUpdateStatus({ status }));
+  }
+
+  updateProductionLog(id: string, data: any) {
+    this.store.dispatch(actions.updateLog({ id, data }));
+  }
+
+  updateAndPrintProductionLog(id: string, data: any) {
+    this.store.dispatch(actions.updateAndPrintLog({ id, data }));
+  }
+
+  clearSelectedProductionLog() {
+    this.store.dispatch(actions.getLogOk({ data: null }));
   }
 
   exportToCsv(data: any) {

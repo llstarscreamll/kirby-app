@@ -7,11 +7,17 @@ interface GenericEntity {
   name: string;
 }
 
-export const setCreationStatus = createAction('[Production] set load status', props<{ status: LoadStatus }>());
+export const setCreateStatus = createAction('[Production] set creation status', props<{ status: LoadStatus }>());
 export const createLog = createAction('[Production] create log', props<{ data: any }>());
 export const createAndPrintLog = createAction('[Production] create and print log', props<{ data: any }>());
 export const createLogOk = createAction('[Production] create log ok', props<{ productionLog: IProductionLog }>());
 export const createLogError = createAction('[Production] create log error', props<{ error: any }>());
+
+export const updateLog = createAction('[Production] update log', props<{ id: string; data: any }>());
+export const updateAndPrintLog = createAction('[Production] update and print log', props<{ id: string; data: any }>());
+export const updateLogOk = createAction('[Production] update log ok', props<{ productionLog: IProductionLog }>());
+export const updateLogError = createAction('[Production] update log error', props<{ error: any }>());
+export const setUpdateStatus = createAction('[Production] set update status', props<{ status: LoadStatus }>());
 
 export const printProductionLogTicket = createAction('[Production] print', props<{ productionLog: IProductionLog }>());
 

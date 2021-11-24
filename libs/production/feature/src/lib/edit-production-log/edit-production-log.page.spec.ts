@@ -8,15 +8,15 @@ import { User } from '@kirby/users/util';
 import { ProductionFacade } from '../+state/production.facade';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { CreateProductionLogPage } from './create-production-log.page';
+import { EditProductionLogPage } from './edit-production-log.page';
 import { WeighingMachineService } from '../weighing-machine.service';
 import { LoadStatus, LocalStorageService, SharedModule } from '@kirby/shared';
 
-describe('CreateProductionLogPage', () => {
+describe('EditProductionLogPage', () => {
   let authFacade: AuthFacade;
   let productionFacade: ProductionFacade;
-  let component: CreateProductionLogPage;
-  let fixture: ComponentFixture<CreateProductionLogPage>;
+  let component: EditProductionLogPage;
+  let fixture: ComponentFixture<EditProductionLogPage>;
   const user = User.fromJson({
     id: 1,
     name: 'John Doe',
@@ -24,18 +24,23 @@ describe('CreateProductionLogPage', () => {
     permissions: [{ name: 'production-logs.create-on-behalf-of-another-person' }],
   });
   const formData = {
-    product: { id: 'P1', short_name: 'pencil', name: 'Great Pencil' },
-    machine: { id: 'M1', name: 'pencil machine' },
-    customer: { id: 'C1', name: 'John Doe' },
+    employee_id: 'E1',
+    product_id: 'P1',
+    machine_id: 'M1',
+    customer_id: 'C1',
     batch: 123,
     tare_weight: 10.5,
     gross_weight: 25.2,
+    employee: { id: 'E1', first_name: 'John', last_name: 'Doe' },
+    product: { id: 'P1', short_name: 'pencil', internal_code: 'P1-001', name: 'Great Pencil' },
+    machine: { id: 'M1', cost_center_id: 'CC1', code: 'M1-001', name: 'pencil machine' },
+    customer: { id: 'C1', name: 'John Doe' },
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, ReactiveFormsModule, MatAutocompleteModule],
-      declarations: [CreateProductionLogPage],
+      declarations: [EditProductionLogPage],
       providers: [
         {
           provide: ProductionFacade,
@@ -43,9 +48,10 @@ describe('CreateProductionLogPage', () => {
             products$: of([{ id: 1, name: 'pencil' }]),
             error$: of(null),
             creationStatus$: of(LoadStatus.Empty),
-            createProductionLog: (_) => true,
+            updateProductionLog: (_) => true,
             isPrinterAvailable: () => false,
-            setCreateStatus: () => false,
+            setUpdateStatus: () => false,
+            clearSelectedProductionLog: () => true,
           },
         },
         {
@@ -83,7 +89,7 @@ describe('CreateProductionLogPage', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateProductionLogPage);
+    fixture = TestBed.createComponent(EditProductionLogPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -96,6 +102,9 @@ describe('CreateProductionLogPage', () => {
   });
 
   it('should have certain elements', () => {
+    component.productionLog$ = of({ id: 'A1', ...formData });
+
+    fixture.detectChanges();
     const html = fixture.nativeElement;
 
     expect(html.querySelector('h1')).toBeTruthy();
