@@ -67,6 +67,7 @@ export default class App {
       height: height,
       show: false,
       webPreferences: {
+        devTools: true,
         nodeIntegration: false,
         contextIsolation: true,
         enableRemoteModule: false,
@@ -76,6 +77,7 @@ export default class App {
     });
 
     App.mainWindow.setMenu(null);
+    // App.mainWindow.webContents.openDevTools({ mode: 'detach' });
     App.mainWindow.center();
 
     App.mainWindow.webContents.openDevTools();

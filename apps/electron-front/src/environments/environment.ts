@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'http://proyecto.caballo.com.co:8000/',
+  api: 'http://proyecto.caballo.com.co:8001/',
 };
 
 /*
