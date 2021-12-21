@@ -117,6 +117,8 @@ class PrinterWindow {
 }
 
 ipcMain.handle('print', (event, productionLog, company = defaultCompany) => {
+  console.warn('log', productionLog, company);
+
   PrinterWindow.setParams(productionLog, company);
   PrinterWindow.initWindow();
   PrinterWindow.loadMainWindow();
