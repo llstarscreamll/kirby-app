@@ -11,9 +11,9 @@ import { app, ipcMain, BrowserWindow } from 'electron';
 import { environment } from '../../environments/environment';
 
 const defaultCompany = {
-  name: 'Grapas y Puntillas el Caballo S.A.S',
+  name: 'GRAPAS Y PUNTILLAS EL CABALLO S.A.',
   address: 'Sogamoso Carrera 10A #30-07',
-  phone: '(578) 7701882 Fax (570) 7704666',
+  phone: '(578) 7701882',
   logoUrl: './logo-grapas-y-puntillas-el-caballo.png',
 };
 
@@ -120,6 +120,7 @@ ipcMain.handle('print', (event, productionLog, company = defaultCompany) => {
   PrinterWindow.setParams(productionLog, company);
   PrinterWindow.initWindow();
   PrinterWindow.loadMainWindow();
+  PrinterWindow.window.webContents.openDevTools();
   PrinterWindow.sendEvents();
 });
 
@@ -132,8 +133,8 @@ ipcMain.on('ticket-ready', () => {
       color: false,
       scaleFactor: 100,
       printBackground: false,
-      margins: { marginType: 'custom', top: 5, bottom: 5, right: 5, left: 5 },
       pageSize: { height: 10 * 10000, width: 10 * 10000 },
+      margins: { marginType: 'custom', top: 1, bottom: 1, right: 1, left: 1 },
     },
     (success, failureReason) => {
       console.log('print operation:', success, failureReason);
