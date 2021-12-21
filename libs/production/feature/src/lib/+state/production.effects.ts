@@ -114,7 +114,7 @@ export class ProductionEffects {
           .pipe(
             mergeMap((response) => [
               ProductionActions.updateLogOk({ productionLog: response.data }),
-              ProductionActions.printProductionLogTicket({ productionLog: response.data }),
+              ProductionActions.printProductionLogTicket({ productionLog: action.data }),
             ])
           ),
 

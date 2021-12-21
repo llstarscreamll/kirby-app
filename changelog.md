@@ -1,5 +1,9 @@
 # Release notes
 
+## [1.1.1 (2021-12-21)](https://github.com/llstarscreamll/angular-kirby/compare/1.1.1..1.1.0)
+
+fix: visual errors on ticket print design
+
 ## [1.1.0 (2021-11-24)](https://github.com/llstarscreamll/angular-kirby/compare/1.1.0..1.0.0)
 
 ### Added

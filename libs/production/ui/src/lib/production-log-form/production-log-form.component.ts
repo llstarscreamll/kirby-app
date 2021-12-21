@@ -191,7 +191,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   emitSaveAndPrint() {
     this.form.disable();
-    this.saveAndPrint.emit(this.getParsedFormValue());
+    this.saveAndPrint.emit({ ...this.defaults, ...this.form.value, ...this.getParsedFormValue() });
   }
 
   emitSaveAndAddOther() {
