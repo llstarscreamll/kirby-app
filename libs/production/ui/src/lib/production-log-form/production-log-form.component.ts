@@ -20,6 +20,13 @@ import { LoadStatus } from '@kirby/shared';
 @Component({
   selector: 'kirby-production-log-form',
   templateUrl: 'production-log-form.component.html',
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
   @Input() user;
