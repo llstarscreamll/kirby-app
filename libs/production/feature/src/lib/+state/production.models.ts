@@ -7,6 +7,8 @@ export interface IProductionLog {
   batch: number | null;
   tare_weight: number;
   gross_weight: number;
+  tag: string;
+  tag_updated_at: Date;
 
   employee?: { id: string; first_name: string; last_name: string };
   product?: { id: string; internal_code: string; name: string };
@@ -23,10 +25,13 @@ export class ProductionLog implements IProductionLog {
   batch: number | null;
   tare_weight: number;
   gross_weight: number;
+  tag: string;
+  tag_updated_at: Date;
 
   static fromJson(data: any): ProductionLog {
     return Object.assign(new ProductionLog(), {
       ...data,
+      tag_updated_at: data.tag_updated_at ? new Date(data.tag_updated_at) : null,
       created_at: data.created_at ? new Date(data.created_at) : null,
       updated_at: data.updated_at ? new Date(data.updated_at) : null,
     });

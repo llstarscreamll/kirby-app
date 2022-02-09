@@ -79,13 +79,13 @@
 
     <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
       <mat-form-field fxFlex="grow">
-        <mat-label>Fecha de creación <small>inicio</small></mat-label>
-        <input formControlName="creation_date_start" matInput type="datetime-local" />
+        <mat-label>Fecha de etiqueta <small>inicio</small></mat-label>
+        <input formControlName="tag_updated_at_start" matInput type="datetime-local" />
       </mat-form-field>
 
       <mat-form-field fxFlex="grow">
-        <mat-label>Fecha de creación <small>fin</small></mat-label>
-        <input formControlName="creation_date_end" matInput type="datetime-local" />
+        <mat-label>Fecha de etiqueta <small>fin</small></mat-label>
+        <input formControlName="tag_updated_at_end" matInput type="datetime-local" />
       </mat-form-field>
     </div>
 
@@ -103,7 +103,7 @@
         <th>Máquina</th>
         <th>Empleado</th>
         <th>Neto <small>(kg)</small></th>
-        <th>Fecha</th>
+        <th>Fecha de etiqueta</th>
         <th class="w-5"></th>
       </tr>
     </thead>
@@ -115,7 +115,7 @@
         <td>{{ log.machine?.short_name }}</td>
         <td>{{ log.employee?.first_name }}</td>
         <td>{{ log.netWeight() }}</td>
-        <td>{{ log.created_at | date:'MMM d, h:mm a' }}</td>
+        <td>{{ log.tag_updated_at | date:'MMM d, h:mm a' }}</td>
         <td>
           <a mat-icon-button [routerLink]="[log.id, 'edit']">
             <mat-icon>edit</mat-icon>

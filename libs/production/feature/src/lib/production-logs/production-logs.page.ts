@@ -27,8 +27,8 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
     machine: [''],
     employee: [''],
     net_weight: [''],
-    creation_date_start: [''],
-    creation_date_end: [''],
+    tag_updated_at_start: [''],
+    tag_updated_at_end: [''],
   });
 
   constructor(
@@ -96,9 +96,9 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
       product_id: formValue.product.id ?? '',
       machine_id: formValue.machine.id ?? '',
       net_weight: formValue.net_weight,
-      creation_date: {
-        start: formValue.creation_date_start ? moment(formValue.creation_date_start).toISOString() : '',
-        end: formValue.creation_date_end ? moment(formValue.creation_date_end).toISOString() : '',
+      tag_updated_at: {
+        start: formValue.tag_updated_at_start ? moment(formValue.tag_updated_at_start).toISOString() : '',
+        end: formValue.tag_updated_at_end ? moment(formValue.tag_updated_at_end).toISOString() : '',
       },
     };
   }

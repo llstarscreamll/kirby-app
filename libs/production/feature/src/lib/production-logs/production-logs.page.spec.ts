@@ -10,6 +10,7 @@ import { User } from '@kirby/users/util';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeesFacade } from '@kirby/employees/data-access';
+import { MatMenuModule } from '@angular/material/menu';
 
 describe('ProductionLogsPage', () => {
   let component: ProductionLogsPage;
@@ -24,7 +25,7 @@ describe('ProductionLogsPage', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule, ReactiveFormsModule, MatAutocompleteModule],
+        imports: [SharedModule, ReactiveFormsModule, MatAutocompleteModule, MatMenuModule],
         declarations: [ProductionLogsPage],
         providers: [
           {
