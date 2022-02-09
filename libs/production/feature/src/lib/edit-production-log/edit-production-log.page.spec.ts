@@ -31,6 +31,8 @@ describe('EditProductionLogPage', () => {
     batch: 123,
     tare_weight: 10.5,
     gross_weight: 25.2,
+    tag: 'InLine',
+    tag_updated_at: '2022-02-08T08:11:58.000000Z',
     employee: { id: 'E1', first_name: 'John', last_name: 'Doe' },
     product: { id: 'P1', short_name: 'pencil', internal_code: 'P1-001', name: 'Great Pencil' },
     machine: { id: 'M1', cost_center_id: 'CC1', code: 'M1-001', name: 'pencil machine' },

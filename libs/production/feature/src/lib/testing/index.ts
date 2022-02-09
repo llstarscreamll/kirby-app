@@ -23,6 +23,8 @@ export function createProductionLog(id?: string, data: any = {}): ProductionLog 
     batch: faker.random.number(),
     tare_weight: faker.random.number(1, 10),
     gross_weight: faker.random.number(11, 100),
+    tag: 'InLine',
+    tag_updated_at: '2022-02-08T08:11:58.000000Z',
     employee,
     product,
     machine,
