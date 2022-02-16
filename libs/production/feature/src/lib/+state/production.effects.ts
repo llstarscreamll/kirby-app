@@ -199,6 +199,21 @@ export class ProductionEffects {
     })
   );
 
+  searchSubCostCenters$ = createEffect(() =>
+    this.dataPersistence.fetch(ProductionActions.searchSubCostCenters, {
+      run: (
+        action: ReturnType<typeof ProductionActions.searchSubCostCenters>,
+        _: fromProduction.ProductionPartialState
+      ) =>
+        this.productionService
+          .searchSubCostCenters(action.query)
+          .pipe(map((response) => ProductionActions.searchSubCostCentersOk(response))),
+
+      onError: (_: ReturnType<typeof ProductionActions.searchSubCostCenters>, error) =>
+        ProductionActions.searchSubCostCentersError({ error }),
+    })
+  );
+
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,

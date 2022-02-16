@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -36,6 +37,7 @@ import { ProductionLogDetailsPage } from './production-log-details/production-lo
     MatIconModule,
     MatMenuModule,
     MatInputModule,
+    MatChipsModule,
     MatButtonModule,
     FlexLayoutModule,
     MatTooltipModule,

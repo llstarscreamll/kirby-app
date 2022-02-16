@@ -18,6 +18,7 @@ export interface State extends EntityState<IProductionLog> {
   products: any[];
   machines: any[];
   customers: any[];
+  subCostCenters: any[];
 }
 
 export interface ProductionPartialState {
@@ -33,6 +34,7 @@ export const initialState: State = adapter.getInitialState({
   products: [],
   machines: [],
   customers: [],
+  subCostCenters: [],
 });
 
 const productionReducer = createReducer(
@@ -70,7 +72,11 @@ const productionReducer = createReducer(
 
   on(actions.searchCustomers, (state) => ({ ...state, error: null })),
   on(actions.searchCustomersOk, (state, { data }) => ({ ...state, customers: data })),
-  on(actions.searchCustomersError, (state, { error }) => ({ ...state, error }))
+  on(actions.searchCustomersError, (state, { error }) => ({ ...state, error })),
+
+  on(actions.searchSubCostCenters, (state) => ({ ...state, error: null })),
+  on(actions.searchSubCostCentersOk, (state, { data }) => ({ ...state, subCostCenters: data })),
+  on(actions.searchSubCostCentersError, (state, { error }) => ({ ...state, error }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

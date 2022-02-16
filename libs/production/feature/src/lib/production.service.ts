@@ -63,4 +63,11 @@ export class ProductionService extends BaseService {
       params: oneLevelFlattenObject(query),
     });
   }
+
+  searchSubCostCenters(query: any): Observable<any> {
+    return this.httpClient.get(`${this.env.api}api/v1/sub-cost-centers`, {
+      headers: this.defaultHeaders,
+      params: oneLevelFlattenObject(query),
+    });
+  }
 }
