@@ -12,7 +12,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-import { SearchFormComponent } from './search-form/search-form.component';
 import { ProductionLogFormComponent } from './production-log-form/production-log-form.component';
 
 @NgModule({
@@ -30,7 +29,7 @@ import { ProductionLogFormComponent } from './production-log-form/production-log
     ReactiveFormsModule,
     MatAutocompleteModule,
   ],
-  declarations: [ProductionLogFormComponent, SearchFormComponent],
-  exports: [ProductionLogFormComponent, SearchFormComponent],
+  declarations: [ProductionLogFormComponent],
+  exports: [ProductionLogFormComponent],
 })
 export class ProductionUiModule {}

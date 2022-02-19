@@ -20,7 +20,8 @@
         <mat-autocomplete #employeeAutocomplete="matAutocomplete"
                           [displayWith]="displayNameValue"
                           (optionSelected)="addEmployee($event)">
-          <mat-option *ngFor="let employee of employees" [value]="employee">
+          <mat-option *ngFor="let employee of employees$ | async" [value]="employee"
+                      [disabled]="employeeIsSelected(employee)">
             <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -46,7 +47,8 @@
         <mat-autocomplete #productAutocomplete="matAutocomplete"
                           [displayWith]="displayNameValue"
                           (optionSelected)="addProduct($event)">
-          <mat-option *ngFor="let product of products" [value]="product">
+          <mat-option *ngFor="let product of products$ | async" [value]="product"
+                      [disabled]="productIsSelected(product)">
             <span>{{ product.name }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -75,7 +77,8 @@
         <mat-autocomplete #machineAutocomplete="matAutocomplete"
                           [displayWith]="displayNameValue"
                           (optionSelected)="addMachine($event)">
-          <mat-option *ngFor="let machine of machines" [value]="machine">
+          <mat-option *ngFor="let machine of machines$ | async" [value]="machine"
+                      [disabled]="machineIsSelected(machine)">
             <span>{{ machine.name }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -101,7 +104,8 @@
         <mat-autocomplete #subCostCenterAutocomplete="matAutocomplete"
                           [displayWith]="displayNameValue"
                           (optionSelected)="addSubCostCenter($event)">
-          <mat-option *ngFor="let subCostCenter of subCostCenters" [value]="subCostCenter">
+          <mat-option *ngFor="let subCostCenter of subCostCenters$ | async" [value]="subCostCenter"
+                      [disabled]="subCostCenterIsSelected(subCostCenter)">
             <span>{{ subCostCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>

@@ -63,3 +63,7 @@ export const searchSubCostCentersError = createAction(
   '[Production] search sub cost centers error',
   props<{ error: any }>()
 );
+
+export const getProductionReport = createAction('[Production] get report', props<{ query: any }>());
+export const getProductionReportOk = createAction('[Production] get report ok', props<{ data: any[] }>());
+export const getProductionReportError = createAction('[Production] get report error', props<{ error: any }>());

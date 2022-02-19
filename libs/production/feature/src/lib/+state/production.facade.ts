@@ -22,6 +22,7 @@ export class ProductionFacade {
   subCostCenters$ = this.store.pipe(select(selectors.getSubCostCenters));
   errors$ = this.store.pipe(select(selectors.getProductionError));
   pagination$ = this.store.pipe(select(selectors.getPagination));
+  productionReport$ = this.store.pipe(select(selectors.getProductionReport));
 
   constructor(private store: Store<reducer.ProductionPartialState>, private printerService: PrinterService) {}
 
@@ -83,6 +84,10 @@ export class ProductionFacade {
 
   searchSubCostCenters(query: any) {
     this.store.dispatch(actions.searchSubCostCenters({ query }));
+  }
+
+  getProductionReport(query: any) {
+    this.store.dispatch(actions.getProductionReport({ query }));
   }
 
   isPrinterAvailable(): boolean {
