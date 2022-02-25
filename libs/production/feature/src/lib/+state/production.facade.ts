@@ -19,7 +19,7 @@ export class ProductionFacade {
   products$ = this.store.pipe(select(selectors.getProducts));
   machines$ = this.store.pipe(select(selectors.getMachines));
   customers$ = this.store.pipe(select(selectors.getCustomers));
-  subCostCenters$ = this.store.pipe(select(selectors.getSubCostCenters));
+  costCenters$ = this.store.pipe(select(selectors.getCostCenters));
   errors$ = this.store.pipe(select(selectors.getProductionError));
   pagination$ = this.store.pipe(select(selectors.getPagination));
   productionReport$ = this.store.pipe(select(selectors.getProductionReport));
@@ -82,8 +82,8 @@ export class ProductionFacade {
     this.store.dispatch(actions.searchCustomers({ query }));
   }
 
-  searchSubCostCenters(query: any) {
-    this.store.dispatch(actions.searchSubCostCenters({ query }));
+  searchCostCenters(query: any) {
+    this.store.dispatch(actions.searchCostCenters({ query }));
   }
 
   getProductionReport(query: any) {

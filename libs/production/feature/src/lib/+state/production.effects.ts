@@ -214,18 +214,15 @@ export class ProductionEffects {
     })
   );
 
-  searchSubCostCenters$ = createEffect(() =>
-    this.dataPersistence.fetch(ProductionActions.searchSubCostCenters, {
-      run: (
-        action: ReturnType<typeof ProductionActions.searchSubCostCenters>,
-        _: fromProduction.ProductionPartialState
-      ) =>
+  searchCostCenters$ = createEffect(() =>
+    this.dataPersistence.fetch(ProductionActions.searchCostCenters, {
+      run: (action: ReturnType<typeof ProductionActions.searchCostCenters>, _: fromProduction.ProductionPartialState) =>
         this.productionService
-          .searchSubCostCenters(action.query)
-          .pipe(map((response) => ProductionActions.searchSubCostCentersOk(response))),
+          .searchCostCenters(action.query)
+          .pipe(map((response) => ProductionActions.searchCostCentersOk(response))),
 
-      onError: (_: ReturnType<typeof ProductionActions.searchSubCostCenters>, error) =>
-        ProductionActions.searchSubCostCentersError({ error }),
+      onError: (_: ReturnType<typeof ProductionActions.searchCostCenters>, error) =>
+        ProductionActions.searchCostCentersError({ error }),
     })
   );
 

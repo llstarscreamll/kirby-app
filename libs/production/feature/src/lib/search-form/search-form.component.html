@@ -59,6 +59,33 @@
 
   <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
     <mat-form-field fxFlex="grow">
+      <mat-label>Centro de costo</mat-label>
+      <mat-chip-list #costCentersList aria-label="Sub cost centers selection">
+        <mat-chip *ngFor="let costCenter of addedCostCenters"
+                  selectable="true"
+                  removable="true"
+                  (removed)="removeCostCenter(costCenter)">
+          {{ costCenter.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input matInput
+               #costCenterInput
+               formControlName="costCenter"
+               matAutocomplete="auto"
+               [matAutocomplete]="costCenterAutocomplete"
+               [matChipInputFor]="costCentersList" />
+        <mat-autocomplete #costCenterAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue"
+                          (optionSelected)="addCostCenter($event)">
+          <mat-option *ngFor="let costCenter of costCenters$ | async" [value]="costCenter"
+                      [disabled]="costCenterIsSelected(costCenter)">
+            <span>{{ costCenter.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
       <mat-label>Máquina</mat-label>
       <mat-chip-list #machinesList aria-label="Sub cost centers selection">
         <mat-chip *ngFor="let machine of addedMachines"
@@ -80,33 +107,6 @@
           <mat-option *ngFor="let machine of machines$ | async" [value]="machine"
                       [disabled]="machineIsSelected(machine)">
             <span>{{ machine.name }}</span>
-          </mat-option>
-        </mat-autocomplete>
-      </mat-chip-list>
-    </mat-form-field>
-
-    <mat-form-field fxFlex="grow">
-      <mat-label>Subcentro de costo</mat-label>
-      <mat-chip-list #subCostCentersList aria-label="Sub cost centers selection">
-        <mat-chip *ngFor="let subCostCenter of addedSubCostCenters"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeSubCostCenter(subCostCenter)">
-          {{ subCostCenter.name }}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input matInput
-               #subCostCenterInput
-               formControlName="subCostCenter"
-               matAutocomplete="auto"
-               [matAutocomplete]="subCostCenterAutocomplete"
-               [matChipInputFor]="subCostCentersList" />
-        <mat-autocomplete #subCostCenterAutocomplete="matAutocomplete"
-                          [displayWith]="displayNameValue"
-                          (optionSelected)="addSubCostCenter($event)">
-          <mat-option *ngFor="let subCostCenter of subCostCenters$ | async" [value]="subCostCenter"
-                      [disabled]="subCostCenterIsSelected(subCostCenter)">
-            <span>{{ subCostCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
       </mat-chip-list>

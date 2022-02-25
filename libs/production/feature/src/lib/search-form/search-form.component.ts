@@ -41,7 +41,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
   @ViewChild('productInput') productInput: ElementRef<HTMLInputElement>;
   @ViewChild('machineInput') machineInput: ElementRef<HTMLInputElement>;
-  @ViewChild('subCostCenterInput') subCostCenterInput: ElementRef<HTMLInputElement>;
+  @ViewChild('costCenterInput') costCenterInput: ElementRef<HTMLInputElement>;
 
   @Input() defaults = {};
   @Output() submitted = new EventEmitter();
@@ -51,7 +51,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     map((data) => data.filter((row) => !this.addedMachines.map((m) => m.id).includes(row.id)))
   );
   products$ = this.productionFacade.products$;
-  subCostCenters$ = this.productionFacade.subCostCenters$;
+  costCenters$ = this.productionFacade.costCenters$;
   employees$ = this.employeesFacade.paginatedEmployees$.pipe(map((paginatedData) => paginatedData.data));
 
   tagOptions = TagOptions;
@@ -62,8 +62,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     machines: [[]],
     employee: [''],
     employees: [[]],
-    subCostCenter: [''],
-    subCostCenters: [[]],
+    costCenter: [''],
+    costCenters: [[]],
     netWeight: [''],
     tags: [[]],
     tagUpdatedAtStart: [''],
@@ -102,8 +102,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return this.searchForm?.get('machines').value || [];
   }
 
-  get addedSubCostCenters(): { id: string; name: string }[] {
-    return this.searchForm?.get('subCostCenters').value || [];
+  get addedCostCenters(): { id: string; name: string }[] {
+    return this.searchForm?.get('costCenters').value || [];
   }
 
   private listenFormChanges() {
@@ -128,21 +128,25 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       .subscribe();
 
     this.searchForm
-      .get('machine')
+      .get('costCenter')
       .valueChanges.pipe(
         debounce(() => timer(400)),
         filter((value) => typeof value === 'string' && value.trim() !== ''),
-        tap((value) => this.productionFacade.searchMachines({ filter: { short_name: value } })),
+        tap((value) => this.productionFacade.searchCostCenters({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
 
     this.searchForm
-      .get('subCostCenter')
+      .get('machine')
       .valueChanges.pipe(
         debounce(() => timer(400)),
         filter((value) => typeof value === 'string' && value.trim() !== ''),
-        tap((value) => this.productionFacade.searchSubCostCenters({ search: value })),
+        tap((value) =>
+          this.productionFacade.searchMachines({
+            filter: { short_name: value, cost_center_ids: this.addedCostCenters.map((c) => c.id) },
+          })
+        ),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -196,22 +200,26 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return this.addedProducts.map((p) => p.id).includes(product.id);
   }
 
-  addSubCostCenter(event: MatAutocompleteSelectedEvent) {
+  addCostCenter(event: MatAutocompleteSelectedEvent) {
     this.searchForm.patchValue({
-      subCostCenters: this.addItemToCollection(event.option.value, this.addedSubCostCenters),
-      subCostCenter: '',
+      costCenters: this.addItemToCollection(event.option.value, this.addedCostCenters),
+      costCenter: '',
     });
-    this.subCostCenterInput.nativeElement.value = '';
+    this.costCenterInput.nativeElement.value = '';
   }
 
-  removeSubCostCenter(subCostCenter: { id: string; name: string }) {
+  removeCostCenter(costCenter: { id: string; name: string }) {
     this.searchForm.patchValue({
-      subCostCenters: this.removeItemFromCollection(subCostCenter, this.addedSubCostCenters),
+      costCenters: this.removeItemFromCollection(costCenter, this.addedCostCenters),
     });
+
+    if (this.addedCostCenters.length === 0) {
+      this.searchForm.patchValue({ machine: '', machines: [] });
+    }
   }
 
-  subCostCenterIsSelected(subCostCenter): boolean {
-    return this.addedSubCostCenters.map((s) => s.id).includes(subCostCenter.id);
+  costCenterIsSelected(costCenter): boolean {
+    return this.addedCostCenters.map((s) => s.id).includes(costCenter.id);
   }
 
   addItemToCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
@@ -270,7 +278,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       employee_ids: formValue.employees.map((e) => e.id),
       product_ids: formValue.products.map((p) => p.id),
       machine_ids: formValue.machines.map((m) => m.id),
-      sub_cost_center_ids: formValue.subCostCenters.map((s) => s.id),
+      cost_center_ids: formValue.costCenters.map((s) => s.id),
       net_weight: formValue.netWeight,
       tags: formValue.tags.map((t) => t.id),
       tag_updated_at: {
