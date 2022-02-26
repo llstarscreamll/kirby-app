@@ -56,7 +56,7 @@
         <td>{{ log.product?.name }}</td>
         <td>{{ log.machine?.short_name }}</td>
         <td>{{ log.employee?.first_name }}</td>
-        <td>{{ log.netWeight() }}</td>
+        <td>{{ log.netWeight() | number }}</td>
         <td>{{ log.tag_updated_at | date:'MMM d, h:mm a' }}</td>
         <td>
           <a mat-icon-button [routerLink]="[log.id, 'edit']">
