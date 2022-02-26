@@ -62,6 +62,7 @@ const productionReducer = createReducer(
   on(actions.setUpdateStatus, (state, { status }) => ({ ...state, updateStatus: status })),
   on(actions.updateLog, (state, _) => ({ ...state, updateStatus: LoadStatus.Loading })),
   on(actions.updateLogOk, (state, _) => ({ ...state, updateStatus: LoadStatus.Completed })),
+  on(actions.updateLogError, (state, { error }) => ({ ...state, error, updateStatus: LoadStatus.Error })),
   on(actions.updateAndPrintLog, (state, _) => ({ ...state, updateStatus: LoadStatus.Loading })),
 
   on(actions.getLogOk, (state, { data }) => ({ ...state, selected: data })),
