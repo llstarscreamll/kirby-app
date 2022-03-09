@@ -16,10 +16,19 @@ import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoadStatus } from '@kirby/shared';
+import { Tag } from '../tag.enum';
+import { TagOptions } from '../tag-options';
 
 @Component({
   selector: 'kirby-production-log-form',
   templateUrl: 'production-log-form.component.html',
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
   @Input() user;
@@ -46,11 +55,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   form: FormGroup;
   destroy$ = new Subject();
-  tagOptions = [
-    { id: 'InLine', name: 'En línea' },
-    { id: 'Error', name: 'Error de registro' },
-    { id: 'Rejected', name: 'Rechazado' },
-  ];
+  tagOptions = TagOptions;
 
   constructor(private formBuilder: FormBuilder) {}
 

@@ -26,6 +26,21 @@ export class ProductionEffects {
     })
   );
 
+  getProductionReport$ = createEffect(() =>
+    this.dataPersistence.fetch(ProductionActions.getProductionReport, {
+      run: (
+        action: ReturnType<typeof ProductionActions.getProductionReport>,
+        _: fromProduction.ProductionPartialState
+      ) =>
+        this.productionService
+          .getReport(action.query)
+          .pipe(map((response) => ProductionActions.getProductionReportOk(response))),
+
+      onError: (_: ReturnType<typeof ProductionActions.getProductionReport>, error) =>
+        ProductionActions.getProductionReportError({ error }),
+    })
+  );
+
   createProductionLog$ = createEffect(() =>
     this.dataPersistence.pessimisticUpdate(ProductionActions.createLog, {
       run: (action: ReturnType<typeof ProductionActions.createLog>, _: fromProduction.ProductionPartialState) =>
@@ -196,6 +211,18 @@ export class ProductionEffects {
 
       onError: (_: ReturnType<typeof ProductionActions.searchCustomers>, error) =>
         ProductionActions.searchCustomersError({ error }),
+    })
+  );
+
+  searchCostCenters$ = createEffect(() =>
+    this.dataPersistence.fetch(ProductionActions.searchCostCenters, {
+      run: (action: ReturnType<typeof ProductionActions.searchCostCenters>, _: fromProduction.ProductionPartialState) =>
+        this.productionService
+          .searchCostCenters(action.query)
+          .pipe(map((response) => ProductionActions.searchCostCentersOk(response))),
+
+      onError: (_: ReturnType<typeof ProductionActions.searchCostCenters>, error) =>
+        ProductionActions.searchCostCentersError({ error }),
     })
   );
 

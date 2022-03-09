@@ -1,6 +1,7 @@
 <form [formGroup]="form" autocomplete="off">
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+  <div fxLayout="column wrap" fxLayout.gt-xs="row wrap" fxLayoutGap="0px" fxLayoutGap.gt-xs="10px"
+       fxLayoutAlign="space-around">
     <mat-form-field fxFlex="grow">
       <mat-label>Empleado</mat-label>
       <input [matAutocomplete]="employeeAutocomplete" formControlName="employee" matInput />
@@ -10,10 +11,8 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Producto</mat-label>
       <input [matAutocomplete]="productAutocomplete"
              formControlName="product"
@@ -26,19 +25,17 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Diámetro (BWG)</mat-label>
-      <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
+      <input matInput type="text" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Diámetro (mm)</mat-label>
       <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_mm || ''" disabled />
     </mat-form-field>
-  </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Máquina</mat-label>
       <input [matAutocomplete]="machineAutocomplete" formControlName="machine" matInput />
       <mat-autocomplete #machineAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
@@ -48,7 +45,7 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Cliente</mat-label>
       <input [matAutocomplete]="customerAutocomplete" formControlName="customer" matInput />
       <mat-autocomplete #customerAutocomplete="matAutocomplete" [displayWith]="displayNameValue">
@@ -58,49 +55,43 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Lote</mat-label>
       <input formControlName="batch" matInput type="number" min="0" step="1" />
     </mat-form-field>
-  </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Peso tara (kg)</mat-label>
       <input #tareWeightField formControlName="tare_weight" matInput type="number" step="0.1" min="0" />
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Peso bruto (kg)</mat-label>
       <input #grossWeightField formControlName="gross_weight" matInput type="number" step="0.1" min="0" />
       <mat-hint *ngIf="weighMachineAvailable" align="end">{{ machineValue }}</mat-hint>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field fxFlex>
       <mat-label>Peso neto (kg)</mat-label>
       <input matInput type="number" [value]="netWeight()" disabled />
     </mat-form-field>
-  </div>
 
-  <div *ngIf="defaults" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+    <mat-form-field *ngIf="defaults" fxFlex>
       <mat-label>Etiqueta</mat-label>
       <mat-select formControlName="tag">
         <mat-option *ngFor="let option of tagOptions" [value]="option.id">{{ option.name }}</mat-option>
       </mat-select>
+      <mat-hint align="end">Actualizada en {{ defaults.tag_updated_at | date: 'MMM d, h:mm a' }}</mat-hint>
     </mat-form-field>
-
-    <div fxFlex="grow"></div>
-    <div fxFlex="grow"></div>
   </div>
 
-  <div fxLayout="row" fxLayoutGap="20px">
+  <div class="my-5" fxLayout="row" fxLayoutGap="20px">
     <button *ngIf="defaults" (click)="emitSave()"
             [disabled]="form.invalid || form.disabled"
             mat-raised-button
             color="primary"
             type="submit"
-            class="my-3"
+            class="save my-3"
             ngClass.xs="block w-full h-12">
       Guardar
     </button>
@@ -110,7 +101,7 @@
             mat-raised-button
             color="primary"
             type="submit"
-            class="my-3"
+            class="save-and-add-other my-3"
             ngClass.xs="block w-full h-12">
       Guardar y crear otro
     </button>
@@ -121,7 +112,7 @@
             mat-raised-button
             color="primary"
             type="submit"
-            class="my-3"
+            class="save-and-print my-3"
             ngClass.xs="block w-full h-12">
       Guardar e imprimir
     </button>

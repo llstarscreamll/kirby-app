@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { select, Store, Action } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
+import { LoadStatus } from '@kirby/shared';
 import * as reducer from './production.reducer';
 import * as actions from './production.actions';
 import * as selectors from './production.selectors';
 import { PrinterService } from '../printer.service';
 import { IProductionLog } from './production.models';
-import { LoadStatus } from '@kirby/shared';
 
 @Injectable()
 export class ProductionFacade {
@@ -19,8 +19,10 @@ export class ProductionFacade {
   products$ = this.store.pipe(select(selectors.getProducts));
   machines$ = this.store.pipe(select(selectors.getMachines));
   customers$ = this.store.pipe(select(selectors.getCustomers));
+  costCenters$ = this.store.pipe(select(selectors.getCostCenters));
   errors$ = this.store.pipe(select(selectors.getProductionError));
   pagination$ = this.store.pipe(select(selectors.getPagination));
+  productionReport$ = this.store.pipe(select(selectors.getProductionReport));
 
   constructor(private store: Store<reducer.ProductionPartialState>, private printerService: PrinterService) {}
 
@@ -78,6 +80,14 @@ export class ProductionFacade {
 
   searchCustomers(query: any) {
     this.store.dispatch(actions.searchCustomers({ query }));
+  }
+
+  searchCostCenters(query: any) {
+    this.store.dispatch(actions.searchCostCenters({ query }));
+  }
+
+  getProductionReport(query: any) {
+    this.store.dispatch(actions.getProductionReport({ query }));
   }
 
   isPrinterAvailable(): boolean {

@@ -1,14 +1,15 @@
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
+import { User } from '@kirby/users/util';
 import { emptyPagination, SharedModule } from '@kirby/shared';
 import { ProductionLogsPage } from './production-logs.page';
 import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { User } from '@kirby/users/util';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 
 describe('ProductionLogsPage', () => {
@@ -24,7 +25,7 @@ describe('ProductionLogsPage', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [SharedModule, ReactiveFormsModule, MatAutocompleteModule],
+        imports: [SharedModule, ReactiveFormsModule, MatAutocompleteModule, MatMenuModule],
         declarations: [ProductionLogsPage],
         providers: [
           {

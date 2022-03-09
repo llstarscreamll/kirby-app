@@ -53,3 +53,14 @@ export const searchCustomersOk = createAction(
   props<{ data: GenericEntity[]; meta: any }>()
 );
 export const searchCustomersError = createAction('[Production] search customers error', props<{ error: any }>());
+
+export const searchCostCenters = createAction('[Production] search cost centers', props<{ query: any }>());
+export const searchCostCentersOk = createAction(
+  '[Production] search cost centers ok',
+  props<{ data: GenericEntity[]; meta: any }>()
+);
+export const searchCostCentersError = createAction('[Production] search cost centers error', props<{ error: any }>());
+
+export const getProductionReport = createAction('[Production] get report', props<{ query: any }>());
+export const getProductionReportOk = createAction('[Production] get report ok', props<{ data: any[] }>());
+export const getProductionReportError = createAction('[Production] get report error', props<{ error: any }>());

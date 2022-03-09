@@ -1,0 +1,143 @@
+<form [formGroup]="searchForm" autocomplete="off" (ngSubmit)="submit()">
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Empleado</mat-label>
+      <mat-chip-list #employeesList aria-label="Employee selection">
+        <mat-chip *ngFor="let employee of addedEmployees"
+                  selectable="true"
+                  removable="true"
+                  (removed)="removeEmployee(employee)">
+          {{ employee.first_name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input matInput
+               #employeeInput
+               formControlName="employee"
+               matAutocomplete="auto"
+               [matAutocomplete]="employeeAutocomplete"
+               [matChipInputFor]="employeesList" />
+        <mat-autocomplete #employeeAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue"
+                          (optionSelected)="addEmployee($event)">
+          <mat-option *ngFor="let employee of employees$ | async" [value]="employee"
+                      [disabled]="employeeIsSelected(employee)">
+            <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Producto</mat-label>
+      <mat-chip-list #productsList aria-label="Product selection">
+        <mat-chip *ngFor="let product of addedProducts"
+                  selectable="true"
+                  removable="true"
+                  (removed)="removeProduct(product)">
+          {{ product.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input matInput
+               #productInput
+               formControlName="product"
+               matAutocomplete="auto"
+               [matAutocomplete]="productAutocomplete"
+               [matChipInputFor]="productsList" />
+        <mat-autocomplete #productAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue"
+                          (optionSelected)="addProduct($event)">
+          <mat-option *ngFor="let product of products$ | async" [value]="product"
+                      [disabled]="productIsSelected(product)">
+            <span>{{ product.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+    <mat-form-field fxFlex="grow">
+      <mat-label>Centro de costo</mat-label>
+      <mat-chip-list #costCentersList aria-label="Sub cost centers selection">
+        <mat-chip *ngFor="let costCenter of addedCostCenters"
+                  selectable="true"
+                  removable="true"
+                  (removed)="removeCostCenter(costCenter)">
+          {{ costCenter.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input matInput
+               #costCenterInput
+               formControlName="costCenter"
+               matAutocomplete="auto"
+               [matAutocomplete]="costCenterAutocomplete"
+               [matChipInputFor]="costCentersList" />
+        <mat-autocomplete #costCenterAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue"
+                          (optionSelected)="addCostCenter($event)">
+          <mat-option *ngFor="let costCenter of costCenters$ | async" [value]="costCenter"
+                      [disabled]="costCenterIsSelected(costCenter)">
+            <span>{{ costCenter.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Máquina</mat-label>
+      <mat-chip-list #machinesList aria-label="Sub cost centers selection">
+        <mat-chip *ngFor="let machine of addedMachines"
+                  selectable="true"
+                  removable="true"
+                  (removed)="removeMachine(machine)">
+          {{ machine.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input matInput
+               #machineInput
+               formControlName="machine"
+               matAutocomplete="auto"
+               [matAutocomplete]="machineAutocomplete"
+               [matChipInputFor]="machinesList" />
+        <mat-autocomplete #machineAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameValue"
+                          (optionSelected)="addMachine($event)">
+          <mat-option *ngFor="let machine of machines$ | async" [value]="machine"
+                      [disabled]="machineIsSelected(machine)">
+            <span>{{ machine.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+    <mat-form-field fxFlex="grow">
+      <mat-label>Etiqueta</mat-label>
+      <mat-select formControlName="tags" [compareWith]="compareWithFunction" multiple>
+        <mat-option *ngFor="let tag of tagOptions" [value]="tag">{{ tag.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Peso neto</mat-label>
+      <input formControlName="netWeight" matInput type="number" min="0" step=".1" />
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fecha de etiqueta <small>inicio</small></mat-label>
+      <input formControlName="tagUpdatedAtStart" matInput type="datetime-local" />
+    </mat-form-field>
+
+    <mat-form-field fxFlex="grow">
+      <mat-label>Fecha de etiqueta <small>fin</small></mat-label>
+      <input formControlName="tagUpdatedAtEnd" matInput type="datetime-local" />
+    </mat-form-field>
+  </div>
+
+  <div class="text-center">
+    <button type="submit" mat-stroked-button color="primary">Buscar</button>
+  </div>
+</form>

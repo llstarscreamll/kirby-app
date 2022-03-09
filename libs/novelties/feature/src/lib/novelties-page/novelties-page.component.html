@@ -40,7 +40,7 @@
   <kirby-novelties-search-form [costCentersFound]="paginatedCostCenters$ | async"
                                [employeesFound]="paginatedEmployees$ | async"
                                [noveltyTypesFound]="paginatedNoveltyTypes$ | async"
-                               [globalSearch]="!(user$ | async)?.can('novelties.employee-search')"
+                               [globalSearch]="(user$ | async)?.can('novelties.global-search')"
                                (submitted)="searchNovelties($event)"
                                (searchEmployees)="searchEmployees($event)"
                                (searchCostCenters)="searchCostCenters($event)"

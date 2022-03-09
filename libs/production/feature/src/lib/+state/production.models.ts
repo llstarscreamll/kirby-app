@@ -7,6 +7,8 @@ export interface IProductionLog {
   batch: number | null;
   tare_weight: number;
   gross_weight: number;
+  tag: string;
+  tag_updated_at: string;
 
   employee?: { id: string; first_name: string; last_name: string };
   product?: { id: string; internal_code: string; name: string };
@@ -23,6 +25,8 @@ export class ProductionLog implements IProductionLog {
   batch: number | null;
   tare_weight: number;
   gross_weight: number;
+  tag: string;
+  tag_updated_at: string;
 
   static fromJson(data: any): ProductionLog {
     return Object.assign(new ProductionLog(), {

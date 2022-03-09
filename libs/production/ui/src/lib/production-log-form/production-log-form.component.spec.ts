@@ -74,16 +74,16 @@ describe('ProductionLogFormComponent', function () {
   it('should emit save event when form button is clicked', () => {
     component.form.patchValue(formData);
 
-    spyOn(component.save, 'emit');
+    spyOn(component.saveAndAddOther, 'emit');
 
     fixture.detectChanges();
 
     // submit button should be enabled
-    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('form button[type="submit"]');
+    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('form button.save-and-add-other');
     expect(btn).toBeTruthy();
     btn.click();
 
-    expect(component.save.emit).toBeCalledWith({
+    expect(component.saveAndAddOther.emit).toBeCalledWith({
       employee_id: user.id,
       product_id: 'P1',
       machine_id: 'M1',
@@ -91,6 +91,7 @@ describe('ProductionLogFormComponent', function () {
       batch: 123,
       tare_weight: 10.5,
       gross_weight: 25.2,
+      tag: null,
     });
   });
 

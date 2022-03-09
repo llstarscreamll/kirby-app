@@ -80,8 +80,10 @@ export default class App {
     // App.mainWindow.webContents.openDevTools({ mode: 'detach' });
     App.mainWindow.center();
 
+    App.mainWindow.webContents.openDevTools();
+
     if (!App.application.isPackaged) {
-      // App.mainWindow.webContents.openDevTools();
+      App.mainWindow.webContents.openDevTools();
     }
 
     // if main window is ready to show, close the splash window and show the main window

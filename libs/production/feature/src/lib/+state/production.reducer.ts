@@ -18,6 +18,8 @@ export interface State extends EntityState<IProductionLog> {
   products: any[];
   machines: any[];
   customers: any[];
+  costCenters: any[];
+  report: { id: string; short_name: string; kgs: string }[];
 }
 
 export interface ProductionPartialState {
@@ -33,6 +35,8 @@ export const initialState: State = adapter.getInitialState({
   products: [],
   machines: [],
   customers: [],
+  costCenters: [],
+  report: [],
 });
 
 const productionReducer = createReducer(
@@ -42,6 +46,10 @@ const productionReducer = createReducer(
     adapter.setAll(data, { ...state, pagination: meta, loaded: true })
   ),
   on(actions.searchLogsError, (state, { error }) => ({ ...state, error })),
+
+  on(actions.getProductionReport, (state) => ({ ...state, loaded: false, error: null })),
+  on(actions.getProductionReportOk, (state, { data }) => ({ ...state, loaded: true, report: data })),
+  on(actions.getProductionReportError, (state, { error }) => ({ ...state, error })),
 
   on(actions.setCreateStatus, (state, { status }) => ({ ...state, createStatus: status })),
   on(actions.createLog, (state) => ({ ...state, createStatus: LoadStatus.Loading })),
@@ -54,6 +62,7 @@ const productionReducer = createReducer(
   on(actions.setUpdateStatus, (state, { status }) => ({ ...state, updateStatus: status })),
   on(actions.updateLog, (state, _) => ({ ...state, updateStatus: LoadStatus.Loading })),
   on(actions.updateLogOk, (state, _) => ({ ...state, updateStatus: LoadStatus.Completed })),
+  on(actions.updateLogError, (state, { error }) => ({ ...state, error, updateStatus: LoadStatus.Error })),
   on(actions.updateAndPrintLog, (state, _) => ({ ...state, updateStatus: LoadStatus.Loading })),
 
   on(actions.getLogOk, (state, { data }) => ({ ...state, selected: data })),
@@ -70,7 +79,11 @@ const productionReducer = createReducer(
 
   on(actions.searchCustomers, (state) => ({ ...state, error: null })),
   on(actions.searchCustomersOk, (state, { data }) => ({ ...state, customers: data })),
-  on(actions.searchCustomersError, (state, { error }) => ({ ...state, error }))
+  on(actions.searchCustomersError, (state, { error }) => ({ ...state, error })),
+
+  on(actions.searchCostCenters, (state) => ({ ...state, error: null })),
+  on(actions.searchCostCentersOk, (state, { data }) => ({ ...state, costCenters: data })),
+  on(actions.searchCostCentersError, (state, { error }) => ({ ...state, error }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

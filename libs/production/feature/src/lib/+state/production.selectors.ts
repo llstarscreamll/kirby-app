@@ -14,6 +14,7 @@ export const getProductionError = createSelector(getProductionState, (state: Sta
 export const getProducts = createSelector(getProductionState, (state: State) => state.products);
 export const getMachines = createSelector(getProductionState, (state: State) => state.machines);
 export const getCustomers = createSelector(getProductionState, (state: State) => state.customers);
+export const getCostCenters = createSelector(getProductionState, (state: State) => state.costCenters);
 export const getProductionLogs = createSelector(getProductionState, (state: State) =>
   ProductionLog.fromJsonList(selectAll(state))
 );
@@ -22,3 +23,4 @@ export const getProductionEntities = createSelector(getProductionState, (state: 
 export const getSelectedId = createSelector(getProductionState, (state: State) => state.selectedId);
 
 export const getSelected = createSelector(getProductionState, (state) => state.selected);
+export const getProductionReport = createSelector(getProductionState, (state) => state.report);
