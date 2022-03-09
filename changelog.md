@@ -1,5 +1,23 @@
 # Release notes
 
+## [1.2.0 (2022-03-09)](https://github.com/llstarscreamll/angular-kirby/compare/1.2.0..1.1.1)
+
+### Added
+
+- new _tag date_ attribute, the attr is displayed on the edit form as help text below to the Tag field and instructs when a tag has changed
+- new production report page with filters and Kgs by products bar chart
+- show errors when update production log has failed
+- filter production logs and production report by cost centers instead of sub cost centers
+- new ability to filter production logs by tag date and remove filters by creation date
+
+### Changed
+
+- format net weight number on search production logs results
+- errors section now has red color to emphasize the message
+- change the way permissions are verified to enable the global novelties search
+- production logs can be searched by many employees, many machines, many products, many tags and many sub cost centers
+- improve production log ticket print visual styles
+
 ## [1.1.1 (2021-12-21)](https://github.com/llstarscreamll/angular-kirby/compare/1.1.1..1.1.0)
 
 fix: visual errors on ticket print design
