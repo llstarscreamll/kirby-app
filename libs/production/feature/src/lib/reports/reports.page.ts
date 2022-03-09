@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ChartConfiguration } from 'chart.js';
 import { Component, OnInit } from '@angular/core';
 
@@ -40,7 +40,7 @@ export class ReportsPage implements OnInit {
   );
 
   chartOptions: ChartConfiguration['options'] = {
-    indexAxis: 'y',
+    // indexAxis: 'y', // this line works on the latest version og ng2-chart
     responsive: true,
   };
   searchFormDefaults = {
