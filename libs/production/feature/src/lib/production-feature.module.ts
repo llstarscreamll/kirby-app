@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { NgChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -41,7 +41,7 @@ import { ProductionLogDetailsPage } from './production-log-details/production-lo
     MatIconModule,
     MatMenuModule,
     MatInputModule,
-    NgChartsModule,
+    ChartsModule,
     MatChipsModule,
     MatButtonModule,
     MatSelectModule,
