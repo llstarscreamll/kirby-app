@@ -85,6 +85,17 @@
     </mat-form-field>
   </div>
 
+  <div class="mb-7">
+
+    <label class="block mb-3">Destino:</label>
+    <mat-radio-group formControlName="purpose" aria-label="Destino">
+      <mat-radio-button *ngFor="let option of purposeOptions" [value]="option.id" class="mr-5">
+        {{ option.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+  </div>
+
   <div class="my-5" fxLayout="row" fxLayoutGap="20px">
     <button *ngIf="defaults" (click)="emitSave()"
             [disabled]="form.invalid || form.disabled"

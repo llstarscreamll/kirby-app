@@ -18,6 +18,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { TagOptions } from '@kirby/production/ui';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { ProductionFacade } from '../+state/production.facade';
+import { PurposeOptions } from 'libs/production/ui/src/lib/purpose-options';
 
 interface EmployeeOption {
   id: string;
@@ -55,6 +56,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   employees$ = this.employeesFacade.paginatedEmployees$.pipe(map((paginatedData) => paginatedData.data));
 
   tagOptions = TagOptions;
+  purposeOptions = PurposeOptions;
   searchForm = this.formBuilder.group({
     product: [''],
     products: [[]],
@@ -66,6 +68,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     costCenters: [[]],
     netWeight: [''],
     tags: [[]],
+    purposes: [[]],
     tagUpdatedAtStart: [''],
     tagUpdatedAtEnd: [''],
   });
@@ -281,6 +284,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       cost_center_ids: formValue.costCenters.map((s) => s.id),
       net_weight: formValue.netWeight,
       tags: formValue.tags.map((t) => t.id),
+      purposes: formValue.purposes.map((p) => p.id),
       tag_updated_at: {
         start: formValue.tagUpdatedAtStart ? moment(formValue.tagUpdatedAtStart).toISOString() : '',
         end: formValue.tagUpdatedAtEnd ? moment(formValue.tagUpdatedAtEnd).toISOString() : '',
