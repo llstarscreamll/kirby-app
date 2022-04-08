@@ -1,5 +1,11 @@
 # Release notes
 
+## [1.3.0 (2022-04-08)](https://github.com/llstarscreamll/angular-kirby/compare/1.3.0..1.2.0)
+
+### Added
+
+- New "purpose" attribute to instruct if a production log purpose is for sales or consumption, the field is searchable
+
 ## [1.2.0 (2022-03-09)](https://github.com/llstarscreamll/angular-kirby/compare/1.2.0..1.1.1)
 
 ### Added
