@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -19,6 +20,7 @@ import { ProductionLogFormComponent } from './production-log-form/production-log
     CommonModule,
     MatIconModule,
     MatInputModule,
+    MatRadioModule,
     MatChipsModule,
     MatButtonModule,
     MatSelectModule,

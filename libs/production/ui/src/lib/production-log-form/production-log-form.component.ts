@@ -16,8 +16,8 @@ import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoadStatus } from '@kirby/shared';
-import { Tag } from '../tag.enum';
 import { TagOptions } from '../tag-options';
+import { PurposeOptions } from '../purpose-options';
 
 @Component({
   selector: 'kirby-production-log-form',
@@ -56,6 +56,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   form: FormGroup;
   destroy$ = new Subject();
   tagOptions = TagOptions;
+  purposeOptions = PurposeOptions;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -100,13 +101,14 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   private buildForm() {
     this.form = this.formBuilder.group({
       employee: [this.user, []],
-      product: [, [Validators.required]],
-      machine: [, [Validators.required]],
+      product: [null, [Validators.required]],
+      machine: [null, [Validators.required]],
       customer: [],
       batch: [],
       tare_weight: [0, [Validators.required, Validators.min(0)]],
       gross_weight: [0, [Validators.required, Validators.min(0.1)]],
       tag: [],
+      purpose: ['', [Validators.required]],
     });
 
     if (!this.user.can('production-logs.create-on-behalf-of-another-person')) {
@@ -216,6 +218,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       tare_weight: form.tare_weight,
       gross_weight: form.gross_weight,
       tag: form.tag,
+      purpose: form.purpose,
     };
   }
 

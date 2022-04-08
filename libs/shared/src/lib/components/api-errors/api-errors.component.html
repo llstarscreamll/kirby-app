@@ -1,6 +1,6 @@
-<div *ngIf="apiError" class="errors-container bg-red-500 text-white px-4 rounded-md">
+<div *ngIf="apiError" class="errors-container bg-red-500 text-white p-5 rounded-md">
 
-  <h4 class="py-3 font-bold text-lg">{{ errorHeader }}</h4>
+  <h4 class="font-bold">{{ errorHeader }}</h4>
 
   <ul>
     <li *ngFor="let error of errors">{{ error }}</li>

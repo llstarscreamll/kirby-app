@@ -122,16 +122,25 @@
     </mat-form-field>
 
     <mat-form-field fxFlex="grow">
-      <mat-label>Peso neto</mat-label>
-      <input formControlName="netWeight" matInput type="number" min="0" step=".1" />
+      <mat-label>Destino</mat-label>
+      <mat-select formControlName="purposes" [compareWith]="compareWithFunction" multiple>
+        <mat-option *ngFor="let option of purposeOptions" [value]="option">{{ option.name }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field fxFlex="grow">
+      <mat-label>Peso neto</mat-label>
+      <input formControlName="netWeight" matInput type="number" min="0" step=".1" />
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center">
+    <mat-form-field>
       <mat-label>Fecha de etiqueta <small>inicio</small></mat-label>
       <input formControlName="tagUpdatedAtStart" matInput type="datetime-local" />
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field>
       <mat-label>Fecha de etiqueta <small>fin</small></mat-label>
       <input formControlName="tagUpdatedAtEnd" matInput type="datetime-local" />
     </mat-form-field>
