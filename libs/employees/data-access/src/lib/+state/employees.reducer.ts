@@ -1,11 +1,6 @@
 import { EmployeeInterface } from '@kirby/employees/util';
 import { EmployeesAction, EmployeesActionTypes } from './employees.actions';
-import {
-  Pagination,
-  emptyPagination,
-  LoadStatus,
-  ApiError,
-} from '@kirby/shared';
+import { Pagination, emptyPagination, LoadStatus, ApiError } from '@kirby/shared';
 
 export const EMPLOYEES_FEATURE_KEY = 'employees';
 
@@ -16,6 +11,7 @@ export interface EmployeesState {
   selectingStatus: LoadStatus;
   creatingStatus: LoadStatus;
   updatingStatus: LoadStatus;
+  roles: { id: number; display_name: string }[];
   error?: ApiError;
 }
 
@@ -29,12 +25,11 @@ export const initialState: EmployeesState = {
   selectingStatus: null,
   updatingStatus: null,
   creatingStatus: null,
+  roles: [],
+  error: null,
 };
 
-export function employeesReducer(
-  state: EmployeesState = initialState,
-  action: EmployeesAction
-): EmployeesState {
+export function employeesReducer(state: EmployeesState = initialState, action: EmployeesAction): EmployeesState {
   switch (action.type) {
     case EmployeesActionTypes.SearchEmployees: {
       state = {
@@ -128,6 +123,22 @@ export function employeesReducer(
         ...state,
         error: action.payload,
         updatingStatus: LoadStatus.Error,
+      };
+      break;
+    }
+
+    case EmployeesActionTypes.SearchRolesOk: {
+      state = {
+        ...state,
+        roles: action.payload.data,
+      };
+      break;
+    }
+
+    case EmployeesActionTypes.SearchRolesError: {
+      state = {
+        ...state,
+        error: action.payload,
       };
       break;
     }

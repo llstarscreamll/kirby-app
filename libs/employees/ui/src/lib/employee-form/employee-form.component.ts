@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { timer, Subject } from 'rxjs';
 import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 
@@ -20,7 +12,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   selector: 'kirby-employee-form',
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   @Input()
@@ -31,6 +23,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   @Input()
   public workShifts: WorkShiftInterface[];
+
+  @Input()
+  public roles: { id: number; display_name: string }[];
 
   @Input()
   public status: LoadStatus;
@@ -55,9 +50,11 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      cost_center: [],
       first_name: [null, [Validators.required]],
       last_name: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.minLength(8)]],
+      roles: [[]],
       code: [null, [Validators.required]],
       identification_number: [null, [Validators.required]],
       position: [null, [Validators.required]],
@@ -66,8 +63,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       phone_prefix: ['+57', [Validators.required]],
       phone: [null, [Validators.required]],
       salary: [null, [Validators.required]],
+      cost_center: [null, [Validators.required]],
       work_shifts: [[], [Validators.required]],
-      identifications: this.buildIdentificationsArray()
+      identifications: this.buildIdentificationsArray(),
     });
   }
 
@@ -79,9 +77,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   private buildIdentificationsArray() {
     return this.formBuilder.array(
       this.employee
-        ? this.employee.identifications.map(_ =>
-            this.buildIdentificationsFormGroup()
-          )
+        ? this.employee.identifications.map((_) => this.buildIdentificationsFormGroup())
         : [this.buildIdentificationsFormGroup()]
     );
   }
@@ -89,7 +85,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   private buildIdentificationsFormGroup() {
     return this.formBuilder.group({
       name: [null, [Validators.required]],
-      code: [null, [Validators.required]]
+      code: [null, [Validators.required]],
     });
   }
 
@@ -104,8 +100,8 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       .get('cost_center')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.searchCostCenters.emit({ search: value })),
+        filter((value) => typeof value === 'string' && value !== ''),
+        tap((value) => this.searchCostCenters.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();

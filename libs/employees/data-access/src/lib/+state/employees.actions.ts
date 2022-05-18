@@ -18,6 +18,10 @@ export enum EmployeesActionTypes {
   UpdateEmployee = '[Employees] update',
   UpdateEmployeeOk = '[Employees] update ok',
   UpdateEmployeeError = '[Employees] update error',
+
+  SearchRoles = '[Employees] search roles',
+  SearchRolesOk = '[Employees] search roles ok',
+  SearchRolesError = '[Employees] search roles error',
 }
 
 export class SearchEmployees implements Action {
@@ -80,6 +84,21 @@ export class CreateEmployeeError implements Action {
   constructor(public payload: ApiError) {}
 }
 
+export class SearchRoles implements Action {
+  public readonly type = EmployeesActionTypes.SearchRoles;
+  constructor(public payload: any = {}) {}
+}
+
+export class SearchRolesOk implements Action {
+  public readonly type = EmployeesActionTypes.SearchRolesOk;
+  constructor(public payload: Pagination<any>) {}
+}
+
+export class SearchRolesError implements Action {
+  public readonly type = EmployeesActionTypes.SearchRolesError;
+  constructor(public payload: any) {}
+}
+
 export type EmployeesAction =
   | SearchEmployees
   | SearchEmployeesOk
@@ -92,7 +111,10 @@ export type EmployeesAction =
   | CreateEmployeeError
   | UpdateEmployee
   | UpdateEmployeeOk
-  | UpdateEmployeeError;
+  | UpdateEmployeeError
+  | SearchRoles
+  | SearchRolesOk
+  | SearchRolesError;
 
 export const fromEmployeesActions = {
   SearchEmployees,
@@ -107,4 +129,7 @@ export const fromEmployeesActions = {
   UpdateEmployee,
   UpdateEmployeeOk,
   UpdateEmployeeError,
+  SearchRoles,
+  SearchRolesOk,
+  SearchRolesError,
 };

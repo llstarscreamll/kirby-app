@@ -24,6 +24,13 @@ export class EmployeeService extends BaseService {
     });
   }
 
+  searchRoles(query: any = {}): Observable<any> {
+    return this.http.get<any>(this.endpoint.replace('employees', 'roles'), {
+      headers: this.defaultHeaders,
+      params: query,
+    });
+  }
+
   get(id: string): Observable<any> {
     return this.http
       .get<any>(this.endpoint + id, {
