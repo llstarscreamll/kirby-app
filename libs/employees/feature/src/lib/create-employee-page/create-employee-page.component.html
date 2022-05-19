@@ -1,10 +1,14 @@
 <h1>Crear empleado</h1>
 
 <div class="card">
-    <kirby-employee-form
-                         [workShifts]="workShifts$ | async"
-                         [costCenters]="(costCenters$ | async)?.data"
-                         [status]="creatingStatus$ | async"
-                         (searchCostCenters)="searchCostCenters($event)"
-                         (submitted)="employeeFormSubmitted($event)"></kirby-employee-form>
+  <kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+
+
+  <kirby-employee-form
+                       [roles]="roles$ | async"
+                       [workShifts]="workShifts$ | async"
+                       [costCenters]="(costCenters$ | async)?.data"
+                       [status]="creatingStatus$ | async"
+                       (searchCostCenters)="searchCostCenters($event)"
+                       (submitted)="employeeFormSubmitted($event)"></kirby-employee-form>
 </div>

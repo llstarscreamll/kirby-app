@@ -19,6 +19,9 @@ import {
   CreateEmployee,
   CreateEmployeeError,
   CreateEmployeeOk,
+  SearchRoles,
+  SearchRolesOk,
+  SearchRolesError,
 } from './employees.actions';
 import { EmployeeService } from '../employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -89,6 +92,16 @@ export class EmployeesEffects {
     ),
     tap((_) => this.router.navigate(['/employees']))
   );
+
+  @Effect()
+  searchRoles$ = this.dataPersistence.fetch(EmployeesActionTypes.SearchRoles, {
+    run: (action: SearchRoles, state: EmployeesPartialState) =>
+      this.employeeService.searchRoles(action.payload).pipe(map((response) => new SearchRolesOk(response))),
+
+    onError: (action: SearchRoles, error) => {
+      return new SearchRolesError(error);
+    },
+  });
 
   constructor(
     private router: Router,

@@ -6,26 +6,22 @@ import {
   GetEmployee,
   GetEmployeeOk,
   UpdateEmployee,
-  CreateEmployee
+  CreateEmployee,
+  SearchRoles,
 } from './employees.actions';
 import { employeesQuery } from './employees.selectors';
 import { EmployeesPartialState } from './employees.reducer';
 
 @Injectable()
 export class EmployeesFacade {
+  getRoles$ = this.store.pipe(select(employeesQuery.getRoles));
   paginatedEmployees$ = this.store.pipe(select(employeesQuery.getPaginated));
-
-  paginatingStatus$ = this.store.pipe(
-    select(employeesQuery.getPaginatingStatus)
-  );
-
-  selectedEmployee$ = this.store.pipe(
-    select(employeesQuery.getSelectedEmployee)
-  );
-
+  paginatingStatus$ = this.store.pipe(select(employeesQuery.getPaginatingStatus));
+  selectedEmployee$ = this.store.pipe(select(employeesQuery.getSelectedEmployee));
   selectingStatus$ = this.store.pipe(select(employeesQuery.getSelectingStatus));
   updatingStatus$ = this.store.pipe(select(employeesQuery.getUpdatingStatus));
   creatingStatus$ = this.store.pipe(select(employeesQuery.getCreatingStatus));
+  errors$ = this.store.pipe(select(employeesQuery.getError));
 
   constructor(private store: Store<EmployeesPartialState>) {}
 
@@ -35,6 +31,10 @@ export class EmployeesFacade {
    */
   search(query: any) {
     this.store.dispatch(new SearchEmployees(query));
+  }
+
+  searchRoles(query: any) {
+    this.store.dispatch(new SearchRoles(query));
   }
 
   get(employeeId: string) {

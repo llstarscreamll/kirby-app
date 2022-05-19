@@ -1,5 +1,12 @@
 # Release notes
 
+## [1.4.0 (2022-05-19)](https://github.com/llstarscreamll/angular-kirby/compare/1.4.0..1.3.0)
+
+### Added
+
+- In employees form, you can now set email, password and roles for system access
+- Errors are now shown in employees form, before they were hidden
+
 ## [1.3.0 (2022-04-08)](https://github.com/llstarscreamll/angular-kirby/compare/1.3.0..1.2.0)
 
 ### Added

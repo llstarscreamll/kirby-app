@@ -8,13 +8,15 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 @Component({
   selector: 'kirby-edit-employee-page',
   templateUrl: './edit-employee-page.component.html',
-  styleUrls: ['./edit-employee-page.component.scss']
+  styleUrls: ['./edit-employee-page.component.scss'],
 })
 export class EditEmployeePageComponent implements OnInit, OnDestroy {
   private employeeId: string;
 
+  public errors$ = this.employeesFacade.errors$;
+  public roles$ = this.employeesFacade.getRoles$;
   employee$ = this.employeesFacade.selectedEmployee$.pipe(
-    tap(employee => (employee ? (this.employeeId = employee.id) : null))
+    tap((employee) => (employee ? (this.employeeId = employee.id) : null))
   );
   public costCenters$ = this.costCentersFacade.paginatedList$;
   public workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
@@ -29,6 +31,7 @@ export class EditEmployeePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.workShiftsFacade.search({ limit: 0 });
+    this.employeesFacade.searchRoles({ limit: 0 });
   }
 
   ngOnDestroy(): void {
