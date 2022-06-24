@@ -10,26 +10,23 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'kirby-time-clock-logs-page',
   templateUrl: './time-clock-logs-page.component.html',
-  styleUrls: ['./time-clock-logs-page.component.scss']
+  styleUrls: ['./time-clock-logs-page.component.scss'],
 })
 export class TimeClockLogsPageComponent implements OnInit {
   public timeClockLogs$: Observable<Pagination<TimeClockLogModel>>;
   public user$: Observable<User>;
+  peopleInsideCount$ = this.timeClockFacade.peopleInsideCount$;
 
   public user: User;
   public searchQuery = {};
 
-  constructor(
-    private authFacade: AuthFacade,
-    private timeClockFacade: TimeClockLogsFacade
-  ) {}
+  constructor(private authFacade: AuthFacade, private timeClockFacade: TimeClockLogsFacade) {}
 
   ngOnInit() {
-    this.user$ = this.authFacade.authUser$.pipe(
-      tap(user => (this.user = user))
-    );
+    this.user$ = this.authFacade.authUser$.pipe(tap((user) => (this.user = user)));
     this.timeClockLogs$ = this.timeClockFacade.paginatedTimeClockLogs$;
 
+    this.getStatistics();
     this.searchTimeClockLogs();
   }
 
@@ -50,6 +47,10 @@ export class TimeClockLogsPageComponent implements OnInit {
   searchTimeClockLogs(query = {}) {
     this.searchQuery = { ...this.searchQuery, ...query };
     this.timeClockFacade.search(this.searchQuery);
+  }
+
+  getStatistics() {
+    this.timeClockFacade.getStatistics();
   }
 
   onApprove(timeClockLogId: string) {

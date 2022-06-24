@@ -1,16 +1,8 @@
 import { get } from 'lodash-es';
 import { User } from '@kirby/users/util';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
-import {
-  TimeClockLogsAction,
-  TimeClockLogsActionTypes
-} from './time-clock-logs.actions';
-import {
-  ApiError,
-  Pagination,
-  LoadStatus,
-  emptyPagination
-} from '@kirby/shared';
+import { TimeClockLogsAction, TimeClockLogsActionTypes } from './time-clock-logs.actions';
+import { ApiError, Pagination, LoadStatus, emptyPagination } from '@kirby/shared';
 
 export const TIME_CLOCK_LOGS_FEATURE_KEY = 'timeClockLogs';
 
@@ -23,6 +15,7 @@ export interface TimeClockLogsState {
   deletingStatus?: LoadStatus;
   selected?: TimeClockLogModel;
   employeeTimeClockData?: any;
+  peopleInside?: number;
   /**
    * @todo move this property and all related stuff to a proper lib/entity/reducer/effect/service
    */
@@ -36,7 +29,7 @@ export interface TimeClockLogsPartialState {
 
 export const initialState: TimeClockLogsState = {
   paginatedList: emptyPagination(),
-  paginatingStatus: LoadStatus.Empty
+  paginatingStatus: LoadStatus.Empty,
 };
 
 export function timeClockLogsReducer(
@@ -53,7 +46,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         paginatedList: action.payload,
-        selectingStatus: LoadStatus.Completed
+        selectingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -62,7 +55,23 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        paginatingStatus: LoadStatus.Error
+        paginatingStatus: LoadStatus.Error,
+      };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.GetTimeClockStatisticsOk: {
+      state = {
+        ...state,
+        peopleInside: action.payload.data.people_inside_count,
+      };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.GetTimeClockStatisticsError: {
+      state = {
+        ...state,
+        error: action.payload,
       };
       break;
     }
@@ -101,7 +110,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        creatingStatus: LoadStatus.Error
+        creatingStatus: LoadStatus.Error,
       };
       break;
     }
@@ -120,7 +129,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        creatingStatus: LoadStatus.Error
+        creatingStatus: LoadStatus.Error,
       };
       break;
     }
@@ -134,7 +143,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         selected: action.payload,
-        selectingStatus: LoadStatus.Completed
+        selectingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -144,7 +153,7 @@ export function timeClockLogsReducer(
         ...state,
         error: action.payload,
         selected: null,
-        selectingStatus: LoadStatus.Error
+        selectingStatus: LoadStatus.Error,
       };
       break;
     }
@@ -158,7 +167,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         selected: action.payload,
-        updatingStatus: LoadStatus.Completed
+        updatingStatus: LoadStatus.Completed,
       };
       break;
     }
@@ -167,7 +176,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        updatingStatus: LoadStatus.Error
+        updatingStatus: LoadStatus.Error,
       };
       break;
     }
@@ -186,7 +195,7 @@ export function timeClockLogsReducer(
       state = {
         ...state,
         error: action.payload,
-        deletingStatus: LoadStatus.Error
+        deletingStatus: LoadStatus.Error,
       };
       break;
     }
@@ -194,11 +203,7 @@ export function timeClockLogsReducer(
     case TimeClockLogsActionTypes.ApproveTimeClockLog: {
       state = {
         ...state,
-        paginatedList: appendApproverToEntity(
-          state.paginatedList,
-          action.timeClockLogId,
-          action.user
-        )
+        paginatedList: appendApproverToEntity(state.paginatedList, action.timeClockLogId, action.user),
       };
       break;
     }
@@ -206,11 +211,7 @@ export function timeClockLogsReducer(
     case TimeClockLogsActionTypes.ApproveTimeClockLogError: {
       state = {
         ...state,
-        paginatedList: removeApproverToEntity(
-          state.paginatedList,
-          action.timeClockLogId,
-          action.user
-        )
+        paginatedList: removeApproverToEntity(state.paginatedList, action.timeClockLogId, action.user),
       };
       break;
     }
@@ -218,11 +219,7 @@ export function timeClockLogsReducer(
     case TimeClockLogsActionTypes.DeleteTimeClockLogApproval: {
       state = {
         ...state,
-        paginatedList: removeApproverToEntity(
-          state.paginatedList,
-          action.timeClockLogId,
-          action.user
-        )
+        paginatedList: removeApproverToEntity(state.paginatedList, action.timeClockLogId, action.user),
       };
       break;
     }
@@ -230,11 +227,7 @@ export function timeClockLogsReducer(
     case TimeClockLogsActionTypes.DeleteTimeClockLogApprovalError: {
       state = {
         ...state,
-        paginatedList: appendApproverToEntity(
-          state.paginatedList,
-          action.timeClockLogId,
-          action.user
-        )
+        paginatedList: appendApproverToEntity(state.paginatedList, action.timeClockLogId, action.user),
       };
       break;
     }
@@ -248,16 +241,11 @@ export function timeClockLogsReducer(
   return state;
 }
 
-function appendApproverToEntity(
-  paginatedTimeClockLogs: Pagination<any>,
-  entityId: string,
-  approver: User
-) {
+function appendApproverToEntity(paginatedTimeClockLogs: Pagination<any>, entityId: string, approver: User) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 
-  entities = entities.map(item => {
-    const approvals =
-      item.id === entityId ? [...item.approvals, approver] : item.approvals;
+  entities = entities.map((item) => {
+    const approvals = item.id === entityId ? [...item.approvals, approver] : item.approvals;
 
     return { ...item, approvals };
   });
@@ -265,18 +253,11 @@ function appendApproverToEntity(
   return { ...paginatedTimeClockLogs, data: entities };
 }
 
-function removeApproverToEntity(
-  paginatedTimeClockLogs: Pagination<any>,
-  entityId: string,
-  approver: User
-) {
+function removeApproverToEntity(paginatedTimeClockLogs: Pagination<any>, entityId: string, approver: User) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 
-  entities = entities.map(item => {
-    const approvals =
-      item.id === entityId
-        ? item.approvals.filter(a => a.id !== approver.id)
-        : item.approvals;
+  entities = entities.map((item) => {
+    const approvals = item.id === entityId ? item.approvals.filter((a) => a.id !== approver.id) : item.approvals;
 
     return { ...item, approvals };
   });
