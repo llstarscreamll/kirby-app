@@ -2,8 +2,7 @@
 
 <div class="clearfix"></div>
 
-<a
-   *kirbyCan="'time-clock-logs.check-in'"
+<a *kirbyCan="'time-clock-logs.check-in'"
    routerLink="entry-and-exit-log"
    mat-stroked-button
    color="primary">
@@ -11,20 +10,60 @@
 </a>
 
 <div class="mt-4">
-  <mat-form-field *kirbyCant="'time-clock-logs.employee-search'" class="w-full">
-    <mat-label>Buscar</mat-label>
-    <input (change)="searchTimeClockLogs({ search: $event.srcElement.value, page: 1 })"
-           matInput
-           placeholder="Buscar por nombre, apellido, email, código o identificación"
-           type="search"
-           autocomplete="off" />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+  <form [formGroup]="searchForm" (ngSubmit)="searchLogs()" autocomplete="off">
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="w-6/12">
+        <mat-label>Empleados</mat-label>
+        <mat-chip-list #employeesList aria-label="Employee selection">
+          <mat-chip *ngFor="let employee of addedEmployees"
+                    selectable="true"
+                    removable="true"
+                    (removed)="removeEmployee(employee)">
+            {{ employee.first_name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input matInput
+                 #employeeInput
+                 formControlName="employee"
+                 matAutocomplete="auto"
+                 [matAutocomplete]="employeeAutocomplete"
+                 [matChipInputFor]="employeesList" />
+          <mat-autocomplete #employeeAutocomplete="matAutocomplete"
+                            [displayWith]="displayNameValue"
+                            (optionSelected)="addEmployee($event)">
+            <mat-option *ngFor="let employee of employees$ | async" [value]="employee"
+                        [disabled]="employeeIsSelected(employee)">
+              <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-chip-list>
+      </mat-form-field>
+
+      <mat-form-field class="w-3/12">
+        <mat-label>Fecha de entrada <small>inicio</small></mat-label>
+        <input formControlName="checkInStart" matInput type="datetime-local" />
+      </mat-form-field>
+
+      <mat-form-field class="w-3/12">
+        <mat-label>Fecha de entrada <small>fin</small></mat-label>
+        <input formControlName="checkInEnd" matInput type="datetime-local" />
+      </mat-form-field>
+    </div>
+
+    <div class="text-center">
+      <button mat-stroked-button color="primary" type="submit">Buscar</button>
+    </div>
+  </form>
+
 </div>
 
+<div *kirbyCan="'time-clock-logs.global-search'" class="text-right">
+  <div class="inline-block font-light cursor-pointer" (click)="searchOnlyPeopleInside()">
+    <span class="font-medium">{{ peopleInsideCount$ | async }}</span> personas dentro
+  </div>
+</div>
 <div class="responsive-table shadow my-4">
-  <kirby-time-clock-logs-table
-                               [userId]="(user$ | async)?.id"
+  <kirby-time-clock-logs-table [userId]="(user$ | async)?.id"
                                [timeClockLogs]="timeClockLogs$ | async"
                                [actionButtons]="timeClockLogsTableButtons"
                                (approve)="onApprove($event)"
@@ -34,8 +73,7 @@
 </div>
 
 <div class="text-right">
-  <kirby-pagination
-                    [pagination]="(timeClockLogs$ | async)?.meta"
+  <kirby-pagination [pagination]="(timeClockLogs$ | async)?.meta"
                     (paginate)="searchTimeClockLogs($event)">
   </kirby-pagination>
 </div>

@@ -9,6 +9,10 @@ export enum TimeClockLogsActionTypes {
   SearchTimeClockLogsOk = '[TimeClockLogs] search ok',
   SearchTimeClockLogsError = '[TimeClockLogs] search error',
 
+  GetTimeClockStatistics = '[TimeClockLogs] get statistics',
+  GetTimeClockStatisticsOk = '[TimeClockLogs] get statistics ok',
+  GetTimeClockStatisticsError = '[TimeClockLogs] get statistics error',
+
   GetEmployeeTimeClockData = '[TimeClockLogs] get employee time clock data',
   GetEmployeeTimeClockDataOk = '[TimeClockLogs] get employee time clock data ok',
   GetEmployeeTimeClockDataError = '[TimeClockLogs] get employee time clock data error',
@@ -45,7 +49,7 @@ export enum TimeClockLogsActionTypes {
   DeleteTimeClockLogApprovalOk = '[TimeClockLog] delete approval ok',
   DeleteTimeClockLogApprovalError = '[TimeClockLog] delete approval error',
 
-  CleanError = '[TimeClockLog] clean error'
+  CleanError = '[TimeClockLog] clean error',
 }
 
 export class SearchTimeClockLogs implements Action {
@@ -60,6 +64,20 @@ export class SearchTimeClockLogsOk implements Action {
 
 export class SearchTimeClockLogsError implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogsError;
+  constructor(public payload: ApiError) {}
+}
+
+export class GetTimeClockStatistics implements Action {
+  readonly type = TimeClockLogsActionTypes.GetTimeClockStatistics;
+}
+
+export class GetTimeClockStatisticsOk implements Action {
+  readonly type = TimeClockLogsActionTypes.GetTimeClockStatisticsOk;
+  constructor(public payload: { data: { people_inside_count: number } }) {}
+}
+
+export class GetTimeClockStatisticsError implements Action {
+  readonly type = TimeClockLogsActionTypes.GetTimeClockStatisticsError;
   constructor(public payload: ApiError) {}
 }
 
@@ -110,9 +128,7 @@ export class CreateTimeClockLogError implements Action {
 
 export class CreateEntryAndExitLog implements Action {
   readonly type = TimeClockLogsActionTypes.CreateEntryAndExitLog;
-  constructor(
-    public payload: { identification_code: string; action: string }
-  ) {}
+  constructor(public payload: { identification_code: string; action: string }) {}
 }
 
 export class CreateEntryAndExitLogOk implements Action {
@@ -182,11 +198,7 @@ export class ApproveTimeClockLogOk implements Action {
 
 export class ApproveTimeClockLogError implements Action {
   readonly type = TimeClockLogsActionTypes.ApproveTimeClockLogError;
-  constructor(
-    public payload: ApiError,
-    public timeClockLogId: string,
-    public user: User
-  ) {}
+  constructor(public payload: ApiError, public timeClockLogId: string, public user: User) {}
 }
 
 export class DeleteTimeClockLogApproval implements Action {
@@ -201,11 +213,7 @@ export class DeleteTimeClockLogApprovalOk implements Action {
 
 export class DeleteTimeClockLogApprovalError implements Action {
   readonly type = TimeClockLogsActionTypes.DeleteTimeClockLogApprovalError;
-  constructor(
-    public payload: ApiError,
-    public timeClockLogId: string,
-    public user: User
-  ) {}
+  constructor(public payload: ApiError, public timeClockLogId: string, public user: User) {}
 }
 
 export class CleanError implements Action {
@@ -216,6 +224,9 @@ export type TimeClockLogsAction =
   | SearchTimeClockLogs
   | SearchTimeClockLogsOk
   | SearchTimeClockLogsError
+  | GetTimeClockStatistics
+  | GetTimeClockStatisticsOk
+  | GetTimeClockStatisticsError
   | GetEmployeeTimeClockData
   | GetEmployeeTimeClockDataOk
   | GetEmployeeTimeClockDataError
@@ -249,6 +260,9 @@ export const fromTimeClockLogsActions = {
   SearchTimeClockLogs,
   SearchTimeClockLogsOk,
   SearchTimeClockLogsError,
+  GetTimeClockStatistics,
+  GetTimeClockStatisticsOk,
+  GetTimeClockStatisticsError,
   GetEmployeeTimeClockData,
   GetEmployeeTimeClockDataOk,
   GetEmployeeTimeClockDataError,
@@ -276,5 +290,5 @@ export const fromTimeClockLogsActions = {
   DeleteTimeClockLogApproval,
   DeleteTimeClockLogApprovalOk,
   DeleteTimeClockLogApprovalError,
-  CleanError
+  CleanError,
 };

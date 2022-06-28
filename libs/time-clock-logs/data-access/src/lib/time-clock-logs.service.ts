@@ -23,104 +23,87 @@ export class TimeClockLogsService extends BaseAuthService {
     return this.http
       .get<Pagination<TimeClockLogModel>>(this.endpoint, {
         headers: this.defaultHeaders,
-        params: query
+        params: query,
       })
       .pipe(
-        map(resp => ({
+        map((resp) => ({
           ...resp,
-          data: TimeClockLogModel.fromJsonList(resp.data)
+          data: TimeClockLogModel.fromJsonList(resp.data),
         }))
       );
   }
 
+  getStatistics(): Observable<any> {
+    return this.http.get(`${this.env.api}api/v1/time-clock/statistics`, { headers: this.defaultHeaders });
+  }
+
   getEmployeeTimeClockData(query: any = {}): Observable<any> {
-    return this.http.get(
-      this.env.api + 'api/v1/time-clock/employee-access-data',
-      { headers: this.defaultHeaders, params: query }
-    );
+    return this.http.get(this.env.api + 'api/v1/time-clock/employee-access-data', {
+      headers: this.defaultHeaders,
+      params: query,
+    });
   }
 
   searchSubCostCenters(query: any = {}): Observable<any> {
-    return this.http.get<Pagination<any>>(
-      this.env.api + 'api/v1/sub-cost-centers',
-      { headers: this.defaultHeaders, params: query }
-    );
+    return this.http.get<Pagination<any>>(this.env.api + 'api/v1/sub-cost-centers', {
+      headers: this.defaultHeaders,
+      params: query,
+    });
   }
 
   create(workShiftData: any): Observable<TimeClockLogModel> {
     return this.http
       .post<ApiResponse<TimeClockLogModel>>(this.endpoint, workShiftData, {
-        headers: this.defaultHeaders
+        headers: this.defaultHeaders,
       })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
   get(workShiftId: string): Observable<TimeClockLogModel> {
     return this.http
       .get<ApiResponse<TimeClockLogModel>>(this.endpoint + workShiftId, {
-        headers: this.defaultHeaders
+        headers: this.defaultHeaders,
       })
-      .pipe(map(response => response.data));
+      .pipe(map((response) => response.data));
   }
 
-  update(
-    workShiftId: string,
-    workShiftData: any
-  ): Observable<TimeClockLogModel> {
+  update(workShiftId: string, workShiftData: any): Observable<TimeClockLogModel> {
     return this.http
-      .put<ApiResponse<TimeClockLogModel>>(
-        this.endpoint + workShiftId,
-        workShiftData,
-        { headers: this.defaultHeaders }
-      )
-      .pipe(map(response => response.data));
+      .put<ApiResponse<TimeClockLogModel>>(this.endpoint + workShiftId, workShiftData, { headers: this.defaultHeaders })
+      .pipe(map((response) => response.data));
   }
 
   delete(workShiftId: string): Observable<any> {
     return this.http.delete(this.endpoint + workShiftId, {
-      headers: this.defaultHeaders
+      headers: this.defaultHeaders,
     });
   }
 
-  checkIn(entryAndExitLog: {
-    identification_code: string;
-    action: string;
-  }): Observable<any> {
+  checkIn(entryAndExitLog: { identification_code: string; action: string }): Observable<any> {
     return this.http
-      .post<ApiResponse<any>>(
-        `${this.env.api}api/v1/time-clock/check-in`,
-        entryAndExitLog,
-        { headers: this.defaultHeaders }
-      )
-      .pipe(map(response => response.data));
+      .post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-in`, entryAndExitLog, {
+        headers: this.defaultHeaders,
+      })
+      .pipe(map((response) => response.data));
   }
 
-  checkOut(entryAndExitLog: {
-    identification_code: string;
-    action: string;
-  }): Observable<any> {
+  checkOut(entryAndExitLog: { identification_code: string; action: string }): Observable<any> {
     return this.http
-      .post<ApiResponse<any>>(
-        `${this.env.api}api/v1/time-clock/check-out`,
-        entryAndExitLog,
-        { headers: this.defaultHeaders }
-      )
-      .pipe(map(response => response.data));
+      .post<ApiResponse<any>>(`${this.env.api}api/v1/time-clock/check-out`, entryAndExitLog, {
+        headers: this.defaultHeaders,
+      })
+      .pipe(map((response) => response.data));
   }
 
   approve(timeClockLogId: string): Observable<any> {
-    const endpoint = `${
-      this.env.api
-    }api/v1/time-clock-logs/${timeClockLogId}/approvals`;
+    const endpoint = `${this.env.api}api/v1/time-clock-logs/${timeClockLogId}/approvals`;
     return this.http.post<any>(endpoint, {}, { headers: this.defaultHeaders });
   }
 
   deleteApproval(timeClockLogId: string): Observable<any> {
     // always send 1, approval id doesn't matters, since the authenticated user
     // approval to said timeClockLogId will be deleted
-    const endpoint = `${
-      this.env.api
-    }api/v1/time-clock-logs/${timeClockLogId}/approvals/1`;
+    const endpoint = `${this.env.api}api/v1/time-clock-logs/${timeClockLogId}/approvals/1`;
     return this.http.delete<any>(endpoint, { headers: this.defaultHeaders });
   }
 }

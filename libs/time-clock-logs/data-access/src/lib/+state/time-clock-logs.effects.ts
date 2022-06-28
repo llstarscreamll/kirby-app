@@ -36,6 +36,9 @@ import {
   DeleteTimeClockLogApproval,
   DeleteTimeClockLogApprovalOk,
   DeleteTimeClockLogApprovalError,
+  GetTimeClockStatistics,
+  GetTimeClockStatisticsOk,
+  GetTimeClockStatisticsError,
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -49,9 +52,14 @@ export class TimeClockLogsEffects {
         .search(action.payload)
         .pipe(map((response) => new SearchTimeClockLogsOk(response)));
     },
-    onError: (action: SearchTimeClockLogs, error) => {
-      return new SearchTimeClockLogsError(error);
-    },
+    onError: (_, error) => new SearchTimeClockLogsError(error),
+  });
+
+  @Effect()
+  getTimeClockStatistics$ = this.dataPersistence.fetch(TimeClockLogsActionTypes.GetTimeClockStatistics, {
+    run: () =>
+      this.timeClockLogsService.getStatistics().pipe(map((response) => new GetTimeClockStatisticsOk(response))),
+    onError: (_, error) => new GetTimeClockStatisticsError(error),
   });
 
   @Effect()
@@ -61,9 +69,7 @@ export class TimeClockLogsEffects {
         .getEmployeeTimeClockData(action.payload)
         .pipe(map((response) => new GetEmployeeTimeClockDataOk(response)));
     },
-    onError: (action: GetEmployeeTimeClockData, error) => {
-      return new GetEmployeeTimeClockDataError(error);
-    },
+    onError: (_, error) => new GetEmployeeTimeClockDataError(error),
   });
 
   @Effect()
@@ -73,9 +79,7 @@ export class TimeClockLogsEffects {
         .searchSubCostCenters(action.payload)
         .pipe(map((response) => new SearchSubCostCentersOk(response)));
     },
-    onError: (action: SearchSubCostCenters, error) => {
-      return new SearchSubCostCentersError(error);
-    },
+    onError: (_, error) => new SearchSubCostCentersError(error),
   });
 
   @Effect()
@@ -85,9 +89,7 @@ export class TimeClockLogsEffects {
         .create(action.payload)
         .pipe(map((response) => new CreateTimeClockLogOk(response)));
     },
-    onError: (action: CreateTimeClockLog, error) => {
-      return new CreateTimeClockLogError(error);
-    },
+    onError: (_, error) => new CreateTimeClockLogError(error),
   });
 
   @Effect()
@@ -99,18 +101,10 @@ export class TimeClockLogsEffects {
           : this.timeClockLogsService.checkOut(action.payload);
 
       return serviceCall.pipe(
-        map(
-          (response) =>
-            new CreateEntryAndExitLogOk({
-              response,
-              action: action.payload.action,
-            })
-        )
+        map((response) => new CreateEntryAndExitLogOk({ response, action: action.payload.action }))
       );
     },
-    onError: (action: CreateEntryAndExitLog, error) => {
-      return new CreateEntryAndExitLogError(error);
-    },
+    onError: (_, error) => new CreateEntryAndExitLogError(error),
   });
 
   @Effect({ dispatch: false })
@@ -126,9 +120,7 @@ export class TimeClockLogsEffects {
     run: (action: GetTimeClockLog, state: TimeClockLogsPartialState) => {
       return this.timeClockLogsService.get(action.payload).pipe(map((response) => new GetTimeClockLogOk(response)));
     },
-    onError: (action: GetTimeClockLog, error) => {
-      return new GetTimeClockLogError(error);
-    },
+    onError: (_, error) => new GetTimeClockLogError(error),
   });
 
   @Effect()
@@ -138,9 +130,7 @@ export class TimeClockLogsEffects {
         .update(action.payload.id, action.payload.data)
         .pipe(map((response) => new UpdateTimeClockLogOk(response)));
     },
-    onError: (action: UpdateTimeClockLog, error) => {
-      return new UpdateTimeClockLogError(error);
-    },
+    onError: (_, error) => new UpdateTimeClockLogError(error),
   });
 
   @Effect()
@@ -148,11 +138,9 @@ export class TimeClockLogsEffects {
     run: (action: DeleteTimeClockLog, state: TimeClockLogsPartialState) => {
       return this.timeClockLogsService
         .delete(action.payload)
-        .pipe(map((response) => new DeleteTimeClockLogOk(action.payload)));
+        .pipe(map((_) => new DeleteTimeClockLogOk(action.payload)));
     },
-    onError: (action: DeleteTimeClockLog, error) => {
-      return new DeleteTimeClockLogError(error);
-    },
+    onError: (_, error) => new DeleteTimeClockLogError(error),
   });
 
   @Effect()
@@ -160,11 +148,9 @@ export class TimeClockLogsEffects {
     run: (action: ApproveTimeClockLog, state: TimeClockLogsPartialState) => {
       return this.timeClockLogsService
         .approve(action.timeClockLogId)
-        .pipe(map((response) => new ApproveTimeClockLogOk(action.timeClockLogId, action.user)));
+        .pipe(map((_) => new ApproveTimeClockLogOk(action.timeClockLogId, action.user)));
     },
-    onError: (action: ApproveTimeClockLog, error) => {
-      return new ApproveTimeClockLogError(error, action.timeClockLogId, action.user);
-    },
+    onError: (action, error) => new ApproveTimeClockLogError(error, action.timeClockLogId, action.user),
   });
 
   @Effect()
@@ -172,11 +158,9 @@ export class TimeClockLogsEffects {
     run: (action: DeleteTimeClockLogApproval, state: TimeClockLogsPartialState) => {
       return this.timeClockLogsService
         .deleteApproval(action.timeClockLogId)
-        .pipe(map((response) => new DeleteTimeClockLogApprovalOk(action.timeClockLogId, action.user)));
+        .pipe(map((_) => new DeleteTimeClockLogApprovalOk(action.timeClockLogId, action.user)));
     },
-    onError: (action: DeleteTimeClockLogApproval, error) => {
-      return new DeleteTimeClockLogApprovalError(error, action.timeClockLogId, action.user);
-    },
+    onError: (action, error) => new DeleteTimeClockLogApprovalError(error, action.timeClockLogId, action.user),
   });
 
   constructor(
