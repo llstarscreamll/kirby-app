@@ -16,11 +16,7 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
   pagination$ = this.productionFacade.pagination$;
   productionLogs$ = this.productionFacade.productionLogs$;
 
-  constructor(
-    private authFacade: AuthFacade,
-    private employeesFacade: EmployeesFacade,
-    private productionFacade: ProductionFacade
-  ) {}
+  constructor(private authFacade: AuthFacade, private productionFacade: ProductionFacade) {}
 
   ngOnInit(): void {
     this.searchLogs();
@@ -31,8 +27,8 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  searchLogs(query: any = {}) {
-    this.productionFacade.searchProductionLogs({ include: 'employee,product,machine', ...query });
+  searchLogs(query: any = {}, pagination: any = {}) {
+    this.productionFacade.searchProductionLogs({ include: 'employee,product,machine', ...query, ...pagination });
   }
 
   exportLogsToCsv(filter) {
