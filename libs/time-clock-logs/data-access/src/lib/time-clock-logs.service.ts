@@ -33,6 +33,10 @@ export class TimeClockLogsService extends BaseAuthService {
       );
   }
 
+  downloadReport(query = {}): Observable<any> {
+    return this.http.get(`${this.endpoint}export`, { params: query, headers: this.defaultHeaders });
+  }
+
   getStatistics(): Observable<any> {
     return this.http.get(`${this.env.api}api/v1/time-clock/statistics`, { headers: this.defaultHeaders });
   }

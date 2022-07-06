@@ -1,7 +1,7 @@
 import { Effect } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import {
@@ -39,6 +39,7 @@ import {
   GetTimeClockStatistics,
   GetTimeClockStatisticsOk,
   GetTimeClockStatisticsError,
+  DownloadTimeClockLogs,
 } from './time-clock-logs.actions';
 import { TimeClockLogsService } from '../time-clock-logs.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -53,6 +54,20 @@ export class TimeClockLogsEffects {
         .pipe(map((response) => new SearchTimeClockLogsOk(response)));
     },
     onError: (_, error) => new SearchTimeClockLogsError(error),
+  });
+
+  @Effect({ dispatch: false })
+  downloadTimeClockLogs$ = this.dataPersistence.fetch(TimeClockLogsActionTypes.DownloadTimeClockLogs, {
+    run: (action: DownloadTimeClockLogs, state: TimeClockLogsPartialState) => {
+      return this.timeClockLogsService
+        .downloadReport(action.payload)
+        .pipe(tap((_) => this.snackBar.open('La información será enviada a tu correo.', 'Ok')));
+    },
+    onError: (_, error) => {
+      this.snackBar.open('Ocurrió un error solicitando la información.', 'Ok');
+
+      return [];
+    },
   });
 
   @Effect()

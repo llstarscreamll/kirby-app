@@ -13,6 +13,7 @@ import {
   DeleteTimeClockLog,
   DeleteTimeClockLogApproval,
   GetTimeClockStatistics,
+  DownloadTimeClockLogs,
 } from './time-clock-logs.actions';
 import { User } from '@kirby/users/util';
 
@@ -34,6 +35,10 @@ export class TimeClockLogsFacade {
 
   search(query: any = {}) {
     this.store.dispatch(new SearchTimeClockLogs(query));
+  }
+
+  downloadReport(query: any = {}) {
+    this.store.dispatch(new DownloadTimeClockLogs(query));
   }
 
   getStatistics() {
