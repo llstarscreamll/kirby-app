@@ -1,5 +1,11 @@
 # Release notes
 
+## [1.5.0 (2022-07-09)](https://github.com/llstarscreamll/angular-kirby/compare/1.5.0..1.4.0)
+
+### Added
+
+- time-clock: new ability to filter time clock logs and request csv export to be send to user email
+
 ## [1.4.0 (2022-05-19)](https://github.com/llstarscreamll/angular-kirby/compare/1.4.0..1.3.0)
 
 ### Added
