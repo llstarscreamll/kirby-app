@@ -166,4 +166,8 @@ export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
     this.timeClockFacade.search(this.searchQuery);
     this.timeClockFacade.getStatistics();
   }
+
+  downloadReport(query = {}) {
+    this.timeClockFacade.downloadReport(query);
+  }
 }

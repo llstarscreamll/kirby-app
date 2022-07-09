@@ -9,6 +9,10 @@ export enum TimeClockLogsActionTypes {
   SearchTimeClockLogsOk = '[TimeClockLogs] search ok',
   SearchTimeClockLogsError = '[TimeClockLogs] search error',
 
+  DownloadTimeClockLogs = '[TimeClockLogs] download',
+  DownloadTimeClockLogsOk = '[TimeClockLogs] download ok',
+  DownloadTimeClockLogsError = '[TimeClockLogs] download error',
+
   GetTimeClockStatistics = '[TimeClockLogs] get statistics',
   GetTimeClockStatisticsOk = '[TimeClockLogs] get statistics ok',
   GetTimeClockStatisticsError = '[TimeClockLogs] get statistics error',
@@ -64,6 +68,21 @@ export class SearchTimeClockLogsOk implements Action {
 
 export class SearchTimeClockLogsError implements Action {
   readonly type = TimeClockLogsActionTypes.SearchTimeClockLogsError;
+  constructor(public payload: ApiError) {}
+}
+
+export class DownloadTimeClockLogs implements Action {
+  readonly type = TimeClockLogsActionTypes.DownloadTimeClockLogs;
+  constructor(public payload: any) {}
+}
+
+export class DownloadTimeClockLogsOk implements Action {
+  readonly type = TimeClockLogsActionTypes.DownloadTimeClockLogsOk;
+  constructor(public payload: Pagination<TimeClockLogModel>) {}
+}
+
+export class DownloadTimeClockLogsError implements Action {
+  readonly type = TimeClockLogsActionTypes.DownloadTimeClockLogsError;
   constructor(public payload: ApiError) {}
 }
 
@@ -224,6 +243,9 @@ export type TimeClockLogsAction =
   | SearchTimeClockLogs
   | SearchTimeClockLogsOk
   | SearchTimeClockLogsError
+  | DownloadTimeClockLogs
+  | DownloadTimeClockLogsOk
+  | DownloadTimeClockLogsError
   | GetTimeClockStatistics
   | GetTimeClockStatisticsOk
   | GetTimeClockStatisticsError
@@ -260,6 +282,9 @@ export const fromTimeClockLogsActions = {
   SearchTimeClockLogs,
   SearchTimeClockLogsOk,
   SearchTimeClockLogsError,
+  DownloadTimeClockLogs,
+  DownloadTimeClockLogsOk,
+  DownloadTimeClockLogsError,
   GetTimeClockStatistics,
   GetTimeClockStatisticsOk,
   GetTimeClockStatisticsError,
