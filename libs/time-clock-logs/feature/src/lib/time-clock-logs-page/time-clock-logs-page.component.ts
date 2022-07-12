@@ -10,6 +10,7 @@ import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
+import moment from 'moment';
 
 @Component({
   selector: 'kirby-time-clock-logs-page',
@@ -21,18 +22,19 @@ export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject();
   user$: Observable<User>;
+  apiError$ = this.timeClockFacade.apiError$;
   timeClockLogs$: Observable<Pagination<TimeClockLogModel>>;
   peopleInsideCount$ = this.timeClockFacade.peopleInsideCount$;
   employees$ = this.employeesFacade.paginatedEmployees$.pipe(map((paginatedData) => paginatedData.data));
 
   user: User;
+  searchQuery = {};
   searchForm = this.formBuilder.group({
     employee: [''],
     employees: [[]],
     checkInStart: [''],
     checkInEnd: [''],
   });
-  searchQuery = {};
 
   constructor(
     private authFacade: AuthFacade,
@@ -138,18 +140,25 @@ export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
     return values.filter((v) => v.trim() !== '').join(' - ');
   }
 
+  dateRangeNotSet() {
+    return this.searchForm?.get('checkInStart')?.value === '' || this.searchForm?.get('checkInEnd')?.value === '';
+  }
+
   searchLogs() {
+    this.searchTimeClockLogs(this.parsedSearchForm());
+  }
+
+  parsedSearchForm() {
     const formValue = this.searchForm.value;
-    const query = {
+
+    return {
       search: ['employee_id:' + this.addedEmployees.map((e) => e.id).join(',')].join(','),
       searchFields: 'employee_id:in',
-      checkedInStart: formValue.checkInStart,
-      checkedInEnd: formValue.checkInEnd,
+      checkedInStart: formValue.checkInStart ? moment(formValue.checkInStart).toISOString() : '',
+      checkedInEnd: formValue.checkInEnd ? moment(formValue.checkInEnd).toISOString() : '',
       peopleInsideOnly: 0,
       page: 1,
     };
-
-    this.searchTimeClockLogs(query);
   }
 
   searchOnlyPeopleInside() {
@@ -167,7 +176,7 @@ export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
     this.timeClockFacade.getStatistics();
   }
 
-  downloadReport(query = {}) {
-    this.timeClockFacade.downloadReport(query);
+  downloadReport() {
+    this.timeClockFacade.downloadReport(this.parsedSearchForm());
   }
 }

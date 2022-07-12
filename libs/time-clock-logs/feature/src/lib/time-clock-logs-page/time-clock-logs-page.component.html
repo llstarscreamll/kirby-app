@@ -1,5 +1,7 @@
 <h1 (click)="searchTimeClockLogs()" class="my-4">Entradas/salidas</h1>
 
+<kirby-api-errors [apiError]="apiError$ | async"></kirby-api-errors>
+
 <div class="flex flex-row">
   <a *kirbyCan="'time-clock-logs.check-in'"
      routerLink="entry-and-exit-log"
@@ -10,18 +12,11 @@
 
   <span class="flex-grow"></span>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
-    <mat-icon>more_vert</mat-icon>
+  <button (click)="downloadReport()" [disabled]="dateRangeNotSet()"
+          mat-icon-button aria-label="Descargar filtro actual"
+          title="Descargar filtro actual">
+    <mat-icon>file_download</mat-icon>
   </button>
-
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="downloadReport(searchQuery)">
-      <span>Descargar filtro actual</span>
-    </button>
-    <button mat-menu-item (click)="downloadReport({})">
-      <span>Descargar todo</span>
-    </button>
-  </mat-menu>
 </div>
 
 <div class="mt-4">

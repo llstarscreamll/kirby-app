@@ -38,7 +38,7 @@ export function timeClockLogsReducer(
 ): TimeClockLogsState {
   switch (action.type) {
     case TimeClockLogsActionTypes.SearchTimeClockLogs: {
-      state = { ...state, paginatingStatus: LoadStatus.Loading };
+      state = { ...state, error: null, paginatingStatus: LoadStatus.Loading };
       break;
     }
 
@@ -56,6 +56,19 @@ export function timeClockLogsReducer(
         ...state,
         error: action.payload,
         paginatingStatus: LoadStatus.Error,
+      };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.DownloadTimeClockLogs: {
+      state = { ...state, error: null };
+      break;
+    }
+
+    case TimeClockLogsActionTypes.DownloadTimeClockLogsError: {
+      state = {
+        ...state,
+        error: action.payload,
       };
       break;
     }

@@ -78,7 +78,6 @@ export class DownloadTimeClockLogs implements Action {
 
 export class DownloadTimeClockLogsOk implements Action {
   readonly type = TimeClockLogsActionTypes.DownloadTimeClockLogsOk;
-  constructor(public payload: Pagination<TimeClockLogModel>) {}
 }
 
 export class DownloadTimeClockLogsError implements Action {

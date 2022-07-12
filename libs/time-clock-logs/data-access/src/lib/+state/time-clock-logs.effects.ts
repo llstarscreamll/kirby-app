@@ -1,9 +1,10 @@
 import { Effect } from '@ngrx/effects';
-import { DataPersistence } from '@nrwl/angular';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
+import { DataPersistence } from '@nrwl/angular';
+import { createEffect, ofType } from '@ngrx/effects';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import {
   SearchTimeClockLogs,
   SearchTimeClockLogsOk,
@@ -40,9 +41,11 @@ import {
   GetTimeClockStatisticsOk,
   GetTimeClockStatisticsError,
   DownloadTimeClockLogs,
+  DownloadTimeClockLogsOk,
+  DownloadTimeClockLogsError,
 } from './time-clock-logs.actions';
+import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 import { TimeClockLogsService } from '../time-clock-logs.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class TimeClockLogsEffects {
@@ -56,19 +59,22 @@ export class TimeClockLogsEffects {
     onError: (_, error) => new SearchTimeClockLogsError(error),
   });
 
-  @Effect({ dispatch: false })
+  @Effect()
   downloadTimeClockLogs$ = this.dataPersistence.fetch(TimeClockLogsActionTypes.DownloadTimeClockLogs, {
     run: (action: DownloadTimeClockLogs, state: TimeClockLogsPartialState) => {
-      return this.timeClockLogsService
-        .downloadReport(action.payload)
-        .pipe(tap((_) => this.snackBar.open('La información será enviada a tu correo.', 'Ok')));
+      return this.timeClockLogsService.downloadReport(action.payload).pipe(map((_) => new DownloadTimeClockLogsOk()));
     },
-    onError: (_, error) => {
-      this.snackBar.open('Ocurrió un error solicitando la información.', 'Ok');
-
-      return [];
-    },
+    onError: (_, error) => new DownloadTimeClockLogsError(error),
   });
+
+  downloadTimeClockLogsOk$ = createEffect(
+    () =>
+      this.dataPersistence.actions.pipe(
+        ofType(TimeClockLogsActionTypes.DownloadTimeClockLogsOk),
+        tap((_) => this.snackBar.open('La información será enviada a tu correo', 'Ok', { duration: 5000 }))
+      ),
+    { dispatch: false }
+  );
 
   @Effect()
   getTimeClockStatistics$ = this.dataPersistence.fetch(TimeClockLogsActionTypes.GetTimeClockStatistics, {
