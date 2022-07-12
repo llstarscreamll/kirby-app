@@ -13,7 +13,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Install gcc on Fedora:
 
 ```bash
-sudo dnf install gcc-c++-11.2.1-1.fc34.x86_64
+sudo dnf install gcc-c++
 ```
 
 Install gcc on Debian/Ubuntu:
