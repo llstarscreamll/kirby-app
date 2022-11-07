@@ -40,6 +40,13 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
+  expirationDates = [
+    { date: '15d', label: 'Vigente por 15 días' },
+    { date: '30d', label: 'Vigente por 30 días' },
+    { date: '120d', label: 'Vigente por 120 días' },
+    { date: '180d', label: 'Vigente por 180 días' },
+  ];
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -65,6 +72,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
       salary: [null, [Validators.required]],
       cost_center: [null, [Validators.required]],
       work_shifts: [[], [Validators.required]],
+      generate_token: [''],
       identifications: this.buildIdentificationsArray(),
     });
   }

@@ -17,6 +17,7 @@ export class EmployeeInterface {
   first_name: string;
   last_name: string;
   email?: string;
+  token_code?: number;
   code: string;
   identification_number: string;
   position: string;
@@ -57,9 +58,12 @@ export class EmployeeInterface {
   }
 
   noveltyTypesTotalHours(): number {
-    return round((this.novelty_types || [])
-      .map((noveltyType) => noveltyType.total_novelties_time_in_hours)
-      .reduce((acc, next) => acc + next, 0), 2);
+    return round(
+      (this.novelty_types || [])
+        .map((noveltyType) => noveltyType.total_novelties_time_in_hours)
+        .reduce((acc, next) => acc + next, 0),
+      2
+    );
   }
 
   oldestNoveltyTypeRecordDate(): Date {

@@ -110,6 +110,23 @@
                required="true" />
       </mat-form-field>
     </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
+      <mat-form-field fxFlex="grow">
+        <mat-label>Generar token de registro de producción</mat-label>
+        <mat-select formControlName="generate_token">
+          <mat-option *ngFor="let expiration of expirationDates" [value]="expiration.date">
+            {{ expiration.label }}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="employee?.token_code" align="end">
+          <a href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{ employee.token_code }}%2F&choe=UTF-8"
+             target="_blank">Imprimir token actual</a>
+        </mat-hint>
+      </mat-form-field>
+
+      <div fxFlex="grow"></div>
+    </div>
   </fieldset>
 
   <fieldset class="my-5">
