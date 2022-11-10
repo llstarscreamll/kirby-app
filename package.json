@@ -94,7 +94,7 @@
     "codelyzer": "6.0.1",
     "cypress": "^4.12.1",
     "dotenv": "8.2.0",
-    "electron": "^11.5.0",
+    "electron": "^18.3.7",
     "electron-rebuild": "^2.3.5",
     "eslint": "^7",
     "eslint-config-prettier": "8.1.0",
