@@ -19,11 +19,9 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
   customers$ = this.productionFacade.customers$;
   status$ = this.productionFacade.updateStatus$;
   productionLog$ = this.productionFacade.selectedProductionLog$;
-  paginatedEmployees$ = this.employeesFacade.paginatedEmployees$;
 
   constructor(
     private authFacade: AuthFacade,
-    private employeesFacade: EmployeesFacade,
     private changeDetector: ChangeDetectorRef,
     private localStorage: LocalStorageService,
     private productionFacade: ProductionFacade,
@@ -58,10 +56,6 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
 
   readyToConnectToWeighMachine(): boolean {
     return this.weighingMachineService.isAvailable && this.localStorage.getItem('SerialPortConfig')?.selected;
-  }
-
-  searchEmployees(query) {
-    this.employeesFacade.search(query);
   }
 
   searchProducts(query) {

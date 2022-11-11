@@ -2,14 +2,20 @@
 
   <div fxLayout="column wrap" fxLayout.gt-xs="row wrap" fxLayoutGap="0px" fxLayoutGap.gt-xs="10px"
        fxLayoutAlign="space-around">
-    <mat-form-field fxFlex="grow">
-      <mat-label>Empleado</mat-label>
-      <input [matAutocomplete]="employeeAutocomplete" formControlName="employee" matInput />
-      <mat-autocomplete #employeeAutocomplete="matAutocomplete" [displayWith]="displayNameValue">
-        <mat-option *ngFor="let employee of employees" [value]="employee">
-          <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
-        </mat-option>
-      </mat-autocomplete>
+    <mat-form-field fxFlex="grow" class="mb-5">
+      <mat-label>{{ createOnBehalfOfAnotherPerson ? 'Token ' : '' }}Empleado</mat-label>
+      <input formControlName="employee_code"
+             matInput
+             type="text"
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="none"
+             spellcheck="false"
+             [ngClass]="{'input-mask': createOnBehalfOfAnotherPerson}" />
+
+      <mat-hint *ngIf="defaults" align="end">
+        {{ defaults?.employee.first_name + ' ' + defaults?.employee.last_name + ' - ' + defaults?.employee.code }}
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field fxFlex>
