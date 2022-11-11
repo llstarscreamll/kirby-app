@@ -228,7 +228,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   private makeFormReadyToAddOtherRecord() {
     this.form.enable();
-    this.form.patchValue({ tare_weight: null, gross_weight: null });
+    this.form.patchValue({ tare_weight: null, gross_weight: null, employee_code: null });
     this.tareWeightField.nativeElement.focus();
   }
 }
