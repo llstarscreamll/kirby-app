@@ -111,10 +111,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      employee_code: [
-        this.createOnBehalfOfAnotherPerson ? '' : this.user.fullName,
-        [this.createOnBehalfOfAnotherPerson && !this.defaults ? Validators.required : Validators.nullValidator],
-      ],
+      employee_code: [this.createOnBehalfOfAnotherPerson ? '' : this.user.fullName, [Validators.required]],
       product: [null, [Validators.required]],
       machine: [null, [Validators.required]],
       customer: [],
@@ -228,7 +225,17 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   private makeFormReadyToAddOtherRecord() {
     this.form.enable();
-    this.form.patchValue({ tare_weight: null, gross_weight: null, employee_code: null });
+
+    this.form.patchValue({
+      tare_weight: null,
+      gross_weight: null,
+      employee_code: this.createOnBehalfOfAnotherPerson ? '' : this.user.fullName,
+    });
+
+    if (!this.createOnBehalfOfAnotherPerson) {
+      this.form.get('employee_code').disable();
+    }
+
     this.tareWeightField.nativeElement.focus();
   }
 }
