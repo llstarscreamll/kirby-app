@@ -65,7 +65,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   destroy$ = new Subject();
   tagOptions = TagOptions;
   purposeOptions = PurposeOptions;
-  createOnBehalfOfAnotherPerson = false;
+  captureEmployeeCode = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -84,11 +84,14 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
     if (changes.status?.currentValue && changes.status?.currentValue === LoadStatus.Error) {
       this.form.enable();
+      this.checkForEmployeecodeAvailability();
     }
   }
 
   ngOnInit() {
-    this.createOnBehalfOfAnotherPerson = this.user.can('production-logs.create-on-behalf-of-another-person');
+    this.captureEmployeeCode =
+      this.user.can('production-logs.create-on-behalf-of-another-person') ||
+      (this.defaults && this.user.can('production-logs.create-on-behalf-of-another-person'));
 
     this.buildForm();
     this.listenFormChanges();
@@ -111,7 +114,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      employee_code: [this.createOnBehalfOfAnotherPerson ? '' : this.user.fullName, [Validators.required]],
+      employee_code: [this.captureEmployeeCode ? '' : this.user.fullName, [Validators.required]],
       product: [null, [Validators.required]],
       machine: [null, [Validators.required]],
       customer: [],
@@ -122,7 +125,11 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       purpose: ['', [Validators.required]],
     });
 
-    if (!this.createOnBehalfOfAnotherPerson) {
+    this.checkForEmployeecodeAvailability();
+  }
+
+  private checkForEmployeecodeAvailability() {
+    if (!this.captureEmployeeCode) {
       this.form.get('employee_code').disable();
     }
   }
@@ -211,7 +218,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
     const form = this.form.value;
 
     return {
-      employee_code: this.createOnBehalfOfAnotherPerson ? form.employee_code : '',
+      employee_code: this.captureEmployeeCode ? form.employee_code : '',
       product_id: form.product.id,
       machine_id: form.machine.id,
       customer_id: form.customer?.id || '',
@@ -229,10 +236,10 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
     this.form.patchValue({
       tare_weight: null,
       gross_weight: null,
-      employee_code: this.createOnBehalfOfAnotherPerson ? '' : this.user.fullName,
+      employee_code: this.captureEmployeeCode ? '' : this.user.fullName,
     });
 
-    if (!this.createOnBehalfOfAnotherPerson) {
+    if (!this.captureEmployeeCode) {
       this.form.get('employee_code').disable();
     }
 

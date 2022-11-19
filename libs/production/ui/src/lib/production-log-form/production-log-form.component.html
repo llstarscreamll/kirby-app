@@ -3,7 +3,7 @@
   <div fxLayout="column wrap" fxLayout.gt-xs="row wrap" fxLayoutGap="0px" fxLayoutGap.gt-xs="10px"
        fxLayoutAlign="space-around">
     <mat-form-field fxFlex="grow" class="mb-5">
-      <mat-label>{{ createOnBehalfOfAnotherPerson ? 'Token ' : '' }}Empleado</mat-label>
+      <mat-label>{{ captureEmployeeCode ? 'Token ' : '' }}Empleado</mat-label>
       <input formControlName="employee_code"
              matInput
              type="text"
@@ -11,7 +11,7 @@
              autocorrect="off"
              autocapitalize="none"
              spellcheck="false"
-             [ngClass]="{'input-mask': createOnBehalfOfAnotherPerson}" />
+             [ngClass]="{'input-mask': captureEmployeeCode}" />
 
       <mat-hint *ngIf="defaults" align="end">
         {{ defaults?.employee.first_name + ' ' + defaults?.employee.last_name + ' - ' + defaults?.employee.code }}
