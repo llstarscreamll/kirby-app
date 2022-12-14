@@ -130,6 +130,12 @@ export default class App {
     App.BrowserWindow = browserWindow;
     App.application = app;
 
+    const gotTheLock = App.application.requestSingleInstanceLock();
+
+    if (!gotTheLock) {
+      App.application.quit();
+    }
+
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
     App.application.on('ready', App.onReady); // App is ready to load data
     App.application.on('activate', App.onActivate); // App is activated
