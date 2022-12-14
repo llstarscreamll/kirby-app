@@ -22,6 +22,10 @@ Install gcc on Debian/Ubuntu:
 sudo apt install build-essential
 ```
 
+```bash
+npm install --global @angular/cli nx
+```
+
 ## Build
 
 To build all apps:
