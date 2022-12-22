@@ -1,5 +1,18 @@
 # Release notes
 
+## [1.6.0 (2022-12-22)](https://github.com/llstarscreamll/angular-kirby/compare/1.6.0..1.5.0)
+
+- fix: change the way masked text is setted up on sensible inputs for production logs form and time clock entry/exit form (llstarscreamll@hotmail.com)
+- feat(desktop): hide print button on ticket printing screen (llstarscreamll@hotmail.com)
+- refactor(desktop): prevent to always show devtools, only on non packaged targets (llstarscreamll@hotmail.com)
+- docs: add steps to install global npm packages (llstarscreamll@hotmail.com)
+- feat: prevent to launch multiple window instances of desktop app (llstarscreamll@hotmail.com)
+- feat(production): make some validations to require some times employee codes based on authenticated user permissions (llstarscreamll@hotmail.com)
+- feat(production): make the employee code form field required for users that can create/update logs on behalf other employees (llstarscreamll@hotmail.com)
+- feat(production): reset employee code form field when creation button is clicked (llstarscreamll@hotmail.com)
+- feat(production): new ability to create production logs by employee token instead of selecting employee from a dropdown (llstarscreamll@hotmail.com)
+- feat(employees): new ability to request production registration token generation (llstarscreamll@hotmail.com)
+
 ## [1.5.0 (2022-07-09)](https://github.com/llstarscreamll/angular-kirby/compare/1.5.0..1.4.0)
 
 ### Added

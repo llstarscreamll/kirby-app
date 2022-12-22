@@ -3,22 +3,22 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { SharedModule } from '@kirby/shared';
 import { EmployeesUiModule } from '@kirby/employees/ui';
 import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
-import { EmployeeFeatureEffects } from './+state/employee-feature.effects';
 import { WorkShiftsDataAccessModule } from '@kirby/work-shifts/data-access';
 import { CostCentersDataAccessModule } from '@kirby/cost-centers/data-access';
+
+import { EmployeeFeatureEffects } from './+state/employee-feature.effects';
 import { EmployeesPageComponent } from './employees-page/employees-page.component';
 import { EditEmployeePageComponent } from './edit-employee-page/edit-employee-page.component';
 import { CreateEmployeePageComponent } from './create-employee-page/create-employee-page.component';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 
 export const employeesFeatureRoutes: Route[] = [
   { path: '', pathMatch: 'full', component: EmployeesPageComponent },

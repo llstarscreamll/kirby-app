@@ -22,6 +22,9 @@ export class User {
     return arr.map((data) => User.fromJson(data));
   }
 
+  get fullName(): string {
+    return `${this.first_name} ${this.last_name}`;
+  }
   allPermissions(): string[] {
     return this.permissions
       .map((p) => p.name)

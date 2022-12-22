@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { EmployeesFacade } from '@kirby/employees/data-access';
 import { LoadStatus, LocalStorageService } from '@kirby/shared';
 import { WeighingMachineService } from '../weighing-machine.service';
 
@@ -18,12 +17,10 @@ export class CreateProductionLogPage implements OnInit {
   machines$ = this.production.machines$;
   customers$ = this.production.customers$;
   creationStatus$ = this.production.creationStatus$;
-  paginatedEmployees$ = this.employeesFacade.paginatedEmployees$;
 
   constructor(
     private authFacade: AuthFacade,
     private production: ProductionFacade,
-    private employeesFacade: EmployeesFacade,
     private changeDetector: ChangeDetectorRef,
     private localStorage: LocalStorageService,
     private weighingMachineService: WeighingMachineService
@@ -53,10 +50,6 @@ export class CreateProductionLogPage implements OnInit {
 
   readyToConnectToWeighMachine(): boolean {
     return this.weighingMachineService.isAvailable && this.localStorage.getItem('SerialPortConfig')?.selected;
-  }
-
-  searchEmployees(query) {
-    this.employeesFacade.search(query);
   }
 
   searchProducts(query) {

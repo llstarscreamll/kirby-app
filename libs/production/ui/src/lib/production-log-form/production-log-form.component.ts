@@ -27,6 +27,12 @@ import { PurposeOptions } from '../purpose-options';
       :host {
         display: block;
       }
+
+      .input-mask {
+        -webkit-text-security: disc;
+        -moz-text-security: disc;
+        text-security: disc;
+      }
     `,
   ],
 })
@@ -37,7 +43,6 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   @Input() products;
   @Input() machines;
   @Input() customers;
-  @Input() employees;
   @Input() rawGrossWeight;
   @Input() printerIsAvailable;
   @Input() weighMachineAvailable;
@@ -48,7 +53,6 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   @Output() searchMachines = new EventEmitter();
   @Output() saveAndAddOther = new EventEmitter();
   @Output() searchCustomers = new EventEmitter();
-  @Output() searchEmployees = new EventEmitter();
 
   @ViewChild('tareWeightField') tareWeightField: ElementRef;
   @ViewChild('grossWeightField') grossWeightField: ElementRef;
@@ -57,6 +61,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   destroy$ = new Subject();
   tagOptions = TagOptions;
   purposeOptions = PurposeOptions;
+  captureEmployeeCode = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -75,10 +80,15 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
     if (changes.status?.currentValue && changes.status?.currentValue === LoadStatus.Error) {
       this.form.enable();
+      this.checkForEmployeecodeAvailability();
     }
   }
 
   ngOnInit() {
+    this.captureEmployeeCode =
+      this.user.can('production-logs.create-on-behalf-of-another-person') ||
+      (this.defaults && this.user.can('production-logs.create-on-behalf-of-another-person'));
+
     this.buildForm();
     this.listenFormChanges();
 
@@ -100,7 +110,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      employee: [this.user, []],
+      employee_code: [this.captureEmployeeCode ? '' : this.user.fullName, [Validators.required]],
       product: [null, [Validators.required]],
       machine: [null, [Validators.required]],
       customer: [],
@@ -111,22 +121,16 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       purpose: ['', [Validators.required]],
     });
 
-    if (!this.user.can('production-logs.create-on-behalf-of-another-person')) {
-      this.form.get('employee').disable();
+    this.checkForEmployeecodeAvailability();
+  }
+
+  private checkForEmployeecodeAvailability() {
+    if (!this.captureEmployeeCode) {
+      this.form.get('employee_code').disable();
     }
   }
 
   private listenFormChanges() {
-    this.form
-      .get('employee')
-      .valueChanges.pipe(
-        debounce(() => timer(400)),
-        filter((value) => typeof value === 'string' && value.trim() !== ''),
-        tap((value) => this.searchEmployees.emit({ search: value })),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
-
     this.form
       .get('product')
       .valueChanges.pipe(
@@ -210,7 +214,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
     const form = this.form.value;
 
     return {
-      employee_id: form.employee.id,
+      employee_code: this.captureEmployeeCode ? form.employee_code : '',
       product_id: form.product.id,
       machine_id: form.machine.id,
       customer_id: form.customer?.id || '',
@@ -224,7 +228,17 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
   private makeFormReadyToAddOtherRecord() {
     this.form.enable();
-    this.form.patchValue({ tare_weight: null, gross_weight: null });
+
+    this.form.patchValue({
+      tare_weight: null,
+      gross_weight: null,
+      employee_code: this.captureEmployeeCode ? '' : this.user.fullName,
+    });
+
+    if (!this.captureEmployeeCode) {
+      this.form.get('employee_code').disable();
+    }
+
     this.tareWeightField.nativeElement.focus();
   }
 }
@@ -232,7 +246,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 function getKilogramsFromWeighMachine(value: string) {
   const floatWithMeasureUnit = value.replace(/\w+:/i, '');
   const measureUnit = floatWithMeasureUnit.replace(/\d|\./gi, '');
-  const numericValue = parseFloat(value.replace(/[A-Za-z|:|\ ]/gi, ''));
+  const numericValue = parseFloat(value.replace(/[A-Za-z|:| ]/gi, ''));
 
   const gramsConversionLookUp = {
     tm: (tms: number) => tms * 1000,

@@ -67,7 +67,6 @@ export default class App {
       height: height,
       show: false,
       webPreferences: {
-        devTools: true,
         nodeIntegration: false,
         contextIsolation: true,
         enableRemoteModule: false,
@@ -77,13 +76,10 @@ export default class App {
     });
 
     App.mainWindow.setMenu(null);
-    // App.mainWindow.webContents.openDevTools({ mode: 'detach' });
     App.mainWindow.center();
 
-    App.mainWindow.webContents.openDevTools();
-
     if (!App.application.isPackaged) {
-      App.mainWindow.webContents.openDevTools();
+      App.mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
 
     // if main window is ready to show, close the splash window and show the main window
@@ -129,6 +125,12 @@ export default class App {
 
     App.BrowserWindow = browserWindow;
     App.application = app;
+
+    const gotTheLock = App.application.requestSingleInstanceLock();
+
+    if (!gotTheLock) {
+      App.application.quit();
+    }
 
     App.application.on('window-all-closed', App.onWindowAllClosed); // Quit when all windows are closed.
     App.application.on('ready', App.onReady); // App is ready to load data

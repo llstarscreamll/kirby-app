@@ -86,7 +86,6 @@ class PrinterWindow {
 
     PrinterWindow.window.setMenu(null);
     PrinterWindow.window.center();
-    // PrinterWindow.window.webContents.openDevTools();
 
     PrinterWindow.window.on('closed', () => {
       console.warn('destroying window');
@@ -122,7 +121,6 @@ ipcMain.handle('print', (event, productionLog, company = defaultCompany) => {
   PrinterWindow.setParams(productionLog, company);
   PrinterWindow.initWindow();
   PrinterWindow.loadMainWindow();
-  PrinterWindow.window.webContents.openDevTools();
   PrinterWindow.sendEvents();
 });
 
