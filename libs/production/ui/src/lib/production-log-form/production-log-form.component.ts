@@ -66,6 +66,8 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('form on push changes:', changes);
+
     if (!this.form) {
       return;
     }
