@@ -1,11 +1,11 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin sidebar-layout-theme($theme) {
   $background: map-get($theme, background);
   $primary-color: map-get($theme, primary);
 
   .main-top-bar {
-    background-color: mat-color($background, background);
+    background-color: mat.get-color-from-palette($background, background);
   }
 
   .mat-drawer-side {
@@ -14,15 +14,15 @@
 
   .sidenav-container {
     mat-nav-list {
-      background-color: mat-color($background, background);
+      background-color: mat.get-color-from-palette($background, background);
     }
 
     .mat-list-item:hover {
-      background-color: mat-color($primary-color, lighter, 0.2);
+      background-color: mat.get-color-from-palette($primary-color, lighter, 0.2);
     }
     .mat-list-item.active {
-      border-left: 4px solid mat-color($primary-color);
-      color: mat-color($primary-color, text);
+      border-left: 4px solid mat.get-color-from-palette($primary-color);
+      color: mat.get-color-from-palette($primary-color, text);
     }
   }
 }

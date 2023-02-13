@@ -8,50 +8,255 @@
     "tsconfig.base.json": "*"
   },
   "projects": {
-    "pascal": { "tags": ["scope:pascal", "type:app", "platform:web"] },
-    "pascal-e2e": { "tags": ["scope:pascal", "type:e2e", "platform:web"] },
     "authentication-data-access": {
-      "tags": ["scope:authentication", "type:data-access", "platform:web", "platform:desktop"]
+      "tags": [
+        "scope:authentication",
+        "type:data-access",
+        "platform:web",
+        "platform:desktop"
+      ]
     },
-    "shared": { "tags": ["scope:shared", "platform:web", "platform:desktop"] },
-    "authentication-utils": { "tags": ["scope:authentication", "type:util", "platform:web", "platform:desktop"] },
-    "work-shifts-data-access": { "tags": ["scope:work-shifts", "type:data-access", "platform:web"] },
-    "work-shifts-util": { "tags": ["scope:shared", "type:util", "platform:web"] },
-    "work-shifts-feature": { "tags": ["scope:work-shifts", "type:feature", "platform:web"] },
-    "work-shifts-ui": { "tags": ["scope:work-shifts", "type:ui", "platform:web"] },
-    "time-clock-logs-data-access": { "tags": ["type:data-access"] },
-    "time-clock-logs-util": { "tags": [] },
-    "users-util": { "tags": [] },
-    "time-clock-logs-feature": { "tags": [] },
-    "time-clock-logs-ui": { "tags": [] },
-    "employees-data-access": { "tags": ["scope:employees", "type:data-access", "platform:web"] },
-    "employees-feature": { "tags": ["scope:employees", "type:feature", "platform:web"] },
-    "employees-util": { "tags": ["scope:employees", "type:util", "platform:web"] },
-    "novelties-data": { "tags": [] },
-    "novelties-utils": { "tags": [] },
-    "novelty-types-data": { "tags": [] },
-    "novelties-feature": { "tags": ["scope:novelties", "type:feature", "platform:web"] },
-    "novelties-ui": { "tags": ["scope:novelties", "type:ui", "platform:web"] },
-    "novelties-data-access": { "tags": ["scope:novelties", "type:data-access", "platform:web"] },
-    "authorization-ui": { "tags": [] },
-    "authorization-data": { "tags": [] },
-    "employees-testing": { "tags": [] },
-    "novelties-testing": { "tags": [] },
-    "novelty-types-testing": { "tags": [] },
-    "time-clock-logs-testing": { "tags": [] },
-    "users-testing": { "tags": [] },
-    "work-shifts-testing": { "tags": [] },
-    "employees-ui": { "tags": [] },
-    "cost-centers-data": { "tags": ["type:data"] },
-    "cost-centers-data-access": { "tags": ["type:data-access"] },
-    "novelty-types-data-access": { "tags": ["data-access"] },
-    "novelty-types-ui": { "tags": ["ui"] },
-    "novelty-types-feature": { "tags": ["ui"] },
-    "production-feature": { "tags": ["type:feature"] },
-    "electron-front": { "tags": [] },
-    "electron-front-e2e": { "tags": [], "implicitDependencies": ["electron-front"] },
-    "electron-back": { "tags": [] },
-    "production-ui": { "tags": ["production", "ui"] }
+    "authentication-utils": {
+      "tags": [
+        "scope:authentication",
+        "type:util",
+        "platform:web",
+        "platform:desktop"
+      ]
+    },
+    "authorization-data": {
+      "tags": []
+    },
+    "authorization-ui": {
+      "tags": []
+    },
+    "cost-centers-data": {
+      "tags": [
+        "type:data"
+      ]
+    },
+    "cost-centers-data-access": {
+      "tags": [
+        "type:data-access"
+      ]
+    },
+    "electron-back": {
+      "tags": []
+    },
+    "electron-front": {
+      "tags": []
+    },
+    "electron-front-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "electron-front"
+      ]
+    },
+    "employees-data-access": {
+      "tags": [
+        "scope:employees",
+        "type:data-access",
+        "platform:web"
+      ]
+    },
+    "employees-feature": {
+      "tags": [
+        "scope:employees",
+        "type:feature",
+        "platform:web"
+      ]
+    },
+    "employees-testing": {
+      "tags": []
+    },
+    "employees-ui": {
+      "tags": []
+    },
+    "employees-util": {
+      "tags": [
+        "scope:employees",
+        "type:util",
+        "platform:web"
+      ]
+    },
+    "novelties-data": {
+      "tags": []
+    },
+    "novelties-data-access": {
+      "tags": [
+        "scope:novelties",
+        "type:data-access",
+        "platform:web"
+      ]
+    },
+    "novelties-feature": {
+      "tags": [
+        "scope:novelties",
+        "type:feature",
+        "platform:web"
+      ]
+    },
+    "novelties-testing": {
+      "tags": []
+    },
+    "novelties-ui": {
+      "tags": [
+        "scope:novelties",
+        "type:ui",
+        "platform:web"
+      ]
+    },
+    "novelties-utils": {
+      "tags": []
+    },
+    "novelty-types-data": {
+      "tags": []
+    },
+    "novelty-types-data-access": {
+      "tags": [
+        "data-access"
+      ]
+    },
+    "novelty-types-feature": {
+      "tags": [
+        "ui"
+      ]
+    },
+    "novelty-types-testing": {
+      "tags": []
+    },
+    "novelty-types-ui": {
+      "tags": [
+        "ui"
+      ]
+    },
+    "pascal": {
+      "tags": [
+        "scope:pascal",
+        "type:app",
+        "platform:web"
+      ]
+    },
+    "pascal-e2e": {
+      "tags": [
+        "scope:pascal",
+        "type:e2e",
+        "platform:web"
+      ]
+    },
+    "production-feature": {
+      "tags": [
+        "type:feature"
+      ]
+    },
+    "production-ui": {
+      "tags": [
+        "production",
+        "ui"
+      ]
+    },
+    "shared": {
+      "tags": [
+        "scope:shared",
+        "platform:web",
+        "platform:desktop"
+      ]
+    },
+    "time-clock-logs-data-access": {
+      "tags": [
+        "type:data-access"
+      ]
+    },
+    "time-clock-logs-feature": {
+      "tags": []
+    },
+    "time-clock-logs-testing": {
+      "tags": []
+    },
+    "time-clock-logs-ui": {
+      "tags": []
+    },
+    "time-clock-logs-util": {
+      "tags": []
+    },
+    "users-testing": {
+      "tags": []
+    },
+    "users-util": {
+      "tags": []
+    },
+    "work-shifts-data-access": {
+      "tags": [
+        "scope:work-shifts",
+        "type:data-access",
+        "platform:web"
+      ]
+    },
+    "work-shifts-feature": {
+      "tags": [
+        "scope:work-shifts",
+        "type:feature",
+        "platform:web"
+      ]
+    },
+    "work-shifts-testing": {
+      "tags": []
+    },
+    "work-shifts-ui": {
+      "tags": [
+        "scope:work-shifts",
+        "type:ui",
+        "platform:web"
+      ]
+    },
+    "work-shifts-util": {
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:web"
+      ]
+    }
   },
-  "affected": { "defaultBase": "master" }
+  "affected": {
+    "defaultBase": "master"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "2dd836ef-b6f2-44c2-bab1-8c08d7a4397c"
+  },
+  "defaultProject": "pascal",
+  "generators": {
+    "@nrwl/schematics:application": {
+      "style": "scss",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/schematics:library": {
+      "style": "scss",
+      "unitTestRunner": "jest",
+      "framework": "angular"
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  }
 }
