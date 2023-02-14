@@ -19,35 +19,34 @@ import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-empl
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatChipsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSelectModule,
-    FlexLayoutModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-  ],
-  declarations: [
-    NoveltyFormComponent,
-    NoveltiesSearchFormComponent,
-    CreateNoveltiesToEmployeesFormComponent,
-    ResumeByEmployeesAndNoveltyTypesTableComponent,
-    BalanceDialogComponent,
-  ],
-  exports: [
-    NoveltyFormComponent,
-    NoveltiesSearchFormComponent,
-    CreateNoveltiesToEmployeesFormComponent,
-    ResumeByEmployeesAndNoveltyTypesTableComponent,
-    BalanceDialogComponent,
-  ],
-  entryComponents: [BalanceDialogComponent]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        MatChipsModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatSelectModule,
+        FlexLayoutModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+    ],
+    declarations: [
+        NoveltyFormComponent,
+        NoveltiesSearchFormComponent,
+        CreateNoveltiesToEmployeesFormComponent,
+        ResumeByEmployeesAndNoveltyTypesTableComponent,
+        BalanceDialogComponent,
+    ],
+    exports: [
+        NoveltyFormComponent,
+        NoveltiesSearchFormComponent,
+        CreateNoveltiesToEmployeesFormComponent,
+        ResumeByEmployeesAndNoveltyTypesTableComponent,
+        BalanceDialogComponent,
+    ]
 })
 export class NoveltiesUiModule {}
