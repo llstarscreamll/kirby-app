@@ -10,16 +10,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/authentication/data-access/tsconfig.lib.json",
-              "libs/authentication/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -42,13 +32,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/authentication/utils/tsconfig.lib.json", "libs/authentication/utils/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -71,13 +54,6 @@
       "projectType": "library",
       "schematics": {},
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/authorization/data/tsconfig.lib.json", "libs/authorization/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/authorization/data/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -95,13 +71,6 @@
       "sourceRoot": "libs/authorization/ui/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/authorization/ui/tsconfig.lib.json", "libs/authorization/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/authorization/ui/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -124,13 +93,6 @@
       "projectType": "library",
       "schematics": {},
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/cost-centers/data/tsconfig.lib.json", "libs/cost-centers/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/cost-centers/data/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -148,16 +110,6 @@
       "sourceRoot": "libs/cost-centers/data-access/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/cost-centers/data-access/tsconfig.lib.json",
-              "libs/cost-centers/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/cost-centers/data-access/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -365,16 +317,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/employees/data-access/tsconfig.lib.json",
-              "libs/employees/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -397,13 +339,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/employees/feature/tsconfig.lib.json", "libs/employees/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -426,13 +361,6 @@
       "sourceRoot": "libs/employees/testing/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/employees/testing/tsconfig.lib.json", "libs/employees/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/employees/testing/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -451,13 +379,6 @@
       "sourceRoot": "libs/employees/ui/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/employees/ui/tsconfig.lib.json", "libs/employees/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/employees/ui/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -480,13 +401,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/employees/util/tsconfig.lib.json", "libs/employees/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -509,13 +423,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelties/data/tsconfig.lib.json", "libs/novelties/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -538,16 +445,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/novelties/data-access/tsconfig.lib.json",
-              "libs/novelties/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -570,13 +467,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelties/feature/tsconfig.lib.json", "libs/novelties/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -599,13 +489,6 @@
       "sourceRoot": "libs/novelties/testing/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelties/testing/tsconfig.lib.json", "libs/novelties/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/novelties/testing/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -624,13 +507,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelties/ui/tsconfig.lib.json", "libs/novelties/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -653,13 +529,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelties/utils/tsconfig.lib.json", "libs/novelties/utils/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -682,13 +551,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelty-types/data/tsconfig.lib.json", "libs/novelty-types/data/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -711,16 +573,6 @@
       "sourceRoot": "libs/novelty-types/data-access/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/novelty-types/data-access/tsconfig.lib.json",
-              "libs/novelty-types/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/data-access/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -742,16 +594,6 @@
       "sourceRoot": "libs/novelty-types/feature/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/novelty-types/feature/tsconfig.lib.json",
-              "libs/novelty-types/feature/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/feature/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -773,16 +615,6 @@
       "sourceRoot": "libs/novelty-types/testing/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/novelty-types/testing/tsconfig.lib.json",
-              "libs/novelty-types/testing/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/testing/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -801,13 +633,6 @@
       "sourceRoot": "libs/novelty-types/ui/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/novelty-types/ui/tsconfig.lib.json", "libs/novelty-types/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/novelty-types/ui/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -921,13 +746,6 @@
             "browserTarget": "pascal:build"
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/pascal/tsconfig.app.json", "apps/pascal/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -956,13 +774,6 @@
               "devServerTarget": "pascal:serve:production"
             }
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "apps/pascal-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     },
@@ -972,13 +783,6 @@
       "sourceRoot": "libs/production/feature/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/production/feature/tsconfig.lib.json", "libs/production/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/production/feature/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1023,13 +827,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/shared/tsconfig.lib.json", "libs/shared/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1052,16 +849,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/data-access/tsconfig.lib.json",
-              "libs/time-clock-logs/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1084,16 +871,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/feature/tsconfig.lib.json",
-              "libs/time-clock-logs/feature/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1116,16 +893,6 @@
       "sourceRoot": "libs/time-clock-logs/testing/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/time-clock-logs/testing/tsconfig.lib.json",
-              "libs/time-clock-logs/testing/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/time-clock-logs/testing/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1144,13 +911,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/time-clock-logs/ui/tsconfig.lib.json", "libs/time-clock-logs/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1173,13 +933,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/time-clock-logs/util/tsconfig.lib.json", "libs/time-clock-logs/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1201,13 +954,6 @@
       "sourceRoot": "libs/users/testing/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/users/testing/tsconfig.lib.json", "libs/users/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/users/testing/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1226,13 +972,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/users/util/tsconfig.lib.json", "libs/users/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1254,16 +993,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/work-shifts/data-access/tsconfig.lib.json",
-              "libs/work-shifts/data-access/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1286,13 +1015,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/work-shifts/feature/tsconfig.lib.json", "libs/work-shifts/feature/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1315,13 +1037,6 @@
       "sourceRoot": "libs/work-shifts/testing/src",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/work-shifts/testing/tsconfig.lib.json", "libs/work-shifts/testing/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/work-shifts/testing/**/*"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1340,13 +1055,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/work-shifts/ui/tsconfig.lib.json", "libs/work-shifts/ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
@@ -1369,13 +1077,6 @@
       "projectType": "library",
       "prefix": "kirby",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/work-shifts/util/tsconfig.lib.json", "libs/work-shifts/util/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
