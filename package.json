@@ -79,7 +79,7 @@
     "@ngrx/schematics": "12.4.0",
     "@ngrx/store-devtools": "12.4.0",
     "@nrwl/cli": "12.10.1",
-    "@nrwl/cypress": "12.10.1",
+    "@nrwl/cypress": "13.10.6",
     "@nrwl/eslint-plugin-nx": "12.10.1",
     "@nrwl/jest": "12.10.1",
     "@nrwl/linter": "12.10.1",
