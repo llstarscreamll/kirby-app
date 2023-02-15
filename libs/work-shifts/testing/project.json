@@ -1,0 +1,20 @@
+{
+  "name": "work-shifts-testing",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/work-shifts/testing/src",
+  "prefix": "kirby",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/work-shifts/testing/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/work-shifts/testing"]
+    }
+  },
+  "generators": {},
+  "tags": []
+}

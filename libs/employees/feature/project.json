@@ -1,0 +1,24 @@
+{
+  "name": "employees-feature",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/employees/feature/src",
+  "projectType": "library",
+  "prefix": "kirby",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/employees/feature/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/employees/feature"]
+    }
+  },
+  "generators": {
+    "@nrwl/schematics:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": ["scope:employees", "type:feature", "platform:web"]
+}

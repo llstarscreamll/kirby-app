@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
 import { DataPersistence } from '@nrwl/angular';
-import { hot, cold } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -32,6 +31,7 @@ import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 import { INVALID_DATA_API_ERROR, emptyPagination } from '@kirby/shared';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { hot, cold } from 'jasmine-marbles';
 
 describe('WorkShiftsEffects', () => {
   let actions$: Observable<any>;

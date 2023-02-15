@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
-import { readFirst, cold, getTestScheduler } from '@nrwl/angular/testing';
+import { readFirst } from '@nrwl/angular/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AuthFacade } from './auth.facade';
@@ -13,20 +13,10 @@ import { AuthService } from '../services/auth.service';
 import { SharedModule, ApiError } from '@kirby/shared';
 import { AUTH_TOKENS_MOCK, USER } from '@kirby/authentication/utils';
 import { CREDENTIALS, INCORRECT_CREDENTIALS_API_ERROR } from '../testing';
-import {
-  AuthState,
-  initialState,
-  authReducer,
-  AUTH_FEATURE_KEY
-} from './auth.reducer';
-import {
-  LoginWithCredentials,
-  Logout,
-  LoginSuccess,
-  GetAuthUserSuccess,
-  SignUp
-} from './auth.actions';
+import { AuthState, initialState, authReducer, AUTH_FEATURE_KEY } from './auth.reducer';
+import { LoginWithCredentials, Logout, LoginSuccess, GetAuthUserSuccess, SignUp } from './auth.actions';
 import { User } from '@kirby/users/util';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 
 interface TestSchema {
   [AUTH_FEATURE_KEY]: AuthState;
@@ -48,17 +38,17 @@ describe('AuthFacade', () => {
           SharedModule,
           HttpClientTestingModule,
           StoreModule.forFeature(AUTH_FEATURE_KEY, authReducer, {
-            initialState
+            initialState,
           }),
-          EffectsModule.forFeature([AuthEffects])
+          EffectsModule.forFeature([AuthEffects]),
         ],
         providers: [
           AuthService,
           AuthFacade,
           AuthEffects,
           { provide: 'environment', useValue: { api: 'http://my.api.com/' } },
-          { provide: Router, useValue: { navigate: url => true } }
-        ]
+          { provide: Router, useValue: { navigate: (url) => true } },
+        ],
       })
       class CustomFeatureModule {}
 
@@ -70,13 +60,13 @@ describe('AuthFacade', () => {
             {
               runtimeChecks: {
                 strictStateImmutability: true,
-                strictActionImmutability: true
-              }
+                strictActionImmutability: true,
+              },
             }
           ),
           EffectsModule.forRoot([]),
-          CustomFeatureModule
-        ]
+          CustomFeatureModule,
+        ],
       })
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
@@ -93,15 +83,11 @@ describe('AuthFacade', () => {
     /**
      * The initially generated facade::login() returns null
      */
-    it('should return auth tokens, user and status == loggedIn on login() success', async done => {
+    it('should return auth tokens, user and status == loggedIn on login() success', async (done) => {
       // api auth response ok
-      spyOn(authService, 'loginWithCredentials').and.returnValue(
-        cold('-a|', { a: authTokens })
-      );
+      spyOn(authService, 'loginWithCredentials').and.returnValue(cold('-a|', { a: authTokens }));
       // get current user api ok
-      spyOn(authService, 'getAuthUser').and.returnValue(
-        cold('--a|', { a: authUser })
-      );
+      spyOn(authService, 'getAuthUser').and.returnValue(cold('--a|', { a: authUser }));
 
       try {
         let tokens = await readFirst(facade.authTokens$);
@@ -114,9 +100,7 @@ describe('AuthFacade', () => {
 
         await facade.loginWithCredentials(credentials);
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new LoginWithCredentials(credentials)
-        );
+        expect(store.dispatch).toHaveBeenCalledWith(new LoginWithCredentials(credentials));
 
         getTestScheduler().flush();
 
@@ -134,11 +118,9 @@ describe('AuthFacade', () => {
       }
     });
 
-    it('should return auth errors when login throws error', async done => {
+    it('should return auth errors when login throws error', async (done) => {
       // api auth response ok
-      spyOn(authService, 'loginWithCredentials').and.returnValue(
-        cold('-#', {}, INCORRECT_CREDENTIALS_API_ERROR)
-      );
+      spyOn(authService, 'loginWithCredentials').and.returnValue(cold('-#', {}, INCORRECT_CREDENTIALS_API_ERROR));
 
       try {
         let errors = await readFirst(facade.errors$);
@@ -158,7 +140,7 @@ describe('AuthFacade', () => {
       }
     });
 
-    it('should dispatch logout action on logout()', async done => {
+    it('should dispatch logout action on logout()', async (done) => {
       // api logout response ok
       spyOn(authService, 'logout').and.returnValue(cold('-a', { a: ['ok'] }));
       store.dispatch(new LoginSuccess(AUTH_TOKENS_MOCK));
@@ -192,15 +174,11 @@ describe('AuthFacade', () => {
     });
 
     describe('signUp()', () => {
-      it('should set logged in state when sign up API responds ok', async done => {
+      it('should set logged in state when sign up API responds ok', async (done) => {
         // api sign up response ok
-        spyOn(authService, 'signUp').and.returnValue(
-          cold('-a', { a: authTokens })
-        );
+        spyOn(authService, 'signUp').and.returnValue(cold('-a', { a: authTokens }));
         // get current user api ok
-        spyOn(authService, 'getAuthUser').and.returnValue(
-          cold('--a|', { a: authUser })
-        );
+        spyOn(authService, 'getAuthUser').and.returnValue(cold('--a|', { a: authUser }));
 
         try {
           let tokens = await readFirst(facade.authTokens$);
@@ -218,7 +196,7 @@ describe('AuthFacade', () => {
             last_name: 'Doe',
             email: 'john@doe.com',
             password: 'john.123456',
-            password_confirmation: 'john.123456'
+            password_confirmation: 'john.123456',
           };
 
           await facade.signUp(newAccount);
@@ -245,15 +223,15 @@ describe('AuthFacade', () => {
         }
       });
 
-      it('should set errors in state when sign up API responds error', async done => {
+      it('should set errors in state when sign up API responds error', async (done) => {
         // api sign up response ok
         const apiError: ApiError = {
           message: 'Unprocessable entity',
           ok: false,
           error: {
             message: 'Invalida data!!',
-            errors: { email: ['email is invalid'] }
-          }
+            errors: { email: ['email is invalid'] },
+          },
         };
         spyOn(authService, 'signUp').and.returnValue(cold('-#', {}, apiError));
 
@@ -273,7 +251,7 @@ describe('AuthFacade', () => {
             last_name: 'Doe',
             email: 'john@doe.com',
             password: 'john.123456',
-            password_confirmation: 'john.123456'
+            password_confirmation: 'john.123456',
           };
 
           await facade.signUp(newAccount);

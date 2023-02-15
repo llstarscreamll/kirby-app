@@ -1,0 +1,23 @@
+{
+  "name": "users-util",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/users/util/src",
+  "projectType": "library",
+  "prefix": "kirby",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/users/util/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/users/util"]
+    }
+  },
+  "generators": {
+    "@nrwl/schematics:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": []
+}

@@ -3,7 +3,6 @@ import { NxModule } from '@nrwl/angular';
 import { Router } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { DataPersistence } from '@nrwl/angular';
-import { hot, cold } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -22,8 +21,9 @@ import {
   GetAuthUserSuccess,
   Logout,
   LogoutSuccess,
-  CheckIfUserIsAuthenticated
+  CheckIfUserIsAuthenticated,
 } from './auth.actions';
+import { hot, cold } from 'jasmine-marbles';
 
 describe('AuthEffects', () => {
   let expectedAction$: Observable<any>;
@@ -46,12 +46,12 @@ describe('AuthEffects', () => {
           {
             runtimeChecks: {
               strictStateImmutability: true,
-              strictActionImmutability: true
-            }
+              strictActionImmutability: true,
+            },
           }
         ),
         EffectsModule.forRoot([]),
-        HttpClientTestingModule
+        HttpClientTestingModule,
       ],
       providers: [
         AuthEffects,
@@ -59,8 +59,8 @@ describe('AuthEffects', () => {
         DataPersistence,
         provideMockActions(() => expectedAction$),
         { provide: 'environment', useValue: { api: 'http://my.api.com/' } },
-        { provide: Router, useValue: { navigate: url => true } }
-      ]
+        { provide: Router, useValue: { navigate: (url) => true } },
+      ],
     });
 
     effects = TestBed.get(AuthEffects);
@@ -93,11 +93,9 @@ describe('AuthEffects', () => {
       spyOn(authService, 'loginWithCredentials').and.returnValue(apiResponse);
 
       expectedAction$ = hot('-a-', {
-        a: new LoginWithCredentials(credentials)
+        a: new LoginWithCredentials(credentials),
       });
-      expect(effects.loginWithCredentials$).toBeObservable(
-        hot('--a', { a: new LoginError(wrongCredentialsError) })
-      );
+      expect(effects.loginWithCredentials$).toBeObservable(hot('--a', { a: new LoginError(wrongCredentialsError) }));
     });
   });
 
@@ -115,10 +113,7 @@ describe('AuthEffects', () => {
 
       expect(effects.loginSuccess$).toBeObservable(expected);
       expect(router.navigate).toHaveBeenCalledWith(['/welcome']);
-      expect(localStorageService.setItem).toHaveBeenCalledWith(
-        AUTH_FEATURE_KEY,
-        { tokens: authTokens }
-      );
+      expect(localStorageService.setItem).toHaveBeenCalledWith(AUTH_FEATURE_KEY, { tokens: authTokens });
     });
   });
 
@@ -156,9 +151,7 @@ describe('AuthEffects', () => {
       expectedAction$ = cold('-a', { a: action });
 
       expect(effects.logoutSuccess$).toBeObservable(expectedAction$);
-      expect(localStorageService.removeItem).toHaveBeenCalledWith(
-        AUTH_FEATURE_KEY
-      );
+      expect(localStorageService.removeItem).toHaveBeenCalledWith(AUTH_FEATURE_KEY);
       expect(router.navigate).toHaveBeenCalledWith(['/']);
     });
   });

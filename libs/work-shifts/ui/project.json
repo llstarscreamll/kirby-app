@@ -1,0 +1,24 @@
+{
+  "name": "work-shifts-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/work-shifts/ui/src",
+  "projectType": "library",
+  "prefix": "kirby",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/work-shifts/ui/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/work-shifts/ui"]
+    }
+  },
+  "generators": {
+    "@nrwl/schematics:component": {
+      "styleext": "scss"
+    }
+  },
+  "tags": ["scope:work-shifts", "type:ui", "platform:web"]
+}

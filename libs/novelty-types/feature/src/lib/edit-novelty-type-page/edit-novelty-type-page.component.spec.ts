@@ -1,11 +1,11 @@
 import { of } from 'rxjs';
-import { hot, cold } from '@nrwl/angular/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 
 import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 import { EditNoveltyTypePageComponent } from './edit-novelty-type-page.component';
+import { hot, cold } from 'jasmine-marbles';
 
 describe('EditNoveltyTypePageComponent', () => {
   let template: HTMLDivElement;
@@ -52,12 +52,8 @@ describe('EditNoveltyTypePageComponent', () => {
   it('should bin attributes from noveltyTypesFacade', () => {
     fixture.detectChanges();
 
-    expect(component.noveltyType$).toBeObservable(
-      hot('-a|', { a: noveltyType })
-    );
-    expect(component.errors$).toBeObservable(
-      cold('--e', { e: { message: 'WTF!!', ok: false } })
-    );
+    expect(component.noveltyType$).toBeObservable(hot('-a|', { a: noveltyType }));
+    expect(component.errors$).toBeObservable(cold('--e', { e: { message: 'WTF!!', ok: false } }));
   });
 
   it('should have certain elements', () => {
@@ -86,7 +82,7 @@ describe('EditNoveltyTypePageComponent', () => {
   });
 
   it('should clean selected novelty type on ngOnDestroy', () => {
-    spyOn(noveltyTypesFacade,'cleanSelected');
+    spyOn(noveltyTypesFacade, 'cleanSelected');
 
     component.ngOnDestroy();
 

@@ -1,0 +1,19 @@
+{
+  "name": "authorization-data",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/authorization/data/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/authorization/data/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/authorization/data"]
+    }
+  },
+  "tags": []
+}

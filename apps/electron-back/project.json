@@ -1,0 +1,71 @@
+{
+  "name": "electron-back",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/electron-back/src",
+  "projectType": "application",
+  "prefix": "electron-back",
+  "targets": {
+    "build": {
+      "executor": "nx-electron:build",
+      "options": {
+        "outputPath": "dist/apps/electron-back",
+        "main": "apps/electron-back/src/main.ts",
+        "tsConfig": "apps/electron-back/tsconfig.app.json",
+        "assets": ["apps/electron-back/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/electron-back/src/environments/environment.ts",
+              "with": "apps/electron-back/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx-electron:execute",
+      "options": {
+        "buildTarget": "electron-back:build"
+      }
+    },
+    "package": {
+      "executor": "nx-electron:package",
+      "options": {
+        "name": "electron-back",
+        "frontendProject": "electron-front",
+        "outputPath": "dist/packages",
+        "prepackageOnly": true
+      }
+    },
+    "make": {
+      "executor": "nx-electron:make",
+      "options": {
+        "name": "electron-back",
+        "frontendProject": "electron-front",
+        "outputPath": "dist/executables",
+        "buildDependenciesFromSource": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/electron-back/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/electron-back"],
+      "options": {
+        "jestConfig": "apps/electron-back/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

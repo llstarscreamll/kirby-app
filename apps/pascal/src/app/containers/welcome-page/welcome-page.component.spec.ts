@@ -10,11 +10,10 @@ describe('WelcomePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ...TESTING_IMPORTS
-      ],
+      imports: [...TESTING_IMPORTS],
       declarations: [WelcomePageComponent],
-      providers: [...TESTING_PROVIDERS]
+      providers: [...TESTING_PROVIDERS],
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 

@@ -1,235 +1,9 @@
 {
   "npmScope": "kirby",
-  "implicitDependencies": {
-    "angular.json": "*",
-    "package.json": "*",
-    "tslint.json": "*",
-    "nx.json": "*",
-    "tsconfig.base.json": "*"
-  },
-  "projects": {
-    "authentication-data-access": {
-      "tags": [
-        "scope:authentication",
-        "type:data-access",
-        "platform:web",
-        "platform:desktop"
-      ]
-    },
-    "authentication-utils": {
-      "tags": [
-        "scope:authentication",
-        "type:util",
-        "platform:web",
-        "platform:desktop"
-      ]
-    },
-    "authorization-data": {
-      "tags": []
-    },
-    "authorization-ui": {
-      "tags": []
-    },
-    "cost-centers-data": {
-      "tags": [
-        "type:data"
-      ]
-    },
-    "cost-centers-data-access": {
-      "tags": [
-        "type:data-access"
-      ]
-    },
-    "electron-back": {
-      "tags": []
-    },
-    "electron-front": {
-      "tags": []
-    },
-    "electron-front-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "electron-front"
-      ]
-    },
-    "employees-data-access": {
-      "tags": [
-        "scope:employees",
-        "type:data-access",
-        "platform:web"
-      ]
-    },
-    "employees-feature": {
-      "tags": [
-        "scope:employees",
-        "type:feature",
-        "platform:web"
-      ]
-    },
-    "employees-testing": {
-      "tags": []
-    },
-    "employees-ui": {
-      "tags": []
-    },
-    "employees-util": {
-      "tags": [
-        "scope:employees",
-        "type:util",
-        "platform:web"
-      ]
-    },
-    "novelties-data": {
-      "tags": []
-    },
-    "novelties-data-access": {
-      "tags": [
-        "scope:novelties",
-        "type:data-access",
-        "platform:web"
-      ]
-    },
-    "novelties-feature": {
-      "tags": [
-        "scope:novelties",
-        "type:feature",
-        "platform:web"
-      ]
-    },
-    "novelties-testing": {
-      "tags": []
-    },
-    "novelties-ui": {
-      "tags": [
-        "scope:novelties",
-        "type:ui",
-        "platform:web"
-      ]
-    },
-    "novelties-utils": {
-      "tags": []
-    },
-    "novelty-types-data": {
-      "tags": []
-    },
-    "novelty-types-data-access": {
-      "tags": [
-        "data-access"
-      ]
-    },
-    "novelty-types-feature": {
-      "tags": [
-        "ui"
-      ]
-    },
-    "novelty-types-testing": {
-      "tags": []
-    },
-    "novelty-types-ui": {
-      "tags": [
-        "ui"
-      ]
-    },
-    "pascal": {
-      "tags": [
-        "scope:pascal",
-        "type:app",
-        "platform:web"
-      ]
-    },
-    "pascal-e2e": {
-      "tags": [
-        "scope:pascal",
-        "type:e2e",
-        "platform:web"
-      ]
-    },
-    "production-feature": {
-      "tags": [
-        "type:feature"
-      ]
-    },
-    "production-ui": {
-      "tags": [
-        "production",
-        "ui"
-      ]
-    },
-    "shared": {
-      "tags": [
-        "scope:shared",
-        "platform:web",
-        "platform:desktop"
-      ]
-    },
-    "time-clock-logs-data-access": {
-      "tags": [
-        "type:data-access"
-      ]
-    },
-    "time-clock-logs-feature": {
-      "tags": []
-    },
-    "time-clock-logs-testing": {
-      "tags": []
-    },
-    "time-clock-logs-ui": {
-      "tags": []
-    },
-    "time-clock-logs-util": {
-      "tags": []
-    },
-    "users-testing": {
-      "tags": []
-    },
-    "users-util": {
-      "tags": []
-    },
-    "work-shifts-data-access": {
-      "tags": [
-        "scope:work-shifts",
-        "type:data-access",
-        "platform:web"
-      ]
-    },
-    "work-shifts-feature": {
-      "tags": [
-        "scope:work-shifts",
-        "type:feature",
-        "platform:web"
-      ]
-    },
-    "work-shifts-testing": {
-      "tags": []
-    },
-    "work-shifts-ui": {
-      "tags": [
-        "scope:work-shifts",
-        "type:ui",
-        "platform:web"
-      ]
-    },
-    "work-shifts-util": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:web"
-      ]
-    }
-  },
   "affected": {
     "defaultBase": "master"
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "cli": {
-    "defaultCollection": "@nrwl/angular",
     "analytics": "2dd836ef-b6f2-44c2-bab1-8c08d7a4397c"
   },
   "defaultProject": "pascal",
@@ -251,12 +25,43 @@
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
-      "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
       "style": "scss"
     }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "e2e": {
+      "inputs": ["default", "^production"]
+    },
+    "test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [
+      "{workspaceRoot}/angular.json",
+      "{workspaceRoot}/tslint.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/tsconfig.base.json"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s"
+    ]
   }
 }

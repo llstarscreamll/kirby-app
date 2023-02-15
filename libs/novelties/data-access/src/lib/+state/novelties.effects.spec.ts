@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { NxModule } from '@nrwl/angular';
 import { StoreModule } from '@ngrx/store';
-import { hot } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
 import { TestBed, waitForAsync } from '@angular/core/testing';
@@ -12,6 +11,7 @@ import { NoveltiesEffects } from './novelties.effects';
 import { SearchNovelties, SearchNoveltiesOk } from './novelties.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { hot } from 'jasmine-marbles';
 
 describe('NoveltiesEffects', () => {
   let actions: Observable<any>;
@@ -26,11 +26,11 @@ describe('NoveltiesEffects', () => {
           {
             runtimeChecks: {
               strictStateImmutability: true,
-              strictActionImmutability: true
-            }
+              strictActionImmutability: true,
+            },
           }
         ),
-        EffectsModule.forRoot([])
+        EffectsModule.forRoot([]),
       ],
       providers: [
         NoveltiesEffects,
@@ -38,8 +38,8 @@ describe('NoveltiesEffects', () => {
         provideMockActions(() => actions),
         { provide: MatSnackBar, useValue: {} },
         { provide: NoveltyService, useValue: { get: () => true } },
-        { provide: Router, useValue: { navigate: () => true } }
-      ]
+        { provide: Router, useValue: { navigate: () => true } },
+      ],
     });
 
     effects = TestBed.get(NoveltiesEffects);

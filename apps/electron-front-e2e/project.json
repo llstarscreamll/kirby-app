@@ -1,0 +1,30 @@
+{
+  "name": "electron-front-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/electron-front-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/electron-front-e2e/cypress.json",
+        "tsConfig": "apps/electron-front-e2e/tsconfig.e2e.json",
+        "devServerTarget": "electron-front:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "electron-front:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/electron-front-e2e/**/*.{js,ts}"]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["electron-front"]
+}

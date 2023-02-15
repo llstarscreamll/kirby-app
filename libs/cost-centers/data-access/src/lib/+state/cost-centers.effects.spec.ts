@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
-import { hot, cold } from '@nrwl/angular/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { NxModule, DataPersistence } from '@nrwl/angular';
 
@@ -10,6 +9,7 @@ import { emptyPagination } from '@kirby/shared';
 import { CostCentersEffects } from './cost-centers.effects';
 import { CostCentersService } from '../cost-centers.service';
 import { SearchCostCenters, SearchCostCentersOk } from './cost-centers.actions';
+import { hot, cold } from 'jasmine-marbles';
 
 describe('CostCentersEffects', () => {
   let actions: Observable<any>;
@@ -18,17 +18,13 @@ describe('CostCentersEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NxModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([])
-      ],
+      imports: [NxModule.forRoot(), StoreModule.forRoot({}), EffectsModule.forRoot([])],
       providers: [
         DataPersistence,
         CostCentersEffects,
-        { provide: CostCentersService, useValue: { search: q => q } },
-        provideMockActions(() => actions)
-      ]
+        { provide: CostCentersService, useValue: { search: (q) => q } },
+        provideMockActions(() => actions),
+      ],
     });
 
     effects = TestBed.get(CostCentersEffects);
@@ -41,15 +37,13 @@ describe('CostCentersEffects', () => {
       const serviceResponse = emptyPagination();
       spyOn(costCenterService, 'search').and.returnValue(
         cold('a|', {
-          a: serviceResponse
+          a: serviceResponse,
         })
       );
 
       actions = hot('-a-|', { a: new SearchCostCenters(query) });
 
-      expect(effects.searchCostCenters$).toBeObservable(
-        hot('-a-|', { a: new SearchCostCentersOk(serviceResponse) })
-      );
+      expect(effects.searchCostCenters$).toBeObservable(hot('-a-|', { a: new SearchCostCentersOk(serviceResponse) }));
       expect(costCenterService.search).toHaveBeenCalledWith(query);
     });
   });

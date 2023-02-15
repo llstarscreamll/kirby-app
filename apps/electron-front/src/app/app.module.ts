@@ -85,7 +85,11 @@ const routes: Route[] = [
     StoreRouterConnectingModule.forRoot({
       serializer: DefaultRouterStateSerializer,
     }),
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', useHash: true, relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabledBlocking',
+      useHash: true,
+      relativeLinkResolution: 'legacy',
+    }),
   ],
   declarations: [AppComponent, LandingPageComponent, WelcomePageComponent, SignInPageComponent, SignInFormComponent],
   providers: [

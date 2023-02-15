@@ -1,4 +1,3 @@
-import { hot } from '@nrwl/angular/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 
@@ -9,6 +8,7 @@ import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 import { NoveltyTypesPageComponent } from './novelty-types-page.component';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { of } from 'rxjs';
+import { hot } from 'jasmine-marbles';
 
 describe('NoveltyTypesPageComponent', () => {
   let template: HTMLDivElement;

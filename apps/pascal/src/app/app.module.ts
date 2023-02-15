@@ -73,7 +73,7 @@ export const routes: Route[] = [
     FlexLayoutModule,
     HttpClientModule,
     NxModule.forRoot(),
-    RouterModule.forRoot(routes, { initialNavigation: 'enabled', relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking', relativeLinkResolution: 'legacy' }),
     ReactiveFormsModule,
     CoreModule,
     SharedModule,

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store, select } from '@ngrx/store';
-import { cold, getTestScheduler } from '@nrwl/angular/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { WorkShiftsFacade } from './work-shifts.facade';
@@ -12,12 +11,7 @@ import { WorkShiftsEffects } from './work-shifts.effects';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
-import {
-  WorkShiftsState,
-  initialState,
-  workShiftsReducer,
-  WORK_SHIFTS_FEATURE_KEY,
-} from './work-shifts.reducer';
+import { WorkShiftsState, initialState, workShiftsReducer, WORK_SHIFTS_FEATURE_KEY } from './work-shifts.reducer';
 import {
   GetWorkShift,
   UpdateWorkShift,
@@ -27,6 +21,7 @@ import {
 } from './work-shifts.actions';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 
 interface TestSchema {
   workShifts: WorkShiftsState;
@@ -100,9 +95,7 @@ describe('WorkShiftsFacade', () => {
         await facade.search(query);
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new SearchWorkShifts(query)
-        );
+        expect(store.dispatch).toHaveBeenCalledWith(new SearchWorkShifts(query));
 
         done();
       } catch (err) {
@@ -115,9 +108,7 @@ describe('WorkShiftsFacade', () => {
         await facade.create(entity);
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new CreateWorkShift(entity)
-        );
+        expect(store.dispatch).toHaveBeenCalledWith(new CreateWorkShift(entity));
 
         done();
       } catch (err) {
@@ -130,9 +121,7 @@ describe('WorkShiftsFacade', () => {
         await facade.get(entity.id);
         getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new GetWorkShift(entity.id)
-        );
+        expect(store.dispatch).toHaveBeenCalledWith(new GetWorkShift(entity.id));
 
         done();
       } catch (err) {

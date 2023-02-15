@@ -25,31 +25,30 @@ describe('SignUpFormComponent', () => {
     password_confirmation: 'tony.123',
   };
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [ReactiveFormsModule, NoopAnimationsModule],
-        declarations: [SignUpFormComponent],
-        schemas: [NO_ERRORS_SCHEMA],
-        providers: [...TESTING_PROVIDERS],
-      })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(SignUpFormComponent);
-          component = fixture.componentInstance;
-
-          html = fixture.nativeElement;
-          submitBtn = html.querySelector('form button[type=submit]');
-          firstNameInput = html.querySelector('form input[formControlName="first_name"]');
-          lastNameInput = html.querySelector('form input[formControlName="last_name"]');
-          emailInput = html.querySelector('form input[formControlName="email"]');
-          passwordInput = html.querySelector('form input[formControlName="password"]');
-          passwordConfirmationInput = html.querySelector('form input[formControlName="password_confirmation"]');
-
-          fixture.detectChanges();
-        });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
+      declarations: [SignUpFormComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [...TESTING_PROVIDERS],
+      teardown: { destroyAfterEach: false },
     })
-  );
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(SignUpFormComponent);
+        component = fixture.componentInstance;
+
+        html = fixture.nativeElement;
+        submitBtn = html.querySelector('form button[type=submit]');
+        firstNameInput = html.querySelector('form input[formControlName="first_name"]');
+        lastNameInput = html.querySelector('form input[formControlName="last_name"]');
+        emailInput = html.querySelector('form input[formControlName="email"]');
+        passwordInput = html.querySelector('form input[formControlName="password"]');
+        passwordConfirmationInput = html.querySelector('form input[formControlName="password_confirmation"]');
+
+        fixture.detectChanges();
+      });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

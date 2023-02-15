@@ -1,5 +1,4 @@
 import { Observable, of } from 'rxjs';
-import { hot } from '@nrwl/angular/testing';
 import { TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NxModule, DataPersistence } from '@nrwl/angular';
@@ -11,6 +10,7 @@ import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { hot } from 'jasmine-marbles';
 
 describe('ProductionEffects', () => {
   let actions: Observable<any>;

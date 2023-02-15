@@ -15,7 +15,7 @@ describe('SignUpPageComponent', () => {
     last_name: 'Stark',
     email: 'tony@stark.com',
     password: 'tony.123',
-    password_confirmation: 'tony.123'
+    password_confirmation: 'tony.123',
   };
 
   beforeEach(waitForAsync(() => {
@@ -23,7 +23,8 @@ describe('SignUpPageComponent', () => {
       imports: [...TESTING_IMPORTS],
       declarations: [SignUpPageComponent],
       providers: [...TESTING_PROVIDERS],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignUpPageComponent);
@@ -50,11 +51,7 @@ describe('SignUpPageComponent', () => {
   });
 
   it('should have sign-up-component on template', () => {
-    expect(
-      fixture.debugElement.nativeElement.querySelector(
-        'pascal-auth-sign-up-form'
-      )
-    ).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('pascal-auth-sign-up-form')).toBeTruthy();
   });
 
   it('should dispatch sign up action on signUp method', () => {

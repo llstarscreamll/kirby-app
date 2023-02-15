@@ -1,0 +1,111 @@
+{
+  "name": "pascal",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pascal/src",
+  "projectType": "application",
+  "prefix": "pascal",
+  "generators": {
+    "@nrwl/schematics:component": {
+      "style": "scss"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/pascal",
+        "index": "apps/pascal/src/index.html",
+        "main": "apps/pascal/src/main.ts",
+        "polyfills": "apps/pascal/src/polyfills.ts",
+        "tsConfig": "apps/pascal/tsconfig.app.json",
+        "assets": ["apps/pascal/src/favicon.ico", "apps/pascal/src/assets"],
+        "styles": ["apps/pascal/src/styles.scss"],
+        "scripts": [],
+        "aot": false,
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/pascal/src/environments/environment.ts",
+              "with": "apps/pascal/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        },
+        "staging": {
+          "fileReplacements": [
+            {
+              "replace": "apps/pascal/src/environments/environment.ts",
+              "with": "apps/pascal/src/environments/environment.staging.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": ""
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "pascal:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "pascal:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "pascal:build"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/pascal/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/pascal/"]
+    }
+  },
+  "tags": ["scope:pascal", "type:app", "platform:web"]
+}

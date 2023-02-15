@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
-import { getTestScheduler } from '@nrwl/angular/testing';
 
 import { TimeClockLogsFacade } from './time-clock-logs.facade';
 import { SearchTimeClockLogs } from './time-clock-logs.actions';
@@ -14,8 +13,9 @@ import {
   TimeClockLogsState,
   initialState,
   timeClockLogsReducer,
-  TIME_CLOCK_LOGS_FEATURE_KEY
+  TIME_CLOCK_LOGS_FEATURE_KEY,
 } from './time-clock-logs.reducer';
+import { getTestScheduler } from 'jasmine-marbles';
 
 interface TestSchema {
   timeClockLogs: TimeClockLogsState;
@@ -31,7 +31,7 @@ describe('TimeClockLogsFacade', () => {
     beforeEach(() => {
       @NgModule({
         imports: [],
-        providers: [TimeClockLogsFacade]
+        providers: [TimeClockLogsFacade],
       })
       class CustomFeatureModule {}
 
@@ -41,9 +41,9 @@ describe('TimeClockLogsFacade', () => {
           { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
           {
             provide: Store,
-            useValue: { dispatch: () => true, pipe: () => true }
-          }
-        ]
+            useValue: { dispatch: () => true, pipe: () => true },
+          },
+        ],
       })
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
@@ -59,9 +59,7 @@ describe('TimeClockLogsFacade', () => {
       facade.search(query);
       getTestScheduler().flush();
 
-      expect(store.dispatch).toHaveBeenCalledWith(
-        new SearchTimeClockLogs(query)
-      );
+      expect(store.dispatch).toHaveBeenCalledWith(new SearchTimeClockLogs(query));
     });
   });
 });

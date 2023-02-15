@@ -20,13 +20,11 @@ describe('SignInFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        NoopAnimationsModule,
-      ],
+      imports: [ReactiveFormsModule, NoopAnimationsModule],
       declarations: [SignInFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [...TESTING_PROVIDERS],
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 
@@ -95,7 +93,7 @@ describe('SignInFormComponent', () => {
     component.errors = {
       message: 'Unprocessable entity',
       ok: false,
-      error: { message: 'Wrong data!!', errors: { email: ['email is invalid'] } }
+      error: { message: 'Wrong data!!', errors: { email: ['email is invalid'] } },
     };
 
     fixture.detectChanges();

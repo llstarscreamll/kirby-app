@@ -26,10 +26,11 @@ describe('SidebarLayoutComponent', () => {
         MatIconModule,
         MatListModule,
         MatSidenavModule,
-        MatToolbarModule
+        MatToolbarModule,
       ],
       providers: [...TESTING_PROVIDERS],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 
