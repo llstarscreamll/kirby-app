@@ -2,9 +2,8 @@ import { from } from 'rxjs';
 import { defer } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Effect, ofType } from '@ngrx/effects';
-import { DataPersistence } from '@nrwl/angular';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { AuthService } from '../services/auth.service';
 import { LocalStorageService } from '@kirby/shared';
@@ -22,97 +21,109 @@ import {
   SignUpError,
   CheckIfUserIsAuthenticated,
 } from './auth.actions';
+import { optimisticUpdate, pessimisticUpdate } from '@nrwl/angular';
 
 @Injectable()
 export class AuthEffects {
-  @Effect()
-  signUp$ = this.dataPersistence.pessimisticUpdate(AuthActionTypes.SignUp, {
-    run: (action: SignUp) => {
-      return this.authService.signUp(action.payload).pipe(map((tokens) => new SignUpSuccess(tokens)));
-    },
-    onError: (action: SignUp, error) => {
-      return new SignUpError(error);
-    },
-  });
-
-  @Effect()
-  signUpSuccess$ = this.dataPersistence.actions.pipe(
-    ofType(AuthActionTypes.SignUpSuccess),
-    map((action: SignUpSuccess) => new LoginSuccess(action.payload))
+  signUp$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.SignUp),
+      pessimisticUpdate({
+        run: (action: SignUp) =>
+          this.authService.signUp(action.payload).pipe(map((tokens) => new SignUpSuccess(tokens))),
+        onError: (action: SignUp, error) => new SignUpError(error),
+      })
+    )
   );
 
-  @Effect()
-  loginWithCredentials$ = this.dataPersistence.pessimisticUpdate(AuthActionTypes.LoginWithCredentials, {
-    run: (action: LoginWithCredentials) => {
-      return this.authService.loginWithCredentials(action.payload).pipe(map((tokens) => new LoginSuccess(tokens)));
-    },
-    onError: (action: LoginWithCredentials, error) => {
-      return new LoginError(error);
-    },
-  });
+  signUpSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.SignUpSuccess),
+      map((action: SignUpSuccess) => new LoginSuccess(action.payload))
+    )
+  );
 
-  @Effect()
-  loginSuccess$ = this.dataPersistence.actions.pipe(
-    ofType(AuthActionTypes.LoginSuccess),
-    tap((action: LoginSuccess) => this.localStorage.setItem(AUTH_FEATURE_KEY, { tokens: action.payload })),
-    switchMap((action: LoginSuccess) =>
-      this.authService.getAuthUser().pipe(
-        map((user) => new GetAuthUserSuccess(user)),
-        tap((user) => this.router.navigate(['/welcome']))
+  loginWithCredentials$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.LoginWithCredentials),
+      pessimisticUpdate({
+        run: (action: LoginWithCredentials) =>
+          this.authService.loginWithCredentials(action.payload).pipe(map((tokens) => new LoginSuccess(tokens))),
+        onError: (action: LoginWithCredentials, error) => new LoginError(error),
+      })
+    )
+  );
+
+  loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.LoginSuccess),
+      tap((action: LoginSuccess) => this.localStorage.setItem(AUTH_FEATURE_KEY, { tokens: action.payload })),
+      switchMap((action: LoginSuccess) =>
+        this.authService.getAuthUser().pipe(
+          map((user) => new GetAuthUserSuccess(user)),
+          tap((user) => this.router.navigate(['/welcome']))
+        )
       )
     )
   );
 
-  @Effect({ dispatch: false })
-  getUserSuccess$ = this.dataPersistence.optimisticUpdate(AuthActionTypes.GetAuthUserSuccess, {
-    run: (action: GetAuthUserSuccess, state: AuthPartialState) => {
-      return this.localStorage.setItem(AUTH_FEATURE_KEY, {
-        ...state[AUTH_FEATURE_KEY],
-        user: action.payload,
-      });
-    },
-    undoAction: (action: GetAuthUserSuccess, state: AuthPartialState) => {
-      return null;
-    },
-  });
-
-  @Effect()
-  logout$ = this.dataPersistence.optimisticUpdate(AuthActionTypes.Logout, {
-    run: (action: Logout, state: AuthPartialState) => {
-      return this.authService.logout().pipe(map(() => new LogoutSuccess()));
-    },
-    undoAction: (action: Logout, state: AuthPartialState) => {
-      return new LogoutSuccess();
-    },
-  });
-
-  @Effect({ dispatch: false })
-  logoutSuccess$ = this.dataPersistence.actions.pipe(
-    ofType(AuthActionTypes.LogoutSuccess),
-    tap(() => this.localStorage.removeItem(AUTH_FEATURE_KEY)),
-    tap(() => this.router.navigate(['/']))
+  getUserSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.GetAuthUserSuccess),
+        optimisticUpdate({
+          run: (action: GetAuthUserSuccess, state: AuthPartialState) => {
+            return this.localStorage.setItem(AUTH_FEATURE_KEY, {
+              ...state[AUTH_FEATURE_KEY],
+              user: action.payload,
+            });
+          },
+          undoAction: (action: GetAuthUserSuccess, state: AuthPartialState) => {
+            return null;
+          },
+        })
+      ),
+    { dispatch: false }
   );
 
-  @Effect()
-  checkIfAuthenticated$ = this.dataPersistence.optimisticUpdate(AuthActionTypes.CheckIfAuthenticated, {
-    run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
-      // check user is authentication on server only if auth tokens exists
-      return state[AUTH_FEATURE_KEY].tokens
-        ? this.authService.getAuthUser().pipe(map((user) => new GetAuthUserSuccess(user)))
-        : null;
-    },
-    undoAction: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => {
-      return new LogoutSuccess();
-    },
-  });
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.Logout),
+      optimisticUpdate({
+        run: (action: Logout, state: AuthPartialState) =>
+          this.authService.logout().pipe(map(() => new LogoutSuccess())),
+        undoAction: (action: Logout, state: AuthPartialState) => new LogoutSuccess(),
+      })
+    )
+  );
 
-  @Effect()
-  init$ = defer(() => from([new CheckIfUserIsAuthenticated()]));
+  logoutSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.LogoutSuccess),
+        tap(() => this.localStorage.removeItem(AUTH_FEATURE_KEY)),
+        tap(() => this.router.navigate(['/']))
+      ),
+    { dispatch: false }
+  );
+
+  checkIfAuthenticated$ = this.actions$.pipe(
+    ofType(AuthActionTypes.CheckIfAuthenticated),
+    optimisticUpdate({
+      run: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) =>
+        state[AUTH_FEATURE_KEY].tokens
+          ? this.authService.getAuthUser().pipe(map((user) => new GetAuthUserSuccess(user)))
+          : null,
+      undoAction: (action: CheckIfUserIsAuthenticated, state: AuthPartialState) => new LogoutSuccess(),
+    })
+  );
+
+  init$ = createEffect(() => defer(() => from([new CheckIfUserIsAuthenticated()])));
 
   constructor(
     private router: Router,
+    private actions$: Actions,
     private authService: AuthService,
-    private localStorage: LocalStorageService,
-    private dataPersistence: DataPersistence<AuthPartialState>
+    private localStorage: LocalStorageService
   ) {}
 }

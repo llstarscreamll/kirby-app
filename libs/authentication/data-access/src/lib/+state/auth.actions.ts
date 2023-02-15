@@ -19,7 +19,6 @@ export enum AuthActionTypes {
 
 export class CheckIfUserIsAuthenticated {
   public readonly type = AuthActionTypes.CheckIfAuthenticated;
-  constructor() { }
 }
 export class SignUp {
   public readonly type = AuthActionTypes.SignUp;
@@ -53,7 +52,6 @@ export class LoginError implements Action {
 
 export class GetAuthUser implements Action {
   public readonly type = AuthActionTypes.GetAuthUser;
-  constructor() { }
 }
 
 export class GetAuthUserSuccess implements Action {
@@ -68,17 +66,14 @@ export class GetAuthUserError implements Action {
 
 export class Logout implements Action {
   public readonly type = AuthActionTypes.Logout;
-  constructor() { }
 }
 
 export class LogoutSuccess implements Action {
   public readonly type = AuthActionTypes.LogoutSuccess;
-  constructor() { }
 }
 
 export class CleanErrors implements Action {
   public readonly type = AuthActionTypes.CleanErrors;
-  constructor() { }
 }
 
 export type AuthAction = CheckIfUserIsAuthenticated | SignUp | SignUpSuccess
