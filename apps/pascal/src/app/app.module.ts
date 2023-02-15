@@ -3,7 +3,6 @@ import {
   MatFormFieldDefaultOptions,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
-import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,12 +23,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CoreModule } from './core';
-import { AppComponent } from './app.component';
 import { SharedModule } from '@kirby/shared';
-import { environment } from '../environments/environment';
 import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
+
+import { CoreModule } from './core';
+import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 import { SignUpFormComponent } from './components/sign-up-form/sign-up-form.component';
 import { SignUpPageComponent } from './containers/sign-up-page/sign-up-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
@@ -72,14 +72,12 @@ export const routes: Route[] = [
     BrowserModule,
     FlexLayoutModule,
     HttpClientModule,
-    NxModule.forRoot(),
-    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking', relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     ReactiveFormsModule,
     CoreModule,
     SharedModule,
     AuthorizationUiModule,
     AuthenticationDataAccessModule,
-
     BrowserAnimationsModule,
     MatMomentDateModule,
     LayoutModule,
