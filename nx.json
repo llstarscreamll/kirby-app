@@ -1,12 +1,22 @@
 {
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "kirby",
+  "defaultProject": "pascal",
   "affected": {
     "defaultBase": "master"
   },
   "cli": {
-    "analytics": "2dd836ef-b6f2-44c2-bab1-8c08d7a4397c"
+    "analytics": "2dd836ef-b6f2-44c2-bab1-8c08d7a4397c",
+    "packageManager": "yarn"
   },
-  "defaultProject": "pascal",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
   "generators": {
     "@nrwl/schematics:application": {
       "style": "scss",
@@ -32,7 +42,6 @@
       "style": "scss"
     }
   },
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
