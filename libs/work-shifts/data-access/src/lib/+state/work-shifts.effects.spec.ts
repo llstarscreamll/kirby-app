@@ -1,11 +1,16 @@
 import { Observable } from 'rxjs';
-import { NxModule } from '@nrwl/angular';
+import { Router } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { DataPersistence } from '@nrwl/angular';
+import { hot, cold } from 'jasmine-marbles';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { createWorkShift } from '@kirby/work-shifts/testing';
+import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
+import { INVALID_DATA_API_ERROR, emptyPagination } from '@kirby/shared';
 
 import {
   SearchWorkShifts,
@@ -26,12 +31,6 @@ import {
 } from './work-shifts.actions';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
-import { createWorkShift } from '@kirby/work-shifts/testing';
-import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
-import { INVALID_DATA_API_ERROR, emptyPagination } from '@kirby/shared';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { hot, cold } from 'jasmine-marbles';
 
 describe('WorkShiftsEffects', () => {
   let actions$: Observable<any>;
@@ -44,7 +43,6 @@ describe('WorkShiftsEffects', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        NxModule.forRoot(),
         StoreModule.forRoot(
           {},
           {
@@ -59,7 +57,6 @@ describe('WorkShiftsEffects', () => {
       ],
       providers: [
         WorkShiftsEffects,
-        DataPersistence,
         WorkShiftService,
         provideMockActions(() => actions$),
         { provide: 'environment', useValue: { api: 'https://my.api.com/' } },
@@ -80,7 +77,7 @@ describe('WorkShiftsEffects', () => {
         data: [createWorkShift('1'), createWorkShift('2')],
       };
       const apiResponse = cold('-a', { a: data });
-      spyOn(workShiftService, 'search').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'search').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new SearchWorkShifts(query) });
 
@@ -91,7 +88,7 @@ describe('WorkShiftsEffects', () => {
     it('error api response should return SearchWorkShiftsError action', () => {
       const query = { search: 'foo' };
       const apiResponse = cold('-#', { a: {} }, apiError);
-      spyOn(workShiftService, 'search').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'search').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new SearchWorkShifts({ search: 'foo' }) });
 
@@ -103,7 +100,7 @@ describe('WorkShiftsEffects', () => {
   describe('createWorkShift$', () => {
     it('ok api response should return CreateWorkShiftOk action', () => {
       const apiResponse = cold('-a', { a: entity });
-      spyOn(workShiftService, 'create').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'create').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new CreateWorkShift(entity) });
 
@@ -113,7 +110,7 @@ describe('WorkShiftsEffects', () => {
 
     it('error api response should return CreateWorkShiftError action', () => {
       const apiResponse = cold('-#', { a: {} }, apiError);
-      spyOn(workShiftService, 'create').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'create').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new CreateWorkShift(entity) });
 
@@ -125,7 +122,7 @@ describe('WorkShiftsEffects', () => {
   describe('getWorkShift$', () => {
     it('ok api response should return GetWorkShiftOk action', () => {
       const apiResponse = cold('-a', { a: entity });
-      spyOn(workShiftService, 'get').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'get').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new GetWorkShift(entity.id) });
 
@@ -135,7 +132,7 @@ describe('WorkShiftsEffects', () => {
 
     it('error api response should return CreateWorkShiftError action', () => {
       const apiResponse = cold('-#', {}, apiError);
-      spyOn(workShiftService, 'get').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'get').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new GetWorkShift(entity.id) });
 
@@ -147,7 +144,7 @@ describe('WorkShiftsEffects', () => {
   describe('updateWorkShift$', () => {
     it('ok api response should return UpdateWorkShiftOk action', () => {
       const apiResponse = cold('-a', { a: entity });
-      spyOn(workShiftService, 'update').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'update').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', {
         a: new UpdateWorkShift({ id: entity.id, data: entity }),
@@ -159,7 +156,7 @@ describe('WorkShiftsEffects', () => {
 
     it('error api response should return UpdateWorkShiftError action', () => {
       const apiResponse = cold('-#', {}, apiError);
-      spyOn(workShiftService, 'update').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'update').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', {
         a: new UpdateWorkShift({ id: entity.id, data: entity }),
@@ -173,7 +170,7 @@ describe('WorkShiftsEffects', () => {
   describe('deleteWorkShift$', () => {
     it('ok api response should return DeleteWorkShiftOk action', () => {
       const apiResponse = cold('-a', { a: entity });
-      spyOn(workShiftService, 'delete').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'delete').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new DeleteWorkShift(entity.id) });
 
@@ -183,7 +180,7 @@ describe('WorkShiftsEffects', () => {
 
     it('error api response should return DeleteWorkShiftError action', () => {
       const apiResponse = cold('-#', {}, apiError);
-      spyOn(workShiftService, 'delete').and.returnValue(apiResponse);
+      jest.spyOn(workShiftService, 'delete').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new DeleteWorkShift(entity.id) });
 
