@@ -9,7 +9,6 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { createWorkShift } from '@kirby/work-shifts/testing';
-import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 import { INVALID_DATA_API_ERROR, emptyPagination } from '@kirby/shared';
 
 import {
@@ -37,7 +36,6 @@ describe('WorkShiftsEffects', () => {
   let effects: WorkShiftsEffects;
   let workShiftService: WorkShiftService;
   const apiError = INVALID_DATA_API_ERROR;
-  const authTokens = AUTH_TOKENS_MOCK;
   const entity = createWorkShift('1');
 
   beforeEach(() => {
