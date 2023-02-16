@@ -1,15 +1,15 @@
 import { Observable } from 'rxjs';
 import { StoreModule } from '@ngrx/store';
+import { hot, cold } from 'jasmine-marbles';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { NxModule, DataPersistence } from '@nrwl/angular';
 
 import { emptyPagination } from '@kirby/shared';
+
 import { CostCentersEffects } from './cost-centers.effects';
 import { CostCentersService } from '../cost-centers.service';
 import { SearchCostCenters, SearchCostCentersOk } from './cost-centers.actions';
-import { hot, cold } from 'jasmine-marbles';
 
 describe('CostCentersEffects', () => {
   let actions: Observable<any>;
@@ -18,9 +18,8 @@ describe('CostCentersEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NxModule.forRoot(), StoreModule.forRoot({}), EffectsModule.forRoot([])],
+      imports: [StoreModule.forRoot({}), EffectsModule.forRoot([])],
       providers: [
-        DataPersistence,
         CostCentersEffects,
         { provide: CostCentersService, useValue: { search: (q) => q } },
         provideMockActions(() => actions),
@@ -35,7 +34,7 @@ describe('CostCentersEffects', () => {
     it('should work', () => {
       const query = { search: 'foo' };
       const serviceResponse = emptyPagination();
-     jest.spyOn(costCenterService, 'search').mockReturnValue(
+      jest.spyOn(costCenterService, 'search').mockReturnValue(
         cold('a|', {
           a: serviceResponse,
         })
