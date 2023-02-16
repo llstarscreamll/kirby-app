@@ -73,7 +73,7 @@ describe('NoveltyTypesEffects', () => {
         ...emptyPagination(),
         data: [createNoveltyType('NT1')],
       };
-      spyOn(noveltyTypeService, 'search').and.returnValue(cold('a|', { a: expectedResult }));
+     jest.spyOn(noveltyTypeService, 'search').mockReturnValue(cold('a|', { a: expectedResult }));
 
       actions = hot('-a-|', { a: new SearchNoveltyTypes(query) });
 
@@ -83,7 +83,7 @@ describe('NoveltyTypesEffects', () => {
     it('should return SearchNoveltyTypesError on error service response', () => {
       const query = { search: 'foo' };
       const expectedError = { message: 'Crap!!', ok: false };
-      spyOn(noveltyTypeService, 'search').and.returnValue(cold('#', null, expectedError));
+     jest.spyOn(noveltyTypeService, 'search').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', { a: new SearchNoveltyTypes(query) });
 
@@ -99,7 +99,7 @@ describe('NoveltyTypesEffects', () => {
       const noveltyTypeId = noveltyType.id;
       const expectedResult = { data: noveltyType };
 
-      spyOn(noveltyTypeService, 'get').and.returnValue(cold('a|', { a: expectedResult }));
+     jest.spyOn(noveltyTypeService, 'get').mockReturnValue(cold('a|', { a: expectedResult }));
 
       actions = hot('-a-|', {
         a: new GetNoveltyType(noveltyTypeId),
@@ -113,7 +113,7 @@ describe('NoveltyTypesEffects', () => {
       const noveltyTypeId = createNoveltyType().id;
       const expectedError = { message: 'Crap!!', ok: false };
 
-      spyOn(noveltyTypeService, 'get').and.returnValue(cold('#', null, expectedError));
+     jest.spyOn(noveltyTypeService, 'get').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', {
         a: new GetNoveltyType(noveltyTypeId),
@@ -129,9 +129,9 @@ describe('NoveltyTypesEffects', () => {
       const expectedResult = { data: { ...data } };
       delete data.id;
 
-      spyOn(noveltyTypeService, 'create').and.returnValue(cold('a|', { a: expectedResult }));
-      spyOn(snackBar, 'open');
-      spyOn(router, 'navigate');
+     jest.spyOn(noveltyTypeService, 'create').mockReturnValue(cold('a|', { a: expectedResult }));
+     jest.spyOn(snackBar, 'open');
+     jest.spyOn(router, 'navigate');
 
       actions = hot('-a-|', { a: new CreateNoveltyType(data) });
 
@@ -148,7 +148,7 @@ describe('NoveltyTypesEffects', () => {
       delete data.id;
       const expectedError = { message: 'Crap!!', ok: false };
 
-      spyOn(noveltyTypeService, 'create').and.returnValue(cold('#', null, expectedError));
+     jest.spyOn(noveltyTypeService, 'create').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', { a: new CreateNoveltyType(data) });
 
@@ -163,10 +163,10 @@ describe('NoveltyTypesEffects', () => {
       const expectedResult = { data: { ...noveltyType } };
       delete noveltyType.id;
 
-      spyOn(noveltyTypeService, 'update').and.returnValue(cold('a|', { a: expectedResult }));
+     jest.spyOn(noveltyTypeService, 'update').mockReturnValue(cold('a|', { a: expectedResult }));
 
-      spyOn(snackBar, 'open');
-      spyOn(router, 'navigate');
+     jest.spyOn(snackBar, 'open');
+     jest.spyOn(router, 'navigate');
 
       actions = hot('-a-|', {
         a: new UpdateNoveltyType({ id: noveltyTYpeId, data: noveltyType }),
@@ -186,7 +186,7 @@ describe('NoveltyTypesEffects', () => {
       delete data.id;
       const expectedError = { message: 'Crap!!', ok: false };
 
-      spyOn(noveltyTypeService, 'update').and.returnValue(cold('#', null, expectedError));
+     jest.spyOn(noveltyTypeService, 'update').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', {
         a: new UpdateNoveltyType({ id: noveltyTypeId, data }),
@@ -201,8 +201,8 @@ describe('NoveltyTypesEffects', () => {
       const noveltyTypeId = 'AAA';
       const expectedResult = { data: 'ok' };
 
-      spyOn(noveltyTypeService, 'trash').and.returnValue(cold('a|', { a: expectedResult }));
-      spyOn(snackBar, 'open');
+     jest.spyOn(noveltyTypeService, 'trash').mockReturnValue(cold('a|', { a: expectedResult }));
+     jest.spyOn(snackBar, 'open');
 
       actions = hot('-a-|', {
         a: new TrashNoveltyType(noveltyTypeId),
@@ -219,7 +219,7 @@ describe('NoveltyTypesEffects', () => {
       const noveltyTypeId = 'AAA';
       const expectedError = { message: 'Crap!!', ok: false };
 
-      spyOn(noveltyTypeService, 'trash').and.returnValue(cold('#', null, expectedError));
+     jest.spyOn(noveltyTypeService, 'trash').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', {
         a: new TrashNoveltyType(noveltyTypeId),

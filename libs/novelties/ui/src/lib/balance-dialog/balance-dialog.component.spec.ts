@@ -133,7 +133,7 @@ describe('BalanceDialogComponent', () => {
     component.form.patchValue({ comment: 'foo' });
 
     expect(component.form.valid).toBe(true);
-    spyOn(dialogReference, 'close');
+   jest.spyOn(dialogReference, 'close');
     fixture.detectChanges();
 
     const form: HTMLFormElement = template.querySelector('form');

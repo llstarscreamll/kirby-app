@@ -61,7 +61,7 @@ describe('NoveltiesSearchFormComponent', () => {
       component.simpleSearchForm.patchValue({ search: 'foo' });
       fixture.detectChanges();
 
-      spyOn(component.submitted, 'emit');
+     jest.spyOn(component.submitted, 'emit');
 
       const form: HTMLFormElement = template.querySelector(formSelector);
       form.submit();
@@ -110,7 +110,7 @@ describe('NoveltiesSearchFormComponent', () => {
     it('should stop to listen advanced form changes when advanced search is disabled', () => {
       expect(component.enableAdvancedSearch).toBe(true);
       expect(component.advancedSearchForm).toBeTruthy();
-      spyOn(component.advancedFormDestroy$, 'next');
+     jest.spyOn(component.advancedFormDestroy$, 'next');
 
       component.toggleAdvancedSearch();
 
@@ -175,7 +175,7 @@ describe('NoveltiesSearchFormComponent', () => {
     });
 
     it('should emit search employees on employeesSearch field text changes', fakeAsync(async () => {
-      spyOn(component.searchEmployees, 'emit');
+     jest.spyOn(component.searchEmployees, 'emit');
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({ selector: employeesSearchFieldSelector })
@@ -189,7 +189,7 @@ describe('NoveltiesSearchFormComponent', () => {
     }));
 
     it('should emit search novelty types on noveltyTypesSearch field text changes', fakeAsync(async () => {
-      spyOn(component.searchNoveltyTypes, 'emit');
+     jest.spyOn(component.searchNoveltyTypes, 'emit');
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
@@ -205,7 +205,7 @@ describe('NoveltiesSearchFormComponent', () => {
     }));
 
     it('should emit search cost centers on costCentersSearch field text changes', fakeAsync(async () => {
-      spyOn(component.searchCostCenters, 'emit');
+     jest.spyOn(component.searchCostCenters, 'emit');
 
       const autocomplete = await loader.getHarness(
         MatAutocompleteHarness.with({
@@ -424,7 +424,7 @@ describe('NoveltiesSearchFormComponent', () => {
       };
       component.advancedSearchForm.patchValue(formData);
 
-      spyOn(component.submitted, 'emit');
+     jest.spyOn(component.submitted, 'emit');
       fixture.detectChanges();
 
       const submitButton = await loader.getHarness(

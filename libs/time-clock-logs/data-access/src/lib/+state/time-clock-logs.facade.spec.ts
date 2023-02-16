@@ -51,7 +51,7 @@ describe('TimeClockLogsFacade', () => {
       store = TestBed.inject(Store);
       facade = TestBed.inject(TimeClockLogsFacade);
 
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
     });
 
     it('search() should call SearchTimeClockLogs action', () => {

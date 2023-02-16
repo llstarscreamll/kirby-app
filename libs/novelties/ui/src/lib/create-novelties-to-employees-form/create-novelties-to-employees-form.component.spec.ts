@@ -61,7 +61,7 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
   });
 
   it('should emit searchEmployees when employee form field changes', fakeAsync(() => {
-    spyOn(component.searchEmployees, 'emit');
+   jest.spyOn(component.searchEmployees, 'emit');
 
     const search = 'John Doe';
     fixture.detectChanges();
@@ -318,7 +318,7 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
   });
 
   it('should emit submitted form values', () => {
-    spyOn(component.submitted, 'emit');
+   jest.spyOn(component.submitted, 'emit');
 
     component.form.patchValue(
       {

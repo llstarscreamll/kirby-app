@@ -85,7 +85,7 @@ describe('NoveltyFormComponent', () => {
   });
 
   it('should emit searchEmployees when employee_id form field changes', fakeAsync(() => {
-    spyOn(component.searchEmployees, 'emit');
+   jest.spyOn(component.searchEmployees, 'emit');
 
     const search = 'John Doe';
     fixture.detectChanges();
@@ -107,7 +107,7 @@ describe('NoveltyFormComponent', () => {
   }));
 
   it('should emit searchNoveltyTypes when novelty_type form field changes', fakeAsync(() => {
-    spyOn(component.searchNoveltyTypes, 'emit');
+   jest.spyOn(component.searchNoveltyTypes, 'emit');
 
     const search = 'example';
     fixture.detectChanges();
@@ -150,7 +150,7 @@ describe('NoveltyFormComponent', () => {
   });
 
   it('should emit form values when submit button is clicked', () => {
-    spyOn(component.submitted, 'emit');
+   jest.spyOn(component.submitted, 'emit');
 
     // @todo duplicated code here
     const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };
@@ -199,7 +199,7 @@ describe('NoveltyFormComponent', () => {
   });
 
   it('should emit trashed event when trash button is clicked', () => {
-    spyOn(component.trashed, 'emit');
+   jest.spyOn(component.trashed, 'emit');
 
     // @todo duplicated code here
     const employee = { id: 1, user: { first_name: 'John', last_name: 'Doe' } };

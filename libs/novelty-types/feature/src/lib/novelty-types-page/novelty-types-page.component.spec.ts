@@ -52,7 +52,7 @@ describe('NoveltyTypesPageComponent', () => {
   });
 
   it('should call NoveltyTypesFacade.search(...) on ngOnInit', async () => {
-    spyOn(noveltyTypesFacade, 'search');
+   jest.spyOn(noveltyTypesFacade, 'search');
 
     fixture.detectChanges();
 
@@ -61,7 +61,7 @@ describe('NoveltyTypesPageComponent', () => {
   });
 
   it('should call NoveltyTypesFacade.trash(...) on onTrashRow', async () => {
-    spyOn(noveltyTypesFacade, 'trash');
+   jest.spyOn(noveltyTypesFacade, 'trash');
 
     component.trashRow('AAA');
 

@@ -119,7 +119,7 @@ describe('NoveltyTypesFacade', () => {
 
     it('search(...) should call SearchNoveltyTypes action', () => {
       const query = { search: 'foo' };
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
 
       facade.search(query);
 
@@ -130,7 +130,7 @@ describe('NoveltyTypesFacade', () => {
 
     it('get(...) should call GetNoveltyType action', () => {
       const noveltyTypeId = 'AAA';
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
 
       facade.get(noveltyTypeId);
 
@@ -142,7 +142,7 @@ describe('NoveltyTypesFacade', () => {
     it('create(...) should call CreateNoveltyType action', () => {
       const data = createNoveltyType();
       delete data.id;
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
 
       facade.create(data);
 
@@ -153,7 +153,7 @@ describe('NoveltyTypesFacade', () => {
       const data = createNoveltyType();
       const noveltyTypeId = data.id;
       delete data.id;
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
 
       facade.update(noveltyTypeId, data);
 
@@ -164,7 +164,7 @@ describe('NoveltyTypesFacade', () => {
 
     it('trash(...) should call DeleteNoveltyType action', () => {
       const noveltyTypeId = 'AAA';
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
 
       facade.trash(noveltyTypeId);
 

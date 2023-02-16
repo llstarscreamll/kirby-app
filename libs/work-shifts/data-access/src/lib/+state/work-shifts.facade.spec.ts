@@ -86,7 +86,7 @@ describe('WorkShiftsFacade', () => {
       store = TestBed.inject(Store);
       facade = TestBed.inject(WorkShiftsFacade);
 
-      spyOn(store, 'dispatch');
+     jest.spyOn(store, 'dispatch');
     });
 
     it('search() should call SearchWorkShifts action', async (done) => {

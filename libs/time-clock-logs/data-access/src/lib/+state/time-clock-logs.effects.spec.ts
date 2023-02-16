@@ -58,7 +58,7 @@ describe('TimeClockLogsEffects', () => {
         data: [createTimeClockLog('1'), createTimeClockLog('2')],
       };
       const apiResponse = cold('-a', { a: data });
-      spyOn(timeClockLogsService, 'search').and.returnValue(apiResponse);
+     jest.spyOn(timeClockLogsService, 'search').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', { a: new SearchTimeClockLogs(query) });
 

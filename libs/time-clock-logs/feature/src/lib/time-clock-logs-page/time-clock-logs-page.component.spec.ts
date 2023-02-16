@@ -44,7 +44,7 @@ describe('TimeClockLogsPageComponent', () => {
     template = fixture.nativeElement;
     timeClockFacade = TestBed.inject(TimeClockLogsFacade);
 
-    spyOn(timeClockFacade, 'search').and.callThrough();
+   jest.spyOn(timeClockFacade, 'search').and.callThrough();
 
     fixture.detectChanges();
   });

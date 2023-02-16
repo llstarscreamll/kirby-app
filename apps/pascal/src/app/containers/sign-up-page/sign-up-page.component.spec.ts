@@ -31,7 +31,7 @@ describe('SignUpPageComponent', () => {
     component = fixture.componentInstance;
     authFacade = TestBed.inject(AuthFacade);
 
-    spyOn(authFacade, 'signUp').and.callThrough();
+   jest.spyOn(authFacade, 'signUp').and.callThrough();
   }));
 
   beforeEach(() => {

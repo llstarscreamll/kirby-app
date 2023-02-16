@@ -75,7 +75,7 @@ describe('CostCentersFacade', () => {
 
         const query = { search: 'foo' };
         const serviceResponse = emptyPagination();
-        spyOn(costCenterService, 'search').and.returnValue(
+       jest.spyOn(costCenterService, 'search').mockReturnValue(
           of({
             ...serviceResponse,
             data: [createCostCenters('AAA'), createCostCenters('BBB')]

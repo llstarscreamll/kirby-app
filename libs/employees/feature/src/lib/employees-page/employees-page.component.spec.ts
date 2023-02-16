@@ -46,7 +46,7 @@ describe('EmployeesPageComponent', () => {
   });
 
   it('should call employees facade methods', () => {
-    spyOn(employeesFacade, 'search');
+   jest.spyOn(employeesFacade, 'search');
 
     fixture.detectChanges();
 

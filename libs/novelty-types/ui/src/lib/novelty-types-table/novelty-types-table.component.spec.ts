@@ -85,7 +85,7 @@ describe('NoveltyTypesTableComponent', () => {
 
     fixture.detectChanges();
 
-    spyOn(component.rowTrashed, 'emit');
+   jest.spyOn(component.rowTrashed, 'emit');
 
     const trashButton: HTMLButtonElement = template.querySelector('table tbody tr td:last-child button.trash');
     trashButton.click();

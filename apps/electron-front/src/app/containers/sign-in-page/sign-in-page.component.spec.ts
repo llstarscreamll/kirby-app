@@ -24,7 +24,7 @@ describe('SignInPageComponent', () => {
       component = fixture.componentInstance;
       authFacade = TestBed.inject(AuthFacade);
 
-      spyOn(authFacade, 'loginWithCredentials').and.callThrough();
+     jest.spyOn(authFacade, 'loginWithCredentials').and.callThrough();
     })
   );
 

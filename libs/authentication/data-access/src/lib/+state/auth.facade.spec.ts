@@ -76,8 +76,8 @@ describe('AuthFacade', () => {
       authService = TestBed.inject(AuthService);
       router = TestBed.inject(Router);
 
-      spyOn(store, 'dispatch').and.callThrough();
-      spyOn(router, 'navigate').and.returnValue(true);
+     jest.spyOn(store, 'dispatch').and.callThrough();
+     jest.spyOn(router, 'navigate').mockReturnValue(true);
     });
 
     /**
@@ -85,9 +85,9 @@ describe('AuthFacade', () => {
      */
     it('should return auth tokens, user and status == loggedIn on login() success', async (done) => {
       // api auth response ok
-      spyOn(authService, 'loginWithCredentials').and.returnValue(cold('-a|', { a: authTokens }));
+     jest.spyOn(authService, 'loginWithCredentials').mockReturnValue(cold('-a|', { a: authTokens }));
       // get current user api ok
-      spyOn(authService, 'getAuthUser').and.returnValue(cold('--a|', { a: authUser }));
+     jest.spyOn(authService, 'getAuthUser').mockReturnValue(cold('--a|', { a: authUser }));
 
       try {
         let tokens = await readFirst(facade.authTokens$);
@@ -120,7 +120,7 @@ describe('AuthFacade', () => {
 
     it('should return auth errors when login throws error', async (done) => {
       // api auth response ok
-      spyOn(authService, 'loginWithCredentials').and.returnValue(cold('-#', {}, INCORRECT_CREDENTIALS_API_ERROR));
+     jest.spyOn(authService, 'loginWithCredentials').mockReturnValue(cold('-#', {}, INCORRECT_CREDENTIALS_API_ERROR));
 
       try {
         let errors = await readFirst(facade.errors$);
@@ -142,7 +142,7 @@ describe('AuthFacade', () => {
 
     it('should dispatch logout action on logout()', async (done) => {
       // api logout response ok
-      spyOn(authService, 'logout').and.returnValue(cold('-a', { a: ['ok'] }));
+     jest.spyOn(authService, 'logout').mockReturnValue(cold('-a', { a: ['ok'] }));
       store.dispatch(new LoginSuccess(AUTH_TOKENS_MOCK));
       store.dispatch(new GetAuthUserSuccess(USER));
 
@@ -176,9 +176,9 @@ describe('AuthFacade', () => {
     describe('signUp()', () => {
       it('should set logged in state when sign up API responds ok', async (done) => {
         // api sign up response ok
-        spyOn(authService, 'signUp').and.returnValue(cold('-a', { a: authTokens }));
+       jest.spyOn(authService, 'signUp').mockReturnValue(cold('-a', { a: authTokens }));
         // get current user api ok
-        spyOn(authService, 'getAuthUser').and.returnValue(cold('--a|', { a: authUser }));
+       jest.spyOn(authService, 'getAuthUser').mockReturnValue(cold('--a|', { a: authUser }));
 
         try {
           let tokens = await readFirst(facade.authTokens$);
@@ -233,7 +233,7 @@ describe('AuthFacade', () => {
             errors: { email: ['email is invalid'] },
           },
         };
-        spyOn(authService, 'signUp').and.returnValue(cold('-#', {}, apiError));
+       jest.spyOn(authService, 'signUp').mockReturnValue(cold('-#', {}, apiError));
 
         try {
           let tokens = await readFirst(facade.authTokens$);

@@ -58,7 +58,7 @@ describe('CreateNoveltyTypePageComponent', () => {
   });
 
   it('should call NoveltyTypesFacade.create(...)', () => {
-    spyOn(noveltyTypesFacade, 'create');
+   jest.spyOn(noveltyTypesFacade, 'create');
 
     component.onFormSubmit({ foo: 'bar' });
 

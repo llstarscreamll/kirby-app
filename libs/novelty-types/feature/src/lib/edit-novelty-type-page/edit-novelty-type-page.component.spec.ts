@@ -70,7 +70,7 @@ describe('EditNoveltyTypePageComponent', () => {
   });
 
   it('should call NoveltyTypesFacade.update(...)', () => {
-    spyOn(noveltyTypesFacade, 'update');
+   jest.spyOn(noveltyTypesFacade, 'update');
     const noveltyType = createNoveltyType();
     component.noveltyType$ = of(noveltyType);
 
@@ -82,7 +82,7 @@ describe('EditNoveltyTypePageComponent', () => {
   });
 
   it('should clean selected novelty type on ngOnDestroy', () => {
-    spyOn(noveltyTypesFacade, 'cleanSelected');
+   jest.spyOn(noveltyTypesFacade, 'cleanSelected');
 
     component.ngOnDestroy();
 

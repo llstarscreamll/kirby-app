@@ -79,7 +79,7 @@ describe('SignInFormComponent', () => {
   });
 
   it('should emit event when form is submitted', () => {
-    spyOn(component.submitted, 'emit').and.callThrough();
+   jest.spyOn(component.submitted, 'emit').and.callThrough();
 
     component.form.patchValue(credentials);
     fixture.detectChanges();

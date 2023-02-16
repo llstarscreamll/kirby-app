@@ -175,7 +175,7 @@ describe('EmployeeFormComponent', () => {
 
     expect(component.form.valid).toBe(true);
 
-    spyOn(component.submitted, 'emit');
+   jest.spyOn(component.submitted, 'emit');
     const submitBtn = fixture.nativeElement.querySelector(submitButtonSelector);
     submitBtn.click();
 

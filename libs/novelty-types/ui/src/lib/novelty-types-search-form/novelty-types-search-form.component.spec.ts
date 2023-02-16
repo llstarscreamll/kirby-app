@@ -53,7 +53,7 @@ describe('NoveltyTypesSearchFormComponent', () => {
     await searchField.focus();
     await searchField.setValue('foo');
 
-    spyOn(component.submitted, 'emit');
+   jest.spyOn(component.submitted, 'emit');
     template.querySelector('form').submit();
 
     fixture.detectChanges();

@@ -58,7 +58,7 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
   });
 
   it('should call novelties facade methods on init', () => {
-    spyOn(noveltiesFacade, 'getResumeByEmployeesAndNoveltyTypes');
+   jest.spyOn(noveltiesFacade, 'getResumeByEmployeesAndNoveltyTypes');
 
     component.ngOnInit();
 
@@ -90,7 +90,7 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
   });
 
   it('should open balance modal on openBalanceDialog method', () => {
-    spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(null) });
+   jest.spyOn(dialog, 'open').mockReturnValue({ afterClosed: () => of(null) });
 
     component.openBalanceDialog({ foo: 'bar' });
 
@@ -100,10 +100,10 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
   });
 
   it('should dispatch create novelty action when dialog response is not empty', () => {
-    spyOn(dialog, 'open').and.returnValue({
+   jest.spyOn(dialog, 'open').mockReturnValue({
       afterClosed: () => of({ some: 'data' }),
     });
-    spyOn(noveltiesFacade, 'createBalanceNovelty');
+   jest.spyOn(noveltiesFacade, 'createBalanceNovelty');
 
     component.openBalanceDialog({ foo: 'bar' });
 
@@ -113,10 +113,10 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
   });
 
   it('should not dispatch create novelty action when dialog response is empty', () => {
-    spyOn(dialog, 'open').and.returnValue({
+   jest.spyOn(dialog, 'open').mockReturnValue({
       afterClosed: () => of(null),
     });
-    spyOn(noveltiesFacade, 'createBalanceNovelty');
+   jest.spyOn(noveltiesFacade, 'createBalanceNovelty');
 
     component.openBalanceDialog({ foo: 'bar' });
 
@@ -138,7 +138,7 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
         end_date: '2020-02-01',
       });
 
-      spyOn(noveltiesFacade, 'getResumeByEmployeesAndNoveltyTypes');
+     jest.spyOn(noveltiesFacade, 'getResumeByEmployeesAndNoveltyTypes');
       fixture.detectChanges();
 
       const submitBtn: HTMLButtonElement = template.querySelector('form button[type=submit]');

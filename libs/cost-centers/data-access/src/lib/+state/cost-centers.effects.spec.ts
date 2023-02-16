@@ -35,7 +35,7 @@ describe('CostCentersEffects', () => {
     it('should work', () => {
       const query = { search: 'foo' };
       const serviceResponse = emptyPagination();
-      spyOn(costCenterService, 'search').and.returnValue(
+     jest.spyOn(costCenterService, 'search').mockReturnValue(
         cold('a|', {
           a: serviceResponse,
         })

@@ -214,7 +214,7 @@ describe('ResumeByEmployeesAndNoveltyTypesTableComponent', () => {
       steveRogers,
     ]);
 
-    spyOn(component.balance, 'emit');
+   jest.spyOn(component.balance, 'emit');
 
     fixture.detectChanges();
 

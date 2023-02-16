@@ -183,7 +183,7 @@ describe('EntryAndExitLogFormComponent', () => {
     });
 
     it('should emit form values when code form is submitted', () => {
-      spyOn(component.submitted, 'emit');
+     jest.spyOn(component.submitted, 'emit');
       component.codeForm.patchValue({ identification_code: 'fake-code' });
 
       fixture.detectChanges();
@@ -438,7 +438,7 @@ describe('EntryAndExitLogFormComponent', () => {
     });
 
     it('should emit searchSubCostCenters on novelty_sub_cost_center form field changes', fakeAsync(() => {
-      spyOn(component.searchSubCostCenters, 'emit');
+     jest.spyOn(component.searchSubCostCenters, 'emit');
 
       const search = 'some search text';
       component.timeClockData = earlyTimeClockData;
@@ -469,7 +469,7 @@ describe('EntryAndExitLogFormComponent', () => {
     }));
 
     it('should emit searchSubCostCenters on sub_cost_center form field changes', fakeAsync(() => {
-      spyOn(component.searchSubCostCenters, 'emit');
+     jest.spyOn(component.searchSubCostCenters, 'emit');
 
       const search = 'some search text';
       component.timeClockData = earlyTimeClockData;
@@ -560,7 +560,7 @@ describe('EntryAndExitLogFormComponent', () => {
     });
 
     it('should emit data on check form submitted', () => {
-      spyOn(component.submitted, 'emit');
+     jest.spyOn(component.submitted, 'emit');
       component.timeClockData = earlyTimeClockData;
 
       const checkFormData = {
