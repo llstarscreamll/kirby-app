@@ -1,5 +1,4 @@
-import { from } from 'rxjs';
-import { defer } from 'rxjs';
+import { from, defer } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { map, switchMap, tap } from 'rxjs/operators';
