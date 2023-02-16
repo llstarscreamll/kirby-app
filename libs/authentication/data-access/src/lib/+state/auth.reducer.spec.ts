@@ -4,13 +4,13 @@ import { LoginSuccess, LoginError, LogoutSuccess } from './auth.actions';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 
 describe('Auth Reducer', () => {
-  const getAuthId = it => it['id'];
+  const getAuthId = (it) => it['id'];
   let createAuth;
 
   beforeEach(() => {
     createAuth = (id: string, name = '') => ({
       id,
-      name: name || `name-${id}`
+      name: name || `name-${id}`,
     });
   });
 
@@ -18,7 +18,7 @@ describe('Auth Reducer', () => {
     it('should set auth tokens on LoginSuccess action', () => {
       const tokens = AUTH_TOKENS_MOCK;
 
-      const action = new LoginSuccess(tokens);
+      const action = LoginSuccess({ payload: tokens });
       const result: AuthState = authReducer(initialState, action);
 
       expect(result.status).toBe('loggedIn');
@@ -29,7 +29,7 @@ describe('Auth Reducer', () => {
     it('should set errors on LoginError action', () => {
       const errors = INCORRECT_CREDENTIALS_API_ERROR;
 
-      const action = new LoginError(errors);
+      const action = LoginError({ payload: errors });
       const result: AuthState = authReducer(initialState, action);
 
       expect(result.status).toBe('loginError');
@@ -39,7 +39,7 @@ describe('Auth Reducer', () => {
     });
 
     it('should set all to null on LogoutSuccess action', () => {
-      const action = new LogoutSuccess();
+      const action = LogoutSuccess();
       const result: AuthState = authReducer(initialState, action);
 
       expect(result.status).toBeFalsy();
