@@ -31,7 +31,7 @@ export class AuthEffects {
       pessimisticUpdate({
         run: (action: ReturnType<typeof SignUp>) =>
           this.authService.signUp(action.payload).pipe(map((tokens) => SignUpSuccess({ payload: tokens }))),
-        onError: (action: ReturnType<typeof SignUp>, error) => SignUpError(error),
+        onError: (action: ReturnType<typeof SignUp>, error) => SignUpError({ payload: error }),
       })
     )
   );
@@ -51,7 +51,7 @@ export class AuthEffects {
           this.authService
             .loginWithCredentials(action.payload)
             .pipe(map((tokens) => LoginSuccess({ payload: tokens }))),
-        onError: (action: ReturnType<typeof LoginWithCredentials>, error) => LoginError(error),
+        onError: (action: ReturnType<typeof LoginWithCredentials>, error) => LoginError({ payload: error }),
       })
     )
   );
@@ -64,7 +64,7 @@ export class AuthEffects {
       ),
       switchMap((action: ReturnType<typeof LoginSuccess>) =>
         this.authService.getAuthUser().pipe(
-          map((user) => GetAuthUserSuccess(user)),
+          map((user) => GetAuthUserSuccess({ payload: user })),
           tap((user) => this.router.navigate(['/welcome']))
         )
       )
