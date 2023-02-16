@@ -94,7 +94,7 @@ describe('BalanceDialogComponent', () => {
     fixture = TestBed.createComponent(BalanceDialogComponent);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
-    dialogReference = TestBed.get(MatDialogRef);
+    dialogReference = TestBed.inject(MatDialogRef);
     fixture.detectChanges();
   });
 

@@ -29,7 +29,7 @@ describe('SignUpPageComponent', () => {
 
     fixture = TestBed.createComponent(SignUpPageComponent);
     component = fixture.componentInstance;
-    authFacade = TestBed.get(AuthFacade);
+    authFacade = TestBed.inject(AuthFacade);
 
     spyOn(authFacade, 'signUp').and.callThrough();
   }));

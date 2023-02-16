@@ -47,8 +47,8 @@ describe('EmployeesEffects', () => {
       ]
     });
 
-    effects = TestBed.get(EmployeesEffects);
-    service = TestBed.get(EmployeeService);
+    effects = TestBed.inject(EmployeesEffects);
+    service = TestBed.inject(EmployeeService);
   });
 
   it('should be defined', () => {

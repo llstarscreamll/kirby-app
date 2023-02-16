@@ -68,8 +68,8 @@ describe('WorkShiftsEffects', () => {
       ],
     });
 
-    effects = TestBed.get(WorkShiftsEffects);
-    workShiftService = TestBed.get(WorkShiftService);
+    effects = TestBed.inject(WorkShiftsEffects);
+    workShiftService = TestBed.inject(WorkShiftService);
   });
 
   describe('searchWorkShifts$', () => {

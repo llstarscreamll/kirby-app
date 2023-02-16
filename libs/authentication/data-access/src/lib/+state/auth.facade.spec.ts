@@ -71,10 +71,10 @@ describe('AuthFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(AuthFacade);
-      authService = TestBed.get(AuthService);
-      router = TestBed.get(Router);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(AuthFacade);
+      authService = TestBed.inject(AuthService);
+      router = TestBed.inject(Router);
 
       spyOn(store, 'dispatch').and.callThrough();
       spyOn(router, 'navigate').and.returnValue(true);

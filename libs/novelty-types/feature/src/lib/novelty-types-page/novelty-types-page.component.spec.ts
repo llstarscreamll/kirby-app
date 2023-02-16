@@ -41,7 +41,7 @@ describe('NoveltyTypesPageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NoveltyTypesPageComponent);
-    noveltyTypesFacade = TestBed.get(NoveltyTypesFacade);
+    noveltyTypesFacade = TestBed.inject(NoveltyTypesFacade);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
   });

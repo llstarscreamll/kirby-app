@@ -74,7 +74,7 @@ describe('EntryAndExitLogPageComponent', () => {
     fixture = TestBed.createComponent(EntryAndExitLogPageComponent);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
-    timeClockLogFacade = TestBed.get(TimeClockLogsFacade);
+    timeClockLogFacade = TestBed.inject(TimeClockLogsFacade);
 
     fixture.detectChanges();
   });

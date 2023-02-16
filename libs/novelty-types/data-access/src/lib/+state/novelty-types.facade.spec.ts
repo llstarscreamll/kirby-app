@@ -61,8 +61,8 @@ describe('NoveltyTypesFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(NoveltyTypesFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(NoveltyTypesFacade);
     });
 
     it('paginatedNoveltyTypes$ should return empty paginated list by default', async (done) => {

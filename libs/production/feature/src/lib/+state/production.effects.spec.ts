@@ -31,7 +31,7 @@ describe('ProductionEffects', () => {
       ],
     });
 
-    effects = TestBed.get(ProductionEffects);
+    effects = TestBed.inject(ProductionEffects);
   });
 
   describe('loadProduction$', () => {

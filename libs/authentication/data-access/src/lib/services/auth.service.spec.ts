@@ -21,8 +21,8 @@ describe('AuthService', () => {
       providers: [AuthService, { provide: 'environment', useValue: ENV_MOCK }]
     });
 
-    httpController = TestBed.get(HttpTestingController);
-    authService = TestBed.get(AuthService);
+    httpController = TestBed.inject(HttpTestingController);
+    authService = TestBed.inject(AuthService);
   });
 
   afterEach(() => {

@@ -37,7 +37,7 @@ describe('EmployeesPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EmployeesPageComponent);
     component = fixture.componentInstance;
-    employeesFacade = TestBed.get(EmployeesFacade);
+    employeesFacade = TestBed.inject(EmployeesFacade);
   });
 
   it('should create', () => {

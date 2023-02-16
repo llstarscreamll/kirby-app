@@ -22,7 +22,7 @@ describe('SignInPageComponent', () => {
 
       fixture = TestBed.createComponent(SignInPageComponent);
       component = fixture.componentInstance;
-      authFacade = TestBed.get(AuthFacade);
+      authFacade = TestBed.inject(AuthFacade);
 
       spyOn(authFacade, 'loginWithCredentials').and.callThrough();
     })

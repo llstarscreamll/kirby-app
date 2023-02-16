@@ -28,8 +28,8 @@ describe('WorkShiftService', () => {
       ]
     });
 
-    httpController = TestBed.get(HttpTestingController);
-    service = TestBed.get(WorkShiftService);
+    httpController = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(WorkShiftService);
   });
 
   afterEach(() => {

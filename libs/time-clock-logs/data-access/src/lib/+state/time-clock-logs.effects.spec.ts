@@ -46,8 +46,8 @@ describe('TimeClockLogsEffects', () => {
       ],
     });
 
-    effects = TestBed.get(TimeClockLogsEffects);
-    timeClockLogsService = TestBed.get(TimeClockLogsService);
+    effects = TestBed.inject(TimeClockLogsEffects);
+    timeClockLogsService = TestBed.inject(TimeClockLogsService);
   });
 
   describe('searchTimeClockLogs$', () => {

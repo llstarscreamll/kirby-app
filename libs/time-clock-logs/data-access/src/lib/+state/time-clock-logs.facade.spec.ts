@@ -48,8 +48,8 @@ describe('TimeClockLogsFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(TimeClockLogsFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(TimeClockLogsFacade);
 
       spyOn(store, 'dispatch');
     });

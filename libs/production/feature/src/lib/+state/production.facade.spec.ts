@@ -49,8 +49,8 @@ describe('ProductionFacade', () => {
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(ProductionFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(ProductionFacade);
     });
 
     /**

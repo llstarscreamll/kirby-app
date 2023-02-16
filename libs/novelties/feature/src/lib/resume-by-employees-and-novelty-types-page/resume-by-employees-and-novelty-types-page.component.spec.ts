@@ -48,8 +48,8 @@ describe('ResumeByEmployeesAndNoveltyTypesPageComponent', () => {
     fixture = TestBed.createComponent(ResumeByEmployeesAndNoveltyTypesPageComponent);
     template = fixture.nativeElement;
     component = fixture.componentInstance;
-    noveltiesFacade = TestBed.get(NoveltiesFacade);
-    dialog = TestBed.get(MatDialog);
+    noveltiesFacade = TestBed.inject(NoveltiesFacade);
+    dialog = TestBed.inject(MatDialog);
     fixture.detectChanges();
   });
 
