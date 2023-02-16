@@ -1,11 +1,13 @@
 import { get } from 'lodash-es';
+import { createReducer, on } from '@ngrx/store';
 
 import { User } from '@kirby/users/util';
 import { NoveltyModel } from '@kirby/novelties/data';
 import { INoveltyType } from '@kirby/novelty-types/data';
 import { EmployeeInterface } from '@kirby/employees/util';
 import { Pagination, emptyPagination, LoadStatus } from '@kirby/shared';
-import { NoveltiesAction, NoveltiesActionTypes } from './novelties.actions';
+
+import * as a from './novelties.actions';
 
 export const NOVELTIES_FEATURE_KEY = 'novelties';
 
@@ -30,192 +32,66 @@ export const initialState: NoveltiesState = {
   createNoveltiesToEmployeesStatus: null,
 };
 
-export function noveltiesReducer(
-  state: NoveltiesState = initialState,
-  action: NoveltiesAction
-): NoveltiesState {
-  switch (action.type) {
-    case NoveltiesActionTypes.SearchNoveltiesOk: {
-      state = { ...state, paginatedList: action.payload, loaded: true };
-      break;
-    }
+export const noveltiesReducer = createReducer(
+  initialState,
+  on(a.SearchOk, (state, action) => ({ ...state, paginatedList: action.payload, loaded: true })),
+  on(a.SearchError, (state, action) => ({ ...state, error: action.payload })),
+  on(a.GetResumeOk, (state, action) => ({ ...state, resumeByEmployeesAndNoveltyTypes: action.payload })),
+  on(a.GetResumeError, (state, action) => ({ ...state, error: action.payload })),
+  on(a.Create, (state) => ({ ...state, createNoveltiesToEmployeesStatus: LoadStatus.Loading })),
+  on(a.CreateBalanceOk, (state) => ({ ...state, error: null })),
+  on(a.CreateBalanceError, (state, action) => ({ ...state, error: action.payload })),
+  on(a.CreateOk, (state) => ({
+    ...state,
+    createNoveltiesToEmployeesStatus: LoadStatus.Completed,
+  })),
+  on(a.CreateError, (state, action) => ({
+    ...state,
+    error: action.payload,
+    createNoveltiesToEmployeesStatus: LoadStatus.Error,
+  })),
+  on(a.Approve, (state, action) => ({
+    ...state,
+    paginatedList: appendApproverToEntity(state.paginatedList, action.payload.noveltyId, action.payload.user),
+  })),
+  on(a.ApproveError, (state, action) => ({
+    ...state,
+    paginatedList: removeApproverToEntity(state.paginatedList, action.payload.noveltyId, action.payload.user),
+  })),
+  on(a.Trash, (state) => ({
+    ...state,
+    createNoveltiesToEmployeesStatus: LoadStatus.Loading,
+  })),
+  on(a.TrashOk, (state) => ({
+    ...state,
+    selected: null,
+  })),
+  on(a.TrashError, (state, action) => ({
+    ...state,
+    error: action.payload.error,
+  })),
+  on(a.DeleteApproval, (state, action) => ({
+    ...state,
+    paginatedList: removeApproverToEntity(state.paginatedList, action.payload.noveltyId, action.payload.user),
+  })),
+  on(a.DeleteApprovalError, (state, action) => ({
+    ...state,
+    paginatedList: appendApproverToEntity(state.paginatedList, action.payload.noveltyId, action.payload.user),
+  })),
+  on(a.Get, (state) => ({ ...state, error: null })),
+  on(a.GetOk, (state, action) => ({ ...state, selected: action.payload })),
+  on(a.GetError, (state, action) => ({ ...state, error: action.payload })),
+  on(a.SearchNoveltyTypesOk, (state, action) => ({ ...state, paginatedNoveltyTypesList: action.payload })),
+  on(a.CleanSelected, (state) => ({ ...state, selected: null })),
+  on(a.CleanErrors, (state) => ({ ...state, error: null })),
+  on(a.ResetCreate, (state) => ({ ...state, error: null, createNoveltiesToEmployeesStatus: null }))
+);
 
-    case NoveltiesActionTypes.SearchNoveltiesError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetResumeOk: {
-      state = { ...state, resumeByEmployeesAndNoveltyTypes: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetResumeError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.CreateNoveltiesToEmployees: {
-      state = {
-        ...state,
-        createNoveltiesToEmployeesStatus: LoadStatus.Loading,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.CreateBalanceNoveltyOk: {
-      state = {
-        ...state,
-        error: null,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.CreateBalanceNoveltyError: {
-      state = {
-        ...state,
-        error: action.payload,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.CreateNoveltiesToEmployeesOk: {
-      state = {
-        ...state,
-        createNoveltiesToEmployeesStatus: LoadStatus.Completed,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.CreateNoveltiesToEmployeesError: {
-      state = {
-        ...state,
-        error: action.payload,
-        createNoveltiesToEmployeesStatus: LoadStatus.Error,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.ApproveNovelty: {
-      state = {
-        ...state,
-        paginatedList: appendApproverToEntity(
-          state.paginatedList,
-          action.payload.noveltyId,
-          action.payload.user
-        ),
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.ApproveNoveltyError: {
-      state = {
-        ...state,
-        paginatedList: removeApproverToEntity(
-          state.paginatedList,
-          action.payload.noveltyId,
-          action.payload.user
-        ),
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.TrashNovelty: {
-      state = {
-        ...state,
-        createNoveltiesToEmployeesStatus: LoadStatus.Loading,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.TrashNoveltyOk: {
-      state = {
-        ...state,
-        selected: null,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.TrashNoveltyError: {
-      state = {
-        ...state,
-        error: action.payload.error,
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.DeleteNoveltyApproval: {
-      state = {
-        ...state,
-        paginatedList: removeApproverToEntity(
-          state.paginatedList,
-          action.payload.noveltyId,
-          action.payload.user
-        ),
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.DeleteNoveltyApprovalError: {
-      state = {
-        ...state,
-        paginatedList: appendApproverToEntity(
-          state.paginatedList,
-          action.payload.noveltyId,
-          action.payload.user
-        ),
-      };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetNovelty: {
-      state = { ...state, error: null };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetNoveltyOk: {
-      state = { ...state, selected: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.GetNoveltyError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.SearchNoveltyTypesOk: {
-      state = { ...state, paginatedNoveltyTypesList: action.payload };
-      break;
-    }
-
-    case NoveltiesActionTypes.CleanSelectedNovelty: {
-      state = { ...state, selected: null };
-      break;
-    }
-
-    case NoveltiesActionTypes.CleanApiErrors: {
-      state = { ...state, error: null };
-      break;
-    }
-
-    case NoveltiesActionTypes.ResetCreateNoveltiesToEmployees: {
-      state = { ...state, error: null, createNoveltiesToEmployeesStatus: null };
-      break;
-    }
-  }
-  return state;
-}
-
-function appendApproverToEntity(
-  paginatedTimeClockLogs: Pagination<any>,
-  entityId: string,
-  approver: User
-) {
+function appendApproverToEntity(paginatedTimeClockLogs: Pagination<any>, entityId: string, approver: User) {
   let entities: any[] = get(paginatedTimeClockLogs, 'data', []);
 
   entities = entities.map((item) => {
-    const approvals =
-      item.id === entityId ? [...item.approvals, approver] : item.approvals;
+    const approvals = item.id === entityId ? [...item.approvals, approver] : item.approvals;
 
     return { ...item, approvals };
   });
@@ -223,18 +99,11 @@ function appendApproverToEntity(
   return { ...paginatedTimeClockLogs, data: entities };
 }
 
-function removeApproverToEntity(
-  paginatedEntities: Pagination<any>,
-  entityId: string,
-  approver: User
-) {
+function removeApproverToEntity(paginatedEntities: Pagination<any>, entityId: string, approver: User) {
   let entities: any[] = get(paginatedEntities, 'data', []);
 
   entities = entities.map((item) => {
-    const approvals =
-      item.id === entityId
-        ? item.approvals.filter((a) => a.id !== approver.id)
-        : item.approvals;
+    const approvals = item.id === entityId ? item.approvals.filter((a) => a.id !== approver.id) : item.approvals;
 
     return { ...item, approvals };
   });

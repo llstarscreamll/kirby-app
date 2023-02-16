@@ -1,6 +1,7 @@
 import { emptyPagination } from '@kirby/shared';
-import { SearchNoveltiesOk } from './novelties.actions';
 import { createNovelty } from '@kirby/novelties/testing';
+
+import { SearchOk } from './novelties.actions';
 import { NoveltiesState, initialState, noveltiesReducer } from './novelties.reducer';
 
 describe('Novelties Reducer', () => {
@@ -12,7 +13,7 @@ describe('Novelties Reducer', () => {
         ...emptyPagination(),
         data: [createNovelty('PRODUCT-AAA'), createNovelty('PRODUCT-zzz')],
       };
-      const action = new SearchNoveltiesOk(novelties);
+      const action = SearchOk({ payload: novelties });
       const result: NoveltiesState = noveltiesReducer(initialState, action);
       const selId: string = getNoveltiesId(result.paginatedList.data[1]);
 
