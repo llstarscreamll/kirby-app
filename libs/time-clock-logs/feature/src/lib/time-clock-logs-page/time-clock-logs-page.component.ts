@@ -30,10 +30,10 @@ export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
   user: User;
   searchQuery = {};
   searchForm = this.formBuilder.group({
-    employee: [''],
-    employees: [[]],
-    checkInStart: [''],
-    checkInEnd: [''],
+    employee: '',
+    employees: [],
+    checkInStart: '',
+    checkInEnd: '',
   });
 
   constructor(
