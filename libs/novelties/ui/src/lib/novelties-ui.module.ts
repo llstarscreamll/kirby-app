@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatButtonModule,
         MatDialogModule,
         MatSelectModule,
-        FlexLayoutModule,
+
         MatFormFieldModule,
         MatDatepickerModule,
         ReactiveFormsModule,

@@ -11,7 +11,7 @@ import { Route, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
@@ -64,7 +64,6 @@ const routes: Route[] = [
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    FlexLayoutModule,
     HttpClientModule,
     MatFormFieldModule,
     NxModule.forRoot(),
