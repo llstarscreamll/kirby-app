@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import {
-  StoreRouterConnectingModule,
-  DefaultRouterStateSerializer
-} from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { debug } from './meta-reducers/debug.reducer';
 import { environment } from '../../environments/environment';
@@ -35,18 +32,16 @@ if (!environment.production) {
         metaReducers,
         runtimeChecks: {
           strictStateImmutability: true,
-          strictActionImmutability: true
-        }
+          strictActionImmutability: true,
+        },
       }
     ),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({
-      serializer: DefaultRouterStateSerializer
-    })
+    StoreRouterConnectingModule.forRoot(),
   ],
   declarations: [],
   providers: [AnimationsService],
-  exports: []
+  exports: [],
 })
 export class CoreModule {
   constructor(
