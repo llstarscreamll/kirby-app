@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/angular';
+
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,7 +17,7 @@ export const TESTING_PROVIDERS = [
 ];
 
 export const TESTING_IMPORTS = [
-  NxModule.forRoot(),
+
   StoreModule.forRoot({}, { runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }}),
   EffectsModule.forRoot([]),
   AuthenticationDataAccessModule,

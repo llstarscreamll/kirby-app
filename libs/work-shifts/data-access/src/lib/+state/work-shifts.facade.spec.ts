@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/angular';
+
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
@@ -58,7 +58,7 @@ describe('WorkShiftsFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
+
           StoreModule.forRoot(
             {},
             {

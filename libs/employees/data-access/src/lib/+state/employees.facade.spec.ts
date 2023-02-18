@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { NxModule } from '@nrwl/angular';
+
 import { NgModule } from '@angular/core';
 import { readFirst } from '@nrwl/angular/testing';
 import { EffectsModule } from '@ngrx/effects';
@@ -52,7 +52,7 @@ describe('EmployeesFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
+
           StoreModule.forRoot(
             {},
             {

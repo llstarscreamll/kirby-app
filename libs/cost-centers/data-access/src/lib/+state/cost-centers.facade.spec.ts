@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 import { NgModule } from '@angular/core';
-import { NxModule } from '@nrwl/angular';
+
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
@@ -50,7 +50,7 @@ describe('CostCentersFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
+
           StoreModule.forRoot({}),
           EffectsModule.forRoot([]),
           CustomFeatureModule

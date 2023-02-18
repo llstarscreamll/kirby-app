@@ -1,4 +1,4 @@
-import { NxModule } from '@nrwl/angular';
+
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -54,7 +54,7 @@ describe('AuthFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
+
           StoreModule.forRoot(
             {},
             {
