@@ -1,29 +1,20 @@
-import moment, { Moment } from 'moment';
 import { timer, Subject } from 'rxjs';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter,
-  OnDestroy
-} from '@angular/core';
+import moment, { Moment } from 'moment';
 import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 import { LoadStatus } from '@kirby/shared';
-import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyType } from '@kirby/novelty-types/data';
+import { EmployeeInterface } from '@kirby/employees/util';
 
 @Component({
   selector: 'kirby-create-novelties-to-employees-form',
   templateUrl: './create-novelties-to-employees-form.component.html',
   styleUrls: ['./create-novelties-to-employees-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateNoveltiesToEmployeesFormComponent
-  implements OnInit, OnDestroy {
+export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestroy {
   @Input()
   public employees: EmployeeInterface[] = [];
 
@@ -77,18 +68,14 @@ export class CreateNoveltiesToEmployeesFormComponent
   }
 
   get displayableEmployees(): any[] {
-    return this.employees.filter(
-      employee => !this.selectedEmployees.map(se => se.id).includes(employee.id)
-    );
+    return this.employees.filter((employee) => !this.selectedEmployees.map((se) => se.id).includes(employee.id));
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
       selected_employees: [[], [Validators.required]],
       employee: [],
-      novelty_types: this.formBuilder.array([
-        this.setUpNoveltyOptionFormGroup()
-      ])
+      novelty_types: this.formBuilder.array([this.setUpNoveltyOptionFormGroup()]),
     });
   }
 
@@ -101,15 +88,15 @@ export class CreateNoveltiesToEmployeesFormComponent
       scheduled_end_date: [null, Validators.required],
       scheduled_end_hour: [null, Validators.required],
       scheduled_end_minute: [null, Validators.required],
-      comment: [null, [Validators.maxLength(255)]]
+      comment: [null, [Validators.maxLength(255)]],
     });
 
     formGroup
       .get('novelty_type')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.searchNoveltyTypes.emit({ search: value })),
+        filter((value) => typeof value === 'string' && value !== ''),
+        tap((value) => this.searchNoveltyTypes.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -117,12 +104,10 @@ export class CreateNoveltiesToEmployeesFormComponent
     formGroup
       .get('novelty_type')
       .valueChanges.pipe(
-        filter(value => typeof value === 'object'),
-        tap(selectedNoveltyType => {
+        filter((value) => typeof value === 'object'),
+        tap((selectedNoveltyType: any) => {
           if (selectedNoveltyType.requires_comment) {
-            formGroup
-              .get('comment')
-              .setValidators([Validators.required, Validators.maxLength(255)]);
+            formGroup.get('comment').setValidators([Validators.required, Validators.maxLength(255)]);
           }
         }),
         takeUntil(this.destroy$)
@@ -135,10 +120,10 @@ export class CreateNoveltiesToEmployeesFormComponent
   private listenFormChanges() {
     this.form
       .get('employee')
-      .valueChanges.pipe(
+      ?.valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.searchEmployees.emit({ search: value })),
+        filter((value) => typeof value === 'string' && value !== ''),
+        tap((value) => this.searchEmployees.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -146,8 +131,8 @@ export class CreateNoveltiesToEmployeesFormComponent
     this.form
       .get('employee')
       .valueChanges.pipe(
-        filter(value => typeof value !== 'string'), // an employee has been selected
-        tap(value => this.addEmployee(value)),
+        filter((value) => typeof value !== 'string'), // an employee has been selected
+        tap((value) => this.addEmployee(value)),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -156,7 +141,7 @@ export class CreateNoveltiesToEmployeesFormComponent
   private addEmployee(employee) {
     const selectedEmployees = this.selectedEmployees;
 
-    if (selectedEmployees.find(se => se.id === employee.id)) {
+    if (selectedEmployees.find((se) => se.id === employee.id)) {
       return;
     }
 
@@ -168,7 +153,7 @@ export class CreateNoveltiesToEmployeesFormComponent
 
   removeEmployee(employee) {
     const selectedEmployees = this.selectedEmployees;
-    const index = selectedEmployees.map(se => se.id).indexOf(employee.id);
+    const index = selectedEmployees.map((se) => se.id).indexOf(employee.id);
 
     if (index >= 0) {
       this.selectedEmployees.splice(index, 1);
@@ -199,9 +184,7 @@ export class CreateNoveltiesToEmployeesFormComponent
 
   selectedNoveltyTypeRequiresComment(selectedNoveltyType) {
     return (
-      !!selectedNoveltyType &&
-      typeof selectedNoveltyType === 'object' &&
-      selectedNoveltyType.requires_comment === true
+      !!selectedNoveltyType && typeof selectedNoveltyType === 'object' && selectedNoveltyType.requires_comment === true
     );
   }
 
@@ -213,8 +196,8 @@ export class CreateNoveltiesToEmployeesFormComponent
     const formData = this.form.value;
 
     return {
-      employee_ids: formData.selected_employees.map(employee => employee.id),
-      novelties: formData.novelty_types.map(novelty => {
+      employee_ids: formData.selected_employees.map((employee) => employee.id),
+      novelties: formData.novelty_types.map((novelty) => {
         const startDate: Moment = novelty.scheduled_start_date || moment();
         startDate.hour(novelty.scheduled_start_hour);
         startDate.minutes(novelty.scheduled_start_minute);
@@ -224,14 +207,12 @@ export class CreateNoveltiesToEmployeesFormComponent
         endDate.minutes(novelty.scheduled_end_minute);
 
         return {
-          novelty_type_id: novelty.novelty_type
-            ? novelty.novelty_type.id
-            : null,
+          novelty_type_id: novelty.novelty_type ? novelty.novelty_type.id : null,
           start_at: startDate.toISOString(),
           end_at: endDate.toISOString(),
-          comment: novelty.comment
+          comment: novelty.comment,
         };
-      })
+      }),
     };
   }
 }
