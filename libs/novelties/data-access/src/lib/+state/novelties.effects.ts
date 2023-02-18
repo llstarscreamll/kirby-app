@@ -75,11 +75,8 @@ export class NoveltiesEffects {
       ofType(a.Create),
       pessimisticUpdate({
         run: (action: ReturnType<typeof a.Create>) =>
-          this.noveltyService
-            .createMany(action.payload)
-            .pipe(map((apiResponse) => a.CreateOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.Create>, error) =>
-          a.CreateError(error),
+          this.noveltyService.createMany(action.payload).pipe(map((apiResponse) => a.CreateOk(apiResponse))),
+        onError: (action: ReturnType<typeof a.Create>, error) => a.CreateError(error),
       })
     )
   );
@@ -89,9 +86,7 @@ export class NoveltiesEffects {
       ofType(a.CreateBalance),
       pessimisticUpdate({
         run: (action: ReturnType<typeof a.CreateBalance>) =>
-          this.noveltyService
-            .createBalance(action.payload)
-            .pipe(map((apiResponse) => a.CreateBalanceOk(apiResponse))),
+          this.noveltyService.createBalance(action.payload).pipe(map((apiResponse) => a.CreateBalanceOk(apiResponse))),
         onError: (action: ReturnType<typeof a.CreateBalance>, error) => a.CreateBalanceError(error),
       })
     )
@@ -167,9 +162,7 @@ export class NoveltiesEffects {
     this.actions$.pipe(
       ofType(a.SetApprovals),
       fetch({
-        run: ({
-          payload: { employeeId, startDate, endDate },
-        }: ReturnType<typeof a.SetApprovals>) => {
+        run: ({ payload: { employeeId, startDate, endDate } }: ReturnType<typeof a.SetApprovals>) => {
           return this.noveltyService
             .setApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
             .pipe(map((response) => a.SetApprovalsOk({ payload: response })));
@@ -251,9 +244,7 @@ export class NoveltiesEffects {
     this.actions$.pipe(
       ofType(a.DeleteApprovals),
       fetch({
-        run: ({
-          payload: { employeeId, startDate, endDate },
-        }: ReturnType<typeof a.DeleteApprovals>) => {
+        run: ({ payload: { employeeId, startDate, endDate } }: ReturnType<typeof a.DeleteApprovals>) => {
           return this.noveltyService
             .deleteApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
             .pipe(map((response) => a.DeleteApprovalsOk(response)));
@@ -301,9 +292,7 @@ export class NoveltiesEffects {
       ofType(a.DownLoadReport),
       fetch({
         run: ({ payload }: ReturnType<typeof a.DownLoadReport>) => {
-          return this.noveltyService
-            .downloadReport(payload)
-            .pipe(map((response) => a.DownLoadReportOk(response)));
+          return this.noveltyService.downloadReport(payload).pipe(map((response) => a.DownLoadReportOk(response)));
         },
         onError: (action: ReturnType<typeof a.DownLoadReport>, error) => {
           return a.DownLoadReportError({
