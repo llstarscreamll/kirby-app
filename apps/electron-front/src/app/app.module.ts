@@ -1,9 +1,8 @@
 import {
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldDefaultOptions,
   MatFormFieldModule,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
-import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -11,22 +10,21 @@ import { Route, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
-
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ActionReducer, INIT, MetaReducer, UPDATE } from '@ngrx/store';
-import { DefaultRouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from '@kirby/shared';
-import { AppComponent } from './app.component';
 import { LocalStorageService } from '@kirby/shared';
-import { environment } from '../environments/environment';
 import { PrinterService, WeighingMachineService } from '@kirby/production/feature';
 import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
+
+import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.component';
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { LandingPageComponent } from './containers/landing-page/landing-page.component';
@@ -66,7 +64,6 @@ const routes: Route[] = [
     MatButtonModule,
     HttpClientModule,
     MatFormFieldModule,
-    NxModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AuthenticationDataAccessModule,
@@ -81,13 +78,10 @@ const routes: Route[] = [
       }
     ),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({
-      serializer: DefaultRouterStateSerializer,
-    }),
+    StoreRouterConnectingModule.forRoot(),
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabledBlocking',
       useHash: true,
-      relativeLinkResolution: 'legacy',
+      initialNavigation: 'enabledBlocking',
     }),
   ],
   declarations: [AppComponent, LandingPageComponent, WelcomePageComponent, SignInPageComponent, SignInFormComponent],
