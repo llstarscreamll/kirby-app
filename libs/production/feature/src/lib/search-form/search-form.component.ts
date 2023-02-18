@@ -17,6 +17,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { TagOptions } from '@kirby/production/ui';
 import { EmployeesFacade } from '@kirby/employees/data-access';
+
 import { ProductionFacade } from '../+state/production.facade';
 import { PurposeOptions } from 'libs/production/ui/src/lib/purpose-options';
 
@@ -58,19 +59,19 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   tagOptions = TagOptions;
   purposeOptions = PurposeOptions;
   searchForm = this.formBuilder.group({
-    product: [''],
-    products: [[]],
-    machine: [''],
-    machines: [[]],
-    employee: [''],
-    employees: [[]],
-    costCenter: [''],
-    costCenters: [[]],
-    netWeight: [''],
-    tags: [[]],
-    purposes: [[]],
-    tagUpdatedAtStart: [''],
-    tagUpdatedAtEnd: [''],
+    product: '',
+    products: [],
+    machine: '',
+    machines: [],
+    employee: '',
+    employees: [],
+    costCenter: '',
+    costCenters: [],
+    netWeight: '',
+    tags: [],
+    purposes: [],
+    tagUpdatedAtStart: '',
+    tagUpdatedAtEnd: '',
   });
 
   constructor(
