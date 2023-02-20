@@ -25,7 +25,7 @@
       <mat-form-field class="w-6/12">
         <mat-label>Empleados</mat-label>
         <mat-chip-grid #employeesList aria-label="Employee selection">
-          <mat-chip-row*ngFor="let employee of addedEmployees"
+          <mat-chip-row *ngFor="let employee of addedEmployees"
                     selectable="true"
                     removable="true"
                     (removed)="removeEmployee(employee)">

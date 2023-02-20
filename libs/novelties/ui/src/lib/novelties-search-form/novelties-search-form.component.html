@@ -41,7 +41,7 @@
   </mat-form-field>
 
   <mat-chip-grid *ngIf="globalSearch" class="selected-employees block mb-6">
-    <mat-chip-row*ngFor="let employee of selectedEmployees">
+    <mat-chip-row *ngFor="let employee of selectedEmployees">
       {{ employee.first_name + ' ' + employee.last_name }}
       <mat-icon matChipRemove (click)="removeEmployee(employee)">
         cancel
@@ -75,7 +75,7 @@
       </mat-form-field>
 
       <mat-chip-grid *ngIf="selectedNoveltyTypes.length" class="selected-novelty-types block mb-6">
-        <mat-chip-rowcolor="primary" *ngFor="let noveltyType of selectedNoveltyTypes">
+        <mat-chip-row color="primary" *ngFor="let noveltyType of selectedNoveltyTypes">
           {{ noveltyType.code + ' ' + noveltyType.name }}
           <mat-icon matChipRemove (click)="removeNoveltyType(noveltyType)">cancel</mat-icon>
         </mat-chip-row>
@@ -103,7 +103,7 @@
       </mat-form-field>
 
       <mat-chip-grid class="selected-cost-centers block mb-6">
-        <mat-chip-rowcolor="primary" *ngFor="let costCenter of selectedCostCenters">
+        <mat-chip-row color="primary" *ngFor="let costCenter of selectedCostCenters">
           {{ costCenter.code + ' ' + costCenter.name }}
           <mat-icon matChipRemove (click)="removeCostCenter(costCenter)">
             cancel

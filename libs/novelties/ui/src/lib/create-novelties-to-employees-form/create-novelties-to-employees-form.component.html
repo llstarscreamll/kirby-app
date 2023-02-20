@@ -29,7 +29,7 @@
   </div>
 
   <mat-chip-grid class="mb-4">
-    <mat-chip-row*ngFor="let employee of selectedEmployees">
+    <mat-chip-row *ngFor="let employee of selectedEmployees">
       {{ employee.first_name + ' ' + employee.last_name }}
       <mat-icon matChipRemove (click)="removeEmployee(employee)"
         >cancel</mat-icon
