@@ -2,7 +2,7 @@
 <mat-toolbar class="flex flex-row main-top-bar">
   <ng-container *ngIf="!(authenticated$ | async)">
     <a [routerLink]="['/']">Pascal</a>
-    <div class="grow"></div>
+    <div class="flex-grow"></div>
     <a [routerLink]="['/sign-up']" class="mx-3">Crear cuenta</a>
     <a [routerLink]="['/login']" class="ml-3">Entrar</a>
   </ng-container>
@@ -16,7 +16,7 @@
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <a [routerLink]="['/']" class="mx-3">Pascal</a>
-    <div class="grow"></div>
+    <div class="flex-grow"></div>
     <button mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
