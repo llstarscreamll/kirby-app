@@ -10,7 +10,7 @@
 
 <div class="responsive-table shadow">
     <kirby-novelty-types-table [noveltyTypes]="(paginatedNoveltyTypes$ | async)?.data"
-                               [showActionsColumn]="(user$ | async).canAny(['novelty-types.update', 'novelty-types.delete'])"
+                               [showActionsColumn]="(user$ | async)?.canAny(['novelty-types.update', 'novelty-types.delete'])"
                                (rowTrashed)="trashRow($event)">
     </kirby-novelty-types-table>
 </div>

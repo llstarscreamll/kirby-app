@@ -6,7 +6,7 @@
 
 <kirby-work-shift-form *ngIf="(workShift$ | async) && (user$ | async)"
                        [defaults]="workShift$ | async"
-                       [disable]="! (user$ | async).can('work-shift.update')"
+                       [disable]="! (user$ | async)?.can('work-shift.update')"
                        (submitted)="updateWorkShift($event)"
                        class="block my-4">
 </kirby-work-shift-form>
