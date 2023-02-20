@@ -5,24 +5,22 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { SharedModule } from '@kirby/shared';
+
 import { AuthFacade } from './+state/auth.facade';
 import { AuthEffects } from './+state/auth.effects';
+import { authReducer } from './+state/auth.reducer';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './services/auth.service';
-import { SharedModule } from '@kirby/shared';
-import { authReducer, initialState, AUTH_FEATURE_KEY } from './+state/auth.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
-    StoreModule.forFeature(AUTH_FEATURE_KEY, authReducer, { initialState: initialState }),
+    StoreModule.forFeature(authReducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: [
-    AuthFacade, AuthService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
+  providers: [AuthFacade, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })
-export class AuthenticationDataAccessModule { }
+export class AuthenticationDataAccessModule {}
