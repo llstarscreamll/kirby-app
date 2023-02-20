@@ -33,7 +33,7 @@ export const authReducer = createReducer(
     tokens_received_at: new Date(),
   })),
   on(actions.LoginError, (state, action) => ({ ...state, status: 'loginError', errors: action.payload })),
-  on(actions.GetAuthUserSuccess, (state, action) => ({ ...state, user: action.payload })),
+  on(actions.GetAuthUserSuccess, (state, action) => ({ ...state, user: action.payload, status: 'loggedIn' })),
   on(actions.Logout, (state) => ({ ...state, status: 'loggingOut' })),
   on(actions.LogoutSuccess, (state) => initialState),
   on(actions.SignUp, (state) => ({ ...state, errors: null, status: 'signingIn' })),

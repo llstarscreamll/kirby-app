@@ -110,15 +110,16 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  checkIfAuthenticated$ = this.actions$.pipe(
-    ofType(CheckIfUserIsAuthenticated),
-    optimisticUpdate({
-      run: (_: ReturnType<typeof CheckIfUserIsAuthenticated>, state: AuthPartialState) =>
-        state[AUTH_FEATURE_KEY].tokens
-          ? this.authService.getAuthUser().pipe(map((user) => GetAuthUserSuccess({ payload: user })))
-          : null,
-      undoAction: (action: ReturnType<typeof CheckIfUserIsAuthenticated>, state: AuthPartialState) => LogoutSuccess(),
-    })
+  checkIfAuthenticated$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CheckIfUserIsAuthenticated),
+      optimisticUpdate({
+        run: (_: ReturnType<typeof CheckIfUserIsAuthenticated>) => {
+          return this.authService.getAuthUser().pipe(map((user) => GetAuthUserSuccess({ payload: user })));
+        },
+        undoAction: (action: ReturnType<typeof CheckIfUserIsAuthenticated>) => LogoutSuccess(),
+      })
+    )
   );
 
   init$ = createEffect(() => defer(() => from([CheckIfUserIsAuthenticated()])));
