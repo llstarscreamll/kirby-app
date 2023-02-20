@@ -3,14 +3,14 @@
 
     <mat-form-field fxFlex="grow">
       <mat-label>Empleado</mat-label>
-      <mat-chip-list #employeesList aria-label="Employee selection">
-        <mat-chip *ngFor="let employee of addedEmployees"
+      <mat-chip-grid #employeesList aria-label="Employee selection">
+        <mat-chip-row *ngFor="let employee of addedEmployees"
                   selectable="true"
                   removable="true"
                   (removed)="removeEmployee(employee)">
           {{ employee.first_name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #employeeInput
                formControlName="employee"
@@ -25,19 +25,19 @@
             <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
 
     <mat-form-field fxFlex="grow">
       <mat-label>Producto</mat-label>
-      <mat-chip-list #productsList aria-label="Product selection">
-        <mat-chip *ngFor="let product of addedProducts"
+      <mat-chip-grid #productsList aria-label="Product selection">
+        <mat-chip-row *ngFor="let product of addedProducts"
                   selectable="true"
                   removable="true"
                   (removed)="removeProduct(product)">
           {{ product.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #productInput
                formControlName="product"
@@ -52,7 +52,7 @@
             <span>{{ product.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
 
   </div>
@@ -60,14 +60,14 @@
   <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
     <mat-form-field fxFlex="grow">
       <mat-label>Centro de costo</mat-label>
-      <mat-chip-list #costCentersList aria-label="Sub cost centers selection">
-        <mat-chip *ngFor="let costCenter of addedCostCenters"
+      <mat-chip-grid #costCentersList aria-label="Sub cost centers selection">
+        <mat-chip-row *ngFor="let costCenter of addedCostCenters"
                   selectable="true"
                   removable="true"
                   (removed)="removeCostCenter(costCenter)">
           {{ costCenter.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #costCenterInput
                formControlName="costCenter"
@@ -82,19 +82,19 @@
             <span>{{ costCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
 
     <mat-form-field fxFlex="grow">
       <mat-label>Máquina</mat-label>
-      <mat-chip-list #machinesList aria-label="Sub cost centers selection">
-        <mat-chip *ngFor="let machine of addedMachines"
+      <mat-chip-grid #machinesList aria-label="Sub cost centers selection">
+        <mat-chip-row *ngFor="let machine of addedMachines"
                   selectable="true"
                   removable="true"
                   (removed)="removeMachine(machine)">
           {{ machine.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #machineInput
                formControlName="machine"
@@ -109,7 +109,7 @@
             <span>{{ machine.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
   </div>
 

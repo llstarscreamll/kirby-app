@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +44,6 @@ import { ProductionLogDetailsPage } from './production-log-details/production-lo
     MatChipsModule,
     MatButtonModule,
     MatSelectModule,
-
     MatTooltipModule,
     MatSnackBarModule,
     ProductionUiModule,

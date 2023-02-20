@@ -28,14 +28,14 @@
     No has seleccionado empleados *
   </div>
 
-  <mat-chip-list class="mb-4">
-    <mat-chip *ngFor="let employee of selectedEmployees">
+  <mat-chip-grid class="mb-4">
+    <mat-chip-row*ngFor="let employee of selectedEmployees">
       {{ employee.first_name + ' ' + employee.last_name }}
       <mat-icon matChipRemove (click)="removeEmployee(employee)"
         >cancel</mat-icon
       >
-    </mat-chip>
-  </mat-chip-list>
+    </mat-chip-row>
+  </mat-chip-grid>
 
   <div formArrayName="novelty_types" class="novelty-type-options">
     <div

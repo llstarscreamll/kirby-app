@@ -40,14 +40,14 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-chip-list *ngIf="globalSearch" class="selected-employees block mb-6">
-    <mat-chip *ngFor="let employee of selectedEmployees">
+  <mat-chip-grid *ngIf="globalSearch" class="selected-employees block mb-6">
+    <mat-chip-row*ngFor="let employee of selectedEmployees">
       {{ employee.first_name + ' ' + employee.last_name }}
       <mat-icon matChipRemove (click)="removeEmployee(employee)">
         cancel
       </mat-icon>
-    </mat-chip>
-  </mat-chip-list>
+    </mat-chip-row>
+  </mat-chip-grid>
 
   <div
        fxLayout="column"
@@ -74,12 +74,12 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-chip-list *ngIf="selectedNoveltyTypes.length" class="selected-novelty-types block mb-6">
-        <mat-chip color="primary" *ngFor="let noveltyType of selectedNoveltyTypes">
+      <mat-chip-grid *ngIf="selectedNoveltyTypes.length" class="selected-novelty-types block mb-6">
+        <mat-chip-rowcolor="primary" *ngFor="let noveltyType of selectedNoveltyTypes">
           {{ noveltyType.code + ' ' + noveltyType.name }}
           <mat-icon matChipRemove (click)="removeNoveltyType(noveltyType)">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-row>
+      </mat-chip-grid>
     </div>
 
     <div fxFlex="grow">
@@ -102,14 +102,14 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-chip-list class="selected-cost-centers block mb-6">
-        <mat-chip color="primary" *ngFor="let costCenter of selectedCostCenters">
+      <mat-chip-grid class="selected-cost-centers block mb-6">
+        <mat-chip-rowcolor="primary" *ngFor="let costCenter of selectedCostCenters">
           {{ costCenter.code + ' ' + costCenter.name }}
           <mat-icon matChipRemove (click)="removeCostCenter(costCenter)">
             cancel
           </mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-row>
+      </mat-chip-grid>
     </div>
   </div>
 

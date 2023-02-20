@@ -132,7 +132,7 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
     expect(component.form.get('employee').value).toBe('');
   });
 
-  it('should display selected employees in mat-chip-list', () => {
+  it('should display selected employees in mat-chip-grid', () => {
     component.form
       .get('selected_employees')
       .setValue([
@@ -143,10 +143,10 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
 
     fixture.detectChanges();
 
-    expect(template.querySelectorAll('mat-chip-list mat-chip').length).toBe(3);
+    expect(template.querySelectorAll('mat-chip-grid mat-chip').length).toBe(3);
   });
 
-  it('should remove selected employee when mat-chip-list item is clicked on cancel button', () => {
+  it('should remove selected employee when mat-chip-grid item is clicked on cancel button', () => {
     component.form
       .get('selected_employees')
       .setValue([
@@ -158,14 +158,14 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
     fixture.detectChanges();
 
     const removeElement: HTMLDivElement = template.querySelector(
-      'mat-chip-list mat-chip:first-child mat-icon'
+      'mat-chip-grid mat-chip:first-child mat-icon'
     );
     removeElement.click();
 
     fixture.detectChanges();
 
     expect(component.selectedEmployees.length).toBe(2);
-    expect(template.querySelectorAll('mat-chip-list mat-chip').length).toBe(2);
+    expect(template.querySelectorAll('mat-chip-grid mat-chip').length).toBe(2);
   });
 
   it('should display message when no employees are selected', () => {
