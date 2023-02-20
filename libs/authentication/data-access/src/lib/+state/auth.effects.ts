@@ -19,8 +19,8 @@ import {
   LoginWithCredentials,
   CheckIfUserIsAuthenticated,
 } from './auth.actions';
+import { AUTH_FEATURE_KEY } from './auth.reducer';
 import { AuthService } from '../services/auth.service';
-import { AuthPartialState, AUTH_FEATURE_KEY } from './auth.reducer';
 
 @Injectable()
 export class AuthEffects {
@@ -75,13 +75,13 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(GetAuthUserSuccess),
         optimisticUpdate({
-          run: (action: ReturnType<typeof GetAuthUserSuccess>, state: AuthPartialState) => {
+          run: (action: ReturnType<typeof GetAuthUserSuccess>) => {
             return this.localStorage.setItem(AUTH_FEATURE_KEY, {
-              ...state[AUTH_FEATURE_KEY],
+              ...this.localStorage.getItem(AUTH_FEATURE_KEY),
               user: action.payload,
             });
           },
-          undoAction: (action: ReturnType<typeof GetAuthUserSuccess>, state: AuthPartialState) => {
+          undoAction: (action: ReturnType<typeof GetAuthUserSuccess>) => {
             return null;
           },
         })
@@ -93,9 +93,8 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(Logout),
       optimisticUpdate({
-        run: (_: ReturnType<typeof Logout>, state: AuthPartialState) =>
-          this.authService.logout().pipe(map(() => LogoutSuccess())),
-        undoAction: (_: ReturnType<typeof Logout>, state: AuthPartialState) => LogoutSuccess(),
+        run: (_: ReturnType<typeof Logout>) => this.authService.logout().pipe(map(() => LogoutSuccess())),
+        undoAction: (_: ReturnType<typeof Logout>) => LogoutSuccess(),
       })
     )
   );
