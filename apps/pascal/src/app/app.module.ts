@@ -12,7 +12,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
-
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
@@ -69,38 +68,37 @@ export const routes: Route[] = [
 
 @NgModule({
   imports: [
-    BrowserModule,
-
-    HttpClientModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
-    ReactiveFormsModule,
     CoreModule,
     SharedModule,
-    AuthorizationUiModule,
-    AuthenticationDataAccessModule,
-    BrowserAnimationsModule,
-    MatMomentDateModule,
     LayoutModule,
-    MatSidenavModule,
-    MatGridListModule,
     MatCardModule,
     MatMenuModule,
     MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
+    BrowserModule,
     MatListModule,
     MatInputModule,
     MatSelectModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatToolbarModule,
     MatFormFieldModule,
+    MatMomentDateModule,
+    ReactiveFormsModule,
+    AuthorizationUiModule,
+    BrowserAnimationsModule,
+    AuthenticationDataAccessModule,
+    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
   ],
   declarations: [
     AppComponent,
+    SignUpPageComponent,
     SignInFormComponent,
     SignUpFormComponent,
     SignInPageComponent,
     LandingPageComponent,
     WelcomePageComponent,
-    SignUpPageComponent,
     SidebarLayoutComponent,
   ],
   providers: [
