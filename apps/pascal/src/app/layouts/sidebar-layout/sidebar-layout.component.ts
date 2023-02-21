@@ -10,14 +10,14 @@ import { AuthFacade } from '@kirby/authentication/data-access';
   templateUrl: './sidebar-layout.component.html',
   styleUrls: ['./sidebar-layout.component.scss'],
 })
-export class SidebarLayoutComponent implements OnInit {
-  public isHandset$: Observable<boolean> = this.breakpointObserver
+export class SidebarLayoutComponent {
+  authenticated$ = this.authFacade.isLoggedIn$;
+  isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(map((result) => result.matches));
 
-  public authenticated$: Observable<boolean>;
-
-  public menuItems = [
+  mediaQueryList = this.mediaMatcher.matchMedia('print');
+  menuItems = [
     {
       icon: 'supervised_user_circle',
       link: ['/employees/'],
@@ -50,24 +50,17 @@ export class SidebarLayoutComponent implements OnInit {
     },
   ];
 
-  public mediaQueryList: MediaQueryList;
-
-  public constructor(
+  constructor(
     private authFacade: AuthFacade,
     private mediaMatcher: MediaMatcher,
     private breakpointObserver: BreakpointObserver
   ) {}
 
-  public get isPrint(): boolean {
+  get isPrint(): boolean {
     return this.mediaQueryList.matches;
   }
 
-  public ngOnInit(): void {
-    this.authenticated$ = this.authFacade.isLoggedIn$;
-    this.mediaQueryList = this.mediaMatcher.matchMedia('print');
-  }
-
-  public logout() {
+  logout() {
     this.authFacade.logout();
   }
 }
