@@ -9,7 +9,7 @@ import { SharedModule } from '@kirby/shared';
 import { WorkShiftsUiModule } from '@kirby/work-shifts/ui';
 import { WorkShiftsDataAccessModule } from '@kirby/work-shifts/data-access';
 
-import { WorkShiftFeatureEffects } from './WorkShiftFeatureEffects';
+import { WorkShiftFeatureEffects } from './work-shift-feature.effects';
 import { EditWorkShiftPage } from './edit-work-shift-page/edit-work-shift.page';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page/list-work-shifts-page.component';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-work-shift-page.component';
