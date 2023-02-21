@@ -17,18 +17,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { SharedModule } from '@kirby/shared';
+import { ProductionUiModule } from '@kirby/production/ui';
+import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
+
 import { PrinterService } from './printer.service';
 import { ReportsPage } from './reports/reports.page';
 import { ProductionService } from './production.service';
-import { ProductionUiModule } from '@kirby/production/ui';
 import * as fromProduction from './+state/production.reducer';
 import { ProductionFacade } from './+state/production.facade';
 import { ProductionEffects } from './+state/production.effects';
 import { WeighingMachineService } from './weighing-machine.service';
-import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ProductionLogsPage } from './production-logs/production-logs.page';
-import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { EditProductionLogPage } from './edit-production-log/edit-production-log.page';
 import { CreateProductionLogPage } from './create-production-log/create-production-log.page';
 import { ProductionLogDetailsPage } from './production-log-details/production-log-details.page';
@@ -51,7 +51,6 @@ import { ProductionLogDetailsPage } from './production-log-details/production-lo
     ReactiveFormsModule,
     MatAutocompleteModule,
     EmployeesDataAccessModule,
-    AuthenticationDataAccessModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: ProductionLogsPage },
       { path: 'reports', pathMatch: 'full', component: ReportsPage },
