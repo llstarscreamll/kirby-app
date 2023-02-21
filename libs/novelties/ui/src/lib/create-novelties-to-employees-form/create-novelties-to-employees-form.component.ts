@@ -16,13 +16,13 @@ import { EmployeeInterface } from '@kirby/employees/util';
 })
 export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestroy {
   @Input()
-  public employees: EmployeeInterface[] = [];
+  employees: EmployeeInterface[] = [];
 
   @Input()
-  public noveltyTypes: NoveltyType;
+  noveltyTypes: NoveltyType;
 
   @Input()
-  public status: LoadStatus;
+  status: LoadStatus;
 
   @Output()
   searchEmployees = new EventEmitter();
@@ -35,7 +35,7 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
 
   private destroy$ = new Subject();
 
-  public form: FormGroup;
+  form: FormGroup;
 
   hours = new Array(24)
     .join()

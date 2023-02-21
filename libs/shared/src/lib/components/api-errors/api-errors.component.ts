@@ -12,7 +12,7 @@ import { flatApiErrors } from '../../utils/common-functions';
 export class ApiErrorsComponent implements OnInit {
 
   @Input()
-  public apiError: ApiError;
+  apiError: ApiError;
 
   constructor() { }
 

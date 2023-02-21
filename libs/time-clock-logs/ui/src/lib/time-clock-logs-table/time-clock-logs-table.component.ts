@@ -20,13 +20,13 @@ import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 })
 export class TimeClockLogsTableComponent implements OnInit {
   @Input()
-  public timeClockLogs: Pagination<TimeClockLogModel>;
+  timeClockLogs: Pagination<TimeClockLogModel>;
 
   @Input()
-  public userId: string;
+  userId: string;
 
   @Input()
-  public actionButtons = [];
+  actionButtons = [];
 
   @Output()
   approve = new EventEmitter();

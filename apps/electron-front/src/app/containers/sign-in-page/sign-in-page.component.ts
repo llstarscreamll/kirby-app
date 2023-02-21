@@ -8,21 +8,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./sign-in-page.component.scss']
 })
 export class SignInPageComponent implements OnInit, OnDestroy {
-  public errors$: Observable<any>;
-  public status$: Observable<string>;
+  errors$: Observable<any>;
+  status$: Observable<string>;
 
-  public constructor(private authFacade: AuthFacade) {}
+  constructor(private authFacade: AuthFacade) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.errors$ = this.authFacade.errors$;
     this.status$ = this.authFacade.status$;
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.authFacade.cleanErrors();
   }
 
-  public login(credentials) {
+  login(credentials) {
     this.authFacade.loginWithCredentials(credentials);
   }
 }

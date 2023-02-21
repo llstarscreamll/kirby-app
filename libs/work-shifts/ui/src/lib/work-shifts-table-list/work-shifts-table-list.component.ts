@@ -10,13 +10,13 @@ import { WorkShiftInterface } from '@kirby/work-shifts/util';
 })
 export class WorkShiftsTableListComponent implements OnInit {
   @Input()
-  public items: WorkShiftInterface[];
+  items: WorkShiftInterface[];
 
   @Input()
-  public columns: string[];
+  columns: string[];
 
   @Input()
-  public showDeleteBtn = false;
+  showDeleteBtn = false;
 
   @Output()
   trashed = new EventEmitter();

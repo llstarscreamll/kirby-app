@@ -12,8 +12,8 @@ import { AuthFacade } from '@kirby/authentication/data-access';
   styleUrls: ['./list-work-shifts-page.component.scss'],
 })
 export class ListWorkShiftsPageComponent implements OnInit {
-  public user$ = this.authFacade.authUser$;
-  public paginatedWorkShifts$ = this.workShiftsFacade.paginatedWorkShifts$;
+  user$ = this.authFacade.authUser$;
+  paginatedWorkShifts$ = this.workShiftsFacade.paginatedWorkShifts$;
 
   constructor(private workShiftsFacade: WorkShiftsFacade, private authFacade: AuthFacade) {}
 

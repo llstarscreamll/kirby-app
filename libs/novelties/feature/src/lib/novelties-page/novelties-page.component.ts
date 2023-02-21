@@ -18,15 +18,15 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 })
 export class NoveltiesPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
-  public user$ = this.authFacade.authUser$;
-  public errors$ = this.noveltiesFacade.error$;
-  public novelties$ = this.noveltiesFacade.paginatedNovelties$;
-  public paginatedCostCenters$ = this.costCentersFacade.paginatedList$;
-  public paginatedEmployees$ = this.employeesFacade.paginatedEmployees$;
-  public paginatedNoveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
+  user$ = this.authFacade.authUser$;
+  errors$ = this.noveltiesFacade.error$;
+  novelties$ = this.noveltiesFacade.paginatedNovelties$;
+  paginatedCostCenters$ = this.costCentersFacade.paginatedList$;
+  paginatedEmployees$ = this.employeesFacade.paginatedEmployees$;
+  paginatedNoveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;
 
   private user: User;
-  public searchQuery = {};
+  searchQuery = {};
   private searchOptions = {
     orderBy: 'created_at',
     sortedBy: 'desc',

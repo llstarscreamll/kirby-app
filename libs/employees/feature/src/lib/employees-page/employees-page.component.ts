@@ -8,7 +8,7 @@ import { EmployeesFacade } from '@kirby/employees/data-access';
   styleUrls: ['./employees-page.component.scss']
 })
 export class EmployeesPageComponent implements OnInit {
-  public employees$ = this.employeesFacade.paginatedEmployees$;
+  employees$ = this.employeesFacade.paginatedEmployees$;
 
   constructor(private employeesFacade: EmployeesFacade) {}
 

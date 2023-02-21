@@ -9,10 +9,10 @@ import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
   styleUrls: ['./entry-and-exit-log-page.component.scss']
 })
 export class EntryAndExitLogPageComponent implements OnInit, OnDestroy {
-  public apiError$: Observable<any>;
-  public creatingStatus$: Observable<any>;
-  public subCostCenters$: Observable<any>;
-  public employeeTimeClockData$: Observable<any>;
+  apiError$: Observable<any>;
+  creatingStatus$: Observable<any>;
+  subCostCenters$: Observable<any>;
+  employeeTimeClockData$: Observable<any>;
 
   constructor(private timeClockLogsFacade: TimeClockLogsFacade) {}
 

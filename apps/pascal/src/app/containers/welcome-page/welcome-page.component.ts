@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class WelcomePageComponent implements OnInit {
 
-  public user$: Observable<any>;
+  user$: Observable<any>;
 
-  public constructor(private authFacade: AuthFacade) { }
+  constructor(private authFacade: AuthFacade) { }
 
-  public ngOnInit() {
+  ngOnInit() {
     this.user$ = this.authFacade.authUser$;
   }
 

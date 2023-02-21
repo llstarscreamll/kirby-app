@@ -15,7 +15,7 @@ import { get } from 'lodash-es';
 })
 export class PaginationComponent implements OnInit {
   @Input()
-  public pagination: {
+  pagination: {
     current_page: number;
     from: number;
     path: string;

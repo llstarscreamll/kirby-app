@@ -10,30 +10,30 @@ import { ApiError } from '@kirby/shared';
 })
 export class SignInFormComponent implements OnInit {
   @Input()
-  public status: string;
+  status: string;
 
   @Input()
-  public errors: ApiError;
+  errors: ApiError;
 
   @Output()
-  public submitted = new EventEmitter();
+  submitted = new EventEmitter();
 
-  public form: FormGroup;
+  form: FormGroup;
 
-  public constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
   }
 
-  public submitForm() {
+  submitForm() {
     this.submitted.emit(this.form.value);
   }
 
-  public get disableButton(): boolean {
+  get disableButton(): boolean {
     return this.form.invalid || this.status === 'loggingIn';
   }
 }

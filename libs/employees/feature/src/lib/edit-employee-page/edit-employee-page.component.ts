@@ -13,15 +13,15 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 export class EditEmployeePageComponent implements OnInit, OnDestroy {
   private employeeId: string;
 
-  public errors$ = this.employeesFacade.errors$;
-  public roles$ = this.employeesFacade.getRoles$;
+  errors$ = this.employeesFacade.errors$;
+  roles$ = this.employeesFacade.getRoles$;
   employee$ = this.employeesFacade.selectedEmployee$.pipe(
     tap((employee) => (employee ? (this.employeeId = employee.id) : null))
   );
-  public costCenters$ = this.costCentersFacade.paginatedList$;
-  public workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
-  public updatingStatus$ = this.employeesFacade.updatingStatus$;
-  public selectingStatus$ = this.employeesFacade.selectingStatus$;
+  costCenters$ = this.costCentersFacade.paginatedList$;
+  workShifts$ = this.workShiftsFacade.getWorkShiftsList$;
+  updatingStatus$ = this.employeesFacade.updatingStatus$;
+  selectingStatus$ = this.employeesFacade.selectingStatus$;
 
   constructor(
     private employeesFacade: EmployeesFacade,

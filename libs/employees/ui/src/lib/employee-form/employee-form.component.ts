@@ -16,19 +16,19 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   @Input()
-  public employee: EmployeeInterface;
+  employee: EmployeeInterface;
 
   @Input()
-  public costCenters: CostCenter[];
+  costCenters: CostCenter[];
 
   @Input()
-  public workShifts: WorkShiftInterface[];
+  workShifts: WorkShiftInterface[];
 
   @Input()
-  public roles: { id: number; display_name: string }[];
+  roles: { id: number; display_name: string }[];
 
   @Input()
-  public status: LoadStatus;
+  status: LoadStatus;
 
   @Output()
   submitted = new EventEmitter();
@@ -38,7 +38,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
 
-  public form: FormGroup;
+  form: FormGroup;
 
   expirationDates = [
     { date: '15d', label: 'Vigente por 15 días' },
