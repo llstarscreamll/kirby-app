@@ -13,7 +13,6 @@ import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local
 export const metaReducers: MetaReducer<any>[] = [initStateFromLocalStorage];
 
 if (!environment.production) {
-  // metaReducers.unshift(storeFreeze);
   if (!environment.test) {
     metaReducers.unshift(debug);
   }
@@ -21,11 +20,8 @@ if (!environment.production) {
 
 @NgModule({
   imports: [
-    // angular
     CommonModule,
     HttpClientModule,
-
-    // ngrx
     StoreModule.forRoot(
       {},
       {
