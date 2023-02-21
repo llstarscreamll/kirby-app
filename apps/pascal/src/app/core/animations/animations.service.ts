@@ -10,7 +10,7 @@ export class AnimationsService {
     return AnimationsService.routeAnimationType === type;
   }
 
-  public updateRouteAnimationType(
+  updateRouteAnimationType(
     pageAnimations: boolean,
     elementsAnimations: boolean
   ) {

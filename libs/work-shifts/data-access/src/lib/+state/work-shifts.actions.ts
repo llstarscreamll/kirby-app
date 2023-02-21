@@ -25,77 +25,77 @@ export enum WorkShiftsActionTypes {
 }
 
 export class SearchWorkShifts implements Action {
-  public readonly type = WorkShiftsActionTypes.SearchWorkShifts;
+  readonly type = WorkShiftsActionTypes.SearchWorkShifts;
   constructor(public payload: any) { }
 }
 
 export class SearchWorkShiftsOk implements Action {
-  public readonly type = WorkShiftsActionTypes.SearchWorkShiftsOk;
+  readonly type = WorkShiftsActionTypes.SearchWorkShiftsOk;
   constructor(public payload: Pagination<WorkShiftInterface>) { }
 }
 
 export class SearchWorkShiftsError implements Action {
-  public readonly type = WorkShiftsActionTypes.SearchWorkShiftsError;
+  readonly type = WorkShiftsActionTypes.SearchWorkShiftsError;
   constructor(public payload: ApiError) { }
 }
 
 export class CreateWorkShift implements Action {
-  public readonly type = WorkShiftsActionTypes.CreateWorkShift;
+  readonly type = WorkShiftsActionTypes.CreateWorkShift;
   constructor(public payload: WorkShiftInterface) { }
 }
 
 export class CreateWorkShiftOk implements Action {
-  public readonly type = WorkShiftsActionTypes.CreateWorkShiftOk;
+  readonly type = WorkShiftsActionTypes.CreateWorkShiftOk;
   constructor(public payload: WorkShiftInterface) { }
 }
 
 export class CreateWorkShiftError implements Action {
-  public readonly type = WorkShiftsActionTypes.CreateWorkShiftError;
+  readonly type = WorkShiftsActionTypes.CreateWorkShiftError;
   constructor(public payload: ApiError) { }
 }
 
 export class GetWorkShift implements Action {
-  public readonly type = WorkShiftsActionTypes.GetWorkShift;
+  readonly type = WorkShiftsActionTypes.GetWorkShift;
   constructor(public payload: string) { }
 }
 
 export class GetWorkShiftOk implements Action {
-  public readonly type = WorkShiftsActionTypes.GetWorkShiftOk;
+  readonly type = WorkShiftsActionTypes.GetWorkShiftOk;
   constructor(public payload: WorkShiftInterface) { }
 }
 
 export class GetWorkShiftError implements Action {
-  public readonly type = WorkShiftsActionTypes.GetWorkShiftError;
+  readonly type = WorkShiftsActionTypes.GetWorkShiftError;
   constructor(public payload: ApiError) { }
 }
 
 export class UpdateWorkShift implements Action {
-  public readonly type = WorkShiftsActionTypes.UpdateWorkShift;
+  readonly type = WorkShiftsActionTypes.UpdateWorkShift;
   constructor(public payload: { id: string, data: WorkShiftInterface }) { }
 }
 
 export class UpdateWorkShiftOk implements Action {
-  public readonly type = WorkShiftsActionTypes.UpdateWorkShiftOk;
+  readonly type = WorkShiftsActionTypes.UpdateWorkShiftOk;
   constructor(public payload: WorkShiftInterface) { }
 }
 
 export class UpdateWorkShiftError implements Action {
-  public readonly type = WorkShiftsActionTypes.UpdateWorkShiftError;
+  readonly type = WorkShiftsActionTypes.UpdateWorkShiftError;
   constructor(public payload: ApiError) { }
 }
 
 export class DeleteWorkShift implements Action {
-  public readonly type = WorkShiftsActionTypes.DeleteWorkShift;
+  readonly type = WorkShiftsActionTypes.DeleteWorkShift;
   constructor(public payload: string) { }
 }
 
 export class DeleteWorkShiftOk implements Action {
-  public readonly type = WorkShiftsActionTypes.DeleteWorkShiftOk;
+  readonly type = WorkShiftsActionTypes.DeleteWorkShiftOk;
   constructor(public payload: string) { }
 }
 
 export class DeleteWorkShiftError implements Action {
-  public readonly type = WorkShiftsActionTypes.DeleteWorkShiftError;
+  readonly type = WorkShiftsActionTypes.DeleteWorkShiftError;
   constructor(public payload: ApiError) { }
 }
 

@@ -12,7 +12,7 @@ export default class App {
   static application: Electron.App;
   static BrowserWindow;
 
-  public static isDevelopmentMode() {
+  static isDevelopmentMode() {
     const isEnvironmentSet: boolean = 'ELECTRON_IS_DEV' in process.env;
     const getFromEnvironment: boolean = parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
 
@@ -77,11 +77,11 @@ export default class App {
 
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
-	
+
 App.mainWindow.webContents.openDevTools({ mode: 'detach' });
-	
+
     if (!App.application.isPackaged) {
-      
+
     }
 
     // if main window is ready to show, close the splash window and show the main window
