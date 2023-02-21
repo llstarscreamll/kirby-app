@@ -35,9 +35,7 @@ if (!environment.production) {
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
   ],
-  declarations: [],
   providers: [AnimationsService],
-  exports: [],
 })
 export class CoreModule {
   constructor(
