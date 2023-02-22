@@ -21,7 +21,7 @@ h1 {
 }
 
 table {
-  @apply w-full rounded shadow;
+  @apply w-full rounded shadow bg-white;
 }
 
 table thead tr th {
