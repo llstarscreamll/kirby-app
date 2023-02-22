@@ -86,17 +86,17 @@
         <input matInput type="number" [value]="netWeight()" disabled />
       </mat-form-field>
     </div>
-
-    <mat-form-field *ngIf="defaults">
-      <mat-label>Etiqueta</mat-label>
-      <mat-select formControlName="tag">
-        <mat-option *ngFor="let option of tagOptions" [value]="option.id">{{ option.name }}</mat-option>
-      </mat-select>
-      <mat-hint align="end">Actualizada en {{ defaults.tag_updated_at | date: 'MMM d, h:mm a' }}</mat-hint>
-    </mat-form-field>
   </div>
 
-  <div>
+  <mat-form-field *ngIf="defaults" class="w-full md:w-3/6">
+    <mat-label>Etiqueta</mat-label>
+    <mat-select formControlName="tag">
+      <mat-option *ngFor="let option of tagOptions" [value]="option.id">{{ option.name }}</mat-option>
+    </mat-select>
+    <mat-hint align="end">Actualizada en {{ defaults.tag_updated_at | date: 'MMM d, h:mm a' }}</mat-hint>
+  </mat-form-field>
+
+  <div class="mt-4">
     <label class="block mb-3">Destino:</label>
     <mat-radio-group formControlName="purpose" aria-label="Destino">
       <mat-radio-button *ngFor="let option of purposeOptions" [value]="option.id" class="mr-5">
