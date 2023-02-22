@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { optimisticUpdate, pessimisticUpdate, fetch, navigation } from '@nrwl/angular';
+import { pessimisticUpdate, fetch, navigation } from '@nrwl/angular';
 
 import { PrinterService } from '../printer.service';
 import * as fromProduction from './production.reducer';
