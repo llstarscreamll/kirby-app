@@ -2,25 +2,21 @@
   <a routerLink="..">Producción</a> / Crear registro
 </h1>
 
-<div class="card max-w-4xl">
+<kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
 
-  <kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
-
-  <kirby-production-log-form *ngIf="user$ | async"
-                             [user]="user$ | async"
-                             [products]="products$ | async"
-                             [machines]="machines$ | async"
-                             [customers]="customers$ | async"
-                             [status]="creationStatus$ | async"
-                             [rawGrossWeight]="machineValue"
-                             [printerIsAvailable]="printerIsAvailable()"
-                             [weighMachineAvailable]="readyToConnectToWeighMachine()"
-                             (searchProducts)="searchProducts($event)"
-                             (searchMachines)="searchMachines($event)"
-                             (searchCustomers)="searchCustomers($event)"
-                             (saveAndAddOther)="save($event)"
-                             (saveAndPrint)="saveAndPrint($event)"
-                             class="block w-full">
-  </kirby-production-log-form>
-
-</div>
+<kirby-production-log-form *ngIf="user$ | async"
+                           [user]="user$ | async"
+                           [products]="products$ | async"
+                           [machines]="machines$ | async"
+                           [customers]="customers$ | async"
+                           [status]="creationStatus$ | async"
+                           [rawGrossWeight]="machineValue"
+                           [printerIsAvailable]="printerIsAvailable()"
+                           [weighMachineAvailable]="readyToConnectToWeighMachine()"
+                           (searchProducts)="searchProducts($event)"
+                           (searchMachines)="searchMachines($event)"
+                           (searchCustomers)="searchCustomers($event)"
+                           (saveAndAddOther)="save($event)"
+                           (saveAndPrint)="saveAndPrint($event)"
+                           class="block max-w-4xl">
+</kirby-production-log-form>
