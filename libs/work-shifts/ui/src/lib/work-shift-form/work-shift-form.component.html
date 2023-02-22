@@ -5,8 +5,6 @@
     <input matInput formControlName="name">
   </mat-form-field>
 
-  <div class="clearfix"></div>
-
   <mat-form-field class="w-50 pr-2">
     <mat-label>Minutos de gracia antes de entrada</mat-label>
     <input matInput formControlName="grace_minutes_before_start_times" type="number" min="0">
@@ -16,8 +14,6 @@
     <mat-label>Minutos de gracia después de entrada</mat-label>
     <input matInput formControlName="grace_minutes_after_start_times" type="number" min="0">
   </mat-form-field>
-
-  <div class="clearfix"></div>
 
   <mat-form-field class="w-50 pr-2">
     <mat-label>Minutos de gracia antes de salida</mat-label>
@@ -29,8 +25,6 @@
     <input matInput formControlName="grace_minutes_after_end_times" type="number" min="0">
   </mat-form-field>
 
-  <div class="clearfix"></div>
-
   <mat-form-field class="w-50 pr-2">
     <mat-label>Tiempo de almuerzo (minutos)</mat-label>
     <input matInput formControlName="meal_time_in_minutes" type="number" min="0">
@@ -41,8 +35,6 @@
     <input matInput formControlName="min_minutes_required_to_discount_meal_time" type="number" min="0">
   </mat-form-field>
 
-  <div class="clearfix"></div>
-
   <div class="apply_on_days mb-4">
     <div class="mb-2">Días en que aplica:</div>
     <ng-container *ngFor="let day of weekDays">
@@ -52,8 +44,6 @@
       </mat-checkbox>
     </ng-container>
   </div>
-
-  <div class="clearfix"></div>
 
   <div class="time-slots-container my-2">
     <div class="mb-2">Franjas horarias:</div>

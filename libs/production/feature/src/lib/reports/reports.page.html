@@ -1,6 +1,6 @@
 <h1><a routerLink="../">Producción</a> / Reportes</h1>
 
-<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
 <div class="mt-5">
   <kirby-search-form [defaults]="searchFormDefaults" (submitted)="getReport($event)"></kirby-search-form>

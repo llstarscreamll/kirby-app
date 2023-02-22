@@ -1,6 +1,6 @@
 <h1>Producción</h1>
 
-<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
 <div class="flex flex-row gap-4 md:gap-4">
   <a *ngIf="(user$ | async)?.can('production-logs.create')"

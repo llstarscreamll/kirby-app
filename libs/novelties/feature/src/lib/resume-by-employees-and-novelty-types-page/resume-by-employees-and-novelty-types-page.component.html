@@ -2,7 +2,7 @@
   <h1>Resumen por tipo de novedad</h1>
 </div>
 
-<kirby-api-errors [apiError]="apiError$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
 <form [formGroup]="searchForm" (submit)="searchSubmitted()" class="mb-5" autocomplete="off">
   <mat-form-field *kirbyCan="'novelties.global-search'" class="w-full">

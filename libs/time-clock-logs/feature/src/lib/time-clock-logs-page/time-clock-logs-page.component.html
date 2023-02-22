@@ -1,6 +1,6 @@
 <h1 (click)="searchTimeClockLogs()" class="my-4">Entradas/salidas</h1>
 
-<kirby-api-errors [apiError]="apiError$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
 <div class="flex flex-row">
   <a *kirbyCan="'time-clock-logs.check-in'"

@@ -2,6 +2,6 @@
   <a routerLink="../">Turnos de trabajo</a> / Crear
 </h1>
 
-<kirby-api-errors [apiError]="error$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="error$ | async" class="block my-4"></kirby-api-errors>
 
 <kirby-work-shift-form (submitted)="createWorkShift($event)"></kirby-work-shift-form>
