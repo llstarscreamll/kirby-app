@@ -111,8 +111,7 @@
     </mat-form-field>
   </div>
 
-  <div class="flex flex-col md:flex-row md:gap-4" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
+  <div class="flex flex-col md:flex-row md:gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>Etiqueta</mat-label>
       <mat-select formControlName="tags" [compareWith]="compareWithFunction" multiple>
@@ -133,8 +132,7 @@
     </mat-form-field>
   </div>
 
-  <div class="flex flex-col md:flex-row md:gap-4 place-content-center" fxLayout="column" fxLayout.gt-xs="row"
-       fxLayoutGap="0px" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center">
+  <div class="flex flex-col md:flex-row md:gap-4 place-content-center">
     <mat-form-field>
       <mat-label>Fecha de etiqueta <small>inicio</small></mat-label>
       <input formControlName="tagUpdatedAtStart" matInput type="datetime-local" />
