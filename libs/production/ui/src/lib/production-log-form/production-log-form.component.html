@@ -1,8 +1,7 @@
 <form [formGroup]="form" autocomplete="off">
 
-  <div fxLayout="column wrap" fxLayout.gt-xs="row wrap" fxLayoutGap="0px" fxLayoutGap.gt-xs="10px"
-       fxLayoutAlign="space-around">
-    <mat-form-field fxFlex="grow" class="mb-5">
+  <div class="flex flex-col">
+    <mat-form-field class="mb-5">
       <mat-label>{{ captureEmployeeCode ? 'Token ' : '' }}Empleado</mat-label>
       <input formControlName="employee_code"
              matInput
@@ -18,71 +17,77 @@
       </mat-hint>
     </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Producto</mat-label>
-      <input [matAutocomplete]="productAutocomplete"
-             formControlName="product"
-             matInput
-             autofocus />
-      <mat-autocomplete #productAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
-        <mat-option *ngFor="let product of products" [value]="product">
-          <span>{{ product.short_name }}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
+        <mat-label>Producto</mat-label>
+        <input [matAutocomplete]="productAutocomplete"
+               formControlName="product"
+               matInput
+               autofocus />
+        <mat-autocomplete #productAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
+          <mat-option *ngFor="let product of products" [value]="product">
+            <span>{{ product.short_name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Diámetro (BWG)</mat-label>
-      <input matInput type="text" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Diámetro (BWG)</mat-label>
+        <input matInput type="text" [value]="selectedProduct?.wire_gauge_in_bwg || ''" disabled />
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Diámetro (mm)</mat-label>
-      <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_mm || ''" disabled />
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Diámetro (mm)</mat-label>
+        <input matInput type="number" [value]="selectedProduct?.wire_gauge_in_mm || ''" disabled />
+      </mat-form-field>
+    </div>
 
-    <mat-form-field fxFlex>
-      <mat-label>Máquina</mat-label>
-      <input [matAutocomplete]="machineAutocomplete" formControlName="machine" matInput />
-      <mat-autocomplete #machineAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
-        <mat-option *ngFor="let machine of machines" [value]="machine">
-          <span>{{ machine.short_name }}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
+        <mat-label>Máquina</mat-label>
+        <input [matAutocomplete]="machineAutocomplete" formControlName="machine" matInput />
+        <mat-autocomplete #machineAutocomplete="matAutocomplete" [displayWith]="displayShortNameValue">
+          <mat-option *ngFor="let machine of machines" [value]="machine">
+            <span>{{ machine.short_name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Cliente</mat-label>
-      <input [matAutocomplete]="customerAutocomplete" formControlName="customer" matInput />
-      <mat-autocomplete #customerAutocomplete="matAutocomplete" [displayWith]="displayNameValue">
-        <mat-option *ngFor="let customer of customers" [value]="customer">
-          <span>{{ customer.name }}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Cliente</mat-label>
+        <input [matAutocomplete]="customerAutocomplete" formControlName="customer" matInput />
+        <mat-autocomplete #customerAutocomplete="matAutocomplete" [displayWith]="displayNameValue">
+          <mat-option *ngFor="let customer of customers" [value]="customer">
+            <span>{{ customer.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Lote</mat-label>
-      <input formControlName="batch" matInput type="number" min="0" step="1" />
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Lote</mat-label>
+        <input formControlName="batch" matInput type="number" min="0" step="1" />
+      </mat-form-field>
+    </div>
 
-    <mat-form-field fxFlex>
-      <mat-label>Peso tara (kg)</mat-label>
-      <input #tareWeightField formControlName="tare_weight" matInput type="number" step="0.1" min="0" />
-    </mat-form-field>
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
+        <mat-label>Peso tara (kg)</mat-label>
+        <input #tareWeightField formControlName="tare_weight" matInput type="number" step="0.1" min="0" />
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Peso bruto (kg)</mat-label>
-      <input #grossWeightField formControlName="gross_weight" matInput type="number" step="0.1" min="0" />
-      <mat-hint *ngIf="weighMachineAvailable" align="end">{{ machineValue }}</mat-hint>
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Peso bruto (kg)</mat-label>
+        <input #grossWeightField formControlName="gross_weight" matInput type="number" step="0.1" min="0" />
+        <mat-hint *ngIf="weighMachineAvailable" align="end">{{ machineValue }}</mat-hint>
+      </mat-form-field>
 
-    <mat-form-field fxFlex>
-      <mat-label>Peso neto (kg)</mat-label>
-      <input matInput type="number" [value]="netWeight()" disabled />
-    </mat-form-field>
+      <mat-form-field class="flex-grow">
+        <mat-label>Peso neto (kg)</mat-label>
+        <input matInput type="number" [value]="netWeight()" disabled />
+      </mat-form-field>
+    </div>
 
-    <mat-form-field *ngIf="defaults" fxFlex>
+    <mat-form-field *ngIf="defaults">
       <mat-label>Etiqueta</mat-label>
       <mat-select formControlName="tag">
         <mat-option *ngFor="let option of tagOptions" [value]="option.id">{{ option.name }}</mat-option>
@@ -91,25 +96,22 @@
     </mat-form-field>
   </div>
 
-  <div class="mb-7">
-
+  <div>
     <label class="block mb-3">Destino:</label>
     <mat-radio-group formControlName="purpose" aria-label="Destino">
       <mat-radio-button *ngFor="let option of purposeOptions" [value]="option.id" class="mr-5">
         {{ option.name }}
       </mat-radio-button>
     </mat-radio-group>
-
   </div>
 
-  <div class="my-5" fxLayout="row" fxLayoutGap="20px">
+  <div class="flex flex-row gap-8 mt-4">
     <button *ngIf="defaults" (click)="emitSave()"
             [disabled]="form.invalid || form.disabled"
             mat-raised-button
             color="primary"
             type="submit"
-            class="save my-3"
-            ngClass.xs="block w-full h-12">
+            class="save block w-full h-12 md:inline md:w-auto md:h-auto my-3">
       Guardar
     </button>
 
@@ -118,8 +120,7 @@
             mat-raised-button
             color="primary"
             type="submit"
-            class="save-and-add-other my-3"
-            ngClass.xs="block w-full h-12">
+            class="save-and-add-other block w-full h-12 md:inline md:w-auto md:h-auto my-3">
       Guardar y crear otro
     </button>
 
@@ -129,8 +130,7 @@
             mat-raised-button
             color="primary"
             type="submit"
-            class="save-and-print my-3"
-            ngClass.xs="block w-full h-12">
+            class="save-and-print block w-full h-12 md:inline md:w-auto md:h-auto my-3">
       Guardar e imprimir
     </button>
   </div>
