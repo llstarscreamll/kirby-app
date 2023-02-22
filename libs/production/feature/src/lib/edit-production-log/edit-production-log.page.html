@@ -1,12 +1,13 @@
 <h1 class="inline-block">
-  <a routerLink="../../">Registros de producción</a> / Editar
+  <a routerLink="../../">Producción</a> / Editar registro
 </h1>
 
-<div class="card">
+<div class="card max-w-4xl">
 
   <kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
 
-  <kirby-production-log-form *ngIf="productionLog$ | async; let productionLog" [user]="user$ | async"
+  <kirby-production-log-form *ngIf="productionLog$ | async; let productionLog"
+                             [user]="user$ | async"
                              [defaults]="productionLog$ | async"
                              [products]="products$ | async"
                              [machines]="machines$ | async"
