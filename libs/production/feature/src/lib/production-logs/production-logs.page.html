@@ -2,10 +2,7 @@
 
 <kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
 
-<div fxLayout="column"
-     fxLayout.gt-xs="row"
-     fxLayoutGap="10px"
-     fxLayoutGap.gt-xs="20px">
+<div class="flex flex-row gap-4 md:gap-2">
   <a *ngIf="(user$ | async)?.can('production-logs.create')"
      routerLink="./create"
      mat-stroked-button
@@ -17,7 +14,7 @@
     Reportes
   </a>
 
-  <div fxFlex></div>
+  <div class="flex-grow"></div>
 
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
     <mat-icon>more_vert</mat-icon>

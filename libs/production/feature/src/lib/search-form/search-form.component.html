@@ -1,13 +1,12 @@
 <form [formGroup]="searchForm" autocomplete="off" (ngSubmit)="submit()">
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Empleado</mat-label>
       <mat-chip-grid #employeesList aria-label="Employee selection">
         <mat-chip-row *ngFor="let employee of addedEmployees"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeEmployee(employee)">
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeEmployee(employee)">
           {{ employee.first_name }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip-row>
@@ -28,13 +27,13 @@
       </mat-chip-grid>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Producto</mat-label>
       <mat-chip-grid #productsList aria-label="Product selection">
         <mat-chip-row *ngFor="let product of addedProducts"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeProduct(product)">
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeProduct(product)">
           {{ product.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip-row>
@@ -54,17 +53,16 @@
         </mat-autocomplete>
       </mat-chip-grid>
     </mat-form-field>
-
   </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Centro de costo</mat-label>
       <mat-chip-grid #costCentersList aria-label="Sub cost centers selection">
         <mat-chip-row *ngFor="let costCenter of addedCostCenters"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeCostCenter(costCenter)">
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeCostCenter(costCenter)">
           {{ costCenter.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip-row>
@@ -85,13 +83,13 @@
       </mat-chip-grid>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Máquina</mat-label>
       <mat-chip-grid #machinesList aria-label="Sub cost centers selection">
         <mat-chip-row *ngFor="let machine of addedMachines"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeMachine(machine)">
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeMachine(machine)">
           {{ machine.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip-row>
@@ -113,28 +111,30 @@
     </mat-form-field>
   </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px"
+       fxLayoutGap.gt-xs="20px">
+    <mat-form-field class="flex-grow">
       <mat-label>Etiqueta</mat-label>
       <mat-select formControlName="tags" [compareWith]="compareWithFunction" multiple>
         <mat-option *ngFor="let tag of tagOptions" [value]="tag">{{ tag.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Destino</mat-label>
       <mat-select formControlName="purposes" [compareWith]="compareWithFunction" multiple>
         <mat-option *ngFor="let option of purposeOptions" [value]="option">{{ option.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Peso neto</mat-label>
       <input formControlName="netWeight" matInput type="number" min="0" step=".1" />
     </mat-form-field>
   </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center">
+  <div class="flex flex-col md:flex-row md:gap-4 place-content-center" fxLayout="column" fxLayout.gt-xs="row"
+       fxLayoutGap="0px" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center">
     <mat-form-field>
       <mat-label>Fecha de etiqueta <small>inicio</small></mat-label>
       <input formControlName="tagUpdatedAtStart" matInput type="datetime-local" />
