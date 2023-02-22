@@ -6,7 +6,8 @@
 
   <kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
 
-  <kirby-production-log-form *ngIf="user$ | async" [user]="user$ | async"
+  <kirby-production-log-form *ngIf="user$ | async"
+                             [user]="user$ | async"
                              [products]="products$ | async"
                              [machines]="machines$ | async"
                              [customers]="customers$ | async"
