@@ -1,5 +1,5 @@
 <!-- top bar -->
-<mat-toolbar class="flex flex-row main-top-bar">
+<mat-toolbar color="primary" class="flex flex-row main-top-bar">
   <ng-container *ngIf="!(authenticated$ | async)">
     <a [routerLink]="['/']">Pascal</a>
     <div class="flex-grow"></div>
