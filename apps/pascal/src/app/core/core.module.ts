@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { FullRouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { debug } from './meta-reducers/debug.reducer';
 import { environment } from '../../environments/environment';
@@ -33,7 +33,7 @@ if (!environment.production) {
       }
     ),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({ serializer: FullRouterStateSerializer }),
   ],
   providers: [AnimationsService],
 })

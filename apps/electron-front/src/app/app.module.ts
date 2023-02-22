@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, FullRouterStateSerializer } from '@ngrx/router-store';
 import { ActionReducer, INIT, MetaReducer, UPDATE } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -78,7 +78,7 @@ const routes: Route[] = [
       }
     ),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({ serializer: FullRouterStateSerializer }),
     RouterModule.forRoot(routes, {
       useHash: true,
       initialNavigation: 'enabledBlocking',
