@@ -1,19 +1,15 @@
 <h1>Empleados</h1>
 
-<div fxLayout="column"
-     fxLayout.gt-xs="row"
-     fxLayoutGap="10px"
-     fxLayoutGap.gt-xs="20px">
-  <a *kirbyCan="'employees.create'" routerLink="./create" mat-stroked-button color="primary">
-    Crear
+<div class="flex flex-row my-8">
+  <a *kirbyCan="'employees.create'" routerLink="./create" mat-fab extended color="primary">
+    <mat-icon>add</mat-icon> Crear
   </a>
 </div>
 
 <div class="mt-4">
   <mat-form-field *kirbyCan="'employees.search'" class="w-full">
     <mat-label>Buscar</mat-label>
-    <input
-           (change)="searchEmployees({ search: $event.srcElement.value, page: 1 })"
+    <input (change)="searchEmployees({ search: $event.srcElement.value, page: 1 })"
            matInput
            placeholder="Buscar por nombre, apellido, email, código o identificación"
            type="search"
@@ -26,22 +22,20 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Nombres</th>
         <th>Apellidos</th>
         <th>Código</th>
         <th>Cargo</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let employee of (employees$ | async)?.data">
-        <td>
-          <a [routerLink]="[employee.id, 'edit']">{{ employee.id }}</a>
-        </td>
         <td>{{ employee.first_name }}</td>
         <td>{{ employee.last_name }}</td>
         <td>{{ employee.code }}</td>
         <td>{{ employee.position }}</td>
+        <td><a [routerLink]="[employee.id, 'edit']" mat-icon-button><mat-icon>edit</mat-icon></a></td>
       </tr>
     </tbody>
   </table>
