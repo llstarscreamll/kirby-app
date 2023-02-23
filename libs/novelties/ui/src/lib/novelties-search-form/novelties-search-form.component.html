@@ -40,7 +40,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-chip-grid *ngIf="globalSearch" class="selected-employees block mb-6">
+  <mat-chip-grid *ngIf="globalSearch" class="selected-employees">
     <mat-chip-row *ngFor="let employee of selectedEmployees">
       {{ employee.first_name + ' ' + employee.last_name }}
       <mat-icon matChipRemove (click)="removeEmployee(employee)">
@@ -49,26 +49,17 @@
     </mat-chip-row>
   </mat-chip-grid>
 
-  <div
-       fxLayout="column"
-       fxLayout.gt-xs="row"
-       fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
-    <div fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <div class="flex-grow">
       <mat-form-field class="w-full">
         <mat-label>Tipo de novedad</mat-label>
-        <input
-               formControlName="noveltyTypesSearch"
+        <input formControlName="noveltyTypesSearch"
                matInput
                [matAutocomplete]="noveltyTypeAutocomplete"
                type="text" />
 
-        <mat-autocomplete
-                          #noveltyTypeAutocomplete="matAutocomplete"
-                          [displayWith]="displayNoveltyTypeFieldValue">
-          <mat-option
-                      *ngFor="let noveltyType of noveltyTypesFound?.data"
-                      [value]="noveltyType">
+        <mat-autocomplete #noveltyTypeAutocomplete="matAutocomplete" [displayWith]="displayNoveltyTypeFieldValue">
+          <mat-option *ngFor="let noveltyType of noveltyTypesFound?.data" [value]="noveltyType">
             <span>{{ noveltyType.code + ' ' + noveltyType.name }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -82,21 +73,16 @@
       </mat-chip-grid>
     </div>
 
-    <div fxFlex="grow">
+    <div class="flex-grow">
       <mat-form-field class="w-full">
         <mat-label>Centro de costo</mat-label>
-        <input
-               formControlName="costCentersSearch"
+        <input formControlName="costCentersSearch"
                matInput
                [matAutocomplete]="costCenterAutocomplete"
                type="text" />
 
-        <mat-autocomplete
-                          #costCenterAutocomplete="matAutocomplete"
-                          [displayWith]="displayCostCenterFieldValue">
-          <mat-option
-                      *ngFor="let costCenter of costCentersFound?.data"
-                      [value]="costCenter">
+        <mat-autocomplete #costCenterAutocomplete="matAutocomplete" [displayWith]="displayCostCenterFieldValue">
+          <mat-option *ngFor="let costCenter of costCentersFound?.data" [value]="costCenter">
             <span>{{ costCenter.code + ' ' + costCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -113,22 +99,18 @@
     </div>
   </div>
 
-  <div
-       fxLayout="column"
-       fxLayout.gt-xs="row"
-       fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Inicio</mat-label>
       <input formControlName="startAtFrom" matInput type="datetime-local" />
     </mat-form-field>
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Fin</mat-label>
       <input formControlName="startAtTo" matInput type="datetime-local" />
     </mat-form-field>
   </div>
 
   <div class="text-center">
-    <button mat-raised-button type="submit" ngClass.xs="block w-full h-12">Buscar</button>
+    <button mat-stroked-button type="submit" ngClass.xs="block w-full h-12">Buscar</button>
   </div>
 </form>
