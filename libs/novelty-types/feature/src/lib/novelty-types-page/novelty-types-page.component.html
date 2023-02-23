@@ -1,22 +1,24 @@
-<h1 class="my-4">Tipos de Novedad</h1>
+<h1>Tipos de Novedad</h1>
 
-<a *kirbyCan="'novelty-types.create'"
-   [routerLink]="['create']"
-   mat-stroked-button
-   color="primary">Crear</a>
+<div class="my-8">
+  <a *kirbyCan="'novelty-types.create'"
+  [routerLink]="['create']"
+  mat-fab extended
+  color="primary"><mat-icon>add</mat-icon> Crear</a>
+</div>
 
-<kirby-novelty-types-search-form (submitted)="searchNoveltyTypes($event)" class="mt-4">
+<kirby-novelty-types-search-form (submitted)="searchNoveltyTypes($event)">
 </kirby-novelty-types-search-form>
 
 <div class="responsive-table shadow">
-    <kirby-novelty-types-table [noveltyTypes]="(paginatedNoveltyTypes$ | async)?.data"
-                               [showActionsColumn]="(user$ | async)?.canAny(['novelty-types.update', 'novelty-types.delete'])"
-                               (rowTrashed)="trashRow($event)">
-    </kirby-novelty-types-table>
+  <kirby-novelty-types-table [noveltyTypes]="(paginatedNoveltyTypes$ | async)?.data"
+                             [showActionsColumn]="(user$ | async)?.canAny(['novelty-types.update', 'novelty-types.delete'])"
+                             (rowTrashed)="trashRow($event)">
+  </kirby-novelty-types-table>
 </div>
 
-<div class="text-right">
-    <kirby-pagination [pagination]="(paginatedNoveltyTypes$ | async)?.meta"
-                      (paginate)="searchNoveltyTypes($event)">
-    </kirby-pagination>
+<div class="text-right my-4">
+  <kirby-pagination [pagination]="(paginatedNoveltyTypes$ | async)?.meta"
+                    (paginate)="searchNoveltyTypes($event)">
+  </kirby-pagination>
 </div>
