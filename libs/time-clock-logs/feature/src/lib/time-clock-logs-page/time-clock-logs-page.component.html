@@ -2,12 +2,12 @@
 
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
-<div class="flex flex-row">
+<div class="flex flex-row my-8">
   <a *kirbyCan="'time-clock-logs.check-in'"
      routerLink="entry-and-exit-log"
-     mat-stroked-button
+     mat-fab extended
      color="primary">
-    Registrar entrada/salida
+    <mat-icon>add</mat-icon> Registrar
   </a>
 
   <span class="flex-grow"></span>
@@ -26,9 +26,9 @@
         <mat-label>Empleados</mat-label>
         <mat-chip-grid #employeesList aria-label="Employee selection">
           <mat-chip-row *ngFor="let employee of addedEmployees"
-                    selectable="true"
-                    removable="true"
-                    (removed)="removeEmployee(employee)">
+                        selectable="true"
+                        removable="true"
+                        (removed)="removeEmployee(employee)">
             {{ employee.first_name }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip-row>
