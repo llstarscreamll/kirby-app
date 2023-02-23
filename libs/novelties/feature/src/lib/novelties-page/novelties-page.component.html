@@ -1,25 +1,21 @@
-<div class="my-4">
-  <h1 class="inline">Novedades</h1>
-  <a *ngIf="(user$ | async)?.can('novelty-types.search')"
-     [routerLink]="['novelty-types']"
-     mat-icon-button
-     class="float-right">
-    <mat-icon>settings</mat-icon>
-  </a>
-</div>
+<h1>Novedades</h1>
 
 <kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
 <div fxLayout="column"
      fxLayout.gt-xs="row"
      fxLayoutGap="10px"
-     fxLayoutGap.gt-xs="20px">
+     fxLayoutGap.gt-xs="20px"
+     class="flex flex-col gap-2 md:flex-row md:gap-4 place-items-center my-8">
   <a *kirbyCan="'novelties.create-many'"
      routerLink="./create-novelties-to-employees"
-     mat-stroked-button
+     mat-fab extended
      color="primary">
+    <mat-icon>add</mat-icon>
     Crear
   </a>
+
+  <div class="flex-grow"></div>
 
   <a *kirbyCan="'novelties.report-by-employee'"
      routerLink="./report-by-employee"
@@ -33,6 +29,13 @@
      mat-stroked-button
      color="primary">
     Resumen por tipo de novedad
+  </a>
+
+  <a *ngIf="(user$ | async)?.can('novelty-types.search')"
+     [routerLink]="['novelty-types']"
+     mat-icon-button
+     class="float-right">
+    <mat-icon>settings</mat-icon>
   </a>
 </div>
 
