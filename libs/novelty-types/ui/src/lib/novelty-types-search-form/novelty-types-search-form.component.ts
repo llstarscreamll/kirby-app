@@ -1,10 +1,4 @@
-import {
-  OnInit,
-  Output,
-  Component,
-  EventEmitter,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { OnInit, Output, Component, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -23,7 +17,7 @@ export class NoveltyTypesSearchFormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       search: [],
-      page: 1
+      page: 1,
     });
   }
 
