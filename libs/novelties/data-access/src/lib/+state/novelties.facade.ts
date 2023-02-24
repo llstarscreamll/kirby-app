@@ -21,11 +21,11 @@ export class NoveltiesFacade {
   constructor(private store: Store<NoveltiesPartialState>) {}
 
   search(query: any = {}) {
-    this.store.dispatch(a.Search(query));
+    this.store.dispatch(a.Search({ payload: query }));
   }
 
   get(noveltyId: string) {
-    this.store.dispatch(a.Get({ payload: { noveltyId } }));
+    this.store.dispatch(a.Get({ payload: noveltyId }));
   }
 
   cleanNoveltiesSearch() {
