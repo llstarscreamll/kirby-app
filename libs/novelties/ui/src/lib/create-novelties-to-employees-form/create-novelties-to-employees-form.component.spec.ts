@@ -128,7 +128,7 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.selectedEmployees.length).toBe(1);
+    expect(component.addedEmployees.length).toBe(1);
     expect(component.form.get('employee').value).toBe('');
   });
 
@@ -164,7 +164,7 @@ describe('CreateNoveltiesToEmployeesFormComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.selectedEmployees.length).toBe(2);
+    expect(component.addedEmployees.length).toBe(2);
     expect(template.querySelectorAll('mat-chip-grid mat-chip').length).toBe(2);
   });
 

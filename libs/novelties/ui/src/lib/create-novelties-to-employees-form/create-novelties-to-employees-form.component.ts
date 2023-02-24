@@ -2,7 +2,18 @@ import { timer, Subject } from 'rxjs';
 import moment, { Moment } from 'moment';
 import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { LoadStatus } from '@kirby/shared';
 import { NoveltyType } from '@kirby/novelty-types/data';
@@ -15,6 +26,8 @@ import { EmployeeInterface } from '@kirby/employees/util';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestroy {
+  @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
+
   @Input()
   employees: EmployeeInterface[] = [];
 
@@ -59,7 +72,7 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
     this.destroy$.complete();
   }
 
-  get selectedEmployees(): any[] {
+  get addedEmployees(): any[] {
     return this.form ? this.form.get('selected_employees').value : [];
   }
 
@@ -67,14 +80,10 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
     return this.form.get('novelty_types') as FormArray;
   }
 
-  get displayableEmployees(): any[] {
-    return this.employees.filter((employee) => !this.selectedEmployees.map((se) => se.id).includes(employee.id));
-  }
-
   private buildForm() {
     this.form = this.formBuilder.group({
-      selected_employees: [[], [Validators.required]],
       employee: [],
+      selected_employees: [[], [Validators.required]],
       novelty_types: this.formBuilder.array([this.setUpNoveltyOptionFormGroup()]),
     });
   }
@@ -120,46 +129,43 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
   private listenFormChanges() {
     this.form
       .get('employee')
-      ?.valueChanges.pipe(
+      .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter((value) => typeof value === 'string' && value !== ''),
+        filter((value) => typeof value === 'string' && value.trim() !== ''),
         tap((value) => this.searchEmployees.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
-
-    this.form
-      .get('employee')
-      .valueChanges.pipe(
-        filter((value) => typeof value !== 'string'), // an employee has been selected
-        tap((value) => this.addEmployee(value)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
   }
 
-  private addEmployee(employee) {
-    const selectedEmployees = this.selectedEmployees;
-
-    if (selectedEmployees.find((se) => se.id === employee.id)) {
-      return;
-    }
-
-    selectedEmployees.push(employee);
-
-    this.form.get('selected_employees').setValue(selectedEmployees);
-    this.form.get('employee').setValue('');
+  addEmployee(event: MatAutocompleteSelectedEvent) {
+    this.form.patchValue({
+      selected_employees: this.addItemToCollection(event.option.value, this.addedEmployees),
+      employee: '',
+    });
+    this.employeeInput.nativeElement.value = '';
   }
 
-  removeEmployee(employee) {
-    const selectedEmployees = this.selectedEmployees;
-    const index = selectedEmployees.map((se) => se.id).indexOf(employee.id);
-
-    if (index >= 0) {
-      this.selectedEmployees.splice(index, 1);
+  addItemToCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
+    if (collection.findIndex((added) => added.id === item.id) === -1) {
+      collection.push(item);
     }
 
-    this.form.get('selected_employees').setValue(selectedEmployees);
+    return collection;
+  }
+
+  removeEmployee(employee: any) {
+    this.form.patchValue({ selected_employees: this.removeItemFromCollection(employee, this.addedEmployees) });
+  }
+
+  removeItemFromCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
+    const itemIndex = collection.findIndex((added) => added.id === item.id);
+
+    if (itemIndex > -1) {
+      collection.splice(itemIndex, 1);
+    }
+
+    return collection;
   }
 
   addNoveltyOption() {
@@ -176,6 +182,10 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
 
   displayEmployeeFieldValue(employee) {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
+  }
+
+  employeeIsSelected(employee): boolean {
+    return this.addedEmployees.map((e) => e.id).includes(employee.id);
   }
 
   displayNoveltyTypeFieldValue(noveltyType) {
