@@ -1,16 +1,12 @@
-<h1>Crear novedades a empleados</h1>
+<h1><a routerLink="..">Novedades</a> / Crear</h1>
 
-<div class="col-md-10">
-  <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
-</div>
+<kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
-<div class="card">
-  <kirby-create-novelties-to-employees-form [status]="createStatus$ | async"
-                                            [employees]="(employees$ | async)?.data"
-                                            [noveltyTypes]="(noveltyTypes$ | async)?.data"
-                                            (searchEmployees)="onSearchEmployees($event)"
-                                            (searchNoveltyTypes)="onSearchNovelties($event)"
-                                            (submitted)="onSubmit($event)"
-                                            class="d-block col-md-10">
-  </kirby-create-novelties-to-employees-form>
-</div>
+<kirby-create-novelties-to-employees-form [status]="createStatus$ | async"
+                                          [employees]="(employees$ | async)?.data"
+                                          [noveltyTypes]="(noveltyTypes$ | async)?.data"
+                                          (searchEmployees)="onSearchEmployees($event)"
+                                          (searchNoveltyTypes)="onSearchNovelties($event)"
+                                          (submitted)="onSubmit($event)"
+                                          class="block max-w-4xl">
+</kirby-create-novelties-to-employees-form>
