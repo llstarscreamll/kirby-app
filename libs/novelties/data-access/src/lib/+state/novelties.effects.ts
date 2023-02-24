@@ -16,8 +16,8 @@ export class NoveltiesEffects {
       ofType(a.Search),
       fetch({
         run: (action: ReturnType<typeof a.Search>, state: NoveltiesPartialState) =>
-          this.noveltyService.search(action.payload).pipe(map((apiResponse) => a.SearchOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.Search>, error) => a.SearchError(error),
+          this.noveltyService.search(action.payload).pipe(map((apiResponse) => a.SearchOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.Search>, error) => a.SearchError({ payload: error }),
       })
     )
   );
@@ -29,8 +29,9 @@ export class NoveltiesEffects {
         run: (action: ReturnType<typeof a.SearchNoveltyTypes>) =>
           this.noveltyService
             .searchNoveltyTypes(action.payload)
-            .pipe(map((apiResponse) => a.SearchNoveltyTypesOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.SearchNoveltyTypes>, error) => a.SearchNoveltyTypesError(error),
+            .pipe(map((apiResponse) => a.SearchNoveltyTypesOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.SearchNoveltyTypes>, error) =>
+          a.SearchNoveltyTypesError({ payload: error }),
       })
     )
   );
@@ -40,8 +41,10 @@ export class NoveltiesEffects {
       ofType(a.GetResume),
       fetch({
         run: (action: ReturnType<typeof a.GetResume>) =>
-          this.noveltyService.getResume(action.payload).pipe(map((apiResponse) => a.GetResumeOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.GetResume>, error) => a.GetResumeError(error),
+          this.noveltyService
+            .getResume(action.payload)
+            .pipe(map((apiResponse) => a.GetResumeOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.GetResume>, error) => a.GetResumeError({ payload: error }),
       })
     )
   );
@@ -51,8 +54,10 @@ export class NoveltiesEffects {
       ofType(a.ExportResume),
       fetch({
         run: (action: ReturnType<typeof a.ExportResume>) =>
-          this.noveltyService.exportResume(action.payload).pipe(map((apiResponse) => a.ExportResumeOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.ExportResume>, error) => a.ExportResumeError(error),
+          this.noveltyService
+            .exportResume(action.payload)
+            .pipe(map((apiResponse) => a.ExportResumeOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.ExportResume>, error) => a.ExportResumeError({ payload: error }),
       })
     )
   );
@@ -75,8 +80,10 @@ export class NoveltiesEffects {
       ofType(a.Create),
       pessimisticUpdate({
         run: (action: ReturnType<typeof a.Create>) =>
-          this.noveltyService.createMany(action.payload).pipe(map((apiResponse) => a.CreateOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.Create>, error) => a.CreateError(error),
+          this.noveltyService
+            .createMany(action.payload)
+            .pipe(map((apiResponse) => a.CreateOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.Create>, error) => a.CreateError({ payload: error }),
       })
     )
   );
@@ -86,8 +93,10 @@ export class NoveltiesEffects {
       ofType(a.CreateBalance),
       pessimisticUpdate({
         run: (action: ReturnType<typeof a.CreateBalance>) =>
-          this.noveltyService.createBalance(action.payload).pipe(map((apiResponse) => a.CreateBalanceOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.CreateBalance>, error) => a.CreateBalanceError(error),
+          this.noveltyService
+            .createBalance(action.payload)
+            .pipe(map((apiResponse) => a.CreateBalanceOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.CreateBalance>, error) => a.CreateBalanceError({ payload: error }),
       })
     )
   );
@@ -110,8 +119,8 @@ export class NoveltiesEffects {
       ofType(a.Get),
       fetch({
         run: (action: ReturnType<typeof a.Get>) =>
-          this.noveltyService.get(action.payload).pipe(map((apiResponse) => a.GetOk(apiResponse))),
-        onError: (action: ReturnType<typeof a.Get>, error) => a.GetError(error),
+          this.noveltyService.get(action.payload).pipe(map((apiResponse) => a.GetOk({ payload: apiResponse }))),
+        onError: (action: ReturnType<typeof a.Get>, error) => a.GetError({ payload: error }),
       })
     )
   );
@@ -247,7 +256,7 @@ export class NoveltiesEffects {
         run: ({ payload: { employeeId, startDate, endDate } }: ReturnType<typeof a.DeleteApprovals>) => {
           return this.noveltyService
             .deleteApprovalsByEmployeeAndDateRange(employeeId, startDate, endDate)
-            .pipe(map((response) => a.DeleteApprovalsOk(response)));
+            .pipe(map((response) => a.DeleteApprovalsOk({ payload: response })));
         },
         onError: (action: ReturnType<typeof a.DeleteApprovals>, error) => {
           return a.DeleteApprovalsError({
@@ -292,7 +301,9 @@ export class NoveltiesEffects {
       ofType(a.DownLoadReport),
       fetch({
         run: ({ payload }: ReturnType<typeof a.DownLoadReport>) => {
-          return this.noveltyService.downloadReport(payload).pipe(map((response) => a.DownLoadReportOk(response)));
+          return this.noveltyService
+            .downloadReport(payload)
+            .pipe(map((response) => a.DownLoadReportOk({ payload: response })));
         },
         onError: (action: ReturnType<typeof a.DownLoadReport>, error) => {
           return a.DownLoadReportError({
