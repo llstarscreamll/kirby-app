@@ -72,10 +72,6 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
     this.destroy$.complete();
   }
 
-  get addedEmployees(): any[] {
-    return this.form ? this.form.get('selected_employees').value : [];
-  }
-
   get noveltyTypesArrayControl(): FormArray {
     return this.form.get('novelty_types') as FormArray;
   }
@@ -138,6 +134,10 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
       .subscribe();
   }
 
+  get addedEmployees(): any[] {
+    return this.form ? this.form.get('selected_employees').value : [];
+  }
+
   addEmployee(event: MatAutocompleteSelectedEvent) {
     this.form.patchValue({
       selected_employees: this.addItemToCollection(event.option.value, this.addedEmployees),
@@ -146,16 +146,16 @@ export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestro
     this.employeeInput.nativeElement.value = '';
   }
 
+  removeEmployee(employee: any) {
+    this.form.patchValue({ selected_employees: this.removeItemFromCollection(employee, this.addedEmployees) });
+  }
+
   addItemToCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
     if (collection.findIndex((added) => added.id === item.id) === -1) {
       collection.push(item);
     }
 
     return collection;
-  }
-
-  removeEmployee(employee: any) {
-    this.form.patchValue({ selected_employees: this.removeItemFromCollection(employee, this.addedEmployees) });
   }
 
   removeItemFromCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
