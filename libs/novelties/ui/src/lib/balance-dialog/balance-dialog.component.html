@@ -1,7 +1,7 @@
 <h3 mat-dialog-title>Balancear tiempo de novedades</h3>
 
-<form id="balance-novelties" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="employee w- my-6">{{ employee.fullName }} - {{ employee.code }}</div>
+<form id="balance-novelties" [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-6">
+    <div class="employee font-bold my-6">{{ employee.fullName }} - {{ employee.code }}</div>
 
     <mat-form-field class="w-full">
         <mat-label>Fecha de aplicación</mat-label>
