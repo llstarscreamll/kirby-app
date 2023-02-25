@@ -10,11 +10,8 @@
     <input matInput formControlName="search" type="search" />
   </mat-form-field>
 
-  <div fxLayout="column"
-       fxLayout.gt-xs="row"
-       fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Fecha inicial</mat-label>
       <input formControlName="start_date"
              type="date"
@@ -22,7 +19,7 @@
              required />
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Fecha final</mat-label>
       <input formControlName="end_date"
              type="date"
@@ -41,7 +38,8 @@
       Generar
     </button>
     <br>
-    <a *kirbyCan="'novelties.export-resume-by-novelty-type'" role="button" class="inline-block mt-4" (click)="exportNoveltiesResume()">
+    <a *kirbyCan="'novelties.export-resume-by-novelty-type'" role="button" class="inline-block mt-4"
+       (click)="exportNoveltiesResume()">
       Descargar reporte
     </a>
   </div>
