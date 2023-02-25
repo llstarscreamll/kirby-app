@@ -1,5 +1,3 @@
-import moment from 'moment';
-import { omit } from 'lodash-es';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +9,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import moment from 'moment';
+import { omit } from 'lodash-es';
 import { Subject, timer } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { takeUntil, filter, tap, debounce } from 'rxjs/operators';
@@ -29,6 +29,7 @@ import { EmployeeInterface } from '@kirby/employees/util';
 })
 export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
   @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
+  @ViewChild('costCenterInput') costCenterInput: ElementRef<HTMLInputElement>;
   @ViewChild('noveltyTypeInput') noveltyTypeInput: ElementRef<HTMLInputElement>;
 
   @Input() globalSearch = true;
@@ -104,6 +105,28 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  get addedCostCenters(): any[] {
+    return this.advancedSearchForm ? this.advancedSearchForm.get('costCenters').value : [];
+  }
+
+  costCenterIsSelected(costCenter): boolean {
+    return this.addedCostCenters.map((e) => e.id).includes(costCenter.id);
+  }
+
+  addCostCenter(event: MatAutocompleteSelectedEvent) {
+    this.advancedSearchForm.patchValue({
+      costCenters: this.addItemToCollection(event.option.value, this.addedCostCenters),
+      costCenterSearch: '',
+    });
+    this.costCenterInput.nativeElement.value = '';
+  }
+
+  removeCostCenter(costCenter: any) {
+    this.advancedSearchForm.patchValue({
+      costCenters: this.removeItemFromCollection(costCenter, this.addedCostCenters),
+    });
+  }
+
   addItemToCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
     if (collection.findIndex((added) => added.id === item.id) === -1) {
       collection.push(item);
@@ -120,16 +143,6 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     }
 
     return collection;
-  }
-
-  get selectedCostCenters(): CostCenter[] {
-    return this.advancedSearchForm ? this.advancedSearchForm.get('costCenters').value : [];
-  }
-
-  removeCostCenter(costCenter) {
-    const selectedCostCenters = this.selectedCostCenters;
-
-    this.advancedSearchForm.get('costCenters').setValue([...selectedCostCenters.filter((c) => c.id !== costCenter.id)]);
   }
 
   buildAdvancedSearchForm() {
@@ -174,15 +187,6 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
         tap((value) => this.searchCostCenters.emit({ search: value }))
       )
       .subscribe();
-  }
-
-  addCostCenter(costCenter: CostCenter) {
-    let selectedCostCenters: CostCenter[] = this.advancedSearchForm.get('costCenters').value;
-
-    selectedCostCenters = [...selectedCostCenters, costCenter];
-
-    this.advancedSearchForm.get('costCenters').setValue(selectedCostCenters);
-    this.advancedSearchForm.patchValue({ costCentersSearch: '' });
   }
 
   onSimpleSearchSubmit() {
@@ -233,11 +237,7 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
-  displayNoveltyTypeFieldValue(noveltyType: INoveltyType) {
-    return noveltyType ? noveltyType.code + ' ' + noveltyType.name : null;
-  }
-
-  displayCostCenterFieldValue(costCenter: CostCenter) {
-    return costCenter ? costCenter.code + ' ' + costCenter.name : null;
+  displayNameFieldValue(entity: { name: string; code: string }) {
+    return entity ? entity.code + ' ' + entity.name : null;
   }
 }

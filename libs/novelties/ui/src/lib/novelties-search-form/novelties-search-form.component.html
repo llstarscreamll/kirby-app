@@ -66,7 +66,7 @@
                [matAutocomplete]="noveltyTypesAutocomplete"
                [matChipInputFor]="noveltyTypesList" />
         <mat-autocomplete #noveltyTypesAutocomplete="matAutocomplete"
-                          [displayWith]="displayNoveltyTypeFieldValue"
+                          [displayWith]="displayNameFieldValue"
                           (optionSelected)="addNoveltyType($event)">
           <mat-option *ngFor="let type of noveltyTypesFound.data" [value]="type"
                       [disabled]="noveltyTypeIsSelected(type)">
@@ -76,21 +76,32 @@
       </mat-chip-grid>
     </mat-form-field>
 
-    <div class="flex-grow">
-      <mat-form-field class="w-full">
-        <mat-label>Centro de costo</mat-label>
-        <input formControlName="costCentersSearch"
-               matInput
-               [matAutocomplete]="costCenterAutocomplete"
-               type="text" />
-
-        <mat-autocomplete #costCenterAutocomplete="matAutocomplete" [displayWith]="displayCostCenterFieldValue">
-          <mat-option *ngFor="let costCenter of costCentersFound?.data" [value]="costCenter">
-            <span>{{ costCenter.code + ' ' + costCenter.name }}</span>
+    <mat-form-field class="flex-grow">
+      <mat-label>Centro de costo</mat-label>
+      <mat-chip-grid #costCentersList aria-label="Cost centers selection">
+        <mat-chip-row *ngFor="let costCenter of addedCostCenters"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeCostCenter(costCenter)">
+          {{ costCenter.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip-row>
+        <input matInput
+               #costCenterInput
+               formControlName="costCentersSearch"
+               matAutocomplete="auto"
+               [matAutocomplete]="costCentersAutocomplete"
+               [matChipInputFor]="costCentersList" />
+        <mat-autocomplete #costCentersAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameFieldValue"
+                          (optionSelected)="addCostCenter($event)">
+          <mat-option *ngFor="let costCenter of costCentersFound.data" [value]="costCenter"
+                      [disabled]="costCenterIsSelected(costCenter)">
+            <span>{{ costCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
-    </div>
+      </mat-chip-grid>
+    </mat-form-field>
   </div>
 
   <div class="flex flex-col md:flex-row md:gap-4">
