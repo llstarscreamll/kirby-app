@@ -3,7 +3,7 @@
     <a routerLink="..">Producción</a> / <span class="font-semibold">{{ log.id }}</span>
   </h1>
 
-  <div class="card mb-4 max-w-screen-md">
+  <div class="mb-4 max-w-4xl">
     <div class="text-base my-1">
       Producto: {{ log.product.name }}
       <span class="text-sm text-gray-800">
@@ -20,11 +20,12 @@
     <div class="text-base my-1">Peso bruto: {{ log.gross_weight }}</div>
     <div class="text-base my-1">Peso neto: {{ log.gross_weight - log.tare_weight }}</div>
     <div class="text-right text-sm font-light text-gray-500">{{ log.created_at | date:'medium'}}</div>
+
+    <div class="flex flex-col md:flex-row md:gap-4 my-4">
+      <button mat-raised-button (click)="printTicket(log)" type="button">Imprimir</button>
+      <div class="flex-grow"></div>
+      <button mat-raised-button type="button">Crear a partir de este</button>
+    </div>
   </div>
 
-  <div class="flex flex-col md:flex-row md:gap-4">
-    <button mat-raised-button (click)="printTicket(log)" type="button">Imprimir</button>
-    <div class="flex-grow"></div>
-    <button mat-raised-button type="button">Crear a partir de este</button>
-  </div>
 </ng-container>
