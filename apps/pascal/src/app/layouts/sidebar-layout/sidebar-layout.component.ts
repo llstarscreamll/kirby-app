@@ -37,12 +37,6 @@ export class SidebarLayoutComponent {
       can: ['novelties.global-search', 'novelties.employee-search'],
     },
     {
-      icon: 'alarm',
-      link: ['/work-shifts'],
-      label: 'Turnos',
-      can: ['work-shift.search'],
-    },
-    {
       icon: 'precision_manufacturing',
       link: ['/production'],
       label: 'Producción',
