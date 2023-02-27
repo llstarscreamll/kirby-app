@@ -279,13 +279,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const formValue = this.searchForm.value;
 
     return {
-      employee_ids: formValue.employees.map((e) => e.id),
-      product_ids: formValue.products.map((p) => p.id),
-      machine_ids: formValue.machines.map((m) => m.id),
-      cost_center_ids: formValue.costCenters.map((s) => s.id),
+      employee_ids: formValue.employees?.map((e) => e.id),
+      product_ids: formValue.products?.map((p) => p.id),
+      machine_ids: formValue.machines?.map((m) => m.id),
+      cost_center_ids: formValue.costCenters?.map((s) => s.id),
       net_weight: formValue.netWeight,
-      tags: formValue.tags.map((t) => t.id),
-      purposes: formValue.purposes.map((p) => p.id),
+      tags: formValue.tags?.map((t) => t.id),
+      purposes: formValue.purposes?.map((p) => p.id),
       tag_updated_at: {
         start: formValue.tagUpdatedAtStart ? moment(formValue.tagUpdatedAtStart).toISOString() : '',
         end: formValue.tagUpdatedAtEnd ? moment(formValue.tagUpdatedAtEnd).toISOString() : '',
