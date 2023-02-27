@@ -27,12 +27,12 @@
     Resumen por tipo de novedad
   </a>
 
-  <a *ngIf="(user$ | async)?.can('novelty-types.search')"
-     [routerLink]="['novelty-types']"
-     mat-icon-button
-     class="float-right">
-    <mat-icon>settings</mat-icon>
-  </a>
+  <button *kirbyCan="'novelty-types.search'" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a routerLink="novelty-types" mat-menu-item>Tipos de novedad</a>
+  </mat-menu>
 </div>
 
 <div class="mt-4" *kirbyCanAny="['novelties.global-search', 'novelties.employee-search']">
