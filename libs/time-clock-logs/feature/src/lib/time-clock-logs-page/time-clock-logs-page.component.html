@@ -17,6 +17,12 @@
           title="Descargar filtro actual">
     <mat-icon>file_download</mat-icon>
   </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a routerLink="/work-shifts" mat-menu-item>Turnos</a>
+  </mat-menu>
 </div>
 
 <div class="mt-4">
