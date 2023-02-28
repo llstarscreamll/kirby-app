@@ -5,9 +5,8 @@ import { LocalStorageService } from '@kirby/shared';
 import { PrinterService, WeighingMachineService } from '@kirby/production/feature';
 
 @Component({
-  selector: 'pascal-landing-page',
+  selector: 'kirby-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent implements OnInit {
   portData$ = new Subject();
