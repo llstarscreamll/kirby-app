@@ -5,7 +5,16 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'pascal-auth-sign-in-page',
   templateUrl: './sign-in-page.component.html',
-  styleUrls: ['./sign-in-page.component.scss']
+  styles: [
+    `
+      .wrapper {
+        width: 100%;
+        min-width: 280px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    `,
+  ],
 })
 export class SignInPageComponent implements OnInit, OnDestroy {
   errors$: Observable<any>;
