@@ -3,7 +3,7 @@ import { AuthFacade } from '@kirby/authentication/data-access';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'pascal-auth-sign-in-page',
+  selector: 'kirby-auth-sign-in-page',
   templateUrl: './sign-in-page.component.html',
   styles: [
     `
