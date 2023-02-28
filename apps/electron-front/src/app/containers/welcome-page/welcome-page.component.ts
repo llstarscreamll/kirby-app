@@ -3,7 +3,7 @@ import { AuthFacade } from '@kirby/authentication/data-access';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'pascal-welcome-page',
+  selector: 'kirby-welcome-page',
   templateUrl: './welcome-page.component.html',
 })
 export class WelcomePageComponent implements OnInit {
