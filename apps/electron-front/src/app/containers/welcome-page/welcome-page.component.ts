@@ -1,6 +1,6 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'kirby-welcome-page',
