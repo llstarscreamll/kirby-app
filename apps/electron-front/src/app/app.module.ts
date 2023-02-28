@@ -14,9 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
-import { StoreRouterConnectingModule, FullRouterStateSerializer } from '@ngrx/router-store';
 import { ActionReducer, INIT, MetaReducer, UPDATE } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreRouterConnectingModule, FullRouterStateSerializer } from '@ngrx/router-store';
 
 import { SharedModule } from '@kirby/shared';
 import { LocalStorageService } from '@kirby/shared';
