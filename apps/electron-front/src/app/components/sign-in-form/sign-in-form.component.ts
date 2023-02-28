@@ -4,7 +4,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ApiError } from '@kirby/shared';
 
 @Component({
-  selector: 'pascal-auth-sign-in-form',
+  selector: 'kirby-auth-sign-in-form',
   templateUrl: './sign-in-form.component.html',
   styles: [
     `
