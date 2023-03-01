@@ -1,54 +1,45 @@
-<form
-  *ngIf="!timeClockData"
-  [formGroup]="codeForm"
-  (ngSubmit)="onCodeFormSubmit()"
-  id="code-form"
-  autocomplete="off"
->
-  <button
-    (click)="toggleAction()"
-    mat-stroked-button
-    [ngClass]="actionClass"
-    class="action w-full"
-    type="button"
-  >
+<form *ngIf="!timeClockData"
+      [formGroup]="codeForm"
+      (ngSubmit)="onCodeFormSubmit()"
+      id="code-form"
+      autocomplete="off">
+  <button (click)="toggleAction()"
+          [ngClass]="actionClass"
+          class="action block h-14 w-full rounded-md text-xl font-medium my-4"
+          type="button">
     Registrar {{ readableActionName }}
   </button>
 
   <mat-form-field class="w-full">
-    <input
-      #codeInput
-      formControlName="identification_code"
-      matInput
-      type="text"
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="none"
-      spellcheck="false"
-      placeholder="Código de identificación"
-      class="identification_code"
-      required
-    />
+    <input #codeInput
+           formControlName="identification_code"
+           matInput
+           type="text"
+           autocomplete="off"
+           autocorrect="off"
+           autocapitalize="none"
+           spellcheck="false"
+           placeholder="Código de identificación"
+           class="identification_code"
+           required />
   </mat-form-field>
 
-  <button
-    mat-raised-button
-    [disabled]="disableCodeFormSubmitBtn"
-    class="submit-btn"
-    ngClass.xs="block w-full"
-    type="submit"
-  >
-    Siguiente
-  </button>
+  <div class="text-center">
+    <button mat-raised-button
+            [disabled]="disableCodeFormSubmitBtn"
+            class="submit-btn w-full md:w-auto"
+            color="primary"
+            type="submit">
+      Siguiente
+    </button>
+  </div>
 </form>
 
-<form
-  *ngIf="timeClockData"
-  [formGroup]="checkForm"
-  (ngSubmit)="onCheckFormSubmit()"
-  id="check-form"
-  autocomplete="off"
->
+<form *ngIf="timeClockData"
+      [formGroup]="checkForm"
+      (ngSubmit)="onCheckFormSubmit()"
+      id="check-form"
+      autocomplete="off">
   <h1 class="text-center">Registrar {{ readableActionName }}</h1>
 
   <h4 class="text-center">
@@ -60,69 +51,45 @@
 
   <ng-container *ngIf="displayWorkShiftField">
     <label id="work-shift-radio-group">Turno:</label>
-    <mat-radio-group
-      formControlName="work_shift_id"
-      aria-labelledBy="work-shift-radio-group"
-    >
-      <mat-radio-button
-        *ngFor="let workShift of workShifts"
-        [value]="workShift.id"
-        >{{ workShift.name }}
+    <mat-radio-group formControlName="work_shift_id" aria-labelledBy="work-shift-radio-group">
+      <mat-radio-button *ngFor="let workShift of workShifts"
+                        [value]="workShift.id">{{ workShift.name }}
       </mat-radio-button>
     </mat-radio-group>
   </ng-container>
 
   <ng-container *ngIf="hasNoveltyTypes">
     <label id="novelty-type-radio-group">Tipo de novedad:</label>
-    <mat-radio-group
-      formControlName="novelty_type_id"
-      aria-labelledBy="novelty-type-radio-group"
-    >
-      <mat-radio-button
-        *ngFor="let novelty of noveltyTypes"
-        [value]="novelty.id"
-        >{{ novelty.name }}
+    <mat-radio-group formControlName="novelty_type_id" aria-labelledBy="novelty-type-radio-group">
+      <mat-radio-button *ngFor="let novelty of noveltyTypes" [value]="novelty.id">{{ novelty.name }}
       </mat-radio-button>
     </mat-radio-group>
   </ng-container>
 
   <mat-form-field *ngIf="displayNoveltySubCostCenterField" class="w-full">
-    <input
-      matInput
-      placeholder="Sub centro de costo de novedad"
-      aria-label="State"
-      [matAutocomplete]="noveltySubCostCenter"
-      formControlName="novelty_sub_cost_center"
-    />
-    <mat-autocomplete
-      #noveltySubCostCenter="matAutocomplete"
-      [displayWith]="displaySubCostCenterFieldValue"
-    >
-      <mat-option
-        *ngFor="let subCostCenter of allSubCostCenters"
-        [value]="subCostCenter"
-      >
+    <input matInput
+           placeholder="Sub centro de costo de novedad"
+           aria-label="State"
+           [matAutocomplete]="noveltySubCostCenter"
+           formControlName="novelty_sub_cost_center" />
+    <mat-autocomplete #noveltySubCostCenter="matAutocomplete"
+                      [displayWith]="displaySubCostCenterFieldValue">
+      <mat-option *ngFor="let subCostCenter of allSubCostCenters" [value]="subCostCenter">
         <span>{{ subCostCenter.name }}</span>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 
   <mat-form-field *ngIf="displaySubCostCenterField" class="w-full">
-    <input
-      matInput
-      placeholder="Sub centro de costo del turno"
-      aria-label="State"
-      [matAutocomplete]="subCostCenter"
-      formControlName="sub_cost_center"
-    />
-    <mat-autocomplete
-      #subCostCenter="matAutocomplete"
-      [displayWith]="displaySubCostCenterFieldValue"
-    >
-      <mat-option
-        *ngFor="let subCostCenter of allSubCostCenters"
-        [value]="subCostCenter"
-      >
+    <input matInput
+           placeholder="Sub centro de costo del turno"
+           aria-label="State"
+           [matAutocomplete]="subCostCenter"
+           formControlName="sub_cost_center" />
+    <mat-autocomplete #subCostCenter="matAutocomplete"
+                      [displayWith]="displaySubCostCenterFieldValue">
+      <mat-option *ngFor="let subCostCenter of allSubCostCenters"
+                  [value]="subCostCenter">
         <span>{{ subCostCenter.code + ' - ' + subCostCenter.name }}</span>
       </mat-option>
     </mat-autocomplete>
@@ -130,13 +97,11 @@
 
   <div class="clearfix"></div>
 
-  <button
-    [disabled]="disableCheckFormSubmitBtn"
-    class="submit-btn"
-    ngClass.xs="block w-full"
-    mat-raised-button
-    type="submit"
-  >
+  <button [disabled]="disableCheckFormSubmitBtn"
+          class="submit-btn"
+          ngClass.xs="block w-full"
+          mat-raised-button
+          type="submit">
     Enviar
   </button>
 </form>

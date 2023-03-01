@@ -1,14 +1,13 @@
 <div class="my-4" ngClass="w-full" ngClass.gt-xs="w-2/3 mx-auto">
-    <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
+  <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
-    <kirby-entry-and-exit-log-form
-      [status]="creatingStatus$ | async"
-      [apiError]="apiError$ | async"
-      [subCostCenters]="(subCostCenters$ | async)?.data"
-      [timeClockData]="employeeTimeClockData$ | async"
-      (codeObtained)="onCodeObtained($event)"
-      (searchSubCostCenters)="onSearchSubCostCenters($event)"
-      (submitted)="onCreateLogFormSubmitted($event)"
-    >
-    </kirby-entry-and-exit-log-form>
+  <kirby-entry-and-exit-log-form [status]="creatingStatus$ | async"
+                                 [apiError]="apiError$ | async"
+                                 [subCostCenters]="(subCostCenters$ | async)?.data"
+                                 [timeClockData]="employeeTimeClockData$ | async"
+                                 (codeObtained)="onCodeObtained($event)"
+                                 (searchSubCostCenters)="onSearchSubCostCenters($event)"
+                                 (submitted)="onCreateLogFormSubmitted($event)"
+                                 class="block max-w-lg mx-auto">
+  </kirby-entry-and-exit-log-form>
 </div>
