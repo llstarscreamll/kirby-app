@@ -1,14 +1,14 @@
-<div class="text-center my-4"><h1>Inicia sesión</h1></div>
+<div class="text-center my-4">
+  <h1>Inicia sesión</h1>
+</div>
 
 <div class="wrapper">
   <mat-card>
     <mat-card-content>
-      <pascal-auth-sign-in-form
-        [status]="status$ | async"
-        [errors]="errors$ | async"
-        (submitted)="login($event)"
-      >
-      </pascal-auth-sign-in-form>
+      <kirby-auth-sign-in-form [status]="status$ | async"
+                               [errors]="errors$ | async"
+                               (submitted)="login($event)">
+      </kirby-auth-sign-in-form>
     </mat-card-content>
   </mat-card>
 </div>
