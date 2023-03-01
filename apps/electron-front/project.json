@@ -14,7 +14,7 @@
         "polyfills": "apps/electron-front/src/polyfills.ts",
         "tsConfig": "apps/electron-front/tsconfig.app.json",
         "assets": ["apps/electron-front/src/favicon.ico", "apps/electron-front/src/assets"],
-        "styles": ["apps/electron-front/src/styles.scss"],
+        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css", "apps/electron-front/src/styles.css"],
         "scripts": [],
         "vendorChunk": true,
         "extractLicenses": false,
