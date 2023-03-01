@@ -5,9 +5,9 @@
 
 import { join } from 'path';
 import { format } from 'url';
-const SerialPort = require('serialport');
-const CCTalk = require('@serialport/parser-cctalk');
+import { SerialPort } from 'serialport';
 import { app, ipcMain, BrowserWindow } from 'electron';
+import { CCTalkParser } from '@serialport/parser-cctalk';
 import { environment } from '../../environments/environment';
 
 const defaultCompany = {
@@ -30,14 +30,12 @@ ipcMain.handle('get-app-version', (event: any) => environment.version);
 ipcMain.handle('get-serial-ports', async (_) => {
   console.log('Listing serial ports');
 
-  return await SerialPort.list().then((ports, err) => {
-    if (err) {
-      console.error('Error reading serial ports');
-      return err;
-    }
-
-    return ports;
-  });
+  return await SerialPort.list()
+    .then((ports) => {
+      console.log('ports available', ports);
+      return ports;
+    })
+    .catch((err) => console.error('Error reading serial ports', err));
 });
 
 /**
@@ -52,7 +50,7 @@ ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
 
   port.on('open', () => console.log(`Port ${portPath} open`));
   port.on('error', (err) => console.log(`Port ${portPath} error:`, err));
-  port.pipe(new CCTalk()).on('data', (d: Buffer) => {
+  port.pipe(new CCTalkParser()).on('data', (d: Buffer) => {
     console.log('Port data available:', d.toString('utf-8'));
 
     event.sender.send('port-data-available', d.toString('utf-8'));
@@ -79,7 +77,6 @@ class PrinterWindow {
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
-        enableRemoteModule: false,
         backgroundThrottling: false,
       },
     });
@@ -148,7 +145,6 @@ ipcMain.handle('old-print', (event, productionLog: any, company = defaultCompany
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: false,
       backgroundThrottling: false,
     },
   });

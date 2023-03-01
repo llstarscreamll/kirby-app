@@ -69,7 +69,6 @@ export default class App {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        enableRemoteModule: false,
         backgroundThrottling: false,
         preload: join(__dirname, 'preload.js'),
       },
@@ -78,10 +77,8 @@ export default class App {
     App.mainWindow.setMenu(null);
     App.mainWindow.center();
 
-App.mainWindow.webContents.openDevTools({ mode: 'detach' });
-
     if (!App.application.isPackaged) {
-
+      App.mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
 
     // if main window is ready to show, close the splash window and show the main window
