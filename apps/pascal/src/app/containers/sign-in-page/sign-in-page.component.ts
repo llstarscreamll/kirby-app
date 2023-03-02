@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthFacade } from '@kirby/authentication/data-access';
 import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 @Component({
   selector: 'pascal-auth-sign-in-page',
