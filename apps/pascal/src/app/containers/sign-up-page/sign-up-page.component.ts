@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'pascal-auth-sign-up-page',
   templateUrl: './sign-up-page.component.html',
-  styleUrls: ['./sign-up-page.component.scss']
 })
 export class SignUpPageComponent implements OnInit, OnDestroy {
   errors$: Observable<any>;
