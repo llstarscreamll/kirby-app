@@ -6,16 +6,6 @@ import { ApiError } from '@kirby/shared';
 @Component({
   selector: 'pascal-auth-sign-in-form',
   templateUrl: './sign-in-form.component.html',
-  styles: [
-    `
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover,
-      input:-webkit-autofill:focus,
-      input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px rgb(243, 250, 255) inset !important;
-      }
-    `,
-  ],
 })
 export class SignInFormComponent implements OnInit {
   @Input()
