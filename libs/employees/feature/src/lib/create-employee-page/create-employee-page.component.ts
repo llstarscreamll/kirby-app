@@ -7,7 +7,6 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 @Component({
   selector: 'kirby-create-employee-page',
   templateUrl: './create-employee-page.component.html',
-  styleUrls: ['./create-employee-page.component.scss'],
 })
 export class CreateEmployeePageComponent implements OnInit {
   errors$ = this.employeesFacade.errors$;
