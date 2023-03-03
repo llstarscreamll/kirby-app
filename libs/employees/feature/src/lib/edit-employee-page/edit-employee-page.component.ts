@@ -8,7 +8,6 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 @Component({
   selector: 'kirby-edit-employee-page',
   templateUrl: './edit-employee-page.component.html',
-  styleUrls: ['./edit-employee-page.component.scss'],
 })
 export class EditEmployeePageComponent implements OnInit, OnDestroy {
   private employeeId: string;
