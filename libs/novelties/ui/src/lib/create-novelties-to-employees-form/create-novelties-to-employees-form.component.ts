@@ -1,7 +1,3 @@
-import { timer, Subject } from 'rxjs';
-import moment, { Moment } from 'moment';
-import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +9,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { timer, Subject } from 'rxjs';
+import moment, { Moment } from 'moment';
+import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { LoadStatus } from '@kirby/shared';
 import { NoveltyType } from '@kirby/novelty-types/data';
@@ -22,7 +22,6 @@ import { EmployeeInterface } from '@kirby/employees/util';
 @Component({
   selector: 'kirby-create-novelties-to-employees-form',
   templateUrl: './create-novelties-to-employees-form.component.html',
-  styleUrls: ['./create-novelties-to-employees-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestroy {
