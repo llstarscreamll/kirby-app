@@ -14,7 +14,6 @@ import { CostCentersFacade } from '@kirby/cost-centers/data-access';
 @Component({
   selector: 'kirby-novelties-page',
   templateUrl: './novelties-page.component.html',
-  styleUrls: ['./novelties-page.component.scss'],
 })
 export class NoveltiesPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
