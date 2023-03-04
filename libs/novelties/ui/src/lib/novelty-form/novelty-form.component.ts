@@ -11,7 +11,6 @@ import { LoadStatus } from '@kirby/shared';
 @Component({
   selector: 'kirby-novelty-form',
   templateUrl: './novelty-form.component.html',
-  styleUrls: ['./novelty-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyFormComponent implements OnInit, OnDestroy {
