@@ -24,7 +24,6 @@ import { EmployeeInterface } from '@kirby/employees/util';
 @Component({
   selector: 'kirby-novelties-search-form',
   templateUrl: './novelties-search-form.component.html',
-  styleUrls: ['./novelties-search-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
