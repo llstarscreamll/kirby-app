@@ -1,18 +1,17 @@
 import moment from 'moment';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { filter, tap, takeUntil } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { MatDialog } from '@angular/material/dialog';
 import { BalanceDialogComponent } from '@kirby/novelties/ui';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'kirby-resume-by-employees-and-novelty-types-page',
   templateUrl: './resume-by-employees-and-novelty-types-page.component.html',
-  styleUrls: ['./resume-by-employees-and-novelty-types-page.component.scss'],
 })
 export class ResumeByEmployeesAndNoveltyTypesPageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
