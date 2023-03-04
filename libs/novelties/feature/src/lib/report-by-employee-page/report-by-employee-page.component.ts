@@ -1,14 +1,12 @@
 import moment from 'moment';
 import { tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, timer } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil, map, debounce, filter, take } from 'rxjs/operators';
 
 import { User } from '@kirby/users/util';
-import { Pagination } from '@kirby/shared';
-import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltiesFacade } from '@kirby/novelties/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { AuthFacade } from '@kirby/authentication/data-access';
@@ -21,7 +19,6 @@ function objectIsSelected(control) {
 @Component({
   selector: 'kirby-report-by-employee-page',
   templateUrl: './report-by-employee-page.component.html',
-  styleUrls: ['./report-by-employee-page.component.scss'],
 })
 export class ReportByEmployeePageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
