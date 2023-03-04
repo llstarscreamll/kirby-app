@@ -1,23 +1,27 @@
-import {
-  Input,
-  OnInit,
-  Component,
-  ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
-} from '@angular/core';
 import { sortBy } from 'lodash-es';
+import { Input, OnInit, Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
-import {
-  NoveltyTypeOperator,
-  NoveltyType,
-} from '@kirby/novelty-types/data';
 import { EmployeeInterface } from '@kirby/employees/util';
+import { NoveltyTypeOperator, NoveltyType } from '@kirby/novelty-types/data';
 
 @Component({
   selector: 'kirby-resume-by-employees-and-novelty-types-table',
   templateUrl: './resume-by-employees-and-novelty-types-table.component.html',
-  styleUrls: ['./resume-by-employees-and-novelty-types-table.component.scss'],
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+
+      table tbody tr td.addition {
+        color: green;
+      }
+
+      table tbody tr td.subtract {
+        color: red;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResumeByEmployeesAndNoveltyTypesTableComponent implements OnInit {
@@ -39,22 +43,14 @@ export class ResumeByEmployeesAndNoveltyTypesTableComponent implements OnInit {
   }
 
   get additionNoveltyTypes(): NoveltyType[] {
-    return sortBy(
-      this.getNoveltyTypesByOperator(NoveltyTypeOperator.Addition),
-      'code'
-    );
+    return sortBy(this.getNoveltyTypesByOperator(NoveltyTypeOperator.Addition), 'code');
   }
 
   get subtractNoveltyTypes(): NoveltyType[] {
-    return sortBy(
-      this.getNoveltyTypesByOperator(NoveltyTypeOperator.Subtraction),
-      'code'
-    );
+    return sortBy(this.getNoveltyTypesByOperator(NoveltyTypeOperator.Subtraction), 'code');
   }
 
   getNoveltyTypesByOperator(operator: NoveltyTypeOperator): NoveltyType[] {
-    return this.noveltyTypes.filter(
-      (noveltyType) => noveltyType.operator === operator
-    );
+    return this.noveltyTypes.filter((noveltyType) => noveltyType.operator === operator);
   }
 }
