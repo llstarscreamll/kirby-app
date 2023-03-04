@@ -8,7 +8,6 @@ import { EmployeeInterface } from '@kirby/employees/util';
 @Component({
   selector: 'kirby-balance-dialog',
   templateUrl: './balance-dialog.component.html',
-  styleUrls: ['./balance-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BalanceDialogComponent implements OnInit {
