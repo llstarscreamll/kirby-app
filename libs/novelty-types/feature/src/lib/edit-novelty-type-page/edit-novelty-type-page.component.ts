@@ -1,16 +1,10 @@
-import {
-  OnInit,
-  Component,
-  OnDestroy,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { OnInit, Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 
 @Component({
   selector: 'kirby-edit-novelty-type-page',
   templateUrl: './edit-novelty-type-page.component.html',
-  styleUrls: ['./edit-novelty-type-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditNoveltyTypePageComponent implements OnInit, OnDestroy {
