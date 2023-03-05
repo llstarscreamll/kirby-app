@@ -15,7 +15,6 @@ import {
 @Component({
   selector: 'kirby-novelty-types-table',
   templateUrl: './novelty-types-table.component.html',
-  styleUrls: ['./novelty-types-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyTypesTableComponent implements OnInit {
