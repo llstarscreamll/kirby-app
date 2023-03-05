@@ -1,12 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AuthFacade } from '@kirby/authentication/data-access';
 
+import { AuthFacade } from '@kirby/authentication/data-access';
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 
 @Component({
   selector: 'kirby-novelty-types-page',
   templateUrl: './novelty-types-page.component.html',
-  styleUrls: ['./novelty-types-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyTypesPageComponent implements OnInit {
