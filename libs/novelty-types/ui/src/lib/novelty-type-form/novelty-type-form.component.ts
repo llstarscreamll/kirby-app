@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'kirby-novelty-type-form',
   templateUrl: './novelty-type-form.component.html',
-  styleUrls: ['./novelty-type-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyTypeFormComponent implements OnInit {
