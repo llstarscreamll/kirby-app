@@ -6,7 +6,6 @@ import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
 @Component({
   selector: 'kirby-entry-and-exit-log-page',
   templateUrl: './entry-and-exit-log-page.component.html',
-  styleUrls: ['./entry-and-exit-log-page.component.scss']
 })
 export class EntryAndExitLogPageComponent implements OnInit, OnDestroy {
   apiError$: Observable<any>;
@@ -39,7 +38,7 @@ export class EntryAndExitLogPageComponent implements OnInit, OnDestroy {
     this.timeClockLogsFacade.searchSubCostCenters({
       ...code,
       orderBy: 'code',
-      searchFields: 'code:like'
+      searchFields: 'code:like',
     });
   }
 }
