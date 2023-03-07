@@ -5,7 +5,6 @@ import { WorkShiftsFacade } from '@kirby/work-shifts/data-access';
 @Component({
   selector: 'kirby-edit-work-shift',
   templateUrl: './edit-work-shift.page.html',
-  styleUrls: ['./edit-work-shift.page.scss'],
 })
 export class EditWorkShiftPage implements OnInit, OnDestroy {
   user$ = this.authFacade.authUser$;
