@@ -9,7 +9,6 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 @Component({
   selector: 'kirby-work-shift-form',
   templateUrl: './work-shift-form.component.html',
-  styleUrls: ['./work-shift-form.component.scss'],
 })
 export class WorkShiftFormComponent implements OnInit {
   @Input()
