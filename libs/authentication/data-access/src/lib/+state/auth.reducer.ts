@@ -37,6 +37,6 @@ export const authReducer = createFeature({
     on(actions.LogoutSuccess, (state) => initialState),
     on(actions.SignUp, (state) => ({ ...state, errors: null, status: 'signingIn' })),
     on(actions.SignUpError, (state, action) => ({ ...state, status: 'signInError', errors: action.payload })),
-    on(actions.CleanErrors, (state) => ({ ...state, status: 'signInError', errors: null }))
+    on(actions.CleanErrors, (state) => ({ ...state, errors: null }))
   ),
 });
