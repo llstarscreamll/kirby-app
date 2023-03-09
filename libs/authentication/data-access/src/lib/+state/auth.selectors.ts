@@ -9,7 +9,7 @@ const getAuthUser = createSelector(selectFeature, (state: AuthState) =>
   state.user ? User.fromJson(state.user) : null
 );
 const getAuthTokens = createSelector(selectFeature, (state: AuthState) => state.tokens);
-const getIsLoggedIn = createSelector(selectFeature, (state: AuthState) => state.status);
+const getIsLoggedIn = createSelector(selectFeature, (state: AuthState) => state.status === 'loggedIn');
 
 export const authQuery = {
   getStatus,
