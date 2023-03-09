@@ -12,6 +12,7 @@ import { AuthEffects } from './+state/auth.effects';
 import { authReducer } from './+state/auth.reducer';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './services/auth.service';
+import { AddAccessTokenInterceptor } from './add-access-token.interceptor';
 
 @NgModule({
   imports: [
@@ -21,6 +22,11 @@ import { AuthService } from './services/auth.service';
     StoreModule.forFeature(authReducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: [AuthFacade, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    AuthFacade,
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AddAccessTokenInterceptor, multi: true },
+  ],
 })
 export class AuthenticationDataAccessModule {}
