@@ -3,20 +3,14 @@ import { StoreModule } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
 
 import { ENV_MOCK } from './testing';
 import { AuthFacade } from './+state/auth.facade';
-import { AuthInterceptor } from './auth.interceptor';
-import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
-import {
-  AUTH_FEATURE_KEY,
-  authReducer,
-  initialState
-} from './+state/auth.reducer';
+import { AddAccessTokenInterceptor } from './add-access-token.interceptor';
+import { AUTH_FEATURE_KEY, authReducer, initialState } from './+state/auth.reducer';
 
 @Injectable()
 class FakeService {
@@ -42,18 +36,18 @@ describe('AuthInterceptor', () => {
           {
             runtimeChecks: {
               strictStateImmutability: true,
-              strictActionImmutability: true
-            }
+              strictActionImmutability: true,
+            },
           }
         ),
-        StoreModule.forFeature(AUTH_FEATURE_KEY, authReducer, { initialState })
+        StoreModule.forFeature(authReducer),
       ],
       providers: [
         FakeService,
         AuthFacade,
         { provide: 'environment', useValue: ENV_MOCK },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-      ]
+        { provide: HTTP_INTERCEPTORS, useClass: AddAccessTokenInterceptor, multi: true },
+      ],
     });
 
     httpController = TestBed.inject(HttpTestingController);
@@ -75,15 +69,11 @@ describe('AuthInterceptor', () => {
     const fakeResponse = { data: 'all ok!!' };
     const fakeBody = { email: 'foo@bar.com' };
 
-    fakeService
-      .sendData(fakeBody)
-      .subscribe(data => expect(data).toEqual(fakeResponse), fail);
+    fakeService.sendData(fakeBody).subscribe((data) => expect(data).toEqual(fakeResponse), fail);
 
     const request = httpController.expectOne('http://fake-endpoint.test/path');
     expect(request.request.method).toEqual('POST');
-    expect(request.request.headers.get('Authorization')).toEqual(
-      `Bearer ${authTokens.access_token}`
-    );
+    expect(request.request.headers.get('Authorization')).toEqual(`Bearer ${authTokens.access_token}`);
     expect(request.request.body).toEqual(fakeBody);
 
     request.flush(fakeResponse);
@@ -95,9 +85,7 @@ describe('AuthInterceptor', () => {
     const fakeResponse = { data: 'all ok!!' };
     const fakeBody = { email: 'foo@bar.com' };
 
-    fakeService
-      .sendData(fakeBody)
-      .subscribe(data => expect(data).toEqual(fakeResponse), fail);
+    fakeService.sendData(fakeBody).subscribe((data) => expect(data).toEqual(fakeResponse), fail);
 
     const request = httpController.expectOne('http://fake-endpoint.test/path');
     expect(request.request.headers.has('Authorization')).toBe(false);
