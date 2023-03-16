@@ -9,7 +9,7 @@ import { emptyPagination } from '@kirby/shared';
 
 import { CostCentersEffects } from './cost-centers.effects';
 import { CostCentersService } from '../cost-centers.service';
-import { SearchCostCenters, SearchCostCentersOk } from './cost-centers.actions';
+import { costCentersActions as a } from './cost-centers.actions';
 
 describe('CostCentersEffects', () => {
   let actions: Observable<any>;
@@ -40,9 +40,9 @@ describe('CostCentersEffects', () => {
         })
       );
 
-      actions = hot('-a-|', { a: new SearchCostCenters(query) });
+      actions = hot('-a-|', { a: a.search(query) });
 
-      expect(effects.searchCostCenters$).toBeObservable(hot('-a-|', { a: new SearchCostCentersOk(serviceResponse) }));
+      expect(effects.searchCostCenters$).toBeObservable(hot('-a-|', { a: a.searchOk(serviceResponse) }));
       expect(costCenterService.search).toHaveBeenCalledWith(query);
     });
   });
