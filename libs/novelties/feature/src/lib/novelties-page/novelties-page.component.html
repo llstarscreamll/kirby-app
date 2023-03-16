@@ -2,7 +2,7 @@
 
 <kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
-<div class="flex flex-col gap-2 md:flex-row md:gap-4 place-items-center my-8">
+<div class="flex flex-wrap gap-4 place-items-center justify-between my-8">
   <a *kirbyCan="'novelties.create-many'"
      routerLink="./create-novelties-to-employees"
      mat-fab extended
@@ -16,14 +16,14 @@
   <a *kirbyCan="'novelties.report-by-employee'"
      routerLink="./report-by-employee"
      mat-stroked-button
-     color="primary">
+     color="primary" class="order-4 md:order-none">
     Reporte
   </a>
 
   <a *kirbyCan="'novelties.resume-by-novelty-type-and-employee'"
      routerLink="./resume-by-novelty-type-and-employee"
      mat-stroked-button
-     color="primary">
+     color="primary" class="order-2 md:order-none">
     Resumen por tipo de novedad
   </a>
 
