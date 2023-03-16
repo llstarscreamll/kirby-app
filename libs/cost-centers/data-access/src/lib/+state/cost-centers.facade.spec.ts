@@ -1,21 +1,17 @@
 import { of } from 'rxjs';
 import { NgModule } from '@angular/core';
-
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
 import { readFirst } from '@nrwl/angular/testing';
 
-import {
-  CostCentersState,
-  initialState,
-  reducer
-} from './cost-centers.reducer';
 import { emptyPagination } from '@kirby/shared';
+
 import { CostCentersFacade } from './cost-centers.facade';
 import { CostCentersEffects } from './cost-centers.effects';
-import { SearchCostCentersOk } from './cost-centers.actions';
 import { CostCentersService } from '../cost-centers.service';
+import { costCentersActions as actions } from './cost-centers.actions';
+import { CostCentersState, costCentersReducer } from './cost-centers.reducer';
 
 interface TestSchema {
   costCenters: CostCentersState;
@@ -30,31 +26,20 @@ describe('CostCentersFacade', () => {
   beforeEach(() => {
     createCostCenters = (id: string, name = '') => ({
       id,
-      name: name || `name-${id}`
+      name: name || `name-${id}`,
     });
   });
 
   describe('used in NgModule', () => {
     beforeEach(() => {
       @NgModule({
-        imports: [
-          StoreModule.forFeature('costCenters', reducer, { initialState }),
-          EffectsModule.forFeature([CostCentersEffects])
-        ],
-        providers: [
-          CostCentersFacade,
-          { provide: CostCentersService, useValue: { search: q => q } }
-        ]
+        imports: [StoreModule.forFeature(costCentersReducer), EffectsModule.forFeature([CostCentersEffects])],
+        providers: [CostCentersFacade, { provide: CostCentersService, useValue: { search: (q) => q } }],
       })
       class CustomFeatureModule {}
 
       @NgModule({
-        imports: [
-
-          StoreModule.forRoot({}),
-          EffectsModule.forRoot([]),
-          CustomFeatureModule
-        ]
+        imports: [StoreModule.forRoot({}), EffectsModule.forRoot([]), CustomFeatureModule],
       })
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
@@ -64,59 +49,41 @@ describe('CostCentersFacade', () => {
       costCenterService = TestBed.inject(CostCentersService);
     });
 
-    /**
-     * The initially generated facade::loadAll() returns empty array
-     */
-    it('search(...) should return paginated list', async done => {
-      try {
-        let paginatedList = await readFirst(facade.paginatedList$);
+    it('search(...) should return paginated list', async () => {
+      let paginatedList = await readFirst(facade.paginatedList$);
 
-        expect(paginatedList.data.length).toBe(0);
+      expect(paginatedList.data.length).toBe(0);
 
-        const query = { search: 'foo' };
-        const serviceResponse = emptyPagination();
-       jest.spyOn(costCenterService, 'search').mockReturnValue(
-          of({
-            ...serviceResponse,
-            data: [createCostCenters('AAA'), createCostCenters('BBB')]
-          })
-        );
+      const query = { search: 'foo' };
+      const serviceResponse = emptyPagination();
+      jest.spyOn(costCenterService, 'search').mockReturnValue(
+        of({
+          ...serviceResponse,
+          data: [createCostCenters('AAA'), createCostCenters('BBB')],
+        })
+      );
 
-        facade.search(query);
-        paginatedList = await readFirst(facade.paginatedList$);
+      facade.search(query);
+      paginatedList = await readFirst(facade.paginatedList$);
 
-        expect(paginatedList.data.length).toBe(2);
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(paginatedList.data.length).toBe(2);
     });
 
-    /**
-     * Use `CostCentersLoaded` to manually submit list for state management
-     */
-    it('paginatedList$ should return paginated list', async done => {
-      try {
-        let page = await readFirst(facade.paginatedList$);
+    it('paginatedList$ should return paginated list', async () => {
+      let page = await readFirst(facade.paginatedList$);
 
-        expect(page.data.length).toBe(0);
+      expect(page.data.length).toBe(0);
 
-        store.dispatch(
-          new SearchCostCentersOk({
-            ...emptyPagination(),
-            data: [createCostCenters('AAA'), createCostCenters('BBB')]
-          })
-        );
+      store.dispatch(
+        actions.searchOk({
+          ...emptyPagination(),
+          data: [createCostCenters('AAA'), createCostCenters('BBB')],
+        })
+      );
 
-        page = await readFirst(facade.paginatedList$);
+      page = await readFirst(facade.paginatedList$);
 
-        expect(page.data.length).toBe(2);
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(page.data.length).toBe(2);
     });
   });
 });
