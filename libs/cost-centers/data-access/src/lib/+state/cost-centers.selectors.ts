@@ -1,24 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  COST_CENTERS_FEATURE_KEY,
-  CostCentersState
-} from './cost-centers.reducer';
 
-const getCostCentersState = createFeatureSelector<CostCentersState>(
-  COST_CENTERS_FEATURE_KEY
-);
+import { COST_CENTERS_FEATURE_KEY, CostCentersState } from './cost-centers.reducer';
 
-const getPaginated = createSelector(
-  getCostCentersState,
-  (state: CostCentersState) => state.paginatedList
-);
-
-const getError = createSelector(
-  getCostCentersState,
-  (state: CostCentersState) => state.error
-);
-
-export const costCentersQuery = {
-  getError,
-  getPaginated
-};
+const selectFeature = (state) => state[COST_CENTERS_FEATURE_KEY];
+export const getPaginated = createSelector(selectFeature, (state: CostCentersState) => state.paginatedList);
+export const getError = createSelector(selectFeature, (state: CostCentersState) => state.error);
