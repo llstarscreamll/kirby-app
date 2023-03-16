@@ -28,7 +28,7 @@
 <div class="mt-4">
   <form [formGroup]="searchForm" (ngSubmit)="searchLogs()" autocomplete="off">
     <div class="flex flex-col md:flex-row md:gap-4">
-      <mat-form-field class="w-6/12">
+      <mat-form-field class="w-full md:w-6/12">
         <mat-label>Empleados</mat-label>
         <mat-chip-grid #employeesList aria-label="Employee selection">
           <mat-chip-row *ngFor="let employee of addedEmployees"
@@ -55,12 +55,12 @@
         </mat-chip-grid>
       </mat-form-field>
 
-      <mat-form-field class="w-3/12">
+      <mat-form-field class="w-full md:w-3/12">
         <mat-label>Fecha de entrada <small>inicio</small></mat-label>
         <input formControlName="checkInStart" matInput type="datetime-local" />
       </mat-form-field>
 
-      <mat-form-field class="w-3/12">
+      <mat-form-field class="w-full md:w-3/12">
         <mat-label>Fecha de entrada <small>fin</small></mat-label>
         <input formControlName="checkInEnd" matInput type="datetime-local" />
       </mat-form-field>
@@ -73,7 +73,7 @@
 
 </div>
 
-<div *kirbyCan="'time-clock-logs.global-search'" class="text-right">
+<div *kirbyCan="'time-clock-logs.global-search'" class="text-center my-6 md:text-right md:my-2">
   <div class="inline-block font-light cursor-pointer" (click)="searchOnlyPeopleInside()">
     <span class="font-medium">{{ peopleInsideCount$ | async }}</span> personas dentro
   </div>
