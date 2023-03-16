@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'electron-back',
+  displayName: 'desktop-back',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
@@ -9,5 +9,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/electron-back',
+  coverageDirectory: '../../coverage/apps/desktop-back',
 };

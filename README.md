@@ -33,8 +33,8 @@ To build all apps:
 ```bash
 ng build --project=pascal --prod -c=production # build the web app
 ng build --project=desktop-front --prod -c=production # build electron frontend
-ng build --project=electron-back --prod -c=production # build electron backend
-nx run electron-back:make --platform=linux --arch=x64 --publishPolicy=never # packaging electron .deb, .snap, etc
+ng build --project=desktop-back --prod -c=production # build electron backend
+nx run desktop-back:make --platform=linux --arch=x64 --publishPolicy=never # packaging electron .deb, .snap, etc
 ```
 
 ## Running unit tests

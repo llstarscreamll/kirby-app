@@ -1,17 +1,17 @@
 {
-  "name": "electron-back",
+  "name": "desktop-back",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/electron-back/src",
+  "sourceRoot": "apps/desktop-back/src",
   "projectType": "application",
-  "prefix": "electron-back",
+  "prefix": "desktop-back",
   "targets": {
     "build": {
       "executor": "nx-electron:build",
       "options": {
-        "outputPath": "dist/apps/electron-back",
-        "main": "apps/electron-back/src/main.ts",
-        "tsConfig": "apps/electron-back/tsconfig.app.json",
-        "assets": ["apps/electron-back/src/assets"]
+        "outputPath": "dist/apps/desktop-back",
+        "main": "apps/desktop-back/src/main.ts",
+        "tsConfig": "apps/desktop-back/tsconfig.app.json",
+        "assets": ["apps/desktop-back/src/assets"]
       },
       "configurations": {
         "production": {
@@ -20,8 +20,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/electron-back/src/environments/environment.ts",
-              "with": "apps/electron-back/src/environments/environment.prod.ts"
+              "replace": "apps/desktop-back/src/environments/environment.ts",
+              "with": "apps/desktop-back/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -30,13 +30,13 @@
     "serve": {
       "executor": "nx-electron:execute",
       "options": {
-        "buildTarget": "electron-back:build"
+        "buildTarget": "desktop-back:build"
       }
     },
     "package": {
       "executor": "nx-electron:package",
       "options": {
-        "name": "electron-back",
+        "name": "desktop-back",
         "frontendProject": "desktop-front",
         "outputPath": "dist/packages",
         "prepackageOnly": true
@@ -45,7 +45,7 @@
     "make": {
       "executor": "nx-electron:make",
       "options": {
-        "name": "electron-back",
+        "name": "desktop-back",
         "frontendProject": "desktop-front",
         "outputPath": "dist/executables",
         "buildDependenciesFromSource": true
@@ -54,15 +54,15 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/electron-back/**/*.ts"]
+        "lintFilePatterns": ["apps/desktop-back/**/*.ts"]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/electron-back"],
+      "outputs": ["{workspaceRoot}/coverage/apps/desktop-back"],
       "options": {
-        "jestConfig": "apps/electron-back/jest.config.ts",
+        "jestConfig": "apps/desktop-back/jest.config.ts",
         "passWithNoTests": true
       }
     }
