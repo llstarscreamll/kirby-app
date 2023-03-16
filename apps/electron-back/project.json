@@ -37,7 +37,7 @@
       "executor": "nx-electron:package",
       "options": {
         "name": "electron-back",
-        "frontendProject": "electron-front",
+        "frontendProject": "desktop-front",
         "outputPath": "dist/packages",
         "prepackageOnly": true
       }
@@ -46,7 +46,7 @@
       "executor": "nx-electron:make",
       "options": {
         "name": "electron-back",
-        "frontendProject": "electron-front",
+        "frontendProject": "desktop-front",
         "outputPath": "dist/executables",
         "buildDependenciesFromSource": true
       }

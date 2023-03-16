@@ -1,20 +1,20 @@
 {
-  "name": "electron-front",
+  "name": "desktop-front",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/electron-front/src",
+  "sourceRoot": "apps/desktop-front/src",
   "prefix": "kirby",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
-        "outputPath": "dist/apps/electron-front",
-        "index": "apps/electron-front/src/index.html",
-        "main": "apps/electron-front/src/main.ts",
-        "polyfills": "apps/electron-front/src/polyfills.ts",
-        "tsConfig": "apps/electron-front/tsconfig.app.json",
-        "assets": ["apps/electron-front/src/favicon.ico", "apps/electron-front/src/assets"],
-        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css", "apps/electron-front/src/styles.css"],
+        "outputPath": "dist/apps/desktop-front",
+        "index": "apps/desktop-front/src/index.html",
+        "main": "apps/desktop-front/src/main.ts",
+        "polyfills": "apps/desktop-front/src/polyfills.ts",
+        "tsConfig": "apps/desktop-front/tsconfig.app.json",
+        "assets": ["apps/desktop-front/src/favicon.ico", "apps/desktop-front/src/assets"],
+        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css", "apps/desktop-front/src/styles.css"],
         "scripts": [],
         "vendorChunk": true,
         "extractLicenses": false,
@@ -27,8 +27,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/electron-front/src/environments/environment.ts",
-              "with": "apps/electron-front/src/environments/environment.prod.ts"
+              "replace": "apps/desktop-front/src/environments/environment.ts",
+              "with": "apps/desktop-front/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -57,32 +57,32 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "electron-front:build"
+        "browserTarget": "desktop-front:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "electron-front:build:production"
+          "browserTarget": "desktop-front:build:production"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "electron-front:build"
+        "browserTarget": "desktop-front:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/electron-front/src/**/*.ts", "apps/electron-front/src/**/*.html"]
+        "lintFilePatterns": ["apps/desktop-front/src/**/*.ts", "apps/desktop-front/src/**/*.html"]
       },
       "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/electron-front"],
+      "outputs": ["{workspaceRoot}/coverage/apps/desktop-front"],
       "options": {
-        "jestConfig": "apps/electron-front/jest.config.ts",
+        "jestConfig": "apps/desktop-front/jest.config.ts",
         "passWithNoTests": true
       }
     }

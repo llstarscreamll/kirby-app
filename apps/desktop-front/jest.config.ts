@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'electron-front',
+  displayName: 'desktop-front',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +10,7 @@ export default {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../coverage/apps/electron-front',
+  coverageDirectory: '../../coverage/apps/desktop-front',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
