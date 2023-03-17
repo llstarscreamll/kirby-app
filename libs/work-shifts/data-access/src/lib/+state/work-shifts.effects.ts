@@ -5,38 +5,20 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import {
-  CreateWorkShift,
-  CreateWorkShiftError,
-  CreateWorkShiftOk,
-  DeleteWorkShift,
-  DeleteWorkShiftError,
-  DeleteWorkShiftOk,
-  GetWorkShift,
-  GetWorkShiftError,
-  GetWorkShiftOk,
-  SearchWorkShifts,
-  SearchWorkShiftsError,
-  SearchWorkShiftsOk,
-  UpdateWorkShift,
-  UpdateWorkShiftError,
-  UpdateWorkShiftOk,
-  WorkShiftsActionTypes,
-} from './work-shifts.actions';
 import { WorkShiftService } from '../work-shift.service';
-import { WorkShiftsPartialState } from './work-shifts.reducer';
+import { workShiftsActionTypes as actions } from './work-shifts.actions';
 
 @Injectable()
 export class WorkShiftsEffects {
   searchWorkShifts$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkShiftsActionTypes.SearchWorkShifts),
+      ofType(actions.search),
       fetch({
-        run: (action: SearchWorkShifts, state: WorkShiftsPartialState) => {
-          return this.workShiftService.search(action.payload).pipe(map((response) => new SearchWorkShiftsOk(response)));
+        run: (action) => {
+          return this.workShiftService.search(action.payload).pipe(map((response) => actions.searchOk(response)));
         },
-        onError: (action: SearchWorkShifts, error) => {
-          return new SearchWorkShiftsError(error);
+        onError: (action, error) => {
+          return actions.searchError(error);
         },
       })
     )
@@ -44,13 +26,13 @@ export class WorkShiftsEffects {
 
   createWorkShift$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkShiftsActionTypes.CreateWorkShift),
+      ofType(actions.create),
       fetch({
-        run: (action: CreateWorkShift, state: WorkShiftsPartialState) => {
-          return this.workShiftService.create(action.payload).pipe(map((response) => new CreateWorkShiftOk(response)));
+        run: (action) => {
+          return this.workShiftService.create(action.payload).pipe(map((response) => actions.createOk(response)));
         },
-        onError: (action: CreateWorkShift, error) => {
-          return new CreateWorkShiftError(error);
+        onError: (action, error) => {
+          return actions.createError(error);
         },
       })
     )
@@ -59,7 +41,7 @@ export class WorkShiftsEffects {
   createWorkShiftOk$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(WorkShiftsActionTypes.CreateWorkShiftOk),
+        ofType(actions.createOk),
         tap((_) => this.router.navigateByUrl('work-shifts')),
         tap((_) => this.snackBar.open('Turno creado exitosamente', 'Ok', { duration: 5 * 1000 }))
       ),
@@ -68,13 +50,13 @@ export class WorkShiftsEffects {
 
   getWorkShift$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkShiftsActionTypes.GetWorkShift),
+      ofType(actions.get),
       fetch({
-        run: (action: GetWorkShift, state: WorkShiftsPartialState) => {
-          return this.workShiftService.get(action.payload).pipe(map((response) => new GetWorkShiftOk(response)));
+        run: (action) => {
+          return this.workShiftService.get(action.payload).pipe(map((response) => actions.getOk(response)));
         },
-        onError: (action: GetWorkShift, error) => {
-          return new GetWorkShiftError(error);
+        onError: (action, error) => {
+          return actions.getError(error);
         },
       })
     )
@@ -82,15 +64,15 @@ export class WorkShiftsEffects {
 
   updateWorkShift$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkShiftsActionTypes.UpdateWorkShift),
+      ofType(actions.update),
       fetch({
-        run: (action: UpdateWorkShift, state: WorkShiftsPartialState) => {
+        run: (action) => {
           return this.workShiftService
             .update(action.payload.id, action.payload.data)
-            .pipe(map((response) => new UpdateWorkShiftOk(response)));
+            .pipe(map((response) => actions.updateOk(response)));
         },
-        onError: (action: UpdateWorkShift, error) => {
-          return new UpdateWorkShiftError(error);
+        onError: (action, error) => {
+          return actions.updateError(error);
         },
       })
     )
@@ -99,7 +81,7 @@ export class WorkShiftsEffects {
   updateWorkShiftOk$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(WorkShiftsActionTypes.UpdateWorkShiftOk),
+        ofType(actions.updateOk),
         tap((_) => this.router.navigateByUrl('work-shifts')),
         tap((_) => this.snackBar.open('Turno actualizado exitosamente', 'Ok', { duration: 5 * 1000 }))
       ),
@@ -108,15 +90,13 @@ export class WorkShiftsEffects {
 
   deleteWorkShift$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorkShiftsActionTypes.DeleteWorkShift),
+      ofType(actions.delete),
       fetch({
-        run: (action: DeleteWorkShift, state: WorkShiftsPartialState) => {
-          return this.workShiftService
-            .delete(action.payload)
-            .pipe(map((response) => new DeleteWorkShiftOk(action.payload)));
+        run: (action) => {
+          return this.workShiftService.delete(action.payload).pipe(map((response) => actions.deleteOk(action.payload)));
         },
-        onError: (action: DeleteWorkShift, error) => {
-          return new DeleteWorkShiftError(error);
+        onError: (action, error) => {
+          return actions.deleteError(error);
         },
       })
     )
@@ -125,7 +105,7 @@ export class WorkShiftsEffects {
   deleteWorkShiftOk$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(WorkShiftsActionTypes.DeleteWorkShiftOk),
+        ofType(actions.deleteOk),
         tap((_) => this.router.navigateByUrl('work-shifts')),
         tap((_) => this.snackBar.open('Turno movido a papelera exitosamente', 'Ok', { duration: 5 * 1000 }))
       ),

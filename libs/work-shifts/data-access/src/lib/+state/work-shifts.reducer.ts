@@ -1,5 +1,5 @@
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import { WorkShiftsAction, WorkShiftsActionTypes } from './work-shifts.actions';
+import { workShiftsActionTypes as actions } from './work-shifts.actions';
 import { Pagination, emptyPagination, ApiError, LoadStatus } from '@kirby/shared';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
@@ -24,14 +24,18 @@ export const initialState: WorkShiftsState = {
   paginatingStatus: LoadStatus.Empty,
 };
 
-export function workShiftsReducer(state: WorkShiftsState = initialState, action: WorkShiftsAction): WorkShiftsState {
+export function workShiftsReducer(state: WorkShiftsState = initialState, action): WorkShiftsState {
+  console.warn(action);
+
   switch (action.type) {
-    case WorkShiftsActionTypes.SearchWorkShifts: {
+    case actions.search.type: {
       state = { ...state, paginatingStatus: LoadStatus.Loading };
       break;
     }
 
-    case WorkShiftsActionTypes.SearchWorkShiftsOk: {
+    case actions.searchOk.type: {
+      console.warn('search ok!!');
+
       state = {
         ...state,
         error: null,
@@ -41,7 +45,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.SearchWorkShiftsError: {
+    case actions.searchError.type: {
       state = {
         ...state,
         error: action.payload,
@@ -50,17 +54,17 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.CreateWorkShift: {
+    case actions.create.type: {
       state = { ...state, creatingStatus: LoadStatus.Loading };
       break;
     }
 
-    case WorkShiftsActionTypes.CreateWorkShiftOk: {
+    case actions.createOk.type: {
       state = { ...state, creatingStatus: LoadStatus.Completed, error: null };
       break;
     }
 
-    case WorkShiftsActionTypes.CreateWorkShiftError: {
+    case actions.createError.type: {
       state = {
         ...state,
         error: action.payload,
@@ -69,12 +73,12 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.GetWorkShift: {
+    case actions.get.type: {
       state = { ...state, selectingStatus: LoadStatus.Loading };
       break;
     }
 
-    case WorkShiftsActionTypes.GetWorkShiftOk: {
+    case actions.getOk.type: {
       state = {
         ...state,
         error: null,
@@ -84,7 +88,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.GetWorkShiftError: {
+    case actions.getError.type: {
       state = {
         ...state,
         error: action.payload,
@@ -94,12 +98,12 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.UpdateWorkShift: {
+    case actions.update.type: {
       state = { ...state, updatingStatus: LoadStatus.Loading };
       break;
     }
 
-    case WorkShiftsActionTypes.UpdateWorkShiftOk: {
+    case actions.updateOk.type: {
       state = {
         ...state,
         error: null,
@@ -109,7 +113,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.UpdateWorkShiftError: {
+    case actions.updateError.type: {
       state = {
         ...state,
         error: action.payload,
@@ -118,12 +122,12 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.DeleteWorkShift: {
+    case actions.delete.type: {
       state = { ...state, deletingStatus: LoadStatus.Loading };
       break;
     }
 
-    case WorkShiftsActionTypes.DeleteWorkShiftOk: {
+    case actions.deleteOk.type: {
       state = {
         ...state,
         deletingStatus: LoadStatus.Completed,
@@ -136,7 +140,7 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action:
       break;
     }
 
-    case WorkShiftsActionTypes.DeleteWorkShiftError: {
+    case actions.deleteError.type: {
       state = {
         ...state,
         error: action.payload,
