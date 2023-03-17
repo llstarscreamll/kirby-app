@@ -11,25 +11,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { INVALID_DATA_API_ERROR, emptyPagination } from '@kirby/shared';
 
-import {
-  SearchWorkShifts,
-  SearchWorkShiftsOk,
-  SearchWorkShiftsError,
-  CreateWorkShift,
-  CreateWorkShiftOk,
-  CreateWorkShiftError,
-  GetWorkShiftOk,
-  GetWorkShift,
-  GetWorkShiftError,
-  UpdateWorkShiftOk,
-  UpdateWorkShift,
-  UpdateWorkShiftError,
-  DeleteWorkShift,
-  DeleteWorkShiftOk,
-  DeleteWorkShiftError,
-} from './work-shifts.actions';
 import { WorkShiftService } from '../work-shift.service';
 import { WorkShiftsEffects } from './work-shifts.effects';
+import { workShiftsActionTypes as actions } from './work-shifts.actions';
 
 describe('WorkShiftsEffects', () => {
   let actions$: Observable<any>;
@@ -77,9 +61,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-a', { a: data });
       jest.spyOn(workShiftService, 'search').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new SearchWorkShifts(query) });
+      actions$ = hot('-a', { a: actions.search(query) });
 
-      expect(effects.searchWorkShifts$).toBeObservable(hot('--a', { a: new SearchWorkShiftsOk(data) }));
+      expect(effects.searchWorkShifts$).toBeObservable(hot('--a', { a: actions.searchOk(data) }));
       expect(workShiftService.search).toHaveBeenCalledWith(query);
     });
 
@@ -88,9 +72,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-#', { a: {} }, apiError);
       jest.spyOn(workShiftService, 'search').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new SearchWorkShifts({ search: 'foo' }) });
+      actions$ = hot('-a', { a: actions.search({ search: 'foo' }) });
 
-      expect(effects.searchWorkShifts$).toBeObservable(hot('--a', { a: new SearchWorkShiftsError(apiError) }));
+      expect(effects.searchWorkShifts$).toBeObservable(hot('--a', { a: actions.searchError(apiError) }));
       expect(workShiftService.search).toHaveBeenCalledWith(query);
     });
   });
@@ -100,9 +84,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-a', { a: entity });
       jest.spyOn(workShiftService, 'create').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new CreateWorkShift(entity) });
+      actions$ = hot('-a', { a: actions.create(entity) });
 
-      expect(effects.createWorkShift$).toBeObservable(hot('--a', { a: new CreateWorkShiftOk(entity) }));
+      expect(effects.createWorkShift$).toBeObservable(hot('--a', { a: actions.createOk(entity) }));
       expect(workShiftService.create).toHaveBeenCalledWith(entity);
     });
 
@@ -110,9 +94,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-#', { a: {} }, apiError);
       jest.spyOn(workShiftService, 'create').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new CreateWorkShift(entity) });
+      actions$ = hot('-a', { a: actions.create(entity) });
 
-      expect(effects.createWorkShift$).toBeObservable(hot('--a', { a: new CreateWorkShiftError(apiError) }));
+      expect(effects.createWorkShift$).toBeObservable(hot('--a', { a: actions.createError(apiError) }));
       expect(workShiftService.create).toHaveBeenCalledWith(entity);
     });
   });
@@ -122,9 +106,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-a', { a: entity });
       jest.spyOn(workShiftService, 'get').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new GetWorkShift(entity.id) });
+      actions$ = hot('-a', { a: actions.get(entity.id) });
 
-      expect(effects.getWorkShift$).toBeObservable(hot('--a', { a: new GetWorkShiftOk(entity) }));
+      expect(effects.getWorkShift$).toBeObservable(hot('--a', { a: actions.getOk(entity) }));
       expect(workShiftService.get).toHaveBeenCalledWith(entity.id);
     });
 
@@ -132,9 +116,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-#', {}, apiError);
       jest.spyOn(workShiftService, 'get').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new GetWorkShift(entity.id) });
+      actions$ = hot('-a', { a: actions.get(entity.id) });
 
-      expect(effects.getWorkShift$).toBeObservable(hot('--a', { a: new GetWorkShiftError(apiError) }));
+      expect(effects.getWorkShift$).toBeObservable(hot('--a', { a: actions.getError(apiError) }));
       expect(workShiftService.get).toHaveBeenCalledWith(entity.id);
     });
   });
@@ -145,10 +129,10 @@ describe('WorkShiftsEffects', () => {
       jest.spyOn(workShiftService, 'update').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', {
-        a: new UpdateWorkShift({ id: entity.id, data: entity }),
+        a: actions.update({ id: entity.id, data: entity }),
       });
 
-      expect(effects.updateWorkShift$).toBeObservable(hot('--a', { a: new UpdateWorkShiftOk(entity) }));
+      expect(effects.updateWorkShift$).toBeObservable(hot('--a', { a: actions.updateOk(entity) }));
       expect(workShiftService.update).toHaveBeenCalledWith(entity.id, entity);
     });
 
@@ -157,10 +141,10 @@ describe('WorkShiftsEffects', () => {
       jest.spyOn(workShiftService, 'update').mockReturnValue(apiResponse);
 
       actions$ = hot('-a', {
-        a: new UpdateWorkShift({ id: entity.id, data: entity }),
+        a: actions.update({ id: entity.id, data: entity }),
       });
 
-      expect(effects.updateWorkShift$).toBeObservable(hot('--a', { a: new UpdateWorkShiftError(apiError) }));
+      expect(effects.updateWorkShift$).toBeObservable(hot('--a', { a: actions.updateError(apiError) }));
       expect(workShiftService.update).toHaveBeenCalledWith(entity.id, entity);
     });
   });
@@ -170,9 +154,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-a', { a: entity });
       jest.spyOn(workShiftService, 'delete').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new DeleteWorkShift(entity.id) });
+      actions$ = hot('-a', { a: actions.delete(entity.id) });
 
-      expect(effects.deleteWorkShift$).toBeObservable(hot('--a', { a: new DeleteWorkShiftOk(entity.id) }));
+      expect(effects.deleteWorkShift$).toBeObservable(hot('--a', { a: actions.deleteOk(entity.id) }));
       expect(workShiftService.delete).toHaveBeenCalledWith(entity.id);
     });
 
@@ -180,9 +164,9 @@ describe('WorkShiftsEffects', () => {
       const apiResponse = cold('-#', {}, apiError);
       jest.spyOn(workShiftService, 'delete').mockReturnValue(apiResponse);
 
-      actions$ = hot('-a', { a: new DeleteWorkShift(entity.id) });
+      actions$ = hot('-a', { a: actions.delete(entity.id) });
 
-      expect(effects.deleteWorkShift$).toBeObservable(hot('--a', { a: new DeleteWorkShiftError(apiError) }));
+      expect(effects.deleteWorkShift$).toBeObservable(hot('--a', { a: actions.deleteError(apiError) }));
       expect(workShiftService.delete).toHaveBeenCalledWith(entity.id);
     });
   });
