@@ -25,8 +25,6 @@ export const initialState: WorkShiftsState = {
 };
 
 export function workShiftsReducer(state: WorkShiftsState = initialState, action): WorkShiftsState {
-  console.warn(action);
-
   switch (action.type) {
     case actions.search.type: {
       state = { ...state, paginatingStatus: LoadStatus.Loading };
@@ -34,8 +32,6 @@ export function workShiftsReducer(state: WorkShiftsState = initialState, action)
     }
 
     case actions.searchOk.type: {
-      console.warn('search ok!!');
-
       state = {
         ...state,
         error: null,
