@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 
@@ -11,9 +11,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
-      tap((e:any) => console.log('logging out', e.url)),
       tap({
-        next: (event) => (event instanceof HttpResponse && event.status === 401 && !event.url.includes('logout') ? this.authFacade.logout() : null),
+        next: (event) =>
+          event instanceof HttpResponse && event.status === 401 && !event.url.includes('logout')
+            ? this.authFacade.logout()
+            : null,
         error: (event) => (event.status === 401 && !event.url.includes('logout') ? this.authFacade.logout() : null),
       })
     );
