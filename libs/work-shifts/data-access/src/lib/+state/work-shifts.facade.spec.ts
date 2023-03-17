@@ -81,76 +81,46 @@ describe('WorkShiftsFacade', () => {
       jest.spyOn(store, 'dispatch');
     });
 
-    it('search() should call SearchWorkShifts action', async (done) => {
-      try {
-        const query = {};
-        await facade.search(query);
-        getTestScheduler().flush();
+    it('search() should call SearchWorkShifts action', async () => {
+      const query = {};
+      await facade.search(query);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(actions.search(query));
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.search(query));
     });
 
-    it('create() should call CreateWorkShift action', async (done) => {
-      try {
-        await facade.create(entity);
-        getTestScheduler().flush();
+    it('create() should call CreateWorkShift action', async () => {
+      await facade.create(entity);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(actions.create(entity));
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.create(entity));
     });
 
-    it('get() should call GetWorkShift action', async (done) => {
-      try {
-        await facade.get(entity.id);
-        getTestScheduler().flush();
+    it('get() should call GetWorkShift action', async () => {
+      await facade.get(entity.id);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(actions.get(entity.id));
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.get(entity.id));
     });
 
-    it('update() should call UpdateWorkShift action', async (done) => {
-      try {
-        await facade.update(entity.id, entity);
-        getTestScheduler().flush();
+    it('update() should call UpdateWorkShift action', async () => {
+      await facade.update(entity.id, entity);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          actions.update({
-            id: entity.id,
-            data: entity,
-          })
-        );
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(
+        actions.update({
+          id: entity.id,
+          data: entity,
+        })
+      );
     });
 
-    it('delete() should call DeleteWorkShift action', async (done) => {
-      try {
-        const id = 'AAA';
-        await facade.delete(id);
-        getTestScheduler().flush();
+    it('delete() should call DeleteWorkShift action', async () => {
+      const id = 'AAA';
+      await facade.delete(id);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(actions.delete(id));
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.delete(id));
     });
   });
 });
