@@ -1,7 +1,8 @@
+import { createWorkShift } from '@kirby/work-shifts/testing';
+import { ApiError, LoadStatus, emptyPagination } from '@kirby/shared';
+
 import { workShiftsQuery } from './work-shifts.selectors';
 import { WorkShiftsPartialState } from './work-shifts.reducer';
-import { ApiError, LoadStatus, emptyPagination } from '@kirby/shared';
-import { createWorkShift } from '@kirby/work-shifts/testing';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {
@@ -9,10 +10,10 @@ describe('WorkShifts Selectors', () => {
     message: 'Resource not found',
     error: {
       message: 'Resource not found',
-      error: 'not_found'
-    }
+      error: 'not_found',
+    },
   };
-  const getWorkShiftsId = it => it['id'];
+  const getWorkShiftsId = (it) => it['id'];
 
   let storeState: WorkShiftsPartialState;
 
@@ -21,11 +22,7 @@ describe('WorkShifts Selectors', () => {
       workShifts: {
         paginatedList: {
           ...emptyPagination(),
-          data: [
-            createWorkShift('AAA'),
-            createWorkShift('BBB'),
-            createWorkShift('CCC')
-          ]
+          data: [createWorkShift('AAA'), createWorkShift('BBB'), createWorkShift('CCC')],
         },
         selected: createWorkShift('DDD'),
         paginatingStatus: LoadStatus.Completed,
@@ -33,8 +30,8 @@ describe('WorkShifts Selectors', () => {
         creatingStatus: LoadStatus.Loading,
         updatingStatus: LoadStatus.Error,
         deletingStatus: LoadStatus.Completed,
-        error: ERROR_MSG
-      }
+        error: ERROR_MSG,
+      },
     };
   });
 
