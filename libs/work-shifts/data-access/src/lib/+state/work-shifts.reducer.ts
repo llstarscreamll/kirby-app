@@ -1,18 +1,21 @@
+import { createFeature, createReducer, on } from '@ngrx/store';
+
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import { workShiftsActionTypes as actions } from './work-shifts.actions';
 import { Pagination, emptyPagination, ApiError, LoadStatus } from '@kirby/shared';
+
+import { workShiftsActionTypes as actions } from './work-shifts.actions';
 
 export const WORK_SHIFTS_FEATURE_KEY = 'workShifts';
 
 export interface WorkShiftsState {
   paginatedList: Pagination<WorkShiftInterface>;
   paginatingStatus: LoadStatus;
-  selectingStatus?: LoadStatus;
-  creatingStatus?: LoadStatus;
-  updatingStatus?: LoadStatus;
-  deletingStatus?: LoadStatus;
-  selected?: WorkShiftInterface;
-  error?: ApiError;
+  selectingStatus: LoadStatus | null;
+  creatingStatus: LoadStatus | null;
+  updatingStatus: LoadStatus | null;
+  deletingStatus: LoadStatus | null;
+  selected: WorkShiftInterface | null;
+  error: ApiError | null;
 }
 
 export interface WorkShiftsPartialState {
@@ -22,128 +25,90 @@ export interface WorkShiftsPartialState {
 export const initialState: WorkShiftsState = {
   paginatedList: emptyPagination(),
   paginatingStatus: LoadStatus.Empty,
+  selectingStatus: null,
+  creatingStatus: null,
+  updatingStatus: null,
+  deletingStatus: null,
+  selected: null,
+  error: null,
 };
 
-export function workShiftsReducer(state: WorkShiftsState = initialState, action): WorkShiftsState {
-  switch (action.type) {
-    case actions.search.type: {
-      state = { ...state, paginatingStatus: LoadStatus.Loading };
-      break;
-    }
+export const workShiftsReducer = createFeature({
+  name: WORK_SHIFTS_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(actions.search, (state, action) => ({ ...state, paginatingStatus: LoadStatus.Loading })),
 
-    case actions.searchOk.type: {
-      state = {
-        ...state,
-        error: null,
-        paginatedList: action.payload,
-        paginatingStatus: LoadStatus.Completed,
-      };
-      break;
-    }
+    on(actions.searchOk, (state, action) => ({
+      ...state,
+      error: null,
+      paginatedList: action.payload,
+      paginatingStatus: LoadStatus.Completed,
+    })),
 
-    case actions.searchError.type: {
-      state = {
-        ...state,
-        error: action.payload,
-        paginatingStatus: LoadStatus.Error,
-      };
-      break;
-    }
+    on(actions.searchError, (state, action) => ({
+      ...state,
+      error: action.payload,
+      paginatingStatus: LoadStatus.Error,
+    })),
 
-    case actions.create.type: {
-      state = { ...state, creatingStatus: LoadStatus.Loading };
-      break;
-    }
+    on(actions.create, (state, action) => ({ ...state, creatingStatus: LoadStatus.Loading })),
 
-    case actions.createOk.type: {
-      state = { ...state, creatingStatus: LoadStatus.Completed, error: null };
-      break;
-    }
+    on(actions.createOk, (state, action) => ({ ...state, creatingStatus: LoadStatus.Completed, error: null })),
 
-    case actions.createError.type: {
-      state = {
-        ...state,
-        error: action.payload,
-        creatingStatus: LoadStatus.Error,
-      };
-      break;
-    }
+    on(actions.createError, (state, action) => ({
+      ...state,
+      error: action.payload,
+      creatingStatus: LoadStatus.Error,
+    })),
 
-    case actions.get.type: {
-      state = { ...state, selectingStatus: LoadStatus.Loading };
-      break;
-    }
+    on(actions.get, (state, action) => ({ ...state, selectingStatus: LoadStatus.Loading })),
 
-    case actions.getOk.type: {
-      state = {
-        ...state,
-        error: null,
-        selected: action.payload,
-        selectingStatus: LoadStatus.Completed,
-      };
-      break;
-    }
+    on(actions.getOk, (state, action) => ({
+      ...state,
+      error: null,
+      selected: action.payload,
+      selectingStatus: LoadStatus.Completed,
+    })),
 
-    case actions.getError.type: {
-      state = {
-        ...state,
-        error: action.payload,
-        selected: null,
-        selectingStatus: LoadStatus.Error,
-      };
-      break;
-    }
+    on(actions.getError, (state, action) => ({
+      ...state,
+      error: action.payload,
+      selected: null,
+      selectingStatus: LoadStatus.Error,
+    })),
 
-    case actions.update.type: {
-      state = { ...state, updatingStatus: LoadStatus.Loading };
-      break;
-    }
+    on(actions.update, (state, action) => ({ ...state, updatingStatus: LoadStatus.Loading })),
 
-    case actions.updateOk.type: {
-      state = {
-        ...state,
-        error: null,
-        selected: action.payload,
-        updatingStatus: LoadStatus.Completed,
-      };
-      break;
-    }
+    on(actions.updateOk, (state, action) => ({
+      ...state,
+      error: null,
+      selected: action.payload,
+      updatingStatus: LoadStatus.Completed,
+    })),
 
-    case actions.updateError.type: {
-      state = {
-        ...state,
-        error: action.payload,
-        updatingStatus: LoadStatus.Error,
-      };
-      break;
-    }
+    on(actions.updateError, (state, action) => ({
+      ...state,
+      error: action.payload,
+      updatingStatus: LoadStatus.Error,
+    })),
 
-    case actions.delete.type: {
-      state = { ...state, deletingStatus: LoadStatus.Loading };
-      break;
-    }
+    on(actions.delete, (state, action) => ({ ...state, deletingStatus: LoadStatus.Loading })),
 
-    case actions.deleteOk.type: {
-      state = {
-        ...state,
-        deletingStatus: LoadStatus.Completed,
-        error: null,
-        paginatedList: {
-          ...state.paginatedList,
-          data: state.paginatedList.data.filter((i) => i.id !== action.payload),
-        },
-      };
-      break;
-    }
+    on(actions.deleteOk, (state, action) => ({
+      ...state,
+      deletingStatus: LoadStatus.Completed,
+      error: null,
+      paginatedList: {
+        ...state.paginatedList,
+        data: state.paginatedList.data.filter((i) => i.id !== action.payload),
+      },
+    })),
 
-    case actions.deleteError.type: {
-      state = {
-        ...state,
-        error: action.payload,
-        deletingStatus: LoadStatus.Error,
-      };
-      break;
-    }
-  }
-  return state;
-}
+    on(actions.deleteError, (state, action) => ({
+      ...state,
+      error: action.payload,
+      deletingStatus: LoadStatus.Error,
+    }))
+  ),
+});
