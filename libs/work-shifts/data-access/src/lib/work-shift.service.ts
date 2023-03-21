@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 
 import { Pagination, ApiResponse } from '@kirby/shared';
-import { BaseAuthService } from '@kirby/authentication/utils';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
+import { BaseAuthService } from '@kirby/authentication/utils';
 
 @Injectable()
 export class WorkShiftService extends BaseAuthService {
