@@ -37,77 +37,77 @@ export const workShiftsReducer = createFeature({
   name: WORK_SHIFTS_FEATURE_KEY,
   reducer: createReducer(
     initialState,
-    on(actions.search, (state, action) => ({ ...state, paginatingStatus: LoadStatus.Loading })),
+    on(actions.search, (state) => ({ ...state, paginatingStatus: LoadStatus.Loading })),
 
-    on(actions.searchOk, (state, action) => ({
+    on(actions.searchOk, (state, { payload }) => ({
       ...state,
       error: null,
-      paginatedList: action.payload,
+      paginatedList: payload,
       paginatingStatus: LoadStatus.Completed,
     })),
 
-    on(actions.searchError, (state, action) => ({
+    on(actions.searchError, (state, { payload }) => ({
       ...state,
-      error: action.payload,
+      error: payload,
       paginatingStatus: LoadStatus.Error,
     })),
 
-    on(actions.create, (state, action) => ({ ...state, creatingStatus: LoadStatus.Loading })),
+    on(actions.create, (state) => ({ ...state, creatingStatus: LoadStatus.Loading })),
 
-    on(actions.createOk, (state, action) => ({ ...state, creatingStatus: LoadStatus.Completed, error: null })),
+    on(actions.createOk, (state) => ({ ...state, creatingStatus: LoadStatus.Completed, error: null })),
 
-    on(actions.createError, (state, action) => ({
+    on(actions.createError, (state, { payload }) => ({
       ...state,
-      error: action.payload,
+      error: payload,
       creatingStatus: LoadStatus.Error,
     })),
 
-    on(actions.get, (state, action) => ({ ...state, selectingStatus: LoadStatus.Loading })),
+    on(actions.get, (state) => ({ ...state, selectingStatus: LoadStatus.Loading })),
 
-    on(actions.getOk, (state, action) => ({
+    on(actions.getOk, (state, { payload }) => ({
       ...state,
       error: null,
-      selected: action.payload,
+      selected: payload,
       selectingStatus: LoadStatus.Completed,
     })),
 
-    on(actions.getError, (state, action) => ({
+    on(actions.getError, (state, { payload }) => ({
       ...state,
-      error: action.payload,
+      error: payload,
       selected: null,
       selectingStatus: LoadStatus.Error,
     })),
 
-    on(actions.update, (state, action) => ({ ...state, updatingStatus: LoadStatus.Loading })),
+    on(actions.update, (state) => ({ ...state, updatingStatus: LoadStatus.Loading })),
 
-    on(actions.updateOk, (state, action) => ({
+    on(actions.updateOk, (state, { payload }) => ({
       ...state,
       error: null,
-      selected: action.payload,
+      selected: payload,
       updatingStatus: LoadStatus.Completed,
     })),
 
-    on(actions.updateError, (state, action) => ({
+    on(actions.updateError, (state, { payload }) => ({
       ...state,
-      error: action.payload,
+      error: payload,
       updatingStatus: LoadStatus.Error,
     })),
 
-    on(actions.delete, (state, action) => ({ ...state, deletingStatus: LoadStatus.Loading })),
+    on(actions.delete, (state) => ({ ...state, deletingStatus: LoadStatus.Loading })),
 
-    on(actions.deleteOk, (state, action) => ({
+    on(actions.deleteOk, (state, { payload }) => ({
       ...state,
       deletingStatus: LoadStatus.Completed,
       error: null,
       paginatedList: {
         ...state.paginatedList,
-        data: state.paginatedList.data.filter((i) => i.id !== action.payload),
+        data: state.paginatedList.data.filter((i) => i.id !== payload),
       },
     })),
 
-    on(actions.deleteError, (state, action) => ({
+    on(actions.deleteError, (state, { payload }) => ({
       ...state,
-      error: action.payload,
+      error: payload,
       deletingStatus: LoadStatus.Error,
     }))
   ),
