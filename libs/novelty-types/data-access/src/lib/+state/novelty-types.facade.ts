@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
-import { noveltyTypesQuery as query } from './novelty-types.selectors';
+import * as selectors from './novelty-types.selectors';
 import { noveltyTypesActions as actions } from './novelty-types.actions';
 
 @Injectable()
 export class NoveltyTypesFacade {
-  paginatedNoveltyTypes$ = this.store.pipe(select(query.getPaginated));
-  selectedNoveltyType$ = this.store.pipe(select(query.getSelected));
-  errors$ = this.store.pipe(select(query.getError));
+  paginatedNoveltyTypes$ = this.store.pipe(select(selectors.getPaginated));
+  selectedNoveltyType$ = this.store.pipe(select(selectors.getSelected));
+  errors$ = this.store.pipe(select(selectors.getError));
 
   constructor(private store: Store) {}
 
