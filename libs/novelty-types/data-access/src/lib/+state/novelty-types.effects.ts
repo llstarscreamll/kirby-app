@@ -5,60 +5,42 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { fetch, optimisticUpdate, pessimisticUpdate } from '@nrwl/angular';
 
-import {
-  CreateNoveltyType,
-  CreateNoveltyTypeError,
-  CreateNoveltyTypeOk,
-  GetNoveltyType,
-  GetNoveltyTypeError,
-  GetNoveltyTypeOk,
-  NoveltyTypesActionTypes,
-  SearchNoveltyTypes,
-  SearchNoveltyTypesError,
-  SearchNoveltyTypesOk,
-  TrashNoveltyType,
-  TrashNoveltyTypeError,
-  TrashNoveltyTypeOk,
-  UpdateNoveltyType,
-  UpdateNoveltyTypeError,
-  UpdateNoveltyTypeOk,
-} from './novelty-types.actions';
 import { NoveltyTypeService } from '../novelty-type.service';
-import { NoveltyTypesPartialState } from './novelty-types.reducer';
+import { noveltyTypesActions as actions } from './novelty-types.actions';
 
 @Injectable()
 export class NoveltyTypesEffects {
   searchNoveltyTypes$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NoveltyTypesActionTypes.Search),
+      ofType(actions.search),
       fetch({
-        run: (action: SearchNoveltyTypes, _: NoveltyTypesPartialState) =>
-          this.noveltyTypeService.search(action.payload).pipe(map((response) => new SearchNoveltyTypesOk(response))),
+        run: (action) =>
+          this.noveltyTypeService.search(action.payload).pipe(map((response) => actions.searchOk(response))),
 
-        onError: (_: SearchNoveltyTypes, error) => new SearchNoveltyTypesError(error),
+        onError: (_, error) => actions.searchError(error),
       })
     )
   );
 
   getNoveltyType$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NoveltyTypesActionTypes.Get),
+      ofType(actions.get),
       fetch({
-        run: (action: GetNoveltyType, _: NoveltyTypesPartialState) =>
-          this.noveltyTypeService.get(action.payload).pipe(map((response) => new GetNoveltyTypeOk(response.data))),
+        run: (action) =>
+          this.noveltyTypeService.get(action.payload).pipe(map((response) => actions.getOk(response.data))),
 
-        onError: (_: GetNoveltyType, error) => new GetNoveltyTypeError(error),
+        onError: (_, error) => actions.getError(error),
       })
     )
   );
 
   createNoveltyType$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NoveltyTypesActionTypes.Create),
+      ofType(actions.create),
       pessimisticUpdate({
-        run: (action: CreateNoveltyType, _: NoveltyTypesPartialState) =>
+        run: (action) =>
           this.noveltyTypeService.create(action.payload).pipe(
-            map((response) => new CreateNoveltyTypeOk(response.data)),
+            map((response) => actions.createOk(response.data)),
             tap((_) =>
               this.snackBar.open('Tipo de novedad creada!', 'Ok', {
                 duration: 5 * 1000,
@@ -71,18 +53,18 @@ export class NoveltyTypesEffects {
             tap((_) => this.router.navigate(['novelties/novelty-types']))
           ),
 
-        onError: (_: CreateNoveltyType, error) => new CreateNoveltyTypeError(error),
+        onError: (_, error) => actions.createError(error),
       })
     )
   );
 
   updateNoveltyType$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(NoveltyTypesActionTypes.Update),
+      ofType(actions.update),
       pessimisticUpdate({
-        run: (action: UpdateNoveltyType, _: NoveltyTypesPartialState) =>
+        run: (action) =>
           this.noveltyTypeService.update(action.payload.id, action.payload.data).pipe(
-            map((response) => new UpdateNoveltyTypeOk(response.data)),
+            map((response) => actions.updateOk(response.data)),
             tap((_) =>
               this.snackBar.open('Tipo de novedad actualizada!', 'Ok', {
                 duration: 5 * 1000,
@@ -95,17 +77,17 @@ export class NoveltyTypesEffects {
             tap((_) => this.router.navigate(['novelties/novelty-types']))
           ),
 
-        onError: (_: UpdateNoveltyType, error) => new UpdateNoveltyTypeError(error),
+        onError: (_, error) => actions.updateError(error),
       })
     )
   );
 
   trashNoveltyType$ = this.actions$.pipe(
-    ofType(NoveltyTypesActionTypes.Trash),
+    ofType(actions.trash),
     optimisticUpdate({
-      run: (action: TrashNoveltyType, _: NoveltyTypesPartialState) =>
+      run: (action) =>
         this.noveltyTypeService.trash(action.payload).pipe(
-          map((_) => new TrashNoveltyTypeOk(action.payload)),
+          map((_) => actions.trashOk(action.payload)),
           tap((_) =>
             this.snackBar.open('Tipo de novedad movida a la papelera!', 'Ok', {
               duration: 5 * 1000,
@@ -113,7 +95,7 @@ export class NoveltyTypesEffects {
           )
         ),
 
-      undoAction: (_: TrashNoveltyType, error) => new TrashNoveltyTypeError(error),
+      undoAction: (_, error) => actions.trashError(error),
     })
   );
 
