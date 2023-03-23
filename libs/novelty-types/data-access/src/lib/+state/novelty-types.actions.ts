@@ -3,7 +3,7 @@ import { createActionGroup } from '@ngrx/store';
 import { Pagination, ApiError } from '@kirby/shared';
 import { INoveltyType } from '@kirby/novelty-types/data';
 
-export const noveltyTypesActionTypes = createActionGroup({
+export const noveltyTypesActions = createActionGroup({
   source: 'NoveltyTypes',
   events: {
     search: (payload: any) => ({ payload }),
