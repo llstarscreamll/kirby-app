@@ -1,33 +1,17 @@
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { hot, cold } from 'jasmine-marbles';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideMockActions } from '@ngrx/effects/testing';
 
-import {
-  GetNoveltyType,
-  GetNoveltyTypeOk,
-  UpdateNoveltyType,
-  CreateNoveltyType,
-  SearchNoveltyTypes,
-  GetNoveltyTypeError,
-  UpdateNoveltyTypeOk,
-  CreateNoveltyTypeOk,
-  SearchNoveltyTypesOk,
-  CreateNoveltyTypeError,
-  UpdateNoveltyTypeError,
-  SearchNoveltyTypesError,
-  TrashNoveltyTypeOk,
-  TrashNoveltyType,
-  TrashNoveltyTypeError,
-} from './novelty-types.actions';
 import { emptyPagination } from '@kirby/shared';
 import { NoveltyTypeService } from '../novelty-type.service';
 import { NoveltyTypesEffects } from './novelty-types.effects';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
-import { Router } from '@angular/router';
-import { hot, cold } from 'jasmine-marbles';
+import { noveltyTypesActions as a } from './novelty-types.actions';
 
 describe('NoveltyTypesEffects', () => {
   let router: Router;
@@ -73,9 +57,9 @@ describe('NoveltyTypesEffects', () => {
       };
       jest.spyOn(noveltyTypeService, 'search').mockReturnValue(cold('a|', { a: expectedResult }));
 
-      actions = hot('-a-|', { a: new SearchNoveltyTypes(query) });
+      actions = hot('-a-|', { a: a.search(query) });
 
-      expect(effects.searchNoveltyTypes$).toBeObservable(hot('-a-|', { a: new SearchNoveltyTypesOk(expectedResult) }));
+      expect(effects.searchNoveltyTypes$).toBeObservable(hot('-a-|', { a: a.searchOk(expectedResult) }));
       expect(noveltyTypeService.search).toHaveBeenCalledWith(query);
     });
     it('should return SearchNoveltyTypesError on error service response', () => {
@@ -83,11 +67,9 @@ describe('NoveltyTypesEffects', () => {
       const expectedError = { message: 'Crap!!', ok: false };
       jest.spyOn(noveltyTypeService, 'search').mockReturnValue(cold('#', null, expectedError));
 
-      actions = hot('-a-|', { a: new SearchNoveltyTypes(query) });
+      actions = hot('-a-|', { a: a.search(query) });
 
-      expect(effects.searchNoveltyTypes$).toBeObservable(
-        hot('-a-|', { a: new SearchNoveltyTypesError(expectedError) })
-      );
+      expect(effects.searchNoveltyTypes$).toBeObservable(hot('-a-|', { a: a.searchError(expectedError) }));
     });
   });
 
@@ -100,10 +82,10 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(noveltyTypeService, 'get').mockReturnValue(cold('a|', { a: expectedResult }));
 
       actions = hot('-a-|', {
-        a: new GetNoveltyType(noveltyTypeId),
+        a: a.get(noveltyTypeId),
       });
 
-      expect(effects.getNoveltyType$).toBeObservable(hot('-a-|', { a: new GetNoveltyTypeOk(expectedResult.data) }));
+      expect(effects.getNoveltyType$).toBeObservable(hot('-a-|', { a: a.getOk(expectedResult.data) }));
       expect(noveltyTypeService.get).toHaveBeenCalledWith(noveltyTypeId);
     });
 
@@ -114,10 +96,10 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(noveltyTypeService, 'get').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', {
-        a: new GetNoveltyType(noveltyTypeId),
+        a: a.get(noveltyTypeId),
       });
 
-      expect(effects.getNoveltyType$).toBeObservable(hot('-a-|', { a: new GetNoveltyTypeError(expectedError) }));
+      expect(effects.getNoveltyType$).toBeObservable(hot('-a-|', { a: a.getError(expectedError) }));
     });
   });
 
@@ -131,11 +113,9 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(snackBar, 'open');
       jest.spyOn(router, 'navigate');
 
-      actions = hot('-a-|', { a: new CreateNoveltyType(data) });
+      actions = hot('-a-|', { a: a.create(data) });
 
-      expect(effects.createNoveltyType$).toBeObservable(
-        hot('-a-|', { a: new CreateNoveltyTypeOk(expectedResult.data) })
-      );
+      expect(effects.createNoveltyType$).toBeObservable(hot('-a-|', { a: a.createOk(expectedResult.data) }));
       expect(noveltyTypeService.create).toHaveBeenCalledWith(data);
       expect(snackBar.open).toHaveBeenCalledWith('Tipo de novedad creada!', 'Ok', { duration: 5 * 1000 });
       expect(router.navigate).toHaveBeenCalledWith(['novelties/novelty-types']);
@@ -148,9 +128,9 @@ describe('NoveltyTypesEffects', () => {
 
       jest.spyOn(noveltyTypeService, 'create').mockReturnValue(cold('#', null, expectedError));
 
-      actions = hot('-a-|', { a: new CreateNoveltyType(data) });
+      actions = hot('-a-|', { a: a.create(data) });
 
-      expect(effects.createNoveltyType$).toBeObservable(hot('-a-|', { a: new CreateNoveltyTypeError(expectedError) }));
+      expect(effects.createNoveltyType$).toBeObservable(hot('-a-|', { a: a.createError(expectedError) }));
     });
   });
 
@@ -167,12 +147,10 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(router, 'navigate');
 
       actions = hot('-a-|', {
-        a: new UpdateNoveltyType({ id: noveltyTYpeId, data: noveltyType }),
+        a: a.update({ id: noveltyTYpeId, data: noveltyType }),
       });
 
-      expect(effects.updateNoveltyType$).toBeObservable(
-        hot('-a-|', { a: new UpdateNoveltyTypeOk(expectedResult.data) })
-      );
+      expect(effects.updateNoveltyType$).toBeObservable(hot('-a-|', { a: a.updateOk(expectedResult.data) }));
       expect(noveltyTypeService.update).toHaveBeenCalledWith(noveltyTYpeId, noveltyType);
       expect(snackBar.open).toHaveBeenCalledWith('Tipo de novedad actualizada!', 'Ok', { duration: 5 * 1000 });
       expect(router.navigate).toHaveBeenCalledWith(['novelties/novelty-types']);
@@ -187,10 +165,10 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(noveltyTypeService, 'update').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', {
-        a: new UpdateNoveltyType({ id: noveltyTypeId, data }),
+        a: a.update({ id: noveltyTypeId, data }),
       });
 
-      expect(effects.updateNoveltyType$).toBeObservable(hot('-a-|', { a: new UpdateNoveltyTypeError(expectedError) }));
+      expect(effects.updateNoveltyType$).toBeObservable(hot('-a-|', { a: a.updateError(expectedError) }));
     });
   });
 
@@ -203,10 +181,10 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(snackBar, 'open');
 
       actions = hot('-a-|', {
-        a: new TrashNoveltyType(noveltyTypeId),
+        a: a.trash(noveltyTypeId),
       });
 
-      expect(effects.trashNoveltyType$).toBeObservable(hot('-a-|', { a: new TrashNoveltyTypeOk(noveltyTypeId) }));
+      expect(effects.trashNoveltyType$).toBeObservable(hot('-a-|', { a: a.trashOk(noveltyTypeId) }));
       expect(noveltyTypeService.trash).toHaveBeenCalledWith(noveltyTypeId);
       expect(snackBar.open).toHaveBeenCalledWith('Tipo de novedad movida a la papelera!', 'Ok', {
         duration: 5 * 1000,
@@ -220,10 +198,10 @@ describe('NoveltyTypesEffects', () => {
       jest.spyOn(noveltyTypeService, 'trash').mockReturnValue(cold('#', null, expectedError));
 
       actions = hot('-a-|', {
-        a: new TrashNoveltyType(noveltyTypeId),
+        a: a.trash(noveltyTypeId),
       });
 
-      expect(effects.trashNoveltyType$).toBeObservable(hot('-a-|', { a: new TrashNoveltyTypeError(expectedError) }));
+      expect(effects.trashNoveltyType$).toBeObservable(hot('-a-|', { a: a.trashError(expectedError) }));
     });
   });
 });
