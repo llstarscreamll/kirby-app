@@ -2,8 +2,8 @@ import { join } from 'path';
 import { format } from 'url';
 import { BrowserWindow, shell, screen } from 'electron';
 
-import { rendererAppName, rendererAppPort } from './constants';
 import { environment } from '../environments/environment';
+import { rendererAppName, rendererAppPort } from './constants';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
