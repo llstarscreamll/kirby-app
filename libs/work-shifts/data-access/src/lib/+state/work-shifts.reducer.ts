@@ -18,10 +18,6 @@ export interface WorkShiftsState {
   error: ApiError | null;
 }
 
-export interface WorkShiftsPartialState {
-  readonly [WORK_SHIFTS_FEATURE_KEY]: WorkShiftsState;
-}
-
 export const initialState: WorkShiftsState = {
   paginatedList: emptyPagination(),
   paginatingStatus: LoadStatus.Empty,

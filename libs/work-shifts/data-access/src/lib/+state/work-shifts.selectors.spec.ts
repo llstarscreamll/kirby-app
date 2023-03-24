@@ -2,7 +2,7 @@ import { createWorkShift } from '@kirby/work-shifts/testing';
 import { ApiError, LoadStatus, emptyPagination } from '@kirby/shared';
 
 import * as selectors from './work-shifts.selectors';
-import { WorkShiftsPartialState } from './work-shifts.reducer';
+import { WorkShiftsState, WORK_SHIFTS_FEATURE_KEY } from './work-shifts.reducer';
 
 describe('WorkShifts Selectors', () => {
   const ERROR_MSG: ApiError = {
@@ -15,11 +15,11 @@ describe('WorkShifts Selectors', () => {
   };
   const getWorkShiftsId = (it) => it['id'];
 
-  let storeState: WorkShiftsPartialState;
+  let storeState: { [WORK_SHIFTS_FEATURE_KEY]: WorkShiftsState };
 
   beforeEach(() => {
     storeState = {
-      workShifts: {
+      [WORK_SHIFTS_FEATURE_KEY]: {
         paginatedList: {
           ...emptyPagination(),
           data: [createWorkShift('AAA'), createWorkShift('BBB'), createWorkShift('CCC')],

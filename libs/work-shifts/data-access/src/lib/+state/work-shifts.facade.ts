@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import * as selectors from './work-shifts.selectors';
-import { WorkShiftsPartialState } from './work-shifts.reducer';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
 import { workShiftsActionTypes as actions } from './work-shifts.actions';
 
@@ -18,7 +17,7 @@ export class WorkShiftsFacade {
   deletingStatus$ = this.store.pipe(select(selectors.deletingStatus));
   error$ = this.store.pipe(select(selectors.getError));
 
-  constructor(private store: Store<WorkShiftsPartialState>) {}
+  constructor(private store: Store) {}
 
   search(query: any = {}) {
     this.store.dispatch(actions.search(query));
