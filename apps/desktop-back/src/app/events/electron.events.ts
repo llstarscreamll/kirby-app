@@ -46,7 +46,7 @@ ipcMain.handle('get-serial-ports', async (_) => {
  *  sudo usermod -a -G dialout $USER
  */
 ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
-  const port = new SerialPort(portPath, options);
+  const port = new SerialPort({ ...options, path: portPath });
 
   port.on('open', () => console.log(`Port ${portPath} open`));
   port.on('error', (err) => console.log(`Port ${portPath} error:`, err));
