@@ -19,12 +19,6 @@ export class SidebarLayoutComponent {
   mediaQueryList = this.mediaMatcher.matchMedia('print');
   menuItems = [
     {
-      icon: 'supervised_user_circle',
-      link: ['/employees/'],
-      label: 'Empleados',
-      can: ['employees.search'],
-    },
-    {
       icon: 'compare_arrows',
       link: ['/time-clock-logs'],
       label: 'Entradas/salidas',
@@ -41,6 +35,12 @@ export class SidebarLayoutComponent {
       link: ['/production'],
       label: 'Producción',
       can: ['production-logs.search'],
+    },
+    {
+      icon: 'supervised_user_circle',
+      link: ['/employees/'],
+      label: 'Empleados',
+      can: ['employees.search'],
     },
   ];
 
