@@ -1,7 +1,3 @@
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
-const { BrowserWindow } = require('electron');
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electron', {
