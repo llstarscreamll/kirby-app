@@ -1,18 +1,18 @@
 import { EmployeeInterface } from '@kirby/employees/util';
-import { EmployeesAction, EmployeesActionTypes } from './employees.actions';
+import { employeesActions as actions } from './employees.actions';
 import { Pagination, emptyPagination, LoadStatus, ApiError } from '@kirby/shared';
 
 export const EMPLOYEES_FEATURE_KEY = 'employees';
 
 export interface EmployeesState {
   paginatedList: Pagination<EmployeeInterface>;
-  paginatingStatus: LoadStatus;
-  selected?: EmployeeInterface;
+  paginatingStatus: LoadStatus | null;
+  selected: EmployeeInterface | null;
   selectingStatus: LoadStatus;
   creatingStatus: LoadStatus;
   updatingStatus: LoadStatus;
   roles: { id: number; display_name: string }[];
-  error?: ApiError;
+  error: ApiError | null;
 }
 
 export interface EmployeesPartialState {
@@ -22,6 +22,7 @@ export interface EmployeesPartialState {
 export const initialState: EmployeesState = {
   paginatedList: emptyPagination(),
   paginatingStatus: null,
+  selected: null,
   selectingStatus: null,
   updatingStatus: null,
   creatingStatus: null,
@@ -29,9 +30,9 @@ export const initialState: EmployeesState = {
   error: null,
 };
 
-export function employeesReducer(state: EmployeesState = initialState, action: EmployeesAction): EmployeesState {
+export function employeesReducer(state: EmployeesState = initialState, action): EmployeesState {
   switch (action.type) {
-    case EmployeesActionTypes.SearchEmployees: {
+    case actions.search: {
       state = {
         ...state,
         paginatingStatus: LoadStatus.Loading,
@@ -39,7 +40,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.SearchEmployeesOk: {
+    case actions.searchOk: {
       state = {
         ...state,
         paginatedList: action.payload,
@@ -48,7 +49,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.SearchEmployeesError: {
+    case actions.searchError: {
       state = {
         ...state,
         paginatingStatus: LoadStatus.Error,
@@ -56,12 +57,12 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.GetEmployee: {
+    case actions.get: {
       state = { ...state, selectingStatus: LoadStatus.Loading };
       break;
     }
 
-    case EmployeesActionTypes.GetEmployeeOk: {
+    case actions.getOk: {
       state = {
         ...state,
         selected: action.payload,
@@ -70,7 +71,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.CreateEmployee: {
+    case actions.create: {
       state = {
         ...state,
         creatingStatus: LoadStatus.Loading,
@@ -78,7 +79,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.CreateEmployeeOk: {
+    case actions.createOk: {
       state = {
         ...state,
         creatingStatus: LoadStatus.Completed,
@@ -86,7 +87,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.CreateEmployeeError: {
+    case actions.createError: {
       state = {
         ...state,
         creatingStatus: LoadStatus.Error,
@@ -95,7 +96,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.GetEmployeeError: {
+    case actions.getError: {
       state = {
         ...state,
         error: action.payload,
@@ -104,12 +105,12 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.UpdateEmployee: {
+    case actions.update: {
       state = { ...state, updatingStatus: LoadStatus.Loading };
       break;
     }
 
-    case EmployeesActionTypes.UpdateEmployeeOk: {
+    case actions.updateOk: {
       state = {
         ...state,
         selected: action.payload,
@@ -118,7 +119,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.UpdateEmployeeError: {
+    case actions.updateError: {
       state = {
         ...state,
         error: action.payload,
@@ -127,7 +128,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.SearchRolesOk: {
+    case actions.searchRolesOk: {
       state = {
         ...state,
         roles: action.payload.data,
@@ -135,7 +136,7 @@ export function employeesReducer(state: EmployeesState = initialState, action: E
       break;
     }
 
-    case EmployeesActionTypes.SearchRolesError: {
+    case actions.searchRolesError: {
       state = {
         ...state,
         error: action.payload,
