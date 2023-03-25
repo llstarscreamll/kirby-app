@@ -32,7 +32,7 @@ export const initialState: EmployeesState = {
 
 export function employeesReducer(state: EmployeesState = initialState, action): EmployeesState {
   switch (action.type) {
-    case actions.search: {
+    case actions.search.type: {
       state = {
         ...state,
         paginatingStatus: LoadStatus.Loading,
@@ -40,7 +40,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.searchOk: {
+    case actions.searchOk.type: {
       state = {
         ...state,
         paginatedList: action.payload,
@@ -49,7 +49,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.searchError: {
+    case actions.searchError.type: {
       state = {
         ...state,
         paginatingStatus: LoadStatus.Error,
@@ -57,12 +57,12 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.get: {
+    case actions.get.type: {
       state = { ...state, selectingStatus: LoadStatus.Loading };
       break;
     }
 
-    case actions.getOk: {
+    case actions.getOk.type: {
       state = {
         ...state,
         selected: action.payload,
@@ -71,7 +71,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.create: {
+    case actions.create.type: {
       state = {
         ...state,
         creatingStatus: LoadStatus.Loading,
@@ -79,7 +79,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.createOk: {
+    case actions.createOk.type: {
       state = {
         ...state,
         creatingStatus: LoadStatus.Completed,
@@ -87,7 +87,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.createError: {
+    case actions.createError.type: {
       state = {
         ...state,
         creatingStatus: LoadStatus.Error,
@@ -96,7 +96,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.getError: {
+    case actions.getError.type: {
       state = {
         ...state,
         error: action.payload,
@@ -105,12 +105,12 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.update: {
+    case actions.update.type: {
       state = { ...state, updatingStatus: LoadStatus.Loading };
       break;
     }
 
-    case actions.updateOk: {
+    case actions.updateOk.type: {
       state = {
         ...state,
         selected: action.payload,
@@ -119,7 +119,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.updateError: {
+    case actions.updateError.type: {
       state = {
         ...state,
         error: action.payload,
@@ -128,7 +128,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.searchRolesOk: {
+    case actions.searchRolesOk.type: {
       state = {
         ...state,
         roles: action.payload.data,
@@ -136,7 +136,7 @@ export function employeesReducer(state: EmployeesState = initialState, action): 
       break;
     }
 
-    case actions.searchRolesError: {
+    case actions.searchRolesError.type: {
       state = {
         ...state,
         error: action.payload,
