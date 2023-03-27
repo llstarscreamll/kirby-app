@@ -1,16 +1,8 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
-import {
-  SearchEmployees,
-  GetEmployee,
-  GetEmployeeOk,
-  UpdateEmployee,
-  CreateEmployee,
-  SearchRoles,
-} from './employees.actions';
 import { employeesQuery } from './employees.selectors';
-import { EmployeesPartialState } from './employees.reducer';
+import { employeesActions as actions } from './employees.actions';
 
 @Injectable()
 export class EmployeesFacade {
@@ -23,33 +15,33 @@ export class EmployeesFacade {
   creatingStatus$ = this.store.pipe(select(employeesQuery.getCreatingStatus));
   errors$ = this.store.pipe(select(employeesQuery.getError));
 
-  constructor(private store: Store<EmployeesPartialState>) {}
+  constructor(private store: Store) {}
 
   /**
    * @todo type the query argument
    * @param query
    */
   search(query: any) {
-    this.store.dispatch(new SearchEmployees(query));
+    this.store.dispatch(actions.search(query));
   }
 
   searchRoles(query: any) {
-    this.store.dispatch(new SearchRoles(query));
+    this.store.dispatch(actions.searchRoles(query));
   }
 
   get(employeeId: string) {
-    this.store.dispatch(new GetEmployee(employeeId));
+    this.store.dispatch(actions.get(employeeId));
   }
 
   update(employeeId: string, data: any) {
-    this.store.dispatch(new UpdateEmployee({ employeeId, data }));
+    this.store.dispatch(actions.update({ employeeId, data }));
   }
 
   create(data: any) {
-    this.store.dispatch(new CreateEmployee(data));
+    this.store.dispatch(actions.create(data));
   }
 
   cleanSelected() {
-    this.store.dispatch(new GetEmployeeOk(null));
+    this.store.dispatch(actions.getOk(null));
   }
 }
