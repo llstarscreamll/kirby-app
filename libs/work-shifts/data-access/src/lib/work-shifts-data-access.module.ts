@@ -4,22 +4,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 
 import { WorkShiftService } from './work-shift.service';
-import { WorkShiftsEffects } from './+state/work-shifts.effects';
 import { WorkShiftsFacade } from './+state/work-shifts.facade';
-import {
-  WORK_SHIFTS_FEATURE_KEY,
-  initialState as workShiftsInitialState,
-  workShiftsReducer,
-} from './+state/work-shifts.reducer';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { WorkShiftsEffects } from './+state/work-shifts.effects';
+import { workShiftsReducer } from './+state/work-shifts.reducer';
 
 @NgModule({
   imports: [
     CommonModule,
     MatSnackBarModule,
-    StoreModule.forFeature(WORK_SHIFTS_FEATURE_KEY, workShiftsReducer, {
-      initialState: workShiftsInitialState,
-    }),
+    StoreModule.forFeature(workShiftsReducer),
     EffectsModule.forFeature([WorkShiftsEffects]),
   ],
   providers: [WorkShiftsFacade, WorkShiftService],

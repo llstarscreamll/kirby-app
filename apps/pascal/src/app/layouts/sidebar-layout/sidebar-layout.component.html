@@ -1,14 +1,12 @@
 <!-- top bar -->
-<mat-toolbar fxLayout="row" class="main-top-bar">
-  <!-- Links if unauthenticated -->
+<mat-toolbar color="primary" class="flex flex-row main-top-bar">
   <ng-container *ngIf="!(authenticated$ | async)">
     <a [routerLink]="['/']">Pascal</a>
-    <div fxFlex="fill"></div>
+    <div class="flex-grow"></div>
     <a [routerLink]="['/sign-up']" class="mx-3">Crear cuenta</a>
     <a [routerLink]="['/login']" class="ml-3">Entrar</a>
   </ng-container>
 
-  <!-- Links if authenticated -->
   <ng-container *ngIf="(authenticated$ | async)">
     <!-- sidebar toggle on mobile -->
     <button (click)="drawer.toggle()"
@@ -18,7 +16,7 @@
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <a [routerLink]="['/']" class="mx-3">Pascal</a>
-    <div fxFlex="fill"></div>
+    <div class="flex-grow"></div>
     <button mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
@@ -47,10 +45,8 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <!-- main content -->
   <mat-sidenav-content>
-    <!-- pages -->
-    <div ngClass="px-10" ngClass.xs="px-4" class="mb-5 border-green-500">
+    <div class="my-5 px-4 md:px-14">
       <ng-content></ng-content>
     </div>
   </mat-sidenav-content>

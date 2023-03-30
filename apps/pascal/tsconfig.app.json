@@ -2,9 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": []
+    "types": [],
+    "target": "ES2022",
+    "useDefineForClassFields": false
   },
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/testing.ts"],
+  "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts", "**/testing.ts", "jest.config.ts"],
   "include": [
     "**/*.ts",
     "../../libs/work-shifts/feature/src/index.ts",

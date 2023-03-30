@@ -1,17 +1,17 @@
 <h1>Turnos de trabajo</h1>
 
-<div class="my-2">
-    <a routerLink="create" mat-stroked-button color="primary">Nuevo</a>
+<div class="mb-8">
+  <a routerLink="create" mat-fab extended color="primary"><mat-icon>add</mat-icon> Crear</a>
 </div>
 
 <div class="table-responsive my-4">
-    <kirby-work-shifts-table-list [items]="(paginatedWorkShifts$ | async)?.data"
-                                  [showDeleteBtn]="(user$ | async)?.can('work-shift.delete')"
-                                  (trashed)="trashWorkShift($event)">
-    </kirby-work-shifts-table-list>
+  <kirby-work-shifts-table-list [items]="(paginatedWorkShifts$ | async)?.data"
+                                [showDeleteBtn]="(user$ | async)?.can('work-shift.delete')"
+                                (trashed)="trashWorkShift($event)">
+  </kirby-work-shifts-table-list>
 </div>
 
 <div class="text-right">
-    <kirby-pagination [pagination]="(paginatedWorkShifts$ | async).meta"
-                      (paginate)="search($event)"></kirby-pagination>
+  <kirby-pagination [pagination]="(paginatedWorkShifts$ | async).meta"
+                    (paginate)="search($event)"></kirby-pagination>
 </div>

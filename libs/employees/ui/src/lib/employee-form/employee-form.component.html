@@ -1,18 +1,18 @@
 <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-  <fieldset class="my-5">
-    <legend class="mb-5 font-medium">Información personal</legend>
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field fxFlex="grow">
+  <fieldset class="my-4">
+    <legend class="mb-8 font-medium">Información personal</legend>
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
         <mat-label>Nombres</mat-label>
         <input formControlName="first_name" matInput required="true" />
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Apellidos</mat-label>
         <input formControlName="last_name" matInput required="true" />
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label># de identificación</mat-label>
         <input
                formControlName="identification_number"
@@ -21,42 +21,41 @@
       </mat-form-field>
     </div>
 
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field fxFlex="grow">
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
         <mat-label>Ciudad</mat-label>
         <input formControlName="location" matInput required="true" />
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Dirección</mat-label>
         <input formControlName="address" matInput required="true" />
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Teléfono</mat-label>
         <input formControlName="phone" matInput required="true" />
       </mat-form-field>
     </div>
   </fieldset>
 
-  <fieldset class="my-5">
-    <legend class="mb-5 font-medium">Inicio de sesión</legend>
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field fxFlex="grow">
+  <fieldset class="my-4">
+    <legend class="mb-8 font-medium">Inicio de sesión</legend>
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
         <mat-label>Correo electrónico</mat-label>
         <input type="email" formControlName="email" matInput required="true" />
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Contraseña</mat-label>
         <input type="password" formControlName="password" matInput [required]="!employee" />
-        <mat-hint *ngIf="employee" align="end">Si la contraseña está vacía NO se actualizará</mat-hint>
+        <mat-hint *ngIf="employee" align="end">Si está vacío NO se actualiza</mat-hint>
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Roles</mat-label>
-        <mat-select
-                    formControlName="roles"
+        <mat-select formControlName="roles"
                     [compareWith]="compareWithFunction"
                     multiple="true"
                     required>
@@ -68,42 +67,22 @@
     </div>
   </fieldset>
 
-  <fieldset class="my-5">
-    <legend class="my-5 font-medium">Información de empleado</legend>
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field fxFlex="grow">
+  <fieldset class="my-4">
+    <legend class="my-8 font-medium">Información de empleado</legend>
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
         <mat-label>Código</mat-label>
         <input formControlName="code" matInput required="true" />
       </mat-form-field>
-      <mat-form-field fxFlex="grow">
-        <mat-label>Centro de costo</mat-label>
-        <input
-               matInput
-               [matAutocomplete]="costCenterAutocomplete"
-               formControlName="cost_center"
-               required="true" />
-        <mat-autocomplete
-                          #costCenterAutocomplete="matAutocomplete"
-                          [displayWith]="displayCostCenterFieldValue">
-          <mat-option
-                      *ngFor="let costCenter of costCenters"
-                      [value]="costCenter">
-            <span>{{ costCenter.name }}</span>
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
 
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Cargo</mat-label>
         <input formControlName="position" matInput required="true" />
       </mat-form-field>
 
-      <mat-form-field fxFlex="grow">
+      <mat-form-field class="flex-grow">
         <mat-label>Salario</mat-label>
-        <input
-               formControlName="salary"
+        <input formControlName="salary"
                matInput
                type="number"
                min="1"
@@ -111,8 +90,23 @@
       </mat-form-field>
     </div>
 
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field fxFlex="grow">
+    <div class="flex flex-col md:flex-row md:gap-4">
+      <mat-form-field class="flex-grow">
+        <mat-label>Centro de costo</mat-label>
+        <input matInput
+               [matAutocomplete]="costCenterAutocomplete"
+               formControlName="cost_center"
+               required="true" />
+        <mat-autocomplete #costCenterAutocomplete="matAutocomplete"
+                          [displayWith]="displayCostCenterFieldValue">
+          <mat-option *ngFor="let costCenter of costCenters"
+                      [value]="costCenter">
+            <span>{{ costCenter.name }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="flex-grow">
         <mat-label>Generar token de registro de producción</mat-label>
         <mat-select formControlName="generate_token">
           <mat-option *ngFor="let expiration of expirationDates" [value]="expiration.date">
@@ -124,85 +118,71 @@
              target="_blank">Imprimir token actual</a>
         </mat-hint>
       </mat-form-field>
-
-      <div fxFlex="grow"></div>
     </div>
   </fieldset>
 
-  <fieldset class="my-5">
-    <legend class="mb-5 font-medium">Control de acceso</legend>
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-      <mat-form-field>
-        <mat-label>Turnos de trabajo</mat-label>
-        <mat-select
-                    formControlName="work_shifts"
-                    [compareWith]="compareWithFunction"
-                    multiple="true"
-                    required>
-          <mat-option *ngFor="let workShift of workShifts" [value]="workShift">
-            {{ workShift.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <fieldset class="my-4">
+    <legend class="mb-8 font-medium">Control de acceso</legend>
+
+    <mat-form-field class="w-full">
+      <mat-label>Turnos de trabajo</mat-label>
+      <mat-select formControlName="work_shifts"
+                  [compareWith]="compareWithFunction"
+                  multiple="true"
+                  required>
+        <mat-option *ngFor="let workShift of workShifts" [value]="workShift">
+          {{ workShift.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex items-center gap-2">
+      <span>Códigos de acceso:</span>
+      <button (click)="addIdentification()"
+              [disabled]="!identificationsArrayControl?.valid"
+              type="button"
+              mat-icon-button
+              matTooltip="Añadir código de acceso"
+              class="add-identification-code inline">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 
-    <p>Códigos de acceso:</p>
     <div formArrayName="identifications" class="identifications mt-2">
-      <div
-           *ngFor="
-          let identificationGroupControl of identificationsArrayControl.controls;
-          let i = index
-        "
+      <div *ngFor="let identificationGroupControl of identificationsArrayControl.controls;let i = index"
            [formGroup]="identificationGroupControl"
-           fxLayout="column"
-           fxLayout.gt-xs="row"
-           fxLayoutGap="5px"
-           fxLayoutGap.md="20px">
+           class="flex flex-col gap-0 md:flex-row md:gap-4 md:place-items-baseline">
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input formControlName="name" matInput required="true" />
         </mat-form-field>
 
-        <mat-form-field class="col">
+        <mat-form-field>
           <mat-label>Código</mat-label>
           <input formControlName="code" matInput required="true" />
         </mat-form-field>
-        <div ngClass="mt-2" ngClass.xs="text-right">
-          <button
-                  (click)="removeIdentificationCode(i)"
+        <div class="text-right md:text-left">
+          <button (click)="removeIdentificationCode(i)"
                   [disabled]="!identificationGroupControl?.valid"
                   type="button"
                   mat-button
                   color="warn"
                   class="remove-identification-code">
             <mat-icon>close</mat-icon>
-            <span fxHide fxShow.xs>Remover código</span>
+            <span>Remover código</span>
           </button>
         </div>
       </div>
     </div>
-
-    <div class="my-3">
-      <button
-              (click)="addIdentification()"
-              [disabled]="!identificationsArrayControl?.valid"
-              type="button"
-              mat-button
-              class="add-identification-code">
-        Añadir código de acceso
-      </button>
-    </div>
   </fieldset>
 
-  <button
-          [disabled]="disableSubmitButton"
+  <button [disabled]="disableSubmitButton"
           mat-raised-button
           color="primary"
           type="submit"
-          class="my-3"
-          ngClass.xs="block w-full h-12">
+          class="block w-full my-4 md:w-auto">
     Guardar
   </button>
-  <div class="clearfix my-2"></div>
-  <span class="font-hairline">Los campos marcados con * son obligatorios</span>
+
+  <span class="block my-2 font-hairline">Los campos marcados con * son obligatorios</span>
 </form>

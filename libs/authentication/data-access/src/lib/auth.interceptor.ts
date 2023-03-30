@@ -1,26 +1,23 @@
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { take, flatMap } from 'rxjs/operators';
-import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 
 import { AuthFacade } from './+state/auth.facade';
-import { AuthTokens } from '@kirby/authentication/utils';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authFacade: AuthFacade) {}
 
-  constructor(private authFacade: AuthFacade) { }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    return this.authFacade.authTokens$.pipe(
-      take(1),
-      flatMap((tokens: AuthTokens) => {
-        const authRequest = !!tokens
-          ? req.clone({ setHeaders: { Authorization: `Bearer ${tokens.access_token}` } })
-          : req;
-
-        return next.handle(authRequest);
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      tap({
+        next: (event) =>
+          event instanceof HttpResponse && event.status === 401 && !event.url.includes('logout')
+            ? this.authFacade.logout()
+            : null,
+        error: (event) => (event.status === 401 && !event.url.includes('logout') ? this.authFacade.logout() : null),
       })
     );
   }
-
 }

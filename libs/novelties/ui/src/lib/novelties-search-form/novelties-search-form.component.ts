@@ -1,22 +1,36 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import moment from 'moment';
 import { omit } from 'lodash-es';
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { takeUntil, filter, tap, debounce } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { Pagination } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data';
-import { EmployeeInterface } from '@kirby/employees/util';
 import { INoveltyType } from '@kirby/novelty-types/data';
+import { EmployeeInterface } from '@kirby/employees/util';
 
 @Component({
   selector: 'kirby-novelties-search-form',
   templateUrl: './novelties-search-form.component.html',
-  styleUrls: ['./novelties-search-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
+  @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
+  @ViewChild('costCenterInput') costCenterInput: ElementRef<HTMLInputElement>;
+  @ViewChild('noveltyTypeInput') noveltyTypeInput: ElementRef<HTMLInputElement>;
+
   @Input() globalSearch = true;
   @Input() costCentersFound: Pagination<CostCenter>;
   @Input() employeesFound: Pagination<EmployeeInterface>;
@@ -48,36 +62,86 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     this.advancedFormDestroy$.complete();
   }
 
-  get selectedEmployees(): EmployeeInterface[] {
+  get addedEmployees(): any[] {
     return this.advancedSearchForm ? this.advancedSearchForm.get('employees').value : [];
   }
 
-  get selectedNoveltyTypes(): CostCenter[] {
+  employeeIsSelected(employee): boolean {
+    return this.addedEmployees.map((e) => e.id).includes(employee.id);
+  }
+
+  addEmployee(event: MatAutocompleteSelectedEvent) {
+    this.advancedSearchForm.patchValue({
+      employees: this.addItemToCollection(event.option.value, this.addedEmployees),
+      employeeSearch: '',
+    });
+    this.employeeInput.nativeElement.value = '';
+  }
+
+  removeEmployee(employee: any) {
+    this.advancedSearchForm.patchValue({ employees: this.removeItemFromCollection(employee, this.addedEmployees) });
+  }
+
+  get addedNoveltyTypes(): any[] {
     return this.advancedSearchForm ? this.advancedSearchForm.get('noveltyTypes').value : [];
   }
 
-  get selectedCostCenters(): CostCenter[] {
+  noveltyTypeIsSelected(noveltyType): boolean {
+    return this.addedNoveltyTypes.map((e) => e.id).includes(noveltyType.id);
+  }
+
+  addNoveltyType(event: MatAutocompleteSelectedEvent) {
+    this.advancedSearchForm.patchValue({
+      noveltyTypes: this.addItemToCollection(event.option.value, this.addedNoveltyTypes),
+      noveltyTypeSearch: '',
+    });
+    this.noveltyTypeInput.nativeElement.value = '';
+  }
+
+  removeNoveltyType(noveltyType: any) {
+    this.advancedSearchForm.patchValue({
+      noveltyTypes: this.removeItemFromCollection(noveltyType, this.addedNoveltyTypes),
+    });
+  }
+
+  get addedCostCenters(): any[] {
     return this.advancedSearchForm ? this.advancedSearchForm.get('costCenters').value : [];
   }
 
-  removeEmployee(employee) {
-    const selectedEmployees = this.selectedEmployees;
-
-    this.advancedSearchForm.get('employees').setValue([...selectedEmployees.filter((e) => e.id !== employee.id)]);
+  costCenterIsSelected(costCenter): boolean {
+    return this.addedCostCenters.map((e) => e.id).includes(costCenter.id);
   }
 
-  removeNoveltyType(noveltyType) {
-    const selectedNoveltyTypes = this.selectedNoveltyTypes;
-
-    this.advancedSearchForm
-      .get('noveltyTypes')
-      .setValue([...selectedNoveltyTypes.filter((n) => n.id !== noveltyType.id)]);
+  addCostCenter(event: MatAutocompleteSelectedEvent) {
+    this.advancedSearchForm.patchValue({
+      costCenters: this.addItemToCollection(event.option.value, this.addedCostCenters),
+      costCenterSearch: '',
+    });
+    this.costCenterInput.nativeElement.value = '';
   }
 
-  removeCostCenter(costCenter) {
-    const selectedCostCenters = this.selectedCostCenters;
+  removeCostCenter(costCenter: any) {
+    this.advancedSearchForm.patchValue({
+      costCenters: this.removeItemFromCollection(costCenter, this.addedCostCenters),
+    });
+  }
 
-    this.advancedSearchForm.get('costCenters').setValue([...selectedCostCenters.filter((c) => c.id !== costCenter.id)]);
+  addItemToCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
+    if (collection.findIndex((added) => added.id === item.id) === -1) {
+      collection.push(item);
+    }
+
+    return collection;
+  }
+
+  removeItemFromCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
+    const itemIndex = collection.findIndex((added) => added.id === item.id);
+
+    if (itemIndex > -1) {
+      collection.splice(itemIndex, 1);
+    }
+
+    return collection;
   }
 
   buildAdvancedSearchForm() {
@@ -96,7 +160,6 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     this.advancedSearchForm
       .get('noveltyTypesSearch')
       .valueChanges.pipe(
-        tap((value) => (typeof value === 'object' ? this.addNoveltyType(value) : null)),
         takeUntil(this.advancedFormDestroy$),
         debounce(() => timer(400)),
         filter((value) => typeof value === 'string' && value.trim() !== ''),
@@ -107,10 +170,9 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     this.advancedSearchForm
       .get('employeesSearch')
       .valueChanges.pipe(
-        tap((value) => (typeof value === 'object' ? this.addEmployee(value) : null)),
         takeUntil(this.advancedFormDestroy$),
         debounce(() => timer(400)),
-        filter((value) => typeof value === 'string' && value !== ''),
+        filter((value) => typeof value === 'string' && value.trim() !== ''),
         tap((value) => this.searchEmployees.emit({ search: value }))
       )
       .subscribe();
@@ -118,40 +180,12 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     this.advancedSearchForm
       .get('costCentersSearch')
       .valueChanges.pipe(
-        tap((value) => (typeof value === 'object' ? this.addCostCenter(value) : null)),
         takeUntil(this.advancedFormDestroy$),
         debounce(() => timer(400)),
         filter((value) => typeof value === 'string' && value !== ''),
         tap((value) => this.searchCostCenters.emit({ search: value }))
       )
       .subscribe();
-  }
-
-  addNoveltyType(noveltyType: INoveltyType) {
-    let selectedNoveltyTypes: INoveltyType[] = this.advancedSearchForm.get('noveltyTypes').value;
-
-    selectedNoveltyTypes = [...selectedNoveltyTypes, noveltyType];
-
-    this.advancedSearchForm.get('noveltyTypes').setValue(selectedNoveltyTypes);
-    this.advancedSearchForm.patchValue({ noveltyTypesSearch: '' });
-  }
-
-  addEmployee(employee: EmployeeInterface) {
-    let selectedEmployees: EmployeeInterface[] = this.advancedSearchForm.get('employees').value;
-
-    selectedEmployees = [...selectedEmployees, employee];
-
-    this.advancedSearchForm.get('employees').setValue(selectedEmployees);
-    this.advancedSearchForm.patchValue({ employeesSearch: '' });
-  }
-
-  addCostCenter(costCenter: CostCenter) {
-    let selectedCostCenters: CostCenter[] = this.advancedSearchForm.get('costCenters').value;
-
-    selectedCostCenters = [...selectedCostCenters, costCenter];
-
-    this.advancedSearchForm.get('costCenters').setValue(selectedCostCenters);
-    this.advancedSearchForm.patchValue({ costCentersSearch: '' });
   }
 
   onSimpleSearchSubmit() {
@@ -172,8 +206,8 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
         'costCentersSearch',
       ]),
       start_at: { from: formData.startAtFrom, to: formData.startAtTo },
-      novelty_types: formData.noveltyTypes,
-      cost_centers: formData.costCenters,
+      novelty_types: formData.noveltyTypes.map((t) => ({ id: t.id })),
+      cost_centers: formData.costCenters.map((t) => ({ id: t.id })),
     };
 
     this.submitted.emit({ ...formValues });
@@ -202,11 +236,7 @@ export class NoveltiesSearchFormComponent implements OnInit, OnDestroy {
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
-  displayNoveltyTypeFieldValue(noveltyType: INoveltyType) {
-    return noveltyType ? noveltyType.code + ' ' + noveltyType.name : null;
-  }
-
-  displayCostCenterFieldValue(costCenter: CostCenter) {
-    return costCenter ? costCenter.code + ' ' + costCenter.name : null;
+  displayNameFieldValue(entity: { name: string; code: string }) {
+    return entity ? entity.code + ' ' + entity.name : null;
   }
 }

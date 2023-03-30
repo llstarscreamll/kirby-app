@@ -152,7 +152,7 @@ describe('TimeClockLogsTableComponent', () => {
       data: [firstTimeClockLog, createTimeClockLog()],
     };
 
-    spyOn(component.approve, 'emit');
+   jest.spyOn(component.approve, 'emit');
     component.actionButtons = ['approve'];
 
     fixture.detectChanges();
@@ -173,7 +173,7 @@ describe('TimeClockLogsTableComponent', () => {
       data: [firstTimeClockLog, createTimeClockLog()],
     };
 
-    spyOn(component.deleteApproval, 'emit');
+   jest.spyOn(component.deleteApproval, 'emit');
     component.actionButtons = ['delete-approval'];
 
     fixture.detectChanges();

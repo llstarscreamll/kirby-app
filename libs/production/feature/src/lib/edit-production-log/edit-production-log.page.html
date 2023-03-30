@@ -1,26 +1,23 @@
-<h1 class="inline-block">
-  <a routerLink="../../">Registros de producción</a> / Editar
+<h1>
+  <a routerLink="../../">Producción</a> / Editar registro
 </h1>
 
-<div class="card">
+<kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
 
-  <kirby-api-errors [apiError]="error$ | async" class="block mb-5"></kirby-api-errors>
-
-  <kirby-production-log-form *ngIf="productionLog$ | async; let productionLog" [user]="user$ | async"
-                             [defaults]="productionLog$ | async"
-                             [products]="products$ | async"
-                             [machines]="machines$ | async"
-                             [customers]="customers$ | async"
-                             [status]="status$ | async"
-                             [rawGrossWeight]="machineValue"
-                             [printerIsAvailable]="printerIsAvailable()"
-                             [weighMachineAvailable]="readyToConnectToWeighMachine()"
-                             (searchProducts)="searchProducts($event)"
-                             (searchMachines)="searchMachines($event)"
-                             (searchCustomers)="searchCustomers($event)"
-                             (save)="save(productionLog.id, $event)"
-                             (saveAndPrint)="saveAndPrint(productionLog.id, $event)"
-                             class="block w-full">
-  </kirby-production-log-form>
-
-</div>
+<kirby-production-log-form *ngIf="productionLog$ | async; let productionLog"
+                           [user]="user$ | async"
+                           [defaults]="productionLog$ | async"
+                           [products]="products$ | async"
+                           [machines]="machines$ | async"
+                           [customers]="customers$ | async"
+                           [status]="status$ | async"
+                           [rawGrossWeight]="machineValue"
+                           [printerIsAvailable]="printerIsAvailable()"
+                           [weighMachineAvailable]="readyToConnectToWeighMachine()"
+                           (searchProducts)="searchProducts($event)"
+                           (searchMachines)="searchMachines($event)"
+                           (searchCustomers)="searchCustomers($event)"
+                           (save)="save(productionLog.id, $event)"
+                           (saveAndPrint)="saveAndPrint(productionLog.id, $event)"
+                           class="block max-w-4xl">
+</kirby-production-log-form>

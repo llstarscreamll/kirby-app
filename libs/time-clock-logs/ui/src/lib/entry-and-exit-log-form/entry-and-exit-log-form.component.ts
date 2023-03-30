@@ -27,13 +27,13 @@ import { LoadStatus, ApiError, isObject } from '@kirby/shared';
 })
 export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @ViewChild('codeInput', { static: false })
-  public codeInput: ElementRef;
+  codeInput: ElementRef;
 
   @Input()
-  public status: LoadStatus;
+  status: LoadStatus;
 
   @Input()
-  public timeClockData: {
+  timeClockData: {
     action: string;
     employee: { id: string; name: string };
     punctuality: -1 | 0 | 1;
@@ -43,13 +43,13 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
   };
 
   @Input()
-  public subCostCenters: any[];
+  subCostCenters: any[];
 
   @Input()
-  public apiError: ApiError;
+  apiError: ApiError;
 
   @Output()
-  public codeObtained = new EventEmitter<{
+  codeObtained = new EventEmitter<{
     action: string;
     identification_code: string;
   }>();
@@ -62,8 +62,8 @@ export class EntryAndExitLogFormComponent implements OnInit, OnChanges, AfterVie
 
   private destroy$ = new Subject();
 
-  public codeForm: FormGroup;
-  public checkForm: FormGroup;
+  codeForm: FormGroup;
+  checkForm: FormGroup;
 
   private fallbackWorkShift = [{ id: '-1', name: 'Sin registro de turno' }];
 

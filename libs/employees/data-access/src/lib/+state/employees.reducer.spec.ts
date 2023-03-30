@@ -1,26 +1,20 @@
-import {
-  EmployeesState,
-  initialState,
-  employeesReducer
-} from './employees.reducer';
 import { emptyPagination, LoadStatus } from '@kirby/shared';
-import { SearchEmployeesOk } from './employees.actions';
 import { createEmployee } from '@kirby/employees/testing';
 
+import { employeesActions as actions } from './employees.actions';
+import { EmployeesState, initialState, employeesReducer } from './employees.reducer';
+
 describe('Employees Reducer', () => {
-  const getEmployeesId = it => it['id'];
+  const getEmployeesId = (it) => it['id'];
 
   beforeEach(() => {});
 
   describe('valid Employees actions ', () => {
     it('should return set the list of known Employees', () => {
-      const employees = [
-        createEmployee('PRODUCT-AAA'),
-        createEmployee('PRODUCT-zzz')
-      ];
-      const action = new SearchEmployeesOk({
+      const employees = [createEmployee('PRODUCT-AAA'), createEmployee('PRODUCT-zzz')];
+      const action = actions.searchOk({
         ...emptyPagination(),
-        data: employees
+        data: employees,
       });
       const result: EmployeesState = employeesReducer(initialState, action);
       const selId: string = getEmployeesId(result.paginatedList.data[1]);

@@ -1,89 +1,70 @@
-import { map, tap } from 'rxjs/operators';
-import { Effect } from '@ngrx/effects';
-import { Injectable } from '@angular/core';
-import { DataPersistence } from '@nrwl/angular';
-
-import { NoveltyTypesPartialState } from './novelty-types.reducer';
-import {
-  SearchNoveltyTypes,
-  SearchNoveltyTypesOk,
-  SearchNoveltyTypesError,
-  NoveltyTypesActionTypes,
-  CreateNoveltyType,
-  CreateNoveltyTypeError,
-  CreateNoveltyTypeOk,
-  UpdateNoveltyType,
-  UpdateNoveltyTypeOk,
-  UpdateNoveltyTypeError,
-  GetNoveltyType,
-  GetNoveltyTypeOk,
-  GetNoveltyTypeError,
-  TrashNoveltyType,
-  TrashNoveltyTypeOk,
-  TrashNoveltyTypeError,
-} from './novelty-types.actions';
-import { NoveltyTypeService } from '../novelty-type.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { map, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { fetch, optimisticUpdate, pessimisticUpdate } from '@nrwl/angular';
+
+import { NoveltyTypeService } from '../novelty-type.service';
+import { noveltyTypesActions as actions } from './novelty-types.actions';
 
 @Injectable()
 export class NoveltyTypesEffects {
-  @Effect() searchNoveltyTypes$ = this.dataPersistence.fetch(
-    NoveltyTypesActionTypes.Search,
-    {
-      run: (action: SearchNoveltyTypes, _: NoveltyTypesPartialState) =>
-        this.noveltyTypeService
-          .search(action.payload)
-          .pipe(map((response) => new SearchNoveltyTypesOk(response))),
+  searchNoveltyTypes$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.search),
+      fetch({
+        run: (action) =>
+          this.noveltyTypeService.search(action.payload).pipe(map((response) => actions.searchOk(response))),
 
-      onError: (_: SearchNoveltyTypes, error) =>
-        new SearchNoveltyTypesError(error),
-    }
+        onError: (_, error) => actions.searchError(error),
+      })
+    )
   );
 
-  @Effect() getNoveltyType$ = this.dataPersistence.fetch(
-    NoveltyTypesActionTypes.Get,
-    {
-      run: (action: GetNoveltyType, _: NoveltyTypesPartialState) =>
-        this.noveltyTypeService
-          .get(action.payload)
-          .pipe(map((response) => new GetNoveltyTypeOk(response.data))),
+  getNoveltyType$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.get),
+      fetch({
+        run: (action) =>
+          this.noveltyTypeService.get(action.payload).pipe(map((response) => actions.getOk(response.data))),
 
-      onError: (_: GetNoveltyType, error) => new GetNoveltyTypeError(error),
-    }
+        onError: (_, error) => actions.getError(error),
+      })
+    )
   );
 
-  @Effect() createNoveltyType$ = this.dataPersistence.pessimisticUpdate(
-    NoveltyTypesActionTypes.Create,
-    {
-      run: (action: CreateNoveltyType, _: NoveltyTypesPartialState) =>
-        this.noveltyTypeService.create(action.payload).pipe(
-          map((response) => new CreateNoveltyTypeOk(response.data)),
-          tap((_) =>
-            this.snackBar.open('Tipo de novedad creada!', 'Ok', {
-              duration: 5 * 1000,
-            })
+  createNoveltyType$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.create),
+      pessimisticUpdate({
+        run: (action) =>
+          this.noveltyTypeService.create(action.payload).pipe(
+            map((response) => actions.createOk(response.data)),
+            tap((_) =>
+              this.snackBar.open('Tipo de novedad creada!', 'Ok', {
+                duration: 5 * 1000,
+              })
+            ),
+            /**
+             * @todo fix this hard coded route navigation, see:
+             * https://stackoverflow.com/a/38810729/3395068
+             */
+            tap((_) => this.router.navigate(['novelties/novelty-types']))
           ),
-          /**
-           * @todo fix this hard coded route navigation, see:
-           * https://stackoverflow.com/a/38810729/3395068
-           */
-          tap((_) => this.router.navigate(['novelties/novelty-types']))
-        ),
 
-      onError: (_: CreateNoveltyType, error) =>
-        new CreateNoveltyTypeError(error),
-    }
+        onError: (_, error) => actions.createError(error),
+      })
+    )
   );
 
-  @Effect() updateNoveltyType$ = this.dataPersistence.pessimisticUpdate(
-    NoveltyTypesActionTypes.Update,
-    {
-      run: (action: UpdateNoveltyType, _: NoveltyTypesPartialState) =>
-        this.noveltyTypeService
-          .update(action.payload.id, action.payload.data)
-          .pipe(
-            map((response) => new UpdateNoveltyTypeOk(response.data)),
+  updateNoveltyType$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.update),
+      pessimisticUpdate({
+        run: (action) =>
+          this.noveltyTypeService.update(action.payload.id, action.payload.data).pipe(
+            map((response) => actions.updateOk(response.data)),
             tap((_) =>
               this.snackBar.open('Tipo de novedad actualizada!', 'Ok', {
                 duration: 5 * 1000,
@@ -96,17 +77,17 @@ export class NoveltyTypesEffects {
             tap((_) => this.router.navigate(['novelties/novelty-types']))
           ),
 
-      onError: (_: UpdateNoveltyType, error) =>
-        new UpdateNoveltyTypeError(error),
-    }
+        onError: (_, error) => actions.updateError(error),
+      })
+    )
   );
 
-  @Effect() trashNoveltyType$ = this.dataPersistence.optimisticUpdate(
-    NoveltyTypesActionTypes.Trash,
-    {
-      run: (action: TrashNoveltyType, _: NoveltyTypesPartialState) =>
+  trashNoveltyType$ = this.actions$.pipe(
+    ofType(actions.trash),
+    optimisticUpdate({
+      run: (action) =>
         this.noveltyTypeService.trash(action.payload).pipe(
-          map((_) => new TrashNoveltyTypeOk(action.payload)),
+          map((_) => actions.trashOk(action.payload)),
           tap((_) =>
             this.snackBar.open('Tipo de novedad movida a la papelera!', 'Ok', {
               duration: 5 * 1000,
@@ -114,15 +95,14 @@ export class NoveltyTypesEffects {
           )
         ),
 
-      undoAction: (_: TrashNoveltyType, error) =>
-        new TrashNoveltyTypeError(error),
-    }
+      undoAction: (_, error) => actions.trashError(error),
+    })
   );
 
   constructor(
     private router: Router,
+    private actions$: Actions,
     private snackBar: MatSnackBar,
-    private noveltyTypeService: NoveltyTypeService,
-    private dataPersistence: DataPersistence<NoveltyTypesPartialState>
+    private noveltyTypeService: NoveltyTypeService
   ) {}
 }

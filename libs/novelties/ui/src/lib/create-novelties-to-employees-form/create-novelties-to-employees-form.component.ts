@@ -1,37 +1,40 @@
-import moment, { Moment } from 'moment';
-import { timer, Subject } from 'rxjs';
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Input,
-  Output,
+  Component,
+  ElementRef,
   EventEmitter,
-  OnDestroy
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
 } from '@angular/core';
+import { timer, Subject } from 'rxjs';
+import moment, { Moment } from 'moment';
 import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { LoadStatus } from '@kirby/shared';
-import { EmployeeInterface } from '@kirby/employees/util';
 import { NoveltyType } from '@kirby/novelty-types/data';
+import { EmployeeInterface } from '@kirby/employees/util';
 
 @Component({
   selector: 'kirby-create-novelties-to-employees-form',
   templateUrl: './create-novelties-to-employees-form.component.html',
-  styleUrls: ['./create-novelties-to-employees-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateNoveltiesToEmployeesFormComponent
-  implements OnInit, OnDestroy {
-  @Input()
-  public employees: EmployeeInterface[] = [];
+export class CreateNoveltiesToEmployeesFormComponent implements OnInit, OnDestroy {
+  @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
 
   @Input()
-  public noveltyTypes: NoveltyType;
+  employees: EmployeeInterface[] = [];
 
   @Input()
-  public status: LoadStatus;
+  noveltyTypes: NoveltyType;
+
+  @Input()
+  status: LoadStatus;
 
   @Output()
   searchEmployees = new EventEmitter();
@@ -44,7 +47,7 @@ export class CreateNoveltiesToEmployeesFormComponent
 
   private destroy$ = new Subject();
 
-  public form: FormGroup;
+  form: FormGroup;
 
   hours = new Array(24)
     .join()
@@ -68,27 +71,15 @@ export class CreateNoveltiesToEmployeesFormComponent
     this.destroy$.complete();
   }
 
-  get selectedEmployees(): any[] {
-    return this.form ? this.form.get('selected_employees').value : [];
-  }
-
   get noveltyTypesArrayControl(): FormArray {
     return this.form.get('novelty_types') as FormArray;
   }
 
-  get displayableEmployees(): any[] {
-    return this.employees.filter(
-      employee => !this.selectedEmployees.map(se => se.id).includes(employee.id)
-    );
-  }
-
   private buildForm() {
     this.form = this.formBuilder.group({
-      selected_employees: [[], [Validators.required]],
       employee: [],
-      novelty_types: this.formBuilder.array([
-        this.setUpNoveltyOptionFormGroup()
-      ])
+      selected_employees: [[], [Validators.required]],
+      novelty_types: this.formBuilder.array([this.setUpNoveltyOptionFormGroup()]),
     });
   }
 
@@ -101,15 +92,15 @@ export class CreateNoveltiesToEmployeesFormComponent
       scheduled_end_date: [null, Validators.required],
       scheduled_end_hour: [null, Validators.required],
       scheduled_end_minute: [null, Validators.required],
-      comment: [null, [Validators.maxLength(255)]]
+      comment: [null, [Validators.maxLength(255)]],
     });
 
     formGroup
       .get('novelty_type')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.searchNoveltyTypes.emit({ search: value })),
+        filter((value) => typeof value === 'string' && value !== ''),
+        tap((value) => this.searchNoveltyTypes.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -117,12 +108,10 @@ export class CreateNoveltiesToEmployeesFormComponent
     formGroup
       .get('novelty_type')
       .valueChanges.pipe(
-        filter(value => typeof value === 'object'),
-        tap(selectedNoveltyType => {
+        filter((value) => typeof value === 'object'),
+        tap((selectedNoveltyType: any) => {
           if (selectedNoveltyType.requires_comment) {
-            formGroup
-              .get('comment')
-              .setValidators([Validators.required, Validators.maxLength(255)]);
+            formGroup.get('comment').setValidators([Validators.required, Validators.maxLength(255)]);
           }
         }),
         takeUntil(this.destroy$)
@@ -137,44 +126,45 @@ export class CreateNoveltiesToEmployeesFormComponent
       .get('employee')
       .valueChanges.pipe(
         debounce(() => timer(400)),
-        filter(value => typeof value === 'string' && value !== ''),
-        tap(value => this.searchEmployees.emit({ search: value })),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
-
-    this.form
-      .get('employee')
-      .valueChanges.pipe(
-        filter(value => typeof value !== 'string'), // an employee has been selected
-        tap(value => this.addEmployee(value)),
+        filter((value) => typeof value === 'string' && value.trim() !== ''),
+        tap((value) => this.searchEmployees.emit({ search: value })),
         takeUntil(this.destroy$)
       )
       .subscribe();
   }
 
-  private addEmployee(employee) {
-    const selectedEmployees = this.selectedEmployees;
-
-    if (selectedEmployees.find(se => se.id === employee.id)) {
-      return;
-    }
-
-    selectedEmployees.push(employee);
-
-    this.form.get('selected_employees').setValue(selectedEmployees);
-    this.form.get('employee').setValue('');
+  get addedEmployees(): any[] {
+    return this.form ? this.form.get('selected_employees').value : [];
   }
 
-  removeEmployee(employee) {
-    const selectedEmployees = this.selectedEmployees;
-    const index = selectedEmployees.map(se => se.id).indexOf(employee.id);
+  addEmployee(event: MatAutocompleteSelectedEvent) {
+    this.form.patchValue({
+      selected_employees: this.addItemToCollection(event.option.value, this.addedEmployees),
+      employee: '',
+    });
+    this.employeeInput.nativeElement.value = '';
+  }
 
-    if (index >= 0) {
-      this.selectedEmployees.splice(index, 1);
+  removeEmployee(employee: any) {
+    this.form.patchValue({ selected_employees: this.removeItemFromCollection(employee, this.addedEmployees) });
+  }
+
+  addItemToCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
+    if (collection.findIndex((added) => added.id === item.id) === -1) {
+      collection.push(item);
     }
 
-    this.form.get('selected_employees').setValue(selectedEmployees);
+    return collection;
+  }
+
+  removeItemFromCollection(item: { id: string }, collection: { id: string }[]): { id: string }[] {
+    const itemIndex = collection.findIndex((added) => added.id === item.id);
+
+    if (itemIndex > -1) {
+      collection.splice(itemIndex, 1);
+    }
+
+    return collection;
   }
 
   addNoveltyOption() {
@@ -193,15 +183,17 @@ export class CreateNoveltiesToEmployeesFormComponent
     return employee ? employee.first_name + ' ' + employee.last_name : null;
   }
 
+  employeeIsSelected(employee): boolean {
+    return this.addedEmployees.map((e) => e.id).includes(employee.id);
+  }
+
   displayNoveltyTypeFieldValue(noveltyType) {
     return noveltyType ? noveltyType.name : null;
   }
 
   selectedNoveltyTypeRequiresComment(selectedNoveltyType) {
     return (
-      !!selectedNoveltyType &&
-      typeof selectedNoveltyType === 'object' &&
-      selectedNoveltyType.requires_comment === true
+      !!selectedNoveltyType && typeof selectedNoveltyType === 'object' && selectedNoveltyType.requires_comment === true
     );
   }
 
@@ -213,8 +205,8 @@ export class CreateNoveltiesToEmployeesFormComponent
     const formData = this.form.value;
 
     return {
-      employee_ids: formData.selected_employees.map(employee => employee.id),
-      novelties: formData.novelty_types.map(novelty => {
+      employee_ids: formData.selected_employees.map((employee) => employee.id),
+      novelties: formData.novelty_types.map((novelty) => {
         const startDate: Moment = novelty.scheduled_start_date || moment();
         startDate.hour(novelty.scheduled_start_hour);
         startDate.minutes(novelty.scheduled_start_minute);
@@ -224,14 +216,12 @@ export class CreateNoveltiesToEmployeesFormComponent
         endDate.minutes(novelty.scheduled_end_minute);
 
         return {
-          novelty_type_id: novelty.novelty_type
-            ? novelty.novelty_type.id
-            : null,
+          novelty_type_id: novelty.novelty_type ? novelty.novelty_type.id : null,
           start_at: startDate.toISOString(),
           end_at: endDate.toISOString(),
-          comment: novelty.comment
+          comment: novelty.comment,
         };
-      })
+      }),
     };
   }
 }

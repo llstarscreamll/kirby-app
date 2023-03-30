@@ -1,4 +1,6 @@
-import { AuthAction, AuthActionTypes } from './auth.actions';
+import { createFeature, createReducer, on } from '@ngrx/store';
+
+import * as actions from './auth.actions';
 
 export const AUTH_FEATURE_KEY = 'AUTH';
 
@@ -7,11 +9,7 @@ export interface AuthState {
   tokens: any;
   tokens_received_at: Date | null;
   status: 'loggingIn' | 'loggedIn' | 'loginFailed' | 'loginError' | 'loggingOut' | 'signingIn' | 'signInError';
-  errors?: any;
-};
-
-export interface AuthPartialState {
-  readonly [AUTH_FEATURE_KEY]: AuthState;
+  errors: any | null;
 }
 
 export const initialState: AuthState = {
@@ -19,58 +17,26 @@ export const initialState: AuthState = {
   status: null,
   tokens: null,
   tokens_received_at: null,
+  errors: null,
 };
 
-export function authReducer(
-  state: AuthState = initialState,
-  action: AuthAction): AuthState {
-
-  switch (action.type) {
-    case AuthActionTypes.LoginWithCredentials: {
-      state = { ...state, errors: null, status: 'loggingIn' };
-      break;
-    }
-
-    case AuthActionTypes.LoginSuccess: {
-      state = { ...state, tokens: action.payload, status: 'loggedIn', tokens_received_at: new Date() };
-      break;
-    }
-
-    case AuthActionTypes.LoginError: {
-      state = { ...state, status: 'loginError', errors: action.payload };
-      break;
-    }
-
-    case AuthActionTypes.GetAuthUserSuccess: {
-      state = { ...state, user: action.payload };
-      break;
-    }
-
-    case AuthActionTypes.Logout: {
-      state = { ...state, status: 'loggingOut' };
-      break;
-    }
-
-    case AuthActionTypes.LogoutSuccess: {
-      state = initialState;
-      break;
-    }
-
-    case AuthActionTypes.SignUp: {
-      state = { ...state, errors: null, status: 'signingIn' };
-      break;
-    }
-
-    case AuthActionTypes.SignUpError: {
-      state = { ...state, status: 'signInError', errors: action.payload };
-      break;
-    }
-
-    case AuthActionTypes.CleanErrors: {
-      state = { ...state, status: 'signInError', errors: null };
-      break;
-    }
-  }
-
-  return state;
-}
+export const authReducer = createFeature({
+  name: AUTH_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(actions.LoginWithCredentials, (state) => ({ ...state, errors: null, status: 'loggingIn' })),
+    on(actions.LoginSuccess, (state, action) => ({
+      ...state,
+      tokens: action.payload,
+      status: 'loggedIn',
+      tokens_received_at: new Date(),
+    })),
+    on(actions.LoginError, (state, action) => ({ ...state, status: 'loginError', errors: action.payload })),
+    on(actions.GetAuthUserSuccess, (state, action) => ({ ...state, user: action.payload, status: 'loggedIn' })),
+    on(actions.Logout, (state) => ({ ...state, status: 'loggingOut' })),
+    on(actions.LogoutSuccess, (state) => initialState),
+    on(actions.SignUp, (state) => ({ ...state, errors: null, status: 'signingIn' })),
+    on(actions.SignUpError, (state, action) => ({ ...state, status: 'signInError', errors: action.payload })),
+    on(actions.CleanErrors, (state) => ({ ...state, errors: null }))
+  ),
+});

@@ -4,7 +4,7 @@ import { createNoveltyType } from '@kirby/novelty-types/testing';
 import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 import { CreateNoveltyTypePageComponent } from './create-novelty-type-page.component';
-import { cold } from '@nrwl/angular/testing';
+import { cold } from 'jasmine-marbles';
 
 describe('CreateNoveltyTypePageComponent', () => {
   let template: HTMLDivElement;
@@ -35,7 +35,7 @@ describe('CreateNoveltyTypePageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateNoveltyTypePageComponent);
-    noveltyTypesFacade = TestBed.get(NoveltyTypesFacade);
+    noveltyTypesFacade = TestBed.inject(NoveltyTypesFacade);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
   });
@@ -54,13 +54,11 @@ describe('CreateNoveltyTypePageComponent', () => {
   it('should bin attributes from noveltyTypesFacade', () => {
     fixture.detectChanges();
 
-    expect(component.errors$).toBeObservable(
-      cold('e', { e: { message: 'WTF!!', ok: false } })
-    );
+    expect(component.errors$).toBeObservable(cold('e', { e: { message: 'WTF!!', ok: false } }));
   });
 
   it('should call NoveltyTypesFacade.create(...)', () => {
-    spyOn(noveltyTypesFacade, 'create');
+   jest.spyOn(noveltyTypesFacade, 'create');
 
     component.onFormSubmit({ foo: 'bar' });
 

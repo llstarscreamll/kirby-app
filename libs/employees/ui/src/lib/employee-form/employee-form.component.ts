@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { timer, Subject } from 'rxjs';
 import { debounce, filter, tap, takeUntil } from 'rxjs/operators';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 import { LoadStatus } from '@kirby/shared';
 import { CostCenter } from '@kirby/cost-centers/data';
@@ -11,24 +11,23 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 @Component({
   selector: 'kirby-employee-form',
   templateUrl: './employee-form.component.html',
-  styleUrls: ['./employee-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmployeeFormComponent implements OnInit, OnDestroy {
   @Input()
-  public employee: EmployeeInterface;
+  employee: EmployeeInterface;
 
   @Input()
-  public costCenters: CostCenter[];
+  costCenters: CostCenter[];
 
   @Input()
-  public workShifts: WorkShiftInterface[];
+  workShifts: WorkShiftInterface[];
 
   @Input()
-  public roles: { id: number; display_name: string }[];
+  roles: { id: number; display_name: string }[];
 
   @Input()
-  public status: LoadStatus;
+  status: LoadStatus;
 
   @Output()
   submitted = new EventEmitter();
@@ -38,7 +37,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
 
-  public form: FormGroup;
+  form: FormGroup;
 
   expirationDates = [
     { date: '15d', label: 'Vigente por 15 días' },

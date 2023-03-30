@@ -7,7 +7,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { createUser } from '@kirby/users/testing';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
+
+import { emptyPagination } from '@kirby/shared';
+import { EmployeesFacade } from '@kirby/employees/data-access';
+
 import { TimeClockLogsPageComponent } from './time-clock-logs-page.component';
 
 describe('TimeClockLogsPageComponent', () => {
@@ -19,18 +24,20 @@ describe('TimeClockLogsPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [AuthorizationUiTestModule, HttpClientTestingModule, RouterTestingModule],
+      imports: [AuthorizationUiTestModule, HttpClientTestingModule, RouterTestingModule, MatAutocompleteModule],
       declarations: [TimeClockLogsPageComponent],
       providers: [
         { provide: AuthFacade, useValue: { authUser$: of(user) } },
+        { provide: EmployeesFacade, useValue: { paginatedEmployees$: of(emptyPagination), search: (q) => true } },
         {
           provide: TimeClockLogsFacade,
           useValue: {
             cleanError: () => true,
             createEntryAndExitLog: (data) => true,
+            getStatistics: (query) => true,
             getTimeClockData: (code) => true,
-            searchSubCostCenters: (code) => true,
             search: (query) => true,
+            searchSubCostCenters: (code) => true,
           },
         },
       ],
@@ -42,9 +49,9 @@ describe('TimeClockLogsPageComponent', () => {
     fixture = TestBed.createComponent(TimeClockLogsPageComponent);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
-    timeClockFacade = TestBed.get(TimeClockLogsFacade);
+    timeClockFacade = TestBed.inject(TimeClockLogsFacade);
 
-    spyOn(timeClockFacade, 'search').and.callThrough();
+    jest.spyOn(timeClockFacade, 'search');
 
     fixture.detectChanges();
   });

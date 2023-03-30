@@ -7,10 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { SharedModule } from '@kirby/shared';
 import { WorkShiftsUiModule } from '@kirby/work-shifts/ui';
-import { WorkShiftFeatureEffects } from './WorkShiftFeatureEffects';
 import { WorkShiftsDataAccessModule } from '@kirby/work-shifts/data-access';
+
+import { WorkShiftFeatureEffects } from './work-shift-feature.effects';
 import { EditWorkShiftPage } from './edit-work-shift-page/edit-work-shift.page';
-import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { ListWorkShiftsPageComponent } from './list-work-shifts-page/list-work-shifts-page.component';
 import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-work-shift-page.component';
 
@@ -20,7 +20,6 @@ import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-wo
     SharedModule,
     MatIconModule,
     MatButtonModule,
-    AuthenticationDataAccessModule,
     EffectsModule.forFeature([WorkShiftFeatureEffects]),
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: ListWorkShiftsPageComponent },
@@ -36,10 +35,6 @@ import { CreateWorkShiftPageComponent } from './create-work-shift-page/create-wo
     WorkShiftsUiModule,
     WorkShiftsDataAccessModule,
   ],
-  declarations: [
-    EditWorkShiftPage,
-    ListWorkShiftsPageComponent,
-    CreateWorkShiftPageComponent,
-  ],
+  declarations: [EditWorkShiftPage, ListWorkShiftsPageComponent, CreateWorkShiftPageComponent],
 })
 export class WorkShiftsFeatureModule {}

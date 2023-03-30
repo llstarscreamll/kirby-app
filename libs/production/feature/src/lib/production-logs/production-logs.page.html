@@ -1,23 +1,21 @@
-<h1>Registros de producción</h1>
+<h1>Producción</h1>
 
-<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
-<div fxLayout="column"
-     fxLayout.gt-xs="row"
-     fxLayoutGap="10px"
-     fxLayoutGap.gt-xs="20px">
-  <a *ngIf="(user$ | async).can('production-logs.create')"
+<div class="flex flex-row gap-4 md:gap-4 place-items-center mb-8">
+  <a *ngIf="(user$ | async)?.can('production-logs.create')"
      routerLink="./create"
-     mat-stroked-button
+     mat-fab extended
      color="primary">
+    <mat-icon>add</mat-icon>
     Crear
   </a>
+
+  <div class="flex-grow"></div>
 
   <a routerLink="./reports" mat-stroked-button color="primary">
     Reportes
   </a>
-
-  <div fxFlex></div>
 
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
     <mat-icon>more_vert</mat-icon>

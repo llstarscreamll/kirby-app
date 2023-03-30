@@ -1,9 +1,10 @@
-import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store, select } from '@ngrx/store';
-import { cold, getTestScheduler } from '@nrwl/angular/testing';
+import { cold, getTestScheduler } from 'jasmine-marbles';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { WorkShiftsFacade } from './work-shifts.facade';
@@ -12,21 +13,8 @@ import { WorkShiftsEffects } from './work-shifts.effects';
 import { createWorkShift } from '@kirby/work-shifts/testing';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { AUTH_TOKENS_MOCK } from '@kirby/authentication/utils';
-import {
-  WorkShiftsState,
-  initialState,
-  workShiftsReducer,
-  WORK_SHIFTS_FEATURE_KEY,
-} from './work-shifts.reducer';
-import {
-  GetWorkShift,
-  UpdateWorkShift,
-  DeleteWorkShift,
-  CreateWorkShift,
-  SearchWorkShifts,
-} from './work-shifts.actions';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { workShiftsActionTypes as actions } from './work-shifts.actions';
+import { WorkShiftsState, initialState, workShiftsReducer, WORK_SHIFTS_FEATURE_KEY } from './work-shifts.reducer';
 
 interface TestSchema {
   workShifts: WorkShiftsState;
@@ -63,7 +51,6 @@ describe('WorkShiftsFacade', () => {
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
           StoreModule.forRoot(
             {},
             {
@@ -91,85 +78,49 @@ describe('WorkShiftsFacade', () => {
       store = TestBed.inject(Store);
       facade = TestBed.inject(WorkShiftsFacade);
 
-      spyOn(store, 'dispatch');
+      jest.spyOn(store, 'dispatch');
     });
 
-    it('search() should call SearchWorkShifts action', async (done) => {
-      try {
-        const query = {};
-        await facade.search(query);
-        getTestScheduler().flush();
+    it('search() should call SearchWorkShifts action', async () => {
+      const query = {};
+      await facade.search(query);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new SearchWorkShifts(query)
-        );
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.search(query));
     });
 
-    it('create() should call CreateWorkShift action', async (done) => {
-      try {
-        await facade.create(entity);
-        getTestScheduler().flush();
+    it('create() should call CreateWorkShift action', async () => {
+      await facade.create(entity);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new CreateWorkShift(entity)
-        );
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.create(entity));
     });
 
-    it('get() should call GetWorkShift action', async (done) => {
-      try {
-        await facade.get(entity.id);
-        getTestScheduler().flush();
+    it('get() should call GetWorkShift action', async () => {
+      await facade.get(entity.id);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new GetWorkShift(entity.id)
-        );
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.get(entity.id));
     });
 
-    it('update() should call UpdateWorkShift action', async (done) => {
-      try {
-        await facade.update(entity.id, entity);
-        getTestScheduler().flush();
+    it('update() should call UpdateWorkShift action', async () => {
+      await facade.update(entity.id, entity);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(
-          new UpdateWorkShift({
-            id: entity.id,
-            data: entity,
-          })
-        );
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(
+        actions.update({
+          id: entity.id,
+          data: entity,
+        })
+      );
     });
 
-    it('delete() should call DeleteWorkShift action', async (done) => {
-      try {
-        const id = 'AAA';
-        await facade.delete(id);
-        getTestScheduler().flush();
+    it('delete() should call DeleteWorkShift action', async () => {
+      const id = 'AAA';
+      await facade.delete(id);
+      getTestScheduler().flush();
 
-        expect(store.dispatch).toHaveBeenCalledWith(new DeleteWorkShift(id));
-
-        done();
-      } catch (err) {
-        done.fail(err);
-      }
+      expect(store.dispatch).toHaveBeenCalledWith(actions.delete(id));
     });
   });
 });

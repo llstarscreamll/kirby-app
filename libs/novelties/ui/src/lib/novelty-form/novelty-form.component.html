@@ -13,7 +13,7 @@
   <mat-form-field class="w-full">
     <mat-label>Tipo de novedad</mat-label>
     <input matInput [matAutocomplete]="noveltyTypeAutocomplete"
-      formControlName="novelty_type">
+           formControlName="novelty_type">
     <mat-autocomplete #noveltyTypeAutocomplete="matAutocomplete" [displayWith]="displayNoveltyTypeFieldValue">
       <mat-option *ngFor="let noveltyType of allNoveltyTypes" [value]="noveltyType">
         <span>{{ noveltyType.name }}</span>
@@ -21,12 +21,12 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col gap-2 md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Inicio</mat-label>
       <input formControlName="start_at" matInput type="datetime-local">
     </mat-form-field>
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Fin</mat-label>
       <input formControlName="end_at" matInput type="datetime-local">
     </mat-form-field>
@@ -38,9 +38,12 @@
     </textarea>
   </mat-form-field>
 
-  <div class="clearfix mb-4"></div>
+  <div class="mb-4">
+    <button [disabled]="disableFormSubmitBtn || disable" mat-raised-button color="primary"
+            type="submit">Guardar</button>
+    <button *ngIf="displayTrashButton" (click)="trash()" [disabled]="disableTrashSubmitBtn" mat-raised-button
+            type="button" class="trash ml-2 float-right">Mover a papelera</button>
+  </div>
 
-  <button [disabled]="disableFormSubmitBtn || disable" mat-raised-button color="primary" type="submit">Guardar</button>
-  <button *ngIf="displayTrashButton" (click)="trash()" [disabled]="disableTrashSubmitBtn" mat-raised-button type="button" class="trash ml-2 float-right">Mover a papelera</button>
 
 </form>

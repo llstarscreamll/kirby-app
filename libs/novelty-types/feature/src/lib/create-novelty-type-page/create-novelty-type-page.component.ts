@@ -5,7 +5,6 @@ import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 @Component({
   selector: 'kirby-create-novelty-type-page',
   templateUrl: './create-novelty-type-page.component.html',
-  styleUrls: ['./create-novelty-type-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateNoveltyTypePageComponent implements OnInit {

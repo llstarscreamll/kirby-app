@@ -1,27 +1,21 @@
-import {
-  NoveltyTypesPartialState,
-  NOVELTY_TYPES_FEATURE_KEY,
-} from './novelty-types.reducer';
 import { emptyPagination } from '@kirby/shared';
-import { noveltyTypesQuery } from './novelty-types.selectors';
 import { createNoveltyType } from '@kirby/novelty-types/testing';
+
+import * as selectos from './novelty-types.selectors';
+import { NoveltyTypesState, NOVELTY_TYPES_FEATURE_KEY } from './novelty-types.reducer';
 
 describe('NoveltyTypes Selectors', () => {
   const ERROR_MSG = 'No Error Available';
   const getNoveltyTypesId = (it) => it['id'];
 
-  let storeState: NoveltyTypesPartialState;
+  let storeState: { [NOVELTY_TYPES_FEATURE_KEY]: NoveltyTypesState };
 
   beforeEach(() => {
     storeState = {
       [NOVELTY_TYPES_FEATURE_KEY]: {
         paginatedList: {
           ...emptyPagination(),
-          data: [
-            createNoveltyType('AAA'),
-            createNoveltyType('BBB'),
-            createNoveltyType('CCC'),
-          ],
+          data: [createNoveltyType('AAA'), createNoveltyType('BBB'), createNoveltyType('CCC')],
         },
         selected: createNoveltyType('ZZZ'),
         error: ERROR_MSG,
@@ -30,7 +24,7 @@ describe('NoveltyTypes Selectors', () => {
   });
 
   it('getPaginated() should return the paginated list of NoveltyTypes', () => {
-    const results = noveltyTypesQuery.getPaginated(storeState);
+    const results = selectos.getPaginated(storeState);
 
     expect(results.data.length).toBe(3);
     expect(results.data[0].id).toBe('AAA');
@@ -39,13 +33,13 @@ describe('NoveltyTypes Selectors', () => {
   });
 
   it("getError() should return the current 'error' storeState", () => {
-    const result = noveltyTypesQuery.getError(storeState);
+    const result = selectos.getError(storeState);
 
     expect(result).toBe(ERROR_MSG);
   });
 
   it("getSelected() should return the current 'error' storeState", () => {
-    const result = noveltyTypesQuery.getSelected(storeState);
+    const result = selectos.getSelected(storeState);
 
     expect(result).toBeTruthy();
     expect(result.id).toBe('ZZZ');

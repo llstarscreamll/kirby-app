@@ -1,47 +1,45 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="col-xs-12 col-sm-10 col-md-10 col-lg-9">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col">
 
   <mat-form-field class="w-full">
     <mat-label>Nombre</mat-label>
     <input matInput formControlName="name">
   </mat-form-field>
 
-  <div class="clearfix"></div>
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
+      <mat-label>Minutos de gracia antes de entrada</mat-label>
+      <input matInput formControlName="grace_minutes_before_start_times" type="number" min="0">
+    </mat-form-field>
 
-  <mat-form-field class="w-50 pr-2">
-    <mat-label>Minutos de gracia antes de entrada</mat-label>
-    <input matInput formControlName="grace_minutes_before_start_times" type="number" min="0">
-  </mat-form-field>
+    <mat-form-field class="flex-grow">
+      <mat-label>Minutos de gracia después de entrada</mat-label>
+      <input matInput formControlName="grace_minutes_after_start_times" type="number" min="0">
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="w-50 pr-2">
-    <mat-label>Minutos de gracia después de entrada</mat-label>
-    <input matInput formControlName="grace_minutes_after_start_times" type="number" min="0">
-  </mat-form-field>
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
+      <mat-label>Minutos de gracia antes de salida</mat-label>
+      <input matInput formControlName="grace_minutes_before_end_times" type="number" min="0">
+    </mat-form-field>
 
-  <div class="clearfix"></div>
+    <mat-form-field class="flex-grow">
+      <mat-label>Minutos de gracia después de salida</mat-label>
+      <input matInput formControlName="grace_minutes_after_end_times" type="number" min="0">
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="w-50 pr-2">
-    <mat-label>Minutos de gracia antes de salida</mat-label>
-    <input matInput formControlName="grace_minutes_before_end_times" type="number" min="0">
-  </mat-form-field>
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
+      <mat-label>Tiempo de almuerzo (minutos)</mat-label>
+      <input matInput formControlName="meal_time_in_minutes" type="number" min="0">
+    </mat-form-field>
 
-  <mat-form-field class="w-50 pr-2">
-    <mat-label>Minutos de gracia después de salida</mat-label>
-    <input matInput formControlName="grace_minutes_after_end_times" type="number" min="0">
-  </mat-form-field>
-
-  <div class="clearfix"></div>
-
-  <mat-form-field class="w-50 pr-2">
-    <mat-label>Tiempo de almuerzo (minutos)</mat-label>
-    <input matInput formControlName="meal_time_in_minutes" type="number" min="0">
-  </mat-form-field>
-
-  <mat-form-field class="w-50 pr-2">
-    <mat-label>Tiempo mínimo para descontar tiempo de almuerzo</mat-label>
-    <input matInput formControlName="min_minutes_required_to_discount_meal_time" type="number" min="0">
-  </mat-form-field>
-
-  <div class="clearfix"></div>
+    <mat-form-field class="flex-grow">
+      <mat-label>Tiempo mínimo para descontar tiempo de almuerzo</mat-label>
+      <input matInput formControlName="min_minutes_required_to_discount_meal_time" type="number" min="0">
+    </mat-form-field>
+  </div>
 
   <div class="apply_on_days mb-4">
     <div class="mb-2">Días en que aplica:</div>
@@ -53,28 +51,28 @@
     </ng-container>
   </div>
 
-  <div class="clearfix"></div>
-
   <div class="time-slots-container my-2">
-    <div class="mb-2">Franjas horarias:</div>
+    <div class="mb-2">Franja horaria:</div>
 
     <div class="time-slots" formArrayName="time_slots">
-      <div *ngFor="let timeSlot of timeSlotArrayForm.controls" [formGroup]="timeSlot">
-        <mat-form-field class="w-50 pr-2">
+      <div *ngFor="let timeSlot of timeSlotArrayForm.controls" [formGroup]="timeSlot" class="flex flex-row gap-2 md:gap-4">
+        <mat-form-field>
           <mat-label>Inicio</mat-label>
-          <input matInput formControlName="start" type="text">
-          <mat-hint align="end">mm:hh</mat-hint>
+          <input matInput formControlName="start" type="text" placeholder="mm:hh">
         </mat-form-field>
 
-        <mat-form-field class="w-50">
+        <mat-form-field>
           <mat-label>Fin</mat-label>
-          <input matInput formControlName="end" type="text">
-          <mat-hint align="end">mm:hh</mat-hint>
+          <input matInput formControlName="end" type="text" placeholder="mm:hh">
         </mat-form-field>
       </div>
     </div>
   </div>
 
-  <button [disabled]="shouldDisableBtn || disable" type="submit" mat-raised-button color="primary">Guardar</button>
+  <div>
+    <button [disabled]="shouldDisableBtn || disable" type="submit" mat-raised-button color="primary" class="w-full md:w-auto">
+      Guardar
+    </button>
+  </div>
 
 </form>

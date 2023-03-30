@@ -1,9 +1,7 @@
 <h1>
-  <a routerLink="../">
-    <mat-icon>arrow_back_ios</mat-icon>
-  </a> Crear turno de trabajo
+  <a routerLink="../">Turnos de trabajo</a> / Crear
 </h1>
 
-<kirby-api-errors [apiError]="error$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="error$ | async" class="block my-4"></kirby-api-errors>
 
-<kirby-work-shift-form (submitted)="createWorkShift($event)"></kirby-work-shift-form>
+<kirby-work-shift-form (submitted)="createWorkShift($event)" class="block my-4 max-w-4xl"></kirby-work-shift-form>

@@ -19,116 +19,103 @@
   </div>
 </form>
 
-<form *ngIf="enableAdvancedSearch"
-      [formGroup]="advancedSearchForm"
-      class="advanced-search-form mb-5"
-      (submit)="onAdvancedSearchSubmitted()"
-      autocomplete="off">
+<form *ngIf="enableAdvancedSearch" [formGroup]="advancedSearchForm" class="advanced-search-form mb-5"
+      (submit)="onAdvancedSearchSubmitted()" autocomplete="off">
   <mat-form-field *ngIf="globalSearch" class="w-full">
-    <mat-label>Buscar empleado</mat-label>
-    <input formControlName="employeesSearch"
-           matInput
-           [matAutocomplete]="employeeAutocomplete"
-           type="text" />
-
-    <mat-autocomplete #employeeAutocomplete="matAutocomplete"
-                      [displayWith]="displayEmployeeFieldValue">
-      <mat-option *ngFor="let employee of employeesFound?.data"
-                  [value]="employee">
-        <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
-      </mat-option>
-    </mat-autocomplete>
+    <mat-label>Empleado</mat-label>
+    <mat-chip-grid #employeesList aria-label="Employee selection">
+      <mat-chip-row *ngFor="let employee of addedEmployees"
+                    selectable="true"
+                    removable="true"
+                    (removed)="removeEmployee(employee)">
+        {{ employee.first_name }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip-row>
+      <input matInput
+             #employeeInput
+             formControlName="employeesSearch"
+             matAutocomplete="auto"
+             [matAutocomplete]="employeeAutocomplete"
+             [matChipInputFor]="employeesList" />
+      <mat-autocomplete #employeeAutocomplete="matAutocomplete"
+                        [displayWith]="displayEmployeeFieldValue"
+                        (optionSelected)="addEmployee($event)">
+        <mat-option *ngFor="let employee of employeesFound.data" [value]="employee"
+                    [disabled]="employeeIsSelected(employee)">
+          <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-chip-grid>
   </mat-form-field>
 
-  <mat-chip-list *ngIf="globalSearch" class="selected-employees block mb-6">
-    <mat-chip *ngFor="let employee of selectedEmployees">
-      {{ employee.first_name + ' ' + employee.last_name }}
-      <mat-icon matChipRemove (click)="removeEmployee(employee)">
-        cancel
-      </mat-icon>
-    </mat-chip>
-  </mat-chip-list>
-
-  <div
-       fxLayout="column"
-       fxLayout.gt-xs="row"
-       fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
-    <div fxFlex="grow">
-      <mat-form-field class="w-full">
-        <mat-label>Tipo de novedad</mat-label>
-        <input
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
+      <mat-label>Tipo de novedad</mat-label>
+      <mat-chip-grid #noveltyTypesList aria-label="Novelty types selection">
+        <mat-chip-row *ngFor="let type of addedNoveltyTypes"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeNoveltyType(type)">
+          {{ type.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip-row>
+        <input matInput
+               #noveltyTypeInput
                formControlName="noveltyTypesSearch"
-               matInput
-               [matAutocomplete]="noveltyTypeAutocomplete"
-               type="text" />
-
-        <mat-autocomplete
-                          #noveltyTypeAutocomplete="matAutocomplete"
-                          [displayWith]="displayNoveltyTypeFieldValue">
-          <mat-option
-                      *ngFor="let noveltyType of noveltyTypesFound?.data"
-                      [value]="noveltyType">
-            <span>{{ noveltyType.code + ' ' + noveltyType.name }}</span>
+               matAutocomplete="auto"
+               [matAutocomplete]="noveltyTypesAutocomplete"
+               [matChipInputFor]="noveltyTypesList" />
+        <mat-autocomplete #noveltyTypesAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameFieldValue"
+                          (optionSelected)="addNoveltyType($event)">
+          <mat-option *ngFor="let type of noveltyTypesFound.data" [value]="type"
+                      [disabled]="noveltyTypeIsSelected(type)">
+            <span>{{ type.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
+      </mat-chip-grid>
+    </mat-form-field>
 
-      <mat-chip-list *ngIf="selectedNoveltyTypes.length" class="selected-novelty-types block mb-6">
-        <mat-chip color="primary" *ngFor="let noveltyType of selectedNoveltyTypes">
-          {{ noveltyType.code + ' ' + noveltyType.name }}
-          <mat-icon matChipRemove (click)="removeNoveltyType(noveltyType)">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-    </div>
-
-    <div fxFlex="grow">
-      <mat-form-field class="w-full">
-        <mat-label>Centro de costo</mat-label>
-        <input
+    <mat-form-field class="flex-grow">
+      <mat-label>Centro de costo</mat-label>
+      <mat-chip-grid #costCentersList aria-label="Cost centers selection">
+        <mat-chip-row *ngFor="let costCenter of addedCostCenters"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeCostCenter(costCenter)">
+          {{ costCenter.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip-row>
+        <input matInput
+               #costCenterInput
                formControlName="costCentersSearch"
-               matInput
-               [matAutocomplete]="costCenterAutocomplete"
-               type="text" />
-
-        <mat-autocomplete
-                          #costCenterAutocomplete="matAutocomplete"
-                          [displayWith]="displayCostCenterFieldValue">
-          <mat-option
-                      *ngFor="let costCenter of costCentersFound?.data"
-                      [value]="costCenter">
-            <span>{{ costCenter.code + ' ' + costCenter.name }}</span>
+               matAutocomplete="auto"
+               [matAutocomplete]="costCentersAutocomplete"
+               [matChipInputFor]="costCentersList" />
+        <mat-autocomplete #costCentersAutocomplete="matAutocomplete"
+                          [displayWith]="displayNameFieldValue"
+                          (optionSelected)="addCostCenter($event)">
+          <mat-option *ngFor="let costCenter of costCentersFound.data" [value]="costCenter"
+                      [disabled]="costCenterIsSelected(costCenter)">
+            <span>{{ costCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
-
-      <mat-chip-list class="selected-cost-centers block mb-6">
-        <mat-chip color="primary" *ngFor="let costCenter of selectedCostCenters">
-          {{ costCenter.code + ' ' + costCenter.name }}
-          <mat-icon matChipRemove (click)="removeCostCenter(costCenter)">
-            cancel
-          </mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-    </div>
+      </mat-chip-grid>
+    </mat-form-field>
   </div>
 
-  <div
-       fxLayout="column"
-       fxLayout.gt-xs="row"
-       fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Inicio</mat-label>
       <input formControlName="startAtFrom" matInput type="datetime-local" />
     </mat-form-field>
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Fin</mat-label>
       <input formControlName="startAtTo" matInput type="datetime-local" />
     </mat-form-field>
   </div>
 
   <div class="text-center">
-    <button mat-raised-button type="submit" ngClass.xs="block w-full h-12">Buscar</button>
+    <button mat-stroked-button type="submit" ngClass.xs="block w-full h-12">Buscar</button>
   </div>
 </form>

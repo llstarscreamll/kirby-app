@@ -1,0 +1,71 @@
+{
+  "name": "desktop-back",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/desktop-back/src",
+  "projectType": "application",
+  "prefix": "desktop-back",
+  "targets": {
+    "build": {
+      "executor": "nx-electron:build",
+      "options": {
+        "outputPath": "dist/apps/desktop-back",
+        "main": "apps/desktop-back/src/main.ts",
+        "tsConfig": "apps/desktop-back/tsconfig.app.json",
+        "assets": ["apps/desktop-back/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/desktop-back/src/environments/environment.ts",
+              "with": "apps/desktop-back/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx-electron:execute",
+      "options": {
+        "buildTarget": "desktop-back:build"
+      }
+    },
+    "package": {
+      "executor": "nx-electron:package",
+      "options": {
+        "name": "desktop-back",
+        "frontendProject": "desktop-front",
+        "outputPath": "dist/packages",
+        "prepackageOnly": true
+      }
+    },
+    "make": {
+      "executor": "nx-electron:make",
+      "options": {
+        "name": "desktop-back",
+        "frontendProject": "desktop-front",
+        "outputPath": "dist/executables",
+        "buildDependenciesFromSource": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/desktop-back/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/desktop-back"],
+      "options": {
+        "jestConfig": "apps/desktop-back/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

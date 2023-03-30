@@ -1,12 +1,11 @@
-.action {
-  font-size: 1.5em;
-  margin: 0.5em 0;
-  padding: 15px;
+.action.check_in {
+  border: 2px solid green;
+  color: green;
 }
 
-.action.check_in {
-  border-color: green;
-  color: green;
+.action.check_out {
+  border: 2px solid red;
+  color: red;
 }
 
 #novelty-type-radio-group,
@@ -26,11 +25,6 @@ mat-radio-button {
   margin: 5px;
 }
 
-.action.check_out {
-  border-color: red;
-  color: red;
-}
-
 .identification_code {
   -webkit-text-security: disc;
   -moz-text-security: disc;
@@ -43,12 +37,4 @@ mat-radio-button {
 
 mat-form-field {
   margin: 0.5em 0;
-}
-
-.submit-btn {
-  font-size: 1.2em;
-  margin: 0.5em 0;
-  padding: 12px 25px;
-  margin: auto;
-  display: block;
 }

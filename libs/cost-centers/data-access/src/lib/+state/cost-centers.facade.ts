@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
-import { SearchCostCenters } from './cost-centers.actions';
-import { costCentersQuery } from './cost-centers.selectors';
-import { CostCentersPartialState } from './cost-centers.reducer';
+import { CostCentersState } from './cost-centers.reducer';
+import * as query from './cost-centers.selectors';
+import { costCentersActions as actions } from './cost-centers.actions';
 
 @Injectable()
 export class CostCentersFacade {
-  paginatedList$ = this.store.pipe(select(costCentersQuery.getPaginated));
+  paginatedList$ = this.store.pipe(select(query.getPaginated));
 
-  constructor(private store: Store<CostCentersPartialState>) {}
+  constructor(private store: Store<CostCentersState>) {}
 
   search(query: any) {
-    this.store.dispatch(new SearchCostCenters(query));
+    this.store.dispatch(actions.search({ query }));
   }
 }

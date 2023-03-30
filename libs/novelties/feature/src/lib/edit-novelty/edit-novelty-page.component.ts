@@ -17,6 +17,7 @@ import { AuthFacade } from '@kirby/authentication/data-access';
 })
 export class EditNoveltyPageComponent implements OnInit, OnDestroy {
   user$ = this.authFacade.authUser$;
+  apiError$ = this.noveltiesFacade.error$;
   novelty$ = this.noveltiesFacade.selectedNovelty$;
   employees$ = this.employeesFacade.paginatedEmployees$;
   noveltyTypes$ = this.noveltiesFacade.paginatedNoveltyTypes$;

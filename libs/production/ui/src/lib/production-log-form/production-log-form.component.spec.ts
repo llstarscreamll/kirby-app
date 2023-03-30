@@ -74,7 +74,7 @@ describe('ProductionLogFormComponent', function () {
   it('should emit save event when form button is clicked', () => {
     component.form.patchValue(formData);
 
-    spyOn(component.saveAndAddOther, 'emit');
+   jest.spyOn(component.saveAndAddOther, 'emit');
 
     fixture.detectChanges();
 

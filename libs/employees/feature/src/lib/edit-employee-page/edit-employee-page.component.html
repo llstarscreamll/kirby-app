@@ -1,16 +1,13 @@
-<h1>Editar empleado</h1>
+<h1><a routerLink="../..">Empleados</a> / Editar</h1>
 
-<div class="card">
-  <kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
-  <kirby-employee-form
-                       *ngIf="employee$ | async"
-                       [roles]="roles$ | async"
-                       [employee]="employee$ | async"
-                       [workShifts]="workShifts$ | async"
-                       [costCenters]="(costCenters$ | async)?.data"
-                       [status]="updatingStatus$ | async"
-                       (searchCostCenters)="searchCostCenters($event)"
-                       (submitted)="employeeFormSubmitted($event)"
-                       class="col-sm-11 col-md-10 col-xl-8"></kirby-employee-form>
-</div>
+<kirby-employee-form *ngIf="employee$ | async"
+                     [roles]="roles$ | async"
+                     [employee]="employee$ | async"
+                     [workShifts]="workShifts$ | async"
+                     [costCenters]="(costCenters$ | async)?.data"
+                     [status]="updatingStatus$ | async"
+                     (searchCostCenters)="searchCostCenters($event)"
+                     (submitted)="employeeFormSubmitted($event)"
+                     class="block max-w-4xl"></kirby-employee-form>

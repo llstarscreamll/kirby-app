@@ -12,11 +12,13 @@ import { NoveltyTypesDataAccessModule } from '@kirby/novelty-types/data-access';
 import { NoveltyTypesPageComponent } from './novelty-types-page/novelty-types-page.component';
 import { EditNoveltyTypePageComponent } from './edit-novelty-type-page/edit-novelty-type-page.component';
 import { CreateNoveltyTypePageComponent } from './create-novelty-type-page/create-novelty-type-page.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    MatIconModule,
     MatButtonModule,
     NoveltyTypesUiModule,
     AuthorizationUiModule,
@@ -28,10 +30,6 @@ import { CreateNoveltyTypePageComponent } from './create-novelty-type-page/creat
       { path: ':id/edit', component: EditNoveltyTypePageComponent },
     ]),
   ],
-  declarations: [
-    NoveltyTypesPageComponent,
-    EditNoveltyTypePageComponent,
-    CreateNoveltyTypePageComponent,
-  ],
+  declarations: [NoveltyTypesPageComponent, EditNoveltyTypePageComponent, CreateNoveltyTypePageComponent],
 })
 export class NoveltyTypesFeatureModule {}

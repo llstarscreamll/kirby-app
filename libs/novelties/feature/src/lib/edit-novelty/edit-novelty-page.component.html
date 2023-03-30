@@ -1,15 +1,16 @@
-<h1 class="mb-4">Editar novedad</h1>
+<h1><a routerLink="../..">Novedades</a> / Editar</h1>
 
-<div class="card p-4">
-  <kirby-novelty-form *ngIf="(novelty$ | async) && (user$ | async)"
-                      [defaults]="novelty$ | async"
-                      [disable]="! (user$ | async)?.can('novelties.update')"
-                      [showDeleteBtn]="(user$ | async)?.can('novelties.delete')"
-                      [employeesFound]="(employees$ | async)?.data"
-                      [noveltyTypesFound]="(noveltyTypes$ | async)?.data"
-                      (searchEmployees)="onSearchEmployees($event)"
-                      (searchNoveltyTypes)="onSearchNovelties($event)"
-                      (submitted)="onNoveltyUpdated($event)"
-                      (trashed)="onNoveltyTrashed($event)">
-  </kirby-novelty-form>
-</div>
+<kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
+
+<kirby-novelty-form *ngIf="(novelty$ | async) && (user$ | async)"
+                    [defaults]="novelty$ | async"
+                    [disable]="! (user$ | async)?.can('novelties.update')"
+                    [showDeleteBtn]="(user$ | async)?.can('novelties.delete')"
+                    [employeesFound]="(employees$ | async)?.data"
+                    [noveltyTypesFound]="(noveltyTypes$ | async)?.data"
+                    (searchEmployees)="onSearchEmployees($event)"
+                    (searchNoveltyTypes)="onSearchNovelties($event)"
+                    (submitted)="onNoveltyUpdated($event)"
+                    (trashed)="onNoveltyTrashed($event)"
+                    class="block max-w-4xl">
+</kirby-novelty-form>

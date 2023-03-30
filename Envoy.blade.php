@@ -59,7 +59,7 @@
 @task('compile', ['on' => 'local'])
   {{ logMessage("🚚  Compile project...") }}
   echo $PWD
-  ng build --prod --project={{ $project }} --configuration={{ $configuration }}
+  nx build --prod --project={{ $project }} --configuration={{ $configuration }}
 @endtask
 
 @task('uploadCompiledFiles', ['on' => 'local'])

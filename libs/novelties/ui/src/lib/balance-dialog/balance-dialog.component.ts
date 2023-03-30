@@ -1,19 +1,13 @@
-import {
-  Inject,
-  OnInit,
-  Component,
-  ChangeDetectionStrategy,
-} from '@angular/core';
 import moment from 'moment';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Inject, OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { EmployeeInterface } from '@kirby/employees/util';
 
 @Component({
   selector: 'kirby-balance-dialog',
   templateUrl: './balance-dialog.component.html',
-  styleUrls: ['./balance-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BalanceDialogComponent implements OnInit {
@@ -28,17 +22,9 @@ export class BalanceDialogComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       employee_id: [this.employee.id, [Validators.required]],
-      start_date: [
-        moment(this.employee.oldestNoveltyTypeRecordDate()).format(
-          'YYYY-MM-DD'
-        ),
-        [Validators.required],
-      ],
+      start_date: [moment(this.employee.oldestNoveltyTypeRecordDate()).format('YYYY-MM-DD'), [Validators.required]],
       time: [this.employee.noveltyTypesTotalHours(), [Validators.required]],
-      comment: [
-        '',
-        [Validators.required, Validators.min(5), Validators.max(255)],
-      ],
+      comment: ['', [Validators.required, Validators.min(5), Validators.max(255)]],
     });
   }
 

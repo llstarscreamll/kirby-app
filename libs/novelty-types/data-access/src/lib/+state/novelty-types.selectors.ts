@@ -1,31 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import {
-  NOVELTY_TYPES_FEATURE_KEY,
-  NoveltyTypesState,
-} from './novelty-types.reducer';
+import { NOVELTY_TYPES_FEATURE_KEY, NoveltyTypesState } from './novelty-types.reducer';
 
-const getNoveltyTypesState = createFeatureSelector<NoveltyTypesState>(
-  NOVELTY_TYPES_FEATURE_KEY
-);
-
-const getPaginated = createSelector(
-  getNoveltyTypesState,
-  (state: NoveltyTypesState) => state.paginatedList
-);
-
-const getSelected = createSelector(
-  getNoveltyTypesState,
-  (state: NoveltyTypesState) => state.selected
-);
-
-const getError = createSelector(
-  getNoveltyTypesState,
-  (state: NoveltyTypesState) => state.error
-);
-
-export const noveltyTypesQuery = {
-  getError,
-  getSelected,
-  getPaginated,
-};
+const selectFeature = (state) => state[NOVELTY_TYPES_FEATURE_KEY];
+export const getPaginated = createSelector(selectFeature, (s: NoveltyTypesState) => s.paginatedList);
+export const getSelected = createSelector(selectFeature, (s: NoveltyTypesState) => s.selected);
+export const getError = createSelector(selectFeature, (s: NoveltyTypesState) => s.error);

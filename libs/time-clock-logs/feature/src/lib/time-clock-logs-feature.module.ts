@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,8 +14,8 @@ import { SharedModule } from '@kirby/shared';
 import { AuthorizationUiModule } from '@kirby/authorization/ui';
 import { TimeClockLogsUiModule } from '@kirby/time-clock-logs/ui';
 import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
-import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 import { TimeClockLogsDataAccessModule } from '@kirby/time-clock-logs/data-access';
+
 import { TimeClockLogsPageComponent } from './time-clock-logs-page/time-clock-logs-page.component';
 import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-and-exit-log-page.component';
 
@@ -29,7 +28,7 @@ import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-an
     MatInputModule,
     MatChipsModule,
     MatButtonModule,
-    FlexLayoutModule,
+
     MatFormFieldModule,
     ReactiveFormsModule,
     AuthorizationUiModule,
@@ -37,7 +36,6 @@ import { EntryAndExitLogPageComponent } from './entry-and-exit-log-page/entry-an
     TimeClockLogsUiModule,
     EmployeesDataAccessModule,
     TimeClockLogsDataAccessModule,
-    AuthenticationDataAccessModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: TimeClockLogsPageComponent },
       { path: 'entry-and-exit-log', component: EntryAndExitLogPageComponent },

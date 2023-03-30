@@ -37,7 +37,7 @@ describe('EmployeesPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EmployeesPageComponent);
     component = fixture.componentInstance;
-    employeesFacade = TestBed.get(EmployeesFacade);
+    employeesFacade = TestBed.inject(EmployeesFacade);
   });
 
   it('should create', () => {
@@ -46,7 +46,7 @@ describe('EmployeesPageComponent', () => {
   });
 
   it('should call employees facade methods', () => {
-    spyOn(employeesFacade, 'search');
+   jest.spyOn(employeesFacade, 'search');
 
     fixture.detectChanges();
 

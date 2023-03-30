@@ -117,7 +117,7 @@ describe('NoveltyTypeFormComponent', () => {
 
     fixture.detectChanges();
 
-    spyOn(component.submitted, 'emit');
+   jest.spyOn(component.submitted, 'emit');
     const submitBtn: HTMLButtonElement = template.querySelector(
       submitBtnSelector
     );

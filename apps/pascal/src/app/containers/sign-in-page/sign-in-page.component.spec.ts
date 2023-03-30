@@ -16,14 +16,15 @@ describe('SignInPageComponent', () => {
       imports: [...TESTING_IMPORTS],
       declarations: [SignInPageComponent],
       providers: [...TESTING_PROVIDERS],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignInPageComponent);
     component = fixture.componentInstance;
-    authFacade = TestBed.get(AuthFacade);
+    authFacade = TestBed.inject(AuthFacade);
 
-    spyOn(authFacade, 'loginWithCredentials').and.callThrough();
+   jest.spyOn(authFacade, 'loginWithCredentials').and.callThrough();
   }));
 
   beforeEach(() => {
@@ -43,11 +44,7 @@ describe('SignInPageComponent', () => {
   });
 
   it('should have sign in component on template', () => {
-    expect(
-      fixture.debugElement.nativeElement.querySelector(
-        'pascal-auth-sign-in-form'
-      )
-    ).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('pascal-auth-sign-in-form')).toBeTruthy();
   });
 
   it('should dispatch login action on onSubmit method', () => {

@@ -1,6 +1,6 @@
-<h1 class="mb-4">Reporte de novedades</h1>
+<h1><a routerLink="..">Novedades</a> / Reporte</h1>
 
-<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
 <div *kirbyCan="'novelties.export'" class="text-right my-3">
   <button mat-button
@@ -46,12 +46,8 @@
     </mat-form-field>
   </ng-container>
 
-  <div
-       fxLayout="column"
-       fxLayout.gt-xs="row"
-       fxLayoutGap="0px"
-       fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Fecha inicial</mat-label>
       <input
              formControlName="time_clock_log_check_out_start_date"
@@ -60,7 +56,7 @@
              required />
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Fecha final</mat-label>
       <input
              formControlName="time_clock_log_check_out_end_date"

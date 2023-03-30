@@ -1,13 +1,13 @@
-<h1 (click)="searchTimeClockLogs()" class="my-4">Entradas/salidas</h1>
+<h1 (click)="searchTimeClockLogs()" class="my-4 cursor-pointer">Entradas/salidas</h1>
 
-<kirby-api-errors [apiError]="apiError$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
-<div class="flex flex-row">
+<div class="flex flex-row my-8">
   <a *kirbyCan="'time-clock-logs.check-in'"
      routerLink="entry-and-exit-log"
-     mat-stroked-button
+     mat-fab extended
      color="primary">
-    Registrar entrada/salida
+    <mat-icon>add</mat-icon> Crear
   </a>
 
   <span class="flex-grow"></span>
@@ -17,21 +17,27 @@
           title="Descargar filtro actual">
     <mat-icon>file_download</mat-icon>
   </button>
+  <button *kirbyCan="'work-shift.search'" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a routerLink="/work-shifts" mat-menu-item>Turnos</a>
+  </mat-menu>
 </div>
 
 <div class="mt-4">
   <form [formGroup]="searchForm" (ngSubmit)="searchLogs()" autocomplete="off">
     <div class="flex flex-col md:flex-row md:gap-4">
-      <mat-form-field class="w-6/12">
+      <mat-form-field class="w-full md:w-6/12">
         <mat-label>Empleados</mat-label>
-        <mat-chip-list #employeesList aria-label="Employee selection">
-          <mat-chip *ngFor="let employee of addedEmployees"
-                    selectable="true"
-                    removable="true"
-                    (removed)="removeEmployee(employee)">
+        <mat-chip-grid #employeesList aria-label="Employee selection">
+          <mat-chip-row *ngFor="let employee of addedEmployees"
+                        selectable="true"
+                        removable="true"
+                        (removed)="removeEmployee(employee)">
             {{ employee.first_name }}
             <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
+          </mat-chip-row>
           <input matInput
                  #employeeInput
                  formControlName="employee"
@@ -46,15 +52,15 @@
               <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
             </mat-option>
           </mat-autocomplete>
-        </mat-chip-list>
+        </mat-chip-grid>
       </mat-form-field>
 
-      <mat-form-field class="w-3/12">
+      <mat-form-field class="w-full md:w-3/12">
         <mat-label>Fecha de entrada <small>inicio</small></mat-label>
         <input formControlName="checkInStart" matInput type="datetime-local" />
       </mat-form-field>
 
-      <mat-form-field class="w-3/12">
+      <mat-form-field class="w-full md:w-3/12">
         <mat-label>Fecha de entrada <small>fin</small></mat-label>
         <input formControlName="checkInEnd" matInput type="datetime-local" />
       </mat-form-field>
@@ -67,7 +73,7 @@
 
 </div>
 
-<div *kirbyCan="'time-clock-logs.global-search'" class="text-right">
+<div *kirbyCan="'time-clock-logs.global-search'" class="text-center my-6 md:text-right md:my-2">
   <div class="inline-block font-light cursor-pointer" (click)="searchOnlyPeopleInside()">
     <span class="font-medium">{{ peopleInsideCount$ | async }}</span> personas dentro
   </div>

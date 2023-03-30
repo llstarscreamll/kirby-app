@@ -1,59 +1,45 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
-import { workShiftsQuery } from './work-shifts.selectors';
-import { WorkShiftsPartialState } from './work-shifts.reducer';
+import * as selectors from './work-shifts.selectors';
 import { WorkShiftInterface } from '@kirby/work-shifts/util';
-import {
-  SearchWorkShifts,
-  CreateWorkShift,
-  UpdateWorkShift,
-  DeleteWorkShift,
-  GetWorkShift,
-  GetWorkShiftOk,
-} from './work-shifts.actions';
+import { workShiftsActionTypes as actions } from './work-shifts.actions';
 
 @Injectable()
 export class WorkShiftsFacade {
-  paginatedWorkShifts$ = this.store.pipe(
-    select(workShiftsQuery.getPaginatedWorkShifts)
-  );
-  getWorkShiftsList$ = this.store.pipe(
-    select(workShiftsQuery.getWorkShiftsList)
-  );
-  paginatingStatus$ = this.store.pipe(select(workShiftsQuery.paginatingStatus));
-  creatingStatus$ = this.store.pipe(select(workShiftsQuery.creatingStatus));
-  selectedWorkShift$ = this.store.pipe(
-    select(workShiftsQuery.getSelectedWorkShift)
-  );
-  selectingStatus$ = this.store.pipe(select(workShiftsQuery.selectingStatus));
-  updatingStatus$ = this.store.pipe(select(workShiftsQuery.updatingStatus));
-  deletingStatus$ = this.store.pipe(select(workShiftsQuery.deletingStatus));
-  error$ = this.store.pipe(select(workShiftsQuery.getError));
+  paginatedWorkShifts$ = this.store.pipe(select(selectors.getPaginatedWorkShifts));
+  getWorkShiftsList$ = this.store.pipe(select(selectors.getWorkShiftsList));
+  paginatingStatus$ = this.store.pipe(select(selectors.paginatingStatus));
+  creatingStatus$ = this.store.pipe(select(selectors.creatingStatus));
+  selectedWorkShift$ = this.store.pipe(select(selectors.getSelectedWorkShift));
+  selectingStatus$ = this.store.pipe(select(selectors.selectingStatus));
+  updatingStatus$ = this.store.pipe(select(selectors.updatingStatus));
+  deletingStatus$ = this.store.pipe(select(selectors.deletingStatus));
+  error$ = this.store.pipe(select(selectors.getError));
 
-  constructor(private store: Store<WorkShiftsPartialState>) {}
+  constructor(private store: Store) {}
 
   search(query: any = {}) {
-    this.store.dispatch(new SearchWorkShifts(query));
+    this.store.dispatch(actions.search(query));
   }
 
   create(workShift: WorkShiftInterface) {
-    this.store.dispatch(new CreateWorkShift(workShift));
+    this.store.dispatch(actions.create(workShift));
   }
 
   get(id: string) {
-    this.store.dispatch(new GetWorkShift(id));
+    this.store.dispatch(actions.get(id));
   }
 
   update(id: string, workShift: WorkShiftInterface) {
-    this.store.dispatch(new UpdateWorkShift({ id, data: workShift }));
+    this.store.dispatch(actions.update({ id, data: workShift }));
   }
 
   cleanSelected() {
-    this.store.dispatch(new GetWorkShiftOk(null));
+    this.store.dispatch(actions.getOk(null));
   }
 
   delete(id: string) {
-    this.store.dispatch(new DeleteWorkShift(id));
+    this.store.dispatch(actions.delete(id));
   }
 }

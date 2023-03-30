@@ -11,10 +11,8 @@ import { EmployeesFacade } from '@kirby/employees/data-access';
 @Component({
   selector: 'kirby-create-novelties-to-employees-page',
   templateUrl: './create-novelties-to-employees-page.component.html',
-  styleUrls: ['./create-novelties-to-employees-page.component.scss'],
 })
-export class CreateNoveltiesToEmployeesPageComponent
-  implements OnInit, OnDestroy {
+export class CreateNoveltiesToEmployeesPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   apiError$ = this.noveltiesFacade.error$;
   employees$ = this.employeesFacade.paginatedEmployees$;

@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import {
-  StoreRouterConnectingModule,
-  DefaultRouterStateSerializer
-} from '@ngrx/router-store';
+import { FullRouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { debug } from './meta-reducers/debug.reducer';
 import { environment } from '../../environments/environment';
@@ -16,7 +13,6 @@ import { initStateFromLocalStorage } from './meta-reducers/init-state-from-local
 export const metaReducers: MetaReducer<any>[] = [initStateFromLocalStorage];
 
 if (!environment.production) {
-  // metaReducers.unshift(storeFreeze);
   if (!environment.test) {
     metaReducers.unshift(debug);
   }
@@ -24,29 +20,22 @@ if (!environment.production) {
 
 @NgModule({
   imports: [
-    // angular
     CommonModule,
     HttpClientModule,
-
-    // ngrx
     StoreModule.forRoot(
       {},
       {
         metaReducers,
         runtimeChecks: {
           strictStateImmutability: true,
-          strictActionImmutability: true
-        }
+          strictActionImmutability: true,
+        },
       }
     ),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({
-      serializer: DefaultRouterStateSerializer
-    })
+    StoreRouterConnectingModule.forRoot({ serializer: FullRouterStateSerializer }),
   ],
-  declarations: [],
   providers: [AnimationsService],
-  exports: []
 })
 export class CoreModule {
   constructor(

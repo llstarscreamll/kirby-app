@@ -1,80 +1,70 @@
-import {
-  NoveltyTypesAction,
-  NoveltyTypesActionTypes,
-} from './novelty-types.actions';
+import { createFeature, createReducer, on } from '@ngrx/store';
+
+import { INoveltyType } from '@kirby/novelty-types/data';
 import { Pagination, emptyPagination } from '@kirby/shared';
-import { NoveltyType, INoveltyType } from '@kirby/novelty-types/data';
+
+import { noveltyTypesActions as actions } from './novelty-types.actions';
 
 export const NOVELTY_TYPES_FEATURE_KEY = 'noveltyTypes';
 
 export interface NoveltyTypesState {
   paginatedList: Pagination<INoveltyType>;
-  selected?: INoveltyType;
-  error?: any;
-}
-
-export interface NoveltyTypesPartialState {
-  readonly [NOVELTY_TYPES_FEATURE_KEY]: NoveltyTypesState;
+  selected: INoveltyType | null;
+  error: any;
 }
 
 export const initialState: NoveltyTypesState = {
   paginatedList: emptyPagination(),
+  selected: null,
+  error: null,
 };
 
-export function reducer(
-  state: NoveltyTypesState = initialState,
-  action: NoveltyTypesAction
-): NoveltyTypesState {
-  switch (action.type) {
-    case NoveltyTypesActionTypes.SearchOk: {
-      state = { ...state, paginatedList: action.payload };
-      break;
-    }
+export const reducer = createFeature({
+  name: NOVELTY_TYPES_FEATURE_KEY,
+  reducer: createReducer(
+    initialState,
+    on(actions.searchOk, (state, { payload }) => ({
+      ...state,
+      paginatedList: payload,
+    })),
 
-    case NoveltyTypesActionTypes.SearchError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
+    on(actions.searchError, (state, { payload }) => ({
+      ...state,
+      error: payload,
+    })),
 
-    case NoveltyTypesActionTypes.GetOk: {
-      state = { ...state, selected: action.payload };
-      break;
-    }
+    on(actions.getOk, (state, { payload }) => ({
+      ...state,
+      selected: payload,
+    })),
 
-    case NoveltyTypesActionTypes.GetError: {
-      state = { ...state, selected: null, error: action.payload };
-      break;
-    }
+    on(actions.getError, (state, { payload }) => ({
+      ...state,
+      selected: null,
+      error: payload,
+    })),
 
-    case NoveltyTypesActionTypes.CreateError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
+    on(actions.createError, (state, { payload }) => ({
+      ...state,
+      error: payload,
+    })),
 
-    case NoveltyTypesActionTypes.UpdateError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
+    on(actions.updateError, (state, { payload }) => ({
+      ...state,
+      error: payload,
+    })),
 
-    case NoveltyTypesActionTypes.TrashOk: {
-      state = {
-        ...state,
-        paginatedList: {
-          ...state.paginatedList,
-          data: [
-            ...state.paginatedList.data.filter(
-              (noveltyType) => noveltyType.id !== action.payload
-            ),
-          ],
-        },
-      };
-      break;
-    }
+    on(actions.trashOk, (state, { payload }) => ({
+      ...state,
+      paginatedList: {
+        ...state.paginatedList,
+        data: [...state.paginatedList.data.filter((noveltyType) => noveltyType.id !== payload)],
+      },
+    })),
 
-    case NoveltyTypesActionTypes.SetError: {
-      state = { ...state, error: action.payload };
-      break;
-    }
-  }
-  return state;
-}
+    on(actions.setError, (state, { payload }) => ({
+      ...state,
+      error: payload,
+    }))
+  ),
+});

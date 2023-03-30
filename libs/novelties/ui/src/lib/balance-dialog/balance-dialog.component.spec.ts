@@ -94,7 +94,7 @@ describe('BalanceDialogComponent', () => {
     fixture = TestBed.createComponent(BalanceDialogComponent);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
-    dialogReference = TestBed.get(MatDialogRef);
+    dialogReference = TestBed.inject(MatDialogRef);
     fixture.detectChanges();
   });
 
@@ -133,7 +133,7 @@ describe('BalanceDialogComponent', () => {
     component.form.patchValue({ comment: 'foo' });
 
     expect(component.form.valid).toBe(true);
-    spyOn(dialogReference, 'close');
+   jest.spyOn(dialogReference, 'close');
     fixture.detectChanges();
 
     const form: HTMLFormElement = template.querySelector('form');

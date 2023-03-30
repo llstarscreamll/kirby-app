@@ -50,23 +50,17 @@ export class NoveltyService extends BaseService {
 
   createMany(data: any): Observable<any> {
     const endpoint = this.endpoint + 'create-many';
-    return this.http
-      .post<any>(endpoint, data, { headers: this.defaultHeaders })
-      .pipe(map((response) => response.data));
+    return this.http.post<any>(endpoint, data, { headers: this.defaultHeaders }).pipe(map((response) => response.data));
   }
 
   createBalance(data: any): Observable<any> {
     const endpoint = this.endpoint + 'balance';
-    return this.http
-      .post<any>(endpoint, data, { headers: this.defaultHeaders })
-      .pipe(map((response) => response.data));
+    return this.http.post<any>(endpoint, data, { headers: this.defaultHeaders }).pipe(map((response) => response.data));
   }
 
   get(id: string): Observable<any> {
     const endpoint = this.endpoint + id;
-    return this.http
-      .get<any>(endpoint, { headers: this.defaultHeaders })
-      .pipe(map((response) => response.data));
+    return this.http.get<any>(endpoint, { headers: this.defaultHeaders }).pipe(map((response) => response.data));
   }
 
   downloadReport(query: { employee_id?: string; start_date: string; end_date: string }): Observable<any> {

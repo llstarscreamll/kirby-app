@@ -1,39 +1,38 @@
-<div class="my-4">
-  <h1 class="inline">Novedades</h1>
-  <a *ngIf="(user$ | async)?.can('novelty-types.search')"
-     [routerLink]="['novelty-types']"
-     mat-icon-button
-     class="float-right">
-    <mat-icon>settings</mat-icon>
-  </a>
-</div>
+<h1>Novedades</h1>
 
-<kirby-api-errors [apiError]="errors$ | async"></kirby-api-errors>
+<kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
-<div fxLayout="column"
-     fxLayout.gt-xs="row"
-     fxLayoutGap="10px"
-     fxLayoutGap.gt-xs="20px">
+<div class="flex flex-wrap gap-4 place-items-center justify-between my-8">
   <a *kirbyCan="'novelties.create-many'"
      routerLink="./create-novelties-to-employees"
-     mat-stroked-button
+     mat-fab extended
      color="primary">
+    <mat-icon>add</mat-icon>
     Crear
   </a>
+
+  <div class="flex-grow"></div>
 
   <a *kirbyCan="'novelties.report-by-employee'"
      routerLink="./report-by-employee"
      mat-stroked-button
-     color="primary">
+     color="primary" class="order-4 md:order-none">
     Reporte
   </a>
 
   <a *kirbyCan="'novelties.resume-by-novelty-type-and-employee'"
      routerLink="./resume-by-novelty-type-and-employee"
      mat-stroked-button
-     color="primary">
+     color="primary" class="order-2 md:order-none">
     Resumen por tipo de novedad
   </a>
+
+  <button *kirbyCan="'novelty-types.search'" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a routerLink="novelty-types" mat-menu-item>Tipos de novedad</a>
+  </mat-menu>
 </div>
 
 <div class="mt-4" *kirbyCanAny="['novelties.global-search', 'novelties.employee-search']">
@@ -57,7 +56,7 @@
         <th>Fin</th>
         <th>Horas</th>
         <th>Aprobaciones</th>
-        <th class="text-right"></th>
+        <th class="text-right w-32"></th>
       </tr>
     </thead>
     <tbody>

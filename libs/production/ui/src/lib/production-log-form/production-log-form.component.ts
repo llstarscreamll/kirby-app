@@ -66,6 +66,8 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('form on push changes:', changes);
+
     if (!this.form) {
       return;
     }
@@ -80,7 +82,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
 
     if (changes.status?.currentValue && changes.status?.currentValue === LoadStatus.Error) {
       this.form.enable();
-      this.checkForEmployeecodeAvailability();
+      this.checkForEmployeeCodeAvailability();
     }
   }
 
@@ -121,10 +123,10 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       purpose: ['', [Validators.required]],
     });
 
-    this.checkForEmployeecodeAvailability();
+    this.checkForEmployeeCodeAvailability();
   }
 
-  private checkForEmployeecodeAvailability() {
+  private checkForEmployeeCodeAvailability() {
     if (!this.captureEmployeeCode) {
       this.form.get('employee_code').disable();
     }

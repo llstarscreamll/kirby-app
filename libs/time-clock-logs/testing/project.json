@@ -1,0 +1,20 @@
+{
+  "name": "time-clock-logs-testing",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/time-clock-logs/testing/src",
+  "prefix": "kirby",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/time-clock-logs/testing/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/time-clock-logs/testing"]
+    }
+  },
+  "generators": {},
+  "tags": []
+}

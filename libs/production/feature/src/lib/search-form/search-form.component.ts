@@ -17,6 +17,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { TagOptions } from '@kirby/production/ui';
 import { EmployeesFacade } from '@kirby/employees/data-access';
+
 import { ProductionFacade } from '../+state/production.facade';
 import { PurposeOptions } from 'libs/production/ui/src/lib/purpose-options';
 
@@ -58,19 +59,19 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   tagOptions = TagOptions;
   purposeOptions = PurposeOptions;
   searchForm = this.formBuilder.group({
-    product: [''],
-    products: [[]],
-    machine: [''],
-    machines: [[]],
-    employee: [''],
-    employees: [[]],
-    costCenter: [''],
-    costCenters: [[]],
-    netWeight: [''],
-    tags: [[]],
-    purposes: [[]],
-    tagUpdatedAtStart: [''],
-    tagUpdatedAtEnd: [''],
+    product: '',
+    products: [],
+    machine: '',
+    machines: [],
+    employee: '',
+    employees: [],
+    costCenter: '',
+    costCenters: [],
+    netWeight: '',
+    tags: [],
+    purposes: [],
+    tagUpdatedAtStart: '',
+    tagUpdatedAtEnd: '',
   });
 
   constructor(
@@ -278,13 +279,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     const formValue = this.searchForm.value;
 
     return {
-      employee_ids: formValue.employees.map((e) => e.id),
-      product_ids: formValue.products.map((p) => p.id),
-      machine_ids: formValue.machines.map((m) => m.id),
-      cost_center_ids: formValue.costCenters.map((s) => s.id),
+      employee_ids: formValue.employees?.map((e) => e.id),
+      product_ids: formValue.products?.map((p) => p.id),
+      machine_ids: formValue.machines?.map((m) => m.id),
+      cost_center_ids: formValue.costCenters?.map((s) => s.id),
       net_weight: formValue.netWeight,
-      tags: formValue.tags.map((t) => t.id),
-      purposes: formValue.purposes.map((p) => p.id),
+      tags: formValue.tags?.map((t) => t.id),
+      purposes: formValue.purposes?.map((p) => p.id),
       tag_updated_at: {
         start: formValue.tagUpdatedAtStart ? moment(formValue.tagUpdatedAtStart).toISOString() : '',
         end: formValue.tagUpdatedAtEnd ? moment(formValue.tagUpdatedAtEnd).toISOString() : '',

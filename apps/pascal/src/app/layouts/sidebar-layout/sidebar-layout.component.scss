@@ -4,7 +4,7 @@
   z-index: 1;
 }
 
-.mat-drawer-side {
+.mdc-drawer-side {
   border: 0;
 }
 
@@ -15,16 +15,16 @@
   mat-nav-list {
     height: 100%;
 
-    .mat-list-item {
+    .mdc-list-item {
       font-size: 14px;
       border-top-right-radius: 25px;
       border-bottom-right-radius: 25px;
       width: auto;
 
       mat-icon {
+        font-size: 20px;
         margin-right: 12px;
         margin-left: 10px;
-        font-size: 20px;
       }
 
       span {

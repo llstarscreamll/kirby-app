@@ -1,8 +1,9 @@
+import moment from 'moment';
 import { FormBuilder } from '@angular/forms';
 import { Observable, Subject, timer } from 'rxjs';
 import { debounce, filter, map, takeUntil, tap } from 'rxjs/operators';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { User } from '@kirby/users/util';
 import { Pagination } from '@kirby/shared';
@@ -10,12 +11,10 @@ import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { TimeClockLogsFacade } from '@kirby/time-clock-logs/data-access';
-import moment from 'moment';
 
 @Component({
   selector: 'kirby-time-clock-logs-page',
   templateUrl: './time-clock-logs-page.component.html',
-  styleUrls: ['./time-clock-logs-page.component.scss'],
 })
 export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
   @ViewChild('employeeInput') employeeInput: ElementRef<HTMLInputElement>;
@@ -30,10 +29,10 @@ export class TimeClockLogsPageComponent implements OnInit, OnDestroy {
   user: User;
   searchQuery = {};
   searchForm = this.formBuilder.group({
-    employee: [''],
-    employees: [[]],
-    checkInStart: [''],
-    checkInEnd: [''],
+    employee: '',
+    employees: [],
+    checkInStart: '',
+    checkInEnd: '',
   });
 
   constructor(

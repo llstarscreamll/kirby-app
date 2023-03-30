@@ -11,27 +11,26 @@ import { LoadStatus } from '@kirby/shared';
 @Component({
   selector: 'kirby-novelty-form',
   templateUrl: './novelty-form.component.html',
-  styleUrls: ['./novelty-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyFormComponent implements OnInit, OnDestroy {
   @Input()
-  public defaults: any;
+  defaults: any;
 
   @Input()
-  public employeesFound: any[];
+  employeesFound: any[];
 
   @Input()
-  public noveltyTypesFound: any[];
+  noveltyTypesFound: any[];
 
   @Input()
-  public status: LoadStatus;
+  status: LoadStatus;
 
   @Input()
-  public disable = false;
+  disable = false;
 
   @Input()
-  public showDeleteBtn = true;
+  showDeleteBtn = true;
 
   @Output()
   searchEmployees = new EventEmitter();
@@ -47,7 +46,7 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
 
-  public form: FormGroup;
+  form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {}
 

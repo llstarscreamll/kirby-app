@@ -1,16 +1,15 @@
 <form [formGroup]="searchForm" autocomplete="off" (ngSubmit)="submit()">
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Empleado</mat-label>
-      <mat-chip-list #employeesList aria-label="Employee selection">
-        <mat-chip *ngFor="let employee of addedEmployees"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeEmployee(employee)">
+      <mat-chip-grid #employeesList aria-label="Employee selection">
+        <mat-chip-row *ngFor="let employee of addedEmployees"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeEmployee(employee)">
           {{ employee.first_name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #employeeInput
                formControlName="employee"
@@ -25,19 +24,19 @@
             <span>{{ employee.first_name + ' ' + employee.last_name + ' ' + employee.code }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Producto</mat-label>
-      <mat-chip-list #productsList aria-label="Product selection">
-        <mat-chip *ngFor="let product of addedProducts"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeProduct(product)">
+      <mat-chip-grid #productsList aria-label="Product selection">
+        <mat-chip-row *ngFor="let product of addedProducts"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeProduct(product)">
           {{ product.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #productInput
                formControlName="product"
@@ -52,22 +51,21 @@
             <span>{{ product.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
-
   </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Centro de costo</mat-label>
-      <mat-chip-list #costCentersList aria-label="Sub cost centers selection">
-        <mat-chip *ngFor="let costCenter of addedCostCenters"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeCostCenter(costCenter)">
+      <mat-chip-grid #costCentersList aria-label="Sub cost centers selection">
+        <mat-chip-row *ngFor="let costCenter of addedCostCenters"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeCostCenter(costCenter)">
           {{ costCenter.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #costCenterInput
                formControlName="costCenter"
@@ -82,19 +80,19 @@
             <span>{{ costCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Máquina</mat-label>
-      <mat-chip-list #machinesList aria-label="Sub cost centers selection">
-        <mat-chip *ngFor="let machine of addedMachines"
-                  selectable="true"
-                  removable="true"
-                  (removed)="removeMachine(machine)">
+      <mat-chip-grid #machinesList aria-label="Sub cost centers selection">
+        <mat-chip-row *ngFor="let machine of addedMachines"
+                      selectable="true"
+                      removable="true"
+                      (removed)="removeMachine(machine)">
           {{ machine.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input matInput
                #machineInput
                formControlName="machine"
@@ -109,32 +107,32 @@
             <span>{{ machine.name }}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
   </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px">
-    <mat-form-field fxFlex="grow">
+  <div class="flex flex-col md:flex-row md:gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Etiqueta</mat-label>
       <mat-select formControlName="tags" [compareWith]="compareWithFunction" multiple>
         <mat-option *ngFor="let tag of tagOptions" [value]="tag">{{ tag.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Destino</mat-label>
       <mat-select formControlName="purposes" [compareWith]="compareWithFunction" multiple>
         <mat-option *ngFor="let option of purposeOptions" [value]="option">{{ option.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field fxFlex="grow">
+    <mat-form-field class="flex-grow">
       <mat-label>Peso neto</mat-label>
       <input formControlName="netWeight" matInput type="number" min="0" step=".1" />
     </mat-form-field>
   </div>
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="0px" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center">
+  <div class="flex flex-col md:flex-row md:gap-4 place-content-center">
     <mat-form-field>
       <mat-label>Fecha de etiqueta <small>inicio</small></mat-label>
       <input formControlName="tagUpdatedAtStart" matInput type="datetime-local" />

@@ -1,16 +1,15 @@
 import { Observable, of } from 'rxjs';
-import { hot } from '@nrwl/angular/testing';
+import { hot } from 'jasmine-marbles';
+import { Router } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { NxModule, DataPersistence } from '@nrwl/angular';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PrinterService } from '../printer.service';
 import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 describe('ProductionEffects', () => {
   let actions: Observable<any>;
@@ -18,10 +17,9 @@ describe('ProductionEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NxModule.forRoot()],
+      imports: [],
       providers: [
         ProductionEffects,
-        DataPersistence,
         provideMockActions(() => actions),
         provideMockStore(),
         { provide: ProductionService, useValue: { searchProductionLogs: (_) => of({ data: [], meta: {} }) } },
@@ -31,7 +29,7 @@ describe('ProductionEffects', () => {
       ],
     });
 
-    effects = TestBed.get(ProductionEffects);
+    effects = TestBed.inject(ProductionEffects);
   });
 
   describe('loadProduction$', () => {

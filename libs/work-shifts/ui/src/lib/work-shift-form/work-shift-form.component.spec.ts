@@ -80,7 +80,7 @@ describe('WorkShiftFormComponent', () => {
   });
 
   it('should emit form value on form submit', () => {
-    spyOn(component.submitted, 'emit');
+   jest.spyOn(component.submitted, 'emit');
     component.form.patchValue(validWorkShift);
 
     fixture.detectChanges();

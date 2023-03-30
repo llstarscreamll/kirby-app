@@ -11,12 +11,11 @@ import { get } from 'lodash-es';
       <mat-icon>navigate_next</mat-icon>
     </button>
   `,
-  styles: [``],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent implements OnInit {
   @Input()
-  public pagination: {
+  pagination: {
     current_page: number;
     from: number;
     path: string;

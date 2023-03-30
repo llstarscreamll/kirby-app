@@ -74,7 +74,7 @@ describe('EntryAndExitLogPageComponent', () => {
     fixture = TestBed.createComponent(EntryAndExitLogPageComponent);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
-    timeClockLogFacade = TestBed.get(TimeClockLogsFacade);
+    timeClockLogFacade = TestBed.inject(TimeClockLogsFacade);
 
     fixture.detectChanges();
   });
@@ -90,7 +90,7 @@ describe('EntryAndExitLogPageComponent', () => {
   });
 
   it('should listen `submitted` event from form kirby-entry-and-exit-log-form component', () => {
-    spyOn(timeClockLogFacade, 'createEntryAndExitLog');
+   jest.spyOn(timeClockLogFacade, 'createEntryAndExitLog');
 
     const eventData = { some: 'data' };
     fakeFormComponent = fixture.debugElement.query(
@@ -106,7 +106,7 @@ describe('EntryAndExitLogPageComponent', () => {
   });
 
   it('should listen `codeObtained` event from form kirby-entry-and-exit-log-form component', () => {
-    spyOn(timeClockLogFacade, 'getTimeClockData');
+   jest.spyOn(timeClockLogFacade, 'getTimeClockData');
 
     const eventData = { action: 'check_in', code: 'some-code-here' };
     fakeFormComponent = fixture.debugElement.query(
@@ -120,7 +120,7 @@ describe('EntryAndExitLogPageComponent', () => {
   });
 
   it('should listen `searchSubCostCenters` event from form kirby-entry-and-exit-log-form component', () => {
-    spyOn(timeClockLogFacade, 'searchSubCostCenters');
+   jest.spyOn(timeClockLogFacade, 'searchSubCostCenters');
 
     const eventData = { action: 'check_in', code: 'some-code-here' };
     fakeFormComponent = fixture.debugElement.query(

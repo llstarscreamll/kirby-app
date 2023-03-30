@@ -4,6 +4,7 @@ import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
 import { LoadStatus, LocalStorageService } from '@kirby/shared';
 import { WeighingMachineService } from '../weighing-machine.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'kirby-create-production-log',
@@ -16,7 +17,9 @@ export class CreateProductionLogPage implements OnInit {
   products$ = this.production.products$;
   machines$ = this.production.machines$;
   customers$ = this.production.customers$;
-  creationStatus$ = this.production.creationStatus$;
+  creationStatus$ = this.production.creationStatus$.pipe(
+    tap((status) => (status === LoadStatus.Completed ? (this.machineValue = '0') : null))
+  );
 
   constructor(
     private authFacade: AuthFacade,
@@ -43,6 +46,7 @@ export class CreateProductionLogPage implements OnInit {
 
     // los datos que envíe la báscula serán enviados al formulario
     this.weighingMachineService.openConnection(serialPortPreferences.selected, (data) => {
+      console.log('weight machine incoming data:', data);
       this.machineValue = data;
       this.changeDetector.detectChanges();
     });

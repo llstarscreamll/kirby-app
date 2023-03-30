@@ -10,20 +10,14 @@ import { AuthFacade } from '@kirby/authentication/data-access';
   templateUrl: './sidebar-layout.component.html',
   styleUrls: ['./sidebar-layout.component.scss'],
 })
-export class SidebarLayoutComponent implements OnInit {
-  public isHandset$: Observable<boolean> = this.breakpointObserver
+export class SidebarLayoutComponent {
+  authenticated$ = this.authFacade.isLoggedIn$;
+  isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(map((result) => result.matches));
 
-  public authenticated$: Observable<boolean>;
-
-  public menuItems = [
-    {
-      icon: 'supervised_user_circle',
-      link: ['/employees/'],
-      label: 'Empleados',
-      can: ['employees.search'],
-    },
+  mediaQueryList = this.mediaMatcher.matchMedia('print');
+  menuItems = [
     {
       icon: 'compare_arrows',
       link: ['/time-clock-logs'],
@@ -37,37 +31,30 @@ export class SidebarLayoutComponent implements OnInit {
       can: ['novelties.global-search', 'novelties.employee-search'],
     },
     {
-      icon: 'alarm',
-      link: ['/work-shifts'],
-      label: 'Turnos',
-      can: ['work-shift.search'],
-    },
-    {
       icon: 'precision_manufacturing',
       link: ['/production'],
       label: 'Producción',
       can: ['production-logs.search'],
     },
+    {
+      icon: 'supervised_user_circle',
+      link: ['/employees/'],
+      label: 'Empleados',
+      can: ['employees.search'],
+    },
   ];
 
-  public mediaQueryList: MediaQueryList;
-
-  public constructor(
+  constructor(
     private authFacade: AuthFacade,
     private mediaMatcher: MediaMatcher,
     private breakpointObserver: BreakpointObserver
   ) {}
 
-  public get isPrint(): boolean {
+  get isPrint(): boolean {
     return this.mediaQueryList.matches;
   }
 
-  public ngOnInit(): void {
-    this.authenticated$ = this.authFacade.isLoggedIn$;
-    this.mediaQueryList = this.mediaMatcher.matchMedia('print');
-  }
-
-  public logout() {
+  logout() {
     this.authFacade.logout();
   }
 }

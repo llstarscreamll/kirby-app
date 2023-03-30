@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,35 +19,34 @@ import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-empl
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatChipsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSelectModule,
-    FlexLayoutModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-  ],
-  declarations: [
-    NoveltyFormComponent,
-    NoveltiesSearchFormComponent,
-    CreateNoveltiesToEmployeesFormComponent,
-    ResumeByEmployeesAndNoveltyTypesTableComponent,
-    BalanceDialogComponent,
-  ],
-  exports: [
-    NoveltyFormComponent,
-    NoveltiesSearchFormComponent,
-    CreateNoveltiesToEmployeesFormComponent,
-    ResumeByEmployeesAndNoveltyTypesTableComponent,
-    BalanceDialogComponent,
-  ],
-  entryComponents: [BalanceDialogComponent]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule,
+        MatChipsModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatSelectModule,
+
+        MatFormFieldModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+    ],
+    declarations: [
+        NoveltyFormComponent,
+        NoveltiesSearchFormComponent,
+        CreateNoveltiesToEmployeesFormComponent,
+        ResumeByEmployeesAndNoveltyTypesTableComponent,
+        BalanceDialogComponent,
+    ],
+    exports: [
+        NoveltyFormComponent,
+        NoveltiesSearchFormComponent,
+        CreateNoveltiesToEmployeesFormComponent,
+        ResumeByEmployeesAndNoveltyTypesTableComponent,
+        BalanceDialogComponent,
+    ]
 })
 export class NoveltiesUiModule {}

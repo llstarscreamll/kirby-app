@@ -1,12 +1,4 @@
-import { round } from 'lodash-es';
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 import { Pagination } from '@kirby/shared';
 import { NoveltyModel } from '@kirby/novelties/data';
@@ -15,18 +7,17 @@ import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
 @Component({
   selector: 'kirby-time-clock-logs-table',
   templateUrl: './time-clock-logs-table.component.html',
-  styleUrls: ['./time-clock-logs-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeClockLogsTableComponent implements OnInit {
   @Input()
-  public timeClockLogs: Pagination<TimeClockLogModel>;
+  timeClockLogs: Pagination<TimeClockLogModel>;
 
   @Input()
-  public userId: string;
+  userId: string;
 
   @Input()
-  public actionButtons = [];
+  actionButtons = [];
 
   @Output()
   approve = new EventEmitter();
@@ -39,16 +30,7 @@ export class TimeClockLogsTableComponent implements OnInit {
   ngOnInit() {}
 
   shortName(approver: { first_name: string; last_name: string }) {
-    return [
-      approver.first_name
-        .trim()
-        .split(' ')
-        .shift(),
-      approver.last_name
-        .trim()
-        .split(' ')
-        .shift()
-    ].join(' ');
+    return [approver.first_name.trim().split(' ').shift(), approver.last_name.trim().split(' ').shift()].join(' ');
   }
 
   readableNovelty(novelty: NoveltyModel): string {
@@ -56,18 +38,10 @@ export class TimeClockLogsTableComponent implements OnInit {
   }
 
   showApproveButton(row: TimeClockLogModel): boolean {
-    return (
-      this.actionButtons &&
-      this.actionButtons.includes('approve') &&
-      !row.isApprovedByUserId(this.userId)
-    );
+    return this.actionButtons && this.actionButtons.includes('approve') && !row.isApprovedByUserId(this.userId);
   }
 
   showDeleteApprovalButton(row: TimeClockLogModel): boolean {
-    return (
-      this.actionButtons &&
-      this.actionButtons.includes('delete-approval') &&
-      row.isApprovedByUserId(this.userId)
-    );
+    return this.actionButtons && this.actionButtons.includes('delete-approval') && row.isApprovedByUserId(this.userId);
   }
 }

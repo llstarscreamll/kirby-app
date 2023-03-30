@@ -1,19 +1,14 @@
-import { NxModule } from '@nrwl/angular';
 import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule, Store } from '@ngrx/store';
-
-import { NoveltiesEffects } from './novelties.effects';
-import { NoveltiesFacade } from './novelties.facade';
-import {
-  NoveltiesState,
-  initialState,
-  noveltiesReducer
-} from './novelties.reducer';
-import { NoveltyService } from '../novelty.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+
+import { NoveltyService } from '../novelty.service';
+import { NoveltiesFacade } from './novelties.facade';
+import { NoveltiesEffects } from './novelties.effects';
+import { NoveltiesState, initialState, noveltiesReducer } from './novelties.reducer';
 
 interface TestSchema {
   novelties: NoveltiesState;
@@ -30,40 +25,39 @@ describe('NoveltiesFacade', () => {
       @NgModule({
         imports: [
           StoreModule.forFeature('novelties', noveltiesReducer, {
-            initialState
+            initialState,
           }),
-          EffectsModule.forFeature([NoveltiesEffects])
+          EffectsModule.forFeature([NoveltiesEffects]),
         ],
         providers: [
           NoveltiesFacade,
           { provide: MatSnackBar, useValue: {} },
           { provide: NoveltyService, useValue: { get: () => true } },
-          { provide: Router, useValue: { navigate: () => true } }
-        ]
+          { provide: Router, useValue: { navigate: () => true } },
+        ],
       })
       class CustomFeatureModule {}
 
       @NgModule({
         imports: [
-          NxModule.forRoot(),
           StoreModule.forRoot(
             {},
             {
               runtimeChecks: {
                 strictStateImmutability: true,
-                strictActionImmutability: true
-              }
+                strictActionImmutability: true,
+              },
             }
           ),
           EffectsModule.forRoot([]),
-          CustomFeatureModule
-        ]
+          CustomFeatureModule,
+        ],
       })
       class RootModule {}
       TestBed.configureTestingModule({ imports: [RootModule] });
 
-      store = TestBed.get(Store);
-      facade = TestBed.get(NoveltiesFacade);
+      store = TestBed.inject(Store);
+      facade = TestBed.inject(NoveltiesFacade);
     });
 
     it('should be defined', () => {

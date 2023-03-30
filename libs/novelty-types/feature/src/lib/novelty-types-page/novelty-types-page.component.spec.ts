@@ -1,4 +1,3 @@
-import { hot } from '@nrwl/angular/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 
@@ -9,6 +8,7 @@ import { NoveltyTypesFacade } from '@kirby/novelty-types/data-access';
 import { NoveltyTypesPageComponent } from './novelty-types-page.component';
 import { AuthorizationUiTestModule } from '@kirby/authorization/ui';
 import { of } from 'rxjs';
+import { hot } from 'jasmine-marbles';
 
 describe('NoveltyTypesPageComponent', () => {
   let template: HTMLDivElement;
@@ -41,7 +41,7 @@ describe('NoveltyTypesPageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NoveltyTypesPageComponent);
-    noveltyTypesFacade = TestBed.get(NoveltyTypesFacade);
+    noveltyTypesFacade = TestBed.inject(NoveltyTypesFacade);
     component = fixture.componentInstance;
     template = fixture.nativeElement;
   });
@@ -52,7 +52,7 @@ describe('NoveltyTypesPageComponent', () => {
   });
 
   it('should call NoveltyTypesFacade.search(...) on ngOnInit', async () => {
-    spyOn(noveltyTypesFacade, 'search');
+   jest.spyOn(noveltyTypesFacade, 'search');
 
     fixture.detectChanges();
 
@@ -61,7 +61,7 @@ describe('NoveltyTypesPageComponent', () => {
   });
 
   it('should call NoveltyTypesFacade.trash(...) on onTrashRow', async () => {
-    spyOn(noveltyTypesFacade, 'trash');
+   jest.spyOn(noveltyTypesFacade, 'trash');
 
     component.trashRow('AAA');
 
