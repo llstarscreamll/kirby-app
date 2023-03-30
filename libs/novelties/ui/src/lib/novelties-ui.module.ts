@@ -17,36 +17,37 @@ import { NoveltiesSearchFormComponent } from './novelties-search-form/novelties-
 import { CreateNoveltiesToEmployeesFormComponent } from './create-novelties-to-employees-form/create-novelties-to-employees-form.component';
 import { ResumeByEmployeesAndNoveltyTypesTableComponent } from './resume-by-employees-and-novelty-types-table/resume-by-employees-and-novelty-types-table.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SharedModule } from '@kirby/shared';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatChipsModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatSelectModule,
-
-        MatFormFieldModule,
-        MatDatepickerModule,
-        ReactiveFormsModule,
-        MatAutocompleteModule,
-    ],
-    declarations: [
-        NoveltyFormComponent,
-        NoveltiesSearchFormComponent,
-        CreateNoveltiesToEmployeesFormComponent,
-        ResumeByEmployeesAndNoveltyTypesTableComponent,
-        BalanceDialogComponent,
-    ],
-    exports: [
-        NoveltyFormComponent,
-        NoveltiesSearchFormComponent,
-        CreateNoveltiesToEmployeesFormComponent,
-        ResumeByEmployeesAndNoveltyTypesTableComponent,
-        BalanceDialogComponent,
-    ]
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatChipsModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+  ],
+  declarations: [
+    NoveltyFormComponent,
+    NoveltiesSearchFormComponent,
+    CreateNoveltiesToEmployeesFormComponent,
+    ResumeByEmployeesAndNoveltyTypesTableComponent,
+    BalanceDialogComponent,
+  ],
+  exports: [
+    NoveltyFormComponent,
+    NoveltiesSearchFormComponent,
+    CreateNoveltiesToEmployeesFormComponent,
+    ResumeByEmployeesAndNoveltyTypesTableComponent,
+    BalanceDialogComponent,
+  ],
 })
 export class NoveltiesUiModule {}
