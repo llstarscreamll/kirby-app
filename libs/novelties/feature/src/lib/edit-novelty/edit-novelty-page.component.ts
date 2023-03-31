@@ -3,6 +3,7 @@ import { NoveltiesFacade } from '@kirby/novelties/data-access';
 
 import { EmployeesFacade } from '@kirby/employees/data-access';
 import { AuthFacade } from '@kirby/authentication/data-access';
+import { FilesService } from '@kirby/shared';
 
 @Component({
   selector: 'kirby-edit-novelty-page',
@@ -24,6 +25,7 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private authFacade: AuthFacade,
+    private filesService: FilesService,
     private noveltiesFacade: NoveltiesFacade,
     private employeesFacade: EmployeesFacade
   ) {}
@@ -52,5 +54,9 @@ export class EditNoveltyPageComponent implements OnInit, OnDestroy {
    */
   onNoveltyTrashed(novelty) {
     this.noveltiesFacade.trash(novelty.id);
+  }
+
+  downloadFile(filePath: string) {
+    this.filesService.getFile(filePath).subscribe();
   }
 }
