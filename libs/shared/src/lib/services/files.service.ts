@@ -1,6 +1,6 @@
+import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class FilesService {
