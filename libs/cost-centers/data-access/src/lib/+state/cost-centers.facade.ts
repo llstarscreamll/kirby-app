@@ -12,6 +12,6 @@ export class CostCentersFacade {
   constructor(private store: Store<CostCentersState>) {}
 
   search(query: any) {
-    this.store.dispatch(actions.search({ query }));
+    this.store.dispatch(actions.search(query));
   }
 }
