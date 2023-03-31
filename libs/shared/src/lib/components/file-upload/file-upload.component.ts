@@ -4,7 +4,7 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 @Component({
   selector: 'kirby-file-upload',
   template: `
-    <input type="file" class="hidden" (change)="uploadFile($event)" #fileInput />
+    <input type="file" class="hidden" (change)="uploadFile($event)" accept="image/*, .pdf" #fileInput />
     <button [disabled]="progress != 100" (click)="fileInput.click()" mat-stroked-button type="button">
       <mat-icon *ngIf="progress != 100">
         <mat-spinner diameter="18" [value]="progress" mode="determinate" color="accent"></mat-spinner>
