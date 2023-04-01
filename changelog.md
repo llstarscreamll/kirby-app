@@ -1,5 +1,9 @@
 # Release notes
 
+## [1.7.0 (2022-12-22)](https://github.com/llstarscreamll/angular-kirby/compare/1.7.0..1.6.0)
+
+feat(novelties): add new filed to upload file on novelties update form.
+
 ## [1.6.0 (2022-12-22)](https://github.com/llstarscreamll/angular-kirby/compare/1.6.0..1.5.0)
 
 - fix: change the way masked text is setted up on sensible inputs for production logs form and time clock entry/exit form
