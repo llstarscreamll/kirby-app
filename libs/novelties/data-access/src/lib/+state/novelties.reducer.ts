@@ -50,6 +50,10 @@ export const noveltiesReducer = createReducer(
     error: action.payload,
     createNoveltiesToEmployeesStatus: LoadStatus.Error,
   })),
+  on(a.EditError, (state, action) => ({
+    ...state,
+    error: action.payload.error,
+  })),
   on(a.Approve, (state, action) => ({
     ...state,
     paginatedList: appendApproverToEntity(state.paginatedList, action.payload.noveltyId, action.payload.user),

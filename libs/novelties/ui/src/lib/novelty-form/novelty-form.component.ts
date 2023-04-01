@@ -11,7 +11,6 @@ import { LoadStatus } from '@kirby/shared';
 @Component({
   selector: 'kirby-novelty-form',
   templateUrl: './novelty-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoveltyFormComponent implements OnInit, OnDestroy {
   @Input()
@@ -42,6 +41,9 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
   submitted = new EventEmitter();
 
   @Output()
+  attachmentClicked = new EventEmitter();
+
+  @Output()
   trashed = new EventEmitter();
 
   private destroy$ = new Subject();
@@ -67,6 +69,7 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
       novelty_type: [, [Validators.required]],
       end_at: [, [Validators.required]],
       start_at: [, [Validators.required]],
+      attachment: [],
       comment: [],
     });
 
@@ -117,6 +120,14 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  get attachmentName(): string {
+    return this.form.get('attachment').value?.name || '';
+  }
+
+  get attachmentUrl(): string {
+    return this.form.get('attachment').value?.url || '';
+  }
+
   get allEmployees(): any[] {
     return (this.employeesFound || []).concat(get(this.defaults, 'employee')).filter((e) => !!e);
   }
@@ -157,9 +168,14 @@ export class NoveltyFormComponent implements OnInit, OnDestroy {
       employee_id: formValue.employee.id,
       novelty_type_id: formValue.novelty_type.id,
       comment: formValue.comment,
+      attachment: formValue.attachment,
       start_at: moment(formValue.start_at).toISOString(),
       end_at: moment(formValue.end_at).toISOString(),
     });
+  }
+
+  updateAttachment(uploadedFile) {
+    this.form.patchValue({ attachment: uploadedFile });
   }
 
   trash() {
