@@ -98,7 +98,7 @@ export class ProductionEffects {
     () =>
       this.actions$.pipe(
         ofType(ProductionActions.printProductionLogTicket),
-        tap((action) => this.printerService.print(action.productionLog))
+        tap((action) => this.printerService.print(action.productionLog, action.ops))
       ),
     { dispatch: false }
   );

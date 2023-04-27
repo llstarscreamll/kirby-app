@@ -18,7 +18,7 @@ export class PrinterService {
     return typeof this.electron !== 'undefined';
   }
 
-  print(productionLog) {
-    this.electron.printProductionLogTicket(productionLog);
+  print(productionLog, ops: any = {}) {
+    this.electron.printProductionLogTicket(productionLog, ops);
   }
 }

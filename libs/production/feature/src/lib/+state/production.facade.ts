@@ -63,8 +63,8 @@ export class ProductionFacade {
     this.store.dispatch(actions.createAndPrintLog({ data }));
   }
 
-  printProductionLogTicket(productionLog: IProductionLog) {
-    this.store.dispatch(actions.printProductionLogTicket({ productionLog }));
+  printProductionLogTicket(productionLog: IProductionLog, ops: any = {}) {
+    this.store.dispatch(actions.printProductionLogTicket({ productionLog, ops }));
   }
 
   searchProductionLogs(query: any) {
