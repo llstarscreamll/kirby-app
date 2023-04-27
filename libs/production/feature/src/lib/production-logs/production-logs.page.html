@@ -44,7 +44,7 @@
         <th>Empleado</th>
         <th>Neto <small>(kg)</small></th>
         <th>Fecha de etiqueta</th>
-        <th class="w-30"></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -57,7 +57,7 @@
         <td>{{ log.netWeight() | number }}</td>
         <td>{{ log.tag_updated_at | date:'MMM d, h:mm a' }}</td>
         <td class="text-right">
-          <button mat-icon-button type="button"><mat-icon>print</mat-icon></button>
+          <button (click)="printTicket(log)" mat-icon-button type="button"><mat-icon>print</mat-icon></button>
           <a mat-icon-button [routerLink]="[log.id, 'edit']">
             <mat-icon>edit</mat-icon>
           </a>

@@ -2,8 +2,8 @@ import { Subject } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { EmployeesFacade } from '@kirby/employees/data-access';
 import { ProductionFacade } from '../+state/production.facade';
+import { ProductionLog } from '../+state/production.models';
 
 @Component({
   selector: 'kirby-production-logs',
@@ -33,5 +33,15 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
 
   exportLogsToCsv(filter) {
     this.productionFacade.exportToCsv({ filter });
+  }
+
+  printTicket(log: ProductionLog) {
+    this.productionFacade.printProductionLogTicket(log, {
+      showWarning: true,
+      showCloseButton: true,
+      autoClose: true,
+      disablePrintButtonAfterClick: true,
+      doNotPrintImmediately: true,
+    });
   }
 }
