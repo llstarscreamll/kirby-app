@@ -16,10 +16,13 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
   pagination$ = this.productionFacade.pagination$;
   productionLogs$ = this.productionFacade.productionLogs$;
 
+  printerAvailable = false;
+
   constructor(private authFacade: AuthFacade, private productionFacade: ProductionFacade) {}
 
   ngOnInit(): void {
     this.searchLogs();
+    this.printerAvailable = this.productionFacade.isPrinterAvailable();
   }
 
   ngOnDestroy(): void {

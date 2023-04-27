@@ -57,7 +57,8 @@
         <td>{{ log.netWeight() | number }}</td>
         <td>{{ log.tag_updated_at | date:'MMM d, h:mm a' }}</td>
         <td class="text-right">
-          <button (click)="printTicket(log)" mat-icon-button type="button"><mat-icon>print</mat-icon></button>
+          <button *ngIf="printerAvailable" (click)="printTicket(log)" mat-icon-button
+                  type="button"><mat-icon>print</mat-icon></button>
           <a mat-icon-button [routerLink]="[log.id, 'edit']">
             <mat-icon>edit</mat-icon>
           </a>
