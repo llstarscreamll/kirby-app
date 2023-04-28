@@ -31,7 +31,7 @@ export class ProductionLogsPage implements OnInit, OnDestroy {
   }
 
   searchLogs(query: any = {}, pagination: any = {}) {
-    this.productionFacade.searchProductionLogs({ include: 'employee,product,machine', ...query, ...pagination });
+    this.productionFacade.searchProductionLogs({ include: 'employee,product,machine,customer', ...query, ...pagination });
   }
 
   exportLogsToCsv(filter) {
