@@ -35,7 +35,7 @@
       font-size: 75%;
     }
 
-    .print-btn {
+    .print-btn, .close-btn {
       background-color: rgb(235, 235, 235);
       border: none;
       box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
@@ -43,7 +43,6 @@
       margin: 20px 0;
       padding: 15px 20px;
       cursor: pointer;
-      display: none;
     }
 
     .pl-5 {
@@ -57,8 +56,8 @@
 
     .warning {
       background-color: orange;
-      border-radius: 20px;
-      color: black;
+      color: white;
+      padding: 5px;
     }
 
     .invisible {
@@ -128,7 +127,7 @@
 
   <div class="text-center">
     <button type="button" class="close-btn invisible mx-5">Cerrar</button>
-    <button type="button" class="print-btn mx-5">Imprimir</button>
+    <button type="button" class="print-btn invisible mx-5">Imprimir</button>
   </div>
 </body>
 
@@ -179,6 +178,7 @@
     }
 
     if (ops.showCloseButton === true) {
+      document.querySelector('.print-btn').classList.remove('invisible');
       document.querySelector('.close-btn').classList.remove('invisible');
       document.querySelector('.close-btn').addEventListener('click', (event) => {
         ipcRenderer.send('close-window');

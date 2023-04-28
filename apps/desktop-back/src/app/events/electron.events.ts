@@ -63,7 +63,7 @@ class PrinterWindow {
   static productionLog: any;
   static window: Electron.BrowserWindow;
 
-  static setParams(productionLog, company, ops) {
+  static setParams(productionLog, ops, company) {
     PrinterWindow.company = company;
     PrinterWindow.productionLog = productionLog;
     PrinterWindow.ops = ops;
@@ -85,6 +85,7 @@ class PrinterWindow {
 
     PrinterWindow.window.setMenu(null);
     PrinterWindow.window.center();
+    // PrinterWindow.window.webContents.openDevTools();
 
     PrinterWindow.window.on('closed', () => {
       console.warn('destroying window');
@@ -115,7 +116,7 @@ class PrinterWindow {
 }
 
 ipcMain.handle('print', (event, productionLog, ops, company = defaultCompany) => {
-  console.warn('log', productionLog, company);
+  console.warn('log', productionLog, company, ops);
 
   PrinterWindow.setParams(productionLog, ops, company);
   PrinterWindow.initWindow();
@@ -126,8 +127,7 @@ ipcMain.handle('print', (event, productionLog, ops, company = defaultCompany) =>
 ipcMain.on('close-window', () => {
   console.warn('closing window');
 
-  PrinterWindow.window.removeAllListeners();
-  PrinterWindow.window.destroy();
+  PrinterWindow.window.close();
 });
 
 ipcMain.on('ticket-ready', () => {
