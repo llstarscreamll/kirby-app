@@ -1,5 +1,9 @@
 # Release notes
 
+## [1.8.0 (2023-04-29)](https://github.com/llstarscreamll/angular-kirby/compare/1.8.0..1.7.0)
+
+feat(production): new ability to print tickets from the list page view
+
 ## [1.7.0 (2022-12-22)](https://github.com/llstarscreamll/angular-kirby/compare/1.7.0..1.6.0)
 
 feat(novelties): add new filed to upload file on novelties update form.
