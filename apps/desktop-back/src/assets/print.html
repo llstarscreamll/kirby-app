@@ -35,7 +35,7 @@
       font-size: 75%;
     }
 
-    .print-btn {
+    .print-btn, .close-btn {
       background-color: rgb(235, 235, 235);
       border: none;
       box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
@@ -43,15 +43,33 @@
       margin: 20px 0;
       padding: 15px 20px;
       cursor: pointer;
-      display: none;
     }
 
-    .p-5 {
+    .pl-5 {
       padding-left: 5px;
     }
 
+    .mx-5 {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .warning {
+      background-color: orange;
+      color: white;
+      padding: 5px;
+    }
+
+    .invisible {
+      visibility: hidden;
+      display: none;
+    }
+
     @media print {
-      .print-btn {
+
+      .close-btn,
+      .print-btn,
+      .warning {
         visibility: hidden;
         display: none;
       }
@@ -60,30 +78,38 @@
 </head>
 
 <body>
+
+  <div class="warning invisible text-center">
+    <p>Esta opción imprimirá una etiqueta con la información del producto ya existente. Esta opción NO creará ningún
+      registro nuevo de producción.</p>
+
+    <p><strong>¿Estás seguro de imprimir?</strong></p>
+  </div>
+
   <table>
     <tr>
       <td class="text-center company-logo" colspan="2"></td>
     </tr>
     <tr>
-      <td class="p-5" colspan="2">Producto: <span class="product-name"></span></td>
+      <td class="pl-5" colspan="2">Producto: <span class="product-name"></span></td>
     </tr>
     <tr>
-      <td class="p-5">Calibre BWG: <span class="product-bwg"></span></td>
+      <td class="pl-5">Calibre BWG: <span class="product-bwg"></span></td>
       <td>Peso Neto (kg): <span class="net-weight"></span></td>
     </tr>
     <tr>
-      <td class="p-5">Diámetro mm: <span class="product-mm"></span></td>
+      <td class="pl-5">Diámetro mm: <span class="product-mm"></span></td>
       <td>Peso Bruto (kg): <span class="gross-weight"></span></td>
     </tr>
     <tr>
-      <td class="p-5" colspan="2">Cliente: <span class="customer-name"></span></td>
+      <td class="pl-5" colspan="2">Cliente: <span class="customer-name"></span></td>
     </tr>
     <tr>
-      <td class="p-5">Cod. Operario: <span class="employee-code"></span></td>
+      <td class="pl-5">Cod. Operario: <span class="employee-code"></span></td>
       <td>Máquina: <span class="machine-code"></span></td>
     </tr>
     <tr>
-      <td class="p-5">Lote: <span class="batch"></span></td>
+      <td class="pl-5">Lote: <span class="batch"></span></td>
       <td>Fecha: <span class="current-date"></span></td>
     </tr>
     <tr>
@@ -100,7 +126,8 @@
   </table>
 
   <div class="text-center">
-    <button type="button" class="print-btn">Imprimir</button>
+    <button type="button" class="close-btn invisible mx-5">Cerrar</button>
+    <button type="button" class="print-btn invisible mx-5">Imprimir</button>
   </div>
 </body>
 
@@ -108,13 +135,13 @@
 
 <script>
   const { ipcRenderer } = require('electron');
-  ipcRenderer.on('draw-data', function (event, { productionLog, company }) {
+  ipcRenderer.on('draw-data', function (event, { productionLog, ops, company }) {
     const date = new Date(productionLog.created_at);
     const netWeight = parseFloat(productionLog.gross_weight - productionLog.tare_weight).toFixed(2);
     const currentDate = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')];
 
     const img = new Image();
-    img.onload = () => event.sender.send('ticket-ready');
+    img.onload = () => ops.doNotPrintImmediately === true ? null : event.sender.send('ticket-ready');
     img.src = company.logoUrl;
     document.querySelector('.company-logo').appendChild(img);
 
@@ -137,10 +164,30 @@
     document.querySelector('.company-address').innerHTML = company.address;
     document.querySelector('.company-phone').innerHTML = company.phone;
     document.querySelector('.current-date').innerHTML = currentDate.join('-') + " " + [date.getHours(), date.getMinutes()].map(v => String(v).padStart(2, '0')).join(':');
-  });
 
-  document.querySelector('.print-btn').addEventListener('click', (event) => {
-    ipcRenderer.send('ticket-ready');
+    document.querySelector('.print-btn').addEventListener('click', (event) => {
+      ipcRenderer.send('ticket-ready');
+
+      if (ops.disablePrintButtonAfterClick === true) {
+        event.target.disabled = true;
+      }
+    });
+
+    if (ops.showWarning === true) {
+      document.querySelector('.warning').classList.remove('invisible');
+    }
+
+    if (ops.showCloseButton === true) {
+      document.querySelector('.print-btn').classList.remove('invisible');
+      document.querySelector('.close-btn').classList.remove('invisible');
+      document.querySelector('.close-btn').addEventListener('click', (event) => {
+        ipcRenderer.send('close-window');
+      });
+    }
+
+    if (ops.autoClose === true) {
+      setTimeout(() => ipcRenderer.send('close-window'), 1000 * 30);
+    }
   });
 </script>
 

@@ -36,7 +36,7 @@
 </div>
 
 <div class="my-3 responsive-table shadow">
-  <table class="table">
+  <table class="table table-fixed">
     <thead>
       <tr>
         <th>Producto</th>
@@ -44,7 +44,7 @@
         <th>Empleado</th>
         <th>Neto <small>(kg)</small></th>
         <th>Fecha de etiqueta</th>
-        <th class="w-5"></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -56,7 +56,9 @@
         <td>{{ log.employee?.first_name }}</td>
         <td>{{ log.netWeight() | number }}</td>
         <td>{{ log.tag_updated_at | date:'MMM d, h:mm a' }}</td>
-        <td>
+        <td class="text-right">
+          <button *ngIf="printerAvailable" (click)="printTicket(log)" mat-icon-button
+                  type="button"><mat-icon>print</mat-icon></button>
           <a mat-icon-button [routerLink]="[log.id, 'edit']">
             <mat-icon>edit</mat-icon>
           </a>

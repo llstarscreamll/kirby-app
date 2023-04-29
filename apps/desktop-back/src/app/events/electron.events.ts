@@ -58,13 +58,15 @@ ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
 });
 
 class PrinterWindow {
+  static ops: any;
   static company: any;
   static productionLog: any;
   static window: Electron.BrowserWindow;
 
-  static setParams(productionLog, company) {
+  static setParams(productionLog, ops, company) {
     PrinterWindow.company = company;
     PrinterWindow.productionLog = productionLog;
+    PrinterWindow.ops = ops;
   }
 
   static initWindow() {
@@ -83,6 +85,7 @@ class PrinterWindow {
 
     PrinterWindow.window.setMenu(null);
     PrinterWindow.window.center();
+    // PrinterWindow.window.webContents.openDevTools();
 
     PrinterWindow.window.on('closed', () => {
       console.warn('destroying window');
@@ -102,23 +105,29 @@ class PrinterWindow {
   }
 
   static sendEvents() {
-    // PrinterWindow.window.webContents.removeAllListeners();
     PrinterWindow.window.webContents.on('did-finish-load', (event) => {
       PrinterWindow.window.webContents.send('draw-data', {
         productionLog: PrinterWindow.productionLog,
+        ops: PrinterWindow.ops,
         company: PrinterWindow.company,
       });
     });
   }
 }
 
-ipcMain.handle('print', (event, productionLog, company = defaultCompany) => {
-  console.warn('log', productionLog, company);
+ipcMain.handle('print', (event, productionLog, ops, company = defaultCompany) => {
+  console.warn('log', productionLog, company, ops);
 
-  PrinterWindow.setParams(productionLog, company);
+  PrinterWindow.setParams(productionLog, ops, company);
   PrinterWindow.initWindow();
   PrinterWindow.loadMainWindow();
   PrinterWindow.sendEvents();
+});
+
+ipcMain.on('close-window', () => {
+  console.warn('closing window');
+
+  PrinterWindow.window.close();
 });
 
 ipcMain.on('ticket-ready', () => {

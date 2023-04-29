@@ -6,5 +6,5 @@ contextBridge.exposeInMainWorld('electron', {
   getSerialPorts: () => ipcRenderer.invoke('get-serial-ports'),
   readData: (portPath, options) => ipcRenderer.invoke('open-connection-and-read-data', portPath, options),
   onPortData: (func) => ipcRenderer.on('port-data-available', (_, data) => func(data)),
-  printProductionLogTicket: (productionLog) => ipcRenderer.invoke('print', productionLog),
+  printProductionLogTicket: (productionLog, ops: any = {}) => ipcRenderer.invoke('print', productionLog, ops),
 });

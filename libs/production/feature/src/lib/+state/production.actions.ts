@@ -19,7 +19,10 @@ export const updateLogOk = createAction('[Production] update log ok', props<{ pr
 export const updateLogError = createAction('[Production] update log error', props<{ error: any }>());
 export const setUpdateStatus = createAction('[Production] set update status', props<{ status: LoadStatus }>());
 
-export const printProductionLogTicket = createAction('[Production] print', props<{ productionLog: IProductionLog }>());
+export const printProductionLogTicket = createAction(
+  '[Production] print',
+  props<{ productionLog: IProductionLog; ops?: any }>()
+);
 
 export const searchLogs = createAction('[Production] search logs', props<{ query: any }>());
 export const searchLogsOk = createAction('[Production] search logs ok', props<{ data: IProductionLog[]; meta: any }>());
