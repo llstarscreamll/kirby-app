@@ -2742,6 +2742,13 @@
     "@material/theme" "15.0.0-canary.684e33d25.0"
     tslib "^2.1.0"
 
+"@ngrx/component-store@~15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/component-store/-/component-store-15.0.0.tgz#fd8dbb69a6819a6e32e794ba887d04176c5581c6"
+  integrity sha512-j6Xdch4z54NCXYUKBAJYp2d3F7IObnqJ2dcsYqNhlXE5VUUtZPY1i75RJfMKuBCoSByRVnv1f/OkOxrPnvXp+g==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngrx/effects@15.0.0":
   version "15.0.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-15.0.0.tgz#9d4ab000ca8af8fa9012e4586425541de8b79ec4"
