@@ -45,6 +45,7 @@
       "@kirby/time-clock-logs/testing": ["libs/time-clock-logs/testing/src/index.ts"],
       "@kirby/time-clock-logs/ui": ["libs/time-clock-logs/ui/src/index.ts"],
       "@kirby/time-clock-logs/util": ["libs/time-clock-logs/util/src/index.ts"],
+      "@kirby/truck-scale": ["libs/truck-scale/src/index.ts"],
       "@kirby/users/testing": ["libs/users/testing/src/index.ts"],
       "@kirby/users/util": ["libs/users/util/src/index.ts"],
       "@kirby/work-shifts/data-access": ["libs/work-shifts/data-access/src/index.ts"],
