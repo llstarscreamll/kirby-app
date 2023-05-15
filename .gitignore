@@ -58,3 +58,5 @@ xplat/**/*.ngsummary.json
 
 /vendor/
 .env
+
+.angular
