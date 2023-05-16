@@ -1,10 +1,9 @@
+import { of } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
+import { catchError, switchMap } from 'rxjs/operators';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
-import * as WeighingsActions from './weighings.actions';
-import * as WeighingsFeature from './weighings.reducer';
-
-import { switchMap, catchError, of } from 'rxjs';
+import * as actions from './weighings.actions';
 
 @Injectable()
 export class WeighingsEffects {
@@ -12,11 +11,11 @@ export class WeighingsEffects {
 
   init$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WeighingsActions.initWeighings),
-      switchMap(() => of(WeighingsActions.loadWeighingsSuccess({ weighings: [] }))),
+      ofType(actions.initWeighings),
+      switchMap(() => of(actions.loadWeighingsSuccess({ weighings: [] }))),
       catchError((error) => {
         console.error('Error', error);
-        return of(WeighingsActions.loadWeighingsFailure({ error }));
+        return of(actions.loadWeighingsFailure({ error }));
       })
     )
   );
