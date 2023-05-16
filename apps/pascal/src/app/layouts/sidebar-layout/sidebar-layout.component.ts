@@ -37,6 +37,12 @@ export class SidebarLayoutComponent {
       can: ['production-logs.search'],
     },
     {
+      icon: 'local_shipping',
+      link: ['/truck-scale'],
+      label: 'Sistema camionero',
+      can: ['truck-scale.search'],
+    },
+    {
       icon: 'supervised_user_circle',
       link: ['/employees/'],
       label: 'Empleados',
