@@ -10,10 +10,12 @@ import { EditWeighingPage } from './pages/edit-weighing/edit-weighing.page';
 import { WeighingsListPage } from './pages/weighings-list/weighings-list.page';
 import { CreateWeighingPage } from './pages/create-weighing/create-weighing.page';
 import { WeighingFormComponent } from './components/weighing-form/weighing-form.component';
+import { SharedModule } from '@kirby/shared';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(truckScaleRoutes),
     StoreModule.forFeature(fromWeighings.WEIGHINGS_FEATURE_KEY, fromWeighings.weighingsReducer),
     EffectsModule.forFeature([WeighingsEffects]),

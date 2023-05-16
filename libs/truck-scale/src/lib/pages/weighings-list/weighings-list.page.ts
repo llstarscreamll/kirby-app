@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './weighings-list.page.html',
   styleUrls: ['./weighings-list.page.scss'],
 })
-export class WeighingsListPage {}
+export class WeighingsListPage {
+  apiError$ = new Observable<any>();
+}
