@@ -11,11 +11,17 @@ import { WeighingsListPage } from './pages/weighings-list/weighings-list.page';
 import { CreateWeighingPage } from './pages/create-weighing/create-weighing.page';
 import { WeighingFormComponent } from './components/weighing-form/weighing-form.component';
 import { SharedModule } from '@kirby/shared';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthorizationUiModule } from '@kirby/authorization/ui';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    MatIconModule,
+    MatButtonModule,
+    AuthorizationUiModule,
     RouterModule.forChild(truckScaleRoutes),
     StoreModule.forFeature(fromWeighings.WEIGHINGS_FEATURE_KEY, fromWeighings.weighingsReducer),
     EffectsModule.forFeature([WeighingsEffects]),

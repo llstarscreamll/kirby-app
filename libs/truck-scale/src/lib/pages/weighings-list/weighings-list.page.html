@@ -1,3 +1,12 @@
 <h1 class="my-4 cursor-pointer">Registros de pesaje</h1>
 
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
+
+<div class="flex flex-row my-8">
+  <a *kirbyCan="'truck-scale.create'"
+     routerLink="create"
+     mat-fab extended
+     color="primary">
+    <mat-icon>add</mat-icon> Crear
+  </a>
+</div>
