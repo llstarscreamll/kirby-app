@@ -46,7 +46,7 @@ export class NoveltyTypeService extends BaseService {
     );
   }
 
-  trash(id: any = {}): Observable<any> {
+  trash(id: string): Observable<any> {
     return this.httpClient.delete(this.endpoint + id, {
       headers: this.defaultHeaders,
     });

@@ -82,21 +82,23 @@ export class NoveltyTypesEffects {
     )
   );
 
-  trashNoveltyType$ = this.actions$.pipe(
-    ofType(actions.trash),
-    optimisticUpdate({
-      run: (action) =>
-        this.noveltyTypeService.trash(action.payload).pipe(
-          map((_) => actions.trashOk(action.payload)),
-          tap((_) =>
-            this.snackBar.open('Tipo de novedad movida a la papelera!', 'Ok', {
-              duration: 5 * 1000,
-            })
-          )
-        ),
+  trashNoveltyType$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.trash),
+      optimisticUpdate({
+        run: (action) =>
+          this.noveltyTypeService.trash(action.payload).pipe(
+            map((_) => actions.trashOk(action.payload)),
+            tap((_) =>
+              this.snackBar.open('Tipo de novedad movida a la papelera!', 'Ok', {
+                duration: 5 * 1000,
+              })
+            )
+          ),
 
-      undoAction: (_, error) => actions.trashError(error),
-    })
+        undoAction: (_, error) => actions.trashError(error),
+      })
+    )
   );
 
   constructor(
