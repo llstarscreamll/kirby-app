@@ -9,7 +9,7 @@ import { actions } from './weighings.actions';
 export class WeighingsEffects {
   private actions$ = inject(Actions);
 
-  init$ = createEffect(() =>
+  searchWeighings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.searchWeighings),
       switchMap(() => of(actions.loadWeighingsSuccess([]))),

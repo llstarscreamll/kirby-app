@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Action } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
+import { Action } from '@ngrx/store';
+import { hot } from 'jasmine-marbles';
+import { TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { provideMockActions } from '@ngrx/effects/testing';
 
-import * as WeighingsActions from './weighings.actions';
+import { actions as a } from './weighings.actions';
 import { WeighingsEffects } from './weighings.effects';
 
 describe('WeighingsEffects', () => {
@@ -21,13 +21,13 @@ describe('WeighingsEffects', () => {
     effects = TestBed.inject(WeighingsEffects);
   });
 
-  describe('init$', () => {
+  describe('searchWeighings$', () => {
     it('should work', () => {
-      actions = hot('-a-|', { a: WeighingsActions.initWeighings() });
+      actions = hot('-a-|', { a: a.searchWeighings('') });
 
-      const expected = hot('-a-|', { a: WeighingsActions.loadWeighingsSuccess({ weighings: [] }) });
+      const expected = hot('-a-|', { a: a.loadWeighingsSuccess([]) });
 
-      expect(effects.init$).toBeObservable(expected);
+      expect(effects.searchWeighings$).toBeObservable(expected);
     });
   });
 });

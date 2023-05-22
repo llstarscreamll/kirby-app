@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import * as WeighingsActions from './weighings.actions';
+import { actions as a } from './weighings.actions';
 import { WeighingsEntity } from './weighings.models';
 import { WeighingsState, initialWeighingsState, weighingsReducer } from './weighings.reducer';
 
@@ -13,7 +13,7 @@ describe('Weighings Reducer', () => {
   describe('valid Weighings actions', () => {
     it('loadWeighingsSuccess should return the list of known Weighings', () => {
       const weighings = [createWeighingsEntity('PRODUCT-AAA'), createWeighingsEntity('PRODUCT-zzz')];
-      const action = WeighingsActions.loadWeighingsSuccess({ weighings });
+      const action = a.loadWeighingsSuccess(weighings);
 
       const result: WeighingsState = weighingsReducer(initialWeighingsState, action);
 
