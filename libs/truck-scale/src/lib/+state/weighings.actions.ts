@@ -1,11 +1,15 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup } from '@ngrx/store';
+
+import { ApiError } from '@kirby/shared';
+
 import { WeighingsEntity } from './weighings.models';
 
-export const initWeighings = createAction('[Weighings Page] Init');
-
-export const loadWeighingsSuccess = createAction(
-  '[Weighings/API] Load Weighings Success',
-  props<{ weighings: WeighingsEntity[] }>()
-);
-
-export const loadWeighingsFailure = createAction('[Weighings/API] Load Weighings Failure', props<{ error: any }>());
+export const actions = createActionGroup({
+  source: 'Weighings',
+  events: {
+    'search vehicles': (term: string) => ({ term }),
+    'search weighings': (query: any = {}) => ({ query }),
+    'load weighings success': (weighings: WeighingsEntity[]) => ({ weighings }),
+    'load weighings failure': (error: ApiError) => ({ error }),
+  },
+});
