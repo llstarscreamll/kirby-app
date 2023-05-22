@@ -1,5 +1,5 @@
 import { WeighingsEntity } from './weighings.models';
-import { weighingsAdapter, WeighingsPartialState, initialWeighingsState } from './weighings.reducer';
+import { adapter, WeighingsPartialState, initialWeighingsState } from './weighings.reducer';
 import * as WeighingsSelectors from './weighings.selectors';
 
 describe('Weighings Selectors', () => {
@@ -14,7 +14,7 @@ describe('Weighings Selectors', () => {
 
   beforeEach(() => {
     state = {
-      weighings: weighingsAdapter.setAll(
+      weighings: adapter.setAll(
         [
           createWeighingsEntity('PRODUCT-AAA'),
           createWeighingsEntity('PRODUCT-BBB'),

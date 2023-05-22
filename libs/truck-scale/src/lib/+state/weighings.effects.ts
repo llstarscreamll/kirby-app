@@ -12,8 +12,8 @@ export class WeighingsEffects {
   searchWeighings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.searchWeighings),
-      switchMap(() => of(actions.loadWeighingsSuccess([]))),
-      catchError((error) => of(actions.loadWeighingsFailure(error)))
+      switchMap(() => of(actions.searchWeighingsOk([]))),
+      catchError((error) => of(actions.searchWeighingsError(error)))
     )
   );
 }

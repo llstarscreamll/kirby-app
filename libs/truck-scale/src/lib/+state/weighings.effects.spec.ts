@@ -25,7 +25,7 @@ describe('WeighingsEffects', () => {
     it('should work', () => {
       actions = hot('-a-|', { a: a.searchWeighings('') });
 
-      const expected = hot('-a-|', { a: a.loadWeighingsSuccess([]) });
+      const expected = hot('-a-|', { a: a.searchWeighingsOk([]) });
 
       expect(effects.searchWeighings$).toBeObservable(expected);
     });

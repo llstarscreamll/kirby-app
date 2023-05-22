@@ -9,7 +9,7 @@ export const actions = createActionGroup({
   events: {
     'search vehicles': (term: string) => ({ term }),
     'search weighings': (query: any = {}) => ({ query }),
-    'load weighings success': (weighings: WeighingsEntity[]) => ({ weighings }),
-    'load weighings failure': (error: ApiError) => ({ error }),
+    'search weighings ok': (weighings: WeighingsEntity[]) => ({ weighings }),
+    'search weighings error': (error: ApiError) => ({ error }),
   },
 });

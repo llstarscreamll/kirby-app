@@ -13,7 +13,7 @@ describe('Weighings Reducer', () => {
   describe('valid Weighings actions', () => {
     it('loadWeighingsSuccess should return the list of known Weighings', () => {
       const weighings = [createWeighingsEntity('PRODUCT-AAA'), createWeighingsEntity('PRODUCT-zzz')];
-      const action = a.loadWeighingsSuccess(weighings);
+      const action = a.searchWeighingsOk(weighings);
 
       const result: WeighingsState = weighingsReducer(initialWeighingsState, action);
 
