@@ -14,4 +14,8 @@ export class WeighingsFacade {
   searchVehicles(term: string) {
     this.store.dispatch(actions.searchVehicles(term));
   }
+
+  searchDrivers(term: string) {
+    this.store.dispatch(actions.searchDrivers(term));
+  }
 }

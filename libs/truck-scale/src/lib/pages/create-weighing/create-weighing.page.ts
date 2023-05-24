@@ -15,4 +15,8 @@ export class CreateWeighingPage {
   searchVehicles(term: string) {
     this.facade.searchVehicles(term);
   }
+
+  searchDrivers(term: string) {
+    this.facade.searchDrivers(term);
+  }
 }

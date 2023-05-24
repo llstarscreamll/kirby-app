@@ -2,7 +2,7 @@ import { createActionGroup } from '@ngrx/store';
 
 import { ApiError } from '@kirby/shared';
 
-import { Vehicle, Weighing } from './models';
+import { Driver, Vehicle, Weighing } from './models';
 
 export const actions = createActionGroup({
   source: 'Weighings',
@@ -10,6 +10,9 @@ export const actions = createActionGroup({
     'search vehicles': (term: string) => ({ term }),
     'search vehicles ok': (vehicles: Vehicle[]) => ({ vehicles }),
     'search vehicles error': (error: ApiError) => ({ error }),
+    'search drivers': (term: string) => ({ term }),
+    'search drivers ok': (drivers: Driver[]) => ({ drivers }),
+    'search drivers error': (error: ApiError) => ({ error }),
     'search weighings': (query: any = {}) => ({ query }),
     'search weighings ok': (weighings: Weighing[]) => ({ weighings }),
     'search weighings error': (error: ApiError) => ({ error }),

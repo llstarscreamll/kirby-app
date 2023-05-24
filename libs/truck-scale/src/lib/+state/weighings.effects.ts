@@ -29,4 +29,14 @@ export class WeighingsEffects {
       })
     )
   );
+
+  searchDrivers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.searchDrivers),
+      fetch({
+        run: (a) => this.service.searchDrivers(a.term).pipe(map((r) => actions.searchDriversOk(r.data))),
+        onError: (a, e) => actions.searchDriversError(e),
+      })
+    )
+  );
 }

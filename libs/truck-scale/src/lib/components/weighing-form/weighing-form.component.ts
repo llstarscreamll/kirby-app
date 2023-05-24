@@ -51,6 +51,22 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe();
+
+    this.form
+      .get('driver_id')
+      ?.valueChanges.pipe(
+        debounce(() => timer(500)),
+        tap(
+          (v: null | string | Driver) =>
+            v != null && typeof v === 'string' && v.trim() !== '' && this.searchDrivers.emit(v)
+        ),
+        tap(
+          (v: null | string | Driver) =>
+            v != null && typeof v === 'object' && this.form.patchValue({ driver_name: v.name })
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
