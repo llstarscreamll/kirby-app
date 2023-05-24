@@ -15,6 +15,7 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
   @Input() drivers: Driver[] | null = [];
 
   @Output() searchVehicles = new EventEmitter();
+  @Output() searchDrivers = new EventEmitter();
 
   destroy$ = new Subject();
 
@@ -36,20 +37,12 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
           (v: null | string | Vehicle) =>
             v != null && typeof v === 'string' && v.trim() !== '' && this.searchVehicles.emit(v)
         ),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
-
-    this.form
-      .get('vehicle_plate')
-      ?.valueChanges.pipe(
-        debounce(() => timer(500)),
         tap(
           (v: null | string | Vehicle) =>
             v != null &&
             typeof v === 'object' &&
             v.drivers.length === 1 &&
-            this.form.patchValue({ driver_id: v.drivers[0].id, driver_name: v.drivers[0].name })
+            this.form.patchValue({ vehicle_type: v.type, driver_id: v.drivers[0].id, driver_name: v.drivers[0].name })
         ),
         tap(
           (v: null | string | Vehicle) =>
