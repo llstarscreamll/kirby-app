@@ -1,4 +1,4 @@
-export * from './lib/+state/weighings.models';
+export * from './lib/+state/models';
 export * from './lib/+state/weighings.selectors';
 export * from './lib/+state/weighings.reducer';
 export * from './lib/+state/weighings.actions';
