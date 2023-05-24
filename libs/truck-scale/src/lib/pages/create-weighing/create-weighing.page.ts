@@ -1,11 +1,18 @@
-import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
+
+import { WeighingsFacade } from '../../+state/weighings.facade';
 
 @Component({
   selector: 'kirby-create-weighing',
   templateUrl: './create-weighing.page.html',
-  styleUrls: ['./create-weighing.page.scss'],
 })
 export class CreateWeighingPage {
-  apiError$ = new Observable<any>();
+  apiError$ = this.facade.error$;
+  vehicles$ = this.facade.vehicles$;
+
+  constructor(private facade: WeighingsFacade) {}
+
+  searchVehicles(term: string) {
+    this.facade.searchVehicles(term);
+  }
 }

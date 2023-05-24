@@ -1,3 +1,7 @@
 <h1 class="my-4"><a routerLink="../">Registros de pesaje</a> / Crear</h1>
 
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
+
+<kirby-weighing-form [vehicles]="vehicles$ | async"
+                     (searchVehicles)="searchVehicles($event)"
+                     class="block max-w-4xl"></kirby-weighing-form>
