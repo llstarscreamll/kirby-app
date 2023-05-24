@@ -1,14 +1,14 @@
-import { WeighingsEntity } from './weighings.models';
+import { Weighing } from './models';
 import { adapter, WeighingsPartialState, initialWeighingsState } from './weighings.reducer';
 import * as WeighingsSelectors from './weighings.selectors';
 
 describe('Weighings Selectors', () => {
-  const getWeighingsId = (it: WeighingsEntity) => it.id;
+  const getWeighingsId = (it: Weighing) => it.id;
   const createWeighingsEntity = (id: string, name = '') =>
     ({
       id,
       name: name || `name-${id}`,
-    } as WeighingsEntity);
+    } as Weighing);
 
   let state: WeighingsPartialState;
 
@@ -40,7 +40,7 @@ describe('Weighings Selectors', () => {
     });
 
     it('selectWeighingsError() should return the current "error" state', () => {
-      const result = WeighingsSelectors.selectWeighingsError(state);
+      const result = WeighingsSelectors.selectError(state);
 
       expect(result).toBe(null);
     });

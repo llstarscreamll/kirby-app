@@ -1,11 +1,11 @@
 import { Action } from '@ngrx/store';
 
 import { actions as a } from './weighings.actions';
-import { WeighingsEntity } from './weighings.models';
+import { Weighing } from './models';
 import { WeighingsState, initialWeighingsState, weighingsReducer } from './weighings.reducer';
 
 describe('Weighings Reducer', () => {
-  const createWeighingsEntity = (id: string, name = ''): WeighingsEntity => ({
+  const createWeighingsEntity = (id: string, name = ''): Weighing => ({
     id,
     name: name || `name-${id}`,
   });
