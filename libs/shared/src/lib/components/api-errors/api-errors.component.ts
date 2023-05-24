@@ -17,7 +17,7 @@ import { flatApiErrors } from '../../utils/common-functions';
 })
 export class ApiErrorsComponent implements OnInit {
   @Input()
-  apiError: ApiError;
+  apiError: ApiError | null;
 
   constructor() {}
 
