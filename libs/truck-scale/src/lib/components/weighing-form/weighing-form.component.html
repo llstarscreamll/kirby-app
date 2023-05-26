@@ -1,7 +1,7 @@
 <form [formGroup]="form" class="flex flex-col">
   <mat-form-field class="w-full">
     <mat-label>Tipo de pesaje</mat-label>
-    <mat-select required>
+    <mat-select formControlName="weighing_type" required>
       <mat-option value="load">Cargue</mat-option>
       <mat-option value="unload">Descargue</mat-option>
       <mat-option value="weighing">Pesaje</mat-option>
@@ -47,12 +47,12 @@
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>Peso tara</mat-label>
-      <input matInput type="number" min="0">
+      <input formControlName="tare_weight" matInput type="number" min="0">
       <span matTextSuffix>Kg</span>
     </mat-form-field>
     <mat-form-field class="flex-grow">
       <mat-label>Peso bruto</mat-label>
-      <input matInput type="number" min="0">
+      <input formControlName="gross_weight" matInput type="number" min="0">
       <span matTextSuffix>Kg</span>
     </mat-form-field>
     <mat-form-field class="flex-grow">

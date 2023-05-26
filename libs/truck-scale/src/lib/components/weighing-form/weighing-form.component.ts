@@ -20,15 +20,26 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
 
   form = this.formBuilder.group({
+    weighing_type: ['', [Validators.required]],
     vehicle_plate: ['', [Validators.required]],
     vehicle_type: ['', [Validators.required]],
     driver_id: ['', [Validators.required]],
     driver_name: ['', [Validators.required]],
+    tare_weight: [0],
+    gross_weight: [0],
   });
 
   constructor(private formBuilder: FormBuilder, private facade: WeighingsFacade) {}
 
   ngOnInit(): void {
+    this.form
+      .get('weighing_type')
+      ?.valueChanges.pipe(
+        tap((v) => (v === 'load' ? this.form.get('gross_weight')?.disable() : false)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
     this.form
       .get('vehicle_plate')
       ?.valueChanges.pipe(
