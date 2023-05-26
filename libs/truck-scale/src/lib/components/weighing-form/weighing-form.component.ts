@@ -35,7 +35,8 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
     this.form
       .get('weighing_type')
       ?.valueChanges.pipe(
-        tap((v) => (v === 'load' ? this.form.get('gross_weight')?.disable() : false)),
+        tap((v) => (v === 'load' ? this.captureOnlyTareWeight() : false)),
+        tap((v) => (['unload', 'weighing'].includes(v || '') ? this.captureOnlyGrossWeight() : false)),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -83,6 +84,16 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  captureOnlyGrossWeight() {
+    this.form.get('tare_weight')?.disable();
+    this.form.get('gross_weight')?.enable();
+  }
+
+  captureOnlyTareWeight() {
+    this.form.get('gross_weight')?.disable();
+    this.form.get('tare_weight')?.enable();
   }
 
   displayFn(vehicle: Vehicle) {
