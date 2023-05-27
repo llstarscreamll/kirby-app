@@ -20,6 +20,8 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject();
 
+  netWeight = 0;
+
   form = this.formBuilder.group({
     weighing_type: ['', [Validators.required]],
     vehicle_plate: ['', [Validators.required, Validators.maxLength(7)]],
@@ -81,6 +83,30 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe();
+
+    this.form
+      .get('gross_weight')
+      ?.valueChanges.pipe(
+        tap(() => (this.netWeight = this.calculateNetWeight())),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
+    this.form
+      .get('tare_weight')
+      ?.valueChanges.pipe(
+        tap(
+          () =>
+            ![0, null, undefined].includes(this.form.get('gross_weight')?.value) &&
+            (this.netWeight = this.calculateNetWeight())
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+  }
+
+  calculateNetWeight(): number {
+    return (this.form.get('gross_weight')?.value || 0) - (this.form.get('tare_weight')?.value || 0);
   }
 
   ngOnDestroy(): void {
