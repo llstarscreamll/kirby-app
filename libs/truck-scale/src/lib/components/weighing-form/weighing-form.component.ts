@@ -62,7 +62,11 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
         ),
         tap(
           (v: null | string | Vehicle) =>
-            v != null && typeof v === 'object' && v.drivers.length > 1 && (this.drivers = v.drivers)
+            v != null &&
+            typeof v === 'object' &&
+            v.drivers.length > 1 &&
+            (this.drivers = v.drivers) &&
+            this.form.patchValue({ vehicle_type: v.type })
         ),
         takeUntil(this.destroy$)
       )
