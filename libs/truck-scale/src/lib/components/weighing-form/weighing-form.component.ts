@@ -115,11 +115,13 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
   }
 
   captureOnlyGrossWeight() {
+    this.form.patchValue({ gross_weight: 0, tare_weight: 0 });
     this.form.get('tare_weight')?.disable();
     this.form.get('gross_weight')?.enable();
   }
 
   captureOnlyTareWeight() {
+    this.form.patchValue({ gross_weight: 0, tare_weight: 0 });
     this.form.get('gross_weight')?.disable();
     this.form.get('tare_weight')?.enable();
   }
