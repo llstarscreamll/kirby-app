@@ -3,6 +3,7 @@
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
 <kirby-weighing-form [vehicles]="vehicles$ | async"
+                     [drivers]="drivers$ | async"
                      (searchVehicles)="searchVehicles($event)"
                      (searchDrivers)="searchDrivers($event)"
                      (submitted)="createWeighing($event)"

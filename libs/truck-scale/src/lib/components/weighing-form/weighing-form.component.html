@@ -12,7 +12,7 @@
     <mat-form-field class="flex-grow">
       <mat-label>Placa de vehículo</mat-label>
       <input type="text" matInput formControlName="vehicle_plate" [matAutocomplete]="plateAutocomplete">
-      <mat-autocomplete #plateAutocomplete="matAutocomplete" [displayWith]="displayFn">
+      <mat-autocomplete #plateAutocomplete="matAutocomplete" [displayWith]="displayPlate">
         <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
           {{ vehicle.plate }}
         </mat-option>
@@ -32,8 +32,8 @@
     <mat-form-field class="flex-grow">
       <mat-label>No. de documento de conductor</mat-label>
       <input type="text" matInput formControlName="driver_id" [matAutocomplete]="driverAutocomplete">
-      <mat-autocomplete #driverAutocomplete="matAutocomplete">
-        <mat-option *ngFor="let driver of drivers" [value]="driver.id">
+      <mat-autocomplete #driverAutocomplete="matAutocomplete" [displayWith]="displayId">
+        <mat-option *ngFor="let driver of drivers" [value]="driver">
           {{ driver.id }}
         </mat-option>
       </mat-autocomplete>

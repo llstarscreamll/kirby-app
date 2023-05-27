@@ -8,6 +8,7 @@ import { actions } from './weighings.actions';
 export class WeighingsFacade {
   error$ = this.store.select(sel.selectError);
   vehicles$ = this.store.select(sel.selectVehicles);
+  drivers$ = this.store.select(sel.selectDrivers);
 
   constructor(private store: Store) {}
 

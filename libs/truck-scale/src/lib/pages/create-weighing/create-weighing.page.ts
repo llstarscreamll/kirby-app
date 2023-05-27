@@ -9,6 +9,7 @@ import { WeighingsFacade } from '../../+state/weighings.facade';
 export class CreateWeighingPage {
   apiError$ = this.facade.error$;
   vehicles$ = this.facade.vehicles$;
+  drivers$ = this.facade.drivers$;
 
   constructor(private facade: WeighingsFacade) {}
 

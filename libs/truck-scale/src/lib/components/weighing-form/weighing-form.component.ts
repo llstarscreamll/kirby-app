@@ -58,7 +58,7 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
             v != null &&
             typeof v === 'object' &&
             v.drivers.length === 1 &&
-            this.form.patchValue({ vehicle_type: v.type, driver_id: v.drivers[0].id, driver_name: v.drivers[0].name })
+            this.form.patchValue({ vehicle_type: v.type, driver_id: v.drivers[0] } as any)
         ),
         tap(
           (v: null | string | Vehicle) =>
@@ -126,8 +126,12 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
     this.form.get('tare_weight')?.enable();
   }
 
-  displayFn(vehicle: Vehicle) {
-    return vehicle.plate;
+  displayPlate(v: Vehicle) {
+    return v.plate;
+  }
+
+  displayId(d: Driver) {
+    return d.id;
   }
 
   formSubmitted() {
