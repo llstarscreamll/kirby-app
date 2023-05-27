@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="flex flex-col">
+<form [formGroup]="form" (ngSubmit)="formSubmitted()" class="flex flex-col">
   <mat-form-field class="w-full">
     <mat-label>Tipo de pesaje</mat-label>
     <mat-select formControlName="weighing_type" required>
@@ -21,7 +21,7 @@
 
     <mat-form-field class="flex-grow">
       <mat-label>Tipo de vehículo</mat-label>
-      <mat-select required>
+      <mat-select formControlName="vehicle_type" required>
         <mat-option value="one">Uno</mat-option>
         <mat-option value="two">Dos</mat-option>
       </mat-select>
@@ -40,7 +40,7 @@
     </mat-form-field>
     <mat-form-field class="flex-grow">
       <mat-label>Nombre de conductor</mat-label>
-      <input matInput required>
+      <input formControlName="driver_name" matInput required>
     </mat-form-field>
   </div>
 
@@ -63,8 +63,8 @@
   </div>
 
   <mat-form-field>
-    <mat-label>Descripción de producto</mat-label>
-    <textarea matInput rows="4"></textarea>
+    <mat-label>Descripción</mat-label>
+    <textarea formControlName="weighing_description" matInput rows="4"></textarea>
   </mat-form-field>
 
   <div>

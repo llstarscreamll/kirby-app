@@ -7,6 +7,7 @@ import { BaseAuthService } from '@kirby/authentication/utils';
 
 @Injectable()
 export class WeighingsService extends BaseAuthService {
+  private weighingsEndpoint = `${this.env.api}api/1.0/weighings`;
   private vehiclesEndpoint = `${this.env.api}api/1.0/vehicles`;
   private driversEndpoint = `${this.env.api}api/1.0/drivers`;
 
@@ -16,6 +17,10 @@ export class WeighingsService extends BaseAuthService {
     private httpClient: HttpClient
   ) {
     super();
+  }
+
+  createWeighing(data: any): Observable<{ data: string }> {
+    return this.httpClient.post<{ data: string }>(this.weighingsEndpoint, data, { headers: this.defaultHeaders });
   }
 
   searchVehicles(term: string): Observable<{ data: Vehicle[] }> {

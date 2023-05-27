@@ -5,12 +5,22 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
-import { fetch } from '@nrwl/angular';
+import { fetch, pessimisticUpdate } from '@nrwl/angular';
 
 @Injectable()
 export class WeighingsEffects {
   private actions$ = inject(Actions);
   private service = inject(WeighingsService);
+
+  createWeighing$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.createWeighing),
+      pessimisticUpdate({
+        run: (a) => this.service.createWeighing(a.data).pipe(map((r) => actions.createWeighingOk(r.data))),
+        onError: (_, e) => actions.createWeighingError(e),
+      })
+    )
+  );
 
   searchWeighings$ = createEffect(() =>
     this.actions$.pipe(

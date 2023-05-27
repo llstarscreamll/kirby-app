@@ -18,4 +18,8 @@ export class WeighingsFacade {
   searchDrivers(term: string) {
     this.store.dispatch(actions.searchDrivers(term));
   }
+
+  createWeighing(data: any) {
+    this.store.dispatch(actions.createWeighing(data));
+  }
 }

@@ -16,17 +16,19 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();
+  @Output() submitted = new EventEmitter();
 
   destroy$ = new Subject();
 
   form = this.formBuilder.group({
     weighing_type: ['', [Validators.required]],
-    vehicle_plate: ['', [Validators.required]],
+    vehicle_plate: ['', [Validators.required, Validators.maxLength(7)]],
     vehicle_type: ['', [Validators.required]],
-    driver_id: ['', [Validators.required]],
-    driver_name: ['', [Validators.required]],
+    driver_id: ['', [Validators.required, Validators.maxLength(10)]],
+    driver_name: ['', [Validators.required, Validators.maxLength(255)]],
     tare_weight: [0],
     gross_weight: [0],
+    weighing_description: ['', [Validators.maxLength(255)]],
   });
 
   constructor(private formBuilder: FormBuilder, private facade: WeighingsFacade) {}
@@ -98,5 +100,19 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
 
   displayFn(vehicle: Vehicle) {
     return vehicle.plate;
+  }
+
+  formSubmitted() {
+    const formData: any = this.form.value;
+    this.submitted.emit({
+      weighing_type: formData.weighing_type,
+      vehicle_plate: formData.vehicle_plate.plate || formData.vehicle_plate,
+      vehicle_type: formData.vehicle_type,
+      driver_dni_number: formData.driver_id.id || formData.driver_id,
+      driver_name: formData.driver_name,
+      tare_weight: formData.tare_weight,
+      gross_weight: formData.gross_weight,
+      weighing_description: formData.weighing_description,
+    });
   }
 }

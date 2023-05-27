@@ -7,6 +7,9 @@ import { Driver, Vehicle, Weighing } from './models';
 export const actions = createActionGroup({
   source: 'Weighings',
   events: {
+    'create weighing': (data: any) => ({ data }),
+    'create weighing ok': (id: string) => ({ data: id }),
+    'create weighing error': (error: ApiError) => ({ error }),
     'search vehicles': (term: string) => ({ term }),
     'search vehicles ok': (vehicles: Vehicle[]) => ({ vehicles }),
     'search vehicles error': (error: ApiError) => ({ error }),
