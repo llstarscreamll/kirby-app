@@ -1,16 +1,18 @@
 import { of } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
 import { fetch, pessimisticUpdate } from '@nrwl/angular';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class WeighingsEffects {
   private actions$ = inject(Actions);
   private service = inject(WeighingsService);
+  private snackBarService = inject(MatSnackBar);
 
   createWeighing$ = createEffect(() =>
     this.actions$.pipe(
@@ -20,6 +22,15 @@ export class WeighingsEffects {
         onError: (_, e) => actions.createWeighingError(e),
       })
     )
+  );
+
+  createWeighingOk$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.createWeighingOk),
+        tap((_) => this.snackBarService.open('Registro creado exitosamente!', 'Ok', { duration: 5000 }))
+      ),
+    { dispatch: false }
   );
 
   searchWeighings$ = createEffect(() =>

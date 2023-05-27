@@ -22,6 +22,7 @@ import { EditWeighingPage } from './pages/edit-weighing/edit-weighing.page';
 import { WeighingsListPage } from './pages/weighings-list/weighings-list.page';
 import { CreateWeighingPage } from './pages/create-weighing/create-weighing.page';
 import { WeighingFormComponent } from './components/weighing-form/weighing-form.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { WeighingFormComponent } from './components/weighing-form/weighing-form.
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     AuthorizationUiModule,
     MatAutocompleteModule,
