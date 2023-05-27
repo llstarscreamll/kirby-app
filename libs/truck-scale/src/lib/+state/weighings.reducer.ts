@@ -29,6 +29,7 @@ const reducer = createReducer(
   initialWeighingsState,
   on(a.searchWeighingsOk, (state, { weighings }) => adapter.setAll(weighings, { ...state, loaded: true })),
   on(a.searchVehiclesOk, (state, { vehicles }) => ({ ...state, vehicles })),
+  on(a.createWeighingOk, (state) => ({ ...state, error: null })),
   on(a.createWeighingError, (state, { error }) => ({ ...state, error })),
   on(a.searchWeighingsError, (state, { error }) => ({ ...state, error })),
   on(a.searchDriversError, (state, { error }) => ({ ...state, error })),
