@@ -36,8 +36,10 @@ export class WeighingsEffects {
   searchWeighings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.searchWeighings),
-      switchMap(() => of(actions.searchWeighingsOk([]))),
-      catchError((error) => of(actions.searchWeighingsError(error)))
+      fetch({
+        run: () => this.service.searchWeighings().pipe(map((r) => actions.searchWeighingsOk(r.data))),
+        onError: (_, e) => actions.searchWeighingsError(e),
+      })
     )
   );
 

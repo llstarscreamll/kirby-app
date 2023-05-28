@@ -32,7 +32,7 @@ describe('Weighings Selectors', () => {
 
   describe('Weighings Selectors', () => {
     it('selectAllWeighings() should return the list of Weighings', () => {
-      const results = WeighingsSelectors.selectAllWeighings(state);
+      const results = WeighingsSelectors.selectWeighings(state);
       const selId = getWeighingsId(results[1]);
 
       expect(results.length).toBe(3);

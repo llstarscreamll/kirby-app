@@ -10,3 +10,30 @@
     <mat-icon>add</mat-icon> Crear
   </a>
 </div>
+
+<div class="my-3 responsive-table shadow">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Placa</th>
+        <th>Tipo de pesaje</th>
+        <th>Conductor</th>
+        <th>Tipo vehículo</th>
+        <th>Estado</th>
+        <th>Fecha creación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of weighings$ | async">
+        <td>{{ row.id }}</td>
+        <td>{{ row.vehicle_plate }}</td>
+        <td>{{ row.weighing_type }}</td>
+        <td>{{ row.driver_name }}</td>
+        <td>{{ row.vehicle_type }}</td>
+        <td>{{ row.status }}</td>
+        <td>{{ row.created_at | date:'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

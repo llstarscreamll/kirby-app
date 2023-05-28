@@ -9,8 +9,17 @@ export class WeighingsFacade {
   error$ = this.store.select(sel.selectError);
   vehicles$ = this.store.select(sel.selectVehicles);
   drivers$ = this.store.select(sel.selectDrivers);
+  weighings$ = this.store.select(sel.selectWeighings);
 
   constructor(private store: Store) {}
+
+  searchWeighings() {
+    this.store.dispatch(actions.searchWeighings());
+  }
+
+  createWeighing(data: any) {
+    this.store.dispatch(actions.createWeighing(data));
+  }
 
   searchVehicles(term: string) {
     this.store.dispatch(actions.searchVehicles(term));
@@ -18,9 +27,5 @@ export class WeighingsFacade {
 
   searchDrivers(term: string) {
     this.store.dispatch(actions.searchDrivers(term));
-  }
-
-  createWeighing(data: any) {
-    this.store.dispatch(actions.createWeighing(data));
   }
 }
