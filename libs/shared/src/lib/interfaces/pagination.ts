@@ -1,6 +1,6 @@
 export interface Pagination<T> {
   data: T[];
-  links: {
+  links?: {
     first: string;
     last: string;
     prev: string;
