@@ -23,7 +23,7 @@ export class PaginationComponent implements OnInit {
     to: number;
     last_page?: number;
     total?: number;
-  };
+  } | null;
 
   @Output()
   paginate = new EventEmitter();
