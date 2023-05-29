@@ -36,7 +36,7 @@ export class WeighingsEffects {
     this.actions$.pipe(
       ofType(actions.searchWeighings),
       fetch({
-        run: () => this.service.searchWeighings().pipe(map((r) => actions.searchWeighingsOk(r))),
+        run: (a) => this.service.searchWeighings(a.query).pipe(map((r) => actions.searchWeighingsOk(r))),
         onError: (_, e) => actions.searchWeighingsError(e),
       })
     )

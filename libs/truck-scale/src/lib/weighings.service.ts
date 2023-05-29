@@ -5,7 +5,7 @@ import { Inject, Injectable } from '@angular/core';
 
 import { Driver, Vehicle } from './+state/models';
 import { BaseAuthService } from '@kirby/authentication/utils';
-import { Pagination } from '@kirby/shared';
+import { Pagination, oneLevelFlattenObject } from '@kirby/shared';
 
 interface WeighingPaginatedResponse {
   data: any[];
@@ -36,7 +36,7 @@ export class WeighingsService extends BaseAuthService {
   searchWeighings(query = {}): Observable<Pagination<any>> {
     return this.httpClient
       .get<WeighingPaginatedResponse>(this.weighingsEndpoint, {
-        params: query,
+        params: oneLevelFlattenObject(query),
         headers: this.defaultHeaders,
       })
       .pipe(

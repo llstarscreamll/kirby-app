@@ -37,3 +37,9 @@
     </tbody>
   </table>
 </div>
+
+<div class="text-right">
+  <kirby-pagination [pagination]="weighingsPaginationMeta$ | async"
+                    (paginate)="searchWeighings({filter: searchForm.value}, $event)">
+  </kirby-pagination>
+</div>

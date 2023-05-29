@@ -10,11 +10,12 @@ export class WeighingsFacade {
   vehicles$ = this.store.select(sel.selectVehicles);
   drivers$ = this.store.select(sel.selectDrivers);
   weighings$ = this.store.select(sel.selectWeighings);
+  weighingsPaginationMeta$ = this.store.select(sel.selectWeighingsPaginationMeta);
 
   constructor(private store: Store) {}
 
-  searchWeighings() {
-    this.store.dispatch(actions.searchWeighings());
+  searchWeighings(query = {}) {
+    this.store.dispatch(actions.searchWeighings(query));
   }
 
   createWeighing(data: any) {

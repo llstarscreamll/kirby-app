@@ -26,4 +26,8 @@ export const selectWeighings = createSelector(selectWeighingsState, (state: Weig
       )
   )
 );
+export const selectWeighingsPaginationMeta = createSelector(
+  selectWeighingsState,
+  (state: WeighingsState) => state.paginatedWeighings.meta
+);
 export const selectError = createSelector(selectWeighingsState, (state: WeighingsState) => state.error);
