@@ -1,9 +1,23 @@
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
 import { Driver, Vehicle } from './+state/models';
 import { BaseAuthService } from '@kirby/authentication/utils';
+import { Pagination } from '@kirby/shared';
+
+interface WeighingPaginatedResponse {
+  data: any[];
+  current_page: number;
+  from: number;
+  to: number;
+  per_page: number;
+  path: string;
+  first_page_url: string;
+  next_page_url: string;
+  prev_page_url: string;
+}
 
 @Injectable()
 export class WeighingsService extends BaseAuthService {
@@ -19,11 +33,18 @@ export class WeighingsService extends BaseAuthService {
     super();
   }
 
-  searchWeighings(query = {}): Observable<{ data: any[] }> {
-    return this.httpClient.get<{ data: any[] }>(this.weighingsEndpoint, {
-      params: query,
-      headers: this.defaultHeaders,
-    });
+  searchWeighings(query = {}): Observable<Pagination<any>> {
+    return this.httpClient
+      .get<WeighingPaginatedResponse>(this.weighingsEndpoint, {
+        params: query,
+        headers: this.defaultHeaders,
+      })
+      .pipe(
+        map(({ data, current_page, from, to, per_page, path, first_page_url, next_page_url, prev_page_url }) => ({
+          data,
+          meta: { current_page, from, to, per_page, path, first_page_url, next_page_url, prev_page_url },
+        }))
+      );
   }
 
   createWeighing(data: any): Observable<{ data: string }> {

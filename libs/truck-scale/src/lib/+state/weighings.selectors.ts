@@ -1,13 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { WEIGHINGS_FEATURE_KEY, WeighingsState, adapter } from './weighings.reducer';
-import { Weighing } from './models';
 
-const { selectAll } = adapter.getSelectors();
+import { Weighing } from './models';
+import { WEIGHINGS_FEATURE_KEY, WeighingsState } from './weighings.reducer';
+
 const selectWeighingsState = createFeatureSelector<WeighingsState>(WEIGHINGS_FEATURE_KEY);
 export const selectVehicles = createSelector(selectWeighingsState, (state: WeighingsState) => state.vehicles || []);
 export const selectDrivers = createSelector(selectWeighingsState, (state: WeighingsState) => state.drivers || []);
 export const selectWeighings = createSelector(selectWeighingsState, (state: WeighingsState) =>
-  selectAll(state).map(
+  state.paginatedWeighings.data.map(
     (w) =>
       new Weighing(
         w.id,

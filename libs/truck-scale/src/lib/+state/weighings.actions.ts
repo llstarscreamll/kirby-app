@@ -1,6 +1,6 @@
 import { createActionGroup } from '@ngrx/store';
 
-import { ApiError } from '@kirby/shared';
+import { ApiError, Pagination } from '@kirby/shared';
 
 import { Driver, Vehicle, Weighing } from './models';
 
@@ -17,7 +17,7 @@ export const actions = createActionGroup({
     'search drivers ok': (drivers: Driver[]) => ({ drivers }),
     'search drivers error': (error: ApiError) => ({ error }),
     'search weighings': (query: any = {}) => ({ query }),
-    'search weighings ok': (weighings: Weighing[]) => ({ weighings }),
+    'search weighings ok': (paginatedWeighings: Pagination<any>) => ({ paginatedWeighings }),
     'search weighings error': (error: ApiError) => ({ error }),
   },
 });
