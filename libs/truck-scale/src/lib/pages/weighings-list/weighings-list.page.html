@@ -28,10 +28,10 @@
       <tr *ngFor="let row of weighings$ | async">
         <td>{{ row.id }}</td>
         <td>{{ row.vehicle_plate }}</td>
-        <td>{{ row.weighing_type }}</td>
+        <td>{{ row.readableWeighingType }}</td>
         <td>{{ row.driver_name }}</td>
-        <td>{{ row.vehicle_type }}</td>
-        <td>{{ row.status }}</td>
+        <td>{{ row.readableVehicleType }}</td>
+        <td>{{ row.readableStatus }}</td>
         <td>{{ row.created_at | date:'short' }}</td>
       </tr>
     </tbody>
