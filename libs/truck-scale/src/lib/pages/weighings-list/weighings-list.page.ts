@@ -1,7 +1,7 @@
+import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, inject } from '@angular/core';
 
 import { WeighingsFacade } from '../../+state/weighings.facade';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'kirby-weighings-list',
@@ -29,5 +29,9 @@ export class WeighingsListPage implements OnInit {
 
   searchWeighings(query = {}, pagination = {}) {
     this.facade.searchWeighings({ ...query, ...pagination });
+  }
+
+  searchFormSubmit() {
+    this.facade.searchWeighings({ filter: { ...this.searchForm.value }, page: 1 });
   }
 }
