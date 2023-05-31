@@ -15,7 +15,13 @@ export class WeighingsListPage implements OnInit {
   weighings$ = this.facade.weighings$;
   weighingsPaginationMeta$ = this.facade.weighingsPaginationMeta$;
 
-  searchForm = this.fb.group({});
+  searchForm = this.fb.group({
+    id: [],
+    vehicle_plate: [],
+    vehicle_type: [],
+    status: [],
+    date: [],
+  });
 
   ngOnInit(): void {
     this.searchWeighings();
