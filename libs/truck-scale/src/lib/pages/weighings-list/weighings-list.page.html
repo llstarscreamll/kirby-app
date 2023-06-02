@@ -9,6 +9,14 @@
      color="primary">
     <mat-icon>add</mat-icon> Crear
   </a>
+
+  <div class="flex-grow"></div>
+
+  <button mat-icon-button [matMenuTriggerFor]="options"><mat-icon>more_vert</mat-icon></button>
+  <mat-menu #options="matMenu">
+    <button mat-menu-item (click)="exportCurrentFilter()">Exportar filtro actual</button>
+    <button mat-menu-item (click)="exportAll()">Exportar todo</button>
+  </mat-menu>
 </div>
 
 <div>

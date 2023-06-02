@@ -18,6 +18,10 @@ export class WeighingsFacade {
     this.store.dispatch(actions.searchWeighings(query));
   }
 
+  exportWeighings(query = {}) {
+    this.store.dispatch(actions.exportWeighings(query));
+  }
+
   createWeighing(data: any) {
     this.store.dispatch(actions.createWeighing(data));
   }

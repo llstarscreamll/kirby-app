@@ -42,6 +42,25 @@ export class WeighingsEffects {
     )
   );
 
+  exportWeighings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.exportWeighings),
+      fetch({
+        run: (a) => this.service.exportWeighings(a.query).pipe(map((r) => actions.exportWeighingsOk())),
+        onError: (_, e) => actions.exportWeighingsError(e),
+      })
+    )
+  );
+
+  exportWeighingsOk$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.exportWeighingsOk),
+        tap(() => this.snackBarService.open('Se enviarán los datos a tu correo', 'Ok', { duration: 5000 }))
+      ),
+    { dispatch: false }
+  );
+
   searchVehicles$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.searchVehicles),

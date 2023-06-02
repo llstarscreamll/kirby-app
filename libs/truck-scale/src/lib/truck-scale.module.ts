@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { SharedModule } from '@kirby/shared';
@@ -22,13 +24,13 @@ import { EditWeighingPage } from './pages/edit-weighing/edit-weighing.page';
 import { WeighingsListPage } from './pages/weighings-list/weighings-list.page';
 import { CreateWeighingPage } from './pages/create-weighing/create-weighing.page';
 import { WeighingFormComponent } from './components/weighing-form/weighing-form.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     MatIconModule,
+    MatMenuModule,
     MatButtonModule,
     MatInputModule,
     MatSelectModule,

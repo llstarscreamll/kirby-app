@@ -34,4 +34,12 @@ export class WeighingsListPage implements OnInit {
   searchFormSubmit() {
     this.facade.searchWeighings({ filter: { ...this.searchForm.value }, page: 1 });
   }
+
+  exportAll() {
+    this.facade.exportWeighings({});
+  }
+
+  exportCurrentFilter() {
+    this.facade.exportWeighings({ filter: this.searchForm.value });
+  }
 }

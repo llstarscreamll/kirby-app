@@ -47,6 +47,12 @@ export class WeighingsService extends BaseAuthService {
       );
   }
 
+  exportWeighings(query: any): Observable<{ data: string }> {
+    return this.httpClient.post<{ data: string }>(`${this.weighingsEndpoint}/export`, query, {
+      headers: this.defaultHeaders,
+    });
+  }
+
   createWeighing(data: any): Observable<{ data: string }> {
     return this.httpClient.post<{ data: string }>(this.weighingsEndpoint, data, { headers: this.defaultHeaders });
   }
