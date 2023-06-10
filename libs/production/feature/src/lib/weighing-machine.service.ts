@@ -1,6 +1,7 @@
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { LocalStorageService } from '@kirby/shared';
 
 declare let window: any;
 
@@ -13,6 +14,7 @@ interface SerialPort {
 @Injectable()
 export class WeighingMachineService {
   private _electron: any;
+  private localStorage = Inject(LocalStorageService);
 
   get electron(): any {
     if (!this._electron && window && window.electron) {
@@ -33,6 +35,16 @@ export class WeighingMachineService {
     return from(this.electron.getSerialPorts()).pipe(
       map((ports: SerialPort[]) => ports.filter((p) => p.vendorId && p.productId))
     );
+  }
+
+  setSelectedPort(port: string) {
+    this.localStorage.setItem('SerialPortConfig', { selected: port });
+  }
+
+  getSelectedPort(): string {
+    const config = this.localStorage.getItem('SerialPortConfig');
+
+    return config.selected || '';
   }
 
   openConnection(portPath, func) {

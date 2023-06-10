@@ -16,7 +16,6 @@ export class LandingPageComponent implements OnInit {
   constructor(
     private printerService: PrinterService,
     private changeDetector: ChangeDetectorRef,
-    private localStorage: LocalStorageService,
     private weighingMachine: WeighingMachineService
   ) {}
 
@@ -29,11 +28,15 @@ export class LandingPageComponent implements OnInit {
   }
 
   openConnection(portPath: string) {
-    this.localStorage.setItem('SerialPortConfig', { selected: portPath });
+    this.weighingMachine.setSelectedPort(portPath);
     this.weighingMachine.openConnection(portPath, (data) => {
       this.portData$.next(data);
       this.changeDetector.detectChanges();
     });
+  }
+
+  getPortButtonColor(port: string): string {
+    return this.weighingMachine.getSelectedPort() === port ? 'accent' : '';
   }
 
   printTestTicket() {
