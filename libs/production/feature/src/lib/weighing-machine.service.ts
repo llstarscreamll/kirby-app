@@ -47,10 +47,17 @@ export class WeighingMachineService {
     return config.selected || '';
   }
 
-  openConnection(portPath, func) {
+  isPortSelected(): boolean {
+    return this.getSelectedPort() !== '';
+  }
+
+  /**
+   * Opens a connection to the current selected port.
+   */
+  openConnection(func) {
     // @todo: la opciones de conexión deberían ser dinámicas, otorgadas por el
     // usuario según como tenga configurado el dispositivo
-    this.electron.readData(portPath, {
+    this.electron.readData(this.getSelectedPort(), {
       autoOpen: true,
       baudRate: 9600,
       dataBits: 8,

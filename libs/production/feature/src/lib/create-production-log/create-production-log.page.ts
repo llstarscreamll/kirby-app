@@ -26,7 +26,7 @@ export class CreateProductionLogPage implements OnInit {
     private production: ProductionFacade,
     private changeDetector: ChangeDetectorRef,
     private localStorage: LocalStorageService,
-    private weighingMachineService: WeighingMachineService
+    private weighingMachine: WeighingMachineService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class CreateProductionLogPage implements OnInit {
     const serialPortPreferences = this.localStorage.getItem('SerialPortConfig');
 
     // los datos que envíe la báscula serán enviados al formulario
-    this.weighingMachineService.openConnection(serialPortPreferences.selected, (data) => {
+    this.weighingMachine.openConnection((data) => {
       console.log('weight machine incoming data:', data);
       this.machineValue = data;
       this.changeDetector.detectChanges();
@@ -53,7 +53,7 @@ export class CreateProductionLogPage implements OnInit {
   }
 
   readyToConnectToWeighMachine(): boolean {
-    return this.weighingMachineService.isAvailable && this.localStorage.getItem('SerialPortConfig')?.selected;
+    return this.weighingMachine.isAvailable && this.weighingMachine.isPortSelected();
   }
 
   searchProducts(query) {

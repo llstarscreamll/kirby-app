@@ -29,7 +29,7 @@ export class LandingPageComponent implements OnInit {
 
   openConnection(portPath: string) {
     this.weighingMachine.setSelectedPort(portPath);
-    this.weighingMachine.openConnection(portPath, (data) => {
+    this.weighingMachine.openConnection((data) => {
       this.portData$.next(data);
       this.changeDetector.detectChanges();
     });

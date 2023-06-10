@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
-import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { EmployeesFacade } from '@kirby/employees/data-access';
 import { LoadStatus, LocalStorageService } from '@kirby/shared';
+
+import { ProductionFacade } from '../+state/production.facade';
 import { WeighingMachineService } from '../weighing-machine.service';
 
 @Component({
@@ -45,17 +45,15 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
       return;
     }
 
-    const serialPortPreferences = this.localStorage.getItem('SerialPortConfig');
-
     // los datos que envíe la báscula serán enviados al formulario
-    this.weighingMachineService.openConnection(serialPortPreferences.selected, (data) => {
+    this.weighingMachineService.openConnection((data) => {
       this.machineValue = data;
       this.changeDetector.detectChanges();
     });
   }
 
   readyToConnectToWeighMachine(): boolean {
-    return this.weighingMachineService.isAvailable && this.localStorage.getItem('SerialPortConfig')?.selected;
+    return this.weighingMachineService.isAvailable && this.weighingMachineService.isPortSelected();
   }
 
   searchProducts(query) {
