@@ -4,7 +4,6 @@ import { debounce, takeUntil, tap } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { Vehicle, Driver } from '../../+state/models';
-import { WeighingsFacade } from '../../+state/weighings.facade';
 
 @Component({
   selector: 'kirby-weighing-form',
@@ -33,7 +32,7 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
     weighing_description: ['', [Validators.maxLength(255)]],
   });
 
-  constructor(private formBuilder: FormBuilder, private facade: WeighingsFacade) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.form
