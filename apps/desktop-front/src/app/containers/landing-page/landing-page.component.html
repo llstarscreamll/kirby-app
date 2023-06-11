@@ -1,7 +1,8 @@
-<h1 class="font-bold text-center text-2xl">Bienvenido al Sistema de Registro de Producción</h1>
-
-<div class="my-10 text-center">
-  <a routerLink="login" class="text-2xl text-blue-700">Iniciar sesión</a>
+<div class="flex flex-row items-center">
+  <h1 class="pr-3 font-bold text-2xl">Pascal</h1>
+  <span class="flex-shrink text-base">Sistema de pesaje</span>
+  <span class="flex-grow"></span>
+  <a routerLink="login" class="text-base text-blue-700">Iniciar sesión</a>
 </div>
 
 <div *ngIf="weighingMachineAvailable">
@@ -9,7 +10,7 @@
     <button mat-stroked-button (click)="loadPorts()" class="flex-initial">Recargar puertos</button>
     <button mat-stroked-button (click)="printTestTicket()" class="flex-initial">Imprimir Ticket de Prueba</button>
     <div class="flex-grow"></div>
-    <pre>{{ portData$ | async }}</pre>
+    <pre class="bg-blue-600">{{ portData$ | async }}</pre>
   </div>
 
   <table class="table">
@@ -25,7 +26,7 @@
         <td class="text-center">{{ port.vendorId }}</td>
         <td class="text-center">{{ port.productId }}</td>
         <td class="text-center">
-          <button mat-button (click)="openConnection(port.path)" type="button" [color]="getPortButtonColor(port.path)">
+          <button mat-button (click)="selectPort(port.path)" type="button" [color]="getPortButtonColor(port.path)">
             {{ port.path }}
           </button>
         </td>
