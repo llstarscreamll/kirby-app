@@ -1,7 +1,7 @@
 import {
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
-  MatFormFieldDefaultOptions,
   MatFormFieldModule,
+  MatFormFieldDefaultOptions,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
