@@ -2,7 +2,7 @@ import { tap } from 'rxjs/operators';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { LoadStatus, LocalStorageService, WeighingMachineService } from '@kirby/shared';
+import { LoadStatus, WeighingMachineService } from '@kirby/shared';
 
 import { ProductionFacade } from '../+state/production.facade';
 
@@ -25,7 +25,6 @@ export class CreateProductionLogPage implements OnInit {
     private authFacade: AuthFacade,
     private production: ProductionFacade,
     private changeDetector: ChangeDetectorRef,
-    private localStorage: LocalStorageService,
     private weighingMachine: WeighingMachineService
   ) {}
 

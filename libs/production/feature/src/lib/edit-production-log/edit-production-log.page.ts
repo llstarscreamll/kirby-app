@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { LoadStatus, LocalStorageService, WeighingMachineService } from '@kirby/shared';
+import { LoadStatus, WeighingMachineService } from '@kirby/shared';
 
 import { ProductionFacade } from '../+state/production.facade';
 
@@ -22,7 +22,6 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
   constructor(
     private authFacade: AuthFacade,
     private changeDetector: ChangeDetectorRef,
-    private localStorage: LocalStorageService,
     private productionFacade: ProductionFacade,
     private weighingMachineService: WeighingMachineService
   ) {}
