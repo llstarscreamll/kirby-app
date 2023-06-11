@@ -1,7 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
-import { LocalStorageService } from '@kirby/shared';
 import { PrinterService, WeighingMachineService } from '@kirby/production/feature';
 
 @Component({
@@ -11,6 +10,8 @@ import { PrinterService, WeighingMachineService } from '@kirby/production/featur
 export class LandingPageComponent implements OnInit {
   portData$ = new Subject();
   serialPorts$: Observable<any[]>;
+
+  selectedPort: string;
   weighingMachineAvailable = this.weighingMachine.isAvailable;
 
   constructor(
@@ -21,14 +22,17 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.loadPorts();
+    this.selectedPort = this.weighingMachine.getSelectedPort();
   }
 
   loadPorts() {
     this.serialPorts$ = this.weighingMachine.listSerialPorts();
   }
 
-  openConnection(portPath: string) {
+  selectPort(portPath: string) {
+    this.selectedPort = portPath;
     this.weighingMachine.setSelectedPort(portPath);
+
     this.weighingMachine.openConnection((data) => {
       this.portData$.next(data);
       this.changeDetector.detectChanges();
@@ -36,7 +40,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   getPortButtonColor(port: string): string {
-    return this.weighingMachine.getSelectedPort() === port ? 'accent' : '';
+    return this.selectedPort === port ? 'accent' : '';
   }
 
   printTestTicket() {
