@@ -54,7 +54,7 @@ export class WeighingMachineService {
   /**
    * Opens a connection to the current selected port.
    */
-  openConnection(func) {
+  openConnection(func: Function) {
     // @todo: la opciones de conexión deberían ser dinámicas, otorgadas por el
     // usuario según como tenga configurado el dispositivo
     this.electron.readData(this.getSelectedPort(), {
@@ -63,8 +63,21 @@ export class WeighingMachineService {
       dataBits: 8,
       stopBits: 1,
       parity: 'none',
+      ccTalkEnable: true,
     });
     this.electron.onPortData((data) => func(cleanData(data)));
+  }
+
+  openConnectionInContinuosMode(func: Function) {
+    this.electron.readData(this.getSelectedPort(), {
+      autoOpen: true,
+      baudRate: 9600,
+      dataBits: 8,
+      stopBits: 1,
+      parity: 'none',
+      ccTalkEnable: false,
+    });
+    this.electron.onPortData((data) => func(data.trim().replace(/[a-z|A-Z| |\x02]/g, '')));
   }
 }
 

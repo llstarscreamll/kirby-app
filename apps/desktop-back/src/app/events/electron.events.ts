@@ -48,13 +48,16 @@ ipcMain.handle('get-serial-ports', async (_) => {
 ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
   const port = new SerialPort({ ...options, path: portPath });
 
-  port.on('open', () => console.log(`Port ${portPath} open`));
-  port.on('error', (err) => console.log(`Port ${portPath} error:`, err));
-  port.pipe(new CCTalkParser()).on('data', (d: Buffer) => {
-    console.log('Port data available:', d.toString('utf-8'));
+  port.on('open', () => console.log(`Port ${portPath} opened`));
+  port.on('error', (err) => console.log(`Port ${portPath} errored:`, err));
+
+  const onData = (d: Buffer) => {
+    console.log('Port data coming:', d.toString('utf-8'));
 
     event.sender.send('port-data-available', d.toString('utf-8'));
-  });
+  };
+
+  options.ccTalkEnable === true ? port.pipe(new CCTalkParser()).on('data', onData) : port.on('data', onData);
 });
 
 class PrinterWindow {
