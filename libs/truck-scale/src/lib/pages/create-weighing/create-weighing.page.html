@@ -4,6 +4,7 @@
 
 <kirby-weighing-form [vehicles]="vehicles$ | async"
                      [drivers]="drivers$ | async"
+                     [weight]="machineValue"
                      (searchVehicles)="searchVehicles($event)"
                      (searchDrivers)="searchDrivers($event)"
                      (submitted)="createWeighing($event)"

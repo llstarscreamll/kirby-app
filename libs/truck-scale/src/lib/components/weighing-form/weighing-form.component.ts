@@ -1,7 +1,7 @@
 import { Subject, timer } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { debounce, takeUntil, tap } from 'rxjs/operators';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { Vehicle, Driver } from '../../+state/models';
 
@@ -9,9 +9,10 @@ import { Vehicle, Driver } from '../../+state/models';
   selector: 'kirby-weighing-form',
   templateUrl: './weighing-form.component.html',
 })
-export class WeighingFormComponent implements OnInit, OnDestroy {
+export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() vehicles: Vehicle[] | null = [];
   @Input() drivers: Driver[] | null = [];
+  @Input() weight: string | null = '';
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();
@@ -35,11 +36,30 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['weight'] && this.form.get('weighing_type')?.value === 'load') {
+      this.captureOnlyTareWeight();
+    }
+
+    if (changes['weight'] && ['unload', 'weighing'].includes(this.form.get('weighing_type')?.value || '')) {
+      this.captureOnlyGrossWeight();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  listenFormChanges() {
     this.form
       .get('weighing_type')
       ?.valueChanges.pipe(
-        tap((v) => (v === 'load' ? this.captureOnlyTareWeight() : false)),
-        tap((v) => (['unload', 'weighing'].includes(v || '') ? this.captureOnlyGrossWeight() : false)),
+        tap((v) => (v === 'load' ? this.captureOnlyTareWeight() : null)),
+        tap((v) => (['unload', 'weighing'].includes(v || '') ? this.captureOnlyGrossWeight() : null)),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -112,21 +132,24 @@ export class WeighingFormComponent implements OnInit, OnDestroy {
     return (this.form.get('gross_weight')?.value || 0) - (this.form.get('tare_weight')?.value || 0);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   captureOnlyGrossWeight() {
     this.form.patchValue({ gross_weight: 0, tare_weight: 0 });
     this.form.get('tare_weight')?.disable();
     this.form.get('gross_weight')?.enable();
+
+    if (this.weight !== '') {
+      this.form.patchValue({ gross_weight: parseInt(this.weight || '', 10) });
+    }
   }
 
   captureOnlyTareWeight() {
     this.form.patchValue({ gross_weight: 0, tare_weight: 0 });
     this.form.get('gross_weight')?.disable();
     this.form.get('tare_weight')?.enable();
+
+    if (this.weight !== '') {
+      this.form.patchValue({ tare_weight: parseInt(this.weight || '', 10) });
+    }
   }
 
   displayPlate(v: Vehicle) {
