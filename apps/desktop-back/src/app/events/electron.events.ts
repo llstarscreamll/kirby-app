@@ -28,11 +28,8 @@ ipcMain.handle('get-app-version', (event: any) => environment.version);
 
 // list serial ports
 ipcMain.handle('get-serial-ports', async (_) => {
-  console.log('Listing serial ports');
-
   return await SerialPort.list()
     .then((ports) => {
-      console.log('ports available', ports);
       return ports;
     })
     .catch((err) => console.error('Error reading serial ports', err));
