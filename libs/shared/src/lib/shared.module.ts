@@ -6,13 +6,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FilesService } from './services/files.service';
 import { LocalStorageService } from './services/local-storage.service';
+import { WeighingMachineService } from './services/weighing-machine.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { ApiErrorsComponent } from './components/api-errors/api-errors.component';
 
 @NgModule({
   imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule],
-  providers: [LocalStorageService, FilesService],
+  providers: [LocalStorageService, FilesService, WeighingMachineService],
   declarations: [ApiErrorsComponent, PaginationComponent, FileUploadComponent],
   exports: [ApiErrorsComponent, PaginationComponent, FileUploadComponent],
 })

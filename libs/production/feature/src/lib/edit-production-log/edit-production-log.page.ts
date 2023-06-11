@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { LoadStatus, LocalStorageService } from '@kirby/shared';
+import { LoadStatus, LocalStorageService, WeighingMachineService } from '@kirby/shared';
 
 import { ProductionFacade } from '../+state/production.facade';
-import { WeighingMachineService } from '../weighing-machine.service';
 
 @Component({
   selector: 'kirby-edit-production-log',

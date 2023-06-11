@@ -1,10 +1,10 @@
+import { tap } from 'rxjs/operators';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
-import { ProductionFacade } from '../+state/production.facade';
 import { AuthFacade } from '@kirby/authentication/data-access';
-import { LoadStatus, LocalStorageService } from '@kirby/shared';
-import { WeighingMachineService } from '../weighing-machine.service';
-import { tap } from 'rxjs/operators';
+import { LoadStatus, LocalStorageService, WeighingMachineService } from '@kirby/shared';
+
+import { ProductionFacade } from '../+state/production.facade';
 
 @Component({
   selector: 'kirby-create-production-log',

@@ -26,7 +26,6 @@ import { ProductionService } from './production.service';
 import * as fromProduction from './+state/production.reducer';
 import { ProductionFacade } from './+state/production.facade';
 import { ProductionEffects } from './+state/production.effects';
-import { WeighingMachineService } from './weighing-machine.service';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { ProductionLogsPage } from './production-logs/production-logs.page';
 import { EditProductionLogPage } from './edit-production-log/edit-production-log.page';
@@ -69,6 +68,6 @@ import { ProductionLogDetailsPage } from './production-log-details/production-lo
     CreateProductionLogPage,
     ProductionLogDetailsPage,
   ],
-  providers: [ProductionFacade, ProductionService, WeighingMachineService, PrinterService],
+  providers: [ProductionFacade, ProductionService, PrinterService],
 })
 export class ProductionFeatureModule {}

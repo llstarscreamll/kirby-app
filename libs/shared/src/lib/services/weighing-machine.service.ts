@@ -2,7 +2,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable, inject } from '@angular/core';
 
-import { LocalStorageService } from '@kirby/shared';
+import { LocalStorageService } from './local-storage.service';
 
 declare let window: any;
 
