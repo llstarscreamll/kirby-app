@@ -52,6 +52,10 @@ const routes: Route[] = [
     path: 'production',
     loadChildren: () => import('@kirby/production/feature').then((m) => m.ProductionFeatureModule),
   },
+  {
+    path: 'truck-scale',
+    loadChildren: () => import('@kirby/truck-scale').then((m) => m.TruckScaleModule),
+  },
 ];
 
 @NgModule({
