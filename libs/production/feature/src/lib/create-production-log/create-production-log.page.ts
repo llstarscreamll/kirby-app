@@ -21,6 +21,8 @@ export class CreateProductionLogPage implements OnInit {
     tap((status) => (status === LoadStatus.Completed ? (this.machineValue = '0') : null))
   );
 
+  readyToConnectToWeighMachine = false;
+
   constructor(
     private authFacade: AuthFacade,
     private production: ProductionFacade,
@@ -37,7 +39,9 @@ export class CreateProductionLogPage implements OnInit {
   }
 
   setUpWeightMachine() {
-    if (!this.readyToConnectToWeighMachine()) {
+    this.readyToConnectToWeighMachine = this.weighingMachine.readyToConnect();
+
+    if (!this.readyToConnectToWeighMachine) {
       return;
     }
 
@@ -47,10 +51,6 @@ export class CreateProductionLogPage implements OnInit {
       this.machineValue = data;
       this.changeDetector.detectChanges();
     });
-  }
-
-  readyToConnectToWeighMachine(): boolean {
-    return this.weighingMachine.isAvailable && this.weighingMachine.isPortSelected();
   }
 
   searchProducts(query) {

@@ -12,7 +12,7 @@
                            [status]="creationStatus$ | async"
                            [rawGrossWeight]="machineValue"
                            [printerIsAvailable]="printerIsAvailable()"
-                           [weighMachineAvailable]="readyToConnectToWeighMachine()"
+                           [weighMachineAvailable]="readyToConnectToWeighMachine"
                            (searchProducts)="searchProducts($event)"
                            (searchMachines)="searchMachines($event)"
                            (searchCustomers)="searchCustomers($event)"

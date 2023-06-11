@@ -52,6 +52,10 @@ export class WeighingMachineService {
     return this.getSelectedPort() !== '';
   }
 
+  readyToConnect(): boolean {
+    return this.isAvailable && this.isPortSelected();
+  }
+
   /**
    * Opens a connection to the current selected port.
    */

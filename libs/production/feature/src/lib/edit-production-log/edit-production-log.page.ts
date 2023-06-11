@@ -19,11 +19,13 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
   status$ = this.productionFacade.updateStatus$;
   productionLog$ = this.productionFacade.selectedProductionLog$;
 
+  readyToConnectToWeighMachine = false;
+
   constructor(
     private authFacade: AuthFacade,
     private changeDetector: ChangeDetectorRef,
     private productionFacade: ProductionFacade,
-    private weighingMachineService: WeighingMachineService
+    private weighingMachine: WeighingMachineService
   ) {}
 
   ngOnInit(): void {
@@ -39,19 +41,17 @@ export class EditProductionLogPage implements OnInit, OnDestroy {
   }
 
   setUpWeightMachine() {
-    if (!this.readyToConnectToWeighMachine()) {
+    this.readyToConnectToWeighMachine = this.weighingMachine.readyToConnect();
+
+    if (!this.readyToConnectToWeighMachine) {
       return;
     }
 
     // los datos que envíe la báscula serán enviados al formulario
-    this.weighingMachineService.openConnection((data) => {
+    this.weighingMachine.openConnection((data) => {
       this.machineValue = data;
       this.changeDetector.detectChanges();
     });
-  }
-
-  readyToConnectToWeighMachine(): boolean {
-    return this.weighingMachineService.isAvailable && this.weighingMachineService.isPortSelected();
   }
 
   searchProducts(query) {
