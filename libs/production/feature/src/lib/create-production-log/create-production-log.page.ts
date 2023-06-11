@@ -42,8 +42,6 @@ export class CreateProductionLogPage implements OnInit {
       return;
     }
 
-    const serialPortPreferences = this.localStorage.getItem('SerialPortConfig');
-
     // los datos que envíe la báscula serán enviados al formulario
     this.weighingMachine.openConnection((data) => {
       console.log('weight machine incoming data:', data);
