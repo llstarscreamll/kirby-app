@@ -13,6 +13,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() vehicles: Vehicle[] | null = [];
   @Input() drivers: Driver[] | null = [];
   @Input() weight: string | null = '';
+  @Input() defaults: any | null = {};
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();
@@ -37,6 +38,10 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.listenFormChanges();
+
+    if (this.defaults != null && this.defaults.id) {
+      this.form.patchValue(this.defaults);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
