@@ -13,7 +13,6 @@ export class CreateWeighingPage implements OnInit {
   vehicles$ = this.facade.vehicles$;
 
   machineValue = '';
-  readyToConnectToWeighMachine = false;
 
   constructor(
     private facade: WeighingsFacade,
@@ -26,9 +25,7 @@ export class CreateWeighingPage implements OnInit {
   }
 
   setUpWeightMachine() {
-    this.readyToConnectToWeighMachine = this.weighingMachine.readyToConnect();
-
-    if (!this.readyToConnectToWeighMachine) {
+    if (!this.weighingMachine.readyToConnect()) {
       return;
     }
 
