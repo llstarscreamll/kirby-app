@@ -1,11 +1,12 @@
 import { map, tap } from 'rxjs/operators';
 import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { fetch, pessimisticUpdate } from '@nrwl/angular';
+import { fetch, navigation, pessimisticUpdate } from '@nrwl/angular';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
+import { EditWeighingPage } from '../pages/edit-weighing/edit-weighing.page';
 
 @Injectable()
 export class WeighingsEffects {
@@ -30,6 +31,15 @@ export class WeighingsEffects {
         tap(() => this.snackBarService.open('Registro creado exitosamente!', 'Ok', { duration: 5000 }))
       ),
     { dispatch: false }
+  );
+
+  navigateToEditWeighingPage$ = createEffect(() =>
+    this.actions$.pipe(
+      navigation(EditWeighingPage, {
+        run: (a) => this.service.getWeighing(a.params['id']).pipe(map((r) => actions.getWeighingOk(r.data))),
+        onError: (_, e) => actions.getWeighingError(e),
+      })
+    )
   );
 
   searchWeighings$ = createEffect(() =>

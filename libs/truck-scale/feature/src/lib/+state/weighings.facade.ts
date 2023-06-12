@@ -10,6 +10,7 @@ export class WeighingsFacade {
   vehicles$ = this.store.select(sel.selectVehicles);
   drivers$ = this.store.select(sel.selectDrivers);
   weighings$ = this.store.select(sel.selectWeighings);
+  selectedWeighing$ = this.store.select(sel.selectSelectedWeighing);
   weighingsPaginationMeta$ = this.store.select(sel.selectWeighingsPaginationMeta);
 
   constructor(private store: Store) {}

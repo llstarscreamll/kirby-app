@@ -8,6 +8,7 @@ export const WEIGHINGS_FEATURE_KEY = 'weighings';
 
 export interface WeighingsState {
   paginatedWeighings: Pagination<any>;
+  selectedWeighing: object | null;
   vehicles: Vehicle[];
   drivers: Driver[];
   error: ApiError | null;
@@ -19,6 +20,7 @@ export interface WeighingsPartialState {
 
 export const initialWeighingsState: WeighingsState = {
   paginatedWeighings: emptyPagination(),
+  selectedWeighing: null,
   vehicles: [],
   drivers: [],
   error: null,
@@ -27,6 +29,8 @@ export const initialWeighingsState: WeighingsState = {
 const reducer = createReducer(
   initialWeighingsState,
   on(a.searchWeighingsOk, (state, { paginatedWeighings }) => ({ ...state, paginatedWeighings })),
+  on(a.getWeighingOk, (state, { data }) => ({ ...state, selectedWeighing: data })),
+  on(a.getWeighingError, (state, { error }) => ({ ...state, error })),
   on(a.searchVehiclesOk, (state, { vehicles }) => ({ ...state, vehicles })),
   on(a.searchDriversOk, (state, { drivers }) => ({ ...state, drivers })),
   on(a.createWeighingOk, (state) => ({ ...state, error: null })),

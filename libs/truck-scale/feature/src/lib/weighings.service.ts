@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
-import { Driver, Vehicle } from './+state/models';
+import { Driver, Vehicle, Weighing } from './+state/models';
 import { BaseAuthService } from '@kirby/authentication/utils';
 import { Pagination, oneLevelFlattenObject } from '@kirby/shared';
 
@@ -55,6 +55,10 @@ export class WeighingsService extends BaseAuthService {
 
   createWeighing(data: any): Observable<{ data: string }> {
     return this.httpClient.post<{ data: string }>(this.weighingsEndpoint, data, { headers: this.defaultHeaders });
+  }
+
+  getWeighing(id: string): Observable<{ data: Weighing }> {
+    return this.httpClient.get<{ data: Weighing }>(`${this.weighingsEndpoint}/${id}`, { headers: this.defaultHeaders });
   }
 
   searchVehicles(term: string): Observable<{ data: Vehicle[] }> {
