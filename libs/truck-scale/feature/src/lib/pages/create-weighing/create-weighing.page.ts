@@ -29,7 +29,6 @@ export class CreateWeighingPage implements OnInit {
       return;
     }
 
-    // los datos que envíe la báscula serán enviados al formulario
     this.weighingMachine.openConnection((data: string) => {
       console.log('weight machine incoming data:', data);
       this.machineValue = data;
