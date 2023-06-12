@@ -76,7 +76,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of weighings$ | async">
-        <td>{{ row.id }}</td>
+        <td><a [routerLink]="[row.id, 'edit']" class="text-blue-500 underline font-semibold">{{ row.id }}</a></td>
         <td>{{ row.vehicle_plate }}</td>
         <td>{{ row.readableWeighingType }}</td>
         <td>{{ row.driver_name }}</td>
