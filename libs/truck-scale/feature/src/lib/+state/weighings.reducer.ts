@@ -1,8 +1,7 @@
-import { ApiError, Pagination, emptyPagination } from '@kirby/shared';
 import { createReducer, on, Action } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { ApiError, Pagination, emptyPagination } from '@kirby/shared';
 
-import { Driver, Vehicle, Weighing } from './models';
+import { Driver, Vehicle } from './models';
 import { actions as a } from './weighings.actions';
 
 export const WEIGHINGS_FEATURE_KEY = 'weighings';
