@@ -23,19 +23,31 @@ export class ApiErrorsComponent implements OnInit {
 
   ngOnInit() {}
 
-  get topLevelErrorText(): string {
-    return get(this.apiError, 'message', 'Unknown Error');
+  get errorHeader(): string {
+    return this.specificErrorText || this.topLevelErrorText;
   }
 
   get specificErrorText(): string {
     return get(this.apiError, 'error.message');
   }
 
-  get errorHeader(): string {
-    return this.specificErrorText || this.topLevelErrorText;
+  get topLevelErrorText(): string {
+    return getMessage(get(this.apiError, 'message', 'Error desconocido'));
   }
 
   get errors(): string[] {
     return flatApiErrors(this.apiError);
   }
+}
+
+function getMessage(error: string): string {
+  const errorsMap = {
+    unauthorized: 'Credenciales incorrectas',
+    '403 forbidden': 'No tienes permisos para realizar esta acción',
+    '404 not found': 'Recurso no encontrado',
+  };
+
+  const errorKey = Object.keys(errorsMap).filter((pattern) => error.match(new RegExp(pattern, 'i')))[0];
+
+  return errorsMap[errorKey] || error;
 }
