@@ -7,7 +7,6 @@ import { actions as a } from './weighings.actions';
 export const WEIGHINGS_FEATURE_KEY = 'weighings';
 
 export interface WeighingsState {
-  loaded: boolean;
   paginatedWeighings: Pagination<any>;
   vehicles: Vehicle[];
   drivers: Driver[];
@@ -19,7 +18,6 @@ export interface WeighingsPartialState {
 }
 
 export const initialWeighingsState: WeighingsState = {
-  loaded: false,
   paginatedWeighings: emptyPagination(),
   vehicles: [],
   drivers: [],
@@ -28,7 +26,7 @@ export const initialWeighingsState: WeighingsState = {
 
 const reducer = createReducer(
   initialWeighingsState,
-  on(a.searchWeighingsOk, (state, { paginatedWeighings }) => ({ ...state, paginatedWeighings, loaded: true })),
+  on(a.searchWeighingsOk, (state, { paginatedWeighings }) => ({ ...state, paginatedWeighings })),
   on(a.searchVehiclesOk, (state, { vehicles }) => ({ ...state, vehicles })),
   on(a.searchDriversOk, (state, { drivers }) => ({ ...state, drivers })),
   on(a.createWeighingOk, (state) => ({ ...state, error: null })),
