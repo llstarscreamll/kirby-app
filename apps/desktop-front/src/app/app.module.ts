@@ -54,7 +54,7 @@ const routes: Route[] = [
   },
   {
     path: 'truck-scale',
-    loadChildren: () => import('@kirby/truck-scale').then((m) => m.TruckScaleModule),
+    loadChildren: () => import('@kirby/truck-scale/feature').then((m) => m.TruckScaleModule),
   },
 ];
 

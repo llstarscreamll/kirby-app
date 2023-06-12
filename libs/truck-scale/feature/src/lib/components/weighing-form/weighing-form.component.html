@@ -1,12 +1,17 @@
 <form [formGroup]="form" (ngSubmit)="formSubmitted()" class="flex flex-col">
-  <mat-form-field class="w-full">
-    <mat-label>Tipo de pesaje</mat-label>
-    <mat-select formControlName="weighing_type" required>
-      <mat-option value="load">Cargue</mat-option>
-      <mat-option value="unload">Descargue</mat-option>
-      <mat-option value="weighing">Pesaje</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="flex flex-row gap-4">
+    <div class="w-1/2">
+      <mat-form-field class="w-full">
+        <mat-label>Tipo de pesaje</mat-label>
+        <mat-select formControlName="weighing_type" required>
+          <mat-option value="load">Cargue</mat-option>
+          <mat-option value="unload">Descargue</mat-option>
+          <mat-option value="weighing">Pesaje</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="w-1/2"></div>
+  </div>
 
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
