@@ -4,7 +4,7 @@ import { TimeClockLogsDataAccessModule } from './time-clock-logs-data-access.mod
 describe('TimeClockLogsDataAccessModule', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TimeClockLogsDataAccessModule]
+      imports: [TimeClockLogsDataAccessModule],
     }).compileComponents();
   }));
 

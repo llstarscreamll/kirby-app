@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
+import { User } from '@kirby/users/util';
 import { Pagination, ApiError } from '@kirby/shared';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
-import { User } from '@kirby/users/util';
 
 export enum TimeClockLogsActionTypes {
   SearchTimeClockLogs = '[TimeClockLogs] search',

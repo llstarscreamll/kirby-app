@@ -1,8 +1,10 @@
 import { get } from 'lodash-es';
+
 import { User } from '@kirby/users/util';
 import { TimeClockLogModel } from '@kirby/time-clock-logs/util';
-import { TimeClockLogsAction, TimeClockLogsActionTypes } from './time-clock-logs.actions';
 import { ApiError, Pagination, LoadStatus, emptyPagination } from '@kirby/shared';
+
+import { TimeClockLogsAction, TimeClockLogsActionTypes } from './time-clock-logs.actions';
 
 export const TIME_CLOCK_LOGS_FEATURE_KEY = 'timeClockLogs';
 

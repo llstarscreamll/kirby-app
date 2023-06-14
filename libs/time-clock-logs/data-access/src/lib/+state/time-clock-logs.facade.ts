@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
-import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
-import * as selectors from './time-clock-logs.selectors';
-import {
-  SearchTimeClockLogs,
-  CreateEntryAndExitLog,
-  CleanError,
-  GetEmployeeTimeClockData,
-  SearchSubCostCenters,
-  ApproveTimeClockLog,
-  DeleteTimeClockLog,
-  DeleteTimeClockLogApproval,
-  GetTimeClockStatistics,
-  DownloadTimeClockLogs,
-} from './time-clock-logs.actions';
 import { User } from '@kirby/users/util';
+
+import {
+  CleanError,
+  ApproveTimeClockLog,
+  SearchTimeClockLogs,
+  SearchSubCostCenters,
+  CreateEntryAndExitLog,
+  DownloadTimeClockLogs,
+  GetTimeClockStatistics,
+  GetEmployeeTimeClockData,
+  DeleteTimeClockLogApproval,
+} from './time-clock-logs.actions';
+import * as selectors from './time-clock-logs.selectors';
+import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
 
 @Injectable()
 export class TimeClockLogsFacade {
