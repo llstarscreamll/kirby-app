@@ -1,21 +1,12 @@
-
+import { Store } from '@ngrx/store';
 import { NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
 import { TestBed } from '@angular/core/testing';
-import { StoreModule, Store } from '@ngrx/store';
+import { getTestScheduler } from 'jasmine-marbles';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { TimeClockLogsFacade } from './time-clock-logs.facade';
 import { SearchTimeClockLogs } from './time-clock-logs.actions';
-import { TimeClockLogsEffects } from './time-clock-logs.effects';
-import { TimeClockLogsService } from '../time-clock-logs.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
-  TimeClockLogsState,
-  initialState,
-  timeClockLogsReducer,
-  TIME_CLOCK_LOGS_FEATURE_KEY,
-} from './time-clock-logs.reducer';
-import { getTestScheduler } from 'jasmine-marbles';
+import { TimeClockLogsState } from './time-clock-logs.reducer';
 
 interface TestSchema {
   timeClockLogs: TimeClockLogsState;
@@ -51,7 +42,7 @@ describe('TimeClockLogsFacade', () => {
       store = TestBed.inject(Store);
       facade = TestBed.inject(TimeClockLogsFacade);
 
-     jest.spyOn(store, 'dispatch');
+      jest.spyOn(store, 'dispatch');
     });
 
     it('search() should call SearchTimeClockLogs action', () => {
