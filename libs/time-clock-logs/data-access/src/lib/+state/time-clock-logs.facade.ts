@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import { TimeClockLogsPartialState } from './time-clock-logs.reducer';
-import { timeClockLogsQuery } from './time-clock-logs.selectors';
+import * as selectors from './time-clock-logs.selectors';
 import {
   SearchTimeClockLogs,
   CreateEntryAndExitLog,
@@ -19,17 +19,17 @@ import { User } from '@kirby/users/util';
 
 @Injectable()
 export class TimeClockLogsFacade {
-  paginatedTimeClockLogs$ = this.store.pipe(select(timeClockLogsQuery.getPaginatedTimeClockLogs));
-  paginatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getPaginatingStatus));
-  creatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getCreatingStatus));
-  selectedTimeClockLog$ = this.store.pipe(select(timeClockLogsQuery.getSelectedTimeClockLog));
-  selectingStatus$ = this.store.pipe(select(timeClockLogsQuery.getSelectingStatus));
-  updatingStatus$ = this.store.pipe(select(timeClockLogsQuery.getUpdatingStatus));
-  deletingStatus$ = this.store.pipe(select(timeClockLogsQuery.getDeletingStatus));
-  apiError$ = this.store.pipe(select(timeClockLogsQuery.getError));
-  subCostCenters$ = this.store.pipe(select(timeClockLogsQuery.getSubCostCenters));
-  employeeTimeClockData$ = this.store.pipe(select(timeClockLogsQuery.getEmployeeTimeClockData));
-  peopleInsideCount$ = this.store.pipe(select(timeClockLogsQuery.getPeopleInsideCount));
+  paginatedTimeClockLogs$ = this.store.pipe(select(selectors.getPaginatedTimeClockLogs));
+  paginatingStatus$ = this.store.pipe(select(selectors.getPaginatingStatus));
+  creatingStatus$ = this.store.pipe(select(selectors.getCreatingStatus));
+  selectedTimeClockLog$ = this.store.pipe(select(selectors.getSelectedTimeClockLog));
+  selectingStatus$ = this.store.pipe(select(selectors.getSelectingStatus));
+  updatingStatus$ = this.store.pipe(select(selectors.getUpdatingStatus));
+  deletingStatus$ = this.store.pipe(select(selectors.getDeletingStatus));
+  apiError$ = this.store.pipe(select(selectors.getError));
+  subCostCenters$ = this.store.pipe(select(selectors.getSubCostCenters));
+  employeeTimeClockData$ = this.store.pipe(select(selectors.getEmployeeTimeClockData));
+  peopleInsideCount$ = this.store.pipe(select(selectors.getPeopleInsideCount));
 
   constructor(private store: Store<TimeClockLogsPartialState>) {}
 
