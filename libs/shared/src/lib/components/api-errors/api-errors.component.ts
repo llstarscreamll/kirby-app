@@ -45,6 +45,7 @@ function getMessage(error: string): string {
     unauthorized: 'Credenciales incorrectas',
     '403 forbidden': 'No tienes permisos para realizar esta acción',
     '404 not found': 'Recurso no encontrado',
+    '422 unprocessable content': 'Datos incorrectos',
   };
 
   const errorKey = Object.keys(errorsMap).filter((pattern) => error.match(new RegExp(pattern, 'i')))[0];
