@@ -15,6 +15,9 @@ export class Weighing {
     public weighing_description: string,
     public status: 'inProgress' | 'finished',
     public created_by_id: string,
+    public created_by: { id: string; first_name: string; last_name: string },
+    public updated_by_id: string,
+    public updated_by: { id: string; first_name: string; last_name: string },
     public created_at: string,
     public updated_at: string
   ) {

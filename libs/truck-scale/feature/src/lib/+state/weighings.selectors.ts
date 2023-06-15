@@ -21,6 +21,9 @@ export const selectWeighings = createSelector(selectWeighingsState, (state: Weig
         w.weighing_description,
         w.status,
         w.created_by_id,
+        w.created_by,
+        w.updated_by_id,
+        w.updated_by,
         w.created_at,
         w.updated_at
       )
