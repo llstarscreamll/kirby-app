@@ -36,7 +36,7 @@
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>No. de documento de conductor</mat-label>
-      <input type="text" matInput formControlName="driver_id" [matAutocomplete]="driverAutocomplete">
+      <input type="text" matInput formControlName="driver_dni_number" [matAutocomplete]="driverAutocomplete">
       <mat-autocomplete #driverAutocomplete="matAutocomplete" [displayWith]="displayId">
         <mat-option *ngFor="let driver of drivers" [value]="driver">
           {{ driver.id }}

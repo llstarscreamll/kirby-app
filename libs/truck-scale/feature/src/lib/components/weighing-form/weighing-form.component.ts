@@ -27,7 +27,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     weighing_type: ['', [Validators.required]],
     vehicle_plate: ['', [Validators.required, Validators.maxLength(7)]],
     vehicle_type: ['', [Validators.required]],
-    driver_id: ['', [Validators.required, Validators.maxLength(10)]],
+    driver_dni_number: ['', [Validators.required, Validators.maxLength(10)]],
     driver_name: ['', [Validators.required, Validators.maxLength(255)]],
     tare_weight: [0],
     gross_weight: [0],
@@ -37,11 +37,17 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.listenFormChanges();
+    console.table(this.defaults);
 
     if (this.defaults != null && this.defaults.id) {
-      this.form.patchValue(this.defaults);
+      this.form.patchValue({
+        ...this.defaults,
+        vehicle_plate: { plate: this.defaults.vehicle_plate, type: this.defaults.vehicle_plate },
+        driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
+      });
     }
+
+    this.listenFormChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -63,8 +69,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form
       .get('weighing_type')
       ?.valueChanges.pipe(
-        tap((v) => (v === 'load' ? this.captureOnlyTareWeight() : null)),
-        tap((v) => (['unload', 'weighing'].includes(v || '') ? this.captureOnlyGrossWeight() : null)),
+        tap((v) => this.solveWeightFieldToCapture(v)),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -82,7 +87,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
             v != null &&
             typeof v === 'object' &&
             v.drivers.length === 1 &&
-            this.form.patchValue({ vehicle_type: v.type, driver_id: v.drivers[0] } as any)
+            this.form.patchValue({ vehicle_type: v.type, driver_dni_number: v.drivers[0] } as any)
         ),
         tap(
           (v: null | string | Vehicle) =>
@@ -97,7 +102,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe();
 
     this.form
-      .get('driver_id')
+      .get('driver_dni_number')
       ?.valueChanges.pipe(
         debounce(() => timer(500)),
         tap(
@@ -131,6 +136,20 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe();
+  }
+
+  solveWeightFieldToCapture(weighingType: string | null) {
+    if (weighingType === null || weighingType === '') {
+      return;
+    }
+
+    if (weighingType === 'load') {
+      this.captureOnlyTareWeight();
+    }
+
+    if (['unload', 'weighing'].includes(weighingType)) {
+      this.captureOnlyGrossWeight();
+    }
   }
 
   calculateNetWeight(): number {
@@ -171,7 +190,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       weighing_type: formData.weighing_type,
       vehicle_plate: formData.vehicle_plate.plate || formData.vehicle_plate,
       vehicle_type: formData.vehicle_type,
-      driver_dni_number: formData.driver_id.id || formData.driver_id,
+      driver_dni_number: formData.driver_dni_number.id || formData.driver_dni_number,
       driver_name: formData.driver_name,
       tare_weight: formData.tare_weight,
       gross_weight: formData.gross_weight,
