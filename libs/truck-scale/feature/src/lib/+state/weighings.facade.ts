@@ -27,6 +27,10 @@ export class WeighingsFacade {
     this.store.dispatch(actions.createWeighing(data));
   }
 
+  updateWeighing(data: any) {
+    this.store.dispatch(actions.updateWeighing(data));
+  }
+
   searchVehicles(term: string) {
     this.store.dispatch(actions.searchVehicles(term));
   }

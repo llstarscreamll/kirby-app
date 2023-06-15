@@ -57,6 +57,12 @@ export class WeighingsService extends BaseAuthService {
     return this.httpClient.post<{ data: string }>(this.weighingsEndpoint, data, { headers: this.defaultHeaders });
   }
 
+  updateWeighing(id: string, data: any): Observable<{ data: string }> {
+    return this.httpClient.put<{ data: string }>(`${this.weighingsEndpoint}/${id}`, data, {
+      headers: this.defaultHeaders,
+    });
+  }
+
   getWeighing(id: string): Observable<{ data: Weighing }> {
     return this.httpClient.get<{ data: Weighing }>(`${this.weighingsEndpoint}/${id}`, { headers: this.defaultHeaders });
   }

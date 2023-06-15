@@ -202,6 +202,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
 
     if (this.defaults != null) {
       this.submitted.emit({
+        id: this.defaults.id,
         weighing_type: this.defaults.weighing_type,
         tare_weight: formData.tare_weight,
         gross_weight: formData.gross_weight,

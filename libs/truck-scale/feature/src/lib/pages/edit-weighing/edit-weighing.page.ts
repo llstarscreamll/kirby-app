@@ -13,7 +13,7 @@ export class EditWeighingPage implements OnInit {
   weighingMachine = inject(WeighingMachineService);
 
   apiError$ = this.facade.error$;
-  selectedWeighing$ = this.facade.selectedWeighing$;
+  weighing$ = this.facade.selectedWeighing$;
 
   machineValue = '';
 
@@ -33,5 +33,7 @@ export class EditWeighingPage implements OnInit {
     });
   }
 
-  updateWeighing(data) {}
+  updateWeighing(data: any) {
+    this.facade.updateWeighing(data);
+  }
 }

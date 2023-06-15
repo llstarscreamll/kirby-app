@@ -33,6 +33,25 @@ export class WeighingsEffects {
     { dispatch: false }
   );
 
+  updateWeighing$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.updateWeighing),
+      pessimisticUpdate({
+        run: (a) => this.service.updateWeighing(a.data.id, a.data).pipe(map((r) => actions.updateWeighingOk(r.data))),
+        onError: (_, e) => actions.updateWeighingError(e),
+      })
+    )
+  );
+
+  updateWeighingOk$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.updateWeighingOk),
+        tap(() => this.snackBarService.open('Registro actualizado exitosamente!', 'Ok', { duration: 5000 }))
+      ),
+    { dispatch: false }
+  );
+
   navigateToEditWeighingPage$ = createEffect(() =>
     this.actions$.pipe(
       navigation(EditWeighingPage, {
