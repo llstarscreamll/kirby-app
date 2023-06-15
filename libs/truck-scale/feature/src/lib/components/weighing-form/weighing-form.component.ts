@@ -48,6 +48,11 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
     });
 
+    if (this.defaults.status === 'finished') {
+      this.form.disable();
+      return;
+    }
+
     this.solveAndAutofillWeightField(this.defaults.weighing_type);
     this.form.clearValidators();
     this.form.get('weighing_type')?.disable();
@@ -55,10 +60,6 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form.get('vehicle_type')?.disable();
     this.form.get('driver_dni_number')?.disable();
     this.form.get('driver_name')?.disable();
-
-    if (this.defaults.status === 'finished') {
-      this.form.disable();
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -162,7 +163,10 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.form.get(filedToDisable)?.disable();
+    this.form.get(filedToDisable)?.clearValidators();
     this.form.get(fieldToCapture)?.enable();
+    this.form.get(fieldToCapture)?.setValidators([Validators.required, Validators.min(1)]);
+    this.form.get(fieldToCapture)?.updateValueAndValidity();
 
     if (this.autofillWeight !== '') {
       this.form.patchValue({ [fieldToCapture]: parseInt(this.autofillWeight || '', 10) });
