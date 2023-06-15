@@ -30,5 +30,7 @@ export const actions = createActionGroup({
     'search drivers': (term: string) => ({ term }),
     'search drivers ok': (drivers: Driver[]) => ({ drivers }),
     'search drivers error': (error: ApiError) => ({ error }),
+
+    'clean errors': () => emptyProps(),
   },
 });

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { WeighingMachineService } from '@kirby/shared';
 import { WeighingsFacade } from '../../+state/weighings.facade';
@@ -7,7 +7,7 @@ import { WeighingsFacade } from '../../+state/weighings.facade';
   selector: 'kirby-create-weighing',
   templateUrl: './create-weighing.page.html',
 })
-export class CreateWeighingPage implements OnInit {
+export class CreateWeighingPage implements OnInit, OnDestroy {
   apiError$ = this.facade.error$;
   drivers$ = this.facade.drivers$;
   vehicles$ = this.facade.vehicles$;
@@ -22,6 +22,10 @@ export class CreateWeighingPage implements OnInit {
 
   ngOnInit(): void {
     this.setUpWeightMachine();
+  }
+
+  ngOnDestroy(): void {
+    this.facade.cleanErrors();
   }
 
   setUpWeightMachine() {

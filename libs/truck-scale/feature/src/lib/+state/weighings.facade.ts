@@ -38,4 +38,8 @@ export class WeighingsFacade {
   searchDrivers(term: string) {
     this.store.dispatch(actions.searchDrivers(term));
   }
+
+  cleanErrors() {
+    this.store.dispatch(actions.cleanErrors());
+  }
 }
