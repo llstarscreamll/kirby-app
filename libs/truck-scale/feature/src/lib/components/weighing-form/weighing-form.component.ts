@@ -37,17 +37,24 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    if (this.defaults != null && this.defaults.id) {
-      this.form.patchValue({
-        ...this.defaults,
-        vehicle_plate: { plate: this.defaults.vehicle_plate, type: this.defaults.vehicle_plate },
-        driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
-      });
-
-      this.solveAndAutofillWeightField(this.defaults.weighing_type);
+    if (this.defaults == null) {
+      this.listenFormChanges();
+      return;
     }
 
-    this.listenFormChanges();
+    this.form.patchValue({
+      ...this.defaults,
+      vehicle_plate: { plate: this.defaults.vehicle_plate, type: this.defaults.vehicle_plate },
+      driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
+    });
+
+    this.solveAndAutofillWeightField(this.defaults.weighing_type);
+    this.form.clearValidators();
+    this.form.get('weighing_type')?.disable();
+    this.form.get('vehicle_plate')?.disable();
+    this.form.get('vehicle_type')?.disable();
+    this.form.get('driver_dni_number')?.disable();
+    this.form.get('driver_name')?.disable();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -62,6 +69,10 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   listenFormChanges() {
+    if (this.defaults != null) {
+      return;
+    }
+
     this.form
       .get('weighing_type')
       ?.valueChanges.pipe(
