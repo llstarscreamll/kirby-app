@@ -55,6 +55,10 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form.get('vehicle_type')?.disable();
     this.form.get('driver_dni_number')?.disable();
     this.form.get('driver_name')?.disable();
+
+    if (this.defaults.status === 'finished') {
+      this.form.disable();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
