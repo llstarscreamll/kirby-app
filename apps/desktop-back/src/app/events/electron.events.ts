@@ -57,6 +57,16 @@ ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
   options.ccTalkEnable === true ? port.pipe(new CCTalkParser()).on('data', onData) : port.on('data', onData);
 });
 
+ipcMain.handle('close-port-connection', (_, portPath, options) => {
+  const port = new SerialPort({ path: portPath, autoOpen: false, ...options });
+
+  if (port.isOpen) {
+    console.warn(`closing ${portPath} connection`);
+
+    port.close();
+  }
+});
+
 class PrinterWindow {
   static ops: any;
   static company: any;
