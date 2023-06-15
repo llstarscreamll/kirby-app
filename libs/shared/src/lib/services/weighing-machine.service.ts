@@ -73,6 +73,17 @@ export class WeighingMachineService {
     this.electron.onPortData((data) => func(cleanData(data)));
   }
 
+  closeConnection() {
+    this.electron.closeConnection(this.getSelectedPort(), {
+      autoOpen: false,
+      baudRate: 9600,
+      dataBits: 8,
+      stopBits: 1,
+      parity: 'none',
+      ccTalkEnable: true,
+    });
+  }
+
   openConnectionInContinuosMode(func: Function) {
     this.electron.readData(this.getSelectedPort(), {
       autoOpen: true,
