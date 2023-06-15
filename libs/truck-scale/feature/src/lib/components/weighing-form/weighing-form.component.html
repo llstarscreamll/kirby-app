@@ -3,7 +3,7 @@
     <div class="w-1/2">
       <mat-form-field class="w-full">
         <mat-label>Tipo de pesaje</mat-label>
-        <mat-select formControlName="weighing_type" required>
+        <mat-select formControlName="weighing_type">
           <mat-option value="load">Cargue</mat-option>
           <mat-option value="unload">Descargue</mat-option>
           <mat-option value="weighing">Pesaje</mat-option>
@@ -26,7 +26,7 @@
 
     <mat-form-field class="flex-grow">
       <mat-label>Tipo de vehículo</mat-label>
-      <mat-select formControlName="vehicle_type" required>
+      <mat-select formControlName="vehicle_type">
         <mat-option value="one">Uno</mat-option>
         <mat-option value="two">Dos</mat-option>
       </mat-select>
@@ -45,7 +45,7 @@
     </mat-form-field>
     <mat-form-field class="flex-grow">
       <mat-label>Nombre de conductor</mat-label>
-      <input formControlName="driver_name" matInput required>
+      <input formControlName="driver_name" matInput>
     </mat-form-field>
   </div>
 
