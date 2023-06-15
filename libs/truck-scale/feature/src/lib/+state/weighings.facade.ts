@@ -39,6 +39,10 @@ export class WeighingsFacade {
     this.store.dispatch(actions.searchDrivers(term));
   }
 
+  cleanSelected() {
+    this.store.dispatch(actions.cleanSelected());
+  }
+
   cleanErrors() {
     this.store.dispatch(actions.cleanErrors());
   }

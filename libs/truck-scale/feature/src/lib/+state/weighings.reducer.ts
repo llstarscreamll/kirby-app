@@ -41,6 +41,7 @@ const reducer = createReducer(
   on(a.exportWeighingsError, (state, { error }) => ({ ...state, error })),
   on(a.searchDriversError, (state, { error }) => ({ ...state, error })),
   on(a.searchVehiclesError, (state, { error }) => ({ ...state, error })),
+  on(a.cleanSelected, (state) => ({ ...state, selectedWeighing: null })),
   on(a.cleanErrors, (state) => ({ ...state, error: null }))
 );
 

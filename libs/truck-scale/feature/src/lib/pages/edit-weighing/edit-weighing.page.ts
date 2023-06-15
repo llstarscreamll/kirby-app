@@ -23,6 +23,7 @@ export class EditWeighingPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.facade.cleanErrors();
+    this.facade.cleanSelected();
 
     if (this.weighingMachine.readyToConnect()) {
       this.weighingMachine.closeConnection();
