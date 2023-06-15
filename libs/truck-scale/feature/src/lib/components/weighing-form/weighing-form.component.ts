@@ -12,8 +12,8 @@ import { Vehicle, Driver } from '../../+state/models';
 export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() vehicles: Vehicle[] | null = [];
   @Input() drivers: Driver[] | null = [];
-  @Input() weight: string | null = '';
-  @Input() defaults: any | null = {};
+  @Input() autofillWeight: string | null = '';
+  @Input() defaults: any | null = null;
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();
@@ -37,26 +37,22 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    console.table(this.defaults);
-
     if (this.defaults != null && this.defaults.id) {
       this.form.patchValue({
         ...this.defaults,
         vehicle_plate: { plate: this.defaults.vehicle_plate, type: this.defaults.vehicle_plate },
         driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
       });
+
+      this.solveAndAutofillWeightField(this.defaults.weighing_type);
     }
 
     this.listenFormChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['weight'] && this.form.get('weighing_type')?.value === 'load') {
-      this.captureOnlyTareWeight();
-    }
-
-    if (changes['weight'] && ['unload', 'weighing'].includes(this.form.get('weighing_type')?.value || '')) {
-      this.captureOnlyGrossWeight();
+    if (changes['weight']) {
+      this.solveAndAutofillWeightField(this.form.get('weighing_type')?.value);
     }
   }
 
@@ -69,7 +65,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form
       .get('weighing_type')
       ?.valueChanges.pipe(
-        tap((v) => this.solveWeightFieldToCapture(v)),
+        tap((v) => this.solveAndAutofillWeightField(v)),
         takeUntil(this.destroy$)
       )
       .subscribe();
@@ -138,17 +134,23 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe();
   }
 
-  solveWeightFieldToCapture(weighingType: string | null) {
-    if (weighingType === null || weighingType === '') {
+  solveAndAutofillWeightField(weighingType: string | null | undefined) {
+    if (typeof weighingType != 'string' || weighingType === '') {
       return;
     }
 
-    if (weighingType === 'load') {
-      this.captureOnlyTareWeight();
+    const fieldToCapture = this.defaults === null && weighingType === 'load' ? 'tare_weight' : 'gross_weight';
+    const filedToDisable = fieldToCapture === 'tare_weight' ? 'gross_weight' : 'tare_weight';
+
+    if (this.defaults === null) {
+      this.form.patchValue({ gross_weight: 0, tare_weight: 0 });
     }
 
-    if (['unload', 'weighing'].includes(weighingType)) {
-      this.captureOnlyGrossWeight();
+    this.form.get(filedToDisable)?.disable();
+    this.form.get(fieldToCapture)?.enable();
+
+    if (this.autofillWeight !== '') {
+      this.form.patchValue({ [fieldToCapture]: parseInt(this.autofillWeight || '', 10) });
     }
   }
 
@@ -161,8 +163,8 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form.get('tare_weight')?.disable();
     this.form.get('gross_weight')?.enable();
 
-    if (this.weight !== '') {
-      this.form.patchValue({ gross_weight: parseInt(this.weight || '', 10) });
+    if (this.autofillWeight !== '') {
+      this.form.patchValue({ gross_weight: parseInt(this.autofillWeight || '', 10) });
     }
   }
 
@@ -171,8 +173,8 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form.get('gross_weight')?.disable();
     this.form.get('tare_weight')?.enable();
 
-    if (this.weight !== '') {
-      this.form.patchValue({ tare_weight: parseInt(this.weight || '', 10) });
+    if (this.autofillWeight !== '') {
+      this.form.patchValue({ tare_weight: parseInt(this.autofillWeight || '', 10) });
     }
   }
 

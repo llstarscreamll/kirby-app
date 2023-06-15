@@ -6,6 +6,6 @@
 
 <kirby-weighing-form *ngIf="selectedWeighing$ | async"
                      [defaults]="selectedWeighing$ | async"
-                     [weight]="machineValue"
+                     [autofillWeight]="machineValue"
                      (submitted)="updateWeighing($event)"
                      class="block max-w-4xl"></kirby-weighing-form>
