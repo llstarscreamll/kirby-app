@@ -33,8 +33,26 @@ export const selectWeighingsPaginationMeta = createSelector(
   selectWeighingsState,
   (state: WeighingsState) => state.paginatedWeighings.meta
 );
-export const selectSelectedWeighing = createSelector(
-  selectWeighingsState,
-  (state: WeighingsState) => state.selectedWeighing
+export const selectSelectedWeighing = createSelector(selectWeighingsState, (state: WeighingsState) =>
+  state.selectedWeighing
+    ? new Weighing(
+        state.selectedWeighing.id,
+        state.selectedWeighing.weighing_type,
+        state.selectedWeighing.vehicle_plate,
+        state.selectedWeighing.vehicle_type,
+        state.selectedWeighing.driver_dni_number,
+        state.selectedWeighing.driver_name,
+        state.selectedWeighing.tare_weight,
+        state.selectedWeighing.gross_weight,
+        state.selectedWeighing.weighing_description,
+        state.selectedWeighing.status,
+        state.selectedWeighing.created_by_id,
+        state.selectedWeighing.created_by,
+        state.selectedWeighing.updated_by_id,
+        state.selectedWeighing.updated_by,
+        state.selectedWeighing.created_at,
+        state.selectedWeighing.updated_at
+      )
+    : null
 );
 export const selectError = createSelector(selectWeighingsState, (state: WeighingsState) => state.error);

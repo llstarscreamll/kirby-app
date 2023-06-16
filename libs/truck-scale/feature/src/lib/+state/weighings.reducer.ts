@@ -8,7 +8,7 @@ export const WEIGHINGS_FEATURE_KEY = 'weighings';
 
 export interface WeighingsState {
   paginatedWeighings: Pagination<any>;
-  selectedWeighing: object | null;
+  selectedWeighing: any | null;
   vehicles: Vehicle[];
   drivers: Driver[];
   error: ApiError | null;

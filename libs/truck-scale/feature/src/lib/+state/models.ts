@@ -40,6 +40,10 @@ export class Weighing {
     };
     this.readableStatus = readableStatusLookup[this.status] || 'Finished';
   }
+
+  isFinished(): boolean {
+    return this.status === 'finished';
+  }
 }
 
 export interface Driver {

@@ -10,6 +10,12 @@
   </div>
 </header>
 
+<div class="block max-w-4xl text-right text-gray-600">
+  <span class="rounded p-2 mt-3" [ngClass]="{'bg-green-400': !(weighing$ | async)?.isFinished(), 'bg-red-300': (weighing$ | async)?.isFinished()}">
+    {{ (weighing$ | async)?.readableStatus }}
+  </span>
+</div>
+
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
 <kirby-weighing-form *ngIf="weighing$ | async"
