@@ -30,7 +30,7 @@ export class AuthEffects {
       pessimisticUpdate({
         run: (action: ReturnType<typeof SignUp>) =>
           this.authService.signUp(action.payload).pipe(map((tokens) => SignUpSuccess({ payload: tokens }))),
-        onError: (action: ReturnType<typeof SignUp>, error) => SignUpError({ payload: error }),
+        onError: (_: ReturnType<typeof SignUp>, err) => SignUpError({ payload: err }),
       })
     )
   );
@@ -50,7 +50,8 @@ export class AuthEffects {
           this.authService
             .loginWithCredentials(action.payload)
             .pipe(map((tokens) => LoginSuccess({ payload: tokens }))),
-        onError: (action: ReturnType<typeof LoginWithCredentials>, error) => LoginError({ payload: error }),
+        onError: (action: ReturnType<typeof LoginWithCredentials>, err) =>
+          LoginError({ payload: err.status === 401 ? { error: { message: 'Credenciales incorrectas' } } : err }),
       })
     )
   );

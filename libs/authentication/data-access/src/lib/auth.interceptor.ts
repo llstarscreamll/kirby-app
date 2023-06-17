@@ -13,10 +13,16 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap({
         next: (event) =>
-          event instanceof HttpResponse && event.status === 401 && !event.url.includes('logout')
+          event instanceof HttpResponse &&
+          event.status === 401 &&
+          !event.url.includes('logout') &&
+          !event.url.includes('login')
             ? this.authFacade.logout()
             : null,
-        error: (event) => (event.status === 401 && !event.url.includes('logout') ? this.authFacade.logout() : null),
+        error: (event) =>
+          event.status === 401 && !event.url.includes('logout') && !event.url.includes('login')
+            ? this.authFacade.logout()
+            : null,
       })
     );
   }
