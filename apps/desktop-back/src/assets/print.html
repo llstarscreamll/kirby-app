@@ -35,7 +35,8 @@
       font-size: 75%;
     }
 
-    .print-btn, .close-btn {
+    .print-btn,
+    .close-btn {
       background-color: rgb(235, 235, 235);
       border: none;
       box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
@@ -135,9 +136,9 @@
 
 <script>
   const { ipcRenderer } = require('electron');
-  ipcRenderer.on('draw-data', function (event, { productionLog, ops, company }) {
-    const date = new Date(productionLog.created_at);
-    const netWeight = parseFloat(productionLog.gross_weight - productionLog.tare_weight).toFixed(2);
+  ipcRenderer.on('draw-data', function (event, { data, ops, company }) {
+    const date = new Date(data.created_at);
+    const netWeight = parseFloat(data.gross_weight - data.tare_weight).toFixed(2);
     const currentDate = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')];
 
     const img = new Image();
@@ -146,19 +147,19 @@
     document.querySelector('.company-logo').appendChild(img);
 
     JsBarcode("#barcode", [
-      productionLog.product.customer_code,
+      data.product.customer_code,
       currentDate.join(''), netWeight,
     ].join(''), { height: 60, fontSize: 12, displayValue: true, marginTop: 10, width: 1.8 });
 
-    document.querySelector('title').innerHTML = `Ticket de registro de producción #${productionLog.id}`;
-    document.querySelector('.product-name').innerHTML = productionLog.product.name;
-    document.querySelector('.product-bwg').innerHTML = productionLog.product.wire_gauge_in_bwg;
-    document.querySelector('.product-mm').innerHTML = productionLog.product.wire_gauge_in_mm;
-    document.querySelector('.employee-code').innerHTML = productionLog.employee.code;
-    document.querySelector('.machine-code').innerHTML = productionLog.machine.code;
-    document.querySelector('.customer-name').innerHTML = productionLog.customer?.name || '---';
-    document.querySelector('.batch').innerHTML = productionLog.batch || '---';
-    document.querySelector('.gross-weight').innerHTML = productionLog.gross_weight;
+    document.querySelector('title').innerHTML = `Ticket de registro de producción #${data.id}`;
+    document.querySelector('.product-name').innerHTML = data.product.name;
+    document.querySelector('.product-bwg').innerHTML = data.product.wire_gauge_in_bwg;
+    document.querySelector('.product-mm').innerHTML = data.product.wire_gauge_in_mm;
+    document.querySelector('.employee-code').innerHTML = data.employee.code;
+    document.querySelector('.machine-code').innerHTML = data.machine.code;
+    document.querySelector('.customer-name').innerHTML = data.customer?.name || '---';
+    document.querySelector('.batch').innerHTML = data.batch || '---';
+    document.querySelector('.gross-weight').innerHTML = data.gross_weight;
     document.querySelector('.net-weight').innerHTML = netWeight;
     document.querySelector('.company-name').innerHTML = company.name;
     document.querySelector('.company-address').innerHTML = company.address;

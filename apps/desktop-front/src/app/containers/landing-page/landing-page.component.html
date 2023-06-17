@@ -8,7 +8,8 @@
 <div *ngIf="weighingMachineAvailable">
   <div class="flex flex-row gap-4 my-5">
     <button mat-stroked-button (click)="loadPorts()" class="flex-initial">Recargar puertos</button>
-    <button mat-stroked-button (click)="printTestTicket()" class="flex-initial">Imprimir Ticket de Prueba</button>
+    <button mat-stroked-button (click)="printTestWeighing()" class="flex-initial">Imprimir pesaje</button>
+    <button mat-stroked-button (click)="printTestTicket()" class="flex-initial">Imprimir etiqueta</button>
     <div class="flex-grow"></div>
     <pre class="bg-blue-600">{{ portData$ | async }}</pre>
   </div>

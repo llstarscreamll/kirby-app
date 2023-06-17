@@ -4,21 +4,69 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Pesaje</title>
+  <title>Impresión de registro de pesaje</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <style>
     html,
     body {
-      margin: 0;
+      font-family: 'Roboto Condensed', sans-serif;
+      margin: 10px;
       padding: 0;
-      font-weight: bolder;
-      line-height: 1.2;
-      font-size: 98%;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      margin-bottom: 20px;
+    }
+
+    section>div {
+      margin: 15px 0;
+      font-size: large;
+    }
+
+    .label {
+      font-weight: bold;
+      width: 50px;
+    }
+
+    .vehicle,
+    .driver,
+    .tare-weight-label {
+      display: inline-block;
+      width: 100px;
+    }
+
+    .comments {
+      margin: 0;
+    }
+
+    .dates {
+      font-size: medium;
+      font-weight: 300;
+      color: rgb(71, 71, 71);
+      margin-top: 20px;
     }
 
     .company-logo img {
-      width: 120px;
+      width: 150px;
       display: inline-block;
+    }
+
+    .company-data {
+      margin-top: 30px;
+      font-size: large;
+    }
+
+    .company-name {
+      font-weight: bold;
+    }
+
+    .tare-weight,
+    .gross-weight {
+      padding-right: 50px;
     }
 
     .text-center {
@@ -26,27 +74,23 @@
     }
 
     .text-xs {
-      font-size: 75%;
+      font-size: 85%;
     }
 
     .print-btn,
     .close-btn {
       background-color: rgb(235, 235, 235);
       border: none;
-      box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
       font-size: large;
       margin: 20px 0;
       padding: 15px 20px;
       cursor: pointer;
     }
 
-    .pl-5 {
-      padding-left: 5px;
-    }
-
-    .mx-5 {
-      margin-left: 5px;
-      margin-right: 5px;
+    .mx-10 {
+      margin-left: 10px;
+      margin-right: 10px;
     }
 
     .warning {
@@ -62,6 +106,12 @@
 
     @media print {
 
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
       .close-btn,
       .print-btn,
       .warning {
@@ -73,30 +123,80 @@
 </head>
 
 <body>
-  <h1>Ejemplo de impresión de pesaje</h1>
+  <header class="header">
+    <div class="company-logo"></div>
+    <div class="company-data">
+      <div class="company-name"></div>
+      <div class="company-address text-xs"></div>
+      <div class="company-phone text-xs"></div>
+    </div>
+  </header>
+
+  <section>
+    <div>
+      <span class="label vehicle">Vehículo:</span> <span class="vehicle-plate"></span> - <span
+            class="vehicle-type"></span>
+    </div>
+    <div>
+      <span class="label driver">Conductor:</span> <span class="driver-dni-number"></span> - <span
+            class="driver-name"></span>
+    </div>
+    <div>
+      <span class="label tare-weight-label">Peso Tara:</span> <span class="tare-weight"></span>
+      <span class="label">Peso Bruto:</span> <span class="gross-weight"></span>
+      <span class="label">Peso Neto:</span> <span class="net-weight"></span>
+    </div>
+    <div>
+      <span class="label">Observaciones:</span>
+      <p class="comments"></p>
+    </div>
+    <div class="dates">
+      <div>
+        Impreso en <span class="current-date"></span>
+      </div>
+      <div>
+        Creado por <span class="created-by"></span> en <span class="created-at"></span>
+      </div>
+      <div>
+        Actualizado por <span class="updated-by"></span> en <span class="updated-at"></span>
+      </div>
+    </div>
+  </section>
+
   <div class="text-center">
-    <button type="button" class="close-btn invisible mx-5">Cerrar</button>
-    <button type="button" class="print-btn invisible mx-5">Imprimir</button>
+    <button type="button" class="close-btn mx-10">Cerrar</button>
+    <button type="button" class="print-btn mx-10">Imprimir</button>
   </div>
 </body>
 
 <script>
   const { ipcRenderer } = require('electron');
-  ipcRenderer.on('draw-data', function (event, { weighing, ops, company }) {
-    const date = new Date(weighing.created_at);
-    const currentDate = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')];
+  ipcRenderer.on('draw-data', function (event, { data, ops, company }) {
+    const currentDate = formatDate(new Date(data.created_at));
 
     const img = new Image();
-    img.onload = () => ops.doNotPrintImmediately === true ? null : event.sender.send('ticket-ready');
     img.src = company.logoUrl;
-    // document.querySelector('.company-logo').appendChild(img);
+    img.onload = () => event.sender.send('ticket-ready');
+    document.querySelector('.company-logo').appendChild(img);
 
     // document.querySelector('title').innerHTML = `Ticket de registro de producción #${productionLog.id}`;
-    // document.querySelector('.product-name').innerHTML = productionLog.product.name;
-    // document.querySelector('.company-name').innerHTML = company.name;
-    // document.querySelector('.company-address').innerHTML = company.address;
-    // document.querySelector('.company-phone').innerHTML = company.phone;
-    // document.querySelector('.current-date').innerHTML = currentDate.join('-') + " " + [date.getHours(), date.getMinutes()].map(v => String(v).padStart(2, '0')).join(':');
+    document.querySelector('.company-name').innerHTML = company.name;
+    document.querySelector('.company-address').innerHTML = company.address;
+    document.querySelector('.company-phone').innerHTML = company.phone;
+
+    document.querySelector('.vehicle-plate').innerHTML = data.vehicle_plate;
+    document.querySelector('.vehicle-type').innerHTML = data.vehicle_type;
+    document.querySelector('.driver-name').innerHTML = data.driver_name;
+    document.querySelector('.driver-dni-number').innerHTML = data.driver_dni_number;
+    document.querySelector('.tare-weight').innerHTML = `${data.tare_weight}Kg`;
+    document.querySelector('.gross-weight').innerHTML = `${data.gross_weight}Kg`;
+    document.querySelector('.net-weight').innerHTML = `${data.gross_weight - data.tare_weight}Kg`;
+    document.querySelector('.comments').innerHTML = data.weighing_description;
+    document.querySelector('.created-by').innerHTML = `${data.created_by.first_name} ${data.created_by.last_name}`;
+    document.querySelector('.created-at').innerHTML = formatDate(new Date(data.created_at));
+    document.querySelector('.updated-by').innerHTML = `${data.updated_by.first_name} ${data.updated_by.last_name}`;
+    document.querySelector('.updated-at').innerHTML = formatDate(new Date(data.updated_at));
+    document.querySelector('.current-date').innerHTML = currentDate;
 
     document.querySelector('.print-btn').addEventListener('click', (event) => {
       ipcRenderer.send('ticket-ready');
@@ -105,7 +205,19 @@
         event.target.disabled = true;
       }
     });
+
+    document.querySelector('.close-btn').addEventListener('click', (event) => {
+      ipcRenderer.send('close-window');
+    });
   });
+
+
+  function formatDate(date) {
+    return [
+      [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-'),
+      [date.getHours(), date.getMinutes()].map(v => String(v).padStart(2, '0')).join(':')
+    ].join(' ');
+  }
 </script>
 
 </html>

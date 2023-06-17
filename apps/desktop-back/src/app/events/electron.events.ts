@@ -6,8 +6,9 @@
 import { join } from 'path';
 import { format } from 'url';
 import { SerialPort } from 'serialport';
-import { app, ipcMain, BrowserWindow } from 'electron';
 import { CCTalkParser } from '@serialport/parser-cctalk';
+import { app, ipcMain, BrowserWindow, WebContentsPrintOptions } from 'electron';
+
 import { environment } from '../../environments/environment';
 
 const defaultCompany = {
@@ -70,12 +71,12 @@ ipcMain.handle('close-port-connection', (_, portPath, options) => {
 class PrinterWindow {
   static ops: any;
   static company: any;
-  static productionLog: any;
+  static data: any;
   static window: Electron.BrowserWindow;
 
-  static setParams(productionLog, ops, company) {
+  static setParams(data, ops, company) {
     PrinterWindow.company = company;
-    PrinterWindow.productionLog = productionLog;
+    PrinterWindow.data = data;
     PrinterWindow.ops = ops;
   }
 
@@ -86,6 +87,8 @@ class PrinterWindow {
 
     PrinterWindow.window = new BrowserWindow({
       show: true,
+      width: 840,
+      height: 540,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -95,7 +98,7 @@ class PrinterWindow {
 
     PrinterWindow.window.setMenu(null);
     PrinterWindow.window.center();
-    // PrinterWindow.window.webContents.openDevTools();
+    PrinterWindow.window.webContents.openDevTools({ mode: 'detach' });
 
     PrinterWindow.window.on('closed', () => {
       console.warn('destroying window');
@@ -117,9 +120,9 @@ class PrinterWindow {
   }
 
   static sendEvents() {
-    PrinterWindow.window.webContents.on('did-finish-load', (event) => {
+    PrinterWindow.window.webContents.on('did-finish-load', (_) => {
       PrinterWindow.window.webContents.send('draw-data', {
-        productionLog: PrinterWindow.productionLog,
+        data: PrinterWindow.data,
         ops: PrinterWindow.ops,
         company: PrinterWindow.company,
       });
@@ -144,6 +147,13 @@ ipcMain.on('close-window', () => {
 
 ipcMain.on('ticket-ready', () => {
   console.log('ticket ready');
+  const ops =
+    PrinterWindow.ops?.template === 'weighing'
+      ? {}
+      : {
+          pageSize: { height: 10 * 10000, width: 10 * 10000 },
+          margins: { marginType: 'custom', top: 1, bottom: 1, right: 1, left: 1 },
+        };
 
   PrinterWindow.window.webContents.print(
     {
@@ -151,9 +161,8 @@ ipcMain.on('ticket-ready', () => {
       color: false,
       scaleFactor: 100,
       printBackground: false,
-      pageSize: { height: 10 * 10000, width: 10 * 10000 },
-      margins: { marginType: 'custom', top: 1, bottom: 1, right: 1, left: 1 },
-    },
+      ...ops,
+    } as WebContentsPrintOptions,
     (success, failureReason) => {
       console.log('print operation:', success, failureReason);
     }
