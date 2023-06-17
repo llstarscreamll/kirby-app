@@ -20,7 +20,6 @@ import { StoreRouterConnectingModule, FullRouterStateSerializer } from '@ngrx/ro
 
 import { SharedModule } from '@kirby/shared';
 import { LocalStorageService } from '@kirby/shared';
-import { PrinterService } from '@kirby/production/feature';
 import { AuthenticationDataAccessModule } from '@kirby/authentication/data-access';
 
 import { AppComponent } from './app.component';
@@ -90,7 +89,6 @@ const routes: Route[] = [
   ],
   declarations: [AppComponent, LandingPageComponent, WelcomePageComponent, SignInPageComponent, SignInFormComponent],
   providers: [
-    PrinterService,
     { provide: 'environment', useValue: environment },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

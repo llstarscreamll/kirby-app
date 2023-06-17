@@ -8,7 +8,7 @@ import { readFirst } from '@nrwl/angular/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { createProductionLog } from '../testing';
-import { PrinterService } from '../printer.service';
+import { PrinterService } from '@kirby/shared';
 import { ProductionFacade } from './production.facade';
 import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';

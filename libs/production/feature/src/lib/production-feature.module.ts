@@ -20,7 +20,7 @@ import { SharedModule } from '@kirby/shared';
 import { ProductionUiModule } from '@kirby/production/ui';
 import { EmployeesDataAccessModule } from '@kirby/employees/data-access';
 
-import { PrinterService } from './printer.service';
+import { PrinterService } from '@kirby/shared';
 import { ReportsPage } from './reports/reports.page';
 import { ProductionService } from './production.service';
 import * as fromProduction from './+state/production.reducer';

@@ -6,7 +6,7 @@ import { LoadStatus } from '@kirby/shared';
 import * as reducer from './production.reducer';
 import * as actions from './production.actions';
 import * as selectors from './production.selectors';
-import { PrinterService } from '../printer.service';
+import { PrinterService } from '@kirby/shared';
 import { IProductionLog } from './production.models';
 
 @Injectable()

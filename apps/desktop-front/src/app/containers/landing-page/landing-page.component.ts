@@ -1,8 +1,8 @@
 import { Observable, Subject } from 'rxjs';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
+import { PrinterService } from '@kirby/shared';
 import { WeighingMachineService } from '@kirby/shared';
-import { PrinterService } from '@kirby/production/feature';
 
 @Component({
   selector: 'kirby-landing-page',

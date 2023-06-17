@@ -6,7 +6,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { PrinterService } from '../printer.service';
+import { PrinterService } from '@kirby/shared';
 import { ProductionEffects } from './production.effects';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';

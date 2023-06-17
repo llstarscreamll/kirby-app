@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { pessimisticUpdate, fetch, navigation } from '@nrwl/angular';
 
-import { PrinterService } from '../printer.service';
+import { PrinterService } from '@kirby/shared';
 import * as fromProduction from './production.reducer';
 import * as ProductionActions from './production.actions';
 import { ProductionService } from '../production.service';
