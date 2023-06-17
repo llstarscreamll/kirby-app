@@ -27,7 +27,7 @@ export default class UpdateEvents {
 }
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDate) => {
-  const dialogOpts = {
+  const dialogOpts: Electron.MessageBoxOptions = {
     type: 'info',
     buttons: ['Restart', 'Later'],
     title: 'Application Update',
