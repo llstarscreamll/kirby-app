@@ -81,7 +81,9 @@
         <td>{{ row.readableWeighingType }}</td>
         <td>{{ row.driver_name }}</td>
         <td>{{ row.readableVehicleType }}</td>
-        <td>{{ row.readableStatus }}</td>
+        <td>
+          <kirby-weighing-status [weighing]="row"></kirby-weighing-status>
+        </td>
         <td>{{ row.created_at | date:'short' }}</td>
       </tr>
     </tbody>
