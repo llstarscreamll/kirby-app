@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Pesaje</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-weight: bolder;
+      line-height: 1.2;
+      font-size: 98%;
+    }
+
+    .company-logo img {
+      width: 120px;
+      display: inline-block;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-xs {
+      font-size: 75%;
+    }
+
+    .print-btn,
+    .close-btn {
+      background-color: rgb(235, 235, 235);
+      border: none;
+      box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+      font-size: large;
+      margin: 20px 0;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+
+    .pl-5 {
+      padding-left: 5px;
+    }
+
+    .mx-5 {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .warning {
+      background-color: orange;
+      color: white;
+      padding: 5px;
+    }
+
+    .invisible {
+      visibility: hidden;
+      display: none;
+    }
+
+    @media print {
+
+      .close-btn,
+      .print-btn,
+      .warning {
+        visibility: hidden;
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Ejemplo de impresión de pesaje</h1>
+  <div class="text-center">
+    <button type="button" class="close-btn invisible mx-5">Cerrar</button>
+    <button type="button" class="print-btn invisible mx-5">Imprimir</button>
+  </div>
+</body>
+
+<script>
+  const { ipcRenderer } = require('electron');
+  ipcRenderer.on('draw-data', function (event, { weighing, ops, company }) {
+    const date = new Date(weighing.created_at);
+    const currentDate = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')];
+
+    const img = new Image();
+    img.onload = () => ops.doNotPrintImmediately === true ? null : event.sender.send('ticket-ready');
+    img.src = company.logoUrl;
+    // document.querySelector('.company-logo').appendChild(img);
+
+    // document.querySelector('title').innerHTML = `Ticket de registro de producción #${productionLog.id}`;
+    // document.querySelector('.product-name').innerHTML = productionLog.product.name;
+    // document.querySelector('.company-name').innerHTML = company.name;
+    // document.querySelector('.company-address').innerHTML = company.address;
+    // document.querySelector('.company-phone').innerHTML = company.phone;
+    // document.querySelector('.current-date').innerHTML = currentDate.join('-') + " " + [date.getHours(), date.getMinutes()].map(v => String(v).padStart(2, '0')).join(':');
+
+    document.querySelector('.print-btn').addEventListener('click', (event) => {
+      ipcRenderer.send('ticket-ready');
+
+      if (ops.disablePrintButtonAfterClick === true) {
+        event.target.disabled = true;
+      }
+    });
+  });
+</script>
+
+</html>

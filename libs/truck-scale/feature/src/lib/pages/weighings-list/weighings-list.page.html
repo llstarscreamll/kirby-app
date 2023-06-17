@@ -87,7 +87,7 @@
         </td>
         <td>{{ row.created_at | date:'short' }}</td>
         <td *ngIf="printerAvailable">
-          <button *ngIf="row.isFinished()" mat-icon-button type="button"><mat-icon>print</mat-icon></button>
+          <button *ngIf="row.isFinished()" (click)="print(row)" mat-icon-button type="button"><mat-icon>print</mat-icon></button>
         </td>
       </tr>
     </tbody>

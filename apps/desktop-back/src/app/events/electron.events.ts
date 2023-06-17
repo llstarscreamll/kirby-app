@@ -105,11 +105,13 @@ class PrinterWindow {
   }
 
   static loadMainWindow() {
+    const template = PrinterWindow.ops?.template || 'print';
+
     PrinterWindow.window.loadURL(
       format({
         slashes: true,
         protocol: 'file:',
-        pathname: join(__dirname, 'assets', 'print.html'),
+        pathname: join(__dirname, 'assets', `${template}.html`),
       })
     );
   }
@@ -125,10 +127,10 @@ class PrinterWindow {
   }
 }
 
-ipcMain.handle('print', (event, productionLog, ops, company = defaultCompany) => {
-  console.warn('log', productionLog, company, ops);
+ipcMain.handle('print', (_, data, ops, company = defaultCompany) => {
+  console.log('print data', data, company, ops);
 
-  PrinterWindow.setParams(productionLog, ops, company);
+  PrinterWindow.setParams(data, ops, company);
   PrinterWindow.initWindow();
   PrinterWindow.loadMainWindow();
   PrinterWindow.sendEvents();

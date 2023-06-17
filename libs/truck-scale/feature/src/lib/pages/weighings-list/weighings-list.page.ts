@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 
 import { PrinterService } from '@kirby/shared';
 import { WeighingsFacade } from '../../+state/weighings.facade';
+import { Weighing } from '../../+state/models';
 
 @Component({
   selector: 'kirby-weighings-list',
@@ -44,5 +45,9 @@ export class WeighingsListPage implements OnInit {
 
   exportCurrentFilter() {
     this.facade.exportWeighings({ filter: this.searchForm.value });
+  }
+
+  print(weighing: Weighing) {
+    this.printer.print(weighing, { template: 'weighing' });
   }
 }
