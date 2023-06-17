@@ -24,6 +24,7 @@ import { EditWeighingPage } from './pages/edit-weighing/edit-weighing.page';
 import { WeighingsListPage } from './pages/weighings-list/weighings-list.page';
 import { CreateWeighingPage } from './pages/create-weighing/create-weighing.page';
 import { WeighingFormComponent } from './components/weighing-form/weighing-form.component';
+import { WeighingStatusLabelComponent } from './components/weighing-status-label/weighing-status-label.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,13 @@ import { WeighingFormComponent } from './components/weighing-form/weighing-form.
     StoreModule.forFeature(fromWeighings.WEIGHINGS_FEATURE_KEY, fromWeighings.weighingsReducer),
     EffectsModule.forFeature([WeighingsEffects]),
   ],
-  declarations: [WeighingsListPage, CreateWeighingPage, EditWeighingPage, WeighingFormComponent],
+  declarations: [
+    EditWeighingPage,
+    WeighingsListPage,
+    CreateWeighingPage,
+    WeighingFormComponent,
+    WeighingStatusLabelComponent,
+  ],
   providers: [WeighingsService, WeighingsFacade],
 })
 export class TruckScaleModule {}
