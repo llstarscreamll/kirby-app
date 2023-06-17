@@ -41,8 +41,6 @@ export class ApiErrorsComponent implements OnInit {
 }
 
 function getMessage(error: string): string {
-  console.warn(error);
-
   const errorsMap = {
     '401 unauthorized': 'Credenciales incorrectas',
     '403 forbidden': 'No tienes permisos para realizar esta acción',
