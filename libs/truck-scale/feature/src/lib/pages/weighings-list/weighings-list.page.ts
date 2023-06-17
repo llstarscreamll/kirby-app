@@ -1,6 +1,7 @@
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, inject } from '@angular/core';
 
+import { PrinterService } from '@kirby/shared';
 import { WeighingsFacade } from '../../+state/weighings.facade';
 
 @Component({
@@ -10,11 +11,13 @@ import { WeighingsFacade } from '../../+state/weighings.facade';
 export class WeighingsListPage implements OnInit {
   fb = inject(FormBuilder);
   facade = inject(WeighingsFacade);
+  printer = inject(PrinterService);
 
   apiError$ = this.facade.error$;
   weighings$ = this.facade.weighings$;
   weighingsPaginationMeta$ = this.facade.weighingsPaginationMeta$;
 
+  printerAvailable = this.printer.isAvailable;
   searchForm = this.fb.group({
     id: [],
     vehicle_plate: [],
