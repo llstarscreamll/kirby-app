@@ -31,9 +31,9 @@ npm install --global @angular/cli nx
 To build all apps:
 
 ```bash
-ng build --project=pascal --prod -c=production # build the web app
-ng build --project=desktop-front --prod -c=production # build electron frontend
-ng build --project=desktop-back --prod -c=production # build electron backend
+nx build --project=pascal --prod -c=production # build the web app
+nx build --project=desktop-front --prod -c=production # build electron frontend
+nx build --project=desktop-back --prod -c=production # build electron backend
 nx run desktop-back:make --platform=linux --arch=x64 --publishPolicy=never # packaging electron .deb, .snap, etc
 ```
 
