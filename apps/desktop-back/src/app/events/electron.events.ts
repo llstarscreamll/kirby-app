@@ -13,8 +13,9 @@ import { environment } from '../../environments/environment';
 
 const defaultCompany = {
   name: 'GRAPAS Y PUNTILLAS EL CABALLO S.A.',
-  address: 'Sogamoso Carrera 10A #30-07',
+  address: 'Carrera 10A #30-07, Sogamoso - Boyacá',
   phone: '(578) 7701882',
+  nit: '890203224-4',
   logoUrl: './logo-grapas-y-puntillas-el-caballo.png',
 };
 
