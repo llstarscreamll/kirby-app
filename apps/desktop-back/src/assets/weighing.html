@@ -124,9 +124,10 @@
 
 <body>
   <header class="header">
-    <div class="company-logo"></div>
+    <div class="company-logo invisible"></div>
     <div class="company-data">
       <div class="company-name"></div>
+      <div class="company-nit text-xs"></div>
       <div class="company-address text-xs"></div>
       <div class="company-phone text-xs"></div>
     </div>
@@ -181,8 +182,9 @@
 
     // document.querySelector('title').innerHTML = `Ticket de registro de producción #${productionLog.id}`;
     document.querySelector('.company-name').innerHTML = company.name;
-    document.querySelector('.company-address').innerHTML = company.address;
-    document.querySelector('.company-phone').innerHTML = company.phone;
+    document.querySelector('.company-nit').innerHTML = `NIT: ${company.nit}`;
+    document.querySelector('.company-address').innerHTML = `Dir: ${company.address}`;
+    document.querySelector('.company-phone').innerHTML = `Tel: ${company.phone}`;
 
     document.querySelector('.vehicle-plate').innerHTML = data.vehicle_plate;
     document.querySelector('.vehicle-type').innerHTML = data.vehicle_type;
