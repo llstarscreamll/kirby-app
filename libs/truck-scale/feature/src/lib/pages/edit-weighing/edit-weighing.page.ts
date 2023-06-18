@@ -35,7 +35,7 @@ export class EditWeighingPage implements OnInit, OnDestroy {
       return;
     }
 
-    this.weighingMachine.openConnection((data: string) => {
+    this.weighingMachine.openConnectionInContinuosMode((data: string) => {
       console.log('weight machine incoming data:', data);
       this.machineValue = data;
       this.changeDetector.detectChanges();
