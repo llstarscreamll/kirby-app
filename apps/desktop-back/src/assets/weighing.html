@@ -180,7 +180,6 @@
     img.onload = () => event.sender.send('ticket-ready');
     document.querySelector('.company-logo').appendChild(img);
 
-    // document.querySelector('title').innerHTML = `Ticket de registro de producción #${productionLog.id}`;
     document.querySelector('.company-name').innerHTML = company.name;
     document.querySelector('.company-nit').innerHTML = `NIT: ${company.nit}`;
     document.querySelector('.company-address').innerHTML = `Dir: ${company.address}`;
