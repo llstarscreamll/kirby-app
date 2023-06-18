@@ -72,7 +72,14 @@
     <textarea formControlName="weighing_description" matInput rows="4"></textarea>
   </mat-form-field>
 
-  <div>
+  <div class="flex flex-row items-center">
     <button [disabled]="!form.valid" mat-raised-button color="primary">Guardar</button>
+    <div class="flex-grow"></div>
+    <button *ngIf="showPrintButton && defaults?.isFinished()"
+            (click)="printBtnClicked.emit(defaults)"
+            mat-raised-button
+            type="button">
+      <mat-icon>print</mat-icon> Imprimir
+    </button>
   </div>
 </form>

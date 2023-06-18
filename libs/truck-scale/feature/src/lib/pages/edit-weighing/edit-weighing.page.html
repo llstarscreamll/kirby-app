@@ -19,5 +19,7 @@
 <kirby-weighing-form *ngIf="weighing$ | async"
                      [defaults]="weighing$ | async"
                      [autofillWeight]="machineValue"
+                     [showPrintButton]="showPrintButton"
                      (submitted)="updateWeighing($event)"
+                     (printBtnClicked)="print($event)"
                      class="block max-w-4xl"></kirby-weighing-form>

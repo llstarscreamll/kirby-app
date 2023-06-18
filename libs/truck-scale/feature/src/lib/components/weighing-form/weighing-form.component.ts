@@ -14,10 +14,12 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() drivers: Driver[] | null = [];
   @Input() autofillWeight: string | null = '';
   @Input() defaults: any | null = null;
+  @Input() showPrintButton = false;
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();
   @Output() submitted = new EventEmitter();
+  @Output() printBtnClicked = new EventEmitter();
 
   destroy$ = new Subject();
 
