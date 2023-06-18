@@ -63,7 +63,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['weight']) {
+    if (changes['autofillWeight']) {
       this.solveAndAutofillWeightField(this.form.get('weighing_type')?.value);
     }
   }
