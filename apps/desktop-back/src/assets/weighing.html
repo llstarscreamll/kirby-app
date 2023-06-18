@@ -191,7 +191,7 @@
     document.querySelector('.driver-dni-number').innerHTML = data.driver_dni_number;
     document.querySelector('.tare-weight').innerHTML = `${data.tare_weight}Kg`;
     document.querySelector('.gross-weight').innerHTML = `${data.gross_weight}Kg`;
-    document.querySelector('.net-weight').innerHTML = `${data.gross_weight - data.tare_weight}Kg`;
+    document.querySelector('.net-weight').innerHTML = `${(data.gross_weight - data.tare_weight).toFixed(2)}Kg`;
     document.querySelector('.comments').innerHTML = data.weighing_description;
     document.querySelector('.created-by').innerHTML = `${data.created_by.first_name} ${data.created_by.last_name}`;
     document.querySelector('.created-at').innerHTML = formatDate(new Date(data.created_at));
