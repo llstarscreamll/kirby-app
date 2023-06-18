@@ -1,9 +1,9 @@
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit, inject } from '@angular/core';
 
+import { Weighing } from '../../+state/models';
 import { PrinterService } from '@kirby/shared';
 import { WeighingsFacade } from '../../+state/weighings.facade';
-import { Weighing } from '../../+state/models';
 
 @Component({
   selector: 'kirby-weighings-list',
