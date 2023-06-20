@@ -19,6 +19,12 @@ const defaultCompany = {
   logoUrl: './logo-grapas-y-puntillas-el-caballo.png',
 };
 
+/**
+ * This object stores the serial port connections, keys are the port and values
+ * the connection instantiated objects.
+ */
+const connectionsMap = {};
+
 export default class ElectronEvents {
   static bootstrapElectronEvents(): Electron.IpcMain {
     return ipcMain;
@@ -45,7 +51,13 @@ ipcMain.handle('get-serial-ports', async (_) => {
  *  sudo usermod -a -G dialout $USER
  */
 ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
-  const port = new SerialPort({ ...options, path: portPath });
+  let port;
+
+  if (connectionsMap[portPath] && connectionsMap[portPath].isOpen) {
+    return;
+  }
+
+  port = new SerialPort({ ...options, path: portPath });
 
   port.on('open', () => console.log(`Port ${portPath} opened`));
   port.on('error', (err) => console.log(`Port ${portPath} errored:`, err));
@@ -57,15 +69,17 @@ ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
   };
 
   options.ccTalkEnable === true ? port.pipe(new CCTalkParser()).on('data', onData) : port.on('data', onData);
+
+  connectionsMap[portPath] = port;
 });
 
 ipcMain.handle('close-port-connection', (_, portPath, options) => {
-  const port = new SerialPort({ path: portPath, autoOpen: false, ...options });
+  const port = connectionsMap[portPath];
 
-  if (port.isOpen) {
+  if (port && port.isOpen) {
     console.warn(`closing ${portPath} connection`);
 
-    port.close();
+    port.close(() => delete connectionsMap[portPath]);
   }
 });
 
