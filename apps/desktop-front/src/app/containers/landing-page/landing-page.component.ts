@@ -63,7 +63,7 @@ const productionDataTest = {
   gross_weight: 50,
   updated_at: '2021-05-17T14:49:15.000000Z',
   created_at: '2021-05-17T14:49:15.000000Z',
-  id: 7,
+  id: 777777,
   employee: {
     first_name: 'John',
     last_name: 'Doe',
