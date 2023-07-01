@@ -35,6 +35,10 @@ export const actions = createActionGroup({
     'search clients ok': (clients: { name: string }[]) => ({ clients }),
     'search clients error': (error: ApiError) => ({ error }),
 
+    'search commodities': (term: string) => ({ term }),
+    'search commodities ok': (commodities: { name: string }[]) => ({ commodities }),
+    'search commodities error': (error: ApiError) => ({ error }),
+
     'clean selected': () => emptyProps(),
     'clean errors': () => emptyProps(),
   },

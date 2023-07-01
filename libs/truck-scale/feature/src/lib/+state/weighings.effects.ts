@@ -100,6 +100,16 @@ export class WeighingsEffects {
     )
   );
 
+  searchDrivers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.searchDrivers),
+      fetch({
+        run: (a) => this.service.searchDrivers(a.term).pipe(map((r) => actions.searchDriversOk(r.data))),
+        onError: (a, e) => actions.searchDriversError(e),
+      })
+    )
+  );
+
   searchClients$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.searchClients),
@@ -110,12 +120,12 @@ export class WeighingsEffects {
     )
   );
 
-  searchDrivers$ = createEffect(() =>
+  searchCommodities$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(actions.searchDrivers),
+      ofType(actions.searchCommodities),
       fetch({
-        run: (a) => this.service.searchDrivers(a.term).pipe(map((r) => actions.searchDriversOk(r.data))),
-        onError: (a, e) => actions.searchDriversError(e),
+        run: (a) => this.service.searchCommodities(a.term).pipe(map((r) => actions.searchCommoditiesOk(r.data))),
+        onError: (a, e) => actions.searchCommoditiesError(e),
       })
     )
   );

@@ -59,6 +59,16 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+
+    <mat-form-field class="flex-grow">
+      <mat-label>Producto</mat-label>
+      <input type="text" matInput formControlName="commodity" [matAutocomplete]="commodityAutocomplete">
+      <mat-autocomplete #commodityAutocomplete="matAutocomplete" [displayWith]="displayName">
+        <mat-option *ngFor="let commodity of commodities" [value]="commodity">
+          {{ commodity.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </div>
 
   <div class="flex flex-row gap-4">

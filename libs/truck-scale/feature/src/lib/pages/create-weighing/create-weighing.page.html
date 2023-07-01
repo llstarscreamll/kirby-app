@@ -5,9 +5,11 @@
 <kirby-weighing-form [vehicles]="vehicles$ | async"
                      [drivers]="drivers$ | async"
                      [clients]="clients$ | async"
+                     [commodities]="commodities$ | async"
                      [autofillWeight]="machineValue"
                      (searchVehicles)="searchVehicles($event)"
                      (searchDrivers)="searchDrivers($event)"
                      (searchClients)="searchClients($event)"
+                     (searchCommodities)="searchCommodities($event)"
                      (submitted)="createWeighing($event)"
                      class="block max-w-4xl"></kirby-weighing-form>

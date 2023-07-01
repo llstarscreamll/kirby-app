@@ -10,8 +10,9 @@ import { WeighingsFacade } from '../../+state/weighings.facade';
 export class CreateWeighingPage implements OnInit, OnDestroy {
   apiError$ = this.facade.error$;
   drivers$ = this.facade.drivers$;
-  vehicles$ = this.facade.vehicles$;
   clients$ = this.facade.clients$;
+  vehicles$ = this.facade.vehicles$;
+  commodities$ = this.facade.commodities$;
 
   machineValue = '';
 
@@ -55,6 +56,10 @@ export class CreateWeighingPage implements OnInit, OnDestroy {
 
   searchClients(term: string) {
     this.facade.searchClients(term);
+  }
+
+  searchCommodities(term: string) {
+    this.facade.searchCommodities(term);
   }
 
   createWeighing(data: any) {

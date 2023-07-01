@@ -11,6 +11,7 @@ export class WeighingsFacade {
   drivers$ = this.store.select(sel.selectDrivers);
   vehicles$ = this.store.select(sel.selectVehicles);
   weighings$ = this.store.select(sel.selectWeighings);
+  commodities$ = this.store.select(sel.selectCommodities);
   selectedWeighing$ = this.store.select(sel.selectSelectedWeighing);
   weighingsPaginationMeta$ = this.store.select(sel.selectWeighingsPaginationMeta);
 
@@ -42,6 +43,10 @@ export class WeighingsFacade {
 
   searchClients(term: string) {
     this.store.dispatch(actions.searchClients(term));
+  }
+
+  searchCommodities(term: string) {
+    this.store.dispatch(actions.searchCommodities(term));
   }
 
   cleanSelected() {
