@@ -7,7 +7,10 @@ const selectWeighingsState = createFeatureSelector<WeighingsState>(WEIGHINGS_FEA
 export const selectVehicles = createSelector(selectWeighingsState, (state: WeighingsState) => state.vehicles || []);
 export const selectClients = createSelector(selectWeighingsState, (state: WeighingsState) => state.clients || []);
 export const selectDrivers = createSelector(selectWeighingsState, (state: WeighingsState) => state.drivers || []);
-export const selectCommodities = createSelector(selectWeighingsState, (state: WeighingsState) => state.commodities || []);
+export const selectCommodities = createSelector(
+  selectWeighingsState,
+  (state: WeighingsState) => state.commodities || []
+);
 export const selectWeighings = createSelector(selectWeighingsState, (state: WeighingsState) =>
   state.paginatedWeighings.data.map(
     (w) =>
@@ -18,6 +21,9 @@ export const selectWeighings = createSelector(selectWeighingsState, (state: Weig
         w.vehicle_type,
         w.driver_dni_number,
         w.driver_name,
+        w.client,
+        w.commodity,
+        w.destination,
         w.tare_weight,
         w.gross_weight,
         w.weighing_description,
@@ -44,6 +50,9 @@ export const selectSelectedWeighing = createSelector(selectWeighingsState, (stat
         state.selectedWeighing.vehicle_type,
         state.selectedWeighing.driver_dni_number,
         state.selectedWeighing.driver_name,
+        state.selectedWeighing.client,
+        state.selectedWeighing.commodity,
+        state.selectedWeighing.destination,
         state.selectedWeighing.tare_weight,
         state.selectedWeighing.gross_weight,
         state.selectedWeighing.weighing_description,

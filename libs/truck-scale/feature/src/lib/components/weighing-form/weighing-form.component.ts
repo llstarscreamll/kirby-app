@@ -51,10 +51,14 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
 
+    console.warn(this.defaults);
+
     this.form.patchValue({
       ...this.defaults,
       vehicle_plate: { plate: this.defaults.vehicle_plate, type: this.defaults.vehicle_plate },
       driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
+      client: { name: this.defaults.client },
+      commodity: { name: this.defaults.commodity },
     });
 
     if (this.defaults.status === 'finished') {
@@ -69,6 +73,9 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.form.get('vehicle_type')?.disable();
     this.form.get('driver_dni_number')?.disable();
     this.form.get('driver_name')?.disable();
+    this.form.get('client')?.disable();
+    this.form.get('commodity')?.disable();
+    this.form.get('destination')?.disable();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
