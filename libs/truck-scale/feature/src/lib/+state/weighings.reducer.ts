@@ -11,6 +11,7 @@ export interface WeighingsState {
   selectedWeighing: any | null;
   vehicles: Vehicle[];
   drivers: Driver[];
+  clients: { name: string }[];
   error: ApiError | null;
 }
 
@@ -23,6 +24,7 @@ export const initialWeighingsState: WeighingsState = {
   selectedWeighing: null,
   vehicles: [],
   drivers: [],
+  clients: [],
   error: null,
 };
 
@@ -33,6 +35,7 @@ const reducer = createReducer(
   on(a.getWeighingError, (state, { error }) => ({ ...state, error })),
   on(a.searchVehiclesOk, (state, { vehicles }) => ({ ...state, vehicles })),
   on(a.searchDriversOk, (state, { drivers }) => ({ ...state, drivers })),
+  on(a.searchClientsOk, (state, { clients }) => ({ ...state, clients })),
   on(a.createWeighingOk, (state) => ({ ...state, error: null })),
   on(a.createWeighingError, (state, { error }) => ({ ...state, error })),
   on(a.updateWeighingOk, (state) => ({ ...state, error: null })),

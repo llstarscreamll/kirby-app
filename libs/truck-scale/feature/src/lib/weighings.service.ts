@@ -21,9 +21,10 @@ interface WeighingPaginatedResponse {
 
 @Injectable()
 export class WeighingsService extends BaseAuthService {
-  private weighingsEndpoint = `${this.env.api}api/1.0/weighings`;
-  private vehiclesEndpoint = `${this.env.api}api/1.0/vehicles`;
+  private clientsEndpoint = `${this.env.api}api/1.0/clients`;
   private driversEndpoint = `${this.env.api}api/1.0/drivers`;
+  private vehiclesEndpoint = `${this.env.api}api/1.0/vehicles`;
+  private weighingsEndpoint = `${this.env.api}api/1.0/weighings`;
 
   constructor(
     @Inject('environment')
@@ -69,6 +70,13 @@ export class WeighingsService extends BaseAuthService {
 
   searchVehicles(term: string): Observable<{ data: Vehicle[] }> {
     return this.httpClient.get<{ data: Vehicle[] }>(this.vehiclesEndpoint, {
+      params: { s: term },
+      headers: this.defaultHeaders,
+    });
+  }
+
+  searchClients(term: string): Observable<{ data: { name: string }[] }> {
+    return this.httpClient.get<{ data: { name: string }[] }>(this.clientsEndpoint, {
       params: { s: term },
       headers: this.defaultHeaders,
     });

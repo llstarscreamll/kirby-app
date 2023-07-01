@@ -7,8 +7,9 @@ import { actions } from './weighings.actions';
 @Injectable()
 export class WeighingsFacade {
   error$ = this.store.select(sel.selectError);
-  vehicles$ = this.store.select(sel.selectVehicles);
+  clients$ = this.store.select(sel.selectClients);
   drivers$ = this.store.select(sel.selectDrivers);
+  vehicles$ = this.store.select(sel.selectVehicles);
   weighings$ = this.store.select(sel.selectWeighings);
   selectedWeighing$ = this.store.select(sel.selectSelectedWeighing);
   weighingsPaginationMeta$ = this.store.select(sel.selectWeighingsPaginationMeta);
@@ -37,6 +38,10 @@ export class WeighingsFacade {
 
   searchDrivers(term: string) {
     this.store.dispatch(actions.searchDrivers(term));
+  }
+
+  searchClients(term: string) {
+    this.store.dispatch(actions.searchClients(term));
   }
 
   cleanSelected() {

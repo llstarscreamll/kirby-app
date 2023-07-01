@@ -11,6 +11,7 @@ export class CreateWeighingPage implements OnInit, OnDestroy {
   apiError$ = this.facade.error$;
   drivers$ = this.facade.drivers$;
   vehicles$ = this.facade.vehicles$;
+  clients$ = this.facade.clients$;
 
   machineValue = '';
 
@@ -50,6 +51,10 @@ export class CreateWeighingPage implements OnInit, OnDestroy {
 
   searchDrivers(term: string) {
     this.facade.searchDrivers(term);
+  }
+
+  searchClients(term: string) {
+    this.facade.searchClients(term);
   }
 
   createWeighing(data: any) {

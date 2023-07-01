@@ -100,6 +100,16 @@ export class WeighingsEffects {
     )
   );
 
+  searchClients$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.searchClients),
+      fetch({
+        run: (a) => this.service.searchClients(a.term).pipe(map((r) => actions.searchClientsOk(r.data))),
+        onError: (a, e) => actions.searchClientsError(e),
+      })
+    )
+  );
+
   searchDrivers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.searchDrivers),

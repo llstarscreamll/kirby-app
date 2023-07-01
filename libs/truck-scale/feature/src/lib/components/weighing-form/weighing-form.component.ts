@@ -12,12 +12,14 @@ import { Vehicle, Driver } from '../../+state/models';
 export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() vehicles: Vehicle[] | null = [];
   @Input() drivers: Driver[] | null = [];
+  @Input() clients: { name: string }[] | null = [];
   @Input() autofillWeight: string | null = '';
   @Input() defaults: any | null = null;
   @Input() showPrintButton = false;
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();
+  @Output() searchClients = new EventEmitter();
   @Output() submitted = new EventEmitter();
   @Output() printBtnClicked = new EventEmitter();
 
@@ -31,6 +33,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     vehicle_type: ['', [Validators.required]],
     driver_dni_number: ['', [Validators.required, Validators.maxLength(10)]],
     driver_name: ['', [Validators.required, Validators.maxLength(255)]],
+    client: ['', [Validators.required, Validators.maxLength(255)]],
     tare_weight: [0],
     gross_weight: [0],
     weighing_description: ['', [Validators.maxLength(255)]],
@@ -110,6 +113,22 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
             v.drivers.length > 1 &&
             (this.drivers = v.drivers) &&
             this.form.patchValue({ vehicle_type: v.type })
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
+    this.form
+      .get('client')
+      ?.valueChanges.pipe(
+        debounce(() => timer(500)),
+        tap(
+          (v: null | string | { name: string }) =>
+            v != null && typeof v === 'string' && v.trim() !== '' && this.searchClients.emit(v)
+        ),
+        tap(
+          (v: null | string | { name: string }) =>
+            v != null && typeof v === 'object' && this.form.patchValue({ customer: v } as any)
         ),
         takeUntil(this.destroy$)
       )
@@ -205,6 +224,10 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
 
   displayId(d: Driver) {
     return d.id;
+  }
+
+  displayName(c: { name: string }) {
+    return c.name;
   }
 
   formSubmitted() {

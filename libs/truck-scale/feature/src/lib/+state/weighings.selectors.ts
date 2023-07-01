@@ -5,6 +5,7 @@ import { WEIGHINGS_FEATURE_KEY, WeighingsState } from './weighings.reducer';
 
 const selectWeighingsState = createFeatureSelector<WeighingsState>(WEIGHINGS_FEATURE_KEY);
 export const selectVehicles = createSelector(selectWeighingsState, (state: WeighingsState) => state.vehicles || []);
+export const selectClients = createSelector(selectWeighingsState, (state: WeighingsState) => state.clients || []);
 export const selectDrivers = createSelector(selectWeighingsState, (state: WeighingsState) => state.drivers || []);
 export const selectWeighings = createSelector(selectWeighingsState, (state: WeighingsState) =>
   state.paginatedWeighings.data.map(

@@ -51,6 +51,18 @@
 
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
+      <mat-label>Cliente</mat-label>
+      <input type="text" matInput formControlName="client" [matAutocomplete]="clientAutocomplete">
+      <mat-autocomplete #clientAutocomplete="matAutocomplete" [displayWith]="displayName">
+        <mat-option *ngFor="let client of clients" [value]="client">
+          {{ client.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-row gap-4">
+    <mat-form-field class="flex-grow">
       <mat-label>Peso tara</mat-label>
       <input formControlName="tare_weight" matInput type="number" min="0">
       <span matTextSuffix>Kg</span>
