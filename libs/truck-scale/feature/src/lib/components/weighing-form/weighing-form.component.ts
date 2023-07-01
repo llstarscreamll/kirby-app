@@ -37,6 +37,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     driver_name: ['', [Validators.required, Validators.maxLength(255)]],
     client: ['', [Validators.required, Validators.maxLength(255)]],
     commodity: ['', [Validators.required, Validators.maxLength(255)]],
+    destination: ['', [Validators.required, Validators.maxLength(255)]],
     tare_weight: [0],
     gross_weight: [0],
     weighing_description: ['', [Validators.maxLength(255)]],
