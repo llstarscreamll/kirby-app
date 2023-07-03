@@ -26,47 +26,45 @@
   </mat-menu>
 </div>
 
-<div>
-  <form [formGroup]="searchForm" (ngSubmit)="searchFormSubmit()" class="flex flex-col">
-    <div class="flex flex-col md:flex-row md:gap-4 justify-center">
-      <mat-form-field>
-        <mat-label>ID</mat-label>
-        <input formControlName="id" matInput type="number" min="1">
-      </mat-form-field>
+<form [formGroup]="searchForm" (ngSubmit)="searchFormSubmit()" class="flex flex-col">
+  <div class="flex flex-col md:flex-row md:gap-4 justify-center">
+    <mat-form-field>
+      <mat-label>ID</mat-label>
+      <input formControlName="id" matInput type="number" min="1">
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Placa</mat-label>
-        <input formControlName="vehicle_plate" matInput type="text">
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Placa</mat-label>
+      <input formControlName="vehicle_plate" matInput type="text">
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Tipo de vehículo</mat-label>
-        <mat-select formControlName="vehicle_type">
-          <mat-option value="one">Uno</mat-option>
-          <mat-option value="two">Dos</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tipo de vehículo</mat-label>
+      <mat-select formControlName="vehicle_type">
+        <mat-option value="one">Uno</mat-option>
+        <mat-option value="two">Dos</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Estado</mat-label>
-        <mat-select formControlName="status">
-          <mat-option value="inProgress">En progreso</mat-option>
-          <mat-option value="finished">Finalizado</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="inProgress">En progreso</mat-option>
+        <mat-option value="finished">Finalizado</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Fecha</mat-label>
-        <input formControlName="date" matInput type="date" min="1">
-      </mat-form-field>
-    </div>
+    <mat-form-field>
+      <mat-label>Fecha</mat-label>
+      <input formControlName="date" matInput type="date" min="1">
+    </mat-form-field>
+  </div>
 
-    <div class="text-center">
-      <button type="submit" mat-stroked-button color="primary">Buscar</button>
-    </div>
+  <div class="text-center">
+    <button type="submit" mat-stroked-button color="primary">Buscar</button>
+  </div>
 
-  </form>
-</div>
+</form>
 
 <div class="my-3 responsive-table shadow">
   <table class="table">
