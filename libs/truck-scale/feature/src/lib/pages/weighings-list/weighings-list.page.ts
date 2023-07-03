@@ -53,5 +53,7 @@ export class WeighingsListPage implements OnInit {
     this.printer.print(weighing, { template: 'weighing' });
   }
 
-  toggleTruckScaleLecture() {}
+  toggleTruckScaleLecture() {
+    this.facade.toggleWeightLectureFlag();
+  }
 }

@@ -22,6 +22,10 @@ export class WeighingsFacade {
     this.store.dispatch(actions.getWeighingMachineLectureFlag());
   }
 
+  toggleWeightLectureFlag() {
+    this.store.dispatch(actions.toggleWeighingMachineLectureFlag());
+  }
+
   searchWeighings(query = {}) {
     this.store.dispatch(actions.searchWeighings(query));
   }

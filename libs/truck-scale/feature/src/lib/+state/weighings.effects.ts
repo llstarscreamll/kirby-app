@@ -1,8 +1,8 @@
 import { map, tap } from 'rxjs/operators';
 import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { fetch, navigation, pessimisticUpdate } from '@nrwl/angular';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { fetch, navigation, pessimisticUpdate } from '@nrwl/angular';
 
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
@@ -23,6 +23,28 @@ export class WeighingsEffects {
         onError: (_, e) => actions.getWeighingMachineLectureFlagError(e),
       })
     )
+  );
+
+  toggleWeightLectureFlag$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.toggleWeighingMachineLectureFlag),
+      fetch({
+        run: (_) =>
+          this.service
+            .toggleWeighingMachineLectureFlag()
+            .pipe(map((r) => actions.toggleWeighingMachineLectureFlagOk())),
+        onError: (_, e) => actions.toggleWeighingMachineLectureFlagError(e),
+      })
+    )
+  );
+
+  toggleWeightLectureFlagOk$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.toggleWeighingMachineLectureFlagOk),
+        tap((_) => this.snackBarService.open('Operación realizada correctamente!', 'OK', { duration: 5 * 1000 }))
+      ),
+    { dispatch: false }
   );
 
   searchWeighings$ = createEffect(() =>

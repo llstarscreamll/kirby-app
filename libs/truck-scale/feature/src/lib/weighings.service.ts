@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
-import { Driver, Vehicle, Weighing } from './+state/models';
+import { Driver, Setting, Vehicle, Weighing } from './+state/models';
 import { BaseAuthService } from '@kirby/authentication/utils';
 import { Pagination, oneLevelFlattenObject } from '@kirby/shared';
 
@@ -40,6 +40,14 @@ export class WeighingsService extends BaseAuthService {
     return this.httpClient.get<{ data: any[] }>(this.configEndpoint, {
       headers: this.defaultHeaders,
     });
+  }
+
+  toggleWeighingMachineLectureFlag(): Observable<{ data: string }> {
+    return this.httpClient.put<{ data: string }>(
+      `${this.configEndpoint}/toggle-require-weighing-machine-lecture`,
+      {},
+      { headers: this.defaultHeaders }
+    );
   }
 
   searchWeighings(query = {}): Observable<Pagination<any>> {

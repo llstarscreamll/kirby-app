@@ -1,3 +1,7 @@
+export enum Setting {
+  WeighingMachineLectureFlag = 'truck-scale.require-weighing-machine-lecture',
+}
+
 export class Weighing {
   readableStatus: string;
   readableVehicleType: string;
