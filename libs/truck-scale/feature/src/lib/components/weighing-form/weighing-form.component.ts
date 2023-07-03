@@ -17,6 +17,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() autofillWeight: string | null = '';
   @Input() defaults: any | null = null;
   @Input() showPrintButton = false;
+  @Input() weightFieldsInReadOnlyMode = true;
 
   @Output() searchVehicles = new EventEmitter();
   @Output() searchDrivers = new EventEmitter();

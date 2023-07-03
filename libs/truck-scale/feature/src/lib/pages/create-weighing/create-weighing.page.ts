@@ -13,8 +13,10 @@ export class CreateWeighingPage implements OnInit, OnDestroy {
   clients$ = this.facade.clients$;
   vehicles$ = this.facade.vehicles$;
   commodities$ = this.facade.commodities$;
+  lectureFlag$ = this.facade.lectureFlag$;
 
   machineValue = '';
+  inDesktopMode = this.weighingMachine.isAvailable;
 
   constructor(
     private facade: WeighingsFacade,
@@ -32,9 +34,17 @@ export class CreateWeighingPage implements OnInit, OnDestroy {
     if (this.weighingMachine.readyToConnect()) {
       this.weighingMachine.closeConnection();
     }
+
+    if (this.inDesktopMode) {
+      this.facade.stopGetWeightLectureFlagPolling();
+    }
   }
 
   setUpWeightMachine() {
+    if (this.inDesktopMode) {
+      this.facade.startGetWeightLectureFlagPolling();
+    }
+
     if (!this.weighingMachine.readyToConnect()) {
       return;
     }

@@ -1,4 +1,4 @@
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
@@ -7,6 +7,7 @@ import { fetch, navigation, pessimisticUpdate } from '@nrwl/angular';
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
 import { EditWeighingPage } from '../pages/edit-weighing/edit-weighing.page';
+import { timer } from 'rxjs';
 
 @Injectable()
 export class WeighingsEffects {
@@ -35,6 +36,18 @@ export class WeighingsEffects {
             .pipe(map((r) => actions.toggleWeighingMachineLectureFlagOk())),
         onError: (_, e) => actions.toggleWeighingMachineLectureFlagError(e),
       })
+    )
+  );
+
+  startGetSettingsPolling$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.startGetWeighingMachineLectureFlagPolling),
+      switchMap(() =>
+        timer(0, 5 * 1000).pipe(
+          map(() => actions.getWeighingMachineLectureFlag()),
+          takeUntil(this.actions$.pipe(ofType(actions.stopGetWeighingMachineLectureFlagPolling)))
+        )
+      )
     )
   );
 

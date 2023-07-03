@@ -77,14 +77,14 @@
   </div>
 
   <div class="flex flex-row gap-4">
-    <mat-form-field class="flex-grow">
+    <mat-form-field [color]="weightFieldsInReadOnlyMode ? 'accent' : 'primary'" class="flex-grow">
       <mat-label>Peso tara</mat-label>
-      <input formControlName="tare_weight" matInput type="number" min="0">
+      <input formControlName="tare_weight" matInput type="number" min="0" [readonly]="weightFieldsInReadOnlyMode">
       <span matTextSuffix>Kg</span>
     </mat-form-field>
-    <mat-form-field class="flex-grow">
+    <mat-form-field [color]="weightFieldsInReadOnlyMode ? 'accent' : 'primary'" class="flex-grow">
       <mat-label>Peso bruto</mat-label>
-      <input formControlName="gross_weight" matInput type="number" min="0">
+      <input formControlName="gross_weight" matInput type="number" min="0" [readonly]="weightFieldsInReadOnlyMode">
       <span matTextSuffix>Kg</span>
     </mat-form-field>
     <mat-form-field class="flex-grow">

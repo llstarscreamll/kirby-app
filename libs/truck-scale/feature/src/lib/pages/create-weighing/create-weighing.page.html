@@ -7,6 +7,7 @@
                      [clients]="clients$ | async"
                      [commodities]="commodities$ | async"
                      [autofillWeight]="machineValue"
+                     [weightFieldsInReadOnlyMode]="inDesktopMode && (lectureFlag$ | async) === 'ON'"
                      (searchVehicles)="searchVehicles($event)"
                      (searchDrivers)="searchDrivers($event)"
                      (searchClients)="searchClients($event)"

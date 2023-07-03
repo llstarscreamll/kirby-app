@@ -23,6 +23,8 @@ export const actions = createActionGroup({
     'export weighings ok': emptyProps(),
     'export weighings error': (error: ApiError) => ({ error }),
 
+    'start get weighing machine lecture flag polling': emptyProps(),
+    'stop get weighing machine lecture flag polling': emptyProps(),
     'get weighing machine lecture flag': emptyProps(),
     'get weighing machine lecture flag ok': (settings: any[]) => ({ settings }),
     'get weighing machine lecture flag error': (error: ApiError) => ({ error }),

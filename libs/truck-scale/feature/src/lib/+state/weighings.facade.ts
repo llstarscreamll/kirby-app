@@ -22,6 +22,14 @@ export class WeighingsFacade {
     this.store.dispatch(actions.getWeighingMachineLectureFlag());
   }
 
+  startGetWeightLectureFlagPolling() {
+    this.store.dispatch(actions.startGetWeighingMachineLectureFlagPolling());
+  }
+
+  stopGetWeightLectureFlagPolling() {
+    this.store.dispatch(actions.stopGetWeighingMachineLectureFlagPolling());
+  }
+
   toggleWeightLectureFlag() {
     this.store.dispatch(actions.toggleWeighingMachineLectureFlag());
   }
