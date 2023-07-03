@@ -30,11 +30,14 @@ export class WeighingsListPage implements OnInit {
 
   ngOnInit(): void {
     this.searchWeighings();
-    this.facade.getWeightLectureFlag();
   }
 
   searchWeighings(query = {}, pagination = {}) {
     this.facade.searchWeighings({ ...query, ...pagination });
+  }
+
+  setSettings() {
+    this.facade.getWeightLectureFlag();
   }
 
   searchFormSubmit() {

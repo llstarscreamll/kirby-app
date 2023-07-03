@@ -12,7 +12,9 @@
 
   <div class="flex-grow"></div>
 
-  <button mat-icon-button [matMenuTriggerFor]="options"><mat-icon>more_vert</mat-icon></button>
+  <button mat-icon-button [matMenuTriggerFor]="options" (menuOpened)="setSettings()">
+    <mat-icon>more_vert</mat-icon>
+  </button>
   <mat-menu #options="matMenu">
     <button mat-menu-item (click)="exportCurrentFilter()">Exportar filtro actual</button>
     <button mat-menu-item (click)="exportAll()">Exportar todo</button>
