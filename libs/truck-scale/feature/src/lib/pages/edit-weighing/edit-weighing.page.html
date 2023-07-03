@@ -20,6 +20,7 @@
                      [defaults]="weighing$ | async"
                      [autofillWeight]="machineValue"
                      [showPrintButton]="showPrintButton"
+                     [weightFieldsInReadOnlyMode]="inDesktopMode && (lectureFlag$ | async) === 'ON'"
                      (submitted)="updateWeighing($event)"
                      (printBtnClicked)="print($event)"
                      class="block max-w-4xl"></kirby-weighing-form>

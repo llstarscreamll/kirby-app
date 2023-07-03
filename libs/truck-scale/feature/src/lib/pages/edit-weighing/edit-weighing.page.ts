@@ -14,10 +14,12 @@ export class EditWeighingPage implements OnInit, OnDestroy {
   weighingMachine = inject(WeighingMachineService);
 
   apiError$ = this.facade.error$;
+  lectureFlag$ = this.facade.lectureFlag$;
   weighing$ = this.facade.selectedWeighing$;
 
   machineValue = '';
   showPrintButton = this.printer.isAvailable;
+  inDesktopMode = this.weighingMachine.isAvailable;
 
   ngOnInit(): void {
     this.setUpWeightMachine();
@@ -30,9 +32,17 @@ export class EditWeighingPage implements OnInit, OnDestroy {
     if (this.weighingMachine.readyToConnect()) {
       this.weighingMachine.closeConnection();
     }
+
+    if (this.inDesktopMode) {
+      this.facade.stopGetWeightLectureFlagPolling();
+    }
   }
 
   setUpWeightMachine() {
+    if (this.inDesktopMode) {
+      this.facade.startGetWeightLectureFlagPolling();
+    }
+
     if (!this.weighingMachine.readyToConnect()) {
       return;
     }
