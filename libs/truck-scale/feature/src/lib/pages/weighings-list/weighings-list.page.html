@@ -16,6 +16,13 @@
   <mat-menu #options="matMenu">
     <button mat-menu-item (click)="exportCurrentFilter()">Exportar filtro actual</button>
     <button mat-menu-item (click)="exportAll()">Exportar todo</button>
+    <button mat-menu-item (click)="toggleTruckScaleLecture()">
+      Lectura de báscula:
+      <strong
+              [ngClass]="{'text-red-600': (lectureFlag$ | async) === 'OFF', 'text-green-600': (lectureFlag$ | async) === 'ON'}">
+        {{ lectureFlag$ | async }}
+      </strong>
+    </button>
   </mat-menu>
 </div>
 
@@ -87,7 +94,8 @@
         </td>
         <td>{{ row.created_at | date:'short' }}</td>
         <td *ngIf="printerAvailable">
-          <button *ngIf="row.isFinished()" (click)="print(row)" mat-icon-button type="button"><mat-icon>print</mat-icon></button>
+          <button *ngIf="row.isFinished()" (click)="print(row)" mat-icon-button
+                  type="button"><mat-icon>print</mat-icon></button>
         </td>
       </tr>
     </tbody>

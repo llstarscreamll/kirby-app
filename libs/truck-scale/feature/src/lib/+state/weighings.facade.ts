@@ -12,10 +12,15 @@ export class WeighingsFacade {
   vehicles$ = this.store.select(sel.selectVehicles);
   weighings$ = this.store.select(sel.selectWeighings);
   commodities$ = this.store.select(sel.selectCommodities);
+  lectureFlag$ = this.store.select(sel.selectWeighingMachineLectureFlag);
   selectedWeighing$ = this.store.select(sel.selectSelectedWeighing);
   weighingsPaginationMeta$ = this.store.select(sel.selectWeighingsPaginationMeta);
 
   constructor(private store: Store) {}
+
+  getWeightLectureFlag() {
+    this.store.dispatch(actions.getWeighingMachineLectureFlag());
+  }
 
   searchWeighings(query = {}) {
     this.store.dispatch(actions.searchWeighings(query));

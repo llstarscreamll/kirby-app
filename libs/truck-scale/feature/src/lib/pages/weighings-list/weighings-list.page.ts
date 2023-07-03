@@ -16,6 +16,7 @@ export class WeighingsListPage implements OnInit {
 
   apiError$ = this.facade.error$;
   weighings$ = this.facade.weighings$;
+  lectureFlag$ = this.facade.lectureFlag$;
   weighingsPaginationMeta$ = this.facade.weighingsPaginationMeta$;
 
   printerAvailable = this.printer.isAvailable;
@@ -29,6 +30,7 @@ export class WeighingsListPage implements OnInit {
 
   ngOnInit(): void {
     this.searchWeighings();
+    this.facade.getWeightLectureFlag();
   }
 
   searchWeighings(query = {}, pagination = {}) {
@@ -50,4 +52,6 @@ export class WeighingsListPage implements OnInit {
   print(weighing: Weighing) {
     this.printer.print(weighing, { template: 'weighing' });
   }
+
+  toggleTruckScaleLecture() {}
 }

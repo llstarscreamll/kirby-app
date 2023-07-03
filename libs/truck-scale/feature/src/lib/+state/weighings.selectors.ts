@@ -4,6 +4,11 @@ import { Weighing } from './models';
 import { WEIGHINGS_FEATURE_KEY, WeighingsState } from './weighings.reducer';
 
 const selectWeighingsState = createFeatureSelector<WeighingsState>(WEIGHINGS_FEATURE_KEY);
+export const selectWeighingMachineLectureFlag = createSelector(
+  selectWeighingsState,
+  (state: WeighingsState) =>
+    state.settings.filter((s) => s.key === 'truck-scale.require-weighing-machine-lecture')['0']?.value
+);
 export const selectVehicles = createSelector(selectWeighingsState, (state: WeighingsState) => state.vehicles || []);
 export const selectClients = createSelector(selectWeighingsState, (state: WeighingsState) => state.clients || []);
 export const selectDrivers = createSelector(selectWeighingsState, (state: WeighingsState) => state.drivers || []);

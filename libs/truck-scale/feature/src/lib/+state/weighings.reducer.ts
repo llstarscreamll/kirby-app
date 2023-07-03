@@ -13,6 +13,7 @@ export interface WeighingsState {
   drivers: Driver[];
   clients: { name: string }[];
   commodities: { name: string }[];
+  settings: { key: string; value: string }[];
   error: ApiError | null;
 }
 
@@ -27,11 +28,13 @@ export const initialWeighingsState: WeighingsState = {
   drivers: [],
   clients: [],
   commodities: [],
+  settings: [],
   error: null,
 };
 
 const reducer = createReducer(
   initialWeighingsState,
+  on(a.getWeighingMachineLectureFlagOk, (state, { settings }) => ({ ...state, settings })),
   on(a.searchWeighingsOk, (state, { paginatedWeighings }) => ({ ...state, paginatedWeighings })),
   on(a.getWeighingOk, (state, { data }) => ({ ...state, selectedWeighing: data })),
   on(a.getWeighingError, (state, { error }) => ({ ...state, error })),

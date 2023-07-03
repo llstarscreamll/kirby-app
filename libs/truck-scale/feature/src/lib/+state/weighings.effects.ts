@@ -14,6 +14,27 @@ export class WeighingsEffects {
   private service = inject(WeighingsService);
   private snackBarService = inject(MatSnackBar);
 
+  getWeightLectureFlag$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.getWeighingMachineLectureFlag),
+      fetch({
+        run: (_) =>
+          this.service.getWeightLectureFlag().pipe(map((r) => actions.getWeighingMachineLectureFlagOk(r.data))),
+        onError: (_, e) => actions.getWeighingMachineLectureFlagError(e),
+      })
+    )
+  );
+
+  searchWeighings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.searchWeighings),
+      fetch({
+        run: (a) => this.service.searchWeighings(a.query).pipe(map((r) => actions.searchWeighingsOk(r))),
+        onError: (_, e) => actions.searchWeighingsError(e),
+      })
+    )
+  );
+
   createWeighing$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.createWeighing),
@@ -57,16 +78,6 @@ export class WeighingsEffects {
       navigation(EditWeighingPage, {
         run: (a) => this.service.getWeighing(a.params['id']).pipe(map((r) => actions.getWeighingOk(r.data))),
         onError: (_, e) => actions.getWeighingError(e),
-      })
-    )
-  );
-
-  searchWeighings$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actions.searchWeighings),
-      fetch({
-        run: (a) => this.service.searchWeighings(a.query).pipe(map((r) => actions.searchWeighingsOk(r))),
-        onError: (_, e) => actions.searchWeighingsError(e),
       })
     )
   );

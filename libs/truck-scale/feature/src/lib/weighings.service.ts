@@ -25,6 +25,7 @@ export class WeighingsService extends BaseAuthService {
   private driversEndpoint = `${this.env.api}api/1.0/drivers`;
   private vehiclesEndpoint = `${this.env.api}api/1.0/vehicles`;
   private weighingsEndpoint = `${this.env.api}api/1.0/weighings`;
+  private configEndpoint = `${this.env.api}api/1.0/truck-scale-settings`;
   private commoditiesEndpoint = `${this.env.api}api/1.0/commodities`;
 
   constructor(
@@ -33,6 +34,12 @@ export class WeighingsService extends BaseAuthService {
     private httpClient: HttpClient
   ) {
     super();
+  }
+
+  getWeightLectureFlag(): Observable<{ data: any[] }> {
+    return this.httpClient.get<{ data: any[] }>(this.configEndpoint, {
+      headers: this.defaultHeaders,
+    });
   }
 
   searchWeighings(query = {}): Observable<Pagination<any>> {
