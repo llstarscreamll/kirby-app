@@ -153,6 +153,15 @@
       <span class="label">Peso Neto:</span> <span class="net-weight"></span>
     </div>
     <div>
+      <span class="label">Cliente:</span> <span class="client"></span>
+    </div>
+    <div>
+      <span class="label">Producto:</span> <span class="commodity"></span>
+    </div>
+    <div>
+      <span class="label">Destino:</span> <span class="destination"></span>
+    </div>
+    <div>
       <span class="label">Observaciones:</span>
       <p class="comments"></p>
     </div>
@@ -200,6 +209,9 @@
     document.querySelector('.tare-weight').innerHTML = `${data.tare_weight}Kg`;
     document.querySelector('.gross-weight').innerHTML = `${data.gross_weight}Kg`;
     document.querySelector('.net-weight').innerHTML = `${(data.gross_weight - data.tare_weight).toFixed(2)}Kg`;
+    document.querySelector('.client').innerHTML = data.client;
+    document.querySelector('.commodity').innerHTML = data.commodity;
+    document.querySelector('.destination').innerHTML = data.destination;
     document.querySelector('.comments').innerHTML = data.weighing_description;
     document.querySelector('.created-by').innerHTML = `${data.created_by.first_name} ${data.created_by.last_name}`;
     document.querySelector('.created-at').innerHTML = formatDate(new Date(data.created_at));
