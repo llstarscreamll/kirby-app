@@ -8,9 +8,11 @@ import { fetch, navigation, pessimisticUpdate } from '@nrwl/angular';
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
 import { EditWeighingPage } from '../pages/edit-weighing/edit-weighing.page';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class WeighingsEffects {
+  private router = inject(Router);
   private actions$ = inject(Actions);
   private service = inject(WeighingsService);
   private snackBarService = inject(MatSnackBar);
@@ -84,7 +86,8 @@ export class WeighingsEffects {
     () =>
       this.actions$.pipe(
         ofType(actions.createWeighingOk),
-        tap(() => this.snackBarService.open('Registro creado exitosamente!', 'Ok', { duration: 5000 }))
+        tap(() => this.snackBarService.open('Registro creado exitosamente!', 'Ok', { duration: 5000 })),
+        tap(() => this.router.navigate(['/truck-scale']))
       ),
     { dispatch: false }
   );
@@ -103,7 +106,8 @@ export class WeighingsEffects {
     () =>
       this.actions$.pipe(
         ofType(actions.updateWeighingOk),
-        tap(() => this.snackBarService.open('Registro actualizado exitosamente!', 'Ok', { duration: 5000 }))
+        tap(() => this.snackBarService.open('Registro actualizado exitosamente!', 'Ok', { duration: 5000 })),
+        tap(() => this.router.navigate(['/truck-scale']))
       ),
     { dispatch: false }
   );
