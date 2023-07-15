@@ -48,12 +48,12 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.listenWeightFieldChanges();
+
     if (this.defaults == null) {
-      this.listenFormChanges();
+      this.listenFormFieldsChangesForSearchData();
       return;
     }
-
-    console.warn(this.defaults);
 
     this.form.patchValue({
       ...this.defaults,
@@ -91,7 +91,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.complete();
   }
 
-  listenFormChanges() {
+  listenFormFieldsChangesForSearchData() {
     if (this.defaults != null) {
       return;
     }
@@ -178,7 +178,9 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe();
+  }
 
+  listenWeightFieldChanges() {
     this.form
       .get('gross_weight')
       ?.valueChanges.pipe(
