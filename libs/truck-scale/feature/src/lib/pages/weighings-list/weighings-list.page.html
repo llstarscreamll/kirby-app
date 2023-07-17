@@ -43,6 +43,7 @@
     <mat-form-field>
       <mat-label>Tipo de vehículo</mat-label>
       <mat-select formControlName="vehicle_type">
+        <mat-option>Todos</mat-option>
         <mat-option *ngFor="let opt of vehicleTypes" [value]="opt">{{ opt }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -50,6 +51,7 @@
     <mat-form-field>
       <mat-label>Estado</mat-label>
       <mat-select formControlName="status">
+        <mat-option>Todos</mat-option>
         <mat-option value="inProgress">En progreso</mat-option>
         <mat-option value="finished">Finalizado</mat-option>
       </mat-select>

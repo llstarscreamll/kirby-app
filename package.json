@@ -1,6 +1,7 @@
 {
   "name": "kirby",
   "version": "1.9.0",
+  "author": "ALAR Computing",
   "license": "MIT",
   "private": true,
   "scripts": {
