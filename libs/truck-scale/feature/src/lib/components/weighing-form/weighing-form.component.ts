@@ -203,11 +203,32 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   solveAndAutofillWeightField(weighingType: string | null | undefined) {
-    if (typeof weighingType != 'string' || weighingType === '') {
+    if (
+      typeof weighingType != 'string' ||
+      weighingType === '' ||
+      (this.defaults && this.defaults.status === 'finished')
+    ) {
       return;
     }
 
-    const fieldToCapture = this.defaults === null && weighingType === 'load' ? 'tare_weight' : 'gross_weight';
+    let fieldToCapture = '';
+
+    if (this.defaults === null && weighingType === 'load') {
+      fieldToCapture = 'tare_weight';
+    }
+
+    if (this.defaults === null && weighingType !== 'load') {
+      fieldToCapture = 'gross_weight';
+    }
+
+    if (this.defaults !== null && weighingType === 'load') {
+      fieldToCapture = 'gross_weight';
+    }
+
+    if (this.defaults !== null && weighingType !== 'load') {
+      fieldToCapture = 'tare_weight';
+    }
+
     const filedToDisable = fieldToCapture === 'tare_weight' ? 'gross_weight' : 'tare_weight';
 
     if (this.defaults === null) {
