@@ -125,6 +125,7 @@ export default class App {
     App.BrowserWindow = browserWindow;
     App.application = app;
 
+    App.application.disableHardwareAcceleration();
     const gotTheLock = App.application.requestSingleInstanceLock();
 
     if (!gotTheLock) {
