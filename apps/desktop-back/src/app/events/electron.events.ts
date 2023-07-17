@@ -25,64 +25,6 @@ const defaultCompany = {
  */
 const connectionsMap = {};
 
-export default class ElectronEvents {
-  static bootstrapElectronEvents(): Electron.IpcMain {
-    return ipcMain;
-  }
-}
-
-// Retrieve app version
-ipcMain.handle('get-app-version', (event: any) => environment.version);
-
-// list serial ports
-ipcMain.handle('get-serial-ports', async (_) => {
-  return await SerialPort.list()
-    .then((ports) => {
-      return ports;
-    })
-    .catch((err) => console.error('Error reading serial ports', err));
-});
-
-/**
- * Read data from a serial port
- * Note for Linux, add the user to this groups to avoid permission errors
- * reading the ports:
- *  sudo usermod -a -G tty $USER
- *  sudo usermod -a -G dialout $USER
- */
-ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
-  let port;
-
-  if (connectionsMap[portPath] && connectionsMap[portPath].isOpen) {
-    return;
-  }
-
-  port = new SerialPort({ ...options, path: portPath });
-
-  port.on('open', () => console.log(`Port ${portPath} opened`));
-  port.on('error', (err) => console.log(`Port ${portPath} errored:`, err));
-
-  const onData = (d: Buffer) => {
-    console.log('Port data coming:', d.toString('utf-8'));
-
-    event.sender.send('port-data-available', d.toString('utf-8'));
-  };
-
-  options.ccTalkEnable === true ? port.pipe(new CCTalkParser()).on('data', onData) : port.on('data', onData);
-
-  connectionsMap[portPath] = port;
-});
-
-ipcMain.handle('close-port-connection', (_, portPath, options) => {
-  const port = connectionsMap[portPath];
-
-  if (port && port.isOpen) {
-    console.warn(`closing ${portPath} connection`);
-
-    port.close(() => delete connectionsMap[portPath]);
-  }
-});
-
 class PrinterWindow {
   static ops: any;
   static company: any;
@@ -97,13 +39,16 @@ class PrinterWindow {
 
   static initWindow() {
     if (PrinterWindow.window) {
+      PrinterWindow.window.removeAllListeners();
       PrinterWindow.window.close();
     }
 
     PrinterWindow.window = new BrowserWindow({
+      alwaysOnTop: true,
+      center: true,
       show: true,
       width: 840,
-      height: 540,
+      height: 650,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -113,13 +58,9 @@ class PrinterWindow {
 
     PrinterWindow.window.setMenu(null);
     PrinterWindow.window.center();
-    PrinterWindow.window.webContents.openDevTools({ mode: 'detach' });
+    // PrinterWindow.window.webContents.openDevTools({ mode: 'detach' });
 
-    PrinterWindow.window.on('closed', () => {
-      console.warn('destroying window');
-
-      PrinterWindow.window = null;
-    });
+    PrinterWindow.window.on('closed', () => (PrinterWindow.window = null));
   }
 
   static loadMainWindow() {
@@ -145,9 +86,59 @@ class PrinterWindow {
   }
 }
 
-ipcMain.handle('print', (_, data, ops, company = defaultCompany) => {
-  console.log('print data', data, company, ops);
+export default class ElectronEvents {
+  static bootstrapElectronEvents(): Electron.IpcMain {
+    return ipcMain;
+  }
+}
 
+// Retrieve app version
+ipcMain.handle('get-app-version', (event: any) => environment.version);
+
+// list serial ports
+ipcMain.handle('get-serial-ports', async (_) => {
+  return await SerialPort.list().catch((err) => console.error('Error reading serial ports', err));
+});
+
+/**
+ * Read data from a serial port
+ * Note for Linux, add the user to this groups to avoid permission errors
+ * reading the ports:
+ *  sudo usermod -a -G tty $USER
+ *  sudo usermod -a -G dialout $USER
+ */
+ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
+  if (connectionsMap[portPath] && connectionsMap[portPath].isOpen) {
+    return;
+  }
+
+  let port = new SerialPort({ ...options, path: portPath });
+
+  port.on('open', () => console.warn(`Port ${portPath} opened`));
+  port.on('error', (err) => console.warn(`Port ${portPath} errored:`, err));
+
+  const onData = (d: Buffer) => {
+    console.warn('Port data coming:', d.toString('utf-8'));
+
+    event.sender.send('port-data-available', d.toString('utf-8'));
+  };
+
+  options.ccTalkEnable === true ? port.pipe(new CCTalkParser()).on('data', onData) : port.on('data', onData);
+
+  connectionsMap[portPath] = port;
+});
+
+ipcMain.handle('close-port-connection', (_, portPath, options) => {
+  const port = connectionsMap[portPath];
+
+  if (port && port.isOpen) {
+    console.warn(`closing ${portPath} connection`);
+
+    port.close(() => delete connectionsMap[portPath]);
+  }
+});
+
+ipcMain.handle('print', (_, data, ops, company = defaultCompany) => {
   PrinterWindow.setParams(data, ops, company);
   PrinterWindow.initWindow();
   PrinterWindow.loadMainWindow();
@@ -155,14 +146,12 @@ ipcMain.handle('print', (_, data, ops, company = defaultCompany) => {
 });
 
 ipcMain.on('close-window', () => {
-  console.warn('closing window');
-
   PrinterWindow.window.close();
 });
 
 ipcMain.on('ticket-ready', () => {
-  console.log('ticket ready');
-  const ops =
+  console.warn('ticket ready, printing!');
+  const printOptions =
     PrinterWindow.ops?.template === 'weighing'
       ? {}
       : {
@@ -176,10 +165,10 @@ ipcMain.on('ticket-ready', () => {
       color: false,
       scaleFactor: 100,
       printBackground: false,
-      ...ops,
+      ...printOptions,
     } as WebContentsPrintOptions,
     (success, failureReason) => {
-      console.log('print operation:', success, failureReason);
+      console.warn('print operation:', success, failureReason);
     }
   );
 });
