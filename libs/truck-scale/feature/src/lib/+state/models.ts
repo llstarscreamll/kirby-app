@@ -62,4 +62,6 @@ export interface Vehicle {
   plate: string;
   type: string;
   drivers: Driver[];
+  clients: { name: string }[];
+  commodities: { name: string }[];
 }

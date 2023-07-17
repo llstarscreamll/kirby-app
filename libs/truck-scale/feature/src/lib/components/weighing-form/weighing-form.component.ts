@@ -117,7 +117,12 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
             v != null &&
             typeof v === 'object' &&
             v.drivers.length === 1 &&
-            this.form.patchValue({ vehicle_type: v.type, driver_dni_number: v.drivers[0] } as any)
+            this.form.patchValue({
+              vehicle_type: v.type,
+              driver_dni_number: v.drivers[0],
+              client: '',
+              commodity: '',
+            } as any)
         ),
         tap(
           (v: null | string | Vehicle) =>
@@ -126,6 +131,28 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
             v.drivers.length > 1 &&
             (this.drivers = v.drivers) &&
             this.form.patchValue({ vehicle_type: v.type })
+        ),
+        tap(
+          (v: null | string | Vehicle) =>
+            v != null &&
+            typeof v === 'object' &&
+            v.clients.length === 1 &&
+            this.form.patchValue({ client: v.clients[0] as any })
+        ),
+        tap(
+          (v: null | string | Vehicle) =>
+            v != null && typeof v === 'object' && v.clients.length > 1 && (this.clients = v.clients)
+        ),
+        tap(
+          (v: null | string | Vehicle) =>
+            v != null &&
+            typeof v === 'object' &&
+            v.commodities.length === 1 &&
+            this.form.patchValue({ commodity: v.commodities[0] as any })
+        ),
+        tap(
+          (v: null | string | Vehicle) =>
+            v != null && typeof v === 'object' && v.commodities.length > 1 && (this.commodities = v.commodities)
         ),
         takeUntil(this.destroy$)
       )
