@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { PrinterService } from '@kirby/shared';
 import { WeighingMachineService } from '@kirby/shared';
@@ -8,8 +8,7 @@ import { WeighingMachineService } from '@kirby/shared';
   selector: 'kirby-landing-page',
   templateUrl: './landing-page.component.html',
 })
-export class LandingPageComponent implements OnInit {
-  portData$ = new Subject();
+export class LandingPageComponent implements OnInit, OnDestroy {
   serialPorts$: Observable<any[]>;
 
   selectedPort: string;
@@ -26,6 +25,10 @@ export class LandingPageComponent implements OnInit {
     this.selectedPort = this.weighingMachine.getSelectedPort();
   }
 
+  ngOnDestroy(): void {
+    this.weighingMachine.closeConnection();
+  }
+
   loadPorts() {
     this.serialPorts$ = this.weighingMachine.listSerialPorts();
   }
@@ -33,11 +36,6 @@ export class LandingPageComponent implements OnInit {
   selectPort(portPath: string) {
     this.selectedPort = portPath;
     this.weighingMachine.setSelectedPort(portPath);
-
-    this.weighingMachine.openConnection((data) => {
-      this.portData$.next(data);
-      this.changeDetector.detectChanges();
-    });
   }
 
   getPortButtonColor(port: string): string {
@@ -102,6 +100,9 @@ const weighingDataTest = {
   vehicle_type: 'one',
   driver_dni_number: 1057987654,
   driver_name: 'JOHN DOE',
+  commodity: 'Dynamite',
+  client: 'Acme',
+  destination: 'Warner Studios',
   tare_weight: '10.00',
   gross_weight: '23.00',
   weighing_description: 'Comentarios de prueba',
