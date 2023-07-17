@@ -126,6 +126,7 @@ export default class App {
     App.application = app;
 
     App.application.disableHardwareAcceleration();
+    App.application.commandLine.appendSwitch('disable-gpu-sandbox');
     const gotTheLock = App.application.requestSingleInstanceLock();
 
     if (!gotTheLock) {
