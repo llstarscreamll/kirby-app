@@ -4,7 +4,6 @@ export enum Setting {
 
 export class Weighing {
   readableStatus: string;
-  readableVehicleType: string;
   readableWeighingType: string;
 
   constructor(
@@ -34,12 +33,6 @@ export class Weighing {
       weighing: 'Pesaje',
     };
     this.readableWeighingType = readableWeighingTypesLookup[this.weighing_type] || 'Pesaje';
-
-    const readableVehicleTypeLookup = {
-      one: 'Uno',
-      two: 'Dos',
-    };
-    this.readableVehicleType = readableVehicleTypeLookup[this.vehicle_type] || 'Dos';
 
     const readableStatusLookup = {
       inProgress: 'En Progreso',
