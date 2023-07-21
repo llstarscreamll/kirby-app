@@ -19,7 +19,15 @@ export class WeighingsListPage implements OnInit {
   lectureFlag$ = this.facade.lectureFlag$;
   weighingsPaginationMeta$ = this.facade.weighingsPaginationMeta$;
 
-  vehicleTypes = ['TURBO', 'SENCILLO', 'DOBLETROQUE', 'CUATRO MANOS', 'MINIMULA - PATINETA', 'TRACTOMULA DE TRES EJES'];
+  vehicleTypes = [
+    'CUATRO MANOS',
+    'DOBLETROQUE',
+    'MINIMULA - PATINETA',
+    'MONTACARGAS',
+    'SENCILLO',
+    'TRACTOMULA DE TRES EJES',
+    'TURBO',
+  ];
   printerAvailable = this.printer.isAvailable;
   searchForm = this.fb.group({
     id: [],

@@ -29,7 +29,15 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   destroy$ = new Subject();
 
   netWeight = 0;
-  vehicleTypes = ['TURBO', 'SENCILLO', 'DOBLETROQUE', 'CUATRO MANOS', 'MINIMULA - PATINETA', 'TRACTOMULA DE TRES EJES'];
+  vehicleTypes = [
+    'CUATRO MANOS',
+    'DOBLETROQUE',
+    'MINIMULA - PATINETA',
+    'MONTACARGAS',
+    'SENCILLO',
+    'TRACTOMULA DE TRES EJES',
+    'TURBO',
+  ];
 
   form = this.formBuilder.group({
     weighing_type: ['', [Validators.required]],
