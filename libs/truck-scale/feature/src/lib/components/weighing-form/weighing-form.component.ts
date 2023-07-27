@@ -326,6 +326,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
         weighing_type: this.defaults.weighing_type,
         tare_weight: formData.tare_weight,
         gross_weight: formData.gross_weight,
+        weighing_description: formData.weighing_description,
       });
 
       return;
