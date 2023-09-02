@@ -115,9 +115,9 @@ export class WeighingsEffects {
   cancelWeighing$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.cancelWeighing),
-      optimisticUpdate({
+      pessimisticUpdate({
         run: (a) => this.service.canceledWeighing(a.id, a.comment).pipe(map((_) => actions.cancelWeighingOk())),
-        undoAction: (a, e) => actions.cancelWeighingError(e),
+        onError: (a, e) => actions.cancelWeighingError(e),
       })
     )
   );
