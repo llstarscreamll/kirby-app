@@ -1,9 +1,11 @@
 import { Subject, timer } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
-import { debounce, takeUntil, tap } from 'rxjs/operators';
+import { debounce, filter, takeUntil, tap } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
-import { Vehicle, Driver } from '../../+state/models';
+import { Vehicle, Driver, Weighing } from '../../+state/models';
+import { MatDialog } from '@angular/material/dialog';
+import { CommentModalComponent } from '@kirby/shared';
 
 @Component({
   selector: 'kirby-weighing-form',
@@ -15,7 +17,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() clients: { name: string }[] | null = [];
   @Input() commodities: { name: string }[] | null = [];
   @Input() autofillWeight: string | null = '';
-  @Input() defaults: any | null = null;
+  @Input() defaults: Weighing | null = null;
   @Input() showPrintButton = false;
   @Input() weightFieldsInReadOnlyMode = true;
 
@@ -25,6 +27,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Output() searchCommodities = new EventEmitter();
   @Output() submitted = new EventEmitter();
   @Output() printBtnClicked = new EventEmitter();
+  @Output() cancelWeighing = new EventEmitter();
 
   destroy$ = new Subject();
 
@@ -53,7 +56,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
     weighing_description: ['', [Validators.maxLength(255)]],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.listenWeightFieldChanges();
@@ -69,7 +72,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       driver_dni_number: { id: this.defaults.driver_dni_number, name: this.defaults.driver_name },
       client: { name: this.defaults.client },
       commodity: { name: this.defaults.commodity },
-    });
+    } as any);
 
     if (this.defaults.status === 'finished') {
       this.form.disable();
@@ -315,6 +318,22 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
 
   displayName(c: { name: string }) {
     return c.name;
+  }
+
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CommentModalComponent, {
+      data: { title: 'Motivo de anulación', message: 'Escribe el motivo de anulación del registro:' },
+      width: '70%',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((comment) => comment.trim().length > 5),
+        tap((comment) => this.cancelWeighing.emit({ id: this.defaults?.id, comment })),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   formSubmitted() {

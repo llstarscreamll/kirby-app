@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { fetch, navigation, pessimisticUpdate } from '@nrwl/angular';
+import { fetch, navigation, optimisticUpdate, pessimisticUpdate } from '@nrwl/angular';
 
 import { actions } from './weighings.actions';
 import { WeighingsService } from '../weighings.service';
@@ -107,6 +107,26 @@ export class WeighingsEffects {
       this.actions$.pipe(
         ofType(actions.updateWeighingOk),
         tap(() => this.snackBarService.open('Registro actualizado exitosamente!', 'Ok', { duration: 5000 })),
+        tap(() => this.router.navigate(['/truck-scale']))
+      ),
+    { dispatch: false }
+  );
+
+  cancelWeighing$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.cancelWeighing),
+      optimisticUpdate({
+        run: (a) => this.service.canceledWeighing(a.id, a.comment).pipe(map((_) => actions.cancelWeighingOk())),
+        undoAction: (a, e) => actions.cancelWeighingError(e),
+      })
+    )
+  );
+
+  cancelWeighingOk$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.cancelWeighingOk),
+        tap(() => this.snackBarService.open('Registro anulado exitosamente', 'Ok', { duration: 5000 })),
         tap(() => this.router.navigate(['/truck-scale']))
       ),
     { dispatch: false }

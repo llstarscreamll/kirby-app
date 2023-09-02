@@ -1,8 +1,8 @@
 <header class="mb-10">
   <h1><a routerLink="../../">Registros de pesaje</a> / Editar</h1>
   <div class="-mt-6 font-light text-gray-500 text-xs">
-    Creado por {{ (weighing$ | async)?.created_by?.first_name }} {{ (weighing$ | async)?.created_by?.last_name }}
-    en {{ (weighing$ | async)?.created_at | date:'short' }}
+    Creado por {{ (weighing$ | async)?.created_by?.first_name }} {{ (weighing$ | async)?.created_by?.last_name }} en {{
+    (weighing$ | async)?.created_at | date:'short' }}
   </div>
   <div *ngIf="(weighing$ | async)?.updated_by" class="font-light text-gray-500 text-xs">
     Actualizado por {{ (weighing$ | async)?.updated_by?.first_name }} {{ (weighing$ | async)?.updated_by?.last_name }}
@@ -16,11 +16,14 @@
 
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
-<kirby-weighing-form *ngIf="weighing$ | async"
-                     [defaults]="weighing$ | async"
-                     [autofillWeight]="machineValue"
-                     [showPrintButton]="showPrintButton"
-                     [weightFieldsInReadOnlyMode]="inDesktopMode && (lectureFlag$ | async) === 'ON'"
-                     (submitted)="updateWeighing($event)"
-                     (printBtnClicked)="print($event)"
-                     class="block max-w-4xl"></kirby-weighing-form>
+<kirby-weighing-form
+  *ngIf="weighing$ | async"
+  [defaults]="weighing$ | async"
+  [autofillWeight]="machineValue"
+  [showPrintButton]="showPrintButton"
+  [weightFieldsInReadOnlyMode]="inDesktopMode && (lectureFlag$ | async) === 'ON'"
+  (cancelWeighing)="cancelWeighing($event)"
+  (submitted)="updateWeighing($event)"
+  (printBtnClicked)="print($event)"
+  class="block max-w-4xl"
+></kirby-weighing-form>

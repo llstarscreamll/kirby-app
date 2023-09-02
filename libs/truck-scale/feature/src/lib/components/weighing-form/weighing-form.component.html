@@ -16,7 +16,7 @@
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>Placa de vehículo</mat-label>
-      <input type="text" matInput formControlName="vehicle_plate" [matAutocomplete]="plateAutocomplete">
+      <input type="text" matInput formControlName="vehicle_plate" [matAutocomplete]="plateAutocomplete" />
       <mat-autocomplete #plateAutocomplete="matAutocomplete" [displayWith]="displayPlate">
         <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
           {{ vehicle.plate }}
@@ -35,7 +35,7 @@
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>No. de documento de conductor</mat-label>
-      <input type="text" matInput formControlName="driver_dni_number" [matAutocomplete]="driverAutocomplete">
+      <input type="text" matInput formControlName="driver_dni_number" [matAutocomplete]="driverAutocomplete" />
       <mat-autocomplete #driverAutocomplete="matAutocomplete" [displayWith]="displayId">
         <mat-option *ngFor="let driver of drivers" [value]="driver">
           {{ driver.id }}
@@ -44,14 +44,14 @@
     </mat-form-field>
     <mat-form-field class="flex-grow">
       <mat-label>Nombre de conductor</mat-label>
-      <input formControlName="driver_name" matInput>
+      <input formControlName="driver_name" matInput />
     </mat-form-field>
   </div>
 
   <div class="flex flex-row gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>Cliente</mat-label>
-      <input type="text" matInput formControlName="client" [matAutocomplete]="clientAutocomplete">
+      <input type="text" matInput formControlName="client" [matAutocomplete]="clientAutocomplete" />
       <mat-autocomplete #clientAutocomplete="matAutocomplete" [displayWith]="displayName">
         <mat-option *ngFor="let client of clients" [value]="client">
           {{ client.name }}
@@ -61,7 +61,7 @@
 
     <mat-form-field class="flex-grow">
       <mat-label>Producto</mat-label>
-      <input type="text" matInput formControlName="commodity" [matAutocomplete]="commodityAutocomplete">
+      <input type="text" matInput formControlName="commodity" [matAutocomplete]="commodityAutocomplete" />
       <mat-autocomplete #commodityAutocomplete="matAutocomplete" [displayWith]="displayName">
         <mat-option *ngFor="let commodity of commodities" [value]="commodity">
           {{ commodity.name }}
@@ -71,24 +71,24 @@
 
     <mat-form-field class="flex-grow">
       <mat-label>Destino</mat-label>
-      <input type="text" matInput formControlName="destination">
+      <input type="text" matInput formControlName="destination" />
     </mat-form-field>
   </div>
 
   <div class="flex flex-row gap-4">
     <mat-form-field [color]="weightFieldsInReadOnlyMode ? 'accent' : 'primary'" class="flex-grow">
       <mat-label>Peso tara</mat-label>
-      <input formControlName="tare_weight" matInput type="number" min="0" [readonly]="weightFieldsInReadOnlyMode">
+      <input formControlName="tare_weight" matInput type="number" min="0" [readonly]="weightFieldsInReadOnlyMode" />
       <span matTextSuffix>Kg</span>
     </mat-form-field>
     <mat-form-field [color]="weightFieldsInReadOnlyMode ? 'accent' : 'primary'" class="flex-grow">
       <mat-label>Peso bruto</mat-label>
-      <input formControlName="gross_weight" matInput type="number" min="0" [readonly]="weightFieldsInReadOnlyMode">
+      <input formControlName="gross_weight" matInput type="number" min="0" [readonly]="weightFieldsInReadOnlyMode" />
       <span matTextSuffix>Kg</span>
     </mat-form-field>
     <mat-form-field class="flex-grow">
       <mat-label>Peso neto</mat-label>
-      <input matInput type="number" disabled [value]="netWeight">
+      <input matInput type="number" disabled [value]="netWeight" />
       <span matTextSuffix>Kg</span>
     </mat-form-field>
   </div>
@@ -101,10 +101,22 @@
   <div class="flex flex-row items-center">
     <button [disabled]="!form.valid" mat-raised-button color="primary">Guardar</button>
     <div class="flex-grow"></div>
-    <button *ngIf="showPrintButton && defaults?.isFinished()"
-            (click)="printBtnClicked.emit(defaults)"
-            mat-raised-button
-            type="button">
+    <button
+      *ngIf="!!defaults"
+      (click)="openCancelDialog()"
+      [disabled]="defaults.isCanceled()"
+      mat-raised-button
+      color="warn"
+      type="button"
+    >
+      Anular
+    </button>
+    <button
+      *ngIf="showPrintButton && defaults?.isFinished()"
+      (click)="printBtnClicked.emit(defaults)"
+      mat-raised-button
+      type="button"
+    >
       <mat-icon>print</mat-icon> Imprimir
     </button>
   </div>

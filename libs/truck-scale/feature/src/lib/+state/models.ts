@@ -19,7 +19,7 @@ export class Weighing {
     public tare_weight: number,
     public gross_weight: number,
     public weighing_description: string,
-    public status: 'inProgress' | 'finished',
+    public status: 'inProgress' | 'finished' | 'canceled',
     public created_by_id: string,
     public created_by: { id: string; first_name: string; last_name: string },
     public updated_by_id: string,
@@ -37,12 +37,17 @@ export class Weighing {
     const readableStatusLookup = {
       inProgress: 'En Progreso',
       finished: 'Finalizado',
+      canceled: 'Cancelado',
     };
     this.readableStatus = readableStatusLookup[this.status] || 'Finished';
   }
 
   isFinished(): boolean {
     return this.status === 'finished';
+  }
+
+  isCanceled(): boolean {
+    return this.status === 'canceled';
   }
 }
 

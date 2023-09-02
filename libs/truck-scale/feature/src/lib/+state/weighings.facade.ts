@@ -50,6 +50,10 @@ export class WeighingsFacade {
     this.store.dispatch(actions.updateWeighing(data));
   }
 
+  cancelWeighing(id: string, comment: string) {
+    this.store.dispatch(actions.cancelWeighing({ id, comment }));
+  }
+
   searchVehicles(term: string) {
     this.store.dispatch(actions.searchVehicles(term));
   }
