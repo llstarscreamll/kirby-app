@@ -20,7 +20,7 @@ export class Weighing {
     public gross_weight: number,
     public weighing_description: string,
     public cancel_comment: string,
-    public status: 'inProgress' | 'finished' | 'canceled',
+    public status: 'inProgress' | 'finished' | 'canceled' | 'manualFinished',
     public created_by_id: string,
     public created_by: { id: string; first_name: string; last_name: string },
     public updated_by_id: string,
@@ -39,6 +39,7 @@ export class Weighing {
       inProgress: 'En Progreso',
       finished: 'Finalizado',
       canceled: 'Cancelado',
+      manualFinished: 'Finalizado manual',
     };
     this.readableStatus = readableStatusLookup[this.status] || 'Finished';
   }
@@ -53,6 +54,10 @@ export class Weighing {
 
   isCanceled(): boolean {
     return this.status === 'canceled';
+  }
+
+  isManualFinished(): boolean {
+    return this.status === 'manualFinished';
   }
 }
 
