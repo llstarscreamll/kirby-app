@@ -104,7 +104,7 @@
     <button
       *ngIf="defaults && defaults.isInProgress()"
       (click)="manualFinishWeighing.emit(defaults.id)"
-      mat-raised-button
+      mat-stroked-button
       type="button"
     >
       Finalizar manualmente
@@ -113,7 +113,7 @@
       *ngIf="defaults && !defaults.isCanceled()"
       (click)="openCancelDialog()"
       [disabled]="defaults.isCanceled()"
-      mat-raised-button
+      mat-stroked-button
       color="warn"
       type="button"
     >
@@ -122,7 +122,7 @@
     <button
       *ngIf="showPrintButton && defaults?.isFinished()"
       (click)="printBtnClicked.emit(defaults)"
-      mat-raised-button
+      mat-stroked-button
       type="button"
     >
       <mat-icon>print</mat-icon> Imprimir
