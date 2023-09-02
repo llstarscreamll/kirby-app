@@ -75,7 +75,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       commodity: { name: this.defaults.commodity },
     } as any);
 
-    if (['finished', 'canceled'].includes(this.defaults.status)) {
+    if (['finished', 'canceled', 'manualFinished'].includes(this.defaults.status)) {
       this.form.disable();
       return;
     }
