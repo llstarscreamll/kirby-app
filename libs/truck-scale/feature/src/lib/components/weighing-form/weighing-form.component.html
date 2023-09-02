@@ -102,7 +102,7 @@
     <button [disabled]="!form.valid" mat-raised-button color="primary">Guardar</button>
     <div class="flex-grow"></div>
     <button
-      *ngIf="!!defaults"
+      *ngIf="defaults && !defaults.isCanceled()"
       (click)="openCancelDialog()"
       [disabled]="defaults.isCanceled()"
       mat-raised-button
