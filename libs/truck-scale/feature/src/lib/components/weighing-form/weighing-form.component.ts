@@ -3,9 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { debounce, filter, takeUntil, tap } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
-import { Vehicle, Driver, Weighing } from '../../+state/models';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentModalComponent } from '@kirby/shared';
+import { Vehicle, Driver, Weighing } from '../../+state/models';
 
 @Component({
   selector: 'kirby-weighing-form',
@@ -74,7 +74,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
       commodity: { name: this.defaults.commodity },
     } as any);
 
-    if (this.defaults.status === 'finished') {
+    if (['finished', 'canceled'].includes(this.defaults.status)) {
       this.form.disable();
       return;
     }
