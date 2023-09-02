@@ -14,6 +14,10 @@
   <kirby-weighing-status [weighing]="weighing$ | async"></kirby-weighing-status>
 </div>
 
+<div *ngIf="(weighing$ | async)?.isCanceled()" class="max-w-4xl bg-red-100 text-red-800 mt-6 mb-10 p-5 rounded">
+  <p><strong>Motivo de cancelación: </strong> {{ (weighing$ | async)?.cancel_comment }}</p>
+</div>
+
 <kirby-api-errors [apiError]="apiError$ | async" class="block my-4"></kirby-api-errors>
 
 <kirby-weighing-form

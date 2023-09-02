@@ -19,6 +19,7 @@ export class Weighing {
     public tare_weight: number,
     public gross_weight: number,
     public weighing_description: string,
+    public cancel_comment: string,
     public status: 'inProgress' | 'finished' | 'canceled',
     public created_by_id: string,
     public created_by: { id: string; first_name: string; last_name: string },
