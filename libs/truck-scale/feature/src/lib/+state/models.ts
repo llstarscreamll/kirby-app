@@ -38,7 +38,7 @@ export class Weighing {
     const readableStatusLookup = {
       inProgress: 'En Progreso',
       finished: 'Finalizado',
-      canceled: 'Cancelado',
+      canceled: 'Anulado',
       manualFinished: 'Finalizado manual',
     };
     this.readableStatus = readableStatusLookup[this.status] || 'Finished';
