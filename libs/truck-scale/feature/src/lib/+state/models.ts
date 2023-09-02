@@ -42,6 +42,10 @@ export class Weighing {
     this.readableStatus = readableStatusLookup[this.status] || 'Finished';
   }
 
+  isInProgress(): boolean {
+    return this.status === 'inProgress';
+  }
+
   isFinished(): boolean {
     return this.status === 'finished';
   }
