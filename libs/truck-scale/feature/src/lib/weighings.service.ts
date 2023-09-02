@@ -90,6 +90,16 @@ export class WeighingsService extends BaseAuthService {
     );
   }
 
+  manualFinishWeighing(id: string): Observable<{ data: string }> {
+    return this.httpClient.post<{ data: string }>(
+      `${this.weighingsEndpoint}/${id}/manual-finish`,
+      {},
+      {
+        headers: this.defaultHeaders,
+      }
+    );
+  }
+
   getWeighing(id: string): Observable<{ data: Weighing }> {
     return this.httpClient.get<{ data: Weighing }>(`${this.weighingsEndpoint}/${id}`, { headers: this.defaultHeaders });
   }

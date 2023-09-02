@@ -132,6 +132,26 @@ export class WeighingsEffects {
     { dispatch: false }
   );
 
+  manualFinishWeighing$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.manualFinishWeighing),
+      pessimisticUpdate({
+        run: (a) => this.service.manualFinishWeighing(a.id).pipe(map((_) => actions.manualFinishWeighingOk())),
+        onError: (a, e) => actions.manualFinishWeighingError(e),
+      })
+    )
+  );
+
+  manualFinishWeighingOk$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.manualFinishWeighingOk),
+        tap(() => this.snackBarService.open('Finalizado manual exitoso', 'Ok', { duration: 5000 })),
+        tap(() => this.router.navigate(['/truck-scale']))
+      ),
+    { dispatch: false }
+  );
+
   navigateToEditWeighingPage$ = createEffect(() =>
     this.actions$.pipe(
       navigation(EditWeighingPage, {

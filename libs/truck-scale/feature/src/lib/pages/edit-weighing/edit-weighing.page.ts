@@ -62,6 +62,10 @@ export class EditWeighingPage implements OnInit, OnDestroy {
     this.facade.cancelWeighing(id, comment);
   }
 
+  manualFinishWeighing(id: string) {
+    this.facade.manualFinishWeighing(id);
+  }
+
   print(data: any) {
     this.printer.print(data, { template: 'weighing' });
   }

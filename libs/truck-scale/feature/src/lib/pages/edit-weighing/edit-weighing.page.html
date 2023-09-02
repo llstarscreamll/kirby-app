@@ -26,6 +26,7 @@
   [autofillWeight]="machineValue"
   [showPrintButton]="showPrintButton"
   [weightFieldsInReadOnlyMode]="inDesktopMode && (lectureFlag$ | async) === 'ON'"
+  (manualFinishWeighing)="manualFinishWeighing($event)"
   (cancelWeighing)="cancelWeighing($event)"
   (submitted)="updateWeighing($event)"
   (printBtnClicked)="print($event)"

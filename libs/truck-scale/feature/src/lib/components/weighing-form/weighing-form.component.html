@@ -98,9 +98,17 @@
     <textarea formControlName="weighing_description" matInput rows="4"></textarea>
   </mat-form-field>
 
-  <div class="flex flex-row items-center">
+  <div class="flex flex-row gap-4 items-center">
     <button [disabled]="!form.valid" mat-raised-button color="primary">Guardar</button>
     <div class="flex-grow"></div>
+    <button
+      *ngIf="defaults && defaults.isInProgress()"
+      (click)="manualFinishWeighing.emit(defaults.id)"
+      mat-raised-button
+      type="button"
+    >
+      Finalizar manualmente
+    </button>
     <button
       *ngIf="defaults && !defaults.isCanceled()"
       (click)="openCancelDialog()"

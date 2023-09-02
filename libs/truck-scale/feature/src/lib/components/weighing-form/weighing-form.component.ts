@@ -28,6 +28,7 @@ export class WeighingFormComponent implements OnInit, OnChanges, OnDestroy {
   @Output() submitted = new EventEmitter();
   @Output() printBtnClicked = new EventEmitter();
   @Output() cancelWeighing = new EventEmitter();
+  @Output() manualFinishWeighing = new EventEmitter();
 
   destroy$ = new Subject();
 

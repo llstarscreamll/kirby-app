@@ -54,6 +54,10 @@ export class WeighingsFacade {
     this.store.dispatch(actions.cancelWeighing({ id, comment }));
   }
 
+  manualFinishWeighing(id: string) {
+    this.store.dispatch(actions.manualFinishWeighing(id));
+  }
+
   searchVehicles(term: string) {
     this.store.dispatch(actions.searchVehicles(term));
   }
