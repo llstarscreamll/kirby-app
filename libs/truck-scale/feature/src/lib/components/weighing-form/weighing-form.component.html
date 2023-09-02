@@ -110,7 +110,7 @@
       Finalizar manualmente
     </button>
     <button
-      *ngIf="defaults && !defaults.isCanceled()"
+      *ngIf="defaults && !defaults.isCanceled() && !defaults.isManualFinished()"
       (click)="openCancelDialog()"
       [disabled]="defaults.isCanceled()"
       mat-stroked-button
