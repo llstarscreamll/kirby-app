@@ -2,17 +2,20 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angula
 
 import { PrinterService, WeighingMachineService } from '@kirby/shared';
 import { WeighingsFacade } from '../../+state/weighings.facade';
+import { AuthFacade } from '@kirby/authentication/data-access';
 
 @Component({
   selector: 'kirby-edit-weighing',
   templateUrl: './edit-weighing.page.html',
 })
 export class EditWeighingPage implements OnInit, OnDestroy {
+  authFacade = inject(AuthFacade);
   facade = inject(WeighingsFacade);
   printer = inject(PrinterService);
   changeDetector = inject(ChangeDetectorRef);
   weighingMachine = inject(WeighingMachineService);
 
+  user$ = this.authFacade.authUser$;
   apiError$ = this.facade.error$;
   lectureFlag$ = this.facade.lectureFlag$;
   weighing$ = this.facade.selectedWeighing$;

@@ -102,7 +102,7 @@
     <button [disabled]="!form.valid" mat-raised-button color="primary">Guardar</button>
     <div class="flex-grow"></div>
     <button
-      *ngIf="defaults && defaults.isInProgress()"
+      *ngIf="showManualFinishButton && defaults && defaults.isInProgress()"
       (click)="manualFinishWeighing.emit(defaults.id)"
       mat-stroked-button
       type="button"
@@ -110,7 +110,7 @@
       Finalizar manualmente
     </button>
     <button
-      *ngIf="defaults && !defaults.isCanceled() && !defaults.isManualFinished()"
+      *ngIf="showCancelButton && defaults && !defaults.isCanceled() && !defaults.isManualFinished()"
       (click)="openCancelDialog()"
       [disabled]="defaults.isCanceled()"
       mat-stroked-button

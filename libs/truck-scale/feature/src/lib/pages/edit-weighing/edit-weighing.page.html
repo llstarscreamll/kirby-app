@@ -25,6 +25,8 @@
   [defaults]="weighing$ | async"
   [autofillWeight]="machineValue"
   [showPrintButton]="showPrintButton"
+  [showCancelButton]="(user$ | async)?.can('truck-scale.cancel')"
+  [showManualFinishButton]="(user$ | async)?.can('truck-scale.manual-finish')"
   [weightFieldsInReadOnlyMode]="inDesktopMode && (lectureFlag$ | async) === 'ON'"
   (manualFinishWeighing)="manualFinishWeighing($event)"
   (cancelWeighing)="cancelWeighing($event)"
