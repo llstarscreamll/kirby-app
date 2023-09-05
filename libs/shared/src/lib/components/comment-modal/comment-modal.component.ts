@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     <div mat-dialog-content>
       <p>{{ data.message }}</p>
       <mat-form-field class="w-full">
-        <mat-label>Favorite Animal</mat-label>
+        <mat-label>Comentario</mat-label>
         <textarea matInput [(ngModel)]="comment" rows="5" cdkFocusInitial></textarea>
       </mat-form-field>
     </div>
