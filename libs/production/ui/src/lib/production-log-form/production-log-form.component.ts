@@ -230,7 +230,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
     this.form.enable();
 
     this.form.patchValue({
-      tare_weight: null,
+      tare_weight: 0,
       gross_weight: null,
       employee_code: this.captureEmployeeCode ? '' : this.user.fullName,
     });
@@ -239,7 +239,7 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
       this.form.get('employee_code').disable();
     }
 
-    this.tareWeightField.nativeElement.focus();
+    this.grossWeightField.nativeElement.focus();
   }
 }
 
