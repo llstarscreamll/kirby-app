@@ -1,6 +1,8 @@
 <h1 class="text-2xl font-bold text-center">Bienvenido {{ (user$ | async)?.name }}!</h1>
 
 <div class="flex flex-col gap-6 items-center my-10">
-  <a routerLink="/production" class="text-xl text-blue-700">Registros de producción</a>
-  <a routerLink="/truck-scale" class="text-xl text-blue-700">Sistema camionero</a>
+  <a *kirbyCan="'production-logs.search'" routerLink="/production" class="text-xl text-blue-700">
+    Registros de producción
+  </a>
+  <a *kirbyCan="'truck-scale.search'" routerLink="/truck-scale" class="text-xl text-blue-700"> Sistema camionero </a>
 </div>
