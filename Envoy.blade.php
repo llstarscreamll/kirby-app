@@ -9,7 +9,6 @@
   $currentDir = "{$baseDir}/current";
   $newReleaseName = date('Y_m_d-H_i_s');
   $newReleaseDir = "{$releasesDir}/{$newReleaseName}";
-  $branch = $branch ?? env('DEFAULT_BRANCH', 'develop');
   $user = get_current_user();
 
   $configuration = isset($target) && $target == 'prod' ? 'production' : 'staging';
