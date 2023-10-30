@@ -83,8 +83,8 @@ export class WorkShiftFormComponent implements OnInit {
 
   private timeSlotFormGroup({ start, end }) {
     return this.formBuilder.group({
-      start: [start, [Validators.required, Validators.min(5)]],
-      end: [end, [Validators.required, Validators.min(5)]],
+      start: [start, [Validators.required, Validators.minLength(5)]],
+      end: [end, [Validators.required, Validators.minLength(5)]],
     });
   }
 
