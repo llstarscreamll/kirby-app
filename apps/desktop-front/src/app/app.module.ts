@@ -28,6 +28,7 @@ import { SignInPageComponent } from './containers/sign-in-page/sign-in-page.comp
 import { SignInFormComponent } from './components/sign-in-form/sign-in-form.component';
 import { LandingPageComponent } from './containers/landing-page/landing-page.component';
 import { WelcomePageComponent } from './containers/welcome-page/welcome-page.component';
+import { AuthorizationUiModule } from '@kirby/authorization/ui';
 
 export function initStateFromLocalStorage(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
@@ -68,6 +69,7 @@ const routes: Route[] = [
     HttpClientModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    AuthorizationUiModule,
     BrowserAnimationsModule,
     AuthenticationDataAccessModule,
     StoreModule.forRoot(
