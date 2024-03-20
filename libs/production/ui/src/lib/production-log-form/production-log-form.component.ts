@@ -18,6 +18,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadStatus } from '@kirby/shared';
 import { TagOptions } from '../tag-options';
 import { PurposeOptions } from '../purpose-options';
+import { Purpose } from '../purpose.enum';
 
 @Component({
   selector: 'kirby-production-log-form',
@@ -64,6 +65,10 @@ export class ProductionLogFormComponent implements OnChanges, OnInit, OnDestroy,
   captureEmployeeCode = false;
 
   constructor(private formBuilder: FormBuilder) {}
+
+  get isNotForConsumption() {
+    return this.form?.get('purpose').value !== Purpose.Consumption;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.form) {

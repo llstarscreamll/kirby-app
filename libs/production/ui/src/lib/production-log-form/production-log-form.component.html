@@ -124,7 +124,7 @@
       Guardar y crear otro
     </button>
 
-    <button *ngIf="printerIsAvailable"
+    <button *ngIf="printerIsAvailable && isNotForConsumption"
             (click)="emitSaveAndPrint()"
             [disabled]="form.invalid || form.disabled"
             mat-raised-button

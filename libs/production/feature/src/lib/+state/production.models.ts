@@ -1,3 +1,5 @@
+import { Purpose } from 'libs/production/ui/src/lib/purpose.enum';
+
 export interface IProductionLog {
   id: string;
   employee_id: string;
@@ -8,6 +10,7 @@ export interface IProductionLog {
   tare_weight: number;
   gross_weight: number;
   tag: string;
+  purpose: Purpose;
   tag_updated_at: string;
 
   employee?: { id: string; first_name: string; last_name: string };
@@ -26,6 +29,7 @@ export class ProductionLog implements IProductionLog {
   tare_weight: number;
   gross_weight: number;
   tag: string;
+  purpose: Purpose;
   tag_updated_at: string;
 
   static fromJson(data: any): ProductionLog {
@@ -42,5 +46,9 @@ export class ProductionLog implements IProductionLog {
 
   netWeight(): number {
     return this.gross_weight - this.tare_weight;
+  }
+
+  get isForConsumption(): boolean {
+    return this.purpose === Purpose.Consumption;
   }
 }
