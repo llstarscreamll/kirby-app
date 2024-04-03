@@ -62,6 +62,12 @@ class ReportRow {
   }
 }
 
+const shiftHoursMap = {
+  A: [22, 23, 0, 1, 2, 3, 4, 5],
+  O: [6, 7, 8, 9, 10, 11, 12, 13],
+  T: [14, 15, 16, 17, 18, 19, 20, 21],
+};
+
 export class NoveltyReport {
   data: ReportRow[];
 
@@ -71,13 +77,35 @@ export class NoveltyReport {
       grouping_date: new Date(novelty.time_clock_log?.checked_out_at || novelty.end_at).setHours(0, 0, 0, 0),
     }));
 
-    this.data = toArray(groupBy(mappedData, 'grouping_date')).map((row) =>
-      Object.assign(new ReportRow(), {
-        date: row[0].grouping_date,
-        employee: row[0].employee,
-        novelties: NoveltyModel.fromJsonList(row).sort((a, b) => (a.start_at < b.start_at ? -1 : 1)),
-      })
-    );
+    this.data = toArray(groupBy(mappedData, 'grouping_date'))
+      .map((row) =>
+        Object.assign(new ReportRow(), {
+          date: row[0].grouping_date,
+          employee: row[0].employee,
+          novelties: NoveltyModel.fromJsonList(row).sort((a, b) => (a.start_at < b.start_at ? -1 : 1)),
+        })
+      )
+      .map((r) => {
+        const noveltiesSortedByMostTimeConsuming = [...r.novelties].sort((a, b) => {
+          const aTime = a.end_at - a.start_at;
+          const bTime = b.end_at - b.start_at;
+
+          return aTime > bTime ? -1 : 1;
+        });
+
+        r.foo = noveltiesSortedByMostTimeConsuming.map((n) => ({
+          n: n.novelty_type.code,
+          s: n.start_at.toISOString(),
+          e: n.end_at.toISOString(),
+        }));
+
+        r.shift =
+          Object.keys(shiftHoursMap).filter((shift) =>
+            shiftHoursMap[shift].includes(noveltiesSortedByMostTimeConsuming[0].start_at.getHours())
+          )[0] || '---';
+
+        return r;
+      });
   }
 
   get employee(): any {

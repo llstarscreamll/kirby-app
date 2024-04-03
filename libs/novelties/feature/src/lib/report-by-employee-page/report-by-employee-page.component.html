@@ -3,22 +3,15 @@
 <kirby-api-errors [apiError]="errors$ | async" class="block my-4"></kirby-api-errors>
 
 <div *kirbyCan="'novelties.export'" class="text-right my-3">
-  <button mat-button
-          [matMenuTriggerFor]="downloadMenu"
-          color="primary"
-          aria-label="Descargar reporte">
+  <button mat-button [matMenuTriggerFor]="downloadMenu" color="primary" aria-label="Descargar reporte">
     <span class="mr-2">Exportar</span>
     <mat-icon>cloud_download</mat-icon>
   </button>
   <mat-menu #downloadMenu="matMenu">
-    <button (click)="downloadSelectedFilter()"
-            [disabled]="searchForm.invalid"
-            mat-menu-item>
+    <button (click)="downloadSelectedFilter()" [disabled]="searchForm.invalid" mat-menu-item>
       <span>Filtro seleccionado</span>
     </button>
-    <button (click)="downloadAllOnDateRange()"
-            [disabled]="!searchHasValidDates"
-            mat-menu-item>
+    <button (click)="downloadAllOnDateRange()" [disabled]="!searchHasValidDates" mat-menu-item>
       <span>Todo en el rango de fecha</span>
     </button>
   </mat-menu>
@@ -29,17 +22,9 @@
     <!-- only show employee field when is already added on search reactive form -->
     <mat-form-field *ngIf="searchForm.get('employee')" class="w-full">
       <mat-label>Empleado</mat-label>
-      <input
-             matInput
-             [matAutocomplete]="employeeAutocomplete"
-             formControlName="employee"
-             required />
-      <mat-autocomplete
-                        #employeeAutocomplete="matAutocomplete"
-                        [displayWith]="displayEmployeeFieldValue">
-        <mat-option
-                    *ngFor="let employee of (foundEmployees$ | async)?.data"
-                    [value]="employee">
+      <input matInput [matAutocomplete]="employeeAutocomplete" formControlName="employee" required />
+      <mat-autocomplete #employeeAutocomplete="matAutocomplete" [displayWith]="displayEmployeeFieldValue">
+        <mat-option *ngFor="let employee of (foundEmployees$ | async)?.data" [value]="employee">
           <span>{{ employee.first_name + ' ' + employee.last_name }}</span>
         </mat-option>
       </mat-autocomplete>
@@ -49,30 +34,23 @@
   <div class="flex flex-col md:flex-row md:gap-4">
     <mat-form-field class="flex-grow">
       <mat-label>Fecha inicial</mat-label>
-      <input
-             formControlName="time_clock_log_check_out_start_date"
-             type="date"
-             matInput
-             required />
+      <input formControlName="time_clock_log_check_out_start_date" type="date" matInput required />
     </mat-form-field>
 
     <mat-form-field class="flex-grow">
       <mat-label>Fecha final</mat-label>
-      <input
-             formControlName="time_clock_log_check_out_end_date"
-             type="date"
-             matInput
-             required />
+      <input formControlName="time_clock_log_check_out_end_date" type="date" matInput required />
     </mat-form-field>
   </div>
 
   <div class="text-center">
     <button
-            [disabled]="searchForm.invalid"
-            mat-stroked-button
-            color="primary"
-            type="submit"
-            ngClass.xs="block w-full h-12">
+      [disabled]="searchForm.invalid"
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      ngClass.xs="block w-full h-12"
+    >
       Generar
     </button>
   </div>
@@ -85,6 +63,7 @@
         <th>Fecha</th>
         <th>CC</th>
         <th>SCC</th>
+        <th>Turno</th>
         <th>Total Hrs.</th>
         <th>Novedades</th>
         <th>Comentarios</th>
@@ -101,14 +80,22 @@
         <td>
           <div *ngFor="let scc of row.subCostCenters">{{ scc.code }}</div>
         </td>
+        <td>
+          {{ row.shift }}
+        </td>
         <td>{{ row.totalHours }}</td>
         <td>
-          <a *ngFor="let novelty of row.novelties"
-                         title="{{ novelty.start_at | date:'yy-MM-dd HH:mm' }} - {{ novelty.end_at | date: 'yy-MM-dd HH:mm' }}"
-                         [routerLink]="['..', novelty.id, 'edit']"
-                         class="block">
+          <a
+            *ngFor="let novelty of row.novelties"
+            title="{{ novelty.start_at | date : 'yy-MM-dd HH:mm' }} - {{ novelty.end_at | date : 'yy-MM-dd HH:mm' }}"
+            [routerLink]="['..', novelty.id, 'edit']"
+            class="block"
+          >
             {{ novelty.total_time_in_hours }}
             {{ novelty.novelty_type.code }}
+            <span class="text-xs text-gray-400">
+              {{ novelty.start_at | date : 'HH:mm' }} - {{ novelty.end_at | date : 'HH:mm' }}
+            </span>
           </a>
         </td>
         <td>{{ row.comments.length }}</td>
@@ -118,29 +105,26 @@
           </div>
         </td>
         <td>
-          <button *ngIf="
-              user.can(
-                'novelties.create-approvals-by-employee-and-date-range'
-              ) && row.userHasAnyToApprove(user.id)
+          <button
+            *ngIf="
+              user.can('novelties.create-approvals-by-employee-and-date-range') && row.userHasAnyToApprove(user.id)
             "
-                  (click)="setApprovals(row.employee.id, row.date)"
-                  matTooltip="Aprobar todo en este día"
-                  mat-icon-button
-                  color="primary"
-                  class="approve">
+            (click)="setApprovals(row.employee.id, row.date)"
+            matTooltip="Aprobar todo en este día"
+            mat-icon-button
+            color="primary"
+            class="approve"
+          >
             <mat-icon>check_circle</mat-icon>
           </button>
           <button
-                  *ngIf="
-              user.can(
-                'novelties.delete-approvals-by-employee-and-date-range'
-              ) && row.userHasApprovals(user)
-            "
-                  (click)="deleteApprovals(row.employee.id, row.date)"
-                  matTooltip="Borrar aprobaciones de este día"
-                  mat-icon-button
-                  color="warn"
-                  class="delete-approval">
+            *ngIf="user.can('novelties.delete-approvals-by-employee-and-date-range') && row.userHasApprovals(user)"
+            (click)="deleteApprovals(row.employee.id, row.date)"
+            matTooltip="Borrar aprobaciones de este día"
+            mat-icon-button
+            color="warn"
+            class="delete-approval"
+          >
             <mat-icon>remove_circle</mat-icon>
           </button>
         </td>
@@ -151,9 +135,7 @@
       </tr>
 
       <tr *ngIf="!(noveltiesReport$ | async)">
-        <td colspan="7" class="text-center">
-          Pulsa el botón generar para ver el reporte
-        </td>
+        <td colspan="7" class="text-center">Pulsa el botón generar para ver el reporte</td>
       </tr>
     </tbody>
   </table>
