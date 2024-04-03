@@ -11,7 +11,7 @@ class ReportRow {
 
   get subCostCenters(): any[] {
     return uniqBy(
-      this.novelties.map(n => n.sub_cost_center).filter(s => !!s),
+      this.novelties.map((n) => n.sub_cost_center).filter((s) => !!s),
       'id'
     );
   }
@@ -19,10 +19,10 @@ class ReportRow {
   get costCenters(): any[] {
     return uniqBy(
       this.novelties
-        .map(n => n.sub_cost_center)
-        .filter(s => !!s)
-        .map(scc => scc.cost_center)
-        .filter(cc => !!cc),
+        .map((n) => n.sub_cost_center)
+        .filter((s) => !!s)
+        .map((scc) => scc.cost_center)
+        .filter((cc) => !!cc),
       'id'
     );
   }
@@ -31,40 +31,33 @@ class ReportRow {
     return uniqBy(
       [].concat.apply(
         [],
-        this.novelties.map(n => n.approvals)
+        this.novelties.map((n) => n.approvals)
       ),
       'id'
     );
   }
 
   get comments(): any[] {
-    return this.novelties
-      .map(n => n.comment)
-      .filter(c => !!c && c.trim() !== '');
+    return this.novelties.map((n) => n.comment).filter((c) => !!c && c.trim() !== '');
   }
 
   get totalHours(): number {
-    return round(this.novelties
-      .map(novelty => novelty.total_time_in_hours)
-      .reduce((acc, hours) => acc + hours, 0), 2);
+    return round(
+      this.novelties.map((novelty) => novelty.total_time_in_hours).reduce((acc, hours) => acc + hours, 0),
+      2
+    );
   }
 
   userHasApprovals(user: User): boolean {
     return (
-      user &&
-      this.approvals
-        .map(approval => approval.id)
-        .filter(approvalId => approvalId === user.id).length > 0
+      user && this.approvals.map((approval) => approval.id).filter((approvalId) => approvalId === user.id).length > 0
     );
   }
 
   userHasAnyToApprove(userId: string): boolean {
     return (
       this.approvals.length === 0 ||
-      (userId &&
-        this.approvals
-          .map(approval => approval.id)
-          .filter(approvalId => approvalId !== userId).length > 0)
+      (userId && this.approvals.map((approval) => approval.id).filter((approvalId) => approvalId !== userId).length > 0)
     );
   }
 }
@@ -73,18 +66,16 @@ export class NoveltyReport {
   data: ReportRow[];
 
   constructor(data: any) {
-    const mappedData = NoveltyModel.fromJsonList(data.data).map(novelty => ({
+    const mappedData = NoveltyModel.fromJsonList(data.data).map((novelty) => ({
       ...novelty,
-      grouping_date: new Date(
-        novelty.time_clock_log?.checked_out_at || novelty.end_at
-      ).setHours(0, 0, 0, 0)
+      grouping_date: new Date(novelty.time_clock_log?.checked_out_at || novelty.end_at).setHours(0, 0, 0, 0),
     }));
 
-    this.data = toArray(groupBy(mappedData, 'grouping_date')).map(row =>
+    this.data = toArray(groupBy(mappedData, 'grouping_date')).map((row) =>
       Object.assign(new ReportRow(), {
         date: row[0].grouping_date,
         employee: row[0].employee,
-        novelties: NoveltyModel.fromJsonList(row)
+        novelties: NoveltyModel.fromJsonList(row).sort((a, b) => (a.start_at < b.start_at ? -1 : 1)),
       })
     );
   }
