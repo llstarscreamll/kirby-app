@@ -14,10 +14,7 @@
 
       <mat-form-field class="flex-grow">
         <mat-label># de identificación</mat-label>
-        <input
-               formControlName="identification_number"
-               matInput
-               required="true" />
+        <input formControlName="identification_number" matInput required="true" />
       </mat-form-field>
     </div>
 
@@ -55,10 +52,7 @@
 
       <mat-form-field class="flex-grow">
         <mat-label>Roles</mat-label>
-        <mat-select formControlName="roles"
-                    [compareWith]="compareWithFunction"
-                    multiple="true"
-                    required>
+        <mat-select formControlName="roles" [compareWith]="compareWithFunction" multiple="true" required>
           <mat-option *ngFor="let role of roles" [value]="role">
             {{ role.display_name }}
           </mat-option>
@@ -82,25 +76,16 @@
 
       <mat-form-field class="flex-grow">
         <mat-label>Salario</mat-label>
-        <input formControlName="salary"
-               matInput
-               type="number"
-               min="1"
-               required="true" />
+        <input formControlName="salary" matInput type="number" min="1" required="true" />
       </mat-form-field>
     </div>
 
     <div class="flex flex-col md:flex-row md:gap-4">
       <mat-form-field class="flex-grow">
         <mat-label>Centro de costo</mat-label>
-        <input matInput
-               [matAutocomplete]="costCenterAutocomplete"
-               formControlName="cost_center"
-               required="true" />
-        <mat-autocomplete #costCenterAutocomplete="matAutocomplete"
-                          [displayWith]="displayCostCenterFieldValue">
-          <mat-option *ngFor="let costCenter of costCenters"
-                      [value]="costCenter">
+        <input matInput [matAutocomplete]="costCenterAutocomplete" formControlName="cost_center" required="true" />
+        <mat-autocomplete #costCenterAutocomplete="matAutocomplete" [displayWith]="displayCostCenterFieldValue">
+          <mat-option *ngFor="let costCenter of costCenters" [value]="costCenter">
             <span>{{ costCenter.name }}</span>
           </mat-option>
         </mat-autocomplete>
@@ -114,8 +99,9 @@
           </mat-option>
         </mat-select>
         <mat-hint *ngIf="employee?.token_code" align="end">
-          <a href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{ employee.token_code }}&choe=UTF-8"
-             target="_blank">Imprimir token actual</a>
+          <a href="https://quickchart.io/qr?margin=2&size=300&text={{ employee.token_code }}" target="_blank">
+            Imprimir token actual
+          </a>
         </mat-hint>
       </mat-form-field>
     </div>
@@ -126,10 +112,7 @@
 
     <mat-form-field class="w-full">
       <mat-label>Turnos de trabajo</mat-label>
-      <mat-select formControlName="work_shifts"
-                  [compareWith]="compareWithFunction"
-                  multiple="true"
-                  required>
+      <mat-select formControlName="work_shifts" [compareWith]="compareWithFunction" multiple="true" required>
         <mat-option *ngFor="let workShift of workShifts" [value]="workShift">
           {{ workShift.name }}
         </mat-option>
@@ -138,20 +121,24 @@
 
     <div class="flex items-center gap-2">
       <span>Códigos de acceso:</span>
-      <button (click)="addIdentification()"
-              [disabled]="!identificationsArrayControl?.valid"
-              type="button"
-              mat-icon-button
-              matTooltip="Añadir código de acceso"
-              class="add-identification-code inline">
+      <button
+        (click)="addIdentification()"
+        [disabled]="!identificationsArrayControl?.valid"
+        type="button"
+        mat-icon-button
+        matTooltip="Añadir código de acceso"
+        class="add-identification-code inline"
+      >
         <mat-icon>add</mat-icon>
       </button>
     </div>
 
     <div formArrayName="identifications" class="identifications mt-2">
-      <div *ngFor="let identificationGroupControl of identificationsArrayControl.controls;let i = index"
-           [formGroup]="identificationGroupControl"
-           class="flex flex-col gap-0 md:flex-row md:gap-4 md:place-items-baseline">
+      <div
+        *ngFor="let identificationGroupControl of identificationsArrayControl.controls; let i = index"
+        [formGroup]="identificationGroupControl"
+        class="flex flex-col gap-0 md:flex-row md:gap-4 md:place-items-baseline"
+      >
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input formControlName="name" matInput required="true" />
@@ -162,12 +149,14 @@
           <input formControlName="code" matInput required="true" />
         </mat-form-field>
         <div class="text-right md:text-left">
-          <button (click)="removeIdentificationCode(i)"
-                  [disabled]="!identificationGroupControl?.valid"
-                  type="button"
-                  mat-button
-                  color="warn"
-                  class="remove-identification-code">
+          <button
+            (click)="removeIdentificationCode(i)"
+            [disabled]="!identificationGroupControl?.valid"
+            type="button"
+            mat-button
+            color="warn"
+            class="remove-identification-code"
+          >
             <mat-icon>close</mat-icon>
             <span>Remover código</span>
           </button>
@@ -176,11 +165,13 @@
     </div>
   </fieldset>
 
-  <button [disabled]="disableSubmitButton"
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="block w-full my-4 md:w-auto">
+  <button
+    [disabled]="disableSubmitButton"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    class="block w-full my-4 md:w-auto"
+  >
     Guardar
   </button>
 
