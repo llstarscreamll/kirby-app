@@ -112,15 +112,21 @@ ipcMain.handle('open-connection-and-read-data', (event, portPath, options) => {
     return;
   }
 
+  let buffer = '';
   let port = new SerialPort({ ...options, path: portPath });
 
   port.on('open', () => console.warn(`Port ${portPath} opened`));
   port.on('error', (err) => console.warn(`Port ${portPath} errored:`, err));
 
   const onData = (d: Buffer) => {
-    console.warn('Port data coming:', d.toString('utf-8'));
+    buffer += d.toString('utf-8');
 
-    event.sender.send('port-data-available', d.toString('utf-8'));
+    if (buffer.includes('\n')) {
+      console.warn('Incoming port data buffer:', buffer);
+
+      event.sender.send('port-data-available', buffer);
+      buffer = buffer.slice(0, 0);
+    }
   };
 
   options.ccTalkEnable === true ? port.pipe(new CCTalkParser()).on('data', onData) : port.on('data', onData);
