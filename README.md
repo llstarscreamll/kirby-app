@@ -37,6 +37,14 @@ nx build --project=desktop-back --prod -c=production # build electron backend
 nx run desktop-back:make --platform=linux --arch=x64 --publishPolicy=never # packaging electron .deb, .snap, etc
 ```
 
+To build desktop app for production:
+
+```bash
+npm run nx build -- --project=desktop-front --prod -c=production && \
+npm run nx build -- --project=desktop-back --prod -c=production && \
+npm run nx run desktop-back:make -- --platform=linux --arch=x64 --publishPolicy=never
+```
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Jest](https://jestjs.io/).
