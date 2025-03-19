@@ -59,3 +59,26 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ```bash
 envoy run deploy --project=pascal
 ```
+
+### Set Firewall options on production server
+
+Configure the Linux Firewall to allow https connections on ports 8000 and 4200:
+
+```bash
+# Add a custom service for HTTPS on port 4200
+sudo firewall-cmd --permanent --new-service=https-4200
+
+# Configure the custom service
+sudo firewall-cmd --permanent --service=https-4200 --add-port=4200/tcp
+sudo firewall-cmd --permanent --service=https-4200 --set-short="HTTPS on port 4200"
+sudo firewall-cmd --permanent --service=https-4200 --set-description="Allow HTTPS traffic on port 4200"
+
+# Add the service to the public zone
+sudo firewall-cmd --permanent --zone=public --add-service=https-4200
+
+# Reload firewalld to apply changes
+sudo firewall-cmd --reload
+
+# Verify the service is active
+sudo firewall-cmd --list-all
+```
