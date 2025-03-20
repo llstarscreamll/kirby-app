@@ -57,7 +57,7 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Deploy Web App
 
 ```bash
-envoy run deploy --project=pascal
+make deploy
 ```
 
 ### Set Firewall options on production server
