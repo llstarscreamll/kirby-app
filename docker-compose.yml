@@ -1,0 +1,10 @@
+services:
+  build-web:
+    container_name: kirby-web-build
+    # platform: linux/amd64
+    image: node:20-alpine
+    volumes:
+      - .:/app
+      - $HOME/.npm:$HOME/.npm
+    working_dir: /app
+    command:  /bin/sh -c "apk add git build-base && npm install && npm run build-web-prod"
